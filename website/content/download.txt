@@ -1,0 +1,48 @@
+title: Download and install liquidsoap
+
+
+h2. Installing Savonet/Liquidsoap
+
+There are several ways to install liquidsoap, either compiled from source, or using a package available for your distribution.
+
+h3. Installing from source
+
+You can download source code published by Savonet in our "sourceforge download section":http://sourceforge.net/project/showfiles.php?group_id=89802.
+
+The recommended way for newcomers is to use the liquidsoap-full-xxx.tar.gz tarball. This tarball includes all required OCaml bindings and allows you to compile and install liquidsoap in a single @configure@, @make@ and @make install@ procedure. You will still need the corresponding C libraries and their developement files, though.
+
+You will then have to "build the source":doc-svn/build.html.
+
+h3. Debian/Ubuntu packages
+
+Liquidsoap is included in Debian and Ubuntu distributions:
+
+* "Debian packages":http://packages.debian.org/liquidsoap
+* "Ubuntu packages":http://packages.ubuntu.com/liquidsoap
+
+However, we maintain custom packages for liquidsoap, in order to enable features that are not available in those distributions, such as mp3 encoding:
+
+* "Debian stable packages":http://savonet.rastageeks.org/wiki/DebianStableBackports
+* "Daily Debian packages":http://savonet.rastageeks.org/wiki/DebianSVNSnapshots
+
+The daily packages are mostly aimed toward developers.
+
+h3. Mac OS X
+
+You can download and build liquidsoap using "macports":http://www.macports.org/. See the "instructions":macports.html.
+
+h3. Subversion repository (and other distributions)
+
+If you want a cutting-edge version, you can use the subversion repository. To get a copy of it, just run:
+
+<pre>
+svn co \
+ https://savonet.svn.sourceforge.net/svnroot/savonet/trunk \
+ savonet
+</pre>
+
+You need then to bootstrap the configuration scripts:
+
+<pre>./bootstrap</pre>
+
+And then follow the "build instructions":doc-svn/build.html.

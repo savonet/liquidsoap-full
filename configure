@@ -1,0 +1,37 @@
+#!/bin/sh
+
+cat <<MSG
+-------------------------------------------------------------------------------
+| This configure file is provided in order for you to be able to build        |
+| liquidsoap without having to install all the dependencies.                  |
+| If you want to use the libraries, use the configure of the subdirectories.  |
+| This script will build liquidsoap with features indicated in PACKAGES.      |
+| Edit it or build manually if you need something more specific.              |
+-------------------------------------------------------------------------------
+
+MSG
+
+OPTS=""
+error=""
+
+for p in `grep -v '\#' PACKAGES` ; do
+  if test "x$p" = "xliquidsoap" ; then
+    base="liquidsoap"
+  else
+    base=`echo $p | sed -e 's/ocaml-//'`
+    OPTS="$OPTS --with-$base-dir=../ocaml-$base/src"
+  fi
+  echo
+  echo "****** Configuring $p"
+  echo
+  cd $p
+  if test -f ./configure ; then
+    echo ./configure $OPTS $*
+    ./configure $OPTS $* || exit 1
+  else
+    @echo "No configure script found for $*"
+    exit 1
+  fi
+  cd ..
+done
+

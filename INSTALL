@@ -1,0 +1,37 @@
+I. Full Installation
+
+  To compile savonet you will need the development files of the following
+  libraries: libmad, libshout, libvorbis.
+  Optionally, you will also need: wget and libid3tag.
+  On Debian systems, these dependencies can be installed by running (as root):
+
+   # aptitude install ocaml-findlib libcamomile-ocaml-dev
+   # aptitude install libmad0-dev libshout3-dev libvorbis-dev libid3tag0-dev
+   # aptitude install libasound2-dev autoconf automake
+
+  First of all, you should edit PACKAGES to select the packages that you want.
+
+   *BSD users, as well as OSX users might need to export some variables 
+   that can be missing during the process:
+     $ export CPPFLAGS=-I/usr/local/include
+     $ export LDFLAGS=-L/usr/local/lib
+     $ export OCAMLMKLIB_FLAGS=-L/usr/local/lib
+   Also, savonet needs GNU make. If you have a GNU make, this is normally
+   Detected during configuration. If this chec fails you can set the MAKE variable:
+     $ export MAKE=`your make command`
+   The following assumes your MAKE command is make. Change to yours if different..
+
+    $ ./bootstrap
+    $ ./configure
+    $ make
+
+  Then to install programs run (as root):
+
+    # make install
+
+
+II. Specific Installation
+
+  To install a specific part of savonet. Go into the associated directory
+  and do the same sequence of instruction. The order used to build the
+  packages should respect the dependencies beetwen them.

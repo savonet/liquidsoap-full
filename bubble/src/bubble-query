@@ -1,0 +1,110 @@
+#!/usr/bin/ruby
+
+# Bubble-index -- a really simple audio indexer
+# Copyright (c) 2006 David Baelde
+# This software is under GNU GPL version 2
+
+require 'sqlite3'
+include SQLite3
+
+USAGE = 'Usage: getfile [-d bubble.sql] \'key="val" and key="val"...\''
+
+$db = "bubble.sql"
+$query = ""
+while not ARGV.empty?
+  arg = ARGV.shift
+  case arg
+  when "-h"
+    puts USAGE
+    exit 0
+  when "-d"
+    $db = ARGV.shift
+  else
+    $query = arg
+    if not ARGV.empty? then
+      puts USAGE
+      exit 0
+    end
+  end
+end
+
+DB = Database.new($db)
+
+# We parse the query to transform it to a (safe, read-only) SQLite query
+# the modifications are slight, mainly translating the globs
+
+$lext = { "ID"     => /^(path|genre|album|artist|title)/       ,
+          "STRING" => /^"([^"]|\\.)*"/ ,
+          "REL"    => /^=[=~]?/        ,
+          "OPEN"   => /^\(/            ,
+          "CLOSE"  => /^\)/            ,
+          "AND"    => /^and/i        ,
+          "OR"     => /^or/i         }
+
+def error()
+  puts "Syntax error in the query!"
+  exit 1
+end
+
+def lexer()
+  $lext.each do |k,re|
+    match = re.match($query)
+    if match then
+      $query = $query[match.end(0)..-1]
+      $query = $query.sub(/^\s*/,"")
+      return [k,match[0]]
+    end
+  end
+  error()
+end
+
+# Parsing and creation of the SQL query
+$sql = ""
+$query = $query.sub(/^\s*/,"")
+while $query != "" do
+  tok,id = lexer()
+  case tok
+  when "OPEN"
+    $sql += " ( "
+  when "CLOSE"
+    $sql += " ) "
+  when "AND"
+    $sql += " AND "
+  when "OR"
+    $sql += " OR "
+  when "ID"
+    tok,rel = lexer()
+    if tok == "REL" then
+      tok,rhs = lexer()
+      if tok == "STRING" then
+        case rel
+        when "="
+          rhs = rhs.gsub(/\*/,"%")
+          rhs = rhs.sub(/^"/,"\"%")
+          rhs = rhs.sub(/"$/,"%\"")
+          $sql += id + " LIKE " + rhs
+        when "=~"
+          rhs = rhs.gsub(/\*/,"%")
+          $sql += id + " LIKE " + rhs
+        when "=="
+          $sql += id + " = " + rhs
+        end
+      else
+        error()
+      end
+    else
+      error()
+    end
+  else
+    error()
+  end
+end
+
+# Excute the SQL query
+
+DB.execute("select path from files where #{$sql} \
+           order by random() limit 10") do |row|
+  host = row[0].sub(/^(.*?:\/*.*?)\/.*$/,"\\1")
+  path = row[0].gsub(/"/,"\\\"")
+  puts "annotate:bubble_host=\"#{host}\",bubble_path=\"#{path}\":#{row[0]}"
+end

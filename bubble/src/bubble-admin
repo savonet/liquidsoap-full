@@ -1,0 +1,91 @@
+#!/usr/bin/ruby
+
+# Bubble-admin -- a really simple audio indexer
+# Copyright (c) 2006 David Baelde
+# This software is under GNU GPL version 2
+
+require 'sqlite3'
+include SQLite3
+
+USAGE = <<USAGE
+Usage: #{$0} [options] [action]
+
+Actions:
+  ban [path]
+    Avoid update of the following paths.
+  delete [path]
+    Delete all files belonging (possibly indirectly) to that path.
+  delete-dir [path]
+    Delete the given directory and its subdirectories from the database,
+    and their files.
+  update [path]
+    Reset timestamps for all files and directories 
+  stats
+    Show stats about the database.
+
+Options:
+  -d file
+    Path to the SQLite3 bubble database file. Defaults to "bubble.sql".
+  -h
+    Display this help.
+USAGE
+
+$db = "bubble.sql"
+$action = ""
+
+while $action == "" and not ARGV.empty? do
+  arg = ARGV.shift
+  case arg
+  when "-h"
+    print USAGE
+    exit 0
+  when "-d"
+    $db = ARGV.shift
+  else
+    $action = arg
+  end
+end
+
+DB = Database.new($db)
+DB.busy_timeout 500
+
+case $action
+when "ban"
+  DB.execute("insert or replace into directories values (?,9000000000,0)",
+             ARGV[0])
+  puts "#{ARGV[0]} will never be updated again"
+when "update"
+  DB.execute("update files set last_seen = 0 where path like ?",
+             ARGV[0]+"%")
+  DB.execute("update directories set last_seen = 0 where path like ?",
+             ARGV[0]+"%")
+  puts "#{ARGV[0]} will be fully updated next time"
+when "delete"
+  DB.execute("delete from files where path like ?",ARGV[0]+"%")
+  puts "Removed all file entries under #{ARGV[0]}"
+when "delete-dir"
+  DB.execute("delete from directories where path like ?",ARGV[0]+"%")
+  DB.execute("delete from files where path like ?",ARGV[0]+"%")
+  puts "Removed all file and directory entries under #{ARGV[0]}"
+when "stats"
+  print DB.get_first_value("select count(*) from files"),
+        "\tfiles\n"
+  print DB.get_first_value('select count(*) from files where title != "?"'),
+        "\tfiles with a valid title\n"
+  print DB.get_first_value('select count(*) from files where title != ""'),
+        "\tfiles with a non-empty title\n"
+  print DB.execute("select count(*) from files \
+                    where title != \"?\" group by title").length,
+        "\tunique titles\n"
+  print DB.execute("select count(*) from files \
+                    where artist != \"?\" group by artist").length,
+        "\tunique artists\n"
+  print DB.get_first_value('select count(*) from files where title = "?"'),
+        "\tfiles with bad tags\n"
+  print DB.get_first_value('select count(*) from files where failures != 0'),
+        "\tfiles with a failure\n"
+  print DB.get_first_value('select count(*) from files where failures > 5'),
+        "\tfiles with more than 5 failures\n"
+else
+  puts "Invalid action '#{$action}' !"
+end

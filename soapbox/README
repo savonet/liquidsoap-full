@@ -1,0 +1,19 @@
+
+SOAPBOX - PyGTK Playout GUI with Liquidsoap backend
+
+Soapbox is is in early stages of development and as such is should not be considered as a finished product.
+
+Currently implemented is the jingle board, you can add nested jingle boards & jingles and play them back.
+
+KNOWN BUGS
+Jingle BG not being saved to DB on edit.
+Deletion of Jingle in ready state will not be removed from request queue.
+
+
+NOT IMPLEMENTED
+Removal of item in 'ready' state.
+Music Playout cartridges.
+Selection on Jingle page.
+Selection of liquidsoap output parameters.
+Mostly anything else.
+

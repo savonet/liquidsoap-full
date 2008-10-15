@@ -1,0 +1,78 @@
+# Edit this file by commenting/uncommenting the libraries that you want to
+# build in order to get the corresponding features in liquidsoap.
+# It is useless to add savonet packages that are not listed below,
+# like ocaml-fetch, ocaml-smbclient, etc. These are not dependencies of
+# liquidsoap.
+
+
+# ============================================================================
+# Input/output
+# ============================================================================
+
+# Shout is the lib for streaming to icecast and compatible servers.
+ocaml-shout
+# AO is portable and stable, but it does only output.
+ocaml-ao
+# Portaudio is a portable audio library with both input and output.
+#ocaml-portaudio
+# ALSA is only for LINUX, and is sometimes not working.
+ocaml-alsa
+# JACK is an audio connection kit, designed for low latency and easy communication between audio applications
+ocaml-bjack
+# ocaml-jack is DEPRECATED. However, you can still try it if you like.
+#ocaml-jack
+
+# ============================================================================
+# Codecs
+# ============================================================================
+
+# MAD is for MP3 decoding.
+ocaml-mad
+# TAGLIB is for MP3 ID3 tag reading
+ocaml-taglib
+# LAME is for MP3 encoding.
+ocaml-lame
+# OGG is for ogg/vorbis and ogg/theora encoding and decoding
+ocaml-ogg
+# VORBIS is for ogg/vorbis encoding and decoding.
+# you need ocaml-ogg to enable ocaml-vorbis.
+ocaml-vorbis
+# SPEEX is for ogg/speex encoding and decoding
+# you need ocaml-ogg to enable ocaml-speex
+ocaml-speex
+# FAAC is for AAC encoding, FAAD for AAC decoding.
+ocaml-faac
+ocaml-faad
+# Ocaml-natty is for decoding various formats.
+# It currentely supports natively AU and AIFF/AIFC
+# You can enable NSV audio mp3 support if compiled with
+# ocaml-mad
+ocaml-natty
+
+# ============================================================================
+# Sound processing
+# ============================================================================
+
+# LADSPA are audio plugins providing sound effects
+ocaml-ladspa
+# SoundTouch is for changing pitch and tempo of sound
+ocaml-soundtouch
+# Samplerate is for having better quality resampling
+ocaml-samplerate
+
+# ============================================================================
+# Various modules
+# ============================================================================
+# Xmlplaylist allow support for various xml format, such as rss, podcast, etc..
+ocaml-xmlplaylist
+# Lastfm allow support for lastfm radios and the audioscrobbler protocol
+# It should be listed *after* ocaml-xmlplaylist in this file
+ocaml-lastfm
+
+# ============================================================================
+# Finally, the mandatory lib dtools, duppy and liquidsoap...
+# ============================================================================
+
+ocaml-dtools
+ocaml-duppy
+liquidsoap

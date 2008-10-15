@@ -1,0 +1,8 @@
+<connections>
+
+	<connection name="Local">
+		<hostname>localhost</hostname>
+		<port>1234</port>
+	</connection>
+
+</connections>

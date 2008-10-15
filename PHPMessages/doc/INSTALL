@@ -1,0 +1,5 @@
+To install 
+1). Configure settings found in include/settings.php
+2). Run install.php
+3). Remove install.php
+4). Enjoy

@@ -1,0 +1,10 @@
+#!/bin/sh
+
+PRJ=`cat PACKAGES | grep -v '^\#'`
+
+for i in ${PRJ} ; do
+    if [ -f $i/bootstrap ] ; then
+	echo "*** bootstraping $i"
+	(cd $i && ./bootstrap) || exit 1
+    fi
+done

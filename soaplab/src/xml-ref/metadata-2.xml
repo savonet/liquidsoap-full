@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<env:Envelope xmlns:env="http://www.w3.org/2003/05/soap-envelope"> 
+ <env:Header>
+  <liq:Header xmlns:liq="http://savonet.sf.net/ns/message-type" 
+      env:role="http://www.w3.org/2003/05/soap-envelope/role/next"
+      env:mustUnderstand="true">
+   <liq:message-type>
+    <liq:content-type>application/x-rcs+xml</liq:content-type>
+    <liq:role>http://savonet.sf.net/message/role/song-metadata</liq:role>
+   </liq:message-type>
+   <liq:dateTime>2007-07-12T00:24:41.169+02:00</liq:dateTime>
+   <liq:sender>
+    <liq:server>eratosthene</liq:server>
+   </liq:sender>
+  </liq:Header>
+ </env:Header>
+ <env:Body>
+  <!-- This is non-standard RCS Song data... since they use (for some
+  highly mysterious reason) attributes to store everything, leading to
+  cluttered, unreadable files. -->
+  <s:Song xmlns:s="urn:SongSchema">
+   <!-- Metadata about the song -->
+   <s:title>Haunting Bells</s:title>
+   <s:GUID>54656E5B-1CCE-4A5E-9DAE-1E48E3CBC3C5</s:GUID>
+   <s:internalID>1</s:internalID>
+   <s:category>Free</s:category>
+   <s:opening>slow</s:opening>
+   <s:ending>fade</s:ending>
+   <!-- Artist -->
+   <s:Artist>
+    <s:name>Cold Colours</s:name>
+    <s:GUID>A5134006-DF1E-44D4-9C27-AC1A159C71F8</s:GUID>
+    <s:internalID>2</s:internalID>
+    <s:sequenceNumber>1</s:sequenceNumber>
+   </s:Artist>
+   <pe:Media xmlns:pe="urn:PEContentSchema">
+    <!-- Encoding format -->
+    <pe:MediaFormat>
+     <pe:encoding>MP3</pe:encoding><!-- Not standard! -->
+     <pe:packaging>MP3</pe:packaging>
+     <pe:numChannels>2</pe:numChannels>
+     <pe:sampleRate>44100</pe:sampleRate>
+    </pe:MediaFormat>
+    <!-- Fade in marker -->
+    <pe:TimePoint>
+     <pe:time>5.124</pe:time>
+     <pe:description>fade-in</pe:description>
+    </pe:TimePoint>
+    <!-- Fade out marker -->
+    <pe:TimePoint>
+     <pe:time>170.765</pe:time>
+     <pe:description>fade-out</pe:description>
+    </pe:TimePoint>
+    <!-- Start next marker -->
+    <pe:TimePoint>
+     <pe:time>172.777</pe:time>
+     <pe:description>start-next</pe:description>
+    </pe:TimePoint>
+   </pe:Media>
+  </s:Song>
+ </env:Body>
+</env:Envelope>

@@ -1,0 +1,18 @@
+title: Proud Savonet users
+
+h3. Some Savonet/Liquidsoap users
+
+We know the following netradios to use Liquidsoap in various ways:
+
+* "Geek radio":doc-svn/geekradio.html, the one for which Savonet was created
+* "Radio-pi":doc-svn/radiopi.html, the radio of the École Centrale Paris
+* "Dolebraï":doc-svn/dolebrai.html streams music under free licences, e.g. "Creative Commons":http://creativecommons.org/
+* "KUBE":http://www.kuberadio.com/, a student run radio at Keele University
+* "Radio Inkorrekt":http://radioincorrect.org was probably the first german netradio using Liquidsoap
+* "Pytagor":http://www.radiopytagor.com/, a french local FM radio station (Adult CHR)
+* "Fréquence 3":doc-svn/frequence3.html, the first French webradio, broadcasting current hits, gold, mainly Pop/Rock
+* "Radio ART":http://radioart.pl, a polish artistic radio station
+* "Virtual DJ":http://radio.virtualdj.com/home displays a "powered by Liquidsoap" on its site, and we would love to know more about what's apparently our biggest user
+* "Orbitel":http://www.orbitel.net.co/, a columbian telecom operator, uses Liquidsoap for "some":http://www.orbitel.net.co/home/zapepelele/ "of":http://www.orbitel.net.co/home/_herbario its netradio channels
+* "NerdFiles":http://nerdfiles.info, a didactic radio program about free software and copyleft issues, based mainly in Barcelona.
+* And many more excellent but unknown projects...
