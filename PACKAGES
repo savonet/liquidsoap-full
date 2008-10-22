@@ -20,7 +20,7 @@ ocaml-alsa
 # JACK is an audio connection kit, designed for low latency and easy communication between audio applications
 ocaml-bjack
 # ocaml-jack is DEPRECATED. However, you can still try it if you like.
-#ocaml-jack
+ocaml-jack
 
 # ============================================================================
 # Codecs
@@ -40,6 +40,9 @@ ocaml-vorbis
 # SPEEX is for ogg/speex encoding and decoding
 # you need ocaml-ogg to enable ocaml-speex
 ocaml-speex
+# THEORA is for ogg/theora encoding and decoding
+# you need ocaml_ogg to enable ocaml-theora
+ocaml-theora
 # FAAC is for AAC encoding, FAAD for AAC decoding.
 ocaml-faac
 ocaml-faad
@@ -59,6 +62,16 @@ ocaml-ladspa
 ocaml-soundtouch
 # Samplerate is for having better quality resampling
 ocaml-samplerate
+
+# ============================================================================
+# Video processing
+# ============================================================================
+
+# GAVL converts from and to many formats,
+# is very efficient and has a quality setting for
+# tweaking load vs. quality of the conversion.
+# It is the recommended module to use with video
+ocaml-gavl
 
 # ============================================================================
 # Various modules
