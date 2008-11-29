@@ -1,5 +1,11 @@
-# Edit this file by commenting/uncommenting the libraries that you want to
+# Edit this file by (un)commenting the libraries that you (don't) want to
 # build in order to get the corresponding features in liquidsoap.
+
+# The default file has every dependency enabled.
+# It is certain that you don't need everything.
+# If you don't know why you should have something, uncomment it,
+# especially if it does not build for some reason.
+
 # It is useless to add savonet packages that are not listed below,
 # like ocaml-fetch, ocaml-smbclient, etc. These are not dependencies of
 # liquidsoap.
@@ -13,11 +19,12 @@
 ocaml-shout
 # AO is portable and stable, but it does only output.
 ocaml-ao
-# Portaudio is a portable audio library with both input and output.
-#ocaml-portaudio
+# Portaudio (BROKEN) is a portable audio library with both input and output.
+ocaml-portaudio
 # ALSA is only for LINUX, and is sometimes not working.
 ocaml-alsa
-# JACK is an audio connection kit, designed for low latency and easy communication between audio applications
+# JACK is an audio connection kit, designed for low latency
+# and easy communication between audio applications.
 ocaml-bjack
 # ocaml-jack is DEPRECATED. However, you can still try it if you like.
 ocaml-jack
@@ -47,9 +54,8 @@ ocaml-theora
 ocaml-faac
 ocaml-faad
 # Ocaml-natty is for decoding various formats.
-# It currentely supports natively AU and AIFF/AIFC
-# You can enable NSV audio mp3 support if compiled with
-# ocaml-mad
+# It currently supports natively AU and AIFF/AIFC.
+# You can enable NSV audio mp3 support if compiled with ocaml-mad.
 ocaml-natty
 
 # ============================================================================
