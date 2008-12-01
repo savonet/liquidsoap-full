@@ -1,0 +1,2 @@
+#!/bin/bash
+GTK2_RC_FILES=/usr//soapbox/gtk/gtkrc python /usr/bin/sbox.py
