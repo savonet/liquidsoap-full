@@ -19,14 +19,14 @@ class db:
 			self.defaultDB()
 		else:
 			#self.connect(sys.path[0]+'/'+path)
-			self.connect(os.path.expanduser("~")+'/soapbox/data/main.db')
+			self.connect(os.path.expanduser("~")+'/.soapbox/data/main.db')
 
 	def defaultDB(self):
 		try:
-			self.connect(os.path.expanduser("~")+'/soapbox/data/main.db')
+			self.connect(os.path.expanduser("~")+'/.soapbox/data/main.db')
 		except sqlite.OperationalError:
-			os.makedirs(os.path.expanduser("~")+'/soapbox/data')
-			self.connect(os.path.expanduser("~")+'/soapbox/data/main.db')
+			os.makedirs(os.path.expanduser("~")+'/.soapbox/data')
+			self.connect(os.path.expanduser("~")+'/.soapbox/data/main.db')
 		syntax = odict.OrderedDict()
 		syntax['constants'] = 'CREATE TABLE constants ( value INTEGER,'\
 			'name VARCHAR(255) NOT NULL,'\
@@ -139,11 +139,13 @@ class db:
 		values = []
 		for field in data:
 			fields.append(field)	
-			values.append(str(data[field]))
+			foo=str(data[field])
+			values.append(foo)
 
 		sql+='('		
 		for i in range(len(fields)):
-			sql+=fields[i]
+			field=fields[i]
+			sql+=field
 			if i+1 != len(fields):
 				sql+=","			
 		sql+=') '
@@ -160,10 +162,12 @@ class db:
 		else:
 			sql+='VALUES (	'	
 			for i in range(len(values)):
-				sql+="'"+values[i]+"'"
+				foo=values[i]
+				sql+='"'+values[i]+'"'
 				if i+1 != len(values):
 					sql+=","			
 			sql+=');'
+		
 		self.cursor.execute(sql)	
 		self.connection.commit()
 

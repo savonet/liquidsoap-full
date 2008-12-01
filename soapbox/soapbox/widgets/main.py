@@ -652,7 +652,8 @@ class boards_navigator(gtk.HBox):
 	self.homeButton=homeButton=gtk.Button()
 	homeImage=gtk.Image()
 	homeImage.set_from_file('/usr/soapbox/images/button_home.png')
-	homeButton.set_image(homeImage)
+	#homeButton.set_image(homeImage)
+	homeButton.set_label('Home')
 	homeButton.connect('clicked',self.set_home)
 
 	self.pack_start(homeButton,False)
@@ -698,9 +699,6 @@ class boards_navigator(gtk.HBox):
 	  self.refer=refer
 	  
 	  self.connect('clicked',lambda x:self.refer.set_board(board))
-	  
-	  
-
 
 class items_navigator(gtk.HBox):
   def __init__(self,ref):
@@ -717,20 +715,22 @@ class items_navigator(gtk.HBox):
 	prevButton=gtk.Button()
 	prevImage=gtk.Image()
 	prevImage.set_from_file('/usr/soapbox/images/button_arrow_left.png')
-	prevButton.set_image(prevImage)
+	#prevButton.set_image(prevImage)
+	prevButton.set_label('Prev')
 	prevButton.set_sensitive(False)
 
 	nextButton=gtk.Button()
 	nextImage=gtk.Image()
 	nextImage.set_from_file('/usr/soapbox/images/button_arrow_right.png')
-	nextButton.set_image(nextImage)
+	nextButton.set_label('Next')
+	#nextButton.set_image(nextImage)
 	nextButton.set_sensitive(False)
 
 	################
 	#Appends
 	self.pack_start(editButton,False)
-	self.pack_end(nextButton,False)
-	self.pack_end(prevButton,False)
+	#self.pack_end(nextButton,False)
+	#self.pack_end(prevButton,False)
 
   def set_edit(self,widget):
 	self.ref.edit=widget.get_active()

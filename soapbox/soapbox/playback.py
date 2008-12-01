@@ -5,7 +5,7 @@ sys.path.append(mainPath+'/libs')
 import os,gobject
 from socket import socket, AF_INET, SOCK_STREAM
 from types import *
-from soapbox import widgets,liquidsoap
+from soapbox import liquidsoap
 
 def __init__():
   return playback()
@@ -92,9 +92,11 @@ class playback:
 			'rid':i['rid'],
 			'filename':filename,
 			'status':status
+			
 		  }
 		)
 	  self.emit('queue',data)
+
 	def handle_error(self,*args):
 	  None
 	def empty_queue(self,*args):

@@ -1,1 +1,1 @@
-__all__=['library','main','pages']
+__all__=['library','main','pages','menu']
