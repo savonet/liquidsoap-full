@@ -20,6 +20,7 @@ pygtk.require('2.0')
 import gtk
 
 from soapbox import odict,db,playback,hotkey
+from soapbox.gui import hotkey as hotkey_gui
 
 #from xl.collection import Collection,Library
 
@@ -31,16 +32,15 @@ class soapbox:
     def __init__(self):
 	from soapbox.gui import main as guiMain
 	db_con=db.__init__()
+	db_con.close()
 	
 	self.playback=playback.__init__()
 	time.sleep(2)
 
-	hKey=hotkey.Table()
-	mainWindow=guiMain.guiWindow(hKey)
+	#hKey=hotkey.Table()
+	mainWindow=guiMain.guiWindow()
 	mainWindow.connect("delete_event",self.quit)
 	mainWindow.show_all()
-	
-	
 
     def quit(self,sender,event):
 	gtk.main_quit()
