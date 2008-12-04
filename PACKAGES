@@ -56,6 +56,10 @@ ocaml-faad
 # Ocaml-natty is for decoding various formats.
 # It currently supports natively AU and AIFF/AIFC.
 # You can enable NSV audio mp3 support if compiled with ocaml-mad.
+# This extension is not mature enough, hence it
+# is disabled by default. If you want to test it, you should
+# uncomment the next line, and add the --enable-natty option
+# when calling ./configure
 ocaml-natty
 
 # ============================================================================
