@@ -60,7 +60,7 @@ ocaml-faad
 # is disabled by default. If you want to test it, you should
 # uncomment the next line, and add the --enable-natty option
 # when calling ./configure
-ocaml-natty
+#ocaml-natty
 
 # ============================================================================
 # Sound processing
