@@ -51,8 +51,8 @@ ocaml-speex
 # you need ocaml_ogg to enable ocaml-theora
 ocaml-theora
 # FAAC is for AAC encoding, FAAD for AAC decoding.
-#ocaml-faac
-#ocaml-faad
+ocaml-faac
+ocaml-faad
 # Ocaml-natty is for decoding various formats.
 # It currently supports natively AU and AIFF/AIFC.
 # You can enable NSV audio mp3 support if compiled with ocaml-mad.
