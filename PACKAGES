@@ -26,7 +26,7 @@ ocaml-alsa
 # PulseAudio is a cross-plateform audio sound server. It is intended to 
 # be a single replacement for sound support under linux, windows or OSX.
 # Support for pulseaudio was not intensively tested, but seems to be 
-# working fine (24/12/2007).
+# working fine (24/12/2008).
 ocaml-pulseaudio
 # JACK is an audio connection kit, designed for low latency
 # and easy communication between audio applications.
