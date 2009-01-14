@@ -73,18 +73,9 @@ $(PWD)/html/%.html: $(PWD)/content/%.txt $(LIQI)
 clean:
 	rm -rf html
 
-RCP=rsync -rLtCP --exclude="*.swp" --exclude="*.svn" \
+RCP=rsync -rLtCPz --exclude="*.swp" --exclude="*.svn" \
 	--delete --stats
-RHOST=$(USER)@web.sourceforge.net:/home/groups/s/sa/savonet/htdocs
+RHOST=$(USER),savonet@web.sourceforge.net:/home/groups/s/sa/savonet/htdocs
 
 upload: dist
 	cd html ; $(RCP) . $(RHOST) || true
-	ssh $(USER)@shell.sf.net "chgrp -R savonet \
-	                            /home/groups/s/sa/savonet/htdocs \
-	                            > /dev/null 2>&1"
-	ssh $(USER)@shell.sf.net "find /home/groups/s/sa/savonet/htdocs \
-	                            -type d -exec chmod 2775 '{}' ';' \
-	                            > /dev/null 2>&1"
-	ssh $(USER)@shell.sf.net "find /home/groups/s/sa/savonet/htdocs \
-	                            -type f -exec chmod  664 '{}' ';' \
-	                            > /dev/null 2>&1"
