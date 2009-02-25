@@ -1,6 +1,6 @@
 # Copyright 2003-2007 The Savonet team
 
-PROGNAME = liqgest
+PROGNAME = soaplab
 DISTFILES = bootstrap CHANGES configure configure.ac COPYING Makefile README \
             src/OCamlMakefile src/Makefile.in \
             src/META.in src/*.ml src/*.mli src/*.c \
