@@ -2,6 +2,11 @@ title: Savonet documentation
 
 h3. Savonet documentation
 
-* "Release 0.3.7":doc-0.3.7/documentation.html
-* "Latest stable release (0.3.8, 0.3.8.1)":doc-0.3.8/documentation.html
+Latest releases:
+
+* "Latest stable release (0.9.0)":doc-0.9.0/documentation.html
 * "Latest developement trunk":doc-svn/documentation.html
+
+Previous releases:
+* "0.3.7":doc-0.3.7/documentation.html
+* "0.3.8, 0.3.8.1":doc-0.3.8/documentation.html

@@ -6,12 +6,16 @@ LIQ_DIR=$(PWD)/../liquidsoap
 LIQI=$(LIQ_DIR)/doc/liqi/liqi
 LIQUIDSOAP=$(LIQ_DIR)/src/liquidsoap
 
-CONTENT=$(wildcard $(PWD)/content/*.txt $(PWD)/content/doc-svn/*.txt $(PWD)/content/doc-0.3.7/*.txt $(PWD)/content/doc-0.3.8/*.txt)
+CONTENT=$(wildcard $(PWD)/content/*.txt $(PWD)/content/doc-svn/*.txt \
+	$(PWD)/content/doc-0.3.7/*.txt $(PWD)/content/doc-0.3.8/*.txt \
+	$(PWD)/content/doc-0.9.0/*.txt)
 HTML=$(shell echo $(CONTENT:.txt=.html) | sed -e 's/content\//html\//g')
 
 all: indexes $(PWD)/html/doc-svn/reference.html $(PWD)/html/doc-0.3.7/reference.html \
         $(PWD)/html/doc-0.3.8/reference.html $(PWD)/html/doc-svn/scripts/index.html \
-        $(PWD)/html/doc-0.3.7/scripts/index.html $(PWD)/html/doc-0.3.8/scripts/index.html
+        $(PWD)/html/doc-0.3.7/scripts/index.html $(PWD)/html/doc-0.3.8/scripts/index.html \
+	$(PWD)/html/doc-0.9.0/reference.html $(PWD)/html/doc-0.9.0/scripts/index.html \
+	$(PWD)/html/doc-0.9.0/settings.html $(PWD)/html/doc-svn/settings.html
 	@find html -name '.svn' -exec rm -rf \{\} \; || true
 
 # Removes all unecessary stuff before upload
@@ -39,11 +43,25 @@ $(PWD)/html/doc-0.3.7/reference.txt:
 $(PWD)/html/doc-0.3.8/reference.txt:
 	@cp $(PWD)/reference-0.3.8.txt $(PWD)/html/doc-0.3.8/reference.txt
 
+$(PWD)/html/doc-0.9.0/reference.txt:
+	@cp $(PWD)/reference-0.9.0.txt $(PWD)/html/doc-0.9.0/reference.txt
+
+$(PWD)/html/doc-0.9.0/settings.txt:
+	@cp $(PWD)/settings-0.9.0.txt $(PWD)/html/doc-0.9.0/settings.txt
+
+
 $(PWD)/html/doc-svn/reference.txt: $(LIQUIDSOAP)
 	@echo "Generating svn language reference..."
 	@echo "Did you enable all features ?"
 	@$(LIQUIDSOAP) $(LIQ_DIR)/scripts/utils.liq --list-plugins-xml | \
 	$(LIQ_DIR)/doc/reference_to_liqi.pl > $(PWD)/html/doc-svn/reference.txt	
+
+$(PWD)/html/doc-svn/settings.txt: $(LIQUIDSOAP)
+	@echo "Generating svn language settings..."
+	@echo "Did you enable all features ?"
+	@$(LIQUIDSOAP) $(LIQ_DIR)/scripts/utils.liq --conf-descr | \
+	$(LIQ_DIR)/doc/settings_to_liqi.pl > $(PWD)/html/doc-svn/settings.txt
+
 
 $(PWD)/html/doc-0.3.7/reference.html: $(PWD)/html/doc-0.3.7/reference.txt
 	@cd html/doc-0.3.7 && $(LIQI) --main -i $(<) -o $(@) --basedir $(PWD)/html
@@ -51,7 +69,16 @@ $(PWD)/html/doc-0.3.7/reference.html: $(PWD)/html/doc-0.3.7/reference.txt
 $(PWD)/html/doc-0.3.8/reference.html: $(PWD)/html/doc-0.3.8/reference.txt
 	@cd html/doc-0.3.8 && $(LIQI) --main -i $(<) -o $(@) --basedir $(PWD)/html
 
+$(PWD)/html/doc-0.9.0/reference.html: $(PWD)/html/doc-0.9.0/reference.txt
+	@cd html/doc-0.9.0 && $(LIQI) --main -i $(<) -o $(@) --basedir $(PWD)/html
+
+$(PWD)/html/doc-0.9.0/settings.html: $(PWD)/html/doc-0.9.0/settings.txt
+	@cd html/doc-0.9.0 && $(LIQI) --main -i $(<) -o $(@) --basedir $(PWD)/html
+
 $(PWD)/html/doc-svn/reference.html: $(PWD)/html/doc-svn/reference.txt
+	@cd html/doc-svn && $(LIQI) --main -i $(<) -o $(@) --basedir $(PWD)/html
+
+$(PWD)/html/doc-svn/settings.html: $(PWD)/html/doc-svn/settings.txt
 	@cd html/doc-svn && $(LIQI) --main -i $(<) -o $(@) --basedir $(PWD)/html
 
 $(PWD)/html/doc-%/scripts/index.html:
