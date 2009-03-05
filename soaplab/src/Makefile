@@ -5,16 +5,16 @@ SOURCES = domHelper.ml xspf.ml rcs.ml soap.ml \
           soundEditor.ml metadataEditor.ml databasePalette.ml \
           soaplab.ml
 RESULT = soaplab
-LIBS = mlogdome bigarray
+LIBS = mlogdome
 
 OCAMLFIND=OCAMLPATH=../../lib ocamlfind
-PACKS = lablgtk2.init lablgtk2.glade portaudio liquidsoap
+PACKS = lablgtk2.init lablgtk2.glade portaudio xmlplaylist sdl.sdlttf liquidsoap
 INCDIRS = ../../lib/liquidsoap/lang ../../lib/liquidsoap/stream \
 	  +gdome2
 THREADS = yes
 
-OCAMLBLDFLAGS = mlgdome.cma str.cma
-OCAMLNLDFLAGS = mlgdome.cmxa str.cmxa
+OCAMLBLDFLAGS = mlgdome.cma
+OCAMLNLDFLAGS = mlgdome.cmxa
 
 all: ias.ml nc
 

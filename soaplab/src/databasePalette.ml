@@ -162,7 +162,7 @@ class db_palette ?(file="IAS/ias.glade") (se: SoundEditor.sound_editor) (me: Met
               Printf.printf "Category '%s' has been selected... We will load data from %s\n" n l ;
               flush stdout ;
               (* Get data *)
-              let r = Request.create ~audio:false l in
+              let r = Request.create l in
                 (* Get the datasource *)
                 match r with
                   | Some r ->
@@ -201,7 +201,7 @@ class db_palette ?(file="IAS/ias.glade") (se: SoundEditor.sound_editor) (me: Met
               flush stdout ;
               (* Get data *)
               (*open_source (Printf.sprintf "single('%s')" l)*)
-              let r = Request.create ~audio:false o in
+              let r = Request.create o in
                 (* Get the datasource *)
                 match r with
                   | Some r ->
@@ -226,7 +226,7 @@ class db_palette ?(file="IAS/ias.glade") (se: SoundEditor.sound_editor) (me: Met
                                 let th = Thread.create (fun () -> try ignore (progress#run ()) with Failure "dialog destroyed" -> Thread.exit ()) () in
                                 Printf.printf "Now loading audio for '%s' from %s\n" t l ;
                                 flush stdout ;
-                                let s = Request.create ~audio:true l in
+                                let s = Request.create l in
                                   (* Get the datasource *)
                                   (match s with
                                     | Some s ->
@@ -252,7 +252,7 @@ class db_palette ?(file="IAS/ias.glade") (se: SoundEditor.sound_editor) (me: Met
           flush stdout
 
     method load_datasource d =
-      let r = Request.create ~audio:false d in
+      let r = Request.create d in
         (* Get the datasource *)
         match r with
           | Some r ->
@@ -267,7 +267,7 @@ class db_palette ?(file="IAS/ias.glade") (se: SoundEditor.sound_editor) (me: Met
                         (* Now put the data in the treeview *)
                         List.iter (fun t ->
                           let c = self#add_category ~name:(t#title) ~location:(t#location) ~icon:"gtk-cdrom" () in
-                          let s = Request.create ~audio:false t#location in
+                          let s = Request.create t#location in
                             (* Get the datasource *)
                             match s with
                               | Some s ->

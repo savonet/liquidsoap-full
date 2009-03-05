@@ -333,7 +333,7 @@ object (self)
       progress#set_fraction 0. ;
       progress#set_text "Decoding...";
       progress#misc#show ();
-      let frame = Fmt.create_frame () in
+      let frame = Frame.make () in
       let buf = AFrame.get_float_pcm frame in
       let off = ref 0 in
       let set,finish = self#big_chunks ~chunk_size:(44100*2*30) ~channels:2 in
@@ -379,8 +379,8 @@ object (self)
           Lang_values.check ast ;
           let s = Lang_values.eval_toplevel ast in
             close_in i ;
-            match s.Lang_values.value with
-              | Lang_values.Source s -> s
+            match s.Lang_values.V.value with
+              | Lang_values.V.Source s -> s
               | _ -> assert false
     in
       ignore (self#open_decoder (self#decoder_of_source src))
@@ -390,7 +390,7 @@ object (self)
     match Decoder.search_valid f with
       | None ->
           error_dialog ~parent:toplevel ~title:"Error" (Printf.sprintf "Could not decode %S!" f)
-      | Some d -> ignore (self#open_decoder (d ()))
+      | Some d -> ignore (self#open_decoder ((snd d) ()))
 
   (* Open callback *)
   method on_open () =
