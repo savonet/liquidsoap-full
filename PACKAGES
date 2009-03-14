@@ -53,8 +53,11 @@ ocaml-vorbis
 # you need ocaml-ogg to enable ocaml-speex
 ocaml-speex
 # THEORA is for ogg/theora encoding and decoding
-# you need ocaml_ogg to enable ocaml-theora
+# you need ocaml-ogg to enable ocaml-theora
 ocaml-theora
+# SCHROEDINGER is for ogg/dirac encoding and decoding
+# you need ocaml-ogg to enable ocaml-schroedinger
+ocaml-schroedinger
 # FAAC is for AAC encoding, FAAD for AAC decoding.
 ocaml-faac
 ocaml-faad
@@ -65,7 +68,7 @@ ocaml-faad
 # is disabled by default. If you want to test it, you should
 # uncomment the next line, and add the --enable-natty option
 # when calling ./configure
-#ocaml-natty
+ocaml-natty
 
 # ============================================================================
 # Sound processing
