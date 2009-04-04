@@ -15,8 +15,8 @@
 # Input/output
 # ============================================================================
 
-# Shout is the lib for streaming to icecast and compatible servers.
-ocaml-shout
+# Cry is the lib for streaming to icecast and compatible servers.
+ocaml-cry
 # AO is portable and stable, but it does only output.
 ocaml-ao
 # Portaudio (BROKEN) is a portable audio library with both input and output.
