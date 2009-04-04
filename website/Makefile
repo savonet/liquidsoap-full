@@ -53,13 +53,13 @@ $(PWD)/html/doc-0.9.0/settings.txt:
 $(PWD)/html/doc-svn/reference.txt: $(LIQUIDSOAP)
 	@echo "Generating svn language reference..."
 	@echo "Did you enable all features ?"
-	@$(LIQUIDSOAP) $(LIQ_DIR)/scripts/utils.liq --list-plugins-xml | \
+	@$(LIQUIDSOAP) --no-pervasives $(LIQ_DIR)/scripts/utils.liq --list-plugins-xml | \
 	$(LIQ_DIR)/doc/reference_to_liqi.pl > $(PWD)/html/doc-svn/reference.txt	
 
 $(PWD)/html/doc-svn/settings.txt: $(LIQUIDSOAP)
 	@echo "Generating svn language settings..."
 	@echo "Did you enable all features ?"
-	@$(LIQUIDSOAP) $(LIQ_DIR)/scripts/utils.liq --conf-descr | \
+	@$(LIQUIDSOAP) --no-pervasives $(LIQ_DIR)/scripts/utils.liq --conf-descr | \
 	$(LIQ_DIR)/doc/settings_to_liqi.pl > $(PWD)/html/doc-svn/settings.txt
 
 
