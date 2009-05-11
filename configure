@@ -29,9 +29,8 @@ for p in `grep -v '\#' PACKAGES` ; do
     echo ./configure $OPTS $*
     ./configure $OPTS $* || exit 1
   else
-    @echo "No configure script found for $*"
+    echo "No configure script found for $*"
     exit 1
   fi
   cd ..
 done
-
