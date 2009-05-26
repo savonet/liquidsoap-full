@@ -14,6 +14,13 @@ MSG
 OPTS=""
 error=""
 
+if [ ! -f PACKAGES ]; then
+  echo "Please copy PACKAGES.default to PACKAGES";
+  echo "and edit it to enable the packages you";
+  echo "want to enable.";
+  exit 1;
+fi;
+
 for p in `grep -v '\#' PACKAGES` ; do
   if test "x$p" = "xliquidsoap" ; then
     base="liquidsoap"
