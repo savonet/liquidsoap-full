@@ -1,5 +1,7 @@
 title: Install and build on Mac OS X using macports.
 
+**Macports are not actively maintained anymore ! We are looking for contributors. If you are interested, drop us a mail at "savonet-devl@lists.sf.net":mailto:savonet-devl@lists.sf.net, and join the fun !**
+
 h3. Liquidsoap on OS X using macports
 
 You can download, build and install liquidsoap from source on Mac OS X using macports. Here are the instructions.
