@@ -27,6 +27,11 @@ However, we maintain custom packages for liquidsoap, in order to enable features
 
 The daily packages are mostly aimed toward developers.
 
+h3. ArchLinux
+
+A package for Arch Linux users is available from the distribution, 
+see the "ArchLinux Liquidsoap package page":http://aur.archlinux.org/packages.php?ID=23902
+
 h3. Cygwin (Windows)
 
 Liquidsoap is available as a Cygwin port, thanks to the Cywin Ports project ! You can get instructions

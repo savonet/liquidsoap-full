@@ -7,13 +7,13 @@ LIQI=$(LIQ_DIR)/doc/liqi/liqi
 LIQUIDSOAP=$(LIQ_DIR)/src/liquidsoap
 
 CONTENT=$(wildcard $(PWD)/content/*.txt $(PWD)/content/doc-svn/*.txt \
-	$(PWD)/content/doc-0.3.7/*.txt $(PWD)/content/doc-0.3.8/*.txt \
+	$(PWD)/content/doc-0.9.1/*.txt $(PWD)/content/doc-0.3.8/*.txt \
 	$(PWD)/content/doc-0.9.0/*.txt)
 HTML=$(shell echo $(CONTENT:.txt=.html) | sed -e 's/content\//html\//g')
 
-all: indexes $(PWD)/html/doc-svn/reference.html $(PWD)/html/doc-0.3.7/reference.html \
+all: indexes $(PWD)/html/doc-svn/reference.html $(PWD)/html/doc-0.9.1/reference.html \
         $(PWD)/html/doc-0.3.8/reference.html $(PWD)/html/doc-svn/scripts/index.html \
-        $(PWD)/html/doc-0.3.7/scripts/index.html $(PWD)/html/doc-0.3.8/scripts/index.html \
+        $(PWD)/html/doc-0.9.1/scripts/index.html $(PWD)/html/doc-0.3.8/scripts/index.html \
 	$(PWD)/html/doc-0.9.0/reference.html $(PWD)/html/doc-0.9.0/scripts/index.html \
 	$(PWD)/html/doc-0.9.0/settings.html $(PWD)/html/doc-svn/settings.html
 	@find html -name '.svn' -exec rm -rf \{\} \; || true
@@ -30,15 +30,15 @@ $(LIQUIDSOAP):
 	@echo "Liquidsoap does not seem to be built..."
 	@exit 1
 
-indexes: $(HTML) $(PWD)/html/doc-svn/scripts/index.html $(PWD)/html/doc-0.3.7/scripts/index.html
+indexes: $(HTML) $(PWD)/html/doc-svn/scripts/index.html $(PWD)/html/doc-0.9.1/scripts/index.html
 
 $(PWD)/html/index.html: $(PWD)/content/index.txt $(LIQI)
 	@echo Converting $(<) to $(@)...
 	@test -d html || (mkdir -p html/scripts ; cp -rf orig/* html)
 	@cd $(PWD)/html && $(LIQI) --main-main -i $(<) -o $(@) --basedir $(PWD)/html
 
-$(PWD)/html/doc-0.3.7/reference.txt:
-	@cp $(PWD)/reference-0.3.7.txt $(PWD)/html/doc-0.3.7/reference.txt
+$(PWD)/html/doc-0.9.1/reference.txt:
+	@cp $(PWD)/reference-0.9.1.txt $(PWD)/html/doc-0.9.1/reference.txt
 
 $(PWD)/html/doc-0.3.8/reference.txt:
 	@cp $(PWD)/reference-0.3.8.txt $(PWD)/html/doc-0.3.8/reference.txt
@@ -63,8 +63,8 @@ $(PWD)/html/doc-svn/settings.txt: $(LIQUIDSOAP)
 	$(LIQ_DIR)/doc/settings_to_liqi.pl > $(PWD)/html/doc-svn/settings.txt
 
 
-$(PWD)/html/doc-0.3.7/reference.html: $(PWD)/html/doc-0.3.7/reference.txt
-	@cd html/doc-0.3.7 && $(LIQI) --main -i $(<) -o $(@) --basedir $(PWD)/html
+$(PWD)/html/doc-0.9.1/reference.html: $(PWD)/html/doc-0.9.1/reference.txt
+	@cd html/doc-0.9.1 && $(LIQI) --main -i $(<) -o $(@) --basedir $(PWD)/html
 
 $(PWD)/html/doc-0.3.8/reference.html: $(PWD)/html/doc-0.3.8/reference.txt
 	@cd html/doc-0.3.8 && $(LIQI) --main -i $(<) -o $(@) --basedir $(PWD)/html
