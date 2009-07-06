@@ -1,4 +1,4 @@
-.PHONY: all clean upload indexes dist
+.PHONY: all clean upload dist
 
 PWD=$(shell pwd)
 # Should be built there
@@ -15,7 +15,7 @@ content_expanded = $(foreach version,$(VERSIONS),$(content_expand))
 CONTENT=$(wildcard $(PWD)/content/*.txt) $(content_expanded)
 HTML=$(shell echo $(CONTENT:.txt=.html) | sed -e 's/content\//html\//g')
 
-# Genetated content
+# Generated content
 GENERATED_FILES=$(PWD)/html/doc-@@VERSION@@/reference.html \
                 $(PWD)/html/doc-@@VERSION@@/scripts/index.html \
                 $(PWD)/html/doc-@@VERSION@@/settings.html
