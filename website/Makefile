@@ -6,21 +6,28 @@ LIQ_DIR=$(PWD)/../liquidsoap
 LIQI=$(LIQ_DIR)/doc/liqi/liqi
 LIQUIDSOAP=$(LIQ_DIR)/src/liquidsoap
 
-CONTENT=$(wildcard $(PWD)/content/*.txt $(PWD)/content/doc-svn/*.txt \
-	$(PWD)/content/doc-0.9.1/*.txt $(PWD)/content/doc-0.3.8/*.txt \
-	$(PWD)/content/doc-0.9.0/*.txt)
+# Versions documented.
+VERSIONS=svn 0.3.8 0.9.0 0.9.1
+
+# Static content
+content_expand = $(wildcard $(PWD)/content/doc-$(version)/*.txt)
+content_expanded = $(foreach version,$(VERSIONS),$(content_expand))
+CONTENT=$(wildcard $(PWD)/content/*.txt) $(content_expanded)
 HTML=$(shell echo $(CONTENT:.txt=.html) | sed -e 's/content\//html\//g')
 
-all: indexes $(PWD)/html/doc-svn/reference.html $(PWD)/html/doc-0.9.1/reference.html \
-        $(PWD)/html/doc-0.3.8/reference.html $(PWD)/html/doc-svn/scripts/index.html \
-        $(PWD)/html/doc-0.9.1/scripts/index.html $(PWD)/html/doc-0.3.8/scripts/index.html \
-	$(PWD)/html/doc-0.9.0/reference.html $(PWD)/html/doc-0.9.0/scripts/index.html \
-	$(PWD)/html/doc-0.9.0/settings.html $(PWD)/html/doc-svn/settings.html
+# Genetated content
+GENERATED_FILES=$(PWD)/html/doc-@@VERSION@@/reference.html \
+                $(PWD)/html/doc-@@VERSION@@/scripts/index.html \
+                $(PWD)/html/doc-@@VERSION@@/settings.html
+generated_files_subst = $(subst @@VERSION@@,$(version),$(GENERATED_FILES))
+generated_files = $(foreach version,$(VERSIONS),$(generated_files_subst))
+
+all: $(HTML) $(generated_files)
 	@find html -name '.svn' -exec rm -rf \{\} \; || true
 
 # Removes all unecessary stuff before upload
 dist: all
-	@find html -name '*.txt' -exec rm -f \{\} \;
+	@find html -name '*.txt' -exec rm -f \{\} \; || true
 
 $(LIQI):
 	@echo "Liqi parser does not seem to be built..."
@@ -30,25 +37,16 @@ $(LIQUIDSOAP):
 	@echo "Liquidsoap does not seem to be built..."
 	@exit 1
 
-indexes: $(HTML) $(PWD)/html/doc-svn/scripts/index.html $(PWD)/html/doc-0.9.1/scripts/index.html
-
 $(PWD)/html/index.html: $(PWD)/content/index.txt $(LIQI)
 	@echo Converting $(<) to $(@)...
 	@test -d html || (mkdir -p html/scripts ; cp -rf orig/* html)
 	@cd $(PWD)/html && $(LIQI) --main-main -i $(<) -o $(@) --basedir $(PWD)/html
 
-$(PWD)/html/doc-0.9.1/reference.txt:
-	@cp $(PWD)/reference-0.9.1.txt $(PWD)/html/doc-0.9.1/reference.txt
+$(PWD)/html/doc-%/reference.txt:
+	@cp $(PWD)/reference-$(*).txt $(PWD)/html/doc-$(*)/reference.txt
 
-$(PWD)/html/doc-0.3.8/reference.txt:
-	@cp $(PWD)/reference-0.3.8.txt $(PWD)/html/doc-0.3.8/reference.txt
-
-$(PWD)/html/doc-0.9.0/reference.txt:
-	@cp $(PWD)/reference-0.9.0.txt $(PWD)/html/doc-0.9.0/reference.txt
-
-$(PWD)/html/doc-0.9.0/settings.txt:
-	@cp $(PWD)/settings-0.9.0.txt $(PWD)/html/doc-0.9.0/settings.txt
-
+$(PWD)/html/doc-%/settings.txt:
+	@cp $(PWD)/settings-$(*).txt $(PWD)/html/doc-$(*)/settings.txt
 
 $(PWD)/html/doc-svn/reference.txt: $(LIQUIDSOAP)
 	@echo "Generating svn language reference..."
@@ -62,24 +60,11 @@ $(PWD)/html/doc-svn/settings.txt: $(LIQUIDSOAP)
 	@$(LIQUIDSOAP) --no-pervasives $(LIQ_DIR)/scripts/utils.liq --conf-descr | \
 	$(LIQ_DIR)/doc/settings_to_liqi.pl > $(PWD)/html/doc-svn/settings.txt
 
+$(PWD)/html/doc-%/reference.html: $(PWD)/html/doc-%/reference.txt
+	@cd html/doc-$(*) && $(LIQI) --main -i $(<) -o $(@) --basedir $(PWD)/html
 
-$(PWD)/html/doc-0.9.1/reference.html: $(PWD)/html/doc-0.9.1/reference.txt
-	@cd html/doc-0.9.1 && $(LIQI) --main -i $(<) -o $(@) --basedir $(PWD)/html
-
-$(PWD)/html/doc-0.3.8/reference.html: $(PWD)/html/doc-0.3.8/reference.txt
-	@cd html/doc-0.3.8 && $(LIQI) --main -i $(<) -o $(@) --basedir $(PWD)/html
-
-$(PWD)/html/doc-0.9.0/reference.html: $(PWD)/html/doc-0.9.0/reference.txt
-	@cd html/doc-0.9.0 && $(LIQI) --main -i $(<) -o $(@) --basedir $(PWD)/html
-
-$(PWD)/html/doc-0.9.0/settings.html: $(PWD)/html/doc-0.9.0/settings.txt
-	@cd html/doc-0.9.0 && $(LIQI) --main -i $(<) -o $(@) --basedir $(PWD)/html
-
-$(PWD)/html/doc-svn/reference.html: $(PWD)/html/doc-svn/reference.txt
-	@cd html/doc-svn && $(LIQI) --main -i $(<) -o $(@) --basedir $(PWD)/html
-
-$(PWD)/html/doc-svn/settings.html: $(PWD)/html/doc-svn/settings.txt
-	@cd html/doc-svn && $(LIQI) --main -i $(<) -o $(@) --basedir $(PWD)/html
+$(PWD)/html/doc-%/settings.html: $(PWD)/html/doc-%/settings.txt
+	@cd html/doc-$(*) && $(LIQI) --main -i $(<) -o $(@) --basedir $(PWD)/html
 
 $(PWD)/html/doc-%/scripts/index.html:
 	@cd $(shell dirname $(@)) && \
