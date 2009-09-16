@@ -44,6 +44,8 @@ ocaml-mad
 ocaml-taglib
 # LAME is for MP3 encoding.
 ocaml-lame
+# AACPLUS is for AAC+ encoding.
+ocaml-aacplus
 # OGG is for ogg/vorbis and ogg/theora encoding and decoding
 ocaml-ogg
 # VORBIS is for ogg/vorbis encoding and decoding.
