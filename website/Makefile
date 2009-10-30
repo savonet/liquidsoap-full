@@ -7,7 +7,7 @@ LIQI=$(LIQ_DIR)/doc/liqi/liqi
 LIQUIDSOAP=$(LIQ_DIR)/src/liquidsoap
 
 # Versions documented.
-VERSIONS=svn 0.3.8 0.9.0 0.9.1
+VERSIONS=svn 0.3.8 0.9.0 0.9.1 0.9.2
 
 # Static content
 content_expand = $(wildcard $(PWD)/content/doc-$(version)/*.txt)
