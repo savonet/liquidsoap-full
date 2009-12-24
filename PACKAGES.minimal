@@ -86,6 +86,13 @@ ocaml-vorbis
 #ocaml-gavl
 
 # ============================================================================
+# Sound synthesis
+# ============================================================================
+
+# DSSI is a standard for synthesizer plugins
+#ocaml-dssi
+
+# ============================================================================
 # Various modules
 # ============================================================================
 # Xmlplaylist allow support for various xml format, such as rss, podcast, etc..
