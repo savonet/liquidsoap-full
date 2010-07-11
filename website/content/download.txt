@@ -44,6 +44,10 @@ h3. Mac OS X
 
 You can download and build liquidsoap using "macports":http://www.macports.org/. See the "instructions":macports.html.
 
+h3. FreeBSD
+
+Liquidsoap is "available":http://www.freebsd.org/cgi/cvsweb.cgi/ports/audio/liquidsoap/ in FreeBSD using the port system.
+
 h3. Subversion repository (and other distributions)
 
 If you want a cutting-edge version, you can use the subversion repository. To get a copy of it, just run:
