@@ -9,11 +9,12 @@ We know the following netradios to use Liquidsoap in various ways:
 * "Fréquence 3":doc-svn/frequence3.html, the first French webradio, broadcasting current hits, gold, mainly Pop/Rock
 * "Geek radio":doc-svn/geekradio.html, the one for which Savonet was created
 * "KUBE":http://www.kuberadio.com/, a student run radio at Keele University
+* "Orbitel":http://www.orbitel.net.co/, a columbian telecom operator, uses Liquidsoap for "some":http://www.orbitel.net.co/home/zapepelele/ "of":http://www.orbitel.net.co/home/_herbario its netradio channels
 * "Pytagor":http://www.radiopytagor.com/, a french local FM radio station (Adult CHR)
 * "Radio ART":http://radioart.pl, a polish artistic radio station
 * "Radio Inkorrekt":http://radioincorrect.org was probably the first german netradio using Liquidsoap
 * "NerdFiles":http://nerdfiles.info, a didactic radio program about free software and copyleft issues, based mainly in Barcelona.
-* "Radio-pi":doc-svn/radiopi.html, the radio of the École Centrale Paris
-* "Orbitel":http://www.orbitel.net.co/, a columbian telecom operator, uses Liquidsoap for "some":http://www.orbitel.net.co/home/zapepelele/ "of":http://www.orbitel.net.co/home/_herbario its netradio channels
+* "RadioPi":doc-svn/radiopi.html, the radio of the École Centrale Paris
+* "Substream.at":http://substream.at/, a radio for music lovers by music lovers, where you are invited to participate !
 * "Virtual DJ":http://radio.virtualdj.com/home displays a "powered by Liquidsoap" on its site, and we would love to know more about what's apparently our biggest user
 * And many more excellent but unknown projects...
