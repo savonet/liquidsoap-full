@@ -4,7 +4,7 @@ h3. Savonet documentation
 
 Latest releases:
 
-* "Latest stable release (0.9.2)":doc-0.9.2/documentation.html
+* "Latest release (0.9.2, 0.9.3)":doc-0.9.2/documentation.html
 * "Latest developement trunk":doc-svn/documentation.html
 
 Previous releases:
