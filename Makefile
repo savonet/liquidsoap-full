@@ -1,4 +1,5 @@
-PRJ=`cat PACKAGES | grep -v '^\#'`
+PRJ:=$(shell cat PACKAGES | grep -v '^\#')
+PRJ:=$(shell for p in $(PRJ) ; do ls -d $$p* ; done)
 
 default: all
 
@@ -13,7 +14,3 @@ doc:
 
 install:
 	$(MAKE) -C liquidsoap install
-
-changelog:
-	@rm -f ChangeLog
-	@svn log > ChangeLog

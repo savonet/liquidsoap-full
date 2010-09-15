@@ -21,12 +21,15 @@ if [ ! -f PACKAGES ]; then
   exit 1;
 fi;
 
-for p in `grep -v '\#' PACKAGES` ; do
+packages=`grep -v '\#' PACKAGES`
+
+for p in `for i in $packages ; do ls -d $i* ; done` ; do
   if test "x$p" = "xliquidsoap" ; then
     base="liquidsoap"
+    echo ./configure $OPTS $* > liquidsoap/configure-with-options
   else
-    base=`echo $p | sed -e 's/ocaml-//'`
-    OPTS="$OPTS --with-$base-dir=../ocaml-$base/src"
+    base=`echo $p | sed -e 's/ocaml-//' | sed -e 's/-.*//'`
+    OPTS="$OPTS --with-$base-dir=../$p/src"
   fi
   echo
   echo "****** Configuring $p"
