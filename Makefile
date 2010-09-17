@@ -1,5 +1,5 @@
 PRJ:=$(shell cat PACKAGES | grep -v '^\#')
-PRJ:=$(shell for p in $(PRJ) ; do ls -d $$p* ; done)
+PRJ:=$(shell for p in $(PRJ) ; do ls -d $$p* | head -1 ; done)
 
 default: all
 

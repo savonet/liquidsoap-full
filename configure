@@ -23,7 +23,7 @@ fi;
 
 packages=`grep -v '\#' PACKAGES`
 
-for p in `for i in $packages ; do ls -d $i* ; done` ; do
+for p in `for i in $packages ; do ls -d $i* | head -1 ; done` ; do
   if test "x$p" = "xliquidsoap" ; then
     base="liquidsoap"
     echo ./configure $OPTS $* > liquidsoap/configure-with-options

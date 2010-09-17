@@ -2,7 +2,7 @@
 
 PRJ=`grep -v '\#' PACKAGES`
 
-for i in `for i in $PRJ ; do ls -d $i* ; done` ; do
+for i in `for i in $PRJ ; do ls -d $i* | head -1 ; done` ; do
     if [ -f $i/bootstrap ] ; then
 	echo "*** bootstraping $i"
 	(cd $i && ./bootstrap) || exit 1
