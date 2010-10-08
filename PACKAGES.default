@@ -63,7 +63,8 @@ ocaml-schroedinger
 # FAAC is for AAC encoding, FAAD for AAC decoding.
 ocaml-faac
 ocaml-faad
-# FLAC is for flac native format decoding.
+# FLAC is for flac, native and/or ogg (if using ocaml-ogg) 
+# format decoding and encoding.
 ocaml-flac
 
 # ============================================================================
