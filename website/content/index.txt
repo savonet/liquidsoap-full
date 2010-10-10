@@ -1,9 +1,21 @@
-title: Savonet &ndash; Audio Streaming Tools
+title: Savonet &ndash; Multimedia Streaming Tools
 
-h3. What is it?
+h3. Savonet
 
-Liquidsoap is the audio stream generator of the "Savonet":savonet.html project,
-notably used for generating the stream of netradios.
+The "Savonet project":savonet.html builds software for multimedia streaming.
+The best way to reach us for support or discussions is through our
+"mailing list":mailto:savonet-users@lists.sf.net.
+
+h3. News
+
+* **Oct 10, 2010**: Savonet will be at the "ON2: Test Signals":http://testsignals.org conference in Berlin on Oct 25-26. We'll give a presentation and workshop on Liquidsoap. "Learn more":on2.html...
+* **Sept 10, 2010**: We wrote a new article (in English this time) describing Liquidsoap and some of the new features of the upcoming 1.0 version. "Learn more":publications.html...
+* **Sept 07, 2010**: The 1.0.0 beta has finally been released!
+
+h3. Liquidsoap
+
+Our flagship is liquidsoap, a multimedia stream toolkit,
+notably suited for netradios.
 It has tons of features, it's free _and_ it's open-source!
 Liquidsoap lets you to describe your streams in a powerful and flexible way.
 Allowing arbitrarily deep-nested composition of streams,
@@ -12,11 +24,11 @@ But liquidsoap is still very light and easy to use,
 in the Unix tradition of simple strong components working together.
 
 `antiquotation`
-<ol id="fleche123">
+<center><ol id="fleche123">
   <li id="fleche123-is"><a href="doc-svn/index.html">Overview</a></li>
   <li id="fleche123-dl"><a href="download.html">Download</a></li>
   <li id="fleche123-ej"><a href="doc-svn/quick_start.html">Enjoy!</a></li>
-</ol>
+</ol></center>
 `antiquotation`
 
 Some examples of what you can do using Liquidsoap:
@@ -31,6 +43,15 @@ Some examples of what you can do using Liquidsoap:
 * simple access to remote files
 * and "much more":doc-svn/index.html!
 
-See "who's already using":users.html Liquidsoap and join the bandwagon!
+h3. Users and related tools
 
-Any question or remark? Contact the "Savonet team":savonet.html.
+They are already using liquidsoap:
+
+* "Fréquence 3":doc-svn/frequence3.html, the first French webradio, broadcasting current hits, gold, mainly Pop/Rock
+* "KUBE":http://www.kuberadio.com/, a student run radio at Keele University
+* "Pi-Radio":http://piradio.de: a netradio and part-time FM broadcaster in Berlin, animated by an open community currently consisting of 30 independent groups
+* "Pytagor":http://www.radiopytagor.com/, a french local FM radio station (Adult CHR)
+* "RadioPi":doc-svn/radiopi.html, the radio of the École Centrale Paris
+* "SecurityCast Radio":http://http://www.securitycast.net/ is a radio that relays various computer security podcasts.
+* "Subflow":http://www.subflow.net operates two streams of free/libre music, one minimal-techno and one downtempo-dub.
+* And "many more":users.html radios...
