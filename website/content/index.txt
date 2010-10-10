@@ -16,7 +16,7 @@ h3. Liquidsoap
 
 Our flagship is liquidsoap, a multimedia stream toolkit,
 notably suited for netradios.
-It has tons of features, it's free _and_ it's open-source!
+It has tons of features, it's free and it's open-source!
 Liquidsoap lets you to describe your streams in a powerful and flexible way.
 Allowing arbitrarily deep-nested composition of streams,
 it gives you more power than you need for creating an original netradio.
@@ -45,13 +45,18 @@ Some examples of what you can do using Liquidsoap:
 
 h3. Users and related tools
 
-They are already using liquidsoap:
+There are various projects for integrating liquidsoap with your website
+(notably relying on Django, Plone, PHP, Perl...)
+as well as a few graphical user interfaces, IRC bots, indexers, etc.
+"Contact us":mailto:savonet-users@lists.sf.net if you're looking for such
+tools or would like to advertise your work.
 
-* "Fréquence 3":doc-svn/frequence3.html, the first French webradio, broadcasting current hits, gold, mainly Pop/Rock
-* "KUBE":http://www.kuberadio.com/, a student run radio at Keele University
-* "Pi-Radio":http://piradio.de: a netradio and part-time FM broadcaster in Berlin, animated by an open community currently consisting of 30 independent groups
-* "Pytagor":http://www.radiopytagor.com/, a french local FM radio station (Adult CHR)
-* "RadioPi":doc-svn/radiopi.html, the radio of the École Centrale Paris
-* "SecurityCast Radio":http://http://www.securitycast.net/ is a radio that relays various computer security podcasts.
-* "Subflow":http://www.subflow.net operates two streams of free/libre music, one minimal-techno and one downtempo-dub.
-* And "many more":users.html radios...
+They are already using liquidsoap:
+* "Fréquence 3":doc-svn/frequence3.html, the first French webradio, broadcasting current hits, gold, mainly Pop/Rock;
+* "KUBE":http://www.kuberadio.com/, a student run radio at Keele University;
+* "Pi-Radio":http://piradio.de, a netradio and part-time FM broadcaster in Berlin, animated by an open community currently consisting of 30 independent groups;
+* "Pytagor":http://www.radiopytagor.com/, a french local FM radio station (Adult CHR);
+* "RadioPi":doc-svn/radiopi.html, the radio of the École Centrale Paris;
+* "SecurityCast Radio":http://http://www.securitycast.net/, a radio relaying various computer security podcasts;
+* "Subflow":http://www.subflow.net, minimal-techno and downtempo-dub free/libre music;
+* and "many more":users.html radios...
