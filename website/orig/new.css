@@ -1,0 +1,49 @@
+body {
+	background: url('images/design/grey_scale.png') repeat-x #fff ;
+	padding: 0;
+	margin: 0;
+	font-family: Bitstream Vera Sans, Tahoma, Verdana, Helvetica, sans-serif;
+}
+
+div.section {
+  position: absolute;
+  width: 20% ; height: 70% ;
+  margin-bottom: 50px  }
+div.section ul { padding-left: 1.2em }
+#savonet { left: 10% ; top: 20% }
+#community { right: 10% ; top: 20% }
+#liquidsoap { left: 35% ; right: 35% ; top: 10% ; width: 30% }
+
+img#logo { height: 7em ; border: 0px ; float: left; margin: 10px }
+
+div.section h1 {
+  // background: #111 ;
+  color: #fff ;
+  font-size: 1.5em ;
+  padding-top: 5px ;
+  text-align: center;
+  background: #906 ;
+  display: block ;
+  width: 75% ;
+  border-radius: 10px 10px 0px 0px ;
+  margin: 0px 0px 0px 0px ;
+}
+div.section > div.content {
+  padding: 15px ;
+  background: #fff ;
+  border-color: #906 ;
+  border-style: solid ;
+  border-width: 5px ;
+  border-radius: 0px 20px 20px 20px ;
+  margin: 0px 0px 0px 0px ;
+}
+
+div.item div.title { font-weight: bold }
+div.item div.content {
+  margin-left: 1em ;
+  border-width: 5px ;
+  border-radius: 0px 5px 5px 5px ;
+  margin-bottom: 0.5em ;
+}
+
+div.section h2 { color: #906 }
