@@ -1,0 +1,61 @@
+title: ON2: Test signals conference in October 2010
+
+**TODO**:
+
+* polish this
+* tex the presentation
+* update the website (better front page with users and publications more visible)
+
+h1. Presentation
+
+**Basic concept**: A notion of source, track, metadata, raw data;
+a streaming protocol; operators; compose (almost) at will; a language;
+many other things (requests, server, etc).
+
+**Features**: montrer du concret, les formats supportés, les libs et applis avec lesquelles on s'interface, quelques opérateurs frappants, etc.
+
+**Simple example**: playlist, fallback, code and graphical representation.
+
+**Transitions**: illustrer ainsi la flexibilité de l'approche.
+
+**Language**: je sais plus trop ce que j'imaginais ici, mais rien de trop technique...
+
+**Stream content and conversions**: montrer ça du point de vue audio, les applis usuelles ne permettent en effet pas de controler ce genre de chose (c'est plus un truc de lib genre gstreamer ou jack); peut etre parler de video et midi.
+
+**Clocks**: l'idée générale, les utilisations (cross, drift et lags, probablement pas l'aspect multicore).
+
+**Misc**: requests, server, external tools, etc.
+
+**Future**: video, community, real-time
+
+h1. Workshop
+
+1. Les bases:
+* jouer une sine sur la carte son
+* une playlist
+* une playlist et une queue en smooth_add, utilisation de telnet
+* jouer avec mix()
+* encoder un fichier
+* pe qques exos de prog de base, pour faire comprendre le let-in, les types
+
+2. Les besoin typiques en radio:
+* transitions, (smart)cross ou pas
+* une transition qui dépend du type de fichier
+* gestion du live avec harbor, embrayage manuel ou auto (re-utiliser les transitions vues au dessus)
+* détection de blanc
+* metadata
+* icecast/shoutcast
+* encodeurs externes?
+* output.file, rotations de fichier avec nom de fichier qui dépend de l'heure
+* un truc sur les conversions mono/stereo/dolby
+* request.dynamic, playlist.once & co
+* gérer les latences avec les clocks
+
+3. Au delà de l'audio:
+* midi: experimenter avec divers synthés, jouer des accords
+* midi: est-ce qu'on pourrait faire de la musique générative, ou au moins programmer des jingles statiques
+* streamripper en liq
+* vidéo: image statique pour youtube
+* vidéo: insérer une logo, mettre une bannière de texte
+* vidéo: slideshow, utilisation des transitions
+* la démo pps: bannière de texte interactive

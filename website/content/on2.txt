@@ -1,61 +1,21 @@
-title: ON2: Test signals conference in October 2010
+title: ON2: Test Signals
 
-**TODO**:
+Savonet will be at the "ON2: Test Signals":http://testsignals.org/ conference
+in Berlin, on October 25-26 2010.
+We will present liquidsoap, but also hold the first liquidsoap workshop.
 
-* polish this
-* tex the presentation
-* update the website (better front page with users and publications more visible)
+Everything is free but you need to 
+"register":http://wiki.sourcefabric.org/display/ON2/Registration.
+If you plan to come, don't hesitate to drop us a mail,
+especially for the workshop.
 
-h1. Presentation
+h3. Liquidsoap Workshop
 
-**Basic concept**: A notion of source, track, metadata, raw data;
-a streaming protocol; operators; compose (almost) at will; a language;
-many other things (requests, server, etc).
+The workshop will be help on Thursday, from 11am to 2pm or more.
+Everybody is welcome, beginners, advanced users and prospective contributors.
+Below is a list of topics that we will cover, proposing exercises and
+discussing various solutions.
+You are very welcome to ask for other things, but please
+"do so in advance":mailto:savonet-users@lists.sf.net.
 
-**Features**: montrer du concret, les formats supportés, les libs et applis avec lesquelles on s'interface, quelques opérateurs frappants, etc.
-
-**Simple example**: playlist, fallback, code and graphical representation.
-
-**Transitions**: illustrer ainsi la flexibilité de l'approche.
-
-**Language**: je sais plus trop ce que j'imaginais ici, mais rien de trop technique...
-
-**Stream content and conversions**: montrer ça du point de vue audio, les applis usuelles ne permettent en effet pas de controler ce genre de chose (c'est plus un truc de lib genre gstreamer ou jack); peut etre parler de video et midi.
-
-**Clocks**: l'idée générale, les utilisations (cross, drift et lags, probablement pas l'aspect multicore).
-
-**Misc**: requests, server, external tools, etc.
-
-**Future**: video, community, real-time
-
-h1. Workshop
-
-1. Les bases:
-* jouer une sine sur la carte son
-* une playlist
-* une playlist et une queue en smooth_add, utilisation de telnet
-* jouer avec mix()
-* encoder un fichier
-* pe qques exos de prog de base, pour faire comprendre le let-in, les types
-
-2. Les besoin typiques en radio:
-* transitions, (smart)cross ou pas
-* une transition qui dépend du type de fichier
-* gestion du live avec harbor, embrayage manuel ou auto (re-utiliser les transitions vues au dessus)
-* détection de blanc
-* metadata
-* icecast/shoutcast
-* encodeurs externes?
-* output.file, rotations de fichier avec nom de fichier qui dépend de l'heure
-* un truc sur les conversions mono/stereo/dolby
-* request.dynamic, playlist.once & co
-* gérer les latences avec les clocks
-
-3. Au delà de l'audio:
-* midi: experimenter avec divers synthés, jouer des accords
-* midi: est-ce qu'on pourrait faire de la musique générative, ou au moins programmer des jingles statiques
-* streamripper en liq
-* vidéo: image statique pour youtube
-* vidéo: insérer une logo, mettre une bannière de texte
-* vidéo: slideshow, utilisation des transitions
-* la démo pps: bannière de texte interactive
+TODO

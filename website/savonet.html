@@ -4,32 +4,125 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
   <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-    <title>Savonet / Liquidsoap :: Audio Stream Generation</title>
-    <link href="style.css" type="text/css" rel="stylesheet" />
-    <link href="homepage.css" type="text/css" rel="stylesheet" />
+    <title>Savonet / Liquidsoap :: Multimedia Stream Generation</title>
+    <link href="new.css" type="text/css" rel="stylesheet" />
   </head>
   <body>
-    <div id="wrapper">
-      <div id="header">
-        <div id="logo">
-          <h1>Liquidsoap</h1>
-          <h2>Audio Stream Generation</h2>
+
+    <div class="section" id="savonet">
+      <h1>Savonet</h1>
+      <div class="content">
+        <p>
+        The <a href="savonet.html">Savonet project</a>
+        builds software for multimedia streaming.
+        </p>
+
+        <div class="item">
+          <div class="title">Oct 10, 2010</div>
+          <div class="content">Savonet will be at the
+            <a href="http://testsignals.org">ON2: Test Signals</a>
+            <b>conference</b> in Berlin on Oct 25-26.
+            We'll give a presentation and workshop on Liquidsoap.
+            <a href="on2.html">More&hellip;</a>
+          </div>
+        </div>
+        <div class="item">
+          <div class="title">Sept 10, 2010</div>
+          <div class="content">
+            We wrote a new <b>article</b> (in English this time) describing
+            Liquidsoap and some of the new features of the upcoming
+            1.0 version.
+            <a href="publications.html">More&hellip;</a>
+          </div>
+        </div>
+        <div class="item">
+          <div class="title">Sept 07, 2010</div>
+          <div class="content">
+            We finally issued the first 1.0.0 beta <b>release</b>!
+            It came with the 0.9.3 bugfix version that closes
+            the 0.9 line.
+          </div>
         </div>
       </div>
-      <div>
-        <ul id="menu">
-          <li id="menu-about"><a href="index.html">about</a></li>
-          <li id="menu-download"><a href="download.html">download</a></li>
-          <li id="menu-support"><a href="documentation.html">documentation</a></li>
-          <li id="menu-developers"><a href="http://savonet.rastageeks.org/">developpers</a></li>
+    </div>
+
+    <div class="section" id="liquidsoap">
+      <h1>
+        Liquidsoap</h1>
+      <div class="content">
+        <p>
+        <img src="images/bottle_invert.png" id="logo" />
+        Our flagship is liquidsoap, a swiss-army knife
+        for multimedia streaming,
+        notably used for netradios.
+        It has tons of features, it's free and it's open-source!
+        </p>
+        <p>
+        Liquidsoap lets you to describe your streams in a powerful
+        and flexible language.
+        It offers a rich collection of operators that you can
+        combine at will,
+        giving you more power than you need for creating or transforming
+        stream.
+        But liquidsoap is still very light and easy to use,
+        in the Unix tradition of simple strong components working together.
+        </p>
+
+        <center><ol id="fleche123">
+            <li id="fleche123-is"><a href="doc-svn/index.html">Overview</a></li>
+            <li id="fleche123-dl"><a href="download.html">Download</a></li>
+            <li id="fleche123-ej"><a href="doc-svn/quick_start.html">Get 
+              started</a></li>
+        </ol></center>
+        <p>
+        Some examples of what you can do using Liquidsoap:
+        </p>
+        <ul>
+          <li>static or dynamic playlists</li>
+          <li>time-based selection of the audio source</li>
+          <li>quota- or time-based insertions or mixes of jingles</li>
+          <li>live DJ interventions</li>
+          <li>interactive user requests</li>
+          <li>fully-customizable transitions, <em>e.g.</em> crossfading</li>
+          <li>speech-synthesis of track metadata </li>
+          <li>simple access to remote files</li>
+          <li>
+          and <a href="doc-svn/index.html">much more</a>!</li>
         </ul>
-       </div>
-      <div id="content">
-        @body@
       </div>
-  <div>
-    <div id="footer"> 2003-2010 Savonet team</div>
-  </div>
-  </div>
+    </div>
+
+    <div class="section" id="community">
+      <h1>Community</h1>
+      <div class="content">
+        <p>
+        The best place for support and discussions is the
+        <a href="mailto:savonet-users@lists.sf.net">savonet-users</a> mailing 
+        list.
+        </p>
+        <p>
+        There are various projects for integrating liquidsoap with your website
+        (notably relying on Django, Plone, PHP, Perl...)
+        as well as a few graphical user interfaces, IRC bots, indexers, etc.
+        <a href="mailto:savonet-users@lists.sf.net">Contact us</a>
+        if you're looking for such
+        tools or would like to advertise your work.
+        </p>
+        <p>
+        They are already using liquidsoap:
+        </p>
+        <ul id="users">
+          <li><a href="doc-svn/frequence3.html">Fréquence 3</a></li>
+          <li><a href="http://www.kuberadio.com/">KUBE</a></li>
+          <li><a href="http://piradio.de">Pi-Radio</a></li>
+          <li><a href="http://www.radiopytagor.com/">Pytagor</a></li>
+          <li><a href="doc-svn/radiopi.html">RadioPi</a></li>
+          <li><a href="http://http://www.securitycast.net/">SecurityCast Radio</a></li>
+          <li><a href="http://www.subflow.net">Subflow</a></li>
+          <li>and <a href="users.html">many more</a>...</li>
+        </ul>
+      </div>
+    </div>
+
 </body>
 </html>
