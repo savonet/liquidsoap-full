@@ -106,7 +106,7 @@ $(PWD)/html/doc-%.html: $(PWD)/content/doc-%.txt $(LIQI) versioned.html snipped.
 
 $(PWD)/html/%.html: $(PWD)/content/%.txt $(LIQI) main.html
 	@echo Converting main doc $(<) to $(@)...
-	@test -d html || (mkdir html ; cp -rf orig/* html)
+	@test -d html/scripts || (mkdir -p html/scripts ; cp -rf orig/* html)
 	@test -d $(shell dirname $(@)) || (mkdir -p $(shell dirname $(@)))
 	@cd html && \
 	  $(LIQI) \
