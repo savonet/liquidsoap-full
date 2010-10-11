@@ -54,3 +54,36 @@ div.item div.content {
 }
 
 div.section h2 { color: #906 }
+
+.menu {
+  text-align: center;
+  position: relative ;
+  left: 10% ;
+  font-weight: bold
+}
+
+.menu ul{
+  padding-left: 0;
+  margin-left: 0;
+  height: 20px;
+}
+
+.menu ul li{
+  list-style: none;
+  display: inline;
+}
+
+.menu ul li a{
+  padding: 2px 0.5em;
+  text-decoration: none;
+  float: left;
+  color: white;
+  background-color: #906;
+  border-radius: 0px 0px 10px 10px ; 
+  border: 0px; 
+}
+
+.menu ul li a:hover{
+  background-color: #551A8B; /*You Can Change This Color*/
+}
+
