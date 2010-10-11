@@ -57,6 +57,6 @@ They are already using liquidsoap:
 * "Pi-Radio":http://piradio.de, a netradio and part-time FM broadcaster in Berlin, animated by an open community currently consisting of 30 independent groups;
 * "Pytagor":http://www.radiopytagor.com/, a french local FM radio station (Adult CHR);
 * "RadioPi":doc-svn/radiopi.html, the radio of the École Centrale Paris;
-* "SecurityCast Radio":http://http://www.securitycast.net/, a radio relaying various computer security podcasts;
+* "SecurityCast Radio":http://www.securitycast.net/, a radio relaying various computer security podcasts;
 * "Subflow":http://www.subflow.net, minimal-techno and downtempo-dub free/libre music;
 * and "many more":users.html radios...
