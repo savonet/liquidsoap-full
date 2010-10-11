@@ -13,9 +13,11 @@ h3. Liquidsoap Workshop
 
 The workshop will be help on Thursday, from 11am to 2pm or more.
 Everybody is welcome, beginners, advanced users and prospective contributors.
+This will be a unique opportunity for you to learn from the devs,
+and for us to get immediate feedback from users.
 
-You are expected to bring your laptop for the workshop.
-If possible, get the latest beta release of liquidsoap 1.0.0,
+You are expected to **bring your laptop**.
+If possible, get the **latest beta** release of liquidsoap 1.0.0,
 or at least a functioning liquidsoap.
 But we can also help you to build and install it.
 
