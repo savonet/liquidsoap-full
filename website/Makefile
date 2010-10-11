@@ -75,7 +75,7 @@ $(PWD)/html/doc-%/reference.html: $(PWD)/html/doc-%/reference.txt versioned.html
 	  --subst version:$(*) --basedir .. \
 	  -i $(<) -o $(@)
 
-$(PWD)/html/doc-%/settings.html: $(PWD)/html/doc-%/settings.txt versioned.html snipped.html
+$(PWD)/html/doc-%/settings.html: $(PWD)/html/doc-%/settings.txt versioned.html snippet.html
 	@cd html/doc-$(*) && $(LIQI) \
 	  --template ../../versioned.html --snippet-template ../../snippet.html \
 	  --subst version:$(*) --basedir .. \
@@ -91,7 +91,7 @@ $(PWD)/html/doc-%/scripts/index.html: versioned.html
 			--subst rel:../ --subst version:$(*) --basedir ../.. \
 		    -i $(shell dirname $(@))/index.txt -o $(@)
 
-$(PWD)/html/doc-%.html: $(PWD)/content/doc-%.txt $(LIQI) versioned.html snipped.html
+$(PWD)/html/doc-%.html: $(PWD)/content/doc-%.txt $(LIQI) versioned.html snippet.html
 	@echo Converting $(<) to $(@)...
 	@test -d html || (mkdir html ; cp -rf orig/* html)
 	@test -d $(shell dirname $(@)) || (mkdir -p $(shell dirname $(@)))

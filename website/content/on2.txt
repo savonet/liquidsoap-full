@@ -13,9 +13,30 @@ h3. Liquidsoap Workshop
 
 The workshop will be help on Thursday, from 11am to 2pm or more.
 Everybody is welcome, beginners, advanced users and prospective contributors.
-Below is a list of topics that we will cover, proposing exercises and
-discussing various solutions.
-You are very welcome to ask for other things, but please
-"do so in advance":mailto:savonet-users@lists.sf.net.
 
-TODO
+You are expected to bring your laptop for the workshop.
+If possible, get the latest beta release of liquidsoap 1.0.0,
+or at least a functioning liquidsoap.
+But we can also help you to build and install it.
+
+Below is a list of topics that we will cover, proposing problems,
+guiding you through solving them and
+discussing various solutions.
+
+**1. Getting started**:
+Get to know liquidsoap, playing with audio streams to get used
+to the main concepts in liquidsoap.
+Learn to run liquidsoap is various modes, from one-liners to daemon.
+
+**2. Typical netradio examples**:
+We will go through typical needs for netradios, covering transitions,
+complex playlists, live show handling, blank detection, metadata handling,
+etc.
+
+**3. Beyond audio**:
+For those who are interested, we can go through more advanced examples
+exploring the possibilities of video and midi support in liquidsoap.
+
+You are very welcome to ask for other things, but please
+"do so in advance":mailto:savonet-users@lists.sf.net
+for best results, as this will give us the opportunity to prepare more.
