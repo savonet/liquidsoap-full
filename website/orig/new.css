@@ -28,15 +28,22 @@ div.section h1 {
   border-radius: 10px 10px 0px 0px ;
   margin: 0px 0px 0px 0px ;
 }
+
 div.section > div.content {
   padding: 15px ;
   background: #fff ;
   border-color: #906 ;
   border-style: solid ;
   border-width: 5px ;
-  border-radius: 0px 20px 20px 20px ;
   margin: 0px 0px 0px 0px ;
 }
+
+#liquidsoap h1 { margin-left: auto ; margin-right: auto }
+#liquidsoap .content { border-radius: 20px 20px 20px 20px }
+#community h1 { margin-left: 0 ; margin-right: auto }
+#community .content { border-radius: 0px 20px 20px 20px }
+#savonet h1 { margin-right: 0 ; margin-left: auto }
+#savonet .content { border-radius: 20px 0px 20px 20px }
 
 div.item div.title { font-weight: bold }
 div.item div.content {
