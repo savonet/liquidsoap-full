@@ -62,26 +62,26 @@ $(PWD)/html/doc-%/settings.txt:
 
 # HTML generation
 
-$(PWD)/html/index.html: $(PWD)/content/index.txt $(LIQI)
+$(PWD)/html/index.html: $(PWD)/content/index.txt $(LIQI) savonet.html snippet.html
 	@echo Converting $(<) to $(@)...
 	@test -d html || (mkdir -p html/scripts ; cp -rf orig/* html)
 	@cd $(PWD)/html && $(LIQI) \
 	  --template ../savonet.html --snippet-template ../snippet.html \
 	  -i $(<) -o $(@)
 
-$(PWD)/html/doc-%/reference.html: $(PWD)/html/doc-%/reference.txt
+$(PWD)/html/doc-%/reference.html: $(PWD)/html/doc-%/reference.txt versioned.html snippet.html
 	@cd html/doc-$(*) && $(LIQI) \
 	  --template ../../versioned.html --snippet-template ../../snippet.html \
 	  --subst version:$(*) --basedir .. \
 	  -i $(<) -o $(@)
 
-$(PWD)/html/doc-%/settings.html: $(PWD)/html/doc-%/settings.txt
+$(PWD)/html/doc-%/settings.html: $(PWD)/html/doc-%/settings.txt versioned.html snipped.html
 	@cd html/doc-$(*) && $(LIQI) \
 	  --template ../../versioned.html --snippet-template ../../snippet.html \
 	  --subst version:$(*) --basedir .. \
 	  -i $(<) -o $(@)
 
-$(PWD)/html/doc-%/scripts/index.html:
+$(PWD)/html/doc-%/scripts/index.html: versioned.html
 	@echo Generating script index for $(*)
 	@cd $(shell dirname $(@)) && \
           if [ "$(shell basename $(shell dirname $(@)))" != "html" ]; then \
@@ -91,7 +91,7 @@ $(PWD)/html/doc-%/scripts/index.html:
 			--subst rel:../ --subst version:$(*) --basedir ../.. \
 		    -i $(shell dirname $(@))/index.txt -o $(@)
 
-$(PWD)/html/doc-%.html: $(PWD)/content/doc-%.txt $(LIQI)
+$(PWD)/html/doc-%.html: $(PWD)/content/doc-%.txt $(LIQI) versioned.html snipped.html
 	@echo Converting $(<) to $(@)...
 	@test -d html || (mkdir html ; cp -rf orig/* html)
 	@test -d $(shell dirname $(@)) || (mkdir -p $(shell dirname $(@)))
@@ -104,7 +104,7 @@ $(PWD)/html/doc-%.html: $(PWD)/content/doc-%.txt $(LIQI)
 		--subst version:$(*) --basedir .. \
 	    -i $(<) -o $(@)
 
-$(PWD)/html/%.html: $(PWD)/content/%.txt $(LIQI)
+$(PWD)/html/%.html: $(PWD)/content/%.txt $(LIQI) main.html
 	@echo Converting main doc $(<) to $(@)...
 	@test -d html || (mkdir html ; cp -rf orig/* html)
 	@test -d $(shell dirname $(@)) || (mkdir -p $(shell dirname $(@)))
