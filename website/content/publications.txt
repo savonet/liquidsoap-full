@@ -1,6 +1,6 @@
 title: Articles about Liquidsoap
 
-h3. The theory behind Liquidsoap
+h2. The theory behind Liquidsoap
 
 h4. Liquidsoap: a High-Level Programming Language for Multimedia Streaming
 
