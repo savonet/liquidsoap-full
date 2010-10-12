@@ -1,6 +1,6 @@
 title: Proud Savonet users
 
-h3. Some Savonet/Liquidsoap users
+h2. Some Savonet/Liquidsoap users
 
 We know the following netradios to use Liquidsoap in various ways:
 
