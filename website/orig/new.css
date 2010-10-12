@@ -7,8 +7,9 @@ body {
 
 div.section {
   position: absolute;
-  width: 20% ; height: 70% ;
-  margin-bottom: 50px  }
+  width: 20% ;
+  padding-bottom: 20px
+}
 div.section ul { padding-left: 1.2em }
 #savonet { left: 10% ; top: 20% }
 #community { right: 10% ; top: 20% }
@@ -127,5 +128,3 @@ div.section h2 { color: #906 }
 #liq123 li#liq123-ej a {
   background: #609;
 }
-
-
