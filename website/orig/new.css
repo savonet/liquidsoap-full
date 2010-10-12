@@ -76,9 +76,26 @@ div.section > div.content {
     margin-left: auto;
     margin-right: auto;
 }
+
+/* CODE */
+
+pre {
+  padding-left: 10px ;
+  border-left: solid 1px ;
+  border-right: solid 1px ;
+  font: monospace, fixed ;
+  white-space: pre ;
+  color: #444 ;
+  overflow: auto;
+}
+code {
+    background-color: #eee;
+    font: monospace, fixed;
+}
 #main .content img.grab
 {
     display: block;
+    border: none;
     margin-right: 0;
 }
 
