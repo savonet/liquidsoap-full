@@ -68,6 +68,17 @@ div.section > div.content {
     padding-left: 8%;
     padding-right: 8%;
 }
+#main .content img
+{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+#main .content img.grab
+{
+    display: block;
+    margin-right: 0;
+}
 
 div.item div.title { font-weight: bold }
 div.item div.content {
