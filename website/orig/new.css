@@ -1,8 +1,8 @@
 body {
-	background: url('images/design/grey_scale.png') repeat-x #fff ;
-	padding: 0;
-	margin: 0;
-	font-family: Bitstream Vera Sans, Tahoma, Verdana, Helvetica, sans-serif;
+    background: url('images/design/grey_scale.png') repeat-x #fff ;
+    padding: 0;
+    margin: 0;
+    font-family: Bitstream Vera Sans, Tahoma, Verdana, Helvetica, sans-serif;
 }
 
 div.section {
@@ -78,7 +78,7 @@ div.section h2 { color: #906 }
 
 .menu ul{
   padding-left: 0;
-  margin-left: 0;
+  margin: 0;
   height: 20px;
 }
 

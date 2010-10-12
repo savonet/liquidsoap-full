@@ -62,9 +62,10 @@ $(PWD)/html/doc-%/settings.txt:
 
 # HTML generation
 
-$(PWD)/html/index.html: $(PWD)/content/index.txt $(LIQI) savonet.html snippet.html
+$(PWD)/html/index.html: $(PWD)/content/index.txt $(LIQI) savonet.html snippet.html $(wildcard orig/*)
 	@echo Converting $(<) to $(@)...
-	@test -d html || (mkdir -p html/scripts ; cp -rf orig/* html)
+	@test -d html || (mkdir -p html/scripts)
+	@cp -rf orig/* html
 	@cd $(PWD)/html && $(LIQI) \
 	  --template ../savonet.html --snippet-template ../snippet.html \
 	  -i $(<) -o $(@)
