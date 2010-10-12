@@ -26,6 +26,7 @@ div.section h1 {
   display: block ;
   width: 75% ;
   border-radius: 10px 10px 0px 0px ;
+  -moz-border-radius: 10px 10px 0px 0px ;
   margin: 0px 0px 0px 0px ;
 }
 
@@ -39,17 +40,30 @@ div.section > div.content {
 }
 
 #liquidsoap h1 { margin-left: auto ; margin-right: auto }
-#liquidsoap .content { border-radius: 20px 20px 20px 20px }
+#liquidsoap .content
+{
+    border-radius: 20px 20px 20px 20px;
+    -moz-border-radius: 20px 20px 20px 20px;
+}
 #community h1 { margin-left: 0 ; margin-right: auto }
-#community .content { border-radius: 0px 20px 20px 20px }
+#community .content
+{
+    border-radius: 0px 20px 20px 20px;
+    -moz-border-radius: 0px 20px 20px 20px;
+}
 #savonet h1 { margin-right: 0 ; margin-left: auto }
-#savonet .content { border-radius: 20px 0px 20px 20px }
+#savonet .content
+{
+    border-radius: 20px 0px 20px 20px;
+    -moz-border-radius: 20px 0px 20px 20px;
+}
 
 div.item div.title { font-weight: bold }
 div.item div.content {
   margin-left: 1em ;
   border-width: 5px ;
   border-radius: 0px 5px 5px 5px ;
+  -moz-border-radius: 0px 5px 5px 5px ;
   margin-bottom: 0.5em ;
 }
 
@@ -79,8 +93,9 @@ div.section h2 { color: #906 }
   float: left;
   color: white;
   background-color: #906;
-  border-radius: 0px 0px 10px 10px ; 
-  border: 0px; 
+  border-radius: 0px 0px 10px 10px ;
+  -moz-border-radius: 0px 0px 10px 10px ;
+  border: 0px;
 }
 
 .menu ul li a:hover{
