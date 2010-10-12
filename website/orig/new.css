@@ -5,21 +5,23 @@ body {
     font-family: Bitstream Vera Sans, Tahoma, Verdana, Helvetica, sans-serif;
 }
 
+/* THE FRAMES/TABS */
+
 div.section {
   position: absolute;
   width: 20% ;
   padding-bottom: 20px
 }
-div.section ul { padding-left: 1.2em }
 #savonet { left: 10% ; top: 20% }
 #community { right: 10% ; top: 20% }
 #liquidsoap { left: 35% ; right: 35% ; top: 10% ; bottom: 10% ; width: 30% }
 #main { left: 20% ; right: 20% ; top: 10% ; width: 60% }
 
 img#logo { height: 7em ; border: 0px ; float: left; margin: 10px }
+div.section ul { padding-left: 1.2em }
 
 div.section h1 {
-  // background: #111 ;
+  /* background: #111 ; */
   color: #fff ;
   font-size: 1.5em ;
   padding-top: 5px ;
@@ -59,7 +61,7 @@ div.section > div.content {
     border-radius: 20px 0px 20px 20px;
     -moz-border-radius: 20px 0px 20px 20px;
 }
-#main h1 { margin-left: auto ; margin-right: 20px ; width: 40% }
+#main h1 { margin-right: auto ; margin-left: 20px ; width: 40% }
 #main .content
 {
     border-radius: 20px 20px 20px 20px;
@@ -80,6 +82,8 @@ div.section > div.content {
     margin-right: 0;
 }
 
+/* NEWS (homepage) */
+
 div.item div.title { font-weight: bold }
 div.item div.content {
   margin-left: 1em ;
@@ -91,13 +95,14 @@ div.item div.content {
 
 div.section h2 { color: #906 }
 
+/* MENU */
+
 .menu {
   text-align: center;
   position: relative ;
-  left: 10% ; width: 90% ;
-  font-weight: bold
+  right: 20% ; width: 100% ; /* to make it left change "float" below */
+  font-weight: bold ;
 }
-.menu#main_menu { left: 20% ; width: 80% }
 
 .menu ul{
   padding-left: 0;
@@ -113,7 +118,7 @@ div.section h2 { color: #906 }
 .menu ul li a{
   padding: 2px 0.5em;
   text-decoration: none;
-  float: left;
+  float: right;
   color: white;
   background-color: #906;
   border-radius: 0px 0px 10px 10px ;
@@ -131,11 +136,11 @@ div.section h2 { color: #906 }
   margin-top: 2em ;
   margin-bottom: 2em ;
   text-align: center;
-  word-spacing: -0.3em; // no space between blocks...
+  word-spacing: -0.3em; /* no space between blocks... */
 }
 
 #liq123 div {
-  word-spacing: 0px; // restore spacing...
+  word-spacing: 0px; /* restore spacing... */
   text-align: center;
   display: inline ;
   padding: 0.5em 1em 0.5em 1em ;
