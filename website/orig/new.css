@@ -103,36 +103,29 @@ div.section h2 { color: #906 }
 }
 
 #liq123 {
-        background: transparent url("images/blocks/liq123.png") no-repeat scroll top left;
-        width: 393px;
-        height: 57px;
-        list-style-type: none;
-        padding: 0;
-        margin: 2em 0;
-        position: relative;
+  list-style-type: none;
+  padding-left: 0;
+  margin: 0 2em 0 2em ;
 }
 
 #liq123 li a {
-        text-indent: -9000px;
-        display: block;
-        margin: 0;
-        padding: 0;
-        height: 57px;
-        position: absolute;
+  text-align: center;
+  color: white;
+  display: block;
+  text-decoration: none;
+  padding: 3px 0px 3px 0 ;
 }
 
 #liq123 li#liq123-is a {
-        width: 113px;
+        background: #c00 ;
 }
 
 #liq123 li#liq123-dl a {
-        width: 135px;
-        left: 113px;
+  background: #906;
 }
 
 #liq123 li#liq123-ej a {
-        width: 82px;
-        left: 248px;
+  background: #609;
 }
 
 
