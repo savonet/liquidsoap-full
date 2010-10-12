@@ -13,7 +13,8 @@ div.section {
 div.section ul { padding-left: 1.2em }
 #savonet { left: 10% ; top: 20% }
 #community { right: 10% ; top: 20% }
-#liquidsoap { left: 35% ; right: 35% ; top: 10% ; width: 30% }
+#liquidsoap { left: 35% ; right: 35% ; top: 10% ; bottom: 10% ; width: 30% }
+#main { left: 20% ; right: 20% ; top: 10% ; width: 60% }
 
 img#logo { height: 7em ; border: 0px ; float: left; margin: 10px }
 
@@ -57,6 +58,12 @@ div.section > div.content {
 {
     border-radius: 20px 0px 20px 20px;
     -moz-border-radius: 20px 0px 20px 20px;
+}
+#main h1 { margin-left: auto ; margin-right: auto }
+#main .content
+{
+    border-radius: 20px 20px 20px 20px;
+    -moz-border-radius: 20px 20px 20px 20px;
 }
 
 div.item div.title { font-weight: bold }
