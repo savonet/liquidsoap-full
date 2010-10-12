@@ -11,7 +11,7 @@ especially for the workshop.
 
 h3. Liquidsoap Workshop
 
-The workshop will be help on Thursday, from 11am to 2pm or more.
+The workshop will be held on Friday, from 11am to 2pm or more.
 Everybody is welcome, beginners, advanced users and prospective contributors.
 This will be a unique opportunity for you to learn from the devs,
 and for us to get immediate feedback from users.
