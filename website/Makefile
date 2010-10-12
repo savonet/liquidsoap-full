@@ -102,7 +102,7 @@ $(PWD)/html/doc-%.html: $(PWD)/content/doc-%.txt $(LIQI) versioned.html snippet.
 	  mkdir -p scripts; fi && \
 	  $(LIQI) \
 	    --template ../../versioned.html --snippet-template ../../snippet.html \
-		--subst version:$(*) --basedir .. \
+		--subst version:`dirname $(*)` --basedir .. \
 	    -i $(<) -o $(@)
 
 $(PWD)/html/%.html: $(PWD)/content/%.txt $(LIQI) main.html
