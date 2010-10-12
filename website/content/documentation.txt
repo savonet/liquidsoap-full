@@ -1,4 +1,4 @@
-title: Savonet documentation
+title: Documentation
 
 h2. Savonet documentation
 
