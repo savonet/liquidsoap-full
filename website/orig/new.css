@@ -59,7 +59,7 @@ div.section > div.content {
     border-radius: 20px 0px 20px 20px;
     -moz-border-radius: 20px 0px 20px 20px;
 }
-#main h1 { margin-left: auto ; margin-right: auto }
+#main h1 { margin-left: auto ; margin-right: 20px ; width: 40% }
 #main .content
 {
     border-radius: 20px 20px 20px 20px;
@@ -97,6 +97,7 @@ div.section h2 { color: #906 }
   left: 10% ; width: 90% ;
   font-weight: bold
 }
+.menu#main_menu { left: 20% ; width: 80% }
 
 .menu ul{
   padding-left: 0;
@@ -157,4 +158,12 @@ div.section h2 { color: #906 }
 
 #liq123 #liq123-ej {
   background: #609;
+}
+
+#footer {
+  font-size: 8pt;
+  text-align: right;
+  padding-top: 5em ;
+  color: #666;
+  clear: both;
 }
