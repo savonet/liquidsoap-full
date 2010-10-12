@@ -1,14 +1,19 @@
 title: Savonet documentation
 
-h3. Savonet documentation
+h2. Savonet documentation
 
-Latest releases:
+h3. Latest releases
 
 * "Latest release (1.0.0 beta1)":doc-1.0.0-beta1/documentation.html
 * "Latest developement trunk":doc-svn/documentation.html
 
-Previous releases:
+h3. Previous releases
+
 * "0.9.2 and 0.9.3":doc-0.9.2/documentation.html
 * "0.9.1":doc-0.9.1/documentation.html
 * "0.9.0":doc-0.9.0/documentation.html
 * "0.3.8 and 0.3.8.1":doc-0.3.8/documentation.html
+
+h3. Behind the curtains
+
+* "Some publications":publications.html explaining the theory behing Liquidsoap
