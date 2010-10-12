@@ -65,6 +65,8 @@ div.section > div.content {
     border-radius: 20px 20px 20px 20px;
     -moz-border-radius: 20px 20px 20px 20px;
     text-align: justify;
+    padding-left: 8%;
+    padding-right: 8%;
 }
 
 div.item div.title { font-weight: bold }
