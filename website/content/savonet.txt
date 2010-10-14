@@ -10,7 +10,7 @@ in particular bindings of widespread C libraries such as
 SSL, Vorbis, Mad, Lame, Jack, ALSA, LADSPA, etc.
 
 The project was started in 2003 by David Baelde and Samuel Mimram,
-two computer science students at "ENS Lyon":http://www.ens-lyon.org/DI, France.
+two computer science students at "ENS Lyon":http://www.ens-lyon.fr/DI, France.
 It became the official promotion-wide project the next year.
 By the end of the semester,
 our final demo was a big failure, but a few of us kept working at
