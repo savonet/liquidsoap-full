@@ -2,11 +2,21 @@ title: Savonet
 
 h3. What is Savonet?
 
-Savonet is a group of open-source developpers working on audio, with a focus on streaming and webradios. Savonet software is mainly written in "OCaml":http://ocaml.org. At the core of Savonet is Liquidsoap, the programming language that ties all the pieces together. Savonet also provides
+Savonet is a group of open-source developpers working on multimedia streaming, with a focus on web radios. Savonet software is mainly written in "OCaml":http://ocaml.org.
+Our main end-user tool is Liquidsoap, the programming language that ties all the pieces together. Savonet also provides
 "OCaml libraries":http://sourceforge.net/project/showfiles.php?group_id=89802
 to the open-source community,
-especially bindings of widespread C libraries such as
-Vorbis, Mad, Lame, Jack, ALSA, LADSPA, etc.
+in particular bindings of widespread C libraries such as
+SSL, Vorbis, Mad, Lame, Jack, ALSA, LADSPA, etc.
+
+The project was started in 2003 by David Baelde and Samuel Mimram,
+two computer science students at "ENS Lyon":http://www.ens-lyon.org/DI, France.
+It became the official promotion-wide project the next year.
+By the end of the semester,
+our final demo was a big failure, but a few of us kept working at
+it, so that the project eventually took off and attracted new
+contributors. Romain Beauxis joined the project in 2006, to quickly
+become one of the three main developers.
 
 h3. Contacting Savonet
 
@@ -26,9 +36,6 @@ developpers are listed below, with their nick(s) on IRC:
 * "Romain Beauxis":http://blog.rastageeks.org/ (@toots@)
 * Peter Brooks (@theneb@)
 * Julien Cristau
-* Olivier Delande
 * "Stéphane Gimenez":http://www.pps.jussieu.fr/~gimenez/ (@gim@)
 * "Samuel Mimram":http://www.pps.jussieu.fr/~smimram/ (@smimou@, @smimram@, @ppsmimou@)
-* Clément Renard (@Clem@)
-* Frank Spijkerman
 * Vincent Tabard (@balbinus@)
