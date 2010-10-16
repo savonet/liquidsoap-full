@@ -1,22 +1,20 @@
-title: ON2: Test signals conference in October 2010
+title: ON2 Test signals
 
-**TODO**:
+Some material for the ON2 Test Signals conference, held in Oct 2010 in Berlin.
 
-* polish this
-* tex the presentation
-* update the website (better front page with users and publications more visible)
+h2. Presentation
 
-h1. Presentation
-
-**Basic concept**: A notion of source, track, metadata, raw data;
+**Basic concepts**: A notion of source, track, metadata, raw data;
 a streaming protocol; operators; compose (almost) at will; a language;
 many other things (requests, server, etc).
+Compare with related tools and libs.
 
-**Features**: montrer du concret, les formats supportés, les libs et applis avec lesquelles on s'interface, quelques opérateurs frappants, etc.
+**Features**: Some more concrete things, supported formats, libraries and 
+applications interfaced with liquidsoap, a few striking operators, etc.
 
-**Simple example**: playlist, fallback, code and graphical representation.
+**Simple example**: Playlist, fallback, code and graphical representation.
 
-**Transitions**: illustrer ainsi la flexibilité de l'approche.
+**Transitions**: A good showcase of the flexibility of our approach.
 
 **Language**: je sais plus trop ce que j'imaginais ici, mais rien de trop technique...
 
@@ -28,7 +26,14 @@ many other things (requests, server, etc).
 
 **Future**: video, community, real-time
 
-h1. Workshop
+h2. Workshop
+
+We propose a series of exercises and case studies,
+together with solutions and discussion. They are structured in three
+parts:
+* "Basic concepts":on2_part1.html
+* "Typical radio needs":on2_part2.html
+* "Advanced topics":on2_part3.html
 
 1. Les bases:
 * jouer une sine sur la carte son

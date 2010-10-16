@@ -1,0 +1,141 @@
+title: Liquidsoap Workshop, part I
+
+This part starts from scratch. All you need is a working install
+of liquidsoap.
+If you don't have one already, we can help you;
+but if you haven't, check the "corresponding page":download.html.
+
+On the day of the workshop we'll introduce the basic concepts,
+otherwise you can check out the "quick start":doc-svn/quick_start.html.
+
+h2. Run liquidsoap on one-liners
+
+A good way to test your install and get started
+is to execute very small liquidsoap programs.
+Such "one-liners" are also often useful to accomplish simple tasks.
+
+h3. Play a synthesized sound
+
+Simply execute the following command,
+and you should hear a 440Hz sound on your soundcard:
+%%
+liquidsoap 'out(sine())'
+%%
+
+Did it work? If so, try to modify it:
+* Change the pitch. Hint: get the doc of @sine@ using @liquidsoap -h sine@ or "online":doc-svn/reference.html.
+* Use a different wave shape, or perhaps some white noise. Hint: lookup the "API":doc-svn/reference.html in the @Source / Input@ section.
+
+h3. Play a remote stream, discover fallibility
+
+Try to execute the liquidsoap expression
+@out(input.http("http://ice.rosebud-media.de:8000/88vier"))@.
+You should now be listening to "Pi-Radio":http://piradio.de,
+unless you have no network connection, in which case the
+@input.http(...)@ source _fails_.
+
+The output operator @out@ is okay with failure: it simply plays silence
+when the source fails, waiting for it to be ready again.
+But some operators are stricter.
+If you try
+@output.ao(input.http("http://ice.rosebud-media.de:8000/88vier"))@,
+the AO output (which uses libao to access your soundcard)
+warns you that there might be a failure.
+To ignore this problem, pass @fallible=true@ to the output.
+
+This might seem annoying
+but it can make sense if you have listeners and you want to make
+sure that your stream is always up and running for them.
+
+h3. Play a list of files
+
+The @playlist@ operator can be used to build a source that plays
+a list of files. The resulting source will be fallible.
+You can either pass a directory name, or a text file containing the
+list of files.
+There are lots of possibilities here, but for now just look
+at the @mode@ parameter; we'll learn more later.
+
+h3. An interactive example
+
+Suppose we want to be able to request a particular file for playout
+instead of the automatically chosen files of the playlist.
+This is achieved by wrapping the playlist in a fallback choice
+with a request queue:
+%%
+out(fallback([request.queue(id="q"),playlist("music")]))
+%%
+
+If you run this example, you'll hear your playlist, because the queue
+is empty. The queue can be fed through _server commands_. Enable the
+telnet server interface by passing @-t@ on liquidsoap's command line,
+and connect to it using @telnet localhost 1234@.
+* Type @help@, find the command for pushing a request (by its filename) in the queue, and try it.
+* Find the command for skipping the current track. If you skip a playlist track after having pushed a request in the queue, you should hear that request -- unless the request failed to be prepared.
+* Find the command for listing the next requests in queue. They are given by their request id (RID); the commands @request.metadata@ and @request.trace@ give you info from the RID.
+* Also notice commands for listing the next files to be played by the playlist (depends on the playlist more), and reloading the playlist.
+* Try setting @track_sensitive=false@ for the fallback, see what it does (better, guess what it does from the doc).
+
+h3. Encode a file
+
+You have learned how to build a few sources, synthesizing sound from scratch,
+from a remote stream or from a list of files. Now, instead of playing the
+stream directly to your soundcard, we'll encode it and save it to a local
+file:
+%%
+output.file(%vorbis,"test.ogg",<SOURCE>)
+%%
+Here @<SOURCE>@ is whatever you want, for example @sine()@.
+
+You can tweak the options of the encoding format, or change the encoding
+format; the available options are listed "here":doc-svn/encoding_formats.html.
+You can change the number of channels (for example, using @%vorbis(mono)@)
+but this may create problems with a playlist or remote stream,
+because conversions are not implicit in liquidsoap;
+we'll see later how to deal with them.
+
+h3. Icecast output
+
+You can now easily change the file example to send you stream to an
+icecast server: simply use @output.icecast@ instead of @output.file@,
+passing a @mount@ parameter instead of a filename,
+and perhaps overriding the defaults for @host@ (@"127.0.0.1"@)
+and @password@ (@"hackme"@).
+You just created your first internet radio using liquidsoap!
+
+If you have control over the icecast server (or over the network link to that
+server) you can simulate a loss of connection. Notice that liquidsoap only
+attempts once to reconnect, then fails and shuts down. For another behavior
+that tolerates more persistent failures, set @restart=true@.
+
+h3. Mixing table
+
+**TODO** May be useful to experiment with the notion of readiness and track,
+and to play with the GUI and get excited about more possibilities...
+But it doesn't seem too crucial: perhaps in another part?
+
+h2. Using liquidsoap in production
+
+One-liners are good for one-shot uses, but not the most convenient
+for more complex liquidsoap programs, and for saving/editing the program.
+
+h3. Running a script file
+
+Write the interactive example expression in a file, say @test.liq@.
+* You can run it using @liquidsoap -t - < test.liq@, you get the same behavior as before.
+* If you run it using @liquidsoap -t test.liq@ the logs will be written in @test.log@ in the default logging directory. This can fail as you may not have access to that directory. Change the directory using the setting (see "how to get help":doc-svn/help.html about that) @log.file.path@. Then use the settings @log.stdout@ and @log.file@ for logging to the terminal and not to a file.
+* Finally, find the setting for getting rid of the @-t@ option on the command line.
+* You can also use @#!/usr/bin/liquidsoap@ (adapt the path) as the first line of your script to directly run @./test.liq@ instead of @liquidsoap test.liq@ (you need to @chmod +x test.liq@).
+
+You can also load several scripts and expression on the command line. The last
+script or expression is taken as the main one, and determines the logging behavior of liquidsoap.
+
+h3. Daemon mode
+
+Finally, the @-d@ command-line option (or @init.daemon@ setting) triggers
+the _daemon mode_ where liquidsoap detaches from the terminal to run in the
+background.
+
+h2. Get comfortable with the language
+
+TODO
