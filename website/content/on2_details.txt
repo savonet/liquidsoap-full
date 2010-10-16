@@ -35,16 +35,9 @@ parts:
 * "Typical radio needs":on2_part2.html
 * "Advanced topics":on2_part3.html
 
-1. Les bases:
-* jouer une sine sur la carte son
-* une playlist
-* une playlist et une queue en smooth_add, utilisation de telnet
-* jouer avec mix()
-* encoder un fichier
-* pe qques exos de prog de base, pour faire comprendre le let-in, les types
-
 2. Les besoin typiques en radio:
 * transitions, (smart)cross ou pas
+* smooth_add
 * une transition qui dépend du type de fichier
 * gestion du live avec harbor, embrayage manuel ou auto (re-utiliser les transitions vues au dessus)
 * détection de blanc
@@ -57,6 +50,7 @@ parts:
 * gérer les latences avec les clocks
 
 3. Au delà de l'audio:
+* jouer avec mix(): may be useful to experiment with the notion of readiness and track, and to play with the GUI and get excited about more possibilities...
 * midi: experimenter avec divers synthés, jouer des accords
 * midi: est-ce qu'on pourrait faire de la musique générative, ou au moins programmer des jingles statiques
 * streamripper en liq
