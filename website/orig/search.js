@@ -18,4 +18,4 @@ function show_search()
 }
 
 var menu = document.getElementsByClassName("menu")[0].getElementsByTagName("ul")[0];
-menu.innerHTML = '<li><a id="search_btn" onclick="show_search()">search</a></li>' + menu.innerHTML;
+menu.innerHTML = '<li><a id="search_btn" href="#" onclick="show_search()">search</a></li>' + menu.innerHTML;
