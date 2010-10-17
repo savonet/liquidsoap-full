@@ -5,7 +5,7 @@
 <head>
   <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
   <title>Savonet / Liquidsoap @version@ :: Multimedia Stream Generation</title>
-  <link href="@rel@new.css" type="text/css" rel="stylesheet" />
+  <link href="new.css" type="text/css" rel="stylesheet" />
 </head>
 <body>
   <div class="menu">
@@ -15,15 +15,23 @@
       <li id="menu-support">
 	<a href="documentation.html">documentation</a></li>
       <li id="menu-download">
-	<a href="@rel@download.html">download</a></li>
+	<a href="download.html">download</a></li>
       <li id="menu-about">
-	<a href="@rel@index.html">about</a></li>
+	<a href="index.html">about</a></li>
     </ul>
   </div>
   <div class="section" id="main">
-    <h1>Savonet : @title@</h1>
-    <div class="content">
-      @body@
+    <h1>Savonet: search results</h1>
+    <div class="content" style="width: 800px;">
+      <div id="cse-search-results"></div>
+      <script type="text/javascript">
+        var googleSearchIframeName = "cse-search-results";
+        var googleSearchFormName = "cse-search-box";
+        var googleSearchFrameWidth = 800;
+        var googleSearchDomain = "www.google.com";
+        var googleSearchPath = "/cse";
+      </script>
+      <script type="text/javascript" src="http://www.google.com/afsonline/show_afs_search.js"></script>
       <div id="footer">2003-2010 Savonet team</div>
     </div>
   </div>
