@@ -1,16 +1,15 @@
 title: Liquidsoap Workshop, part II
 
-h2. Building an advanced stream, part 1: file-based sources
+h2. Building an advanced stream: file-based sources
 
-The purpose of this part is to document and illustrate
-the creation of an advanced stream using static files. 
+The purpose of this part is to document and illustrate the creation of an
+advanced stream using static files.
 
-In order to be self-contained, we will use here only
-pure liquidsoap scripting functionalities. However, all the 
-parts that use pre-defined functions can be implemented using
-external script, which is the most commong practice and is very 
-convenient to integrate your liquidsoap stream into the framework
-you use to manage your radio.
+In order to be self-contained, we will use here only pure liquidsoap scripting
+functionalities. However, all the parts that use pre-defined functions can be
+implemented using external scripts, which is the most commong practice, and has
+proven to be very convenient in order to integrate your liquidsoap stream into
+the framework that you use to manage your radio.
 
 h3. Preliminaries
 
@@ -39,10 +38,10 @@ in order to load our pre-defined functions:
 %include "/path/to/library.liq"
 %%
 
-We will use _references_ to variables. For instance,
-@x = ref 0@ creates a reference to @0@ stored in @x@; @x := 1@
-updates the value contained by @x@ to @1@ and @!x@ returns the
-value contained by @x@.
+We will use _references_, which are variables whose contents can be
+modified. For instance, @x = ref 0@ creates a reference to the integer @0@ which
+is stored in @x@. The instruction @x := 1@ updates the value contained by @x@ to
+@1@ and @!x@ returns the value contained by @x@.
 
 We will use the telnet server to interact with variable references.
 First, we enable the telnet server by adding the following line in @radio.liq@:
@@ -193,7 +192,7 @@ Some remarks about this script:
 
 h4. Infallible sources
 
-It is reasonable, for a radio, to expect that the stream is
+It is reasonable, for a radio, to expect that a stream is
 always available to broadcast. However, problems may happen (and always
 do at some point). Thus, we need to offer an alternative for the case
 where nothing is available. 
