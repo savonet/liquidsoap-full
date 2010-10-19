@@ -30,6 +30,7 @@ of @radio.liq@:
 %%
 set("log.file",false)
 set("log.stdout",true)
+set("log.level",3)
 %%
 
 Finally, we add the following line at the beginning of @radio.liq@, 
@@ -38,31 +39,10 @@ in order to load our pre-defined functions:
 %include "/path/to/library.liq"
 %%
 
-We will use _references_, which are variables whose contents can be
-modified. For instance, @x = ref 0@ creates a reference to the integer @0@ which
-is stored in @x@. The instruction @x := 1@ updates the value contained by @x@ to
-@1@ and @!x@ returns the value contained by @x@.
-
-We will use the telnet server to interact with variable references.
-First, we enable the telnet server by adding the following line in @radio.liq@:
+We will use the telnet server to interact with the radio.
+Thus, we enable the telnet server by adding the following line in @radio.liq@:
 %%
 set("server.telnet",true)
-%%
-
-Then, we add the following function in @library.liq@, that registers
-a command for setting a flag (boolean reference):
-%%
-# Register a set/get pair for a string reference x named y.
-def register_flag(r,name) = 
-  server.register(namespace=name, "set",
-                  description="Set the #{name} variable",
-                  usage="set <value>",
-                  fun (s) -> begin
-                    old = !r
-                    r := (s=="true")
-                    "#{name} was #{old}, is now #{!r}."
-                  end)
-end
 %%
 
 h3. An initial model
@@ -147,58 +127,116 @@ s = on_metadata(apply_metadata,s)
 * Observe the lines printed on new metadata.
 * You may prefer to use the @log@ function rather than @print@.
 
-h4. Jingles frequency
+h4. Custom scheduling
 
 Another issue with the above stream is the fact that jingles have a strict 
-frequency of one jingle every 3 songs. In some cases, for instance after 
-a long song, one may want to have a sequence: @jingle, song, jingle@. Thus,
-we want to make the selection between songs and jingles more dynamic. For 
-this, we will use a function that liquidsoap calls regularly
-to see if it needs to play a jingle. 
+frequency of one jingle every 3 songs. In a lot of cases, you may want 
+more flexibility and have  full-features scheduling of your songs. The
+best approach in this case is to _externalize_ this operation by creating
+a scheduler with the language/framework of your choice and integrating it 
+with liquidsoap using @request.dynamic@.
 
-This is a function of type @()->bool@,
-i.e. a function with no arguments that returns
-@true@ if a jingle has to be played, or @false@ otherwise.
+@request.dynamic@ takes a function of type @()->request@,
+i.e. a function with no arguments that returns a new request to queue 
+and create a source with it. Everytime that liquidsoap needs to 
+prepare a new file, it will execute the function and use its result.
 
-Here, we write a simplified function, that we add in @library.liq@:
+Requests in liquidsoap are created with the function @request.create@,
+which takes an URIs of the form: 
 %%
-# We define a boolean reference
-# and make it available through the server.
-play_jingle = ref false
-register_flag(play_jingle,"play_jingle")
+protocol:arguments
+%%
+where @protocol:@ is optional is @arguments@ is the URI of a local file.
+For intance, @ftp://server.net/path/to/file.mp3@ is a requests using 
+the _ftp_ protocol, which is resolved using @wget@ (if present in the 
+system).
 
-# A function that returns true if 
-# a jingle needs to be played
-def is_jingle() = 
-  !play_jingle
+We are going to use @request.dynamic@ to merge both the @songs@ and 
+@jingles@ sources into one source and let our external scheduler 
+decides when to play a jingle or a song. However, we will need 
+later to know if we are currently playing a song or a jingle. 
+
+For these reasons, we will be using the @annotate:@ protocol.
+This protocol can be used to pass additional metadata along
+with the metadata of the file. Here, we will pass a metadata
+labelled @"type"@, with value @"song"@ if the track is a song
+or @"jingle"@ otherwise.
+
+In the context of this simple presentation, we will write
+a dummy script. Thus, we create a file @"/tmp/request"@ 
+that contains a line of the form:
+%%
+annotate:type="song":/path/to/song.mp3
+%%
+And, we add in @library.liq@:
+%%
+# Our custom request function
+def get_request() = 
+  # Get the URI
+  uri = list.hd(get_process_lines("cat /tmp/request"))
+  # Create a request
+  request.create(uri)
 end
 %%
 
-We use this function to create a new source which plays a jingle when the function
-returns true. This is achieved by using the @switch@ operators, which takes a list
-of sources and predicates and plays the first source available whose predicate
-returns true.
-
-Thus, we replace the @rotate@ line in @radio.liq@ with the following code:
+Now, we replace the lines defining @songs@, @files@ and the line
+using the @rotate@ operator in @radio.liq@ with the following code:
 %%
-s = switch(track_sensitive=true,
-           [ (is_jingle(), jingles), # play a jingle if told to
-             ({true}, songs)         # play a song otherwise
-           ])
+s = request.dynamic(id="s",get_request)
 %%
-
-**Note** @{true}@ is a shorthand for the function @fun () -> true@, so the condition for playing the @songs@ source is always true.
-
-**Note** The switch is "track sensitive" (this is the default)
-which means that it switches to a new source only at the end of
-the current track. Thus, the @is_jingle@ function should return @true@
-until a jingle is played, for instance using the previous notification system.
 
 * Update your scripts.
 * Run the new radio.
-* Set @play_jingle@ to @true@ via telnet and wait for a jingle to be played.
-* While the jingle is being played, set @play_jingle@ back to @false@ and wait for a new song to be played.
+* Edit @"/tmp/request"@ and change its content to:
+%%
+annotate:type="jingle":/path/to/jingle.mp3
+%%
+* Use the command @s.skip@ through the telnet server and verify that the new song is being played. This may need more than one skip..
+* Use the commands @request.on_air@ and @request.metadata@ through the telnet server to verify the presence of the @type@ metadata
 * Extra: think about how to use the previous notification code to interact with this function.
+
+h4. Custom metadata
+
+We have just seen how it is possible to use the @annotate:@ protocol to
+pass custom metadata to any request. Additionaly, it is also possible to rewrite
+your stream's metadata on the fly, using the @on_metadata@ operator.
+
+This operator takes a function of the type @metadata->metadata@, i.e. a function
+that takes the current metadata and returns some metadata. Thus, when @map_metadata@
+sees a new metadata in the stream, it calls this function and, by default, updates
+the metadata with the values returned by the function.
+
+Here, we use this operator to customize the title metadata with the name of our radio.
+First, we create a file @"/tmp/metadata"@ containing:
+%%
+My Awesome Liquidsoap Radio!
+%%
+
+Then, in @library.liq@, we add the following function:
+%%
+# This function updates the title metadata with
+# the content of "/tmp/metadata"
+def update_title(m) = 
+  # The title metadata
+  title = m["title"]
+  # Our addition
+  content = list.hd(get_process_lines("cat /tmp/metadata"))
+  
+  # If title is empty
+  if title == "" then
+    [("title",content)]
+  # Otherwise
+  else
+    [("title","#{title} on #{content}")}
+  end
+end
+%%
+
+Finally, we apply @map_metadata@ to the source, just after the @request.dynamic@
+definition in @radio.liq@:
+%%
+s = map_metadata(update_title,s)
+%%
 
 h4. Infallible sources
 
@@ -316,29 +354,51 @@ The @"replay_gain"@ metadata can be passed manually or computed by liquidsoap.
 Liquidsoap comes with a script that can extract the replaygain information
 from ogg/vorbis, mp3 and FLAC files. This is a very convenient script but it generate
 a high CPU usage which can be bad for real-time streaming.
-
 In some situations, you may compute beforehand this value and pass it manually 
-using the @annotate@ protocol. Here, however, we will compute the @"replay_gain"@ information,
-but only for the songs and not for the jingles, which we assume are already normalized.
+using the @annotate@ protocol.
 
-We achieve this by using the @replay_gain:@ protocol, which is enabled by default
-and defined in @utils.liq@, one of the shipped library files.
+If you cannot compute the value beforehand, liquidsoap comes with two ways
+to extract the replaygain information
+* The @replay_gain:@ protocol. All requests of the form @replay_gain:URI@ are resolved by passing @URI@ to the script provided by liquidsoap. This method allows to select which files should be used with replay gain. However, it will only work if @URI@ is a local file.
+* The replay gain metadata resolver, enabled by adding a line of the form @enable_replaygain_metadata ()@ in your script. In this cases, all requests and not only local files can be processed and you cannot select which one should be used with replaygain.
 
-The most simple way of doing it is to prefix all the requests of the @songs@
-playlist with the string @"replay_gain:"@. Thus, a file @"/path/to/file.mp3"@
-becomes an URI of the form: @"replay_gain:/path/to/file.mp3"@, which is resolved
-by the @replay_gain@ protocol to @annotate:replay_gain="<gain> dB":/path/to/file.mp3@,
-where the @annotate@ protocol adds the metadata @("replay_gain","<gain> dB")@ to 
-the metadata associated with the file.
-
-Please note that this technique, only works for requests containing local files. Alternatively,
-you can use the replay gain metadata resolver, which is enabled by adding @enable_replaygain_metadata()@
-in your script. However, in this case, the replay gain information is computed on any
-file resolved by liquidsoap, which we want to avoid here. 
-
-Thus, we replace the definition of the @songs@ playlist in @radio.liq@ with:
+The most simple solution, in our case, is to change the requests
+passed to @request.dynamic@ to something of the form:
 %%
-songs = playlist(prefix="replay_gain:","/path/to/some/files/")
+annotate:type="file":replay_gain:URI
+%%
+However, in order to illustrate a bit more the functionalities of liquidsoap we present
+another solution.
+The method we propose here consists in using @map_metadata@, which we have already seen
+to update the metadata with a @"replay_gain"@ metadata when we see the @"type"@ metadata
+with the value @"song"@. Thus, we add the following function in @library.liq@:
+%%
+# This function takes a metadata,
+# check if it is of type "file"
+# and add the replay_gain metadata in
+# this case
+def add_replaygain(m) = 
+  # Get the type
+  type = m["type"]
+  # The replaygain script is located there
+  script = "#{configure.libdir}/extract-replaygain"
+  # The filename is contained in this value
+  filename = m["filename"]
+
+  # If type = "file", proceed:
+  if type == "file" then
+    info = list.hd(get_process_lines("#{script} #{filename}")) 
+    [("replay_gain",info)]
+  # Otherwise add nothing
+  else
+    []
+  end
+end
+%%
+
+And, we add the following line in @radio.liq@ after the @request.dynamic@ line:
+%%
+s = map_metadata(add_replaygain,s)
 %%
 
 Finally, we add the @amplify@ operator. We set the default amplification
@@ -346,8 +406,7 @@ to @1.@, i.e. no amplification, and tell the operator to update this value with
 the content of the @"replay_gain"@ metadata. Thus, only the tracks which have this
 metadata will be modified. 
 
-We add the following in @radio.liq@, just after the @switch@ operator:
-
+We add the following in @radio.liq@, after the line we juste inserted:
 %%
 s = amplify(override="replay_gain",1.,s)
 %%
@@ -356,57 +415,9 @@ Remark: we can also apply @amplify@ only to @songs@, _before_ the @switch@ opera
 
 * Update your scripts.
 * Run and test the new radio.
+* Change the content of @"/tmp/request"@ with something of type @"file"@ and skip the current song.
 * Use the telnet server and @request.metadata@ to make sure that the new @"replay_gain"@ metadata has been added.
-
-h4. Identifying the sources
-
-We need in the following to identify the origin of the tracks played in the stream. We want
-to seperate the songs from the jingles and treat them differently in the
-smart crossfade nodes.
-We do this by adding an extra @"type"@ metadata to the sources. The @songs@ source
-will have @"songs"@ for this metadata and the jingles source @"jingles"@.
-
-We could also use the @prefix@ parameter to achieve this but,
-in order to be more generic an illustrate another operator, we do it here using
-the @map_metadata@.
-
-The @map_metadata@, similarly to @on_metadata@ calls a function everytime a new
-metadata is passed in by the source. But in this case, the function is of type:
-@(metadata)->metadata@. Then, the metadata of the sources are either updated or
-replaced with the result returned by the function. 
-
-This operator can also
-be used to modify the metadata of your streams, for instance to add custom values
-such as the name of your radio etc..
-
-Here, we only update the metadata and add our new @"type"@ metadata. Thus, we add
-the following in @library.liq@:
-
-%%
-# A function that adds a "type" metadata
-# to the metadata of the given source
-def add_type(type,s) =
-  map_metadata(fun (_) -> [("type",type)], s)
-end
-%%
-
-And we replace the two playlists definitions by the following in @radio.liq@:
-%%
-# The file source
-songs = playlist(prefix="replay_gain:","/path/to/some/files/")
-# Add type "songs"
-songs = add_type("songs",songs)
-
-# The jingle source
-jingles = playlist("/path/to/some/jingles")
-# Add type "jingles"
-jingles = add_type("jingles",jingles)
-%%
-
-* Update your scripts.
-* Run the new radio.
-* Connect to telnet and use @request.metadata@ to check that the new @"type"@ metadata has been added.
-
+* Can you find a content for @"/tmp/request"@ that will enable replay gain on a file which is not of type @"song"@?
 
 h4. Smart crossfade
 
@@ -422,6 +433,9 @@ and returns the new source with the required transition.
 We give here a simple custom implementation of our crossfade. What we do is:
 * Crossfade tracks if none of the old and new track are jingle;
 * Sequentialize the tracks otherwise.
+We identify the type of each track by reading the @"type"@ metadata we 
+have added when creating the @request.dynamic@ source.
+
 A typical @smart_crossfade@ operator is defined in @utils.liq@
 but you may do much more things with a little bit of imagination.
 
@@ -434,7 +448,7 @@ def my_crossfade(s) =
   def f(_,_, old_m, new_m, old, new) = 
     # If none of old and new have "type" metadata
     # with value "jingles", we crossfade the source:
-    if old_m["type"] != "jingles" && new_m["type"] != "jingles" then
+    if old_m["type"] != "jingle" && new_m["type"] != "jingle" then
       add([fade.initial(new), fade.final(old)])
     else
       sequence([old,new])
