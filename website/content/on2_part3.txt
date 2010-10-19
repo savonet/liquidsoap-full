@@ -1,17 +1,122 @@
 title: Liquidsoap Workshop, part III
 
-h2. Advanced topics
+This part is pretty open. We describe below a few advanced features of 
+liquidsoap, including video and midi. We provide some examples
+or simply propose things to do, to give you an idea of what's in
+the near future of liquidsoap and hopefully draw you into
+contibuting to shaping that future,
+if only through discussions.
 
-h3. Manipulating MIDI data
+h2. Visualization
 
-h4. Playing with the keyboard
+A liquidsoap script is like any other program: you can in principle
+predict what it does, but there's always a point where you miss something.
+In such cases, you need to debug it: control all the relevant parameters
+until you spot what's wrong.
+
+In liquidsoap, the most important parameter is probably the availability
+of a source. You'll end up creating devices dealing with various sources
+going on and off. To test them you can create sources whose availability
+is controlled by you, and you should also be able to monitor their
+availability.
+
+As an exercise, you can try to write a simple logging function that
+periodically displays @source.is_ready(s)@ for some source @s@.
+The @mix@ operator can be useful too: it is a mixing table for
+liquidsoap, allowing you to monitor and cancel the availability
+of its inputs; the best way to use it is through liGuidsoap.
+
+h3. Audio volume
+
+You can visualize the audio volume on screen using @visu.volume@:
+%%
+d = 1.
+t = "lin"
+s = fade.in(duration=d,type=t,
+      fade.out(duration=d,type=t,sine(duration=3.*d)))
+output.ao(visu.volume(s))
+%%
+
+h2. Video streams
+
+Video may be used very simply in liquidsoap: common operators
+such as @single@ and @playlist@ will attempt to decode their files
+as video if their content type is appropriate, which is dictated by
+the output operator.
+For example you can do @output.sdl(single("video.ogg"))@
+to display the video part of an audio+video stream;
+to hear the audio part, insert your favorite audio output operator
+together with @drop_audio@ and @drop_video@ at the right places
+(most outputs do not silently drop irrelevant data).
+
+h3. Slideshow
+
+The following script displays a slideshow of images,
+while playing a playlist of audio files.
+Pass it the images playlist/directory as the first argument on the command
+line (after @--@) and (optionally) the audio playlist/directory as the
+second argument.
+
+%%
+def images
+  video.fade.in(duration=1.,video.fade.out(duration=1.,
+    video.add_text(metadata="filename","<no filename>",
+                   size=12,
+                   playlist(prefix="annotate:duration=3:",argv(1)))))
+end
+
+def sound
+  playlist(argv(2))
+end
+
+output.ao(fallible=true,sound)
+clock(id="video", output.sdl(fallible=true,images))
+
+# You can also combine the two in a Theora file.
+# Play the result in VLC rather than mplayer (or even liquidsoap)
+# as it is a sequentialized ogg stream.
+# output.file(%ogg(%vorbis,%theora),"slideshow.ogg",
+#   mksafe(mux_video(video=images,sound)))
+%%
+
+If you experience transparency problems... it's a known bug
+(see notably "#393":http://savonet.rastageeks.org/ticket/393).
+You may also experience segfaults... it does not seem to happen
+with a selected list avoiding too large sizes or too exotic formats.
+
+h3. Audio volume
+
+You can render the audio volume visualization as a video stream,
+that you can then process as any other video stream:
+%%
+d = 1.
+t = "lin"
+s = fade.in(duration=d,type=t,
+      fade.out(duration=d,type=t,sine(duration=3.*d)))
+output.sdl(drop_audio(video.volume(s)))
+%%
+
+h3. Static image over audio track
+
+TODO: the youtube encoder
+
+h3. Overloaded demo
+
+TODO: the PPS demo, including funky transition (circle, rotate)
+
+insérer une logo, mettre une bannière de texte
+
+
+h2. Manipulating MIDI data
+
+h3. Playing with the keyboard
 
 MIDI is a format for describing steams of notes, scores, etc. Liquidsoap has
-basic support for such streams.
+a basic support for such streams.
 
 In order to generate a MIDI stream, the @input.keyboard.sdl@ operator can be
 used. It will convert typing onto the keyboard of your operator into notes. In
-order to be able to hear the notes of a stream, you have to _sythesize_ them,
+order to be able to hear the notes of a stream, you have to _synthesize_ them,
 which means to convert them to wave sound. Various operators can be used for
 this, each corresponding to a different instrument. For example, a synthesizer
 with sawtooth waves is provided by the operator @synth.saw@. A mini-keyboard
@@ -28,7 +133,7 @@ In order to check the MIDI data contained in streams, the @midimeter@ operator
 is very convenient: it prints on the standard output the notes currently being
 played.
 
-h4. Playing MIDI files
+h3. Playing MIDI files
 
 Liquidsoap comes with built-in support for MIDI files: when such a file is
 played it is detected as such and decoded as a MIDI stream. Usually, MIDI files
@@ -49,7 +154,7 @@ The second line removes all the notes from the channel 9 which is usually used
 for drums (and would thus sound bad with our basic synthesizer). The third line
 adds an audio channel to the stream @s@, in which the sound will be synthesized.
 
-h4. Playing chords
+h3. Playing chords
 
 The implementation of MIDI-related operators in Liquidsoap is still in early
 stage and their implementation gives us the possibility to simply test new
@@ -79,3 +184,28 @@ s = mux_audio(audio=blank(),s)
 s = synth.saw(s)
 out(s)
 %%
+
+h2. Open problems
+
+If you feel like hacking seriously, here are some tasks
+from the Savonet community.
+
+h3. Listener-sensitive radio
+
+Write a script that checks whether an icecast mountpoint is being listened
+to, and use it to switch a radio to some dummy source when nobody is
+listening, and switch back to normal when listeners come back.
+This can be useful to avoid using the hard drive when unnecessary
+-- it is noisy, calorific, and simply not so long-lived.
+
+h3. Liquidsoap script generator
+
+Write a script (even better, a web page)
+that generates a simple liquidsoap script with a few options:
+input from playlist, live relay, output to icecast and/or soundcard.
+
+h3. Re-usable tools for radios
+
+The open-source radio community needs re-usable tools that can be interfaced
+with existing streamers: indexer, database generator, scheduler,
+crossfading editor, etc.

@@ -48,13 +48,3 @@ parts:
 * un truc sur les conversions mono/stereo/dolby
 * request.dynamic, playlist.once & co
 * gérer les latences avec les clocks
-
-3. Au delà de l'audio:
-* jouer avec mix(): may be useful to experiment with the notion of readiness and track, and to play with the GUI and get excited about more possibilities...
-* midi: experimenter avec divers synthés, jouer des accords
-* midi: est-ce qu'on pourrait faire de la musique générative, ou au moins programmer des jingles statiques
-* streamripper en liq
-* vidéo: image statique pour youtube
-* vidéo: insérer une logo, mettre une bannière de texte
-* vidéo: slideshow, utilisation des transitions
-* la démo pps: bannière de texte interactive
