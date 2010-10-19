@@ -1,0 +1,81 @@
+title: Liquidsoap Workshop, part III
+
+h2. Advanced topics
+
+h3. Manipulating MIDI data
+
+h4. Playing with the keyboard
+
+MIDI is a format for describing steams of notes, scores, etc. Liquidsoap has
+basic support for such streams.
+
+In order to generate a MIDI stream, the @input.keyboard.sdl@ operator can be
+used. It will convert typing onto the keyboard of your operator into notes. In
+order to be able to hear the notes of a stream, you have to _sythesize_ them,
+which means to convert them to wave sound. Various operators can be used for
+this, each corresponding to a different instrument. For example, a synthesizer
+with sawtooth waves is provided by the operator @synth.saw@. A mini-keyboard
+synthesizer can thus be programmed using the following script
+%%
+s = input.keyboard.sdl()
+s = synth.saw(s)
+out(s)
+%%
+You can also test @synth.sine@ or @synth.square@ for other kinds of simple
+sounds.
+
+In order to check the MIDI data contained in streams, the @midimeter@ operator
+is very convenient: it prints on the standard output the notes currently being
+played.
+
+h4. Playing MIDI files
+
+Liquidsoap comes with built-in support for MIDI files: when such a file is
+played it is detected as such and decoded as a MIDI stream. Usually, MIDI files
+contain multiple channels of notes (typically one for each instrument). In order
+to use the sawtooth synthesizer on all channels, the @synth.all.saw@ operator
+should be used (with the @synth.saw@ operator, only the first channel will be
+synthesized).
+
+So, a MIDI file named @file.mid@ can be played using the following script
+%%
+s = single("file.mid")
+s = midi.remove([9],s)
+s = mux_audio(audio=blank(),s)
+s = synth.all.saw(s)
+out(s)
+%%
+The second line removes all the notes from the channel 9 which is usually used
+for drums (and would thus sound bad with our basic synthesizer). The third line
+adds an audio channel to the stream @s@, in which the sound will be synthesized.
+
+h4. Playing chords
+
+The implementation of MIDI-related operators in Liquidsoap is still in early
+stage and their implementation gives us the possibility to simply test new
+ideas... we would be glad hear yours too!
+
+For example, we thought it would be nice to be able to play chords in
+Liquidsoap. This is actually pretty simple using metadata. First, describe your
+sequence of chords in a file named @chords.txt@ with the following contents:
+%%
+1 "chord" "C"
+2 "chord" "Am"
+3 "chord" "F"
+4 "chord" "G"
+%%
+This file just contains a list of metadata: on each line, the first number
+indicate when (in seconds) the metadata should occur, the string in second
+indicates the name of the metadata (@chord@ here) and the string in third
+position indicates the value of the metadata (the chord to be played here). This
+file format for metadata is supported natively by Liquidsoap. Now, the metadata
+containing the chord names can be converted to MIDI notes by using the @chord@
+operator. The sequence of chords above can thus be heard using the following
+script:
+%%
+s = single("chord.txt")
+s = midi.chord(s)
+s = mux_audio(audio=blank(),s)
+s = synth.saw(s)
+out(s)
+%%
