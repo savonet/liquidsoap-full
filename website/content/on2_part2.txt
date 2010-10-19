@@ -7,7 +7,7 @@ advanced stream using static files.
 
 In order to be self-contained, we will use here only pure liquidsoap scripting
 functionalities. However, all the parts that use pre-defined functions can be
-implemented using external scripts, which is the most commong practice, and has
+implemented using external scripts, which is the most common practice, and has
 proven to be very convenient in order to integrate your liquidsoap stream into
 the framework that you use to manage your radio.
 
@@ -50,12 +50,18 @@ set("server.telnet",true)
 %%
 
 Then, we add the following function in @library.liq@, that registers
-a set function for a string reference:
+a command for setting a flag (boolean reference):
 %%
-# Register a set/get pair for a string reference x named y:
-def register_commands(x,y) = 
-  server.register(namespace=y, description="Set the #{y} variable",
-                  usage="set <value>", "set", fun (s) -> x:= s)
+# Register a set/get pair for a string reference x named y.
+def register_flag(r,name) = 
+  server.register(namespace=name, "set",
+                  description="Set the #{name} variable",
+                  usage="set <value>",
+                  fun (s) -> begin
+                    old = !r
+                    r := (s=="true")
+                    "#{name} was #{old}, is now #{!r}."
+                  end)
 end
 %%
 
@@ -80,7 +86,7 @@ jingles = playlist("/path/to/some/jingles")
 
 # We combine the sources and play 
 # one single every 3 songs:
-s = rotate(weight=[1,3], [jingles, files])
+s = rotate(weights=[1,3], [jingles, songs])
 
 # We output the stream to an icecast
 # server, in ogg/vorbis format.
@@ -92,9 +98,9 @@ output.icecast(%vorbis,
 
 For now, @library.liq@ does not contain any code.
 
-* 1) Write this script to a file, change the default directories
-* 2) Run it
-* 3) Listen to your initial stream
+* Write this script to a file, change the default directories.
+* Run it.
+* Listen to your initial stream.
 
 Now, we extend this initial stream with some advanced features:
 
@@ -107,9 +113,10 @@ output, which will inform the user of which tracks are played and when. This can
 using the @on_metadata@ operator. 
 
 First, we define a function that is called every time a new metadata is seen in the stream.
-This is a function of type @metadata -> unit@, i.e. a function that receives the metadata
-as argument and returns nothing. Also, the @metadata@ type is actually the @(string*string) list@
-type, i.e. a list of elements of the form: @("label","value")@.
+This is a function of type @(metadata)->unit@, i.e. a function that receives the metadata
+as argument and returns nothing.
+The @metadata@ type is actually @[(string*string)]@,
+i.e. a list of elements of the form @("label","value")@.
 
 Thus, we add the following in @library.liq@:
 %%
@@ -123,7 +130,8 @@ def apply_metadata(m) =
 end
 %%
 
-Note: the string @"foo #{bla}"@ can also be written @"foo " ^ bla@ and is the
+**Note**:
+the string @"foo #{bla}"@ can also be written @"foo " ^ bla@ and is the
 string "foo bar", if @bla@ is the string @"bar"@.
 
 Now, we apply the @on_metadata@ operator with this function just
@@ -134,9 +142,10 @@ before the output line:
 s = on_metadata(apply_metadata,s)
 %%
 
-* 1) Update your scripts
-* 2) Run the new radio
-* 3) Observe the lines printed on new metadata
+* Update your scripts.
+* Run the new radio.
+* Observe the lines printed on new metadata.
+* You may prefer to use the @log@ function rather than @print@.
 
 h4. Jingles frequency
 
@@ -147,53 +156,54 @@ we want to make the selection between songs and jingles more dynamic. For
 this, we will use a function that liquidsoap calls regularly
 to see if it needs to play a jingle. 
 
-This is a function of type @unit -> bool@, i.e. a function with no arguments that returns
+This is a function of type @()->bool@,
+i.e. a function with no arguments that returns
 @true@ if a jingle has to be played, or @false@ otherwise.
 
 Here, we write a simplified function, that we add in @library.liq@:
 %%
-# We define a string reference
-# and register a set function in the telnet 
-# server
-play_jingle = ref "false"
-register_commands(play_jingle,"play_jingle")
+# We define a boolean reference
+# and make it available through the server.
+play_jingle = ref false
+register_flag(play_jingle,"play_jingle")
 
 # A function that returns true if 
 # a jingle needs to be played
 def is_jingle() = 
-  # This is true if play_jingle 
-  # contains the string "true"
-  !play_jingle == "true"
+  !play_jingle
 end
 %%
 
 We use this function to create a new source which plays a jingle when the function
-returns true. This is acheived by using the @switch@ operators, which takes a list
-of sources and predicates and plays the first source available whose predicate is true.
+returns true. This is achieved by using the @switch@ operators, which takes a list
+of sources and predicates and plays the first source available whose predicate
+returns true.
 
 Thus, we replace the @rotate@ line in @radio.liq@ with the following code:
 %%
 s = switch(track_sensitive=true,
-     # play a jingle if told to
-     [(is_jingle(), jingles),
-     # play a song otherwise
-      ({true}, songs)])
+           [ (is_jingle(), jingles), # play a jingle if told to
+             ({true}, songs)         # play a song otherwise
+           ])
 %%
 
-Some remarks about this script:
-* The condition for playing the @songs@ source is always true. Thus, @{true}@ is a shorthand for the function @fun () -> true@.
-* Since the switch is track sensitive, it switches to a new source only at the end of the current song. Thus, the @is_jingle@ function should return @true@ until a jingle is played, for instance using the previous notification system.
+**Note** @{true}@ is a shorthand for the function @fun () -> true@, so the condition for playing the @songs@ source is always true.
 
-* 1) Update your scripts
-* 2) Run the new radio
-* 3) Set @play_jingle@ to @"true"@ via telnet and wait for a jingle to be played
-* 4) While the jingle is being played, set @play_jingle@ back to @"false"@ and wait for a new song to be played
-* 5) Extra: think about how to use the previous notification code to interact with this function
+**Note** The switch is "track sensitive" (this is the default)
+which means that it switches to a new source only at the end of
+the current track. Thus, the @is_jingle@ function should return @true@
+until a jingle is played, for instance using the previous notification system.
+
+* Update your scripts.
+* Run the new radio.
+* Set @play_jingle@ to @true@ via telnet and wait for a jingle to be played.
+* While the jingle is being played, set @play_jingle@ back to @false@ and wait for a new song to be played.
+* Extra: think about how to use the previous notification code to interact with this function.
 
 h4. Infallible sources
 
 It is reasonable, for a radio, to expect that a stream is
-always available to broadcast. However, problems may happen (and always
+always available for broadcasting. However, problems may happen (and always
 do at some point). Thus, we need to offer an alternative for the case
 where nothing is available. 
 
@@ -235,10 +245,9 @@ the output line:
 s = my_safe(s)
 %%
 
-* 1) Update your scripts
-* 2) Run and test the new radio
-* 3) Change the playlists directories to point to empty directories
-* 4) Run the radio again and check that you hear the security single
+* Update your scripts.
+* Run and test the new radio.
+* To hear the security jingle, you can try to skip a lot of tracks, or change the playlists directories to point to empty directories.
 
 h4. Multiple outputs
 
@@ -252,8 +261,10 @@ We add the following in @library.liq@:
 # A function that contains all the output
 # we want to create with the final stream
 def outputs(s) =
-  # First, we apply the common parameters to 
-  # output.icecast
+  # First, we partially apply output.icecast
+  # with common parameters. The resulting function
+  # is stored in a new definition of output.icecast,
+  # but this could be my_icecast or anything.
   output.icecast = output.icecast(host="my_server", 
                                   password="hack_me_not", s)
 
@@ -280,8 +291,8 @@ And we replace the output line in @radio.liq@ by:
 outputs(s)
 %%
 
-* 1) Write your own output function.
-* 2) Run and test your new radio
+* Write your own output function.
+* Run and test your new radio.
 
 h3. More advanced functions!
 
@@ -291,13 +302,13 @@ we are going to add:
 
 !images/on2_part2_schema2.svg(Advanced stream model)!
 
-* The Replay gain node normalizes all the songs using the replaygain technology
-* The Smart crossfade node adds crossfading between songs but not jingles
-* The smooth add node adds the possibility to insert a jingle in the middle of a song, fading out and then back in the initial stream while the jingle is being played
+* The @Replay gain@ node normalizes all the songs using the "Replay Gain":http://replaygain.org technology.
+* The @Smart crossfade@ node adds crossfading between songs but not jingles.
+* The @Smooth_add@ node adds the possibility to insert a jingle in the middle of a song, fading out and then back in the initial stream while the jingle is being played.
 
 h4. Replaygain
 
-The replaygain support is acheived in liquidsoap in two steps:
+The replaygain support is achieved in liquidsoap in two steps:
 * apply the @amplify@ operator to change a source's volume
 * pass a @"replay_gain"@ metadata indicating to the @amplify@ operator which value to use.
 
@@ -310,10 +321,10 @@ In some situations, you may compute beforehand this value and pass it manually
 using the @annotate@ protocol. Here, however, we will compute the @"replay_gain"@ information,
 but only for the songs and not for the jingles, which we assume are already normalized.
 
-We acheive this by using the @replay_gain:@ protocol, which is enabled by default
+We achieve this by using the @replay_gain:@ protocol, which is enabled by default
 and defined in @utils.liq@, one of the shipped library files.
 
-The most simple way of doing it is to prefix all the requests of the @files@
+The most simple way of doing it is to prefix all the requests of the @songs@
 playlist with the string @"replay_gain:"@. Thus, a file @"/path/to/file.mp3"@
 becomes an URI of the form: @"replay_gain:/path/to/file.mp3"@, which is resolved
 by the @replay_gain@ protocol to @annotate:replay_gain="<gain> dB":/path/to/file.mp3@,
@@ -325,7 +336,7 @@ you can use the replay gain metadata resolver, which is enabled by adding @enabl
 in your script. However, in this case, the replay gain information is computed on any
 file resolved by liquidsoap, which we want to avoid here. 
 
-Thus, we replace the definition of the @files@ playlist in @radio.liq@ with:
+Thus, we replace the definition of the @songs@ playlist in @radio.liq@ with:
 %%
 songs = playlist(prefix="replay_gain:","/path/to/some/files/")
 %%
@@ -341,11 +352,11 @@ We add the following in @radio.liq@, just after the @switch@ operator:
 s = amplify(override="replay_gain",1.,s)
 %%
 
-Remark: we can also apply @amplify@ only to @files@, _before_ the @switch@ operator
+Remark: we can also apply @amplify@ only to @songs@, _before_ the @switch@ operator
 
-* 1) Update your scripts
-* 2) Run and test the new radio
-* 3) Use the telnet server and @request.metadata@ to make sure that the new @"replay_gain"@ metadata has been added
+* Update your scripts.
+* Run and test the new radio.
+* Use the telnet server and @request.metadata@ to make sure that the new @"replay_gain"@ metadata has been added.
 
 h4. Identifying the sources
 
@@ -355,13 +366,13 @@ smart crossfade nodes.
 We do this by adding an extra @"type"@ metadata to the sources. The @songs@ source
 will have @"songs"@ for this metadata and the jingles source @"jingles"@.
 
-We could also use the @prefix@ parameter to acheive this but,
+We could also use the @prefix@ parameter to achieve this but,
 in order to be more generic an illustrate another operator, we do it here using
 the @map_metadata@.
 
 The @map_metadata@, similarly to @on_metadata@ calls a function everytime a new
 metadata is passed in by the source. But in this case, the function is of type:
-@metadata -> metadata@. Then, the metadata of the sources are either updated or
+@(metadata)->metadata@. Then, the metadata of the sources are either updated or
 replaced with the result returned by the function. 
 
 This operator can also
@@ -392,9 +403,9 @@ jingles = playlist("/path/to/some/jingles")
 jingles = add_type("jingles",jingles)
 %%
 
-* 1) Update your scripts
-* 2) Run the new radio
-* 3) Connect to telnet and use @request.metadata@ to check that the new @"type"@ metadata has been added
+* Update your scripts.
+* Run the new radio.
+* Connect to telnet and use @request.metadata@ to check that the new @"type"@ metadata has been added.
 
 
 h4. Smart crossfade
@@ -409,10 +420,10 @@ tracks, the metadata of, resp. the old and new tracks and, finally, the old and 
 and returns the new source with the required transition.
 
 We give here a simple custom implementation of our crossfade. What we do is:
-* Crossfade tracks if none of the old and new track are jingle
-* Sequentialize the tracks otherwise
-The usual @smart_crossfade@ is defined in @utils.liq@ and you may do much more things
-with a little bit of imagination.
+* Crossfade tracks if none of the old and new track are jingle;
+* Sequentialize the tracks otherwise.
+A typical @smart_crossfade@ operator is defined in @utils.liq@
+but you may do much more things with a little bit of imagination.
 
 Here, we add the following in @library.liq@:
 %%
@@ -440,9 +451,9 @@ Finally, we add the following line in @radio.liq@, just after the
 s = my_crossfade(s)
 %%
 
-* 1) Update your scripts
-* 2) Run and test the new radio
-* 3) Modify the custom crossfading to fade out the old song if it is not a jingle, and fade in the new song if it is not a jingle
+* Update your scripts.
+* Run and test the new radio.
+* Modify the custom crossfading to fade out the old song if it is not a jingle, and fade in the new song if it is not a jingle.
 
 h4. Smooth_add
 
@@ -465,17 +476,18 @@ special = request.queue(id="special")
 s = smooth_add(normal=s,special=special)
 %%
 
-* 1) Update your script
-* 2) Run and test the new radio
-* 3) Use the telnet server to push the request @"say:My new radio rocks!"@ in the special source
-* 4) Listen!
+* Update your script.
+* Run and test the new radio.
+* Use the telnet server to push the request @"say:My new radio rocks!"@ in the special source.
+* Listen!
 
 
 h3. Conclusion
 
-We have presented here many different features that can be used to build an advanced file-based source.
-With more practice and imagination, you can implement many different features that you want to add 
-to your streams.
+We have presented here several features that can be used to build
+an advanced file-based source.
+With more practice and imagination,
+you can implement many more things for your streams.
 
 We are going to present now another important part of an advanced stream: the addition of a live stream
 in order to allow DJs to broadcast their shows.
