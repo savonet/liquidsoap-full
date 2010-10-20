@@ -1,0 +1,45 @@
+set("log.file",false)
+set("log.stdout",true)
+set("log.level",3)
+set("harbor.icy",true)
+
+%include "library.liq"
+
+set("server.telnet",true)
+
+s = request.dynamic(id="s",get_request)
+
+s = map_metadata(add_replaygain,s)
+
+s = amplify(override="replay_gain",1.,s)
+
+s = my_crossfade(s)
+
+s = map_metadata(update_title,s)
+
+s = on_metadata(apply_metadata,s)
+
+# A special source
+special = request.queue(id="special")
+# Smooth_add the special source
+s = smooth_add(normal=s,special=special)
+
+s = my_safe(s)
+
+live1 = input.harbor(port=9000,"/")
+live2 = input.harbor(port=7000,"/")
+
+# The transition to live1
+jingle1 = single("say:And now, we present the awesome show number one!!")
+to_live1 = to_live(jingle1)
+
+# Transition to live2
+jingle2 = single("say:Welcome guys, this is show two on My Awesome Radio!")
+to_live2 = to_live(jingle2)
+
+s = fallback(track_sensitive=false, 
+             transitions=[to_live1,to_live2,to_file],
+             [live1,live2,s])
+
+outputs(s)
+

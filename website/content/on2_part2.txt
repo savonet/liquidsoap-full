@@ -357,7 +357,7 @@ outputs(s)
 * Write your own output function.
 * Run and test your new radio.
 
-Remark: liquidsoap may fail with the following error:
+**Note** liquidsoap may fail with the following error:
 %%
 Connection failed: 403, too many sources connected (HTTP/1.0)!
 %%
@@ -447,7 +447,7 @@ We add the following in @radio.liq@, after the line we juste inserted:
 s = amplify(override="replay_gain",1.,s)
 %%
 
-Remark: we can also apply @amplify@ only to @songs@, _before_ the @switch@ operator
+**Note** we can also apply @amplify@ only to @songs@, _before_ the @switch@ operator
 
 * Update your scripts.
 * Run and test the new radio.
@@ -456,7 +456,7 @@ Remark: we can also apply @amplify@ only to @songs@, _before_ the @switch@ opera
 * Also, in the logs, you should be able to see that the @replay_gain@ information was used to override the amplification factor.
 * Can you find a content for @"/tmp/request"@ that will enable replay gain on a file which is not of type @"song"@?
 
-Remark: in this case, the @replay_gain@ metadata is not added during the request resolution.
+**Note** in this case, the @replay_gain@ metadata is not added during the request resolution.
 Thus, it is not visible in the @request.metadata@. However, you should be able to find another
 command that displays it!
 
@@ -548,12 +548,244 @@ Solutions:
 * "radio.liq":radio.liq-smooth
 * "library.liq":library.liq-smooth
 
-h3. Conclusion
+h3. What about DJs?
 
-We have presented here several features that can be used to build
-an advanced file-based source.
-With more practice and imagination,
-you can implement many more things for your streams.
-
-We are going to present now another important part of an advanced stream: the addition of a live stream
+We present now another important part of an advanced stream: the addition of a live stream
 in order to allow DJs to broadcast their shows.
+
+We are going to add the following features:
+* A live input that is played immediatly when it is available
+* Use different harbor ports, to replace mountpoints for shoutcast source clients
+* A transition jingle that is played when switching between live and files
+* Skip the file currently being played when switching to a live source so that the file-based source starts with a fresh song when the live stops
+* Define different authentications for the DJs and make sure that a DJ can only broadcast when its show is scheduled
+
+h4. Live inputs
+
+The live inputs in liquidsoap are of two types:
+* Network-based, mostly @input.http@ and @input.harbor@.
+* Hardward-based, with operators like @input.alsa@, @input.jack@, etc.
+
+We focus here on the first type, and more precisely on @input.harbor@. When using
+this opreator in your script, the running instance will be able to receive data 
+coming from icecast and shoutcast source clients. Then, your DJs can broadcast 
+a live stream using their favorite software. Liquidsoap supports most of the 
+usual data formats, when enabled as encoder:
+* MP3
+* Any supported ogg stream
+* Aac and Aac+
+
+You may also communicate data between two liquidsoap instance, one using @output.icecast@
+to send data and the other one @input.harbor@ to receive it. In this case, you wan also
+use the WAVE or FLAC format to send lossless data.
+
+We add a live source in @radio.liq@, anywhere before the outputs:
+%%
+live = input.harbor("live")
+%%
+
+**Note** @"live"@ is the name of the mountpoint that will be 
+associated to this source. The default parameters for the port,
+user and password are contained in the following settings:
+%%
+set("harbor.password","hackme")
+set("harbor.port",8005)
+set("harbor.username","source")
+%%
+
+We want the live source to be played as soon as it becomes available. Thus, we
+use a @fallback@ to combine it with the file-based source, and add the following code
+after @my_safe@ in @radio.liq@:
+%%
+s = fallback(track_sensitive=false, [live,s])
+%%
+
+**Note** the @track_sensitive=false@ parameter tells liquidsoap to 
+switch immediatly to @live@ when it becomes available instead of waiting 
+for the end of the track currently played by @s@.
+
+* Update your script
+* Run the new radio
+* Try to connect to the harbor mountpoint. You may use a seperate liquidsoap script and @output.icecast@
+* Why is the output still unfallible ?
+
+Solutions:
+* "radio.liq":radio.liq-harbor
+* "library.liq":library.liq-harbor
+
+h4. Enabling shoutcast clients
+
+By default, shoutcast source clients are not supported. You can enable them by
+adding the following settings:
+%%
+set("harbor.icy",true)
+%%
+
+**Note** @ICY@ is the technical name of the original shoutcast source
+protocol.
+
+Additionally, the shoutcast source protocol does not support the notion
+of mountpoint: all the sources try to connect to the same @"/"@ mountpoint.
+However, you can emulate this in liquidsoap by using different harbor sources
+on different port.
+
+For instance, if we replace the definition of @live@ in @radio.liq@ with the 
+following:
+%%
+live1 = input.harbor(port=9000,"/")
+live2 = input.harbor(port=7000,"/")
+%%
+
+And the @fallback@ line with:
+%%
+s = fallback(track_sensitive=false, [live1,live2,s]) 
+%%
+
+Then your a DJ should be able to send data using the port @9000@
+and another one using the port @7000@, and the one connecing on port
+@9000@ may be played in priority if the two are connected at the same time.
+
+* Update your script
+* Run the new radio
+* Connect one source client to port @7000@
+* Connect another source client to port @9000@
+* Verify that the client on port @9000@ is broadcasting
+
+Solutions:
+* "radio.liq":radio.liq-shoutcast
+* "library.liq":library.liq-shoutcast
+
+h4. A nice transition!
+
+Now that our radio support live shows, we deal with another issue: when switching
+to the live show, the current song is cut at the point where it is and the audio
+content switches over to the live data without any transition, which is not very nice
+for the listeners. Further, when switching back to the file-based source at the 
+end of the live, the source resumes in the middle of the song that was last played..
+
+In this part, we define a transition for switching from file to live, which fades
+the current song out and supperposes a jingle before starting the live show.
+We use the @transition@ parameter of the fallback operators.
+
+This parameter contains functions of the type: @source * source -> source@,
+i.e. functions that take two sources as arguments, the old and new source,
+and returned a source that is the result of the desired transition. Finally,
+when defined as:
+%%
+fallback(transition=[f,g], [s1, s2])
+%%
+
+@f@ is called when switching to @s1@ (and @g@ when switching to @s2@).
+
+We also use @source.skip@, which skips the file currently being played, in 
+order to play a fresh file when switching back to the file-based source.
+
+First, we add the following code in @library.liq@:
+%%
+# Define a transition that fades out the
+# old source, adds a single, and then 
+# plays the new source
+def to_live(jingle,old,new) = 
+  # Fade out old source
+  old = fade.final(old)
+  # Supperpose the jingle
+  s = add([jingle,old])
+  # Compose this in sequence with
+  # the new source
+  sequence([s,new])
+end
+
+# A transition when switching back to files:
+def to_file(old,new) =
+  # We skip the file
+  # currently in new
+  # in order to being with
+  # a fresh file
+  source.skip(new) 
+  sequence([old,new])
+end
+%%
+
+**Note** @source.skip@ may cause troubles if 
+the file source does not prepare a new track quickly enough.
+In this case, you may add @conservative=true@ to the 
+parameters of the @request.dynamic@ source.
+
+Then, we add the following code in @radio.liq@, where
+we defined the @fallback@ between the two live sources and 
+the file-based source:
+%%
+# The transition to live1
+jingle1 = single("say:And now, we present the awesome show number one!!")
+to_live1 = to_live(jingle1)
+
+# Transition to live2
+jingle2 = single("say:Welcome guys, this is show two on My Awesome Radio!")
+to_live2 = to_live(jingle2)
+
+# Combine lives and files:
+s = fallback(track_sensitive=false,
+             transitions=[to_live1, to_live2, to_file],
+             [live1, live2, s]) 
+%%
+
+* Update your script
+* Run the new radio
+* Connect to each harbor and listen to the result
+
+Solutions:
+* "radio.liq":radio.liq-transitions
+* "library.liq":library.liq-transitions
+
+h4. Custom logins
+
+Another powerful feature of @input.harbor@ is the possibility to define a 
+custom authentication. For instance, imagine that DJ Alice may connect to 
+the @live1@ source only between 20h and 21h, which is the time of her shows,
+with the password @"rabbit"@, while DJ Bob may connect to the @live2@ source
+between 18h and 20h with password @"foo"@.
+
+This can be implemented using the @auth@ parameter of @input.harbor@. This 
+parameter is a function of type: @string * string -> bool@, i.e. a function 
+that takes a pair @(user,password)@ and returns @true@ if the connection should
+be granted. 
+
+You may use this, for instance, with an external script and integrate harbor 
+and DJ authentication into the framework of your choice. Here we illustrate
+this functionality with a custom functions. Thus, we add the following 
+in @library.liq@:
+
+%%
+# Our custom authentication
+# Note: the ICY protocol 
+# does not have any username and for 
+# icecast, it is "source" most of the time
+# thus, we discard it
+def harbor_auth(port,_,password) = 
+  # Alice connects on port 9000 between 20h and 21h
+  # with password "rabbit"
+  (port == 9000 and 20h-21h and password == "rabbit")
+    or
+  # Bob connection on port 7000 between 18h and 20h
+  # with password "foo"
+  (port == 7000 and 18h-20h and password == "foo")
+end
+%%
+
+And we use it by replacing the @live1@ and @live2@ definitions by:
+%%
+# Authentication for live 1:
+auth1 = harbor_auth(9000)
+live1 = input.harbor(port=9000,auth=auth1,"/")
+
+# Authentication for live 2:
+auth2 = harbor_auth(7000)
+live2 = input.harbor(port=7000,auth=auth2,"/")
+%%
+
+* Write your custom login function
+* Run and test your new radio
+
+No solution here :-)
+
+
