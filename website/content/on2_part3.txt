@@ -102,10 +102,43 @@ TODO: the youtube encoder
 
 h3. Overloaded demo
 
-TODO: the PPS demo, including funky transition (circle, rotate)
+Playing a video file @video.ogv@ is simply achieved by
+%%
+s = single("video.ogv")
+output.sdl(s)
+%%
+There are many useful (or not) effects in Liquidsoap which can be used to modify
+the video. These should be inserting between the first and the second line of
+the script above. For example, the image can be converted to sepia by adding
+%%
+s = video.sepia(s)
+%%
+Common operations include adding a logo:
+%%
+s = video.add_image(width=30, height=30, x=10, y=10, file="image.ppm", s)
+%%
+(this will add the logo which is stored in the @image.ppm@ file), and displaying
+a scrolling text:
+%%
+s = video.add_text("Hello people!", s)
+%%
+Try modifying the scolling text example so that you can modify the contents of
+the text over the telnet interface.
 
-insérer une logo, mettre une bannière de texte
+Very similarly to audio transitions (fade in, fade out, etc.) there are some
+video transitions implemented. For example fading in the video is simply done using
+%%
+s = video.fade.in(s)
+%%
+The kind of transition that should be used is controlled by the @transition@
+parameter of @video.fade.in@. Try @disc@ for example, as well as the other that
+you can find in the documentation.
 
+Of course, the @add@ operator of liquidsoap also works on video streams. So, in
+order to add a rotating image on a video you could use
+%%
+s = add([s, video.rotate(video.add_image(width=50, height=50, x=150, y=150, file="image.ppm", blank()))])
+%%
 
 h2. Manipulating MIDI data
 
