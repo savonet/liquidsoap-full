@@ -1,0 +1,121 @@
+
+# This function is called when
+# a new metadata block is passed in
+# the stream.
+def apply_metadata(m) =
+  title = m["title"]
+  artist = m["artist"]
+  print("Now playing: #{title} by #{artist}")
+end
+
+# Our custom request function
+def get_request() = 
+  # Get the URI
+  uri = list.hd(get_process_lines("cat /tmp/request"))
+  # Create a request
+  request.create(uri)
+end
+
+# This function updates the title metadata with
+# the content of "/tmp/metadata"
+def update_title(m) = 
+  # The title metadata
+  title = m["title"]
+  # Our addition
+  content = list.hd(get_process_lines("cat /tmp/metadata"))
+  
+  # If title is empty
+  if title == "" then
+    [("title",content)]
+  # Otherwise
+  else
+    [("title","#{title} on #{content}")]
+  end
+end
+
+# This function turns a fallible
+# source into an infallible source
+# by playing a static single when
+# the original song is not available
+def my_safe(s) =
+  # We assume that festival is installed and
+  # functional in liquidsoap
+  security = single("say:Hello, this is radio FOO! \
+                     We are currently having some \
+                     technical difficulties but we'll \
+                     be back soon so stay tuned!")
+
+  # We return a fallback where the original
+  # source has priority over the security
+  # single. We set track_sensitive to false
+  # to return immediatly to the original source
+  # when it becomes available again.
+  fallback(track_sensitive=false,[s,security])
+end
+
+# A function that contains all the output
+# we want to create with the final stream
+def outputs(s) =
+  # First, we partially apply output.icecast
+  # with common parameters. The resulting function
+  # is stored in a new definition of output.icecast,
+  # but this could be my_icecast or anything.
+  output.icecast = output.icecast(host="my_server", 
+                                  password="hack_me_not")
+
+  # An output in ogg/vorbis to the "my_radio.ogg"
+  # mountpoint:
+  output.icecast(%vorbis, mount="my_radio.ogg",s)
+  
+  # An output in mp3 at 128kbits to the "my_radio"
+  # mountpoint:
+  output.icecast(%mp3(bitrate=128), mount="my_radio",s)
+
+  # An output in ogg/flac to the "my_radio-flac.ogg"
+  # mountpoint:
+  output.icecast(%ogg(%flac), mount="my_radio-flac.ogg",s)
+
+  # An output in AAC+ at 32 kbits to the "my_radio.aac"
+  # mountpoint
+  output.icecast(%aacplus(bitrate=32), mount="my_radio.aac",s)
+end
+
+# This function takes a metadata,
+# check if it is of type "file"
+# and add the replay_gain metadata in
+# this case
+def add_replaygain(m) = 
+  # Get the type
+  type = m["type"]
+  # The replaygain script is located there
+  script = "#{configure.libdir}/extract-replaygain"
+  # The filename is contained in this value
+  filename = m["filename"]
+
+  # If type = "song", proceed:
+  if type == "song" then
+    info = list.hd(get_process_lines("#{script} #{filename}")) 
+    [("replay_gain",info)]
+  # Otherwise add nothing
+  else
+    []
+  end
+end
+
+# Our custom crossfade that 
+# only crossfade betwee tracks
+def my_crossfade(s) = 
+  # Our transition function
+  def f(_,_, old_m, new_m, old, new) = 
+    # If none of old and new have "type" metadata
+    # with value "jingles", we crossfade the source:
+    if old_m["type"] != "jingle" and new_m["type"] != "jingle" then
+      add([fade.initial(new), fade.final(old)])
+    else
+      sequence([old,new])
+    end
+ end
+ # Now, we apply smart_cross with this function:
+ smart_cross(f,s)
+end
+

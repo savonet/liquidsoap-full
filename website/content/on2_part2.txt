@@ -70,17 +70,24 @@ s = rotate(weights=[1,3], [jingles, songs])
 
 # We output the stream to an icecast
 # server, in ogg/vorbis format.
-output.icecast(%vorbis,
+output.icecast(%vorbis,id="icecast",
                fallible=true,mount="my_radio.ogg", 
                host="my_server", password="hack_me_not",
                s)
 %%
 
-For now, @library.liq@ does not contain any code.
+For now, @library.liq@ does not contain any code so we only do:
+%%
+touch /path/to/library.liq
+%%
 
-* Write this script to a file, change the default directories.
+* Write this script to a file, change the default directories and parameters.
 * Run it.
 * Listen to your initial stream.
+* Connect to the telnet server (@telnet localhost 1234@)
+* Try the telnet comment: @icecast.skip@
+* Check that a jingle is played every 3 songs.
+* Sometimes, when skiping, the source does not prepare a new file quickly enough, which breaks the rotation. If this is the case, add the parameter @conservative=true@ to each playlist and try again.
 
 Now, we extend this initial stream with some advanced features:
 
@@ -126,6 +133,10 @@ s = on_metadata(apply_metadata,s)
 * Run the new radio.
 * Observe the lines printed on new metadata.
 * You may prefer to use the @log@ function rather than @print@.
+
+Solutions:
+* "radio.liq":radio.liq-notify
+* "library.liq":library.liq-notify
 
 h4. Custom scheduling
 
@@ -195,6 +206,10 @@ annotate:type="jingle":/path/to/jingle.mp3
 * Use the commands @request.on_air@ and @request.metadata@ through the telnet server to verify the presence of the @type@ metadata
 * Extra: think about how to use the previous notification code to interact with this function.
 
+Solutions:
+* "radio.liq":radio.liq-request.dynamic
+* "library.liq":library.liq-request.dynamic
+
 h4. Custom metadata
 
 We have just seen how it is possible to use the @annotate:@ protocol to
@@ -227,7 +242,7 @@ def update_title(m) =
     [("title",content)]
   # Otherwise
   else
-    [("title","#{title} on #{content}")}
+    [("title","#{title} on #{content}")]
   end
 end
 %%
@@ -237,6 +252,10 @@ definition in @radio.liq@:
 %%
 s = map_metadata(update_title,s)
 %%
+
+Solutions:
+* "radio.liq":radio.liq-map_meta
+* "library.liq":library.liq-map_meta
 
 h4. Infallible sources
 
@@ -260,7 +279,7 @@ First, we add the following in @library.liq@
 # source into an infallible source
 # by playing a static single when
 # the original song is not available
-def my_safe(s,security) =
+def my_safe(s) =
   # We assume that festival is installed and
   # functional in liquidsoap
   security = single("say:Hello, this is radio FOO! \
@@ -282,10 +301,16 @@ the output line:
 %%
 s = my_safe(s)
 %%
+And we also remove the @fallible=true@ from the parameters of @output.icecast@.
 
 * Update your scripts.
 * Run and test the new radio.
-* To hear the security jingle, you can try to skip a lot of tracks, or change the playlists directories to point to empty directories.
+* To hear the security jingle, you can empty @"/tmp/request"@ and use the skip command in telnet or wait for the end of the current song.
+* If you put a new valid request in @"/tmp/request"@ then the stream comes back to the normal source.
+
+Solutions:
+* "radio.liq":radio.liq-safe
+* "library.liq":library.liq-safe
 
 h4. Multiple outputs
 
@@ -304,23 +329,23 @@ def outputs(s) =
   # is stored in a new definition of output.icecast,
   # but this could be my_icecast or anything.
   output.icecast = output.icecast(host="my_server", 
-                                  password="hack_me_not", s)
+                                  password="hack_me_not")
 
   # An output in ogg/vorbis to the "my_radio.ogg"
   # mountpoint:
-  output.icecast(%vorbis, mount="my_radio.ogg")
+  output.icecast(%vorbis, mount="my_radio.ogg",s)
   
   # An output in mp3 at 128kbits to the "my_radio"
   # mountpoint:
-  output.icecast(%mp3(bitrate=128), mount="my_radio")
+  output.icecast(%mp3(bitrate=128), mount="my_radio",s)
 
   # An output in ogg/flac to the "my_radio-flac.ogg"
   # mountpoint:
-  output.icecast(%ogg(%flac), mount="my_radio-flac.ogg")
+  output.icecast(%ogg(%flac), mount="my_radio-flac.ogg",s)
 
   # An output in AAC+ at 32 kbits to the "my_radio.aac"
   # mountpoint
-  output.icecast(%aacplus(bitrate=32), mount="my_radio.aac")
+  output.icecast(%aacplus(bitrate=32), mount="my_radio.aac",s)
 end
 %%
 
@@ -331,6 +356,17 @@ outputs(s)
 
 * Write your own output function.
 * Run and test your new radio.
+
+Remark: liquidsoap may fail with the following error:
+%%
+Connection failed: 403, too many sources connected (HTTP/1.0)!
+%%
+In this case, you should check the maximun number of sources that your 
+icecast server accepts.
+
+Solutions:
+* "radio.liq":radio.liq-outputs
+* "library.liq":library.liq-outputs
 
 h3. More advanced functions!
 
@@ -365,7 +401,7 @@ to extract the replaygain information
 The most simple solution, in our case, is to change the requests
 passed to @request.dynamic@ to something of the form:
 %%
-annotate:type="file":replay_gain:URI
+annotate:type="song":replay_gain:URI
 %%
 However, in order to illustrate a bit more the functionalities of liquidsoap we present
 another solution.
@@ -385,8 +421,8 @@ def add_replaygain(m) =
   # The filename is contained in this value
   filename = m["filename"]
 
-  # If type = "file", proceed:
-  if type == "file" then
+  # If type = "song", proceed:
+  if type == "song" then
     info = list.hd(get_process_lines("#{script} #{filename}")) 
     [("replay_gain",info)]
   # Otherwise add nothing
@@ -416,8 +452,17 @@ Remark: we can also apply @amplify@ only to @songs@, _before_ the @switch@ opera
 * Update your scripts.
 * Run and test the new radio.
 * Change the content of @"/tmp/request"@ with something of type @"file"@ and skip the current song.
-* Use the telnet server and @request.metadata@ to make sure that the new @"replay_gain"@ metadata has been added.
+* Use the telnet server to make sure that the new @"replay_gain"@ metadata has been added.
+* Also, in the logs, you should be able to see that the @replay_gain@ information was used to override the amplification factor.
 * Can you find a content for @"/tmp/request"@ that will enable replay gain on a file which is not of type @"song"@?
+
+Remark: in this case, the @replay_gain@ metadata is not added during the request resolution.
+Thus, it is not visible in the @request.metadata@. However, you should be able to find another
+command that displays it!
+
+Solutions:
+* "radio.liq":radio.liq-replay
+* "library.liq":library.liq-replay
 
 h4. Smart crossfade
 
@@ -448,7 +493,7 @@ def my_crossfade(s) =
   def f(_,_, old_m, new_m, old, new) = 
     # If none of old and new have "type" metadata
     # with value "jingles", we crossfade the source:
-    if old_m["type"] != "jingle" && new_m["type"] != "jingle" then
+    if old_m["type"] != "jingle" and new_m["type"] != "jingle" then
       add([fade.initial(new), fade.final(old)])
     else
       sequence([old,new])
@@ -469,6 +514,10 @@ s = my_crossfade(s)
 * Run and test the new radio.
 * Modify the custom crossfading to fade out the old song if it is not a jingle, and fade in the new song if it is not a jingle.
 
+Solutions:
+* "radio.liq":radio.liq-smart
+* "library.liq":library.liq-smart
+
 h4. Smooth_add
 
 Finally, we add another nice feature: a jingle that is played on top of the
@@ -482,7 +531,7 @@ the volume of the normal source when the track is finished.
 Typically, you use for the special source a @request.queue@ where you push a new 
 jingle everytime you want to use this feature. 
 
-We modify @radio.liq@ and add the following line just after @my_crossfade@:
+We modify @radio.liq@ and add the following line just before @my_safe@:
 %%
 # A special source
 special = request.queue(id="special")
@@ -492,9 +541,12 @@ s = smooth_add(normal=s,special=special)
 
 * Update your script.
 * Run and test the new radio.
-* Use the telnet server to push the request @"say:My new radio rocks!"@ in the special source.
+* Use the telnet server to push the request @say:My new radio rocks!@ in the special source.
 * Listen!
 
+Solutions:
+* "radio.liq":radio.liq-smooth
+* "library.liq":library.liq-smooth
 
 h3. Conclusion
 

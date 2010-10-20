@@ -1,0 +1,55 @@
+
+# This function is called when
+# a new metadata block is passed in
+# the stream.
+def apply_metadata(m) =
+  title = m["title"]
+  artist = m["artist"]
+  print("Now playing: #{title} by #{artist}")
+end
+
+# Our custom request function
+def get_request() = 
+  # Get the URI
+  uri = list.hd(get_process_lines("cat /tmp/request"))
+  # Create a request
+  request.create(uri)
+end
+
+# This function updates the title metadata with
+# the content of "/tmp/metadata"
+def update_title(m) = 
+  # The title metadata
+  title = m["title"]
+  # Our addition
+  content = list.hd(get_process_lines("cat /tmp/metadata"))
+  
+  # If title is empty
+  if title == "" then
+    [("title",content)]
+  # Otherwise
+  else
+    [("title","#{title} on #{content}")]
+  end
+end
+
+# This function turns a fallible
+# source into an infallible source
+# by playing a static single when
+# the original song is not available
+def my_safe(s) =
+  # We assume that festival is installed and
+  # functional in liquidsoap
+  security = single("say:Hello, this is radio FOO! \
+                     We are currently having some \
+                     technical difficulties but we'll \
+                     be back soon so stay tuned!")
+
+  # We return a fallback where the original
+  # source has priority over the security
+  # single. We set track_sensitive to false
+  # to return immediatly to the original source
+  # when it becomes available again.
+  fallback(track_sensitive=false,[s,security])
+end
+
