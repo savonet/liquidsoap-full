@@ -11,6 +11,7 @@ h3. Radio
 h3. Art / digital media
 
 * "Transmediale festival":http://www.transmediale.de/ explores the emerging qualities of liveness as a fundamental nature of our present digital culture and discusses the abilities required to respond to social, political and economic processes triggered by the intensity of our participation and interaction.
+* "GOTO10":http://goto10.org/ organizes conferences such as "make art":http://makeart.goto10.org/
 * "Le Cube":http://www.lecube.com/
 
 h3. Signal processing
