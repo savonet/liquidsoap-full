@@ -12,8 +12,8 @@ div.section {
   width: 20% ;
   padding-bottom: 20px
 }
-#savonet { left: 10% ; top: 20% }
-#community { right: 10% ; top: 20% }
+#savonet   {  left: 10% ; top: 16% }
+#community { right: 10% ; top: 16% }
 #liquidsoap { left: 35% ; right: 35% ; top: 10% ; bottom: 10% ; width: 30% }
 #main { left: 20% ; right: 20% ; top: 10% ; width: 60% }
 
