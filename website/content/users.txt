@@ -16,8 +16,9 @@ We know the following netradios to use Liquidsoap in various ways:
 * "RadioPi":doc-svn/radiopi.html, the radio of the École Centrale Paris
 * "SecurityCast Radio":http://www.securitycast.net/ is a radio that relays various computer security podcasts.
 * "Savana Radio":http://savanaradio.com is a web-only radio from Sri Lanka, broadcasting Sinhala (Sri Lankan) music.
-* "Substream.at":http://substream.at/, a radio for music lovers by music lovers, where you are invited to participate !
-* And many more excellent but unknown projects...
+* "Substream.at":http://substream.at/, a radio for music lovers by music lovers, where you are invited to participate!
+* "Eastambul Media Üssü":http://www.eastanbul.com/, a Turkish radio.
+* And many more excellent but unknown projects... Don't hesitate to "tell us":mailto:savonet-users@lists.sf.net if you run a Liquidsoap radio so that we can enhance this list!
 
 Seemingly dead radios:
 * "NerdFiles":http://nerdfiles.info, a didactic radio program about free software and copyleft issues, based mainly in Barcelona.
