@@ -123,3 +123,39 @@ RHOST=$(USER),savonet@web.sourceforge.net:/home/groups/s/sa/savonet/htdocs
 
 upload: dist
 	cd html ; $(RCP) . $(RHOST) || true
+
+rss: $(PWD)/html/liquidsoap.rss news.html
+
+$(PWD)/html/liquidsoap.rss: news.txt
+	echo '<?xml version="1.0" encoding="UTF-8" ?><rss version="2.0"><channel>' > $@
+	echo '<title>Liquidsoap news</title>' >> @
+	echo '<link>http://savonet.sf.net/</link>' >> @
+	echo -n '<lastBuildDate>' >> $@
+	echo -n `date -R` >> $@
+	echo '</lastBuildDate>' >> $@
+	echo -n '<pubDate>' >> $@
+	echo -n `date -R` >> $@
+	echo '</pubDate>' >> $@
+	echo '<item>' >> $@
+	echo '<link>http://savonet.sf.net/</link>' >> $@
+	cat $^ \
+	| grep -v '^#' \
+	| sed 's|^\* \(.*\)$$|<title>Liquidsoap: \1</title>|' \
+	| sed 's|^- date: \(.*\)$$|<pubDate>\1</pubDate>|' \
+	| sed 's|^- descr: \(.*\)$$|<description>\n\1\n</description>|' \
+	| sed 's|^$$|</item>\n<item>|' \
+	>> $@
+	echo '</item>' >> $@
+	echo '</channel>\n</rss>' >> $@
+
+news.html: news.txt
+	echo -n > $@
+	echo '<div class="item">' >> $@
+	cat $^ | head -n 14 \
+	| grep -v '^#' \
+	| sed 's|^\* \(.*\)$$|<div class="title">\1</div>|' \
+	| sed 's|^- date: \(.*\)$$||' \
+	| sed 's|^- descr: \(.*\)$$|<div class="content">\n\1\n</div>|' \
+	| sed 's|^$$|</div>\n<div class="item">|' \
+	>> $@
+	echo '</div>' >> $@
