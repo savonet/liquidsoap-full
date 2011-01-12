@@ -22,7 +22,7 @@ GENERATED_FILES=$(PWD)/html/doc-@@VERSION@@/reference.html \
 generated_files_subst = $(subst @@VERSION@@,$(version),$(GENERATED_FILES))
 generated_files = $(foreach version,$(VERSIONS),$(generated_files_subst))
 
-all: $(HTML) $(generated_files)
+all: $(HTML) rss $(generated_files)
 	@find html -name '.svn' | xargs rm -rf --
 
 # Removes all unecessary stuff before upload
@@ -61,13 +61,18 @@ $(PWD)/html/doc-%/settings.txt:
 	@cp $(PWD)/settings-$(*).txt $(PWD)/html/doc-$(*)/settings.txt
 
 # HTML generation
+#$(PWD)/html/_index.html: savonet.html
+$(PWD)/html/_index.html: savonet.html html/_news.html
+	@cat savonet.html \
+	| sed '/<!-- NEWS -->/r html/_news.html' \
+	> $@
 
-$(PWD)/html/index.html: $(PWD)/content/index.txt $(LIQI) savonet.html snippet.html $(wildcard orig/*)
+$(PWD)/html/index.html: $(PWD)/content/index.txt $(LIQI) $(PWD)/html/_index.html snippet.html $(wildcard orig/*)
 	@echo Converting $(<) to $(@)...
 	@test -d html || (mkdir -p html/scripts)
 	@cp -rf orig/* html
 	@cd $(PWD)/html && $(LIQI) \
-	  --template ../savonet.html --snippet-template ../snippet.html \
+	  --template $(PWD)/html/_index.html --snippet-template ../snippet.html \
 	  -i $(<) -o $(@)
 
 $(PWD)/html/doc-%/reference.html: $(PWD)/html/doc-%/reference.txt versioned.html snippet.html
@@ -124,12 +129,15 @@ RHOST=$(USER),savonet@web.sourceforge.net:/home/groups/s/sa/savonet/htdocs
 upload: dist
 	cd html ; $(RCP) . $(RHOST) || true
 
-rss: $(PWD)/html/liquidsoap.rss news.html
+rss: $(PWD)/html/liquidsoap.rss
 
 $(PWD)/html/liquidsoap.rss: news.txt
-	echo '<?xml version="1.0" encoding="UTF-8" ?><rss version="2.0"><channel>' > $@
-	echo '<title>Liquidsoap news</title>' >> @
-	echo '<link>http://savonet.sf.net/</link>' >> @
+	echo '<?xml version="1.0" encoding="UTF-8" ?>\n<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">' > $@
+	echo '<channel>' >> $@
+	echo '<title>Liquidsoap: news</title>' >> $@
+	echo '<description>savonet.sf.net</description>' >> $@
+	echo '<atom:link href="http://savonet.sourceforge.net/liquidsoap.rss" rel="self" type="application/rss+xml" />' >> $@
+	echo '<link>http://savonet.sf.net/</link>' >> $@
 	echo -n '<lastBuildDate>' >> $@
 	echo -n `date -R` >> $@
 	echo '</lastBuildDate>' >> $@
@@ -137,25 +145,30 @@ $(PWD)/html/liquidsoap.rss: news.txt
 	echo -n `date -R` >> $@
 	echo '</pubDate>' >> $@
 	echo '<item>' >> $@
-	echo '<link>http://savonet.sf.net/</link>' >> $@
+#	echo '<link>http://savonet.sf.net/</link>' >> $@
 	cat $^ \
 	| grep -v '^#' \
+	| sed 's|\&|\&amp;|g' | sed 's|<|\&lt;|g' | sed 's|>|\&gt;|g' \
 	| sed 's|^\* \(.*\)$$|<title>Liquidsoap: \1</title>|' \
 	| sed 's|^- date: \(.*\)$$|<pubDate>\1</pubDate>|' \
+	| sed 's|^- link: \(.*\)$$|<link>\1</link>|' \
 	| sed 's|^- descr: \(.*\)$$|<description>\n\1\n</description>|' \
 	| sed 's|^$$|</item>\n<item>|' \
 	>> $@
 	echo '</item>' >> $@
-	echo '</channel>\n</rss>' >> $@
+	echo '</channel>' >> $@
+	echo '</rss>' >> $@
 
-news.html: news.txt
+html/_news.html: news.txt
 	echo -n > $@
 	echo '<div class="item">' >> $@
-	cat $^ | head -n 14 \
+	cat $^ \
 	| grep -v '^#' \
-	| sed 's|^\* \(.*\)$$|<div class="title">\1</div>|' \
-	| sed 's|^- date: \(.*\)$$||' \
-	| sed 's|^- descr: \(.*\)$$|<div class="content">\n\1\n</div>|' \
+	| head -n 14 \
 	| sed 's|^$$|</div>\n<div class="item">|' \
+	| sed 's|^\* \(.*\)$$||' \
+	| sed 's|^- date: .*\([0-9][0-9] [A-Z][a-z][a-z] [0-9][0-9][0-9][0-9]\).*$$|<div class="title">\1</div>|' \
+	| sed 's|^- link: \(.*\)$$||' \
+	| sed 's|^- descr: \(.*\)$$|<div class="content">\n\1\n</div>|' \
 	>> $@
 	echo '</div>' >> $@
