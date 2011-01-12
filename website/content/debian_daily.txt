@@ -1,0 +1,28 @@
+title: Daily Debian Packages
+
+Liquidsoap's debian packages are built every night for the i386 and amd64
+architectures. They can be usefull to test the latest code quickly.
+
+To get them, you can add this repository to your @/etc/apt/sources.list@:
+
+<pre>
+deb ftp://savonet.rastageeks.org/ ./
+</pre>
+
+You also need  debian multimedia packages. The line for @/etc/apt/sources.list@ is:
+
+<pre>
+deb http://www.debian-multimedia.org lenny main
+</pre>
+
+You might also need the backports packages. The line for @/etc/apt/sources.list@ is:
+
+<pre>
+deb http://backports.debian.org/debian-backports lenny-backports main
+</pre>
+
+You can install with:
+
+<pre>
+apt-get install liquidsoap -t lenny-backports
+</pre>

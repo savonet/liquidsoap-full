@@ -22,14 +22,13 @@ Liquidsoap is included in Debian and Ubuntu distributions:
 
 However, we maintain custom packages for liquidsoap, in order to enable features that are not available in those distributions, such as mp3 encoding:
 
-* "Debian stable packages":http://savonet.rastageeks.org/wiki/DebianStableBackports
-* "Daily Debian packages":http://savonet.rastageeks.org/wiki/DebianSVNSnapshots
+* "Daily Debian packages":debian_daily.html
 
 The daily packages are mostly aimed toward developers.
 
 h3. ArchLinux
 
-A package for Arch Linux users is available from the distribution, 
+A package for Arch Linux users is available from the distribution,
 see the "ArchLinux Liquidsoap package page":http://aur.archlinux.org/packages.php?ID=23902
 
 h3. Cygwin (Windows)
@@ -37,7 +36,7 @@ h3. Cygwin (Windows)
 Liquidsoap is available as a Cygwin port, thanks to the Cywin Ports project ! You can get instructions
 on how to install Cygwin ports on their website: "http://sourceware.org/cygwinports/":http://sourceware.org/cygwinports/.
 
-This port allows you to compile a liquidsoap binary running on windows systems and using the (great) Cygwin unix 
+This port allows you to compile a liquidsoap binary running on windows systems and using the (great) Cygwin unix
 environement for windows.
 
 h3. Mac OS X
