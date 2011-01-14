@@ -6,7 +6,7 @@ We know the following netradios to use Liquidsoap in various ways:
 
 * "BAZE☆FM":http://baze.fm: an Hungarian Hip-Hop & R'n'B station, declaring 3 years of stable running.
 * "Dolebraï":doc-svn/dolebrai.html streams music under free licences, e.g. "Creative Commons":http://creativecommons.org/
-* "Eastambul Media Üssü":http://www.eastanbul.com/, a Turkish radio.
+* "Eastambul Media Üssü":http://www.eastambul.com/, a Turkish radio.
 * "Fréquence 3":doc-svn/frequence3.html, the first French webradio, broadcasting current hits, gold, mainly Pop/Rock
 * "Geek radio":doc-svn/geekradio.html, the one for which Savonet was created
 * "KUBE":http://www.kuberadio.com/, a student run radio at Keele University
