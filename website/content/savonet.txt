@@ -2,8 +2,14 @@ title: Savonet
 
 h3. What is Savonet?
 
-Savonet is a group of open-source developpers working on multimedia streaming, with a focus on web radios. Savonet software is mainly written in "OCaml":http://ocaml.org.
-Our main end-user tool is Liquidsoap, the programming language that ties all the pieces together. Savonet also provides
+Savonet is a group of open-source developpers working on multimedia streaming, with a focus on web radios.
+Savonet software is mainly written in "OCaml":http://ocaml.org.
+Our main end-user tool is Liquidsoap,
+the programming language that ties all the pieces together.
+Note that the liquidsoap language is not OCaml;
+it draws inspiration from various languages, but you don't need to know
+that to use liquidsoap.
+Savonet also provides
 "OCaml libraries":http://sourceforge.net/project/showfiles.php?group_id=89802
 to the open-source community,
 in particular bindings of widespread C libraries such as
