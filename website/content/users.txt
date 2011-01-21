@@ -16,6 +16,7 @@ We know the following netradios to use Liquidsoap in various ways:
 * "Pi-Radio":http://piradio.de: a netradio and part-time FM broadcaster in Berlin, animated by an open community currently consisting of 30 independent groups
 * "Pytagor":http://www.radiopytagor.com/, a french local FM radio station (Adult CHR)
 * "RadioPi":doc-svn/radiopi.html, the radio of the École Centrale Paris
+* "Radiotango Rosario":http://www.radiotangorosario.com.ar/ streams 24h a day of more than 10.000 tangos, microprograms, and history, in Spanish language, from Rosario in Argentina.
 * "SecurityCast Radio":http://www.securitycast.net/ is a radio that relays various computer security podcasts.
 * "Savana Radio":http://savanaradio.com is a web-only radio from Sri Lanka, broadcasting Sinhala (Sri Lankan) music.
 * "Substream.at":http://substream.at/, a radio for music lovers by music lovers, where you are invited to participate!
