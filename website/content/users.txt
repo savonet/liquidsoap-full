@@ -5,7 +5,7 @@ h2. Some Savonet/Liquidsoap users
 We know the following netradios to use Liquidsoap in various ways:
 
 * "BAZE☆FM":http://baze.fm: an Hungarian Hip-Hop & R'n'B station, declaring 3 years of stable running.
-* "DEADMEDIAFM":http://www.deadmediafm.org/ an Indonesian radio.
+* "DEADMEDIAFM":http://www.deadmediafm.org/ is a free form, open community streaming radio and podcast from Indonesia.
 * "Dolebraï":doc-svn/dolebrai.html streams music under free licences, e.g. "Creative Commons":http://creativecommons.org/
 * "Eastanbul Media Üssü":http://www.eastanbul.com/, a Turkish radio streaming mostly electronic music.
 * "Fréquence 3":doc-svn/frequence3.html, the first French webradio, broadcasting current hits, gold, mainly Pop/Rock
