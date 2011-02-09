@@ -199,3 +199,12 @@ div.section h2 { color: #906 }
   color: #666;
   clear: both;
 }
+
+/* Twitter */
+.twtr-hd {
+    display: none;
+}
+
+.twtr-ft {
+    display: none;
+}
