@@ -16,4 +16,4 @@ h3. Previous releases
 
 h3. Behind the curtains
 
-* "Some publications":publications.html explaining the theory behing Liquidsoap
+* "Some publications":publications.html explaining the theory underlying Liquidsoap
