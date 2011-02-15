@@ -40,8 +40,10 @@ developpers are listed below, with their nick(s) on IRC:
 
 * "David Baelde":http://www.lix.polytechnique.fr/~dbaelde (@love-pingoo@, @mrpingouin@)
 * "Romain Beauxis":http://blog.rastageeks.org/ (@toots@)
-* Peter Brooks (@theneb@)
-* Julien Cristau
-* "Stéphane Gimenez":http://www.pps.jussieu.fr/~gimenez/ (@gim@)
 * "Samuel Mimram":http://www.pps.jussieu.fr/~smimram/ (@smimou@, @smimram@, @ppsmimou@)
+
+Formerly active developpers:
 * Vincent Tabard (@balbinus@)
+* Peter Brooks (@theneb@)
+* "Stéphane Gimenez":http://www.pps.jussieu.fr/~gimenez/ (@gim@)
+* Julien Cristau
