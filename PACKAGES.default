@@ -23,9 +23,9 @@ ocaml-ao
 ocaml-portaudio
 # ALSA is only for LINUX, and is sometimes not working.
 ocaml-alsa
-# PulseAudio is a cross-plateform audio sound server. It is intended to 
+# PulseAudio is a cross-plateform audio sound server. It is intended to
 # be a single replacement for sound support under linux, windows or OSX.
-# Support for pulseaudio was not intensively tested, but seems to be 
+# Support for pulseaudio was not intensively tested, but seems to be
 # working fine (24/12/2008).
 ocaml-pulseaudio
 # JACK is an audio connection kit, designed for low latency
@@ -63,7 +63,7 @@ ocaml-schroedinger
 # FAAC is for AAC encoding, FAAD for AAC decoding.
 ocaml-faac
 ocaml-faad
-# FLAC is for flac, native and/or ogg (if using ocaml-ogg) 
+# FLAC is for flac, native and/or ogg (if using ocaml-ogg)
 # format decoding and encoding.
 ocaml-flac
 
@@ -98,11 +98,15 @@ ocaml-dssi
 # ============================================================================
 # Various modules
 # ============================================================================
+
 # Xmlplaylist allow support for various xml format, such as rss, podcast, etc..
 ocaml-xmlplaylist
 # Lastfm allow support for lastfm radios and the audioscrobbler protocol
 # It should be listed *after* ocaml-xmlplaylist in this file
 ocaml-lastfm
+# A library supporting the OSC protocol to have external controls
+# such as faders
+ocam-lo
 
 # ============================================================================
 # Finally, the mandatory lib dtools, duppy and liquidsoap...
