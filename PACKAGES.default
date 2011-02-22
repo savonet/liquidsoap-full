@@ -106,7 +106,7 @@ ocaml-xmlplaylist
 ocaml-lastfm
 # A library supporting the OSC protocol to have external controls
 # such as faders
-ocam-lo
+ocaml-lo
 
 # ============================================================================
 # Finally, the mandatory lib dtools, duppy and liquidsoap...
