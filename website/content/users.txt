@@ -10,6 +10,7 @@ We know the following netradios to use Liquidsoap in various ways:
 * "Fréquence 3":doc-svn/frequence3.html, the first French webradio, broadcasting current hits, gold, mainly Pop/Rock
 * "Geek radio":doc-svn/geekradio.html, the one for which Savonet was created
 * "KUBE":http://www.kuberadio.com/, a student run radio at Keele University
+* "Let's Go Zik":http://www.letsgozik.org, a French webradio dedicated to club & underground music (Trance, Techno, Hand's Up, HardStyle, Electro, House, ...) with a lot of live DJ set.
 * "Overfitting disco":http://overfitted.ddcr.biz/ streams all sorts of disco
 * "Oxyradio":http://www.oxyradio.net/ is a French associative netradio playing free/libre music, relying entirely on liquidsoap for all streaming-related tasks
 * "Pi-Radio":http://piradio.de: a netradio and part-time FM broadcaster in Berlin, animated by an open community currently consisting of 30 independent groups
