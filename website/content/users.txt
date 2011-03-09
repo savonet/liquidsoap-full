@@ -6,7 +6,6 @@ We know the following netradios to use Liquidsoap in various ways:
 
 * "BAZE☆FM":http://baze.fm: an Hungarian Hip-Hop & R'n'B station, declaring 3 years of stable running.
 * "DEADMEDIAFM":http://www.deadmediafm.org/ is a free form, open community streaming radio and podcast from Indonesia.
-* "Dolebraï":doc-svn/dolebrai.html streams music under free licences, e.g. "Creative Commons":http://creativecommons.org/
 * "Eastanbul Media Üssü":http://www.eastanbul.com/, a Turkish radio streaming mostly electronic music.
 * "Fréquence 3":doc-svn/frequence3.html, the first French webradio, broadcasting current hits, gold, mainly Pop/Rock
 * "Geek radio":doc-svn/geekradio.html, the one for which Savonet was created
@@ -17,14 +16,18 @@ We know the following netradios to use Liquidsoap in various ways:
 * "Pytagor":http://www.radiopytagor.com/, a french local FM radio station (Adult CHR)
 * "RadioPi":doc-svn/radiopi.html, the radio of the École Centrale Paris
 * "Radiotango Rosario":http://www.radiotangorosario.com.ar/ streams 24h a day of more than 10.000 tangos, microprograms, and history, in Spanish language, from Rosario in Argentina.
+* "Radiozerozero":http://www.radiozerozero.com/ is a french radio playing DJ mixes.
+* "Радио ВКонтакте":http://radiovkontakte.ru/ is a Russian internet radio station broadcasting a wide range of electronic music from the world's best DJs and producers.
+* "Rural Catholic Radio":http://www.ruralcatholicradio.com is a "proud (and very satisfied) savonet user".
 * "SecurityCast Radio":http://www.securitycast.net/ is a radio that relays various computer security podcasts.
 * "Savana Radio":http://savanaradio.com is a web-only radio from Sri Lanka, broadcasting Sinhala (Sri Lankan) music.
 * "Substream.at":http://substream.at/, a radio for music lovers by music lovers, where you are invited to participate!
 * And many more excellent but unknown projects... Don't hesitate to "tell us":mailto:savonet-users@lists.sf.net if you run a Liquidsoap radio so that we can enhance this list!
 
 Seemingly dead radios:
-* "NerdFiles":http://nerdfiles.info, a didactic radio program about free software and copyleft issues, based mainly in Barcelona.
-* "Orbitel":http://www.orbitel.net.co/, a columbian telecom operator, uses Liquidsoap for "some":http://www.orbitel.net.co/home/zapepelele/ "of":http://www.orbitel.net.co/home/_herbario its netradio channels
+* "Dolebraï":doc-svn/dolebrai.html streams music under free licences, e.g. "Creative Commons":http://creativecommons.org/.
+* "NerdFiles":http://nerdfiles.info is a didactic radio program about free software and copyleft issues, based mainly in Barcelona.
+* "Orbitel":http://www.orbitel.net.co/, a columbian telecom operator, uses Liquidsoap for "some":http://www.orbitel.net.co/home/zapepelele/ "of":http://www.orbitel.net.co/home/_herbario its netradio channels.
 * "Radio ART":http://radioart.pl, a polish artistic radio station
 * "Radio Inkorrekt":http://radioincorrect.org was probably the first german netradio using Liquidsoap
 * "Virtual DJ":http://radio.virtualdj.com/home used to display a "powered by Liquidsoap" on its site...
