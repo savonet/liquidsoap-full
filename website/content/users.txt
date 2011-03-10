@@ -17,7 +17,9 @@ We know the following netradios to use Liquidsoap in various ways:
 * "Oxyradio":http://www.oxyradio.net/ is a French associative netradio playing free/libre music, relying entirely on liquidsoap for all streaming-related tasks
 * "Pi-Radio":http://piradio.de: a netradio and part-time FM broadcaster in Berlin, animated by an open community currently consisting of 30 independent groups
 * "Pytagor":http://www.radiopytagor.com/, a french local FM radio station (Adult CHR)
+* "Radio Groovalizacion":http://www.groovalizacion.com/ wants to give a voice to the new musical scenes, to create a place where traditions and modernity freely mingle.
 * "RadioPi":doc-svn/radiopi.html, the radio of the École Centrale Paris
+* "Radionomy":http://www.radionomy.com/ is a web platform hosting internet radios, using Liquidsoap to stream more than 5000 radios :)
 * "Radiotango Rosario":http://www.radiotangorosario.com.ar/ streams 24h a day of more than 10.000 tangos, microprograms, and history, in Spanish language, from Rosario in Argentina.
 * "Radiozerozero":http://www.radiozerozero.com/ is a french radio playing DJ mixes.
 * "Радио ВКонтакте":http://radiovkontakte.ru/ is a Russian internet radio station broadcasting a wide range of electronic music from the world's best DJs and producers.
