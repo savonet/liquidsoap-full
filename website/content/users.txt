@@ -7,6 +7,7 @@ We know the following netradios to use Liquidsoap in various ways:
 * "Art En Sort":http://artensort.com/ is an association to promote music in Normandie.
 * "BAZE☆FM":http://baze.fm: an Hungarian Hip-Hop & R'n'B station, declaring 3 years of stable running.
 * "DEADMEDIAFM":http://www.deadmediafm.org/ is a free form, open community streaming radio and podcast from Indonesia.
+* "Deliradio":http://www.deliradio.it/
 * "Eargazm":http://eargazm.com is playing a mix of all flavors of rock, scads of jazz, a bit of fusion, a teaspoon of folk and a dash of comedy...
 * "Eastanbul Media Üssü":http://www.eastanbul.com/, a Turkish radio streaming mostly electronic music.
 * "Fréquence 3":doc-svn/frequence3.html, the first French webradio, broadcasting current hits, gold, mainly Pop/Rock
@@ -20,6 +21,7 @@ We know the following netradios to use Liquidsoap in various ways:
 * "Pytagor":http://www.radiopytagor.com/, a french local FM radio station (Adult CHR)
 * "Radio Groovalizacion":http://www.groovalizacion.com/ wants to give a voice to the new musical scenes, to create a place where traditions and modernity freely mingle.
 * "RadioPi":doc-svn/radiopi.html, the radio of the École Centrale Paris
+* "Radio Popolare Roma":http://www.radiopopolareroma.it/
 * "Radionomy":http://www.radionomy.com/ is a web platform hosting internet radios, using Liquidsoap to stream more than 5000 radios :)
 * "Radiotango Rosario":http://www.radiotangorosario.com.ar/ streams 24h a day of more than 10.000 tangos, microprograms, and history, in Spanish language, from Rosario in Argentina.
 * "Radiozerozero":http://www.radiozerozero.com/ is a french radio playing DJ mixes.
