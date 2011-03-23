@@ -41,7 +41,9 @@ environement for windows.
 
 h3. Mac OS X
 
-You can download and build liquidsoap using "macports":http://www.macports.org/. See the "instructions":macports.html.
+You can download and build liquidsoap using either
+* "Homebrew":homebrew.html.
+* "MacPorts":macports.html (not really supported at the moment).
 
 h3. FreeBSD
 

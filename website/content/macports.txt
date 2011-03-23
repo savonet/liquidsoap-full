@@ -1,18 +1,18 @@
-title: Install and build on Mac OS X using macports.
+title: Install and build on Mac OS X using MacPorts.
 
-**Macports are not actively maintained anymore ! We are looking for contributors. If you are interested, drop us a mail at "savonet-devl@lists.sf.net":mailto:savonet-devl@lists.sf.net, and join the fun !**
+**MacPorts are not actively maintained anymore ! We are looking for contributors. If you are interested, drop us a mail at "savonet-devl@lists.sf.net":mailto:savonet-devl@lists.sf.net, and join the fun !**
 
-h3. Liquidsoap on OS X using macports
+h3. Liquidsoap on OS X using MacPorts
 
-You can download, build and install liquidsoap from source on Mac OS X using macports. Here are the instructions.
+You can download, build and install liquidsoap from source on Mac OS X using MacPorts. Here are the instructions.
 
-First, "install macports":http://www.macports.org/install.php. You will also need to install subversion. There are binary packages "available":http://subversion.tigris.org/project_packages.html. Using macports, you can do:
+First, "install MacPorts":http://www.macports.org/install.php. You will also need to install subversion. There are binary packages "available":http://subversion.tigris.org/project_packages.html. Using MacPorts, you can do:
 
 <pre>
 sudo port install subversion
 </pre>
 
-When subversion is ready, you can start a shell and grab the latest liquidsoap macports files, where <code>${user}</code> is the name of your user:
+When subversion is ready, you can start a shell and grab the latest Liquidsoap MacPorts files, where <code>${user}</code> is the name of your user:
 
 <pre>
 svn co https://savonet.svn.sourceforge.net/svnroot/savonet/macports /Users/${user}/liq-ports
@@ -25,9 +25,9 @@ file:///Users/${user}/liq-ports
 rsync://rsync.macports.org/release/ports/
 </pre>
 
-Liquidsoap related packages provide some updated packages that are also present in main macports repository. Hence, the new source is listed first in order to be sure that the packages related to liquidsoap are selected by macport.
+Liquidsoap related packages provide some updated packages that are also present in main MacPorts repository. Hence, the new source is listed first in order to be sure that the packages related to liquidsoap are selected by macport.
 
-Then, do a <code>sudo port -d sync</code> and watch if it checkouts the liquidsoap port files. 
+Then, do a <code>sudo port -d sync</code> and watch if it checkouts the liquidsoap port files.
 
 Finally, you can download and build liquidsoap and its dependencies:
 
