@@ -1,0 +1,130 @@
+title: Liquidsoap on Windows
+
+h3. Liquidsoap on Windows.
+
+Liquidsoap can be compiled as a native windows binary,
+starting with version 1.0, using the mingw32-ocaml cross-compiler.
+
+This page described the compilation and limitation of 
+this port as well as the difference with the cygwin-based port.
+
+h4. Native Liquidsoap vs. Cygwin's Liquidsoap.
+
+The aim of the "Cygwin project":http://www.cygwin.com/ is to 
+provide the POSIX API under Windows. It functions as an intermediary
+layer which allows to compile and run programs written for the 
+POSIX API under Windows.
+
+For this purpose, each functionality from POSIX that is not
+natively available under Windows, such as fork, posix-specific 
+signal management, etc. is _emulated_, that is, an alternative
+implementation is provided by Cygwin.
+
+This has the advantage that any program written for a POSIX
+system can be compiled and run under Cygwin with virtually 
+no changes in the source. However, the drawback is that you
+need the whole set of Cygwin's library to do so and emulated
+functionalities may not behave completely identicaly.
+
+On the other hand, one can compile native binaries under Windows
+using for the "Mingw":http://www.mingw.org/ port of the 
+Gnu C compiler. For instance, the windows port of the OCaml
+compiler is compiled using this method.
+
+Building native binaries has the advantage that is provides portable
+binaries that can be shipped and run withough installing Cygwin. However,
+this comes with the limitations of the native windows API, in particular
+concerning forks of processes and inter-process communications.
+
+Finally, the Windows system does not have any covenient shell
+system to support the usual @configure@ scripts used in the POSIX
+world. The Mingw project provides a native shell for Windows but
+it is not sufficient to compile for instance Liquidsoap. Therefore,
+the native port of Liquidsoap is _cross-compiled_: a linux system
+is used to produce the native windows binary.
+
+In the following, we describe the compilation process and the
+inherent limitations of the resulting native binary. Needless to say,
+we highly recommend using Liquidsoap under a POSIX system such as 
+Linux if you can do so...
+
+h4. Limitations of the native port.
+
+The main limitation of the native port are the following:
+* It is not possible to run liquidsoap as a daemon
+* All operations involving an external process are not available. This includes:
+** External decoders
+** Speech synthesis protocol
+** Protocols with file downloads
+
+h4. Compilation process.
+
+_Disclaimer_: Cross-compiling is not an easy task and there are many tweaks 
+and hacks that cannot be documented. This documentation provides guidelines
+but it is not complete. If you want to cross-compile your own liquidsoap binary,
+you will have to go through multiple trial-and-error processes and find more 
+documentation online.
+
+The compilation process is describe here for the Debian system. It
+may be adapted to any distribution that has an ocaml cross-compiler.
+
+First, you need to install the ocaml cross-compiler.
+%%
+apt-get install mingw32-ocaml
+%%
+This will install the @mingw32@ C compiler as well. 
+The file @/usr/share/doc/mingw32-ocaml/README.Debian@ contains
+instructions for cross-compiling using this package.
+
+Then, you need to install the dependencies for liquidsoap
+that are not provided by the Savonet project. This includes
+OCaml modules and, when needed, their corresponding C library.
+When installing compiled binaries, we take the simpliest option and
+install everything under @/usr/i586-mingw32msvc@. 
+
+Unfortunately, it is currently next to impossible to document
+properly how to build a complete cross-compilation environment.
+The problem is that not all sources are compatible with cross-compilation
+so you may need to edit/change their build system.
+
+In the case where the @configure@ script is compatible with cross-compilation, 
+it works like this:
+%%
+% apt-get source libogg
+% cd libogg-<VERSION>
+% export \
+   PKG_CONFIG_PATH=/usr/i586-mingw32msvc/lib/pkgconfig 
+% ./configure --prefix=/usr/i586-mingw32msvc \
+              --host=i586-mingw32msvc
+% make
+# make install
+%%
+
+Once you have setup a complete cross-compilation environment, 
+the compilation of Liquidsoap goes as follows:
+%%
+% export \
+   PKG_CONFIG_PATH=/usr/i586-mingw32msvc/lib/pkgconfig
+% export \
+   OCAMLFIND_CONF=/etc/i586-mingw32msvc-ocamlfind.conf
+% ./configure --prefix=/usr/i586-mingw32msvc \
+              --host=i586-mingw32msvc \
+              --disable-camlp4
+% make
+%%
+
+Once you have a proper @liquidsoap.exe@, you should prepare a directory
+containing all the files you need to run it. Its structure is as follows:
+%%
+liquidsoap-win32/:
+  libs/: all .liq files opened when starting up
+  camomile/: camomile files
+  liquidsoap.exe
+  required DLL files
+%%
+The @libs/@ directory should contain the libraries provided
+by Liquidsoap in @pervasives.liq@ except @externals.liq@.
+
+Once this is ready, you can try your binary, either with wine
+or on a native windows system.
+
