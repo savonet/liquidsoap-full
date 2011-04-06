@@ -31,7 +31,7 @@ h3. ArchLinux
 A package for Arch Linux users is available from the distribution,
 see the "ArchLinux Liquidsoap package page":http://aur.archlinux.org/packages.php?ID=23902
 
-h4. Native Windows Binary.
+h3. Native Windows Binary.
 
 A native windows binary is available in our download section. See
 "this page":windows.html for more information concerning this port
