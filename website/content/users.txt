@@ -18,6 +18,7 @@ We know the following netradios to use Liquidsoap in various ways:
 * "Overfitting disco":http://overfitted.ddcr.biz/ streams all sorts of disco
 * "Oxyradio":http://www.oxyradio.net/ is a French associative netradio playing free/libre music, relying entirely on liquidsoap for all streaming-related tasks
 * "Pi-Radio":http://piradio.de: a netradio and part-time FM broadcaster in Berlin, animated by an open community currently consisting of 30 independent groups
+* "Podradio":http://www.podradio.fr/ A french netradio broadcasting live streams generated from various podcasts.
 * "Pytagor":http://www.radiopytagor.com/, a french local FM radio station (Adult CHR)
 * "Radio Groovalizacion":http://www.groovalizacion.com/ wants to give a voice to the new musical scenes, to create a place where traditions and modernity freely mingle.
 * "RadioPi":doc-svn/radiopi.html, the radio of the École Centrale Paris
