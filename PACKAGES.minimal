@@ -60,8 +60,9 @@ ocaml-vorbis
 # SCHROEDINGER is for ogg/dirac encoding and decoding
 # you need ocaml-ogg to enable ocaml-schroedinger
 #ocaml-schroedinger
-# FAAC is for AAC encoding, FAAD for AAC decoding.
-#ocaml-faac
+# VOAACENC is for AAC encoding.
+#ocaml-voaacenc
+# FAAD for AAC decoding.
 #ocaml-faad
 # FLAC is for flac, native and/or ogg (if using ocaml-ogg)
 # format decoding and encoding.
