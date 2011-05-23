@@ -75,7 +75,7 @@ ocaml-flac
 # LADSPA are audio plugins providing sound effects
 ocaml-ladspa
 # SoundTouch is for changing pitch and tempo of sound
-ocaml-soundtouch
+#ocaml-soundtouch
 # Samplerate is for having better quality resampling
 ocaml-samplerate
 
