@@ -12,6 +12,7 @@ We know the following netradios to use Liquidsoap in various ways:
 * "Eastanbul Media Üssü":http://www.eastanbul.com/, a Turkish radio streaming mostly electronic music.
 * "Fréquence 3":doc-svn/frequence3.html, the first French webradio, broadcasting current hits, gold, mainly Pop/Rock
 * "Geek radio":doc-svn/geekradio.html, the one for which Savonet was created
+* "Infusio.net":http://infusio.net is a deep and dub radio, broadcasting free music from netlabels.
 * "KUBE":http://www.kuberadio.com/, a student run radio at Keele University
 * "La Noche del Hombre Lobo":http://lanochedelhombrelobo.org/, a Spanish Net-radio dedicated to the promotion of music under Creative Commons licenses.
 * "Let's Go Zik":http://www.letsgozik.org, a French webradio dedicated to club & underground music (Trance, Techno, Hand's Up, HardStyle, Electro, House, ...) with a lot of live DJ set.
