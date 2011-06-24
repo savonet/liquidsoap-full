@@ -109,7 +109,7 @@ the compilation of Liquidsoap goes as follows:
    OCAMLFIND_CONF=/etc/i586-mingw32msvc-ocamlfind.conf
 % ./configure --prefix=/usr/i586-mingw32msvc \
               --host=i586-mingw32msvc \
-              --disable-camlp4
+              --disable-camlp4 --disable-debugging
 % make
 %%
 
