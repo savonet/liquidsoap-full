@@ -127,6 +127,7 @@ RCP=rsync -rLtCPz --exclude="*.swp" --exclude="*.svn" \
 RHOST=$(USER),savonet@web.sourceforge.net:/home/groups/s/sa/savonet/htdocs
 
 upload: dist
+	cp flows_server html
 	cd html ; $(RCP) . $(RHOST) || true
 
 rss: $(PWD)/html/liquidsoap.rss
