@@ -1,10 +1,12 @@
 #!/bin/sh
 
-PRJ=`grep -v '\#' PACKAGES`
+make bootstrap
 
-for i in `for i in $PRJ ; do ls -d $i* | head -1 ; done` ; do
-    if [ -f $i/bootstrap ] ; then
-	echo "*** bootstraping $i"
-	(cd $i && ./bootstrap) || exit 1
-    fi
-done
+# PRJ=`grep -v '\#' PACKAGES`
+# 
+# for i in `for i in $PRJ ; do ls -d $i* | head -1 ; done` ; do
+#     if [ -f $i/bootstrap ] ; then
+# 	echo "*** bootstrapping $i"
+# 	(cd $i && ./bootstrap) || exit 1
+#     fi
+# done
