@@ -32,7 +32,7 @@ FULL:=liquidsoap-$(VERSION)-full
 # HTTP=http://download.sourceforge.net/projects/savonet/files
 # wget $(HTTP)/$$i/$$v/$$i-$$v.tar.gz
 
-full: bootstrap
+full: bootstrap makefiles
 	rm -rf $(FULL) ; mkdir $(FULL)
 	@cp bootstrap configure Makefile PACKAGES.default PACKAGES.minimal \
 	  README LICENSE INSTALL $(FULL)
@@ -63,3 +63,8 @@ bootstrap: $(PKGDIRS:=/configure) $(LIQDIR)/configure
 %/configure: %/configure.ac
 	@echo "*** bootstrapping `dirname $@`"
 	@cd `dirname $@` ; ./bootstrap
+makefiles: $(PKGDIRS:=/Makefile) $(LIQDIR)/Makefile
+%/Makefile:
+	@echo "*** configuring `dirname $@`"
+	@cd `dirname $@` ; ./configure > /dev/null || \
+	  echo "Skipping failed configure..."
