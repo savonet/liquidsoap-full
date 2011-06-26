@@ -7,6 +7,11 @@ function update_radios(div)
         "http://savonet.rastageeks.org/liqflows.py?fmt=json&cmd=radios",
         function(radios){
             div.innerHTML = "";
+            if (radios.length == 0)
+            {
+                div.innerHTML += "<b>No registered radio is currently broadcasting!</b>";
+                return;
+            }
             content = "";
             content += "<ul>\n";
             line = '<li><div class="radio"><a href="WEBSITE">NAME</a> <span class="streams">[STREAMS]</span></div><div class="description">DESCRIPTION (GENRE)</div><div class="metadata">ARTIST &mdash; <span class="title">TITLE</span></div></li>';
