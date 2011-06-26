@@ -8,9 +8,8 @@ function update_radios(div)
         function(radios){
             div.innerHTML = "";
             content = "";
-            content += "<table>\n";
-            content += "<tr><th>Radio</th><th>Description</th><th>Artist</th><th>Title</th><th>Streams</th></tr>\n";
-            line = '<tr><td><a href="WEBSITE">NAME</a></td><td>DESCRIPTION (GENRE)</td><td>ARTIST</td><td>TITLE</td><td>STREAMS</td></tr>';
+            content += "<ul>\n";
+            line = '<li><div class="radio"><a href="WEBSITE">NAME</a> <span class="streams">[STREAMS]</span></div><div class="description">DESCRIPTION (GENRE)</div><div class="metadata">ARTIST &mdash; <span class="title">TITLE</span></div></li>';
             for (i=0; i < radios.length; i++)
             {
                 r = radios[i];
@@ -26,13 +25,13 @@ function update_radios(div)
                 {
                     s = r.streams[j];
                     if (j != 0)
-                        streams += " -- ";
+                        streams += " &ndash; ";
                     streams += '<a href="'+s.url+'">'+s.format+'</a>'
                 }
                 l = l.replace("STREAMS",streams);
                 content += l + "\n";
             }
-            content += "</table>\n";
+            content += "</ul>\n";
             div.innerHTML = content;
         }
     );

@@ -208,3 +208,27 @@ div.section h2 { color: #906 }
 .twtr-ft {
     display: none;
 }
+
+#radios .radio {
+    font-variant: small-caps;
+    font-weight: bold;
+    font-size: large;
+}
+
+#radios .streams {
+    font-variant: normal;
+    font-weight: normal;
+    font-size: x-small;
+}
+
+#radios .title {
+    font-style: italic;
+}
+
+#radios a {
+    text-decoration: none;
+}
+
+#radios a:hover {
+    text-decoration: underline;
+}
