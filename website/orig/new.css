@@ -223,12 +223,22 @@ div.section h2 { color: #906 }
     font-size: x-small;
 }
 
+#radios .genre {
+    font-size: x-small;
+    color: #555;
+}
+
 #radios .title {
     font-style: italic;
 }
 
 #radios a {
     text-decoration: none;
+    color: #00f;
+}
+
+#radios a:visited {
+    color: #00f;
 }
 
 #radios a:hover {
@@ -241,4 +251,8 @@ div.section h2 { color: #906 }
 
 #radios li {
     margin-bottom: 2ex;
+}
+
+#map {
+    margin-bottom: 4ex;
 }

@@ -5,9 +5,10 @@
   <script type="text/javascript" src="flows.js"></script>
   <script type="text/javascript" src="http://www.google.com/jsapi"></script>
   <script>google.load("jquery", "1.6.1");</script>
+  <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
   <script type="text/javascript">
-    function update(){update_radios("radios")}
-    window.onload = update;
+    function update(){update_radios("radios");}
+    $(document).ready(update);
     setInterval(update,60000);
   </script>
   <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
@@ -38,7 +39,8 @@
         to <a href="mailto:savonet-users@lists.sf.net">savonet-users@lists.sf.net</a>
         if you find a bug or have an idea to improve it!
       </p>
-      <div id="radios"/>
+      <div id="map" style="width: 100%; height: 200px;"></div>
+      <div id="radios"></div>
       <div id="footer">2003-2010 Savonet team</div>
     </div>
   </div>
