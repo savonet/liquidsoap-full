@@ -41,6 +41,46 @@
       </p>
       <div id="map" style="width: 100%; height: 200px;"></div>
       <div id="radios"><b>Loading...</b></div>
+      <p style="margin-top: 10ex;">
+        ...and since we are trying to go 2.0ish, here is
+        the <a href="http://www.twitter.com/savonet">twitter</a>. Don't
+        forget to
+        mention <a href="https://twitter.com/#!/search/%23liquidsoap">#liquidsoap</a>!
+      </p>
+<script src="http://widgets.twimg.com/j/2/widget.js"></script>
+<script>
+new TWTR.Widget({
+  version: 2,
+  type: 'search',
+  search: 'liquidsoap OR savonet',
+  interval: 6000,
+  title: 'Liquidsoap',
+  subject: 'Liquidsoap in the news..',
+  width: 'auto',
+  height: 300,
+  theme: {
+    shell: {
+      background: '#990066',
+      color: '#ffffff'
+    },
+    tweets: {
+      background: '#ffffff',
+      color: '#444444',
+      links: '#1985b5'
+    }
+  },
+  features: {
+    scrollbar: false,
+    loop: true,
+    live: true,
+    hashtags: true,
+    timestamp: true,
+    avatars: true,
+    toptweets: true,
+    behavior: 'default'
+  }
+}).render().start();
+</script>
       <div id="footer">2003-2010 Savonet team</div>
     </div>
   </div>
