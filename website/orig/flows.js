@@ -17,7 +17,9 @@ function update_radios(div)
     var options = {
         zoom: 1,
         center: latlng,
-        mapTypeId: google.maps.MapTypeId.ROADMAP
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        streetViewControl: false,
+        mapTypeControl: false
     };
     map = new google.maps.Map(document.getElementById('map'), options);
 
@@ -64,14 +66,14 @@ function update_radios(div)
                 content += l + "\n";
                 if ((r.latitude != null) && (r.longitude != null))
                 {
-                    latlng = new google.maps.LatLng(r.latitude, r.longitude);
                     marker = new google.maps.Marker({
-			position: latlng,
+			position: new google.maps.LatLng(r.latitude, r.longitude),
 			map: map,
 			title: r.name
 		    });
                     infowindow = new google.maps.InfoWindow({
-                        content: r.name
+                        content: r.name,
+                        disableAutoPan: true
                     });
                     google.maps.event.addListener(marker, 'click', gen_click_handler(infowindow, marker));
                 }
