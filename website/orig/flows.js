@@ -11,7 +11,6 @@ function gen_click_handler(infowindow, maker)
 function update_radios(div)
 {
     var div = document.getElementById(div);
-    div.innerHTML = "<b>Loading...</b>";
 
     var latlng = new google.maps.LatLng(48.86, 2.33);
     var options = {
@@ -26,10 +25,9 @@ function update_radios(div)
     $.getJSON(
         "http://savonet.rastageeks.org/liqflows.py?fmt=json&cmd=radios",
         function(radios){
-            div.innerHTML = "";
             if (radios.length == 0)
             {
-                div.innerHTML += "<b>No registered radio is currently broadcasting!</b>";
+                div.innerHTML = "<b>No registered radio is currently broadcasting!</b>";
                 return;
             }
             content = "";
