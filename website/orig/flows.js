@@ -14,7 +14,7 @@ function update_radios(div)
             }
             content = "";
             content += "<ul>\n";
-            line = '<li><div class="radio"><a href="WEBSITE">NAME</a> <span class="streams">[STREAMS]</span></div><div class="description">DESCRIPTION (GENRE)</div><div class="metadata">ARTIST &mdash; <span class="title">TITLE</span></div></li>';
+            line = '<li><div class="radio"><a href="WEBSITE" target="_blank">NAME</a> <span class="streams">[STREAMS]</span></div><div class="description">DESCRIPTION (GENRE)</div><div class="metadata">ARTIST &mdash; <span class="title">TITLE</span></div></li>';
             for (i=0; i < radios.length; i++)
             {
                 r = radios[i];
