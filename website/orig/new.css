@@ -209,6 +209,8 @@ div.section h2 { color: #906 }
     display: none;
 }
 
+/* Flows */
+
 #radios .radio {
     font-variant: small-caps;
     font-weight: bold;
@@ -231,4 +233,12 @@ div.section h2 { color: #906 }
 
 #radios a:hover {
     text-decoration: underline;
+}
+
+#radios ul {
+    list-style-type: none;
+}
+
+#radios li {
+    margin-bottom: 2ex;
 }
