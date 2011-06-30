@@ -1,5 +1,11 @@
 title: Proud Savonet users
 
+h2. New version of this webpage
+
+We are trying to progressively replace this page with a "dynamically generated
+one":flows.html. Please see the instructions there if you want to add your
+radion the list.
+
 h2. Some Savonet/Liquidsoap users
 
 We know the following netradios to use Liquidsoap in various ways:
