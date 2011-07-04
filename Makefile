@@ -42,8 +42,6 @@ download_latest:
 	  echo wget $(HTTP)/$$i/$$v/$$i-$$v.tar.gz/download ; \
 	  wget $(HTTP)/$$i/$$v/$$i-$$v.tar.gz ; \
 	done
-	# Exceptions for updated libs which are not yet released
-	rm latest/ocaml-speex-0.1.2.tar.gz
 
 full: bootstrap makefiles
 	@rm -rf $(FULL) ; mkdir $(FULL)
@@ -88,8 +86,12 @@ bootstrap: $(PKGDIRS:=/configure) $(LIQDIR)/configure
 # Generate each PKG/Makefile by running configure script
 # This may fail for some packages because specific configure options are
 # needed, in which case they should simply be ran manually
-makefiles: $(PKGDIRS:=/Makefile) $(LIQDIR)/Makefile
+makefiles: $(PKGDIRS:=/Makefile) $(LIQDIR)/Makefile.defs
 %/Makefile:
 	@echo "*** configuring `dirname $@`"
-	@cd `dirname $@` ; ./configure > /dev/null || \
+	@cd `dirname $@` ; ./configure --with-ogg-dir=../ocaml-ogg/src --with-ladspa-dir=../ocaml-ladspa/src > /dev/null || \
+	  echo "Skipping failed configure..."
+liquidsoap/Makefile.defs: liquidsoap/configure
+	@echo "*** configuring `dirname $@`"
+	@cd `dirname $@` ; source configure-with-options > /dev/null || \
 	  echo "Skipping failed configure..."
