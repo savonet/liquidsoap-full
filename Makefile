@@ -29,26 +29,48 @@ PKGS:=$(shell grep '^\#\?\s*ocaml-[a-z]\+$$' PACKAGES.default | sed -e 's/\#//')
 VERSION:=`grep AC_INIT liquidsoap/configure.ac | sed -e 's/AC_INIT([^,]\+,\s*\[\?\([0-9.a-z-]\+\).*/\1/'`
 FULL:=liquidsoap-$(VERSION)-full
 
-# HTTP=http://download.sourceforge.net/projects/savonet/files
+# $i = package name
+# $v = version
 # wget $(HTTP)/$$i/$$v/$$i-$$v.tar.gz
+HTTP=http://downloads.sourceforge.net/project/savonet
+
+download_latest:
+	mkdir -p latest
+	@cd latest ; \
+	for i in $(PKGS) ; do \
+	  v=`grep AC_INIT ../$$i/configure.ac | sed -e 's/AC_INIT([^,]\+,\s*\[\?\([0-9.a-z-]\+\).*/\1/'` ; \
+	  echo wget $(HTTP)/$$i/$$v/$$i-$$v.tar.gz/download ; \
+	  wget $(HTTP)/$$i/$$v/$$i-$$v.tar.gz ; \
+	done
+	# Exceptions for updated libs which are not yet released
+	rm latest/ocaml-speex-0.1.2.tar.gz
 
 full: bootstrap makefiles
-	rm -rf $(FULL) ; mkdir $(FULL)
+	@rm -rf $(FULL) ; mkdir $(FULL)
 	@cp bootstrap configure Makefile PACKAGES.default PACKAGES.minimal \
 	  README LICENSE INSTALL $(FULL)
-	@for p in $(PKGS) ; do make -C $$p dist ; done
-	@make -C liquidsoap tarball
+	@echo Did you run \"make download_latest\" to get official tarballs?
 	@for i in $(PKGS) ; do \
 	  v=`grep AC_INIT $$i/configure.ac | sed -e 's/AC_INIT([^,]\+,\s*\[\?\([0-9.a-z-]\+\).*/\1/'` ; \
+	  if [ -f latest/$$i-$$v.tar.gz ] ; then \
+	  	cp latest/$$i-$$v.tar.gz $(FULL) ; else \
+	  echo " *** Latest tarball not found for $$i-$$v: building it..." ; \
+	  make -C $$i dist > /dev/null ; \
 	  if [ -f $$i-$$v.tar.gz ] ; then \
 	    mv $$i-$$v.tar.gz $(FULL) ; else \
-		mv $$i/$$i-$$v.tar.gz $(FULL) ; fi ; \
+		mv $$i/$$i-$$v.tar.gz $(FULL) ; \
+      fi ; \
+      fi ; \
 	done
-	cd liquidsoap && make tarball
-	cp liquidsoap/liquidsoap-$(VERSION)+svn.tar.bz2 $(FULL)
-	cd $(FULL) ; for a in *tar.gz ; do tar zxf $$a && rm $$a ; done ; \
+	@if [ -f latest/liquidsoap-$(VERSION).tar.bz2 ] ; then \
+	  cp latest/liquidsoap-$(VERSION).tar.bz2 $(FULL) ; else \
+	  echo " *** Latest tarball not found for liquidsoap-$(VERSION): building..." ; \
+	  make -C liquidsoap tarball > /dev/null && \
+	    mv liquidsoap/liquidsoap-$(VERSION).tar.bz2 $(FULL) ; \
+	fi
+	@cd $(FULL) ; for a in *tar.gz ; do tar zxf $$a && rm $$a ; done ; \
 	  tar jxf liquidsoap*tar.bz2 && rm liquidsoap*tar.bz2
-	ls -lR $(FULL)
+	@echo Full release ready in subdirectory $(FULL)
 
 # The bootstrap target creates/updates */configure as needed
 # It is more efficient than ./bootstrap, avoiding to regenerate
@@ -63,6 +85,9 @@ bootstrap: $(PKGDIRS:=/configure) $(LIQDIR)/configure
 %/configure: %/configure.ac
 	@echo "*** bootstrapping `dirname $@`"
 	@cd `dirname $@` ; ./bootstrap
+# Generate each PKG/Makefile by running configure script
+# This may fail for some packages because specific configure options are
+# needed, in which case they should simply be ran manually
 makefiles: $(PKGDIRS:=/Makefile) $(LIQDIR)/Makefile
 %/Makefile:
 	@echo "*** configuring `dirname $@`"
