@@ -55,37 +55,16 @@ h3. FreeBSD
 
 Liquidsoap is "available":http://www.freebsd.org/cgi/cvsweb.cgi/ports/audio/liquidsoap/ in FreeBSD using the port system.
 
-h3. Subversion repository (and other distributions)
+h3. Mercurial reporsitory (and other distributions)
 
-If you want a cutting-edge version, you can use the subversion repository. To
-get a copy of it, just run:
-
-<pre>
-svn co https://savonet.svn.sourceforge.net/svnroot/savonet/trunk savonet
-</pre>
-
-You need then to bootstrap the configuration scripts:
-
-<pre>./bootstrap</pre>
-
-And then follow the "build instructions":doc-svn/build.html.
-
-h3. Mercurial reporsitory
-
-We are starting to use mercurial for our main repository because it offers more
-features than subversion. We should sync the subversion repository with the
-mercurial one from time to time, but if you really want cutting edge version of
-Liquidsoap this is the way to go. To get a copy of it, simply run
+If you want a cutting-edge version, you can use the mercurial (HG) repository.
+To get a copy of it, just run:
 
 <pre>
 hg clone http://savonet.hg.sourceforge.net:8000/hgroot/savonet/savonet
 </pre>
 
-and afterwards follow the "build instructions":doc-svn/build.html.
-
-If you are not familiar with mercurial, we recall that the repository can be
-updated using
-
-<pre>
-hg pull; hg up
-</pre>
+After that, you can synchronize your repository using @hg pull ; hg update@.
+Once you have an up-to-date working copy,
+start with a @./bootstrap@ and follow the usual
+"build instructions":doc-svn/build.html.
