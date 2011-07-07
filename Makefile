@@ -68,6 +68,7 @@ full: bootstrap makefiles
 	fi
 	@cd $(FULL) ; for a in *tar.gz ; do tar zxf $$a && rm $$a ; done ; \
 	  tar jxf liquidsoap*tar.bz2 && rm liquidsoap*tar.bz2
+	@tar cjf $(FULL).tar.bz2 $(FULL)
 	@echo Full release ready in subdirectory $(FULL)
 
 # The bootstrap target creates/updates */configure as needed
@@ -93,5 +94,5 @@ makefiles: $(PKGDIRS:=/Makefile) $(LIQDIR)/Makefile.defs
 	  echo "Skipping failed configure..."
 liquidsoap/Makefile.defs: liquidsoap/configure
 	@echo "*** configuring `dirname $@`"
-	@cd `dirname $@` ; source configure-with-options > /dev/null || \
+	@cd `dirname $@` ; ./configure-with-options > /dev/null || \
 	  echo "Skipping failed configure..."
