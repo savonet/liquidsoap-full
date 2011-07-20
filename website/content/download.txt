@@ -20,9 +20,18 @@ Liquidsoap is included in Debian and Ubuntu distributions:
 * "Debian packages":http://packages.debian.org/liquidsoap
 * "Ubuntu packages":http://packages.ubuntu.com/liquidsoap
 
-However, we maintain custom packages for liquidsoap, in order to enable features that are not available in those distributions, such as mp3 encoding:
+Starting with package version @1.0.0~beta2.1-3@, official Debian and Ubuntu packages can dynamically
+load the MP3 and AAC+ encoders without the need to recompile the software to enable these features!
+
+In order to activate them, you can either compile and install @ocaml-lame@ and @ocamlaacplus@ or, more simply, 
+install the @liblame-ocaml-dynlink@ and @libaacplus-ocaml-dynlink@ packages available from 
+"Debian Multimedia":http://debian-multimedia.org/.
+
+We also maintain custom packages for liquidsoap:
 
 * "Daily Debian packages":debian_daily.html
+
+**Disclaimer: custom packages are currently outdated. We are looking for constributors to help bringing them back!**
 
 The daily packages are mostly aimed toward developers.
 
