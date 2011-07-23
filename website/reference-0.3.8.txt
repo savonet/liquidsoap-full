@@ -2,7 +2,7 @@ title: Language reference
 
 h3. Liquidsoap scripting language reference
 
-h4. Categories
+h3. Categories
 
 The **Source / ...** categories contain all functions that return sources.
 The **Input** functions are those which build elementary sources
@@ -34,7 +34,7 @@ information that liquidsoap puts in streams: track limits and metadata.
 * "System":#System
 
 
-h4@SourceInput. Source / Input
+h3@SourceInput. Source / Input
 h5. blank
 <pre>(?id:string, ?duration:float)->source</pre>
 
@@ -300,7 +300,7 @@ Generate a square wave.
 
 
 
-h4@SourceOutput. Source / Output
+h3@SourceOutput. Source / Output
 h5. out
 <pre>(source)->source</pre>
 
@@ -696,7 +696,7 @@ Output to shoutcast using the MP3 format.
 
 
 
-h4@SourceSoundProcessing. Source / Sound Processing
+h3@SourceSoundProcessing. Source / Sound Processing
 h5. accelerate
 <pre>(?id:string, float, ?before:float, ?after:float,
  source)->source</pre>
@@ -1270,7 +1270,7 @@ swap two channels
 
 
 
-h4@SourceTrackProcessing. Source / Track Processing
+h3@SourceTrackProcessing. Source / Track Processing
 h5. append
 <pre>(?id:string, ?merge:bool, source,
  (([(string*string)])->source))->source</pre>
@@ -1546,7 +1546,7 @@ At the beginning of a track, select the first source whose predicate is true.
 
 
 
-h4@SourceVisualization. Source / Visualization
+h3@SourceVisualization. Source / Visualization
 h5. vumeter
 <pre>(?id:string, ?scroll:bool, source)->source</pre>
 
@@ -1558,7 +1558,7 @@ VU meter (display the volume).
 
 
 
-h4@Bool. Bool
+h3@Bool. Bool
 h5. !=
 <pre>('a, 'a)->bool where 'a is an orderable type</pre>
 
@@ -1638,7 +1638,7 @@ Generate a random value.
 
 
 
-h4@Control. Control
+h3@Control. Control
 h5. add_timeout
 <pre>(?fast:bool, float, (()->float))->unit</pre>
 
@@ -1657,7 +1657,7 @@ Convert anything to unit, preventing warnings.
 
 
 
-h4@Deprecated. Deprecated
+h3@Deprecated. Deprecated
 h5. request
 <pre>(string)->request</pre>
 
@@ -1667,7 +1667,7 @@ Backward compatible function for request.create().
 
 
 
-h4@Interaction. Interaction
+h3@Interaction. Interaction
 h5. interactive_float
 <pre>(string, float)->()->float</pre>
 
@@ -1696,7 +1696,7 @@ Print on standard output.
 
 
 
-h4@Liquidsoap. Liquidsoap
+h3@Liquidsoap. Liquidsoap
 h5. add_protocol
 <pre>(string, ((string, float)->[string]))->unit</pre>
 
@@ -1825,7 +1825,7 @@ Skip to the next track.
 
 
 
-h4@List. List
+h3@List. List
 h5. _[_]
 <pre>(string, [(string*string)])->string</pre>
 
@@ -1968,7 +1968,7 @@ Get the second component of a pair.
 
 
 
-h4@Math. Math
+h3@Math. Math
 h5. *
 <pre>('a, 'a)->'a where 'a is a number type</pre>
 
@@ -2068,7 +2068,7 @@ Generate a random value.
 
 
 
-h4@String. String
+h3@String. String
 h5. %
 <pre>(string, [(string*string)])->string</pre>
 
@@ -2212,7 +2212,7 @@ Return the representation of a value.
 
 
 
-h4@System. System
+h3@System. System
 h5. argv
 <pre>(?default:string, int)->string</pre>
 
