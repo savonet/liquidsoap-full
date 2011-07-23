@@ -170,9 +170,8 @@ div.section h2 { color: #906 }
   word-spacing: 0px; /* restore spacing... */
   text-align: center;
   display: inline ;
-  padding: 0.5em 1em 0.5em 1em ;
+  padding: 4% 2% 4% 2% ;
   margin: 0 0 0 0 ;
-  border: solid 5px black 0 0 0 0 ;
 }
 
 #liq123 a {
