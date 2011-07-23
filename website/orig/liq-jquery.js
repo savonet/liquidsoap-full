@@ -1,3 +1,35 @@
+function searchBox(source) {
+  var search = $("<div id=\"liq-div-search\">\
+                  <label for=\"liq-search\">Search: </label>\
+                  <input id=\"liq-search\"/>\
+                  </div>\
+                  <div id=\"liq-search-result\"></div>");
+  search.filter("#liq-search").css('display','none');
+  function select(event,ui) {
+    if (ui.item) {
+      var id = ui.item.value.replace(/[^\w]/g,"_");
+      var op = $("#" + id);
+      var doc = op.next().clone().css('display','none');
+      var header = $("<div id=\"liq-search-header\">\
+                      <h4>" + op.text() + "\
+                      <a href=\"#\" id=\"liq-search-hide\">(hide)</a>\
+                      </h4></div>")
+                   .css('display','none');
+      var target = $('#liq-search-result');
+      target.empty().append(header).append(doc);
+      target.children().fadeIn("fast");
+      header.find("a").click(function () {
+        target.children().fadeOut("fast");
+        return false;
+      });
+    }
+  }
+  search.find("#liq-search")
+        .autocomplete({ source: source,
+                        select: select });
+  return search;
+}
+
 /* Enhance reference presentation. */
 function enhanceRef (ref) {
   /* Find all links that have attribute "name" */
@@ -5,6 +37,8 @@ function enhanceRef (ref) {
   /* Hidding is expensive, therefore we store
    * all object to be hidden and hid them at once.. */
   var hide = [];
+  /* List all operator names. */
+  var op_names = [];
   /* For each of them, detach them and move 
    * them to their counter part. */
   links.each(function () {
@@ -18,26 +52,31 @@ function enhanceRef (ref) {
     /* Find each operator. */
     var operators = content.filter("h5");
     /* Initiate a list. */
-    var section = $("<ul></ul>");
+    var section = $("<ul class=\"liq-api-sec\"></ul>");
     /* For each of them do the following. */
     operators.each(function () {
       var elem = $(this);
       /* Get text content. */
       var text = elem.text();
+      /* Add in op_names. */
+      op_names.push(text);
       /* Initiate a link. */
-      var link = $("<a href=\"#\">" + text + "</a>");
+      var id = text.replace(/[^\w]/g,"_");
+      var link = $("<a href=\"#\" id=\"" + id + "\">" + text + "</a>");
       /* Get all elements until next
        * operator. */
       var doc = elem.nextUntil("h5,h3,#footer");
       /* Move doc to section. */
-      var li = $("<li></li>");
-      li.append(link).append(doc.detach());
+      var li = $("<li class=\"liq-api-elem\"></li>");
+      var div = $("<div class=\"liq-api-content\"></div>");
+      div.append(doc.detach());
+      li.append(link).append(div);
       section.append(li);
       /* Hide doc. */
-      hide.push(doc);
+      hide.push(div);
       /* Toggle showing on links on click. */
       link.click(function () {
-        doc.fadeToggle();
+        div.fadeToggle();
         return false;
       });
       /* Remove elem. */
@@ -53,8 +92,13 @@ function enhanceRef (ref) {
     /* Append section. */
     target.after(section);
     /* Remove link. */
-    link.remove();
+    link.parent().remove();
   });
+
+  /* Add a search box. */
+  ref.nextAll("ul").before(searchBox(op_names));
+
+  /* Hide elements. */
   jQuery.each(hide,function (index,elem) {
     elem.css('display', 'none');
   });
@@ -64,6 +108,8 @@ function enhanceSettings(root) {
   /* Hidding is expensive, therefore we store
    * all object to be hidden and hid them at once.. */
   var hide = [];
+  /* List all settings. */
+  var set_names = [];
   /* Initiate a list. */
   var doc = $("<ul></ul>");
   /* Find all subsequent h3. */
@@ -77,15 +123,19 @@ function enhanceSettings(root) {
       part.each(function () {
         var elem = $(this);
         var text = elem.text();
-        var link = $("<a href=\"#\">" + text + "</a>");
+        set_names.push(text);
+        var id = text.replace(/[^\w]/g,"_");
+        var link = $("<a href=\"#\" id=\"" + id + "\">" + text + "</a>");
         var content = elem.nextUntil("h4,h3,#footer");
-        hide.push(content);
+        var div = $("<div class=\"liq-setings-content\"></div>");
+        div.append(content.detach());
+        hide.push(div);
         link.click(function () { 
-          content.fadeToggle("fast");
+          div.fadeToggle("fast");
           return false;
         });
         var li = $("<li></li>");
-        li.append(link).append(content.detach());
+        li.append(link).append(div);
         section.append(li);
         elem.remove();
       });
@@ -103,6 +153,7 @@ function enhanceSettings(root) {
     elem.remove();
   });
   root.after(doc);
+  doc.before(searchBox(set_names));
   jQuery.each(hide,function (index,elem) {
     elem.css('display', 'none');
   });
