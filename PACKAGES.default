@@ -19,7 +19,7 @@
 ocaml-cry
 # AO is portable and stable, but it does only output.
 ocaml-ao
-# Portaudio (BROKEN) is a portable audio library with both input and output.
+# Portaudio is a portable audio library with both input and output.
 ocaml-portaudio
 # ALSA is only for LINUX, and is sometimes not working.
 ocaml-alsa
