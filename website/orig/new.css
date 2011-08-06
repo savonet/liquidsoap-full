@@ -191,7 +191,7 @@ div.section h2 { color: #906 }
   background: #609;
 }
 
-#liq-search-hide {
+.liq-search-hide {
   float: right;
   font-weight: normal;
 }

@@ -5,7 +5,16 @@ h2. Installing Savonet/Liquidsoap
 
 There are several ways to install liquidsoap, either compiled from source, or using a package available for your distribution.
 
-h3. Installing from source
+* "From source":#source
+* "Debian/Ubuntu":#deb
+* "Windows":#win32
+* "Mac OS X":#osx
+* "FreeBSD":#freebsd
+* "Cygwin (windows)":#cygwin
+* "ArchLinux":#arch
+* "Latest development version":#hg
+
+h3@source. Installing from source
 
 You can download source code published by Savonet in our "sourceforge download section":http://sourceforge.net/project/showfiles.php?group_id=89802.
 
@@ -13,18 +22,19 @@ The recommended way for newcomers is to use the liquidsoap-full-xxx.tar.gz tarba
 
 You will then have to "build the source":doc-svn/build.html.
 
-h3. Debian/Ubuntu packages
+h3@deb. Debian/Ubuntu packages
 
 Liquidsoap is included in Debian and Ubuntu distributions:
 
 * "Debian packages":http://packages.debian.org/liquidsoap
 * "Ubuntu packages":http://packages.ubuntu.com/liquidsoap
 
-Starting with package version @1.0.0~beta2.1-3@, official Debian and Ubuntu packages can dynamically
-load the MP3 and AAC+ encoders without the need to recompile the software to enable these features!
+Starting with package version @1.0.0~beta3-1@, official Debian and Ubuntu packages support MP3 encoding
+by installing the optional @liquidsoap-plugin-lame@ package. These packages can also dynamically
+load the AAC+ encoders without the need to recompile!
 
-In order to activate them, you can either compile and install @ocaml-lame@ and @ocamlaacplus@ or, more simply, 
-install the @liblame-ocaml-dynlink@ and @libaacplus-ocaml-dynlink@ packages available from 
+In order to activate the AAC+ encoder, you can either compile and install @ocamlaacplus@ or, more simply, 
+install the @libaacplus-ocaml-dynlink@ package available from 
 "Debian Multimedia":http://debian-multimedia.org/.
 
 We also maintain custom packages for liquidsoap:
@@ -35,18 +45,23 @@ We also maintain custom packages for liquidsoap:
 
 The daily packages are mostly aimed toward developers.
 
-h3. ArchLinux
+h3@win32. Windows
 
-A package for Arch Linux users is available from the distribution,
-see the "ArchLinux Liquidsoap package page":http://aur.archlinux.org/packages.php?ID=23902
-
-h3. Native Windows Binary.
-
-A native windows binary is available in our download section. See
+A native windows binary is available in our "sourceforge download section":http://sourceforge.net/project/showfiles.php?group_id=89802. See
 "this page":windows.html for more information concerning this port
 and how it is built.
 
-h3. Cygwin (Windows)
+h3@osx. Mac OS X
+
+You can download and build liquidsoap using either
+* "Homebrew":homebrew.html.
+* "MacPorts":macports.html (not really supported at the moment).
+
+h3@freebsd. FreeBSD
+
+Liquidsoap is "available":http://www.freebsd.org/cgi/cvsweb.cgi/ports/audio/liquidsoap/ in FreeBSD using the port system.
+
+h3@cygwin. Cygwin (Windows)
 
 Liquidsoap is available as a Cygwin port, thanks to the Cywin Ports project ! You can get instructions
 on how to install Cygwin ports on their website: "http://sourceware.org/cygwinports/":http://sourceware.org/cygwinports/.
@@ -54,17 +69,12 @@ on how to install Cygwin ports on their website: "http://sourceware.org/cygwinpo
 This port allows you to compile a liquidsoap binary running on windows systems and using the (great) Cygwin unix
 environement for windows.
 
-h3. Mac OS X
+h3@arch. ArchLinux
 
-You can download and build liquidsoap using either
-* "Homebrew":homebrew.html.
-* "MacPorts":macports.html (not really supported at the moment).
+A package for Arch Linux users is available from the distribution,
+see the "ArchLinux Liquidsoap package page":http://aur.archlinux.org/packages.php?ID=23902
 
-h3. FreeBSD
-
-Liquidsoap is "available":http://www.freebsd.org/cgi/cvsweb.cgi/ports/audio/liquidsoap/ in FreeBSD using the port system.
-
-h3. Mercurial reporsitory (and other distributions)
+h3@hg. Mercurial repository (and other distributions)
 
 If you want a cutting-edge version, you can use the mercurial (HG) repository.
 To get a copy of it, just run:

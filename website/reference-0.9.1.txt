@@ -1,6 +1,6 @@
 title: Language reference
 
-h3. Liquidsoap scripting language reference
+h2. Liquidsoap scripting language reference
 
 h3. Categories
 

@@ -12,7 +12,7 @@ function searchBox(source) {
       var doc = op.next().clone().css('display','none');
       var header = $("<div id=\"liq-search-header\">\
                       <h4>" + op.text() + "\
-                      <a href=\"#\" id=\"liq-search-hide\">(hide)</a>\
+                      <a href=\"#\" class=\"liq-search-hide\">(hide)</a>\
                       </h4></div>")
                    .css('display','none');
       var target = $('#liq-search-result');
@@ -159,14 +159,43 @@ function enhanceSettings(root) {
   });
 }
 
+function enhanceDownloads(ref) { 
+  var list = ref.siblings('ul').first();
+  list.children().each(function (id,el) {
+    var link = $(el).children();
+    var name = link.attr('href').replace(/^#/,'');
+    var target = $('a:[name="' + name + '"]'); 
+    var hide_link = $('<a class="liq-search-hide" href="#">(hide)</a>');
+    target.after(hide_link);
+
+    var content = target.parent().nextUntil('h3,#footer').andSelf();
+    content.css('display', 'none');
+    link.click(function () {
+      content.fadeToggle('slow');
+      $('html, body').animate({ scrollTop: target.offset().top }, 500); 
+      return false;
+    });
+
+    hide_link.click(function () {
+      content.fadeOut('slow');
+      $('html, body').animate({ scrollTop: $('body').offset().top }, 500);
+      return false;
+    });
+  });
+}
+
 $(document).ready(function () {
-  var ref = $("h2,h3:contains('Liquidsoap scripting language reference')");
+  var ref = $("h2:contains('Liquidsoap scripting language reference')");
   if (ref.length > 0) {
     enhanceRef(ref);
   }
   var root = $("h3:contains('Liquidsoap configuration')");
   if (root.length > 0) {
     enhanceSettings(root);
+  }
+  var dl = $("h2:contains('Installing Savonet')");
+  if (dl.length > 0) {
+    enhanceDownloads(dl);
   }
 });
 

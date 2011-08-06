@@ -18,11 +18,12 @@ detailed material.
 
 h3. Latest releases
 
-* "Latest release (1.0.0 beta2)":doc-1.0.0-beta2/documentation.html
+* "Latest release (1.0.0 beta3)":doc-1.0.0-beta3/documentation.html
 * "Latest developement trunk":doc-svn/documentation.html
 
 h3. Previous releases
 
+* "1.0.0 beta2":doc-1.0.0-beta2/documentation.html
 * "1.0.0 beta1":doc-1.0.0-beta1/documentation.html
 * "0.9.2 and 0.9.3":doc-0.9.2/documentation.html
 * "0.9.1":doc-0.9.1/documentation.html
