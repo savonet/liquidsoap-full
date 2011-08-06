@@ -38,9 +38,11 @@ download_latest:
 	mkdir -p latest
 	@cd latest ; \
 	for i in $(PKGS) ; do \
-	  v=`grep AC_INIT ../$$i/configure.ac | sed -e 's/AC_INIT([^,]\+,\s*\[\?\([0-9.a-z-]\+\).*/\1/'` ; \
-	  echo wget $(HTTP)/$$i/$$v/$$i-$$v.tar.gz/download ; \
-	  wget $(HTTP)/$$i/$$v/$$i-$$v.tar.gz ; \
+  	  v=`grep AC_INIT ../$$i/configure.ac | sed -e 's/AC_INIT([^,]\+,\s*\[\?\([0-9.a-z-]\+\).*/\1/'` ; \
+	  if test ! -s $$i-$$v.tar.gz; then \
+	    echo wget $(HTTP)/$$i/$$v/$$i-$$v.tar.gz/download -O $$i-$$v.tar.gz --tries=2; \
+	    wget $(HTTP)/$$i/$$v/$$i-$$v.tar.gz -O $$i-$$v.tar.gz --tries=2 || rm -f $$i-$$v.tar.gz; \
+	  fi \
 	done
 
 full: bootstrap makefiles
