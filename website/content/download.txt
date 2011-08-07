@@ -18,7 +18,7 @@ h3@source. Installing from source
 
 You can download source code published by Savonet in our "sourceforge download section":http://sourceforge.net/project/showfiles.php?group_id=89802.
 
-The recommended way for newcomers is to use the liquidsoap-full-xxx.tar.gz tarball. This tarball includes all required OCaml bindings and allows you to compile and install liquidsoap in a single @configure@, @make@ and @make install@ procedure. You will still need the corresponding C libraries and their developement files, though.
+The recommended way for newcomers is to use the liquidsoap-full-xxx.tar.gz tarball. This tarball includes all required OCaml bindings and allows you to compile and install liquidsoap in a single @configure@, @make@ and @make install@ procedure. You will still need the corresponding C libraries and their development files, though.
 
 You will then have to "build the source":doc-svn/build.html.
 
@@ -33,7 +33,7 @@ Starting with package version @1.0.0~beta3-1@, official Debian and Ubuntu packag
 by installing the optional @liquidsoap-plugin-lame@ package. These packages can also dynamically
 load the AAC+ encoders without the need to recompile!
 
-In order to activate the AAC+ encoder, you can either compile and install @ocamlaacplus@ or, more simply, 
+In order to activate the AAC+ encoder, you can either compile and install @ocaml-aacplus@ or, more simply, 
 install the @libaacplus-ocaml-dynlink@ package available from 
 "Debian Multimedia":http://debian-multimedia.org/.
 
@@ -41,7 +41,7 @@ We also maintain custom packages for liquidsoap:
 
 * "Daily Debian packages":debian_daily.html
 
-**Disclaimer: custom packages are currently outdated. We are looking for constributors to help bringing them back!**
+**Disclaimer: custom packages are currently outdated. We are looking for contributors to help bringing them back!**
 
 The daily packages are mostly aimed toward developers.
 
@@ -67,7 +67,7 @@ Liquidsoap is available as a Cygwin port, thanks to the Cywin Ports project ! Yo
 on how to install Cygwin ports on their website: "http://sourceware.org/cygwinports/":http://sourceware.org/cygwinports/.
 
 This port allows you to compile a liquidsoap binary running on windows systems and using the (great) Cygwin unix
-environement for windows.
+environment for windows.
 
 h3@arch. ArchLinux
 

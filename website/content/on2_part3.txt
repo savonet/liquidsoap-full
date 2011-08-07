@@ -4,7 +4,7 @@ This part is pretty open. We describe below a few advanced features of
 liquidsoap, including video and midi. We provide some examples
 or simply propose things to do, to give you an idea of what's in
 the near future of liquidsoap and hopefully draw you into
-contibuting to shaping that future,
+contributing to shaping that future,
 if only through discussions.
 
 h2. Visualization
@@ -122,7 +122,7 @@ and displaying a scrolling text:
 %%
 s = video.add_text("Hello people!", s)
 %%
-Try modifying the scolling text example so that you can modify the contents of
+Try modifying the scrolling text example so that you can modify the contents of
 the text over the telnet interface.
 
 Very similarly to audio transitions (fade in, fade out, etc.) there are some
@@ -282,7 +282,7 @@ from the Savonet community.
 
 h3. Listener-sensitive radio
 
-Write a script that checks whether an icecast mountpoint is being listened
+Write a script that checks whether an icecast mount point is being listened
 to, and use it to switch a radio to some dummy source when nobody is
 listening, and switch back to normal when listeners come back.
 This can be useful to avoid using the hard drive when unnecessary

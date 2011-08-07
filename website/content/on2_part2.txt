@@ -8,13 +8,13 @@ advanced stream using static files.
 In order to be self-contained, we will use here only pure liquidsoap scripting
 functionalities. However, all the parts that use pre-defined functions can be
 implemented using external scripts, which is the most common practice, and has
-proven to be very convenient in order to integrate your liquidsoap stream into
+proved to be very convenient in order to integrate your liquidsoap stream into
 the framework that you use to manage your radio.
 
 h3. Preliminaries
 
 In order to make things more clear and modular, we will
-seperate the code in two parts:
+separate the code in two parts:
 * @radio.liq@ is the script that contains the definition of the main stream
 * @library.liq@ is the script that contains the functions used to build the stream
 
@@ -87,7 +87,7 @@ touch /path/to/library.liq
 * Connect to the telnet server (@telnet localhost 1234@)
 * Try the telnet comment: @icecast.skip@
 * Check that a jingle is played every 3 songs.
-* Sometimes, when skiping, the source does not prepare a new file quickly enough, which breaks the rotation. If this is the case, add the parameter @conservative=true@ to each playlist and try again.
+* Sometimes, when skipping, the source does not prepare a new file quickly enough, which breaks the rotation. If this is the case, add the parameter @conservative=true@ to each playlist and try again.
 
 Now, we extend this initial stream with some advanced features:
 
@@ -149,7 +149,7 @@ with liquidsoap using @request.dynamic@.
 
 @request.dynamic@ takes a function of type @()->request@,
 i.e. a function with no arguments that returns a new request to queue 
-and create a source with it. Everytime that liquidsoap needs to 
+and create a source with it. Every time that liquidsoap needs to 
 prepare a new file, it will execute the function and use its result.
 
 Requests in liquidsoap are created with the function @request.create@,
@@ -158,7 +158,7 @@ which takes an URIs of the form:
 protocol:arguments
 %%
 where @protocol:@ is optional is @arguments@ is the URI of a local file.
-For intance, @ftp://server.net/path/to/file.mp3@ is a requests using 
+For instance, @ftp://server.net/path/to/file.mp3@ is a requests using 
 the _ftp_ protocol, which is resolved using @wget@ (if present in the 
 system).
 
@@ -170,7 +170,7 @@ later to know if we are currently playing a song or a jingle.
 For these reasons, we will be using the @annotate:@ protocol.
 This protocol can be used to pass additional metadata along
 with the metadata of the file. Here, we will pass a metadata
-labelled @"type"@, with value @"song"@ if the track is a song
+labeled @"type"@, with value @"song"@ if the track is a song
 or @"jingle"@ otherwise.
 
 In the context of this simple presentation, we will write
@@ -213,7 +213,7 @@ Solutions:
 h4. Custom metadata
 
 We have just seen how it is possible to use the @annotate:@ protocol to
-pass custom metadata to any request. Additionaly, it is also possible to rewrite
+pass custom metadata to any request. Additionally, it is also possible to rewrite
 your stream's metadata on the fly, using the @on_metadata@ operator.
 
 This operator takes a function of the type @metadata->metadata@, i.e. a function
@@ -290,7 +290,7 @@ def my_safe(s) =
   # We return a fallback where the original
   # source has priority over the security
   # single. We set track_sensitive to false
-  # to return immediatly to the original source
+  # to return immediately to the original source
   # when it becomes available again.
   fallback(track_sensitive=false,[s,security])
 end
@@ -315,7 +315,7 @@ Solutions:
 h4. Multiple outputs
 
 We may as well output the stream to several targets, 
-for instance to different icecast mountpoints with different 
+for instance to different icecast mount points with different 
 formats. Therefore, we define a custom output function
 that defines all these outputs. 
 
@@ -361,7 +361,7 @@ outputs(s)
 %%
 Connection failed: 403, too many sources connected (HTTP/1.0)!
 %%
-In this case, you should check the maximun number of sources that your 
+In this case, you should check the maximum number of sources that your 
 icecast server accepts.
 
 Solutions:
@@ -370,7 +370,7 @@ Solutions:
 
 h3. More advanced functions!
 
-Now that we have a controlable initial radio, we extend our initial 
+Now that we have a controllable initial radio, we extend our initial 
 scripts to add advanced features. The following graph illustrates what 
 we are going to add:
 
@@ -418,7 +418,7 @@ def add_replaygain(m) =
   type = m["type"]
   # The replaygain script is located there
   script = "#{configure.libdir}/extract-replaygain"
-  # The filename is contained in this value
+  # The file name is contained in this value
   filename = m["filename"]
 
   # If type = "song", proceed:
@@ -442,7 +442,7 @@ to @1.@, i.e. no amplification, and tell the operator to update this value with
 the content of the @"replay_gain"@ metadata. Thus, only the tracks which have this
 metadata will be modified. 
 
-We add the following in @radio.liq@, after the line we juste inserted:
+We add the following in @radio.liq@, after the line we just inserted:
 %%
 s = amplify(override="replay_gain",1.,s)
 %%
@@ -487,7 +487,7 @@ but you may do much more things with a little bit of imagination.
 Here, we add the following in @library.liq@:
 %%
 # Our custom crossfade that 
-# only crossfade betwee tracks
+# only crossfade between tracks
 def my_crossfade(s) = 
   # Our transition function
   def f(_,_, old_m, new_m, old, new) = 
@@ -523,13 +523,13 @@ h4. Smooth_add
 Finally, we add another nice feature: a jingle that is played on top of the
 current stream. We use the @smooth_add@ operator, which is also defined in 
 @utils.liq@. This operator takes a normal source and a special jingle source.
-Everytime that a new track is available in the special source, it fades out
+Every time that a new track is available in the special source, it fades out
 the volume of the normal source, plays the track from the special source 
 on top of the current track of the normal source, and then fades back in
 the volume of the normal source when the track is finished.
 
 Typically, you use for the special source a @request.queue@ where you push a new 
-jingle everytime you want to use this feature. 
+jingle every time you want to use this feature. 
 
 We modify @radio.liq@ and add the following line just before @my_safe@:
 %%
@@ -554,8 +554,8 @@ We present now another important part of an advanced stream: the addition of a l
 in order to allow DJs to broadcast their shows.
 
 We are going to add the following features:
-* A live input that is played immediatly when it is available
-* Use different harbor ports, to replace mountpoints for shoutcast source clients
+* A live input that is played immediately when it is available
+* Use different harbor ports, to replace mount points for shoutcast source clients
 * A transition jingle that is played when switching between live and files
 * Skip the file currently being played when switching to a live source so that the file-based source starts with a fresh song when the live stops
 * Define different authentications for the DJs and make sure that a DJ can only broadcast when its show is scheduled
@@ -564,10 +564,10 @@ h4. Live inputs
 
 The live inputs in liquidsoap are of two types:
 * Network-based, mostly @input.http@ and @input.harbor@.
-* Hardward-based, with operators like @input.alsa@, @input.jack@, etc.
+* Hardware-based, with operators like @input.alsa@, @input.jack@, etc.
 
 We focus here on the first type, and more precisely on @input.harbor@. When using
-this opreator in your script, the running instance will be able to receive data 
+this operator in your script, the running instance will be able to receive data 
 coming from icecast and shoutcast source clients. Then, your DJs can broadcast 
 a live stream using their favorite software. Liquidsoap supports most of the 
 usual data formats, when enabled as encoder:
@@ -601,13 +601,13 @@ s = fallback(track_sensitive=false, [live,s])
 %%
 
 **Note** the @track_sensitive=false@ parameter tells liquidsoap to 
-switch immediatly to @live@ when it becomes available instead of waiting 
+switch immediately to @live@ when it becomes available instead of waiting 
 for the end of the track currently played by @s@.
 
 * Update your script
 * Run the new radio
-* Try to connect to the harbor mountpoint. You may use a seperate liquidsoap script and @output.icecast@
-* Why is the output still unfallible ?
+* Try to connect to the harbor mountpoint. You may use a separate liquidsoap script and @output.icecast@
+* Why is the output still infallible ?
 
 Solutions:
 * "radio.liq":radio.liq-harbor
@@ -642,7 +642,7 @@ s = fallback(track_sensitive=false, [live1,live2,s])
 %%
 
 Then your a DJ should be able to send data using the port @9000@
-and another one using the port @7000@, and the one connecing on port
+and another one using the port @7000@, and the one connecting on port
 @9000@ may be played in priority if the two are connected at the same time.
 
 * Update your script
@@ -664,7 +664,7 @@ for the listeners. Further, when switching back to the file-based source at the
 end of the live, the source resumes in the middle of the song that was last played..
 
 In this part, we define a transition for switching from file to live, which fades
-the current song out and supperposes a jingle before starting the live show.
+the current song out and superposes a jingle before starting the live show.
 We use the @transition@ parameter of the fallback operators.
 
 This parameter contains functions of the type: @source * source -> source@,
@@ -688,7 +688,7 @@ First, we add the following code in @library.liq@:
 def to_live(jingle,old,new) = 
   # Fade out old source
   old = fade.final(old)
-  # Supperpose the jingle
+  # Superpose the jingle
   s = add([jingle,old])
   # Compose this in sequence with
   # the new source

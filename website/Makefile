@@ -1,19 +1,20 @@
 .PHONY: all clean upload dist
 
-PWD=$(shell pwd)
+PWD := $(shell pwd)
 # Should be built there
-LIQ_DIR=$(PWD)/../liquidsoap
-LIQI=$(LIQ_DIR)/doc/liqi/liqi
-LIQUIDSOAP=$(LIQ_DIR)/src/liquidsoap
+LIQ_DIR := $(PWD)/../liquidsoap
+LIQI := $(LIQ_DIR)/doc/liqi/liqi
+LIQUIDSOAP := $(LIQ_DIR)/src/liquidsoap
 
 
 # Versions for which documentation should be build and included
-VERSIONS=svn 0.3.8 0.9.0 0.9.1 0.9.2 1.0.0-beta1 1.0.0-beta2 1.0.0-beta3
+VERSIONS := svn 0.3.8 0.9.0 0.9.1 0.9.2 1.0.0-beta1 1.0.0-beta2 1.0.0-beta3
 
 # Static content
 content_expand = $(wildcard $(PWD)/content/doc-$(version)/*.txt)
 content_expanded := $(foreach version,$(VERSIONS),$(content_expand))
-CONTENT := $(wildcard $(PWD)/content/*.txt) $(content_expanded)
+content_website := $(wildcard $(PWD)/content/*.txt)
+CONTENT := $(content_website) $(content_expanded)
 
 JS := $(shell echo $(wildcard $(PWD)/orig/*.js) | sed -s 's|/orig/|/html/|g')
 HTML := $(shell echo $(CONTENT:.txt=.html) | sed -s 's|/content/|/html/|'g)
@@ -32,11 +33,11 @@ else
 endif
 
 # Generated content
-GENERATED_FILES=$(PWD)/html/doc-@@VERSION@@/reference.html \
-                $(PWD)/html/doc-@@VERSION@@/scripts/index.html \
-                $(PWD)/html/doc-@@VERSION@@/settings.html
+GENERATED_FILES := $(PWD)/html/doc-@@VERSION@@/reference.html \
+                   $(PWD)/html/doc-@@VERSION@@/scripts/index.html \
+                   $(PWD)/html/doc-@@VERSION@@/settings.html
 generated_files_subst = $(subst @@VERSION@@,$(version),$(GENERATED_FILES))
-generated_files = $(foreach version,$(VERSIONS),$(generated_files_subst))
+generated_files := $(foreach version,$(VERSIONS),$(generated_files_subst))
 
 all: $(PWD)/html $(HTML) $(JS) rss $(generated_files)
 	@find html -name '.svn' | xargs rm -rf --
@@ -137,8 +138,14 @@ $(PWD)/html/%.html: $(PWD)/content/%.txt $(LIQI) $(PWD)/main.html
 	    --template ../main.html \
 	    -i $(<) -o $(@)
 
+spell-check: $(content_website:.txt=.txt.spell)
+
+$(PWD)/content/%.txt.spell: content/%.txt
+	-aspell -d en_US-w_accents -c $(<)
+	touch $(@)
+
 clean:
-	rm -rf html
+	rm -rf html content/*.txt.spell
 
 RCP=rsync -rLtCPz --exclude="*.swp" --exclude="*.svn" \
 	--delete --stats

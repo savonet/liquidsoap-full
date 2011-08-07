@@ -1,10 +1,10 @@
 title: Proud Savonet users
 
-h2. New version of this webpage
+h2. New version of this web page
 
 We are trying to progressively replace this page with a "dynamically generated
 one":flows.html. Please see the instructions there if you want to add your
-radion the list.
+radio the list.
 
 h2. Some Savonet/Liquidsoap users
 
@@ -45,9 +45,9 @@ We know the following netradios to use Liquidsoap in various ways:
 _And many more excellent but unknown projects... Don't hesitate to "tell us":mailto:savonet-users@lists.sf.net if you run a Liquidsoap radio so that we can enhance this list!_
 
 Seemingly dead radios:
-* "Dolebraï":doc-svn/dolebrai.html streams music under free licences, e.g. "Creative Commons":http://creativecommons.org/.
+* "Dolebraï":doc-svn/dolebrai.html streams music under free licenses, e.g. "Creative Commons":http://creativecommons.org/.
 * "NerdFiles":http://nerdfiles.info is a didactic radio program about free software and copyleft issues, based mainly in Barcelona.
-* "Orbitel":http://www.orbitel.net.co/, a columbian telecom operator, uses Liquidsoap for "some":http://www.orbitel.net.co/home/zapepelele/ "of":http://www.orbitel.net.co/home/_herbario its netradio channels.
+* "Orbitel":http://www.orbitel.net.co/, a Colombian telecom operator, uses Liquidsoap for "some":http://www.orbitel.net.co/home/zapepelele/ "of":http://www.orbitel.net.co/home/_herbario its netradio channels.
 * "Radio ART":http://radioart.pl, a polish artistic radio station
-* "Radio Inkorrekt":http://radioincorrect.org was probably the first german netradio using Liquidsoap
+* "Radio Inkorrekt":http://radioincorrect.org was probably the first German netradio using Liquidsoap
 * "Virtual DJ":http://radio.virtualdj.com/home used to display a "powered by Liquidsoap" on its site...

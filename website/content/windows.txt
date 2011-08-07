@@ -24,7 +24,7 @@ This has the advantage that any program written for a POSIX
 system can be compiled and run under Cygwin with virtually 
 no changes in the source. However, the drawback is that you
 need the whole set of Cygwin's library to do so and emulated
-functionalities may not behave completely identicaly.
+functionalities may not behave completely identically.
 
 On the other hand, one can compile native binaries under Windows
 using for the "Mingw":http://www.mingw.org/ port of the 
@@ -32,11 +32,11 @@ Gnu C compiler. For instance, the windows port of the OCaml
 compiler is compiled using this method.
 
 Building native binaries has the advantage that is provides portable
-binaries that can be shipped and run withough installing Cygwin. However,
+binaries that can be shipped and run without installing Cygwin. However,
 this comes with the limitations of the native windows API, in particular
 concerning forks of processes and inter-process communications.
 
-Finally, the Windows system does not have any covenient shell
+Finally, the Windows system does not have any convenient shell
 system to support the usual @configure@ scripts used in the POSIX
 world. The Mingw project provides a native shell for Windows but
 it is not sufficient to compile for instance Liquidsoap. Therefore,
@@ -79,7 +79,7 @@ instructions for cross-compiling using this package.
 Then, you need to install the dependencies for liquidsoap
 that are not provided by the Savonet project. This includes
 OCaml modules and, when needed, their corresponding C library.
-When installing compiled binaries, we take the simpliest option and
+When installing compiled binaries, we take the simplest option and
 install everything under @/usr/i586-mingw32msvc@. 
 
 Unfortunately, it is currently next to impossible to document

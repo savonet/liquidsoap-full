@@ -24,7 +24,7 @@ liquidsoap 'out(sine())'
 
 Did it work? If so, try to modify it:
 * Change the pitch. Hint: get the doc of @sine@ using @liquidsoap -h sine@ or "online":doc-svn/reference.html.
-* Use a different wave shape, or perhaps some white noise. Hint: lookup the "API":doc-svn/reference.html in the @Source / Input@ section.
+* Use a different wave shape, or perhaps some white noise. Hint: look-up the "API":doc-svn/reference.html in the @Source / Input@ section.
 
 h3. Play a remote stream, discover fallibility
 
@@ -70,7 +70,7 @@ If you run this example, you'll hear your playlist, because the queue
 is empty. The queue can be fed through _server commands_. Enable the
 telnet server interface by passing @-t@ on liquidsoap's command line,
 and connect to it using @telnet localhost 1234@.
-* Type @help@, find the command for pushing a request (by its filename) in the queue, and try it.
+* Type @help@, find the command for pushing a request (by its file name) in the queue, and try it.
 * Find the command for skipping the current track. If you skip a playlist track after having pushed a request in the queue, you should hear that request -- unless the request failed to be prepared.
 * Find the command for listing the next requests in queue. They are given by their request id (RID); the commands @request.metadata@ and @request.trace@ give you info from the RID.
 * Also notice commands for listing the next files to be played by the playlist (depends on the playlist more), and reloading the playlist.
@@ -98,10 +98,10 @@ h3. Icecast output
 
 You can now easily change the file example to send you stream to an
 icecast server: simply use @output.icecast@ instead of @output.file@,
-passing a @mount@ parameter instead of a filename,
+passing a @mount@ parameter instead of a file name,
 and perhaps overriding the defaults for @host@ (@"127.0.0.1"@)
 and @password@ (@"hackme"@).
-You just created your first internet radio using liquidsoap!
+You just created your first Internet radio using liquidsoap!
 
 If you have control over the icecast server (or over the network link to that
 server) you can simulate a loss of connection. Notice that liquidsoap only

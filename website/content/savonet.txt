@@ -2,7 +2,7 @@ title: Savonet
 
 h3. What is Savonet?
 
-Savonet is a group of open-source developpers working on multimedia streaming, with a focus on web radios.
+Savonet is a group of open-source developers working on multimedia streaming, with a focus on web radios.
 Savonet software is mainly written in "OCaml":http://ocaml.org.
 Our main end-user tool is Liquidsoap,
 the programming language that ties all the pieces together.
@@ -29,20 +29,23 @@ h3. Contacting Savonet
 Any question or remark? Please contact us:
 
 * "Mailing-lists":http://sourceforge.net/mail/?group_id=89802: in particular "savonet-users":mailto:savonet-users@lists.sf.net 
-* "IRC":irc://irc.freenode.net/savonet: <code>#savonet</code> on <code>irc.freenode.org</code> 
-* "Trac":http://savonet.rastageeks.org/: "reporting bugs":http://savonet.rastageeks.org/report/1, "following the project":http://savonet.rastageeks.org/timeline.
+* "JIRA":http://dev.sourcefabric.org/browse/LS for bug reports.
 * "Sourceforce project page":http://sourceforge.net/projects/savonet/
+* "Facebook":http://www.facebook.com/savonet
+* "Twitter":http://twitter.com/savonet
+* "Github":https://github.com/toots/savonet
+* "IRC":irc://irc.freenode.net/savonet: <code>#savonet</code> on <code>irc.freenode.org</code> (not very much used by the developpers at the moment..)
 
 h3. Who is Savonet?
 
 Savonet is a team created by David Baelde and Samuel Mimram. Currently active 
-developpers are listed below, with their nick(s) on IRC:
+developers are listed below, with their nick(s) on IRC:
 
 * "David Baelde":http://www.lix.polytechnique.fr/~dbaelde (@love-pingoo@, @mrpingouin@)
 * "Romain Beauxis":http://blog.rastageeks.org/ (@toots@)
 * "Samuel Mimram":http://www.pps.jussieu.fr/~smimram/ (@smimou@, @smimram@, @ppsmimou@)
 
-Formerly active developpers:
+Formerly active developers:
 * Vincent Tabard (@balbinus@)
 * Peter Brooks (@theneb@)
 * "Stéphane Gimenez":http://www.pps.jussieu.fr/~gimenez/ (@gim@)

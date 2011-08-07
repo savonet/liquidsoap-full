@@ -5,7 +5,7 @@ title: Daily Debian/Ubuntu Packages
 h2. How to install?
 
 Liquidsoap's Debian packages (also compatible with Ubuntu) are built every night
-for the i386 and amd64 architectures. They can be usefull to test the latest
+for the i386 and amd64 architectures. They can be useful to test the latest
 code quickly.
 
 To get them, you can add this repository to your @/etc/apt/sources.list@:
