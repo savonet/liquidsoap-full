@@ -1,3 +1,5 @@
+.PHONY: install
+
 PRJ:=$(shell cat PACKAGES | grep -v '^\#')
 PRJ:=$(shell for p in $(PRJ) ; do ls -d $$p* | head -1 ; done)
 LIQ:=$(shell ls -d liquidsoap* | head -1)
