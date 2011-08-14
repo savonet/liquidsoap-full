@@ -40,6 +40,7 @@ We know the following netradios to use Liquidsoap in various ways:
 * "Rural Catholic Radio":http://www.ruralcatholicradio.com is a "proud (and very satisfied) savonet user".
 * "SecurityCast Radio":http://www.securitycast.net/ is a radio that relays various computer security podcasts.
 * "Savana Radio":http://savanaradio.com is a web-only radio from Sri Lanka, broadcasting Sinhala (Sri Lankan) music.
+* "Radio Sing Sing":http://www.sing-sing.org/ is an independent FM and Internet radio based in St Malo, France, as well as an association organizing live concerts.
 * "Substream.at":http://substream.at/, a radio for music lovers by music lovers, where you are invited to participate!
 
 _And many more excellent but unknown projects... Don't hesitate to "tell us":mailto:savonet-users@lists.sf.net if you run a Liquidsoap radio so that we can enhance this list!_
