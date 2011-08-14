@@ -19,7 +19,7 @@ CONTENT := $(content_website) $(content_expanded)
 JS := $(shell echo $(wildcard $(PWD)/orig/*.js) | sed -s 's|/orig/|/html/|g')
 HTML := $(shell echo $(CONTENT:.txt=.html) | sed -s 's|/content/|/html/|'g)
 
-NODE := S(shell which node)
+NODE := $(shell which node)
 
 # Dont uglify jquery..
 $(PWD)/html/jquery-%.js: orig/jquery-%.js
