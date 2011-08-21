@@ -295,6 +295,20 @@ Forwards the given lastfm stream. The relay can be paused/resumed using the star
 * <code>user_agent</code> (<code>string</code> -- defaults to <code>"Liquidsoap/1.0.0-beta3+svn (Unix; OCaml 3.12.0)"</code>): User agent.
 * <code>(unlabeled)</code> (<code>string</code>): URI of a lastfm  stream (e.g. lastfm://user/toots5446/playlist).
 
+h5. input.mplayer
+<pre>(?id:string,?restart:bool,?restart_on_error:bool,
+ ?buffer:float,?max:float,string)->
+source(audio='#a+1,video=0,midi=0)</pre>
+
+Stream data from mplayer
+
+* <code>id</code> (<code>string</code> -- defaults to <code>"input.mplayer"</code>)
+* <code>restart</code> (<code>bool</code> -- defaults to <code>true</code>): restart on exit.
+* <code>restart_on_error</code> (<code>bool</code> -- defaults to <code>false</code>): restart on exit with error.
+* <code>buffer</code> (<code>float</code> -- defaults to <code>0.2</code>): Duration of the pre-buffered data.
+* <code>max</code> (<code>float</code> -- defaults to <code>10.</code>): Maximum duration of the buffered data.
+* <code>(unlabeled)</code> (<code>string</code>): data URI.
+
 h5. input.oss
 <pre>(?id:string,?clock_safe:bool,?device:string,
  ?fallible:bool,?on_start:(()->unit),?on_stop:(()->unit),
@@ -891,6 +905,45 @@ Display a video using SDL.
 * <code>on_stop</code> (<code>()->unit</code> -- defaults to <code>{()}</code>): Callback executed when outputting stops.
 * <code>start</code> (<code>bool</code> -- defaults to <code>true</code>): Automatically start outputting whenever possible. If true, an infallible (normal) output will start outputting as soon as it is created, and a fallible output will (re)start as soon as its source becomes available for streaming.
 * <code>(unlabeled)</code> (<code>source(audio=0,video=1,midi=0)</code>)
+
+h5. output.shoutcast
+<pre>(?id:string,?start:bool,?restart:bool,?restart_delay:int,
+ ?host:string,?port:int,?user:string,?password:string,
+ ?genre:string,?url:string,?name:string,?public:bool,
+ ?format:string,?dumpfile:string,?icy_metadata:string,
+ ?on_connect:(()->unit),?on_disconnect:(()->unit),
+ ?aim:string,?icq:string,?irc:string,?icy_reset:bool,
+ ?fallible:bool,?on_start:(()->unit),?on_stop:(()->unit),
+ format('a),source('a))->active_source('a)</pre>
+
+Output to shoutcast.
+
+* <code>id</code> (<code>string</code> -- defaults to <code>"output.shoutcast"</code>): Output's ID
+* <code>start</code> (<code>bool</code> -- defaults to <code>true</code>): Start output threads on operator initialization.
+* <code>restart</code> (<code>bool</code> -- defaults to <code>false</code>): Restart output after a failure. By default, liquidsoap will stop if the output failed.
+* <code>restart_delay</code> (<code>int</code> -- defaults to <code>3</code>): Delay, in seconds, before attempting new connection, if restart is enabled.
+* <code>host</code> (<code>string</code> -- defaults to <code>"localhost"</code>)
+* <code>port</code> (<code>int</code> -- defaults to <code>8000</code>)
+* <code>user</code> (<code>string</code> -- defaults to <code>"source"</code>): User for shout source connection. Useful only in special cases, like with per-mountpoint users.
+* <code>password</code> (<code>string</code> -- defaults to <code>"hackme"</code>)
+* <code>genre</code> (<code>string</code> -- defaults to <code>"Misc"</code>)
+* <code>url</code> (<code>string</code> -- defaults to <code>"http://savonet.sf.net/"</code>)
+* <code>name</code> (<code>string</code> -- defaults to <code>"Liquidsoap Radio!"</code>)
+* <code>public</code> (<code>bool</code> -- defaults to <code>true</code>)
+* <code>format</code> (<code>string</code> -- defaults to <code>""</code>): Format, e.g. "audio/ogg". When empty, the encoder is used to guess.
+* <code>dumpfile</code> (<code>string</code> -- defaults to <code>""</code>): Dump stream to file, for debugging purpose. Disabled if empty.
+* <code>icy_metadata</code> (<code>string</code> -- defaults to <code>"guess"</code>): Send new metadata using the ICY protocol. One of: "guess", "true", "false"
+* <code>on_connect</code> (<code>()->unit</code> -- defaults to <code>{()}</code>): Callback executed when connection starts.
+* <code>on_disconnect</code> (<code>()->unit</code> -- defaults to <code>{()}</code>): Callback executed when connection stops.
+* <code>aim</code> (<code>string</code> -- defaults to <code>""</code>)
+* <code>icq</code> (<code>string</code> -- defaults to <code>""</code>)
+* <code>irc</code> (<code>string</code> -- defaults to <code>""</code>)
+* <code>icy_reset</code> (<code>bool</code> -- defaults to <code>true</code>): Reset shoutcast source buffer upon connecting (necessary for NSV).
+* <code>fallible</code> (<code>bool</code> -- defaults to <code>false</code>): Allow the child source to fail, in which case the output will be (temporarily) stopped.
+* <code>on_start</code> (<code>()->unit</code> -- defaults to <code>{()}</code>): Callback executed when outputting starts.
+* <code>on_stop</code> (<code>()->unit</code> -- defaults to <code>{()}</code>): Callback executed when outputting stops.
+* <code>(unlabeled)</code> (<code>format('a)</code>): Endoding format. For shoutcast, should be mp3 or AAC(+).
+* <code>(unlabeled)</code> (<code>source('a)</code>): The source to output
 
 h5. output.udp
 <pre>(?id:string,?fallible:bool,host:string,
@@ -1734,6 +1787,20 @@ by adding blank when the source is not available.
 
 * <code>(unlabeled)</code> (<code>source('a)</code>): the source to turn infaillible
 
+h5. notify_metadata
+<pre>(?urgency:string,?icon:string,?time:int,
+ ?display:(([(string*string)])->string),?title:string,
+ source('a))->source('a)</pre>
+
+Use notify to display metadata info.
+
+* <code>urgency</code> (<code>string</code> -- defaults to <code>"low"</code>): Urgency (low|normal|critical).
+* <code>icon</code> (<code>string</code> -- defaults to <code>"stock_smiley-22"</code>): Icon filename or stock icon to display.
+* <code>time</code> (<code>int</code> -- defaults to <code>3000</code>): Timeout in milliseconds.
+* <code>display</code> (<code>([(string*string)])->string</code> -- defaults to <code><fun></code>): Function used to display a metadata packet.
+* <code>title</code> (<code>string</code> -- defaults to <code>"Liquidsoap: new track"</code>): Title of the notification message.
+* <code>(unlabeled)</code> (<code>source('a)</code>)
+
 h5. on_blank
 <pre>(?id:string,?length:float,?on_noise:(()->unit),
  ?threshold:float,?track_sensitive:bool,(()->unit),
@@ -1788,6 +1855,19 @@ h5. once
 Creates a source that plays only one track of the input source.
 
 * <code>(unlabeled)</code> (<code>source('a)</code>): The input source.
+
+h5. osd_metadata
+<pre>(?color:string,?position:string,?font:string,
+ ?display:(([(string*string)])->string),source('a))->
+source('a)</pre>
+
+Use X On Screen Display to display metadata info.
+
+* <code>color</code> (<code>string</code> -- defaults to <code>"green"</code>): Color of the text.
+* <code>position</code> (<code>string</code> -- defaults to <code>"top"</code>): Position of the text (top|middle|bottom).
+* <code>font</code> (<code>string</code> -- defaults to <code>"-*-courier-*-r-*-*-*-240-*-*-*-*-*-*"</code>): Font used (xfontsel is your friend...)
+* <code>display</code> (<code>([(string*string)])->string</code> -- defaults to <code><fun></code>): Function used to display a metadata packet.
+* <code>(unlabeled)</code> (<code>source('a)</code>)
 
 h5. prepend
 <pre>(?id:string,?merge:bool,
@@ -2381,6 +2461,25 @@ Submit a played song using the audioscrobbler protocol.
 * <code>length</code> (<code>bool</code> -- defaults to <code>false</code>): Try to submit length information. This operation can be CPU intensive. Value forced to true when used with the "user" source type.
 * <code>(unlabeled)</code> (<code>[(string*string)]</code>)
 
+h5. audioscrobbler.submit.full
+<pre>(user:string,password:string,?host:string,?port:int,
+ ?source:string,?length:bool,?delay:float,?force:bool,
+ source('a))->source('a)</pre>
+
+Submit songs using audioscrobbler, respecting the full protocol:
+First signal song as now playing when starting, and
+then submit song when it ends.
+
+* <code>user</code> (<code>string</code>)
+* <code>password</code> (<code>string</code>)
+* <code>host</code> (<code>string</code> -- defaults to <code>"post.audioscrobbler.com"</code>)
+* <code>port</code> (<code>int</code> -- defaults to <code>80</code>)
+* <code>source</code> (<code>string</code> -- defaults to <code>"broadcast"</code>): Source for tracks. Should be one of: "broadcast", "user", "recommendation" or "unknown". Since liquidsoap is intented for radio broadcasting, this is the default. Sources other than user don't need duration to be set.
+* <code>length</code> (<code>bool</code> -- defaults to <code>false</code>): Try to submit length information. This operation can be CPU intensive. Value forced to true when used with the "user" source type.
+* <code>delay</code> (<code>float</code> -- defaults to <code>10.</code>): Submit song when there is only this delay left, in seconds. 
+* <code>force</code> (<code>bool</code> -- defaults to <code>false</code>): If remaining time is null, the song will be assumed to be skipped or cuted, and not submitted. Set to zero to disable this behaviour.
+* <code>(unlabeled)</code> (<code>source('a)</code>)
+
 h5. http.get
 <pre>(?headers:[(string*string)],?timeout:float,string)->
 ((((string*int)*string)*[(string*string)])*string)</pre>
@@ -2402,6 +2501,23 @@ Perform a full Http POST request and return (status,headers),data.
 * <code>headers</code> (<code>[(string*string)]</code> -- defaults to <code>[]</code>): Additional headers.
 * <code>timeout</code> (<code>float</code> -- defaults to <code>10.</code>): Timeout for network operations.
 * <code>(unlabeled)</code> (<code>string</code>): Requested URL, e.g. "http://www.google.com:80/index.html".
+
+h5. http_codes
+<pre>[(string*string)]</pre>
+
+List of HTTP response codes and statuses.
+
+
+h5. http_response
+<pre>(?protocol:string,?code:int,?headers:[(string*string)],
+ ?data:string)->string</pre>
+
+Create a HTTP response string
+
+* <code>protocol</code> (<code>string</code> -- defaults to <code>"HTTP/1.1"</code>): HTTP protocol used.
+* <code>code</code> (<code>int</code> -- defaults to <code>200</code>): Response code.
+* <code>headers</code> (<code>[(string*string)]</code> -- defaults to <code>[]</code>): Response headers.
+* <code>data</code> (<code>string</code> -- defaults to <code>""</code>): Response data
 
 h5. icy.update_metadata
 <pre>(?host:string,?port:int,?user:string,?password:string,
@@ -2435,6 +2551,84 @@ Read a string from an interactive input.
 
 * <code>(unlabeled)</code> (<code>string</code>)
 * <code>(unlabeled)</code> (<code>string</code>)
+
+h5. lastfm.nowplaying
+<pre>(user:string,password:string,?length:bool,
+ [(string*string)])->unit</pre>
+
+Submit metadata to lastfm.fm using the audioscrobbler protocol (nowplaying mode).
+
+* <code>user</code> (<code>string</code>)
+* <code>password</code> (<code>string</code>)
+* <code>length</code> (<code>bool</code> -- defaults to <code>false</code>): Try to submit length information. This operation can be CPU intensive. Value forced to true when used with the "user" source type.
+* <code>(unlabeled)</code> (<code>[(string*string)]</code>)
+
+h5. lastfm.submit
+<pre>(user:string,password:string,?source:string,?length:bool,
+ [(string*string)])->unit</pre>
+
+Submit metadata to lastfm.fm using the audioscrobbler protocol.
+
+* <code>user</code> (<code>string</code>)
+* <code>password</code> (<code>string</code>)
+* <code>source</code> (<code>string</code> -- defaults to <code>"broadcast"</code>): Source for tracks. Should be one of: "broadcast", "user", "recommendation" or "unknown". Since liquidsoap is intented for radio broadcasting, this is the default. Sources other than user don't need duration to be set.
+* <code>length</code> (<code>bool</code> -- defaults to <code>false</code>): Try to submit length information. This operation can be CPU intensive. Value forced to true when used with the "user" source type.
+* <code>(unlabeled)</code> (<code>[(string*string)]</code>)
+
+h5. lastfm.submit.full
+<pre>(user:string,password:string,?source:string,?length:bool,
+ ?delay:float,?force:bool,source('a))->source('a)</pre>
+
+Submit songs to lastfm using audioscrobbler, respecting the full protocol:
+First signal song as now playing when starting, and
+then submit song when it ends.
+
+* <code>user</code> (<code>string</code>)
+* <code>password</code> (<code>string</code>)
+* <code>source</code> (<code>string</code> -- defaults to <code>"broadcast"</code>): Source for tracks. Should be one of: "broadcast", "user", "recommendation" or "unknown". Since liquidsoap is intented for radio broadcasting, this is the default. Sources other than user don't need duration to be set.
+* <code>length</code> (<code>bool</code> -- defaults to <code>false</code>): Try to submit length information. This operation can be CPU intensive. Value forced to true when used with the "user" source type.
+* <code>delay</code> (<code>float</code> -- defaults to <code>10.</code>): Submit song when there is only this delay left, in seconds. If remaining time is less than this value, the song will be assumed to be skipped or cuted, and not submitted. Set to zero to disable this behaviour.
+* <code>force</code> (<code>bool</code> -- defaults to <code>false</code>): If remaining time is null, the song will be assumed to be skipped or cuted, and not submitted. Set to zero to disable this behaviour.
+* <code>(unlabeled)</code> (<code>source('a)</code>)
+
+h5. librefm.nowplaying
+<pre>(user:string,password:string,?length:bool,
+ [(string*string)])->unit</pre>
+
+Submit metadata to libre.fm using the audioscrobbler protocol (nowplaying mode).
+
+* <code>user</code> (<code>string</code>)
+* <code>password</code> (<code>string</code>)
+* <code>length</code> (<code>bool</code> -- defaults to <code>false</code>): Try to submit length information. This operation can be CPU intensive. Value forced to true when used with the "user" source type.
+* <code>(unlabeled)</code> (<code>[(string*string)]</code>)
+
+h5. librefm.submit
+<pre>(user:string,password:string,?source:string,?length:bool,
+ [(string*string)])->unit</pre>
+
+Submit metadata to libre.fm using the audioscrobbler protocol.
+
+* <code>user</code> (<code>string</code>)
+* <code>password</code> (<code>string</code>)
+* <code>source</code> (<code>string</code> -- defaults to <code>"broadcast"</code>): Source for tracks. Should be one of: "broadcast", "user", "recommendation" or "unknown". Since liquidsoap is intented for radio broadcasting, this is the default. Sources other than user don't need duration to be set.
+* <code>length</code> (<code>bool</code> -- defaults to <code>false</code>): Try to submit length information. This operation can be CPU intensive. Value forced to true when used with the "user" source type.
+* <code>(unlabeled)</code> (<code>[(string*string)]</code>)
+
+h5. librefm.submit.full
+<pre>(user:string,password:string,?source:string,?length:bool,
+ ?delay:float,?force:bool,source('a))->source('a)</pre>
+
+Submit songs to librefm using audioscrobbler, respecting the full protocol:
+First signal song as now playing when starting, and
+then submit song when it ends.
+
+* <code>user</code> (<code>string</code>)
+* <code>password</code> (<code>string</code>)
+* <code>source</code> (<code>string</code> -- defaults to <code>"broadcast"</code>): Source for tracks. Should be one of: "broadcast", "user", "recommendation" or "unknown". Since liquidsoap is intented for radio broadcasting, this is the default. Sources other than user don't need duration to be set.
+* <code>length</code> (<code>bool</code> -- defaults to <code>false</code>): Try to submit length information. This operation can be CPU intensive. Value forced to true when used with the "user" source type.
+* <code>delay</code> (<code>float</code> -- defaults to <code>10.</code>): Submit song when there is only this delay left, in seconds. If remaining time is less than this value, the song will be assumed to be skipped or cuted, and not submitted. Set to zero to disable this behaviour.
+* <code>force</code> (<code>bool</code> -- defaults to <code>false</code>): If remaining time is null, the song will be assumed to be skipped or cuted, and not submitted. Set to zero to disable this behaviour.
+* <code>(unlabeled)</code> (<code>source('a)</code>)
 
 h5. osc.bool
 <pre>(string,bool)->()->bool</pre>
@@ -2549,6 +2743,28 @@ h5. configure.rundir
 Liquidsoap's PID file directory.
 
 
+h5. enable_external_faad_decoder
+<pre>()->unit</pre>
+
+Enable or disable external FAAD (AAC/AAC+/M4A) decoders. 
+Requires faad binary in the path for audio decoding and 
+metaflac binary for metadata. Does not work on Win32.
+Please note that built-in support for faad is available
+in liquidsoap if compiled and should be preferred over
+the external decoder.
+
+
+h5. enable_external_flac_decoder
+<pre>()->unit</pre>
+
+Enable external FLAC decoders. Requires flac binary
+in the path for audio decoding and metaflac binary for 
+metadata. Does not work on Win32. Default: disabled.
+Please note that built-in support for FLAC is available
+in liquidsoap if compiled and should be preferred over
+the external decoder.
+
+
 h5. enable_replaygain_metadata
 <pre>(?extract_replaygain:string)->unit</pre>
 
@@ -2576,13 +2792,6 @@ Compute the duration in seconds of audio data contained in a file. The computati
 
 * <code>(unlabeled)</code> (<code>string</code>)
 
-h5. file.exists
-<pre>(string)->bool</pre>
-
-Returns true is the file or directory exists.
-
-* <code>(unlabeled)</code> (<code>string</code>)
-
 h5. file.mime
 <pre>(string)->string</pre>
 
@@ -2604,13 +2813,6 @@ h5. get_clock_status
 
 Get the current time for all allocated clocks.
 
-
-h5. is_directory
-<pre>(string)->bool</pre>
-
-Returns true is the directory exists.
-
-* <code>(unlabeled)</code> (<code>string</code>)
 
 h5. liquidsoap.version
 <pre>string</pre>
@@ -2647,6 +2849,25 @@ h5. playlist.parse
 Try to parse a local playlist. Return a list of (metadata,URI) items, where metadata is a list of (key,value) bindings.
 
 * <code>(unlabeled)</code> (<code>string</code>)
+
+h5. register_flow
+<pre>(?server:string,?user:string,?password:string,
+ ?email:string,radio:string,website:string,
+ description:string,genre:string,
+ streams:[(string*string)],source('a))->source('a)</pre>
+
+Register a radio on Liquidsoap Flows.
+
+* <code>server</code> (<code>string</code> -- defaults to <code>""</code>)
+* <code>user</code> (<code>string</code> -- defaults to <code>"default"</code>)
+* <code>password</code> (<code>string</code> -- defaults to <code>"default"</code>)
+* <code>email</code> (<code>string</code> -- defaults to <code>""</code>)
+* <code>radio</code> (<code>string</code>): Name of the radio.
+* <code>website</code> (<code>string</code>): URL of the website of the radio.
+* <code>description</code> (<code>string</code>): Description of the radio.
+* <code>genre</code> (<code>string</code>): Genre of the radio (rock or rap or etc.).
+* <code>streams</code> (<code>[(string*string)]</code>): List of streams for the radio described by a pair of strings consisting of the format of the stream and the url of the stream. The format should be of the form "ogg/128k" consisting of the codec and the bitrate, separated by "/".
+* <code>(unlabeled)</code> (<code>source('a)</code>)
 
 h5. replaygain_protocol
 <pre>(string,'a)->[string]</pre>
@@ -3090,6 +3311,17 @@ Convert a value to a json string.
 * <code>compact</code> (<code>bool</code> -- defaults to <code>false</code>): Output compact text.
 * <code>(unlabeled)</code> (<code>'a</code>)
 
+h5. lastfm.uri
+<pre>(?user:string,?password:string,?discovery:bool,?string)->
+string</pre>
+
+Utility to compose last.fm URIs.
+
+* <code>user</code> (<code>string</code> -- defaults to <code>""</code>): Lastfm user
+* <code>password</code> (<code>string</code> -- defaults to <code>""</code>): Lastfm password
+* <code>discovery</code> (<code>bool</code> -- defaults to <code>false</code>): Allow lastfm suggestions
+* <code>(unlabeled)</code> (<code>string</code> -- defaults to <code>"globaltags/creative-commons"</code>): URI, e.g. user/toots5446/playlist, globaltags/rocksteady.
+
 h5. of_json
 <pre>(default:'a,string)->'a</pre>
 
@@ -3212,6 +3444,14 @@ Return the representation of a value.
 
 * <code>(unlabeled)</code> (<code>'a</code>)
 
+h5. string_of_metadata
+<pre>([(string*string)])->string</pre>
+
+Standard function for displaying metadata.
+Shows artist and title, using "Unknown" when a field is empty.
+
+* <code>(unlabeled)</code> (<code>[(string*string)]</code>): Metadata packet to be displayed.
+
 h5. url.decode
 <pre>(?plus:bool,string)->string</pre>
 
@@ -3273,6 +3513,13 @@ This will be run in background.
 * <code>freq</code> (<code>float</code> -- defaults to <code>1.</code>): Frequency for checking the predicate, in seconds.
 * <code>pred</code> (<code>()->bool</code>): Predicate indicating when to execute the function, typically a time interval such as <code>{10h-10h30}</code>.
 * <code>(unlabeled)</code> (<code>()->unit</code>): Function to execute when the predicate is true.
+
+h5. file.exists
+<pre>(string)->bool</pre>
+
+Returns true if the file or directory exists.
+
+* <code>(unlabeled)</code> (<code>string</code>)
 
 h5. file.mime_default
 <pre>(string)->string</pre>
@@ -3353,6 +3600,13 @@ Remove a registered HTTP handler on the harbor.
 
 * <code>port</code> (<code>int</code>): Port to server.
 * <code>(unlabeled)</code> (<code>string</code>): URI to serve.
+
+h5. is_directory
+<pre>(string)->bool</pre>
+
+Returns true if the directory exists.
+
+* <code>(unlabeled)</code> (<code>string</code>)
 
 h5. log
 <pre>(?label:string,?level:int,string)->unit</pre>
