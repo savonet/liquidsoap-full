@@ -37,11 +37,28 @@ GENERATED_FILES := $(PWD)/html/doc-@@VERSION@@/reference.html \
                    $(PWD)/html/doc-@@VERSION@@/scripts/index.html \
                    $(PWD)/html/doc-@@VERSION@@/settings.html
 generated_files_subst = $(subst @@VERSION@@,$(version),$(GENERATED_FILES))
-generated_files := $(foreach version,$(VERSIONS),$(generated_files_subst))
+generated_files := $(foreach version,$(VERSIONS),$(generated_files_subst)) $(PWD)/html/modules.html
 
 all: $(PWD)/html $(HTML) $(JS) rss $(generated_files)
 	@find html -name '.svn' | xargs rm -rf --
 
+MODULES_INC := $(wildcard $(PWD)/../ocaml-*/src)
+
+$(PWD)/html/modules.txt: $(PWD)/html $(PWD)/../PACKAGES.default
+	echo "title: Savonet modules documentation.\n" > $(@)
+	echo "h2. Savonet modules documentation\n" >> $(@)
+	cat $(PWD)/../PACKAGES.default | grep '^ocaml' | sort | while read i; do \
+	  echo "* \"$$i\":modules/$$i/index.html" >> $(@) ; \
+	  mkdir -p $(PWD)/html/modules/$$i; \
+	  ocamldoc -html -stars -d $(PWD)/html/modules/$$i $(MODULES_INC:%=-I %) $(PWD)/../$$i/src/*.mli; \
+	done
+
+$(PWD)/html/modules.html: $(PWD)/html/modules.txt $(LIQI)
+	@cd html && \
+	  $(LIQI) \
+	    --template ../main.html \
+	    -i $(<) -o $(@)
+	
 # Removes all unecessary stuff before upload
 dist: all
 	@find $(PWD)/html -name '*.txt' | xargs rm -rf --

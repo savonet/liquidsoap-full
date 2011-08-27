@@ -1,6 +1,6 @@
 title: Documentation
 
-h2. Savonet documentation
+h2. Liquidsoap documentation
 
 h3. Help by users for users
 
@@ -33,3 +33,9 @@ h3. Previous releases
 h3. Behind the curtains
 
 * "Some publications":publications.html explaining the theory underlying Liquidsoap
+
+h2. Savonet modules documentation.
+
+The Savonet team also maintains a bunch of OCaml modules used for Liquidsoap.
+You can find their documentation "there":modules.html.
+
