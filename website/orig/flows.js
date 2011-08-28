@@ -1,12 +1,5 @@
 var map;
-
-function gen_click_handler(infowindow, maker)
-{
-    return function ()
-    {
-        infowindow.open(map, marker);
-    }
-}
+var infowindow;
 
 function update_radios(div)
 {
@@ -20,6 +13,7 @@ function update_radios(div)
         streetViewControl: false,
         mapTypeControl: false
     };
+    infowindow = new google.maps.InfoWindow({disableAutoPan: true, content: "Content..."});
     map = new google.maps.Map(document.getElementById('map'), options);
 
     $.getJSON(
@@ -69,11 +63,10 @@ function update_radios(div)
 			map: map,
 			title: r.name
 		    });
-                    infowindow = new google.maps.InfoWindow({
-                        content: r.name,
-                        disableAutoPan: true
+                    google.maps.event.addListener(marker, 'click', function(){
+                        infowindow.setContent(this.title);
+                        infowindow.open(map, this);
                     });
-                    google.maps.event.addListener(marker, 'click', gen_click_handler(infowindow, marker));
                 }
             }
             content += "</ul>\n";
