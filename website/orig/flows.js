@@ -1,5 +1,13 @@
-var map;
-var infowindow;
+var map = null;
+var infowindow = null;
+var map_markers = [];
+
+function clear_markers()
+{
+    for (i=0; i<map_markers.length; i++)
+        map_markers[i].setMap(null);
+    map_markers = [];
+}
 
 function update_radios(div)
 {
@@ -13,8 +21,8 @@ function update_radios(div)
         streetViewControl: false,
         mapTypeControl: false
     };
-    infowindow = new google.maps.InfoWindow({disableAutoPan: true, content: "Content..."});
-    map = new google.maps.Map(document.getElementById('map'), options);
+    if (!infowindow) infowindow = new google.maps.InfoWindow({disableAutoPan: true, content: "Content..."});
+    if (!map) map = new google.maps.Map(document.getElementById('map'), options);
 
     $.getJSON(
         "http://savonet.rastageeks.org/liqflows.py?fmt=json&cmd=radios",
@@ -24,6 +32,7 @@ function update_radios(div)
                 div.innerHTML = "<b>No registered radio is currently broadcasting!</b>";
                 return;
             }
+            clear_markers();
             content = "";
             content += "<ul>\n";
             line = '<li><div class="radio"><a href="WEBSITE" target="_blank">NAME</a> <span class="streams">[STREAMS]</span></div><div class="genre">GENRE</div><div class="description">DESCRIPTION</div><div class="metadata">METADATA</div></li>';
@@ -58,13 +67,18 @@ function update_radios(div)
                 content += l + "\n";
                 if ((r.latitude != null) && (r.longitude != null))
                 {
+                    c = "<b>NAME</b><br/>DESCRIPTION";
+                    c = c.replace("NAME",r.name);
+                    c = c.replace("DESCRIPTION",r.description);
                     marker = new google.maps.Marker({
 			position: new google.maps.LatLng(r.latitude, r.longitude),
 			map: map,
-			title: r.name
+			title: r.name,
+                        content: c
 		    });
+                    map_markers.push(marker);
                     google.maps.event.addListener(marker, 'click', function(){
-                        infowindow.setContent(this.title);
+                        infowindow.setContent(this.content);
                         infowindow.open(map, this);
                     });
                 }
