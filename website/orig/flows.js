@@ -61,6 +61,7 @@ function update_radios(div)
                     s = r.streams[j];
                     if (j != 0)
                         streams += " &ndash; ";
+                    streams += '<a href="'+s.url+'" class="sm2_button"></a>';
                     streams += '<a href="'+s.url+'">'+s.format+'</a>'
                 }
                 l = l.replace("STREAMS",streams);

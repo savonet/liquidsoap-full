@@ -6,11 +6,21 @@
   <script type="text/javascript" src="http://www.google.com/jsapi"></script>
   <script>google.load("jquery", "1.6.1");</script>
   <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+  <script type="text/javascript" src="js/soundmanager2-jsmin.js"></script>
+  <link rel="stylesheet" type="text/css" href="css/flashblock.css"/>
+  <link rel="stylesheet" type="text/css" href="css/mp3-player-button.css"/>
+  <script type="text/javascript" src="js/mp3-player-button.js"></script>
   <script type="text/javascript">
     function update(){update_radios("radios");}
     $(document).ready(update);
     setInterval(update,60000);
   </script>
+  <script>
+    soundManager.url = 'swf/';
+    soundManager.useFlashBlock = true;
+    soundManager.debugMode = false;
+    soundManager.useHTML5Audio = true;
+</script>
   <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
   <title>Liquidsoap Flows!</title>
   <link href="new.css" type="text/css" rel="stylesheet" />
