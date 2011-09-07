@@ -9,6 +9,19 @@ function clear_markers()
     map_markers = [];
 }
 
+function getMime(format) {
+    var first = format.split("/").shift().toLowerCase();
+    if (first === "mp3") {
+      return "audio/mp3";
+    } else if (first === "ogg") {
+      return "application/ogg";
+    } else if ((first === "aac") || (first === "aacplus") || (first === "he-aac") || (first === "aac+")) {
+      return "audio/aac";
+    } else {
+      return "";
+    }
+}
+
 function update_radios(div)
 {
     var div = document.getElementById(div);
@@ -61,7 +74,10 @@ function update_radios(div)
                     s = r.streams[j];
                     if (j != 0)
                         streams += " &ndash; ";
-                    streams += '<a href="'+s.url+'" class="sm2_button"></a>';
+                    var mime = getMime(s.format);
+                    if (soundManager.canPlayMIME(mime) || soundManager.canPlayURL(s.url)) {
+                      streams += '<a href="' + s.url + '" type="' + mime + '" class="sm2_button"></a>';
+                    }
                     streams += '<a href="'+s.url+'">'+s.format+'</a>'
                 }
                 l = l.replace("STREAMS",streams);
