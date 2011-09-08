@@ -48,7 +48,7 @@ function update_radios(div)
             clear_markers();
             content = "";
             content += "<ul>\n";
-            line = '<li><div class="radio"><a href="WEBSITE" target="_blank">NAME</a> <span class="streams">[STREAMS]</span></div><div class="genre">GENRE</div><div class="description">DESCRIPTION</div><div class="metadata">METADATA</div></li>';
+            line = '<li><div class="radio"><a href="WEBSITE" target="_blank">NAME</a> <span class="streams">STREAMS</span></div><div class="genre">GENRE</div><div class="description">DESCRIPTION</div><div class="metadata">METADATA</div></li>';
             for (i=0; i < radios.length; i++)
             {
                 r = radios[i];
@@ -72,13 +72,13 @@ function update_radios(div)
                 for (j = 0; j < r.streams.length; j++)
                 {
                     s = r.streams[j];
-                    if (j != 0)
-                        streams += " &ndash; ";
                     var mime = getMime(s.format);
+                    streams += '<div class="stream">';
                     if (soundManager.canPlayMIME(mime) || soundManager.canPlayURL(s.url)) {
-                      streams += '<a href="' + s.url + '" type="' + mime + '" class="sm2_button"></a>';
+                      streams += '<a href="' + s.url + '" type="' + mime + '" class="sm2_button"></a><br/>';
                     }
-                    streams += '<a href="'+s.url+'">'+s.format+'</a>'
+                    streams += '<a href="'+s.url+'">'+s.format+'</a>';
+                    streams += '</div>';
                 }
                 l = l.replace("STREAMS",streams);
                 content += l + "\n";

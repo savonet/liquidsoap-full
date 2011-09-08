@@ -227,6 +227,11 @@ div.section h2 { color: #906 }
     font-size: x-small;
 }
 
+#radios .stream {
+    float: right;
+    margin-left: 1ex;
+}
+
 #radios .genre {
     font-size: x-small;
     color: #555;
