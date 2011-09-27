@@ -37,6 +37,7 @@ We know the following netradios to use Liquidsoap in various ways:
 * "Radiozerozero":http://www.radiozerozero.com/ is a french radio playing DJ mixes.
 * "Радио ВКонтакте":http://radiovkontakte.ru/ is a Russian internet radio station broadcasting a wide range of electronic music from the world's best DJs and producers.
 * "Riff":http://www.riff-radio.org/ a french webradio mainly focused on rock (especially hard rock), with daily live talk shows.
+* "Robotstream":http://www.robotstream.com/ is a radio automatisation software written by Numeri'zik.
 * "Rural Catholic Radio":http://www.ruralcatholicradio.com is a "proud (and very satisfied) savonet user".
 * "SecurityCast Radio":http://www.securitycast.net/ is a radio that relays various computer security podcasts.
 * "Savana Radio":http://savanaradio.com is a web-only radio from Sri Lanka, broadcasting Sinhala (Sri Lankan) music.
