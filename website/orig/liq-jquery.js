@@ -1,3 +1,23 @@
+function selectSearch(event,ui) {
+  if (ui.item) {
+    var id = ui.item.value.replace(/[^\w]/g,"_");
+    var op = $("#" + id);
+    var doc = op.next().clone().css('display','none');
+    var header = $("<div id=\"liq-search-header\">\
+                    <h4>" + op.text() + "\
+                    <a href=\"#\" class=\"liq-search-hide\">(hide)</a>\
+                    </h4></div>")
+                 .css('display','none');
+    var target = $('#liq-search-result');
+    target.empty().append(header).append(doc);
+    target.children().fadeIn("fast");
+    header.find("a").click(function () {
+      target.children().fadeOut("fast");
+      return false;
+    });
+  }
+}
+
 function searchBox(source) {
   var search = $("<div id=\"liq-div-search\">\
                   <label for=\"liq-search\">Search: </label>\
@@ -5,28 +25,9 @@ function searchBox(source) {
                   </div>\
                   <div id=\"liq-search-result\"></div>");
   search.filter("#liq-search").css('display','none');
-  function select(event,ui) {
-    if (ui.item) {
-      var id = ui.item.value.replace(/[^\w]/g,"_");
-      var op = $("#" + id);
-      var doc = op.next().clone().css('display','none');
-      var header = $("<div id=\"liq-search-header\">\
-                      <h4>" + op.text() + "\
-                      <a href=\"#\" class=\"liq-search-hide\">(hide)</a>\
-                      </h4></div>")
-                   .css('display','none');
-      var target = $('#liq-search-result');
-      target.empty().append(header).append(doc);
-      target.children().fadeIn("fast");
-      header.find("a").click(function () {
-        target.children().fadeOut("fast");
-        return false;
-      });
-    }
-  }
   search.find("#liq-search")
         .autocomplete({ source: source,
-                        select: select });
+                        select: selectSearch });
   return search;
 }
 
@@ -159,6 +160,59 @@ function enhanceSettings(root) {
   });
 }
 
+function enhanceFaq(root) {
+  var hide = [];
+  var set_names = [];
+  var doc = $("<ul></ul>");
+  var sections = root.nextAll("h4");
+  sections.each(function () {
+    var elem = $(this);
+    var section = $("<ul></ul>");
+    var part = elem.nextUntil("h4,#footer").filter("h5");
+    if (part.length > 0) {
+      part.each(function () {
+        var elem = $(this);
+        var text = elem.text();
+        set_names.push(text);
+        var id = text.replace(/[^\w]/g,"_");
+        var link = $("<a href=\"#\" id=\"" + id + "\">" + text + "</a>");
+        var content = elem.nextUntil("h5,h4,#footer");
+        var div = $("<div class=\"liq-faq-content\"></div>");
+        div.append(content.detach());
+        hide.push(div);
+        link.click(function () {
+          // Now THAT's a winner!
+          var ui = {};
+          ui.item = {};
+          ui.item.value = text ;
+          selectSearch('click', ui); 
+          return false;
+        });
+        var li = $("<li></li>");
+        li.append(link).append(div);
+        section.append(li);
+        elem.remove();
+      });
+      hide.push(section);
+      var text = elem.text();
+      var link = $("<a href=\"#\">" + text + "</a>");
+      link.click(function () {
+        section.fadeToggle("fast");
+        return false;
+      });
+      var li = $("<li></li>");
+      li.append(link).append(section);
+      doc.append(li);
+    }
+    elem.remove();
+  });
+  root.after(doc);
+  doc.before(searchBox(set_names));
+  jQuery.each(hide,function (index,elem) {
+    elem.css('display', 'none');
+  });
+}
+
 function enhanceDownloads(ref) { 
   var list = ref.siblings('ul').first();
   list.children().each(function (id,el) {
@@ -196,6 +250,10 @@ $(document).ready(function () {
   var dl = $("h2:contains('Installing Savonet')");
   if (dl.length > 0) {
     enhanceDownloads(dl);
+  }
+  var faq = $("h3:contains('Frequently Asked Questions')");
+  if (faq.length > 0) {
+    enhanceFaq(faq);
   }
 });
 
