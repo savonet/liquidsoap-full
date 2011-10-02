@@ -81,9 +81,9 @@ $(LIQUIDSOAP):
 $(PWD)/html/doc-svn/reference.txt: $(LIQUIDSOAP)
 	@echo "Generating svn language reference..."
 	@echo "Did you enable all features ?"
-	@$(LIQUIDSOAP) --no-pervasives \
+	@($(LIQUIDSOAP) --no-pervasives \
 	  $(LIQ_DIR)/scripts/utils.liq --list-plugins-xml | \
-	$(LIQ_DIR)/doc/reference_to_liqi.pl || cat $(LIQ_DIR)/doc/no-ref.txt > $(PWD)/reference.txt
+	$(LIQ_DIR)/doc/reference_to_liqi.pl || cat $(LIQ_DIR)/doc/no-ref.txt) > $(PWD)/reference.txt
 	cp $(PWD)/reference.txt $(PWD)/html/doc-svn/reference.txt
 
 $(PWD)/html/doc-svn/settings.txt: $(LIQUIDSOAP)
