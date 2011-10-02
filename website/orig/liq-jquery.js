@@ -50,6 +50,7 @@ function enhanceRef (ref) {
     /* Find target. */
     var anchor = link.attr("name");
     var target = $("a[href=#" + anchor + "]");
+    target.attr("id",anchor);
     /* Find each operator. */
     var operators = content.filter("h5");
     /* Initiate a list. */
@@ -63,7 +64,7 @@ function enhanceRef (ref) {
       op_names.push(text);
       /* Initiate a link. */
       var id = text.replace(/[^\w]/g,"_");
-      var link = $("<a href=\"#\" id=\"" + id + "\">" + text + "</a>");
+      var link = $("<a href=\"#" + id + "\" id=\"" + id + "\">" + text + "</a>");
       /* Get all elements until next
        * operator. */
       var doc = elem.nextUntil("h5,h3,#footer");
@@ -254,6 +255,15 @@ $(document).ready(function () {
   var faq = $("h3:contains('Frequently Asked Questions')");
   if (faq.length > 0) {
     enhanceFaq(faq);
+  }
+
+  var parts=document.URL.split("#");
+  if (parts.length>1){
+    var id="#"+parts[1];
+    var target = $(id);
+    target.parent().parent().show();
+    target.siblings().show();
+    $('html, body').animate({ scrollTop: target.offset().top }, 500);
   }
 });
 
