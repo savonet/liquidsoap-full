@@ -98,5 +98,5 @@ makefiles: $(PKGDIRS:=/Makefile) $(LIQDIR)/Makefile.defs
 	  echo "Skipping failed configure..."
 liquidsoap/Makefile.defs: liquidsoap/configure
 	@echo "*** configuring `dirname $@`"
-	@cd `dirname $@` ; ./configure-with-options > /dev/null || \
+	@cd `dirname $@` ; `cat configure-with-options` > /dev/null || \
 	  echo "Skipping failed configure..."
