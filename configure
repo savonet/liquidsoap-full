@@ -23,10 +23,11 @@ fi;
 
 packages=`grep -v '\#' PACKAGES`
 
+liqdir=`ls -d liquidsoap* | head -n 1`
 for p in `for i in $packages ; do ls -d $i* | head -1 ; done` ; do
-  if test "x$p" = "xliquidsoap" ; then
+  if test "$p" = "$liqdir" ; then
     base="liquidsoap"
-    echo ./configure $OPTS $* > liquidsoap/configure-with-options
+    echo ./configure $OPTS $* > $liqdir/configure-with-options
   else
     base=`echo $p | sed -e 's/ocaml-//' | sed -e 's/-.*//'`
     OPTS="$OPTS --with-$base-dir=../$p/src"
