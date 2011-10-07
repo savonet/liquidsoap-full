@@ -89,8 +89,7 @@ $(PWD)/html/doc-svn/reference.txt: $(LIQUIDSOAP)
 $(PWD)/html/doc-svn/settings.txt: $(LIQUIDSOAP)
 	@echo "Generating svn language settings..."
 	@echo "Did you enable all features ?"
-	@$(LIQUIDSOAP) --no-pervasives $(LIQ_DIR)/scripts/utils.liq --conf-descr | \
-	$(LIQ_DIR)/doc/settings_to_liqi.pl > $(PWD)/html/doc-svn/settings.txt
+	@$(LIQUIDSOAP) --no-pervasives $(LIQ_DIR)/scripts/utils.liq --conf-descr-liqi > $(PWD)/html/doc-svn/settings.txt
 
 # We copy ref and settings to the svn:external directories where they belong
 

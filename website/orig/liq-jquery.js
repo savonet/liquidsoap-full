@@ -244,7 +244,7 @@ $(document).ready(function () {
   if (ref.length > 0) {
     enhanceRef(ref);
   }
-  var root = $("h3:contains('Liquidsoap configuration')");
+  var root = $("h2:contains('Liquidsoap configuration')");
   if (root.length > 0) {
     enhanceSettings(root);
   }
@@ -258,7 +258,7 @@ $(document).ready(function () {
   }
 
   var parts=document.URL.split("#");
-  if (parts.length>1){
+  if (parts.length>1 && parts[1].length > 0){
     var id="#"+parts[1];
     var target = $(id);
     target.parent().parent().show();

@@ -1,5 +1,5 @@
 title: Liquidsoap language settings
-h3.  Liquidsoap configuration
+h2.  Liquidsoap configuration
 h3.  ALSA configuration
 h4.  Alsa internal buffer size
 Default: @0@
