@@ -57,7 +57,6 @@ full: bootstrap makefiles
 	  if [ -f latest/$$i-$$v.tar.gz ] ; then \
 	  	cp latest/$$i-$$v.tar.gz $(FULL) ; else \
 	  echo " *** Latest tarball not found for $$i-$$v: building it..." ; \
-	  make -C $$$i clean > /dev/null ; \
 	  make -C $$i dist > /dev/null ; \
 	  if [ -f $$i-$$v.tar.gz ] ; then \
 	    mv $$i-$$v.tar.gz $(FULL) ; else \
