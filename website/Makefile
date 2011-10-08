@@ -8,7 +8,8 @@ LIQUIDSOAP := $(LIQ_DIR)/src/liquidsoap
 
 
 # Versions for which documentation should be build and included
-VERSIONS := svn 0.3.8 0.9.0 0.9.1 0.9.2 1.0.0-beta1 1.0.0-beta2 1.0.0-beta3
+VERSIONS := svn 0.3.8 0.9.0 0.9.1 0.9.2 \
+  1.0.0-beta1 1.0.0-beta2 1.0.0-beta3 1.0.0
 
 # Static content
 content_expand = $(wildcard $(PWD)/content/doc-$(version)/*.txt)
