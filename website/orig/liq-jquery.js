@@ -51,10 +51,21 @@ function enhanceRef (ref) {
     var anchor = link.attr("name");
     var target = $("a[href=#" + anchor + "]");
     target.attr("id",anchor);
-    /* Find each operator. */
-    var operators = content.filter("h5");
     /* Initiate a list. */
     var section = $("<ul class=\"liq-api-sec\"></ul>");
+    /* Hide section */
+    hide.push(section);
+    /* Add click action. */
+    target.click(function () {
+      section.fadeToggle("fast");
+      return false;
+    });
+    /* Append section. */
+    target.after(section);
+    /* Remove link. */
+    link.parent().remove();
+    /* Find each operator. */
+    var operators = content.filter("h5");
     /* For each of them do the following. */
     operators.each(function () {
       var elem = $(this);
@@ -64,7 +75,7 @@ function enhanceRef (ref) {
       op_names.push(text);
       /* Initiate a link. */
       var id = text.replace(/[^\w]/g,"_");
-      var link = $("<a href=\"#" + id + "\" id=\"" + id + "\">" + text + "</a>");
+      var link = $("<a href=\"#" + id + "-api\" id=\"" + id + "-api\">" + text + "</a>");
       /* Get all elements until next
        * operator. */
       var doc = elem.nextUntil("h5,h3,#footer");
@@ -84,17 +95,6 @@ function enhanceRef (ref) {
       /* Remove elem. */
       elem.remove();
     });
-    /* Hide section */
-    hide.push(section);
-    /* Add click action. */
-    target.click(function () {
-      section.fadeToggle("fast");
-      return false;
-    });
-    /* Append section. */
-    target.after(section);
-    /* Remove link. */
-    link.parent().remove();
   });
 
   /* Add a search box. */
