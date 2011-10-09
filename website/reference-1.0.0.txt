@@ -36,8 +36,6 @@ information that liquidsoap puts in streams: track limits and metadata.
 * "Math":#Math
 * "String":#String
 * "System":#System
-* "Uncategorized":#Uncategorized
-
 
 h3@Source___Conversions. Source / Conversions
 h5@audio_to_stereo. audio_to_stereo
@@ -2140,6 +2138,27 @@ Display a text (using the SDL library).
 * <code>(unlabeled)</code> (<code>anything that is either string or ()->string</code>): Text to display.
 * <code>(unlabeled)</code> (<code>source(audio='#b,video='#c+1,midi='#d)</code>)
 
+h5@video_add_text. video.add_text
+<pre>(?id:string,?color:int,?cycle:bool,?font:string,
+ ?metadata:string,?size:int,?speed:int,?x:int,?y:int,'a,
+ source(audio='#b,video='#c+1,midi='#d))->
+source(audio='#b,video='#c+1,midi='#d)
+where 'a is either string or ()->string</pre>
+
+Add a scrolling line of text on video frames.
+
+* <code>id</code> (<code>string</code> -- defaults to <code>""</code>): Force the value of the source ID.
+* <code>color</code> (<code>int</code> -- defaults to <code>16777215</code>): Text color (in 0xRRGGBB format).
+* <code>cycle</code> (<code>bool</code> -- defaults to <code>true</code>): Cycle text.
+* <code>font</code> (<code>string</code> -- defaults to <code>"/usr/share/fonts/truetype/ttf-dejavu/DejaVuSans.ttf"</code>): Path to ttf font file.
+* <code>metadata</code> (<code>string</code> -- defaults to <code>""</code>): Change text on a particular metadata (empty string means disabled).
+* <code>size</code> (<code>int</code> -- defaults to <code>18</code>): Font size.
+* <code>speed</code> (<code>int</code> -- defaults to <code>70</code>): Speed in pixels per second (0 means no scrolling).
+* <code>x</code> (<code>int</code> -- defaults to <code>-1</code>): x offset (negative means from right).
+* <code>y</code> (<code>int</code> -- defaults to <code>-5</code>): y offset (negative means from bottom).
+* <code>(unlabeled)</code> (<code>anything that is either string or ()->string</code>): Text to display.
+* <code>(unlabeled)</code> (<code>source(audio='#b,video='#c+1,midi='#d)</code>)
+
 h5@video_fade_final. video.fade.final
 <pre>(?id:string,?duration:float,?transition:string,
  ?type:string,source(audio='#a,video='#b+1,midi='#c))->
@@ -2812,6 +2831,12 @@ Please note that built-in support for FLAC is available
 in liquidsoap if compiled and should be preferred over
 the external decoder.
 
+h5@enable_external_mpc_decoder. enable_external_mpc_decoder
+<pre>()->unit</pre>
+
+Enable external Musepack decoder. Requires the
+mpcdec binary in the path. Does not work on
+Win32.
 
 h5@enable_replaygain_metadata. enable_replaygain_metadata
 <pre>(?extract_replaygain:string)->unit</pre>
@@ -3743,37 +3768,4 @@ Return true if process exited with 0 code.
 Command should return quickly.
 
 * <code>(unlabeled)</code> (<code>string</code>): Command to test
-
-
-
-h3@Uncategorized. Uncategorized
-h5@enable_external_mpc_decoder. enable_external_mpc_decoder
-<pre>()->unit</pre>
-
-Enable external Musepack decoder. Requires the 
-mpcdec binary in the path. Does not work on 
-Win32.
-
-
-h5@video_add_text. video.add_text
-<pre>(?id:string,?color:int,?cycle:bool,?font:string,
- ?metadata:string,?size:int,?speed:int,?x:int,?y:int,'a,
- source(audio='#b,video='#c+1,midi='#d))->
-source(audio='#b,video='#c+1,midi='#d)
-where 'a is either string or ()->string</pre>
-
-Add a scrolling line of text on video frames.
-
-* <code>id</code> (<code>string</code> -- defaults to <code>""</code>): Force the value of the source ID.
-* <code>color</code> (<code>int</code> -- defaults to <code>16777215</code>): Text color (in 0xRRGGBB format).
-* <code>cycle</code> (<code>bool</code> -- defaults to <code>true</code>): Cycle text.
-* <code>font</code> (<code>string</code> -- defaults to <code>"/usr/share/fonts/truetype/ttf-dejavu/DejaVuSans.ttf"</code>): Path to ttf font file.
-* <code>metadata</code> (<code>string</code> -- defaults to <code>""</code>): Change text on a particular metadata (empty string means disabled).
-* <code>size</code> (<code>int</code> -- defaults to <code>18</code>): Font size.
-* <code>speed</code> (<code>int</code> -- defaults to <code>70</code>): Speed in pixels per second (0 means no scrolling).
-* <code>x</code> (<code>int</code> -- defaults to <code>-1</code>): x offset (negative means from right).
-* <code>y</code> (<code>int</code> -- defaults to <code>-5</code>): y offset (negative means from bottom).
-* <code>(unlabeled)</code> (<code>anything that is either string or ()->string</code>): Text to display.
-* <code>(unlabeled)</code> (<code>source(audio='#b,video='#c+1,midi='#d)</code>)
-
 
