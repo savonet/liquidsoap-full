@@ -173,6 +173,8 @@ upload: dist
 
 rss: $(PWD)/html/liquidsoap.rss
 
+DATE := $(shell date -R 2>/dev/null || date)
+
 $(PWD)/html/liquidsoap.rss: news.txt
 	@echo Generating $@
 	@echo '<?xml version="1.0" encoding="UTF-8" ?>\n<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">' > $@
@@ -185,7 +187,7 @@ $(PWD)/html/liquidsoap.rss: news.txt
 	@echo -n `date -R` >> $@
 	@echo '</lastBuildDate>' >> $@
 	@echo -n '<pubDate>' >> $@
-	@echo -n `date -R` >> $@
+	@echo -n $(DATE) >> $@
 	@echo '</pubDate>' >> $@
 	@echo '<item>' >> $@
 #	@echo '<link>http://savonet.sf.net/</link>' >> $@
