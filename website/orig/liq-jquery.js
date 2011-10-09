@@ -34,7 +34,7 @@ function searchBox(source) {
 /* Enhance reference presentation. */
 function enhanceRef (ref) {
   /* Find all links that have attribute "name" */
-  var links = ref.parent().find('a[name]');
+  var links = ref.parent().find('h3').find('a[name]');
   /* Hidding is expensive, therefore we store
    * all object to be hidden and hid them at once.. */
   var hide = [];
@@ -75,7 +75,7 @@ function enhanceRef (ref) {
       op_names.push(text);
       /* Initiate a link. */
       var id = text.replace(/[^\w]/g,"_");
-      var link = $("<a href=\"#" + id + "-api\" id=\"" + id + "-api\">" + text + "</a>");
+      var link = $("<a href=\"#" + id + "\" id=\"" + id + "\">" + text + "</a>");
       /* Get all elements until next
        * operator. */
       var doc = elem.nextUntil("h5,h3,#footer");
