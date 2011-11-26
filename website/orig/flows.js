@@ -84,8 +84,9 @@ function update_radios(div)
                 content += l + "\n";
                 if ((r.latitude != null) && (r.longitude != null))
                 {
-                    c = "<b>NAME</b><br/>DESCRIPTION";
+                    c = '<b><a href="WEBSITE" target="_blank" style="text-decoration: none">NAME</a></b><br/>DESCRIPTION';
                     c = c.replace("NAME",r.name);
+                    c = c.replace("WEBSITE",r.website);
                     c = c.replace("DESCRIPTION",r.description);
                     marker = new google.maps.Marker({
 			position: new google.maps.LatLng(r.latitude, r.longitude),
