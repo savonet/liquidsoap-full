@@ -1,0 +1,35 @@
+<html>
+<head>
+  <title>Flows notification test page</title>
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    var url = "http://" + window.location.hostname + ":" + window.location.port;
+    var socket = io.connect(url);
+    var radio;
+
+    socket.on('joinded', function (data) {
+      document.getElementById("content").innerHTML+="Successfully joined " + data + " notification channel.<br/>";
+    });
+
+    socket.emit('join', 'flows');
+    
+    socket.on('flows', function (data) {
+      document.getElementById("content").innerHTML+="Generic data: " + data + "</br>";
+      if (radio === undefined) {
+        var msg = JSON.parse(data);
+        if (msg.data !== undefined && msg.data.id !== undefined) {
+          radio = "" + msg.data.id;
+          socket.emit('join', radio);
+          socket.on(radio, function (data) {
+            document.getElementById("content").innerHTML+="Data for radio " + radio + ": " + data + "</br>";
+          });
+        }
+      }
+    });
+  </script>
+</head>
+<body>
+  <h1>Flows notification test</h1>
+  <p id="content">Waiting..<br/></p>
+</body>
+</html>
