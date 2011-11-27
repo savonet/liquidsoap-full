@@ -23,6 +23,12 @@ app.configure "production", ->
 # io configuration
 io = socket.listen app
 
+io.configure "production", ->
+  io.enable "browser client etag"
+  io.set "log level", 1
+  io.set "transports", ["xhr-polling"]
+  io.set "polling duration", 10
+
 io.sockets.on "connection", (socket) ->
   socket.on "join", (data) ->
     socket.join "#{data}"
@@ -43,10 +49,10 @@ redisClient.subscribe "flows"
 
 redisClient.on "message", (channel, message) ->
   # Generic broadcast
-  io.sockets.in("flows").volatile.emit "flows", message
+  io.sockets.in("flows").emit "flows", message
 
   # Specific broadcast
   msg = JSON.parse(message)
   if msg.data? and msg.data.id?
-    io.sockets.in("#{msg.data.id}").volatile.emit "#{msg.data.id}", message
+    io.sockets.in("#{msg.data.id}").emit "#{msg.data.id}", message
 
