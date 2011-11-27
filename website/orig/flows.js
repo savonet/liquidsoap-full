@@ -55,8 +55,12 @@ function update_radios(div)
                 l = line;
                 l = l.replace("NAME",r.name);
                 l = l.replace("WEBSITE",r.website);
-                l = l.replace("DESCRIPTION",r.description);
-                l = l.replace("GENRE",r.genre);
+                var descr = r.description;
+                if (descr === null) { descr = ""; }
+                l = l.replace("DESCRIPTION",descr);
+                var genre = r.genre;
+                if (genre === null) { genre = ""; }
+                l = l.replace("GENRE",genre);
                 l = l.replace("ID",r.id);
                 function get_meta(r) {
                   var metadata = "";
@@ -78,7 +82,11 @@ function update_radios(div)
                 socket.on("" + r.id, function (data) {
                   var r = JSON.parse(data);
                   if (r.cmd === "metadata") {
-                    $("#metadata-" + r.data.id).html(get_meta(r.data));
+                    var el = $("#metadata-" + r.data.id);
+                    el.fadeOut("slow", function () {
+                      el.html(get_meta(r.data));
+                      el.fadeIn("slow");
+                    });
                   }
                 });
                 streams = "";
