@@ -38,7 +38,7 @@ function update_radios(div)
     if (!map) map = new google.maps.Map(document.getElementById('map'), options);
 
     $.getJSON(
-        "http://savonet.rastageeks.org/liqflows.py?fmt=json&cmd=radios",
+        "http://savonet-flows.herokuapp.com/?fmt=json&cmd=radios",
         function(radios){
             if (radios.length == 0)
             {
