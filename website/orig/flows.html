@@ -2,6 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
+  <script type="text/javascript" src="http://savonet-flows-socket.herokuapp.com/socket.io/socket.io.js"></script>
   <script type="text/javascript" src="flows.js"></script>
   <script type="text/javascript" src="http://www.google.com/jsapi"></script>
   <script>google.load("jquery", "1.6.1");</script>
@@ -11,9 +12,7 @@
   <link rel="stylesheet" type="text/css" href="css/mp3-player-button.css"/>
   <script type="text/javascript" src="js/mp3-player-button.js"></script>
   <script type="text/javascript">
-    function update(){update_radios("radios");}
-    $(document).ready(update);
-    setInterval(update,60000);
+    $(document).ready(function () {update_radios("radios");});
   </script>
   <script>
     soundManager.url = 'swf/';

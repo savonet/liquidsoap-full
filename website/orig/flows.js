@@ -42,13 +42,13 @@ function update_radios(div)
         function(radios){
             if (radios.length == 0)
             {
-                div.innerHTML = "<b>No registered radio is currently broadcasting!</b>";
+                div.innerHTML = "<b>No registered radio currently broadcasting!</b>";
                 return;
             }
             clear_markers();
             content = "";
             content += "<ul>\n";
-            line = '<li><div class="radio"><a href="WEBSITE" target="_blank">NAME</a> <span class="streams">STREAMS</span></div><div class="genre">GENRE</div><div class="description">DESCRIPTION</div><div class="metadata">METADATA</div></li>';
+            line = '<li><div class="radio"><a href="WEBSITE" target="_blank">NAME</a> <span class="streams">STREAMS</span></div><div class="genre">GENRE</div><div class="description">DESCRIPTION</div><div class="metadata" id="metadata-ID">METADATA</div></li>';
             for (i=0; i < radios.length; i++)
             {
                 r = radios[i];
@@ -57,17 +57,30 @@ function update_radios(div)
                 l = l.replace("WEBSITE",r.website);
                 l = l.replace("DESCRIPTION",r.description);
                 l = l.replace("GENRE",r.genre);
-                metadata = "";
-                if (r.artist != null)
-                {
-                    metadata += r.artist;
-                    metadata += " ";
-                    if (r.title != null)
-                        metadata += "&mdash; ";
+                l = l.replace("ID",r.id);
+                function get_meta(r) {
+                  var metadata = "";
+                  if (r.artist != null)
+                  {
+                      metadata += r.artist;
+                      metadata += " ";
+                      if (r.title != null)
+                          metadata += "&mdash; ";
+                  }
+                  if (r.title != null)
+                      metadata += '<span class="title">'+r.title+'</span>';
+
+                  return metadata;
                 }
-                if (r.title != null)
-                    metadata += '<span class="title">'+r.title+'</span>';
-                l = l.replace("METADATA",metadata);
+                l = l.replace("METADATA",get_meta(r));
+                var socket = io.connect("http://savonet-flows-socket.herokuapp.com/");
+                socket.emit('join',"" + r.id);
+                socket.on("" + r.id, function (data) {
+                  var r = JSON.parse(data);
+                  if (r.cmd === "metadata") {
+                    $("#metadata-" + r.data.id).html(get_meta(r.data));
+                  }
+                });
                 streams = "";
                 for (j = 0; j < r.streams.length; j++)
                 {
