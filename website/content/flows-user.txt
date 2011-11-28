@@ -1,0 +1,92 @@
+title: Using the Flows service
+
+"Flows":flows.html is a new web service available to liquidsoap users. It consists of a list
+of radios broadcasting using liquidsoap, with their corresponding streams and metadata. You
+can "see here":doc-svn/flows.html how to add your own radio to the list.
+
+h3. List of radios
+
+A list of radios, encoded in JSON format, can be obtained by querying the following url:
+
+%%
+http://flows.liquidsoap.fm/radios
+%%
+
+Output looks like this:
+
+%%
+[{ "id": 20,
+   "name": "RadioPi - Canal Jazz",
+   "website": "http://www.radiopi.org/",
+   "description": "Cool vibes from Chatenay!",
+   "genre":"jazz", 
+   "longitude":2.26670002937317,
+   "latitude":48.7667007446289,
+   "title":"Bud Powell - Un Poco Loco",
+   "artist":"Va-1939-1999 - 60 Ans De Jazz",
+   "streams": [{ "format": "mp3/128k",
+                 "url": "http://radiopi.org:8080/jazz"}]},
+ ...
+%%
+
+h3. Single radio
+
+A single radio, encoded in JSON format, can be obtained by querying the following url:
+
+%%
+http://flows.liquidsoap.fm/radio?name=foo&website=bar
+%%
+
+@website@ argument is optional. Arguments should be in UTF8 and properly encoded for a HTTP GET request.
+
+Output looks like this:
+
+%%
+{ "id": 20,   
+  "name": "RadioPi - Canal Jazz",   
+  "website": "http://www.radiopi.org/",   
+  "description": "Cool vibes from Chatenay!",   
+  "genre":"jazz",    
+  "longitude":2.26670002937317,   
+  "latitude":48.7667007446289,
+  "title":"Bud Powell - Un Poco Loco",
+  "artist":"Va-1939-1999 - 60 Ans De Jazz",
+  "streams": [{ "format": "mp3/128k",
+                "url": "http://radiopi.org:8080/jazz"}]}
+%%
+
+h3. Real-time notifications
+
+It is oftentimes difficult to properly implement a regular update of your radio's currently playing information
+on a website or an online player. Using Flows, you can very easily implement real-time notifications of the 
+song currently being played by your radio.
+
+First, you need to know your radio's ID. You can do so by querying a single radio, as described above, or
+querying all radios and finding yours in the list.
+
+Then, in your webpage's head, you need to add javascript code adapted from this example:
+%%
+<script src="/socket.io/socket.io.js"></script>
+<script>
+  var socket = io.connect("http://flows.liquidsoap.fm");
+  
+  socket.emit('join', radio_id);
+
+  socket.on('joinded', function (data) {
+    console.log("Successfully joined " + data + " notification channel.);
+  });
+
+  socket.on(radio_id, function (data) {
+    console.log("Got new notification for radio " + radio_id + ": " + data);
+  });
+</script>
+%%
+
+Received messages are strings of the form:
+%%
+'{ "cmd": "metadata",
+   "data": { "title": "foo", "artist": "bar" }}'
+%%
+
+Messages with command @"metadata"@ are the one you want to use to update
+information displayed about your radio.

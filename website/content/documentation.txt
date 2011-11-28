@@ -1,5 +1,10 @@
 title: Documentation
 
+h2. Flows documentation
+
+Documentation on how to use the "Flows":flows.html services can be found
+"here":flows-user.html.
+
 h2. Liquidsoap documentation
 
 h3. Help by users for users

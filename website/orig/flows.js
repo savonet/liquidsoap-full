@@ -38,7 +38,7 @@ function update_radios(div)
     if (!map) map = new google.maps.Map(document.getElementById('map'), options);
 
     $.getJSON(
-        "http://savonet-flows.herokuapp.com/?fmt=json&cmd=radios",
+        "http://flows.liquidsoap.fm/radios",
         function(radios){
             if (radios.length == 0)
             {
@@ -56,28 +56,28 @@ function update_radios(div)
                 l = l.replace("NAME",r.name);
                 l = l.replace("WEBSITE",r.website);
                 var descr = r.description;
-                if (descr === null) { descr = ""; }
+                if (!descr) { descr = ""; }
                 l = l.replace("DESCRIPTION",descr);
                 var genre = r.genre;
-                if (genre === null) { genre = ""; }
+                if (!genre) { genre = ""; }
                 l = l.replace("GENRE",genre);
                 l = l.replace("ID",r.id);
                 function get_meta(r) {
                   var metadata = "";
-                  if (r.artist != null)
+                  if (r.artist)
                   {
                       metadata += r.artist;
                       metadata += " ";
                       if (r.title != null)
                           metadata += "&mdash; ";
                   }
-                  if (r.title != null)
+                  if (r.title)
                       metadata += '<span class="title">'+r.title+'</span>';
 
                   return metadata;
                 }
                 l = l.replace("METADATA",get_meta(r));
-                var socket = io.connect("http://savonet-flows-socket.herokuapp.com/");
+                var socket = io.connect("http://flows.liquidsoap.fm/");
                 socket.emit('join',"" + r.id);
                 socket.on("" + r.id, function (data) {
                   var r = JSON.parse(data);
