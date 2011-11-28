@@ -58,7 +58,7 @@ io.configure "production", ->
 io.sockets.on "connection", (socket) ->
   socket.on "join", (data) ->
     socket.join "#{data}"
-    socket.emit "joinded", data
+    socket.emit "joined", data
 
 # Redis configuration
 

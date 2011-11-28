@@ -7,7 +7,7 @@
     var socket = io.connect(url);
     var radio;
 
-    socket.on('joinded', function (data) {
+    socket.on('joined', function (data) {
       document.getElementById("content").innerHTML+="Successfully joined " + data + " notification channel.<br/>";
     });
 
