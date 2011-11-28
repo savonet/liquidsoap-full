@@ -2,6 +2,7 @@ express = require "express"
 redis   = require "redis"
 socket  = require "socket.io"
 url     = require "url"
+queries = require "./lib/queries"
 
 # Express configuration
 
@@ -20,7 +21,30 @@ app.configure "production", ->
   process.addListener "uncaughtException", (err) ->
     console.error "Uncaught exception: #{err}"
 
+app.get "/", (req, res) ->
+  res.redirect "http://liquidsoap.fm/flows.html"
+
+app.get "/radio", (req, res) ->
+  name    = req.query.name
+  website = req.query.website
+
+  queries.radio name, website, (ans, err) ->
+    return res.send("An error occured while processing your request", 500) if err?
+
+    return res.send "No such radio", 404 unless ans?
+
+    res.contentType "json"
+    res.end JSON.stringify ans
+
+app.get "/radios", (req, res) ->
+  queries.radios (ans, err) ->
+    return res.send("An error occured while processing your request", 500) if err?
+
+    res.contentType "json"
+    res.end JSON.stringify ans
+
 # io configuration
+
 io = socket.listen app
 
 io.configure "production", ->
