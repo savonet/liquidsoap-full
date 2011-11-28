@@ -38,6 +38,13 @@ cleanRadio = (radio) ->
   delete radio.last_seen
   clean radio
 
+sortRadios = (radios) ->
+  sort = (a, b) ->
+    x = a.name.toLowerCase()
+    y = b.name.toLowerCase()
+    if x < y then -1 else (if x > y then 1 else 0)
+  radios.sort sort
+
 module.exports.radio = (name, website, fn) ->
   sql   = "SELECT * FROM radios WHERE name = $1"
   args = [name]
@@ -76,7 +83,7 @@ module.exports.radio = (name, website, fn) ->
     fn null, err
 
 module.exports.radios = (fn) ->
-  sql   = "SELECT * FROM radios"
+  sql   = "SELECT * FROM radios WHERE last_seen >= (CURRENT_TIMESTAMP - interval '1' day)"
   query = client.query sql
   ans = []
 
@@ -109,7 +116,9 @@ module.exports.radios = (fn) ->
           cleanRadio radio
           radios.push radio
 
-          fn radios, null if radios.length == ans.length
+          if radios.length == ans.length
+            sortRadios radios
+            fn radios, null
 
     enhance radio for radio in ans
 

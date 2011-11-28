@@ -33,6 +33,7 @@ app.get "/radio", (req, res) ->
 
     return res.send "No such radio", 404 unless ans?
 
+    res.header "Access-Control-Allow-Origin", "*"
     res.contentType "json"
     res.end JSON.stringify ans
 
@@ -40,6 +41,7 @@ app.get "/radios", (req, res) ->
   queries.radios (ans, err) ->
     return res.send("An error occured while processing your request", 500) if err?
 
+    res.header "Access-Control-Allow-Origin", "*"
     res.contentType "json"
     res.end JSON.stringify ans
 
