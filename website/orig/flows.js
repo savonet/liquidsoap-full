@@ -79,8 +79,7 @@ function update_radios(div)
                 l = l.replace("METADATA",get_meta(r));
                 var socket = io.connect("http://flows.liquidsoap.fm/");
                 socket.emit('join',"" + r.id);
-                socket.on("" + r.id, function (data) {
-                  var r = JSON.parse(data);
+                socket.on("" + r.id, function (r) {
                   if (r.cmd === "metadata") {
                     var el = $("#metadata-" + r.data.id);
                     el.fadeOut("slow", function () {

@@ -73,19 +73,19 @@ Then, in your webpage's head, you need to add javascript code adapted from this 
   socket.emit('join', radio_id);
 
   socket.on('joined', function (data) {
-    console.log("Successfully joined " + data + " notification channel.);
+    console.log("Successfully joined " + data + " notification channel.");
   });
 
   socket.on(radio_id, function (data) {
-    console.log("Got new notification for radio " + radio_id + ": " + data);
+    console.log("Got new notification for radio " + radio_id + ": " + JSON.stringify(data));
   });
 </script>
 %%
 
-Received messages are strings of the form:
+Received messages are JSON objects of the form:
 %%
-'{ "cmd": "metadata",
-   "data": { "title": "foo", "artist": "bar" }}'
+{ "cmd": "metadata",
+  "data": { "title": "foo", "artist": "bar" }}
 %%
 
 Messages with command @"metadata"@ are the one you want to use to update

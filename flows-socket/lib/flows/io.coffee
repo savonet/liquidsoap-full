@@ -10,8 +10,3 @@ io.configure "production", ->
   io.set "log level", 1
   io.set "transports", ["xhr-polling"]
   io.set "polling duration", 10
-
-io.sockets.on "connection", (socket) ->
-  socket.on "join", (data) ->
-    socket.join "#{data}"
-    socket.emit "joined", data

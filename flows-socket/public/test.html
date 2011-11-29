@@ -13,15 +13,14 @@
 
     socket.emit('join', 'flows');
     
-    socket.on('flows', function (data) {
-      document.getElementById("content").innerHTML+="Generic data: " + data + "</br>";
+    socket.on('flows', function (msg) {
+      document.getElementById("content").innerHTML+="Generic data: " + JSON.stringify(msg) + "</br>";
       if (radio === undefined) {
-        var msg = JSON.parse(data);
         if (msg.data !== undefined && msg.data.id !== undefined) {
           radio = "" + msg.data.id;
           socket.emit('join', radio);
           socket.on(radio, function (data) {
-            document.getElementById("content").innerHTML+="Data for radio " + radio + ": " + data + "</br>";
+            document.getElementById("content").innerHTML+="Data for radio " + radio + ": " + JSON.stringify(data) + "</br>";
           });
         }
       }
