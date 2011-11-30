@@ -2,43 +2,63 @@
 <head>
   <title>Flows chat test page</title>
   <script src="/socket.io/socket.io.js"></script>
+  <script src="/js/chat.js"></script>
   <script>
-    var url = "http://" + window.location.hostname + ":" + window.location.port;
-    var socket = io.connect(url + "/chat");
-    var radio;
-    var chatroom;
+    var room;
+    
+    var opts = {
+      url: "http://" + window.location.hostname + ":" + window.location.port + "/chat",
+      onError: function (err) {
+        document.getElementById("content").innerHTML+="Error: " + err + "</br>";
+      },
+      onJoined: function (data) {
+        room = data;
+        document.getElementById("chatroom").innerHTML = data;
+        document.getElementById("content").innerHTML+="Successfully joined " + data + " chat room.<br/>";
+      },
+      onLeft: function (data) {
+        room = undefined;
+        document.getElementById("chatroom").innerHTML = "undefined";
+        document.getElementById("content").innerHTML+="Successfully left " + data + " chat room.<br/>";
+      },
+      onNick: function (nickname) {
+        document.getElementById("nickname").innerHTML = nickname;
+        document.getElementById("content").innerHTML+="Nickname set to: " + nickname + "</br>";
+      },
+      onChat: function(msg) {
+        document.getElementById("content").innerHTML+="Chat event: " + JSON.stringify(msg) + "</br>";
+      }
+    };
 
-    socket.on('joined', function (data) {
-      chatroom = data;
-      document.getElementById("chatroom").innerHTML = data;
-      document.getElementById("content").innerHTML+="Successfully joined " + data + " chat room.<br/>";
-    });
+    var chat = new Chat(opts);
 
-    socket.on('nicknamed', function (data) {
-      document.getElementById("nickname").innerHTML = data;
-      document.getElementById("content").innerHTML+="Nickname set to: " + data + "</br>";
-    });
-
-    socket.on('error', function (data) {
-      document.getElementById("content").innerHTML+="Error: " + data + "</br>";
-    });
+    window.chat = chat;
 
     function nickBox() {
-      var msg = document.getElementById('nickTxt').value;
-      socket.emit('nickname',msg);
+      var nick = document.getElementById('nickTxt').value;
+      chat.requestNickname(nick);
     }
 
     function joinBox() {
-      var msg = document.getElementById('joinTxt').value;
-      socket.emit('join', msg);
-      socket.on(msg, function (msg) {
-        document.getElementById("content").innerHTML+="In chat room " + chatroom + ": " + JSON.stringify(msg) + "</br>";
-      });
+      if (room) {
+        chat.onError("This demo is limited to a single chat room..");
+        return;
+      }
+      var data = document.getElementById('joinTxt').value;
+      if (data===room) {
+        chat.onError("You have already joined that room!");
+      }
+      chat.joinRoom(data); 
     }
-    
+
+    function leaveBox() {
+      var data = document.getElementById('joinTxt').value;
+      chat.leaveRoom(data); 
+    }
+
     function chatBox() {
       var msg = document.getElementById('chatTxt').value;
-      socket.emit(chatroom,msg);
+      chat.say(room, msg);
     }
   </script>
 </head>
@@ -58,6 +78,7 @@
   <form>
     <input type="text" id="joinTxt">
     <input type="button" onClick="joinBox()" value="Join!">
+    <input type="button" onClick="leaveBox()" value="Leave!">
   </form>
 
   <p>Say something:</p>

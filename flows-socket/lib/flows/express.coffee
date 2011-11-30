@@ -1,4 +1,5 @@
-express = require "express"
+express        = require "express"
+express.assets = require "connect-assets"
 
 module.exports.app = app = express.createServer()
 
@@ -14,6 +15,7 @@ app.configure "production", ->
     console.error "Uncaught exception: #{err}"
 
 app.use express.static "public"
+app.use express.assets()
 
 app.get "/", (req, res) ->
   res.redirect "http://liquidsoap.fm/flows.html"

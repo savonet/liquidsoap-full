@@ -1,11 +1,15 @@
 {io} = require "lib/flows/io"
 
+# Generate /js/chat.js
+js "chat"
+
 chat = io.of "/chat"
 
 nicknames = {}
 
 chat.on "connection", (socket) ->
-  # Set nickname
+  socket.rooms = {}
+  
   socket.on "nickname", (nick) ->
     return socket.emit "error", "Nickname taken!" if nicknames[nick]?
 
@@ -20,15 +24,42 @@ chat.on "connection", (socket) ->
     socket.emit "nicknamed", nick
 
   socket.on "join", (room) ->
-    return socket.emit "error", "You must set a nickname first!" unless socket.nickname?
+    if not socket.nickname?
+      return socket.emit "error", "You must set a nickname first!"
+   
+    room = "#{room}"
     
-    # Join chat room
-    socket.join "#{room}"
+    if socket.rooms[room]?
+      return socket.emit "error", "You have already joined that room!"
+    
+    socket.join room
+    socket.rooms[room] = true
 
-    socket.emit "joined", room
+    socket.emit "joined", "#{room}"
 
-    socket.on "#{room}", (msg) ->
-      chat.to("#{room}").json.emit "#{room}",
-        type   : "message"
-        origin : socket.nickname
-        data   : msg
+  socket.on "leave", (room) ->
+    room = "#{room}"
+   
+    if not socket.rooms[room]?
+      return socket.emit "error", "You have not joined that room!"
+    
+    socket.leave room
+    delete socket.rooms[room]
+
+    socket.emit "left", "#{room}"
+
+  socket.on "chat", (msg) ->
+    {room, type, data} = msg
+    room = "#{room}"
+    type = "#{type}"
+    if not room? and type == "message"
+      return socket.emit "error", "Invalid chat message"
+
+    if not socket.rooms[room]?
+      return socket.emit "error", "You have not joined that chat room"
+
+    chat.to(room).json.emit "chat",
+      type   : type
+      room   : room
+      origin : socket.nickname
+      data   : data

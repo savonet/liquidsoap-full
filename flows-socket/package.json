@@ -4,10 +4,11 @@
   "version": "0.0.1",
   
   "dependencies": {
-    "coffee-script" : "1.1.1",
-    "express"       : "2.5.1",
-    "pg"            : "0.6.6",
-    "redis"         : "0.7.1",
-    "socket.io"     : "0.8.7"
+    "coffee-script"  : "1.1.1",
+    "connect-assets" : "2.1.4",
+    "express"        : "2.5.1",
+    "pg"             : "0.6.6",
+    "redis"          : "0.7.1",
+    "socket.io"      : "0.8.7"
   }
 }
