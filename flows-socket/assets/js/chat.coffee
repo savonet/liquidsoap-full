@@ -5,7 +5,7 @@ class Chat
 
     @socket.on "error",     @onError
     @socket.on "joined",    @onJoined
-    @socket.on "left",    @onLeft
+    @socket.on "left",      @onLeft
     @socket.on "nicknamed", @onNick
     @socket.on "chat",      @onChat
 
@@ -31,9 +31,11 @@ class Chat
     @socket.emit "nickname", nickname
   
   joinRoom: (room) =>
+    room = "#{room}"
     @socket.emit "join", room
 
   leaveRoom: (room) =>
+    room = "#{room}"
     @socket.emit "leave", room
 
   say: (room, msg) =>

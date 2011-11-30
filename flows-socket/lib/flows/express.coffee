@@ -15,7 +15,13 @@ app.configure "production", ->
     console.error "Uncaught exception: #{err}"
 
 app.use express.static "public"
-app.use express.assets()
+
+app.use express.assets
+  buildDir       : "tmp"
+  buildFilenamer : (file) -> file
+
+app.set "view engine", "eco"
+app.set "view options", layout: false
 
 app.get "/", (req, res) ->
   res.redirect "http://liquidsoap.fm/flows.html"

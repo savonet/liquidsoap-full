@@ -2,7 +2,7 @@
 <head>
   <title>Flows chat test page</title>
   <script src="/socket.io/socket.io.js"></script>
-  <script src="/js/chat.js"></script>
+  <%- js "chat.js" %>
   <script>
     var room;
     
@@ -31,8 +31,6 @@
     };
 
     var chat = new Chat(opts);
-
-    window.chat = chat;
 
     function nickBox() {
       var nick = document.getElementById('nickTxt').value;

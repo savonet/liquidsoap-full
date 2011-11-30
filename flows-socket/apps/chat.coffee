@@ -1,9 +1,10 @@
-{io} = require "lib/flows/io"
-
-# Generate /js/chat.js
-js "chat"
+{io}  = require "lib/flows/io"
+{app} = require "lib/flows/express"
 
 chat = io.of "/chat"
+
+app.get "/chat", (req, res) ->
+  res.render "chat.eco"
 
 nicknames = {}
 
