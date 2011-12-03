@@ -21,7 +21,6 @@ app.use express.assets
   buildFilenamer : (file) -> file
 
 app.set "view engine", "eco"
-app.set "view options", layout: false
 
 app.get "/", (req, res) ->
   res.redirect "http://liquidsoap.fm/flows.html"

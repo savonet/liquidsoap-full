@@ -1,3 +1,4 @@
+_     = require "underscore"
 {io}  = require "lib/flows/io"
 {app} = require "lib/flows/express"
 
@@ -7,6 +8,7 @@ app.get "/chat", (req, res) ->
   res.render "chat.eco"
 
 nicknames = {}
+rooms = {}
 
 chat.on "connection", (socket) ->
   socket.rooms = {}
@@ -34,9 +36,14 @@ chat.on "connection", (socket) ->
       return socket.emit "error", "You have already joined that room!"
     
     socket.join room
-    socket.rooms[room] = true
+    socket.rooms[room] = room
 
-    socket.emit "joined", "#{room}"
+    rooms[room] or= []
+    rooms[room].push socket.nickname
+
+    socket.json.emit "joined",
+      room:      "#{room}"
+      occupants: rooms[room]
 
   socket.on "leave", (room) ->
     room = "#{room}"
@@ -46,6 +53,8 @@ chat.on "connection", (socket) ->
     
     socket.leave room
     delete socket.rooms[room]
+
+    rooms[room] = _.without rooms[room], socket.nickname
 
     socket.emit "left", "#{room}"
 
