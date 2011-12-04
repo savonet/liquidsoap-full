@@ -77,6 +77,23 @@ div.section > div.content {
     margin-right: auto;
 }
 
+#chat
+{
+    width:    400px;
+    height:   350px;
+    overflow: auto;
+}
+
+.message .nickname {
+    font-weight: bold;
+}
+
+.message .time {
+    font-style:   italic;
+    float:        right;
+    margin-right: 10px;
+}
+
 /* CODE */
 
 pre {

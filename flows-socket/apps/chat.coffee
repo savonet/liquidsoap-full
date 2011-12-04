@@ -10,19 +10,34 @@ app.get "/chat", (req, res) ->
 nicknames = {}
 rooms = {}
 
+leaveRoom = (room, socket) ->
+  room = "#{room}"
+
+  if not socket.rooms[room]?
+    return socket.emit "error", "You have not joined that room!"
+
+  socket.leave room
+  delete socket.rooms[room]
+
+  rooms[room] = _.without rooms[room], socket.nickname
+
+  socket.emit "left", "#{room}"
+
 chat.on "connection", (socket) ->
   socket.rooms = {}
   
   socket.on "nickname", (nick) ->
     return socket.emit "error", "Nickname taken!" if nicknames[nick]?
 
-    delete nicknames[socket.nickname] if socket.nickname?
+    return socket.emit "error", "Nickname already set!" if socket.nickname?
 
     nicknames[nick] = socket.nickname = nick
 
     socket.on "disconnect", ->
       return unless socket.nickname?
       delete nicknames[socket.nickname]
+      
+      leaveRoom room, socket for room of socket.rooms
 
     socket.emit "nicknamed", nick
 
