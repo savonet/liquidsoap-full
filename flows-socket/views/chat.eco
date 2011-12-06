@@ -13,9 +13,12 @@
   });
 
   chat.on("joined", function (arg) {
+    if (!room) {
+      $("#logs").append("Successfully joined " + arg.room + " chat room.<br/>");
+    }
     room = arg.room;
     $("#chatroom").text(arg.room);
-    $("#logs").append("Successfully joined " + arg.room + " chat room.<br/>");
+    $("#occupants").empty();
     $.each(arg.occupants, function (index, occupant) {
       $("#occupants").append("<li>" + occupant + "</li>");
     });

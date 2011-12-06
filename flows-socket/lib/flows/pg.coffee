@@ -45,15 +45,7 @@ sortRadios = (radios) ->
     if x < y then -1 else (if x > y then 1 else 0)
   radios.sort sort
 
-module.exports.radio = (name, website, fn) ->
-  sql   = "SELECT * FROM radios WHERE name = $1"
-  args = [name]
-  if website?
-    sql += " AND website = $2"
-    args.push website
-
-  sql += " LIMIT 1"
-
+radioFromSql = (sql, args, fn) ->
   query = client.query sql, args
 
   ans = []
@@ -82,6 +74,23 @@ module.exports.radio = (name, website, fn) ->
   query.on "error", (err) ->
     fn null, err
 
+module.exports.radio = (name, website, fn) ->
+  sql   = "SELECT * FROM radios WHERE name = $1"
+  args = [name]
+  if website?
+    sql += " AND website = $2"
+    args.push website
+
+  sql += " LIMIT 1"
+
+  radioFromSql sql, args, fn
+
+module.exports.radioById = (id, fn) ->
+  sql = "SELECT * FROM radios WHERE id = $1 LIMIT 1"
+  args = [id]
+
+  radioFromSql sql, args, fn
+
 module.exports.radios = (fn) ->
   sql   = "SELECT * FROM radios WHERE last_seen >= (CURRENT_TIMESTAMP - interval '1' day)"
   query = client.query sql
@@ -91,6 +100,8 @@ module.exports.radios = (fn) ->
     ans.push radio
 
   query.on "end", ->
+    return fn ans, null if ans.length == 0
+    
     radios = []
     error  = false
 

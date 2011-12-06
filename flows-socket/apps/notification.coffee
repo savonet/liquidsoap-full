@@ -7,11 +7,7 @@ io.sockets.on "connection", (socket) ->
     socket.join "#{data}"
     socket.emit "joined", data
 
-client = redis.connect()
-
-client.subscribe "flows"
-
-client.on "message", (channel, message) ->
+redis.on "message", (channel, message) ->
   msg = JSON.parse(message)
 
   # Generic broadcast

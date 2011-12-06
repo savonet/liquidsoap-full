@@ -56,7 +56,7 @@ chat.on "connection", (socket) ->
     rooms[room] or= []
     rooms[room].push socket.nickname
 
-    socket.json.emit "joined",
+    chat.to(room).json.emit "joined",
       room:      "#{room}"
       occupants: rooms[room]
 
