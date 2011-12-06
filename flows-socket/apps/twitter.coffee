@@ -4,7 +4,7 @@ twitter = require "lib/flows/twitter"
 redis   = require "lib/flows/redis"
 
 # One update every 3 min..
-updateTimeout = 3*60
+updateTimeout = 3*60*1000
 latestUpdate = new Date()
 
 # Allow first update
@@ -13,7 +13,9 @@ latestUpdate.setTime latestUpdate.getTime() - updateTimeout
 redis.on "message", (channel, message) ->
   now = new Date()
   return if latestUpdate? and latestUpdate.getTime() + updateTimeout > now.getTime()
-  
+ 
+  latestUpdate = now
+
   msg = JSON.parse(message)
 
   if msg.data.id? and msg.cmd == "metadata"
@@ -60,6 +62,3 @@ redis.on "message", (channel, message) ->
 
         twitter.updateStatus status, (err, data) ->
           console.error "Error while updating twitter status: #{err}" if err?
-
-          latestUpdate = now
-
