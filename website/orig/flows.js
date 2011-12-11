@@ -48,7 +48,7 @@ function update_radios(div)
             clear_markers();
             content = "";
             content += "<ul>\n";
-            line = '<li><div class="radio"><a href="WEBSITE" target="_blank">NAME</a> <span class="streams">STREAMS</span></div><div class="genre">GENRE</div><div class="description">DESCRIPTION</div><div class="metadata" id="metadata-ID">METADATA</div></li>';
+            line = '<li><div class="radio"><a href="WEBSITE" target="_blank">NAME</a> <span class="streams">STREAMS</span></div><div class="genre">GENRE</div><div class="description">DESCRIPTION</div><div class="metadata" id="metadata-TOKEN">METADATA</div></li>';
             for (i=0; i < radios.length; i++)
             {
                 r = radios[i];
@@ -61,7 +61,7 @@ function update_radios(div)
                 var genre = r.genre;
                 if (!genre) { genre = ""; }
                 l = l.replace("GENRE",genre);
-                l = l.replace("ID",r.id);
+                l = l.replace("TOKEN",r.token);
                 function get_meta(r) {
                   var metadata = "";
                   if (r.artist)
@@ -78,10 +78,10 @@ function update_radios(div)
                 }
                 l = l.replace("METADATA",get_meta(r));
                 var socket = io.connect("http://flows.liquidsoap.fm/");
-                socket.emit('join',"" + r.id);
-                socket.on("" + r.id, function (r) {
+                socket.emit('join',"" + r.token);
+                socket.on("" + r.token, function (r) {
                   if (r.cmd === "metadata") {
-                    var el = $("#metadata-" + r.data.id);
+                    var el = $("#metadata-" + r.data.token);
                     el.fadeOut("slow", function () {
                       el.html(get_meta(r.data));
                       el.fadeIn("slow");

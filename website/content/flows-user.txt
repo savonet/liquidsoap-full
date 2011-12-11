@@ -15,7 +15,7 @@ http://flows.liquidsoap.fm/radios
 Output looks like this:
 
 %%
-[{ "id": 20,
+[{ "token": "a60f5cadf2645321d4d061896318a2d99f2ff6a6",
    "name": "RadioPi - Canal Jazz",
    "website": "http://www.radiopi.org/",
    "description": "Cool vibes from Chatenay!",
@@ -34,15 +34,15 @@ h3. Single radio
 A single radio, encoded in JSON format, can be obtained by querying the following url:
 
 %%
-http://flows.liquidsoap.fm/radio?name=foo&website=bar
+http://flows.liquidsoap.fm/radio?name=foo&website=bar&token=a60f5cadf2645321d4d061896318a2d99f2ff6a6
 %%
 
-@website@ argument is optional. Arguments should be in UTF8 and properly encoded for a HTTP GET request.
+All argument are optional and should be in UTF8 and properly encoded for a HTTP GET request.
 
 Output looks like this:
 
 %%
-{ "id": 20,   
+{ "token": "a60f5cadf2645321d4d061896318a2d99f2ff6a6",   
   "name": "RadioPi - Canal Jazz",   
   "website": "http://www.radiopi.org/",   
   "description": "Cool vibes from Chatenay!",   
@@ -61,7 +61,7 @@ It is oftentimes difficult to properly implement a regular update of your radio'
 on a website or an online player. Using Flows, you can very easily implement real-time notifications of the 
 song currently being played by your radio.
 
-First, you need to know your radio's ID. You can do so by querying a single radio, as described above, or
+First, you need to know your radio's token. You can do so by querying a single radio, as described above, or
 querying all radios and finding yours in the list.
 
 Then, in your webpage's head, you need to add javascript code adapted from this example:
@@ -70,22 +70,32 @@ Then, in your webpage's head, you need to add javascript code adapted from this 
 <script>
   var socket = io.connect("http://flows.liquidsoap.fm");
   
-  socket.emit('join', radio_id);
+  socket.emit('join', radio_token);
 
-  socket.on('joined', function (data) {
-    console.log("Successfully joined " + data + " notification channel.");
+  socket.on('joined', function (radio) {
+    console.log("Successfully joined " + radio.name + " notification channel.");
   });
 
-  socket.on(radio_id, function (data) {
-    console.log("Got new notification for radio " + radio_id + ": " + JSON.stringify(data));
+  socket.on(radio_token, function (radio) {
+    console.log("Got new notification for radio " + radio.name + ": " + JSON.stringify(radio));
   });
 </script>
 %%
 
-Received messages are JSON objects of the form:
+Received messages are objects of the form:
 %%
 { "cmd": "metadata",
-  "data": { "title": "foo", "artist": "bar" }}
+  "data": { "token": "a60f5cadf2645321d4d061896318a2d99f2ff6a6",
+            "name": "RadioPi - Canal Jazz",
+            "website": "http://www.radiopi.org/",
+            "description": "Cool vibes from Chatenay!",
+            "genre":"jazz",
+            "longitude":2.26670002937317,
+            "latitude":48.7667007446289,
+            "title":"Bud Powell - Un Poco Loco",
+            "artist":"Va-1939-1999 - 60 Ans De Jazz",
+            "streams": [{ "format": "mp3/128k",
+                          "url": "http://radiopi.org:8080/jazz"}]}
 %%
 
 Messages with command @"metadata"@ are the one you want to use to update
