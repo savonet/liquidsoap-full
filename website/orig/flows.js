@@ -77,17 +77,6 @@ function update_radios(div)
                   return metadata;
                 }
                 l = l.replace("METADATA",get_meta(r));
-                var socket = io.connect("http://flows.liquidsoap.fm/");
-                socket.emit('join',"" + r.token);
-                socket.on("" + r.token, function (r) {
-                  if (r.cmd === "metadata") {
-                    var el = $("#metadata-" + r.data.token);
-                    el.fadeOut("slow", function () {
-                      el.html(get_meta(r.data));
-                      el.fadeIn("slow");
-                    });
-                  }
-                });
                 streams = "";
                 for (j = 0; j < r.streams.length; j++)
                 {
@@ -123,6 +112,19 @@ function update_radios(div)
             }
             content += "</ul>\n";
             div.innerHTML = content;
+            
+            // Setup notifications
+            var socket = io.connect("http://flows.liquidsoap.fm/");
+            socket.emit("join","flows");
+            socket.on("flows", function (r) {
+              if (r.cmd === "metadata") {
+                var el = $("#metadata-" + r.radio.token);
+                 el.fadeOut("slow", function () {
+                   el.html(get_meta(r.radio));
+                   el.fadeIn("slow");
+                 });
+              }
+            });
         }
     );
 }
