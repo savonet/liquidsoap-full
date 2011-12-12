@@ -73,7 +73,7 @@ Then, in your webpage's head, you need to add javascript code adapted from this 
   socket.emit('join', radio_token);
 
   socket.on('joined', function (radio) {
-    console.log("Successfully joined " + radio.name + " notification channel.");
+    console.log("Successfully joined " + radio.name + " notification channel. Current title is: " + radio.title + ".");
   });
 
   socket.on('error', function (data) {
