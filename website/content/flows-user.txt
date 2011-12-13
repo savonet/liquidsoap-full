@@ -37,6 +37,11 @@ A single radio, encoded in JSON format, can be obtained by querying the followin
 http://flows.liquidsoap.fm/radio?name=foo&website=bar&token=a60f5cadf2645321d4d061896318a2d99f2ff6a6
 %%
 
+A direct request using a radio's token can also be performed at this URL:
+%%
+http://flows.liquidsoap.fm/radio/a60f5cadf2645321d4d061896318a2d99f2ff6a6
+%%
+
 All argument are optional and should be in UTF8 and properly encoded for a HTTP GET request.
 
 Output looks like this:
@@ -53,6 +58,18 @@ Output looks like this:
   "artist":"Va-1939-1999 - 60 Ans De Jazz",
   "streams": [{ "format": "mp3/128k",
                 "url": "http://radiopi.org:8080/jazz"}]}
+%%
+
+h3. Stream redirection
+
+Flows can also be used to provide a single url for all your listeners, allowing you to change the actual
+listening url of your radio while preserving your playlists.
+
+If you radio's token is @a60f5cadf2645321d4d061896318a2d99f2ff6b6@ and has a stream of format @mp3/128k@, then the following url will redirect
+any request to your stream's URL.
+
+%%
+http://flows.liquidsoap.fm/radio/a60f5cadf2645321d4d061896318a2d99f2ff6b6/mp3/128k
 %%
 
 h3. Real-time notifications
@@ -80,8 +97,8 @@ Then, in your webpage's head, you need to add javascript code adapted from this 
     console.log("Error: " + data + ".");
   });
 
-  socket.on(radio_token, function (radio) {
-    console.log("Got new notification for radio " + radio.name + ": " + JSON.stringify(radio));
+  socket.on(radio_token, function (data) {
+    console.log("Got new notification " + data.cmd + " for radio " + data.radio.name + ": " + JSON.stringify(data));
   });
 </script>
 %%
