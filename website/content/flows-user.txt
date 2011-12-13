@@ -14,7 +14,7 @@ http://flows.liquidsoap.fm/radios
 
 Output looks like this:
 
-%%
+%%@javascript
 [{ "token": "a60f5cadf2645321d4d061896318a2d99f2ff6a6",
    "name": "RadioPi - Canal Jazz",
    "website": "http://www.radiopi.org/",
@@ -46,7 +46,7 @@ http://flows.liquidsoap.fm/radio/a60f5cadf2645321d4d061896318a2d99f2ff6a6
 
 Output looks like this:
 
-%%
+%%@javascript
 { "token": "a60f5cadf2645321d4d061896318a2d99f2ff6a6",   
   "name": "RadioPi - Canal Jazz",   
   "website": "http://www.radiopi.org/",   
@@ -82,9 +82,9 @@ First, you need to know your radio's token. You can do so by querying a single r
 querying all radios and finding yours in the list.
 
 Then, in your webpage's head, you need to add javascript code adapted from this example:
-%%
+%%@html
 <script src="http://flows.liquidsoap.fm/socket.io/socket.io.js"></script>
-<script>
+<script type="text/javascript">
   var socket = io.connect("http://flows.liquidsoap.fm");
   
   socket.emit('join', radio_token);
@@ -104,7 +104,7 @@ Then, in your webpage's head, you need to add javascript code adapted from this 
 %%
 
 Received messages are objects of the form:
-%%
+%%@javascript
 { "cmd": "metadata",
   "radio": { "token": "a60f5cadf2645321d4d061896318a2d99f2ff6a6",
              "name": "RadioPi - Canal Jazz",

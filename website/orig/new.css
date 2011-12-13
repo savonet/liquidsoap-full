@@ -88,6 +88,9 @@ pre {
   color: #444 ;
   overflow: auto;
 }
+.syntax pre {
+  border: 0;
+}
 code {
     background-color: #eee;
     font: monospace, fixed;
