@@ -34,15 +34,15 @@ h3. Single radio
 A single radio, encoded in JSON format, can be obtained by querying the following url:
 
 %%
-http://flows.liquidsoap.fm/radio?name=foo&website=bar&token=a60f5cadf2645321d4d061896318a2d99f2ff6a6
+ttp://flows.liquidsoap.fm/radio?name=foo&website=bar
 %%
+
+All argument are optional and should be in UTF8 and properly encoded for a HTTP GET request.
 
 A direct request using a radio's token can also be performed at this URL:
 %%
 http://flows.liquidsoap.fm/radio/a60f5cadf2645321d4d061896318a2d99f2ff6a6
 %%
-
-All argument are optional and should be in UTF8 and properly encoded for a HTTP GET request.
 
 Output looks like this:
 
