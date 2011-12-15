@@ -218,7 +218,25 @@ div.section h2 { color: #906 }
 
 /* Flows */
 
-#radios .radio {
+#radios li {
+  width: 690px;
+}
+
+#radios table {
+    text-align: left;
+    width: 690px;
+}
+
+#radios .info {
+    float: left;
+    width: 560px;
+}
+
+#radios .info div {
+    margin-bottom: 5px;
+}
+
+#radios .name {
     font-variant: small-caps;
     font-weight: bold;
     font-size: large;
@@ -228,11 +246,21 @@ div.section h2 { color: #906 }
     font-variant: normal;
     font-weight: normal;
     font-size: x-small;
+    float: right;
 }
 
-#radios .stream {
+#radios .streams li {
+    margin-bottom: 3px;
+    height: 15px;
+    width: 100px;
+}
+
+#radios .streams a {
     float: right;
-    margin-left: 1ex;
+}
+
+#radios .streams a.sm2_button {
+    float: left;
 }
 
 #radios .genre {

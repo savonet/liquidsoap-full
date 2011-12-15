@@ -46,12 +46,12 @@ function update_radios(div)
                 return;
             }
             clear_markers();
-            content = "";
-            content += "<ul>\n";
-            line = '<li><div class="radio"><a href="WEBSITE" target="_blank">NAME</a> <span class="streams">STREAMS</span></div><div class="genre">GENRE</div><div class="description">DESCRIPTION</div><div class="metadata" id="metadata-TOKEN">METADATA</div></li>';
-            for (i=0; i < radios.length; i++)
-            {
+            content = "<ul>\n";
+            line = '<li><table border="0"><tr><td class="info"><div class="name"><a href="WEBSITE" target="_blank">NAME</a></div><div class="genre">GENRE</div><div class="description">DESCRIPTION</div><div class="metadata" id="metadata-TOKEN">METADATA</div></td><td class="streams"><ul>STREAMS</ul></td></tr></table></li>';
+            for (i=0; i < radios.length; i++) {
                 r = radios[i];
+                if (r.streams.length == 0)
+                  continue;
                 l = line;
                 l = l.replace("NAME",r.name);
                 l = l.replace("WEBSITE",r.website);
@@ -77,18 +77,19 @@ function update_radios(div)
                   return metadata;
                 }
                 l = l.replace("METADATA",get_meta(r));
-                streams = "";
+                streams = '';
                 for (j = 0; j < r.streams.length; j++)
                 {
+                    streams += '<li>';
                     s = r.streams[j];
                     var url = 'http://flows.liquidsoap.fm/radio/' + r.token + '/' + s.format;
                     var mime = getMime(s.format);
-                    streams += '<div class="stream">';
-                    if (soundManager.canPlayMIME(mime) || soundManager.canPlayURL(s.url)) {
-                      streams += '<a href="' + url + '" type="' + mime + '" class="sm2_button"></a><br/>';
+                    var link = $('<a href="' + url + '" type="' + mime + '">' + s.format + '</a>');
+                    if (soundManager.canPlayLink(link.get(0))) {
+                      streams += link.clone().addClass("sm2_button").get(0).outerHTML;
                     }
-                    streams += '<a href="' + url + '">' + s.format + '</a>';
-                    streams += '</div>';
+                    streams += link.get(0).outerHTML;
+                    streams += '</li>';
                 }
                 l = l.replace("STREAMS",streams);
                 content += l + "\n";
