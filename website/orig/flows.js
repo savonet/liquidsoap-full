@@ -84,11 +84,12 @@ function update_radios(div)
                     s = r.streams[j];
                     var url = 'http://flows.liquidsoap.fm/radio/' + r.token + '/' + s.format;
                     var mime = getMime(s.format);
-                    var link = $('<a href="' + url + '" type="' + mime + '">' + s.format + '</a>');
-                    if (soundManager.canPlayLink(link.get(0))) {
-                      streams += link.clone().addClass("sm2_button").get(0).outerHTML;
+                    var link = '<a href="' + url + '" type="' + mime + '">' + s.format + '</a>';
+                    var player_link = '<a href="' + url + '" type="' + mime + '" class="sm2_button"></a>';
+                    if (soundManager.canPlayLink($(link).get(0))) {
+                      streams += player_link;
                     }
-                    streams += link.get(0).outerHTML;
+                    streams += link;
                     streams += '</li>';
                 }
                 l = l.replace("STREAMS",streams);

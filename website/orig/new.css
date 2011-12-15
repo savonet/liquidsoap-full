@@ -218,18 +218,14 @@ div.section h2 { color: #906 }
 
 /* Flows */
 
-#radios li {
-  width: 690px;
-}
-
 #radios table {
     text-align: left;
-    width: 690px;
+    width: 100%;
 }
 
 #radios .info {
     float: left;
-    width: 560px;
+    width: 80%;
 }
 
 #radios .info div {
@@ -252,7 +248,7 @@ div.section h2 { color: #906 }
 #radios .streams li {
     margin-bottom: 3px;
     height: 15px;
-    width: 100px;
+    width: 70px;
 }
 
 #radios .streams a {
