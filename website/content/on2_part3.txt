@@ -238,6 +238,7 @@ s = single("file.mid")
 s = midi.remove([9],s)
 s = mux_audio(audio=blank(),s)
 s = synth.all.saw(s)
+s = drop_midi(s)
 out(s)
 %%
 The second line removes all the notes from the channel 9 which is usually used
@@ -272,6 +273,7 @@ s = single("chord.txt")
 s = midi.chord(s)
 s = mux_audio(audio=blank(),s)
 s = synth.saw(s)
+s = drop_midi(s)
 out(s)
 %%
 
