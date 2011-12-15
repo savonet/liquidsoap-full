@@ -12,20 +12,20 @@ A list of radios, encoded in JSON format, can be obtained by querying the follow
 http://flows.liquidsoap.fm/radios
 %%
 
-Output looks like this:
+Output is a JSON string like this:
 
 %%javascript
-[{ "token": "a60f5cadf2645321d4d061896318a2d99f2ff6a6",
-   "name": "RadioPi - Canal Jazz",
-   "website": "http://www.radiopi.org/",
-   "description": "Cool vibes from Chatenay!",
-   "genre":"jazz", 
-   "longitude":2.26670002937317,
-   "latitude":48.7667007446289,
-   "title":"Bud Powell - Un Poco Loco",
-   "artist":"Va-1939-1999 - 60 Ans De Jazz",
-   "streams": [{ "format": "mp3/128k",
-                 "url": "http://radiopi.org:8080/jazz"}]},
+[{ "token"       : "a60f5cadf2645321d4d061896318a2d99f2ff6a6",
+   "name"        : "RadioPi - Canal Jazz", 
+   "website"     : "http://www.radiopi.org/",
+   "description" : "Cool vibes from Chatenay!",
+   "genre"       : "jazz",
+   "longitude"   : 2.26670002937317,
+   "latitude"    : 48.7667007446289,
+   "title"       : "Bud Powell - Un Poco Loco",
+   "artist"      : "Va-1939-1999 - 60 Ans De Jazz",
+   "streams"     : [{ "format" : "mp3/128k",
+                      "url"    : "http://radiopi.org:8080/jazz" }]}
  ...
 %%
 
@@ -44,20 +44,20 @@ A direct request using a radio's token can also be performed at this URL:
 http://flows.liquidsoap.fm/radio/a60f5cadf2645321d4d061896318a2d99f2ff6a6
 %%
 
-Output looks like this:
+Output is a JSON string like this:
 
 %%javascript
-{ "token": "a60f5cadf2645321d4d061896318a2d99f2ff6a6",   
-  "name": "RadioPi - Canal Jazz",   
-  "website": "http://www.radiopi.org/",   
-  "description": "Cool vibes from Chatenay!",   
-  "genre":"jazz",    
-  "longitude":2.26670002937317,   
-  "latitude":48.7667007446289,
-  "title":"Bud Powell - Un Poco Loco",
-  "artist":"Va-1939-1999 - 60 Ans De Jazz",
-  "streams": [{ "format": "mp3/128k",
-                "url": "http://radiopi.org:8080/jazz"}]}
+{ "token"       : "a60f5cadf2645321d4d061896318a2d99f2ff6a6",   
+  "name"        : "RadioPi - Canal Jazz",   
+  "website"     : "http://www.radiopi.org/",   
+  "description" : "Cool vibes from Chatenay!",   
+  "genre"       : "jazz",    
+  "longitude"   : 2.26670002937317,   
+  "latitude"    : 48.7667007446289,
+  "title"       : "Bud Powell - Un Poco Loco",
+  "artist"      : "Va-1939-1999 - 60 Ans De Jazz",
+  "streams"     : [{ "format" : "mp3/128k",
+                     "url"    : "http://radiopi.org:8080/jazz" }]}
 %%
 
 h3. Stream redirection
@@ -105,18 +105,18 @@ Then, in your webpage's head, you need to add javascript code adapted from this 
 
 Received messages are objects of the form:
 %%javascript
-{ "cmd": "metadata",
-  "radio": { "token": "a60f5cadf2645321d4d061896318a2d99f2ff6a6",
-             "name": "RadioPi - Canal Jazz",
-             "website": "http://www.radiopi.org/",
-             "description": "Cool vibes from Chatenay!",
-             "genre":"jazz",
-             "longitude":2.26670002937317,
-             "latitude":48.7667007446289,
-             "title":"Bud Powell - Un Poco Loco",
-             "artist":"Va-1939-1999 - 60 Ans De Jazz",
-             "streams": [{ "format": "mp3/128k",
-                           "url": "http://radiopi.org:8080/jazz"}]}}
+{ cmd   : "metadata",
+  radio : { token       : "a60f5cadf2645321d4d061896318a2d99f2ff6a6",
+            name        : "RadioPi - Canal Jazz",
+            website     : "http://www.radiopi.org/",
+            description : "Cool vibes from Chatenay!",
+            genre       : "jazz",
+            longitude   : 2.26670002937317,
+            latitude    : 48.7667007446289,
+            title       : "Bud Powell - Un Poco Loco",
+            artist      : "Va-1939-1999 - 60 Ans De Jazz",
+            streams     : [{ format : "mp3/128k",
+                             url    : "http://radiopi.org:8080/jazz" }]}}
 %%
 
 Messages with command @"metadata"@ are the one you want to use to update
