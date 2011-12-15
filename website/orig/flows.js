@@ -86,7 +86,7 @@ function update_radios(div)
                     var mime = getMime(s.format);
                     var link = '<a href="' + url + '" type="' + mime + '">' + s.format + '</a>';
                     var player_link = '<a href="' + url + '" type="' + mime + '" class="sm2_button"></a>';
-                    if (soundManager.canPlayLink($(link).get(0))) {
+                    if (soundManager.canPlayLink($(link).get(0)) && mime != "audio/aac") {
                       streams += player_link;
                     }
                     streams += link;
