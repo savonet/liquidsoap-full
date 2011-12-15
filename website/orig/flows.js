@@ -81,12 +81,13 @@ function update_radios(div)
                 for (j = 0; j < r.streams.length; j++)
                 {
                     s = r.streams[j];
+                    var url = 'http://flows.liquidsoap.fm/radio/' + r.token + '/' + s.format;
                     var mime = getMime(s.format);
                     streams += '<div class="stream">';
                     if (soundManager.canPlayMIME(mime) || soundManager.canPlayURL(s.url)) {
-                      streams += '<a href="' + s.url + '" type="' + mime + '" class="sm2_button"></a><br/>';
+                      streams += '<a href="' + url + '" type="' + mime + '" class="sm2_button"></a><br/>';
                     }
-                    streams += '<a href="'+s.url+'">'+s.format+'</a>';
+                    streams += '<a href="' + url + '">' + s.format + '</a>';
                     streams += '</div>';
                 }
                 l = l.replace("STREAMS",streams);
