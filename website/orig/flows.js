@@ -128,6 +128,12 @@ function update_radios(div)
                  });
               }
             });
+
+            // Setup playable links
+            soundManager.onready(function() {
+              // soundManager.createSound() etc. may now be called
+              basicMP3Player = new BasicMP3Player();
+            });
         }
     );
 }
