@@ -224,14 +224,16 @@ function enhanceDownloads(ref) {
     target.after(hide_link);
 
     var content = target.parent().nextUntil('h3,#footer').andSelf();
-    content.css('display', 'none');
+    content.hide();
     link.click(function () {
+      var content = target.parent().nextUntil('h3,#footer').andSelf();
       content.fadeToggle('slow');
       $('html, body').animate({ scrollTop: target.offset().top }, 500); 
       return false;
     });
 
     hide_link.click(function () {
+      var content = target.parent().nextUntil('h3,#footer').andSelf();
       content.fadeOut('slow');
       $('html, body').animate({ scrollTop: $('body').offset().top }, 500);
       return false;
@@ -265,5 +267,18 @@ $(document).ready(function () {
     target.siblings().show();
     $('html, body').animate({ scrollTop: target.offset().top }, 500);
   }
+
+  // Replace all "liq" classes by ruby
+  $(".syntax,.liq").removeClass("liq").addClass("ruby");
+  // Render syntax, making sure that hidden
+  // one remain hidden..
+  $.syntax({blockLayout: 'plain', theme: 'modern', replace: true},
+      function (options, html, container) {
+        html = $(html);
+        if (container.css("display") == "none")
+          html.hide();
+        return html;
+      }
+    );
 });
 

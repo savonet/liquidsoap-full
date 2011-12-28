@@ -8,16 +8,8 @@
   <link href="@rel@jquery-ui-1.8.14.custom.css" type="text/css" rel="stylesheet" />
   <script type="text/javascript" src="@rel@jquery-1.6.2.min.js"></script>
   <script type="text/javascript" src="@rel@jquery-ui-1.8.14.custom.min.js"></script>
-  <script type="text/javascript" src="@rel@liq-jquery.js"></script>
   <script type="text/javascript" src="@rel@js/jQuery.syntax/jquery.syntax.min.js"></script>
-  <script type="text/javascript">
-    jQuery(function($) {
-      // Replace all "liq" classes by ruby
-      $(".syntax,.liq").removeClass("liq").addClass("ruby");
-      // Render syntax
-      $.syntax({cacheScripts: false, blockLayout: 'plain', theme: 'modern'});
-    });
-  </script>
+  <script type="text/javascript" src="@rel@liq-jquery.js"></script>
 </head>
 <body>
   <div class="menu">
