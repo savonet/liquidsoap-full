@@ -6,38 +6,15 @@ You can download, build and install liquidsoap from source on Mac OS X using
 Homebrew. Here are the instructions.
 
 * "Install Homebrew":https://github.com/mxcl/homebrew/wiki/installation
-* Install the base libraries:
-<pre>
-brew install ocaml libmad libshout libvorbis wget libid3tag pcre libao taglib
-</pre>
-* Install "ocaml-find":http://projects.camlcity.org/projects/findlib.html
-<pre>
-wget http://projects.camlcity.org/projects/dl/findlib-1.2.6.tar.gz
-tar xzvf findlib-1.2.6.tar.gz && cd findlib-1.2.6/
-./configure
-make-all
-make-opt
-sudo make install
-</pre>
-* Install "pcre-ocaml":http://www.ocaml.info/home/ocaml_sources.html
-<pre>
-wget http://hg.ocaml.info/release/pcre-ocaml/archive/release-6.2.2.tar.bz2
-tar xjvf release-6.2.2.tar.bz2 && cd pcre-ocaml-release-6.2.2/
-make
-sudo make install
-</pre>
-* Install Liquidsoap
-<pre>
-wget http://switch.dl.sourceforge.net/project/savonet/liquidsoap/1.0.0-beta1/liquidsoap-full-1.0.0-beta1.tar.bz2
-tar xjvf liquidsoap-full-1.0.0-beta1.tar.bz2 && cd liquidsoap-full-1.0.0-beta1/
-cp PACKAGES.minimal PACKAGES
-./bootstrap
-./configure
-make
-sudo cp liquidsoap-1.0.0-beta1/src/liquidsoap /usr/local/bin
-</pre>
+* Install the following formula from our custom repository:
+%%
+brew install https://github.com/toots/homebrew/raw/master/Library/Formula/ocaml-findlib.rb
+brew install https://github.com/toots/homebrew/raw/master/Library/Formula/pcre-ocaml.rb
+brew install https://github.com/toots/homebrew/raw/master/Library/Formula/camomile.rb
+brew install https://github.com/toots/homebrew/raw/master/Library/Formula/liquidsoap.rb
+%%
 * Test it :)
-<pre>
+%%
 osxbox:~ osxbox$ liquidsoap --version
-Liquidsoap 1.0.0-beta1.
-</pre>
+Liquidsoap 1.0.0
+%%

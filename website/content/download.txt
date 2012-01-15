@@ -53,9 +53,7 @@ and how it is built.
 
 h3@osx. Mac OS X
 
-You can download and build liquidsoap using either
-* "Homebrew":homebrew.html.
-* "MacPorts":macports.html (not really supported at the moment).
+You can download and build liquidsoap using "Homebrew":homebrew.html.
 
 h3@freebsd. FreeBSD
 
