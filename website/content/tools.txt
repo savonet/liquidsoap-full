@@ -2,7 +2,7 @@ title: Tools using Liquidsoap
 
 Here are some tools which are using Liquidsoap in order to provide interfaces,
 schedulers or web integration. Feel free to
-"contact us":"mailto:savonet-users@lists.sf.net" if you are aware of some more!
+"contact us":mailto:savonet-users@lists.sf.net if you are aware of some more!
 
 * "Airtime":http://www.sourcefabric.org/en/airtime/ lets you take total control of your radio station via the web with intelligent archive management, powerful search, an easy playlist builder, a simple scheduling calendar and rock-solid automated playout. Those who need a little extra will love the ability to manage staff, record and rebroadcast a live show, upload to SoundCloud automatically, stream to Icecast and display programme information via Airtime's website widgets.
 * "Shampoo":http://java.net/projects/shampoo/pages/Home is an all-in-one web platform that allows you to create, manage, and deliver to streaming servers and listeners your own webradios and radio shows.
