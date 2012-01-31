@@ -2,7 +2,20 @@ body {
     background: url('images/design/grey_scale.png') repeat-x #fff ;
     padding: 0;
     margin: 0;
-    font-family: Bitstream Vera Sans, Tahoma, Verdana, Helvetica, sans-serif;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+a {
+    text-decoration: none;
+    line-height: inherit;
+    font-weight: inherit;
+}
+a[href] {
+    color: #0069d6;
+}
+a[href]:hover {
+    color: #00438a;
+    text-decoration: underline;
 }
 
 /* THE FRAMES/TABS */
@@ -66,9 +79,12 @@ div.section > div.content {
 {
     border-radius: 20px 20px 20px 20px;
     -moz-border-radius: 20px 20px 20px 20px;
-    text-align: justify;
     padding-left: 8%;
     padding-right: 8%;
+    font-size: 13px;
+    font-weight: normal;
+    line-height: 18px;
+    color: #404040;
 }
 #main .content img
 {
@@ -92,8 +108,15 @@ pre {
   border: 0;
 }
 code {
-    background-color: #eee;
-    font: monospace, fixed;
+  padding: 0 3px 2px;
+  font-family: Monaco, Andale Mono, Courier New, monospace;
+  font-size: 12px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  background-color: #fee9cc;
+  color: rgba(0, 0, 0, 0.75);
+  padding: 1px 3px;
 }
 #main .content img.grab
 {
@@ -156,8 +179,31 @@ div.section h2 { color: #906 }
   border: 0px;
 }
 
-.menu ul li a:hover{
+.menu ul li a:hover {
   background-color: #551A8B; /*You Can Change This Color*/
+  color: white;
+  text-decoration: none;
+}
+
+h2 {
+  margin-bottom: 18px;
+  font-size: 30px;
+  line-height: 36px;
+}
+
+h3 {
+  font-size: 24px;
+  line-height: 36px;
+  margin-bottom: 17px;
+  border-bottom: 1px solid #ddd;
+}
+
+h4 {
+  font-size: 18px;
+}
+
+h5 {
+  font-size: 16px;
 }
 
 #liq123 {
