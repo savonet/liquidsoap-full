@@ -1,6 +1,6 @@
 title: Using the Flows service
 
-"Flows":flows.html is a new web service available to liquidsoap users. It consists of a list
+"Flows":http://flows.liquidsoap.fm/ is a new web service available to liquidsoap users. It consists of a list
 of radios broadcasting using liquidsoap, with their corresponding streams and metadata. You
 can "see here":doc-svn/flows.html how to add your own radio to the list.
 

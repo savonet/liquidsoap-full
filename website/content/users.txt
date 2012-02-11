@@ -3,7 +3,7 @@ title: Proud Savonet users
 h2. New version of this web page
 
 We are trying to progressively replace this page with a "dynamically generated
-one":flows.html. Please see the instructions there if you want to add your
+one":http://flows.liquidsoap.fm/. Please see the instructions there if you want to add your
 radio the list.
 
 h2. Some Savonet/Liquidsoap users
