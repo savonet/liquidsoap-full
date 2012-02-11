@@ -17,15 +17,12 @@ content_expanded := $(foreach version,$(VERSIONS),$(content_expand))
 content_website := $(wildcard $(PWD)/content/*.txt)
 CONTENT := $(content_website) $(content_expanded)
 
-JS := $(shell echo $(wildcard $(PWD)/orig/*.js) | sed -e 's|/orig/|/html/|g')
+JS := $(shell echo $(wildcard $(PWD)/orig/js/*.js) | sed -e 's|/orig/|/html/|g')
 HTML := $(shell echo $(CONTENT:.txt=.html) | sed -e 's|/content/|/html/|'g)
 
 NODE := $(shell which node)
 
-# Dont uglify jquery..
-$(PWD)/html/jquery-%.js: orig/jquery-%.js
-	@cp $(<) $(@)
-$(PWD)/html/%.js: orig/%.js
+$(PWD)/html/js/%.js: orig/js/%.js
 ifneq ($(NODE),)
 	@echo Uglifying $(@)
 	@node scripts/uglify.js < $(<) > $(@)
@@ -67,7 +64,7 @@ dist: all
 $(PWD)/html: $(wildcard orig/*)
 	@mkdir -p $(PWD)/html/scripts
 	@cp -r $(PWD)/orig/* $(PWD)/html
-	@rm -f $(PWD)/html/*.js
+	@rm -f $(PWD)/html/js/*.js
 
 $(LIQI):
 	@echo "Liqi parser does not seem to be built..."
