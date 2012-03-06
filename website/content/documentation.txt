@@ -1,10 +1,5 @@
 title: Documentation
 
-h2. Flows documentation
-
-Documentation on how to use the "Flows":http://flows.liquidsoap.fm/ services can be found
-"here":flows-user.html.
-
 h2. Liquidsoap documentation
 
 h3. Help by users for users
@@ -39,6 +34,11 @@ h3. Previous releases
 h3. Behind the curtains
 
 * "Some publications":publications.html explaining the theory underlying Liquidsoap
+
+h2. Flows documentation
+
+Documentation on how to use the "Flows":http://flows.liquidsoap.fm/ services can be found
+"here":flows-user.html.
 
 h2. Savonet modules documentation.
 
