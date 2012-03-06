@@ -6,6 +6,8 @@ can "see here":doc-svn/flows.html how to add your own radio to the list.
 
 h3. List of radios
 
+**Note: When the list gets big enough, this API should be changed to return paginated results.**
+
 A list of radios, encoded in JSON format, can be obtained by querying the following url:
 
 %%
@@ -41,7 +43,7 @@ All argument are optional and should be in UTF8 and properly encoded for a HTTP 
 
 A direct request using a radio's token can also be performed at this URL:
 %%
-http://flows.liquidsoap.fm/radio/a60f5cadf2645321d4d061896318a2d99f2ff6a6
+http://flows.liquidsoap.fm/radio/:token
 %%
 
 Output is a JSON string like this:
@@ -65,11 +67,20 @@ h3. Stream redirection
 Flows can also be used to provide a single url for all your listeners, allowing you to change the actual
 listening url of your radio while preserving your playlists.
 
-If you radio's token is @a60f5cadf2645321d4d061896318a2d99f2ff6b6@ and has a stream of format @mp3/128k@, then the following url will redirect
+If you radio's token is @:token@ and has a stream of format @:format@, then the following url will redirect
 any request to your stream's URL.
 
 %%
-http://flows.liquidsoap.fm/radio/a60f5cadf2645321d4d061896318a2d99f2ff6b6/mp3/128k
+http://flows.liquidsoap.fm/radio/:token/:format
+%%
+
+h3. Playlist
+
+As for streams, if you radio's token is @:token@ then the
+following link will return a "PLS":http://en.wikipedia.org/wiki/PLS_(file_format) playlist:
+
+%%
+http://flows.liquidsoap.fm/radio/:token.pls
 %%
 
 h3. Real-time notifications
@@ -121,3 +132,39 @@ Received messages are objects of the form:
 
 Messages with command @"metadata"@ are the one you want to use to update
 information displayed about your radio.
+
+h3. Twitter notifications
+
+You can register twitter notifications on any twitter account with radio that you own. 
+The API is designed to allow implementing this feature on your website. It works as follows:
+
+First you issue a @HTTP@ @GET@ request, authenticated with your radio credentials at this address:
+
+%%
+http://flows.liquidsoap.fm/radio/:token/twitter/auth?redirect_to=:link
+%%
+
+Then you should receive a response of the form:
+
+%%
+{"url":"https://api.twitter.com/oauth/authenticate?oauth_token=..."}
+%%
+
+You should then visit the returned url with a browser or redirect your website visitor to this 
+address. There, twitter should ask you to authorize the @Savonet Flows@ application for the 
+twitter user that you or your visitor are using.
+
+Once done, you should be automatically redirected to @:link@ where @:link@ is the parameter
+passed in the initial @HTTP@ @GET@ request. From this point, all metadata updates for the 
+that radio should be forwarded to the twitter account that was just authorized.
+
+h3. Command-line client
+
+A command-line client is also available. It can be used to:
+
+* Change your radio's name
+* Change your radio's location
+* Register and unregister twitter notifications
+
+The code is still being developped. It can be accessed at this url: 
+"https://github.com/savonet/flows-client":https://github.com/savonet/flows-client
