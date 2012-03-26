@@ -6,12 +6,13 @@ You can download, build and install liquidsoap from source on Mac OS X using
 Homebrew. Here are the instructions.
 
 * "Install Homebrew":https://github.com/mxcl/homebrew/wiki/installation
-* Install the following formula from our custom repository:
+* Enable "drfill/liquidsoap":https://github.com/drfill/homebrew-liquidsoap 
 %%
-brew install https://github.com/toots/homebrew/raw/master/Library/Formula/ocaml-findlib.rb
-brew install https://github.com/toots/homebrew/raw/master/Library/Formula/pcre-ocaml.rb
-brew install https://github.com/toots/homebrew/raw/master/Library/Formula/camomile.rb
-brew install https://github.com/toots/homebrew/raw/master/Library/Formula/liquidsoap.rb
+brew tap drfill/liquidsoap
+%%
+* Install Liquidsoap:
+%%
+brew install liquidsoap
 %%
 * Test it :)
 %%
