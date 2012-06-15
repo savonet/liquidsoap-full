@@ -1,6 +1,6 @@
 body {
 	text-align: center; /* Required for pesky IE */
-	background: #FFF url('images/design/background.png') repeat-x scroll top left;
+	background: #FFF url('../images/design/background.png') repeat-x scroll top left;
 	padding: 0;
 	margin: 0;
 	font-family: Bitstream Vera Sans, Tahoma, Verdana, Helvetica, sans-serif;
@@ -11,7 +11,7 @@ body {
 	width: 600px;
 	text-align: left; /* Overrides the previously set center alignment that older IE versions reqd */
 	padding: 0;
-	background: #FFF url('images/design/background_page.png') repeat-x scroll top left;
+	background: #FFF url('../images/design/background_page.png') repeat-x scroll top left;
 }
 
 #header {
@@ -20,7 +20,7 @@ body {
 }
 
 #logo {
-	background: #FFF url('images/design/logo.png') no-repeat scroll top left;
+	background: #FFF url('../images/design/logo.png') no-repeat scroll top left;
 	width: 515px;
 	height: 106px;
 	margin-left: 2em;
@@ -55,46 +55,46 @@ h2 {
 }
 
 #menu #menu-about {
-	background-image: url("images/tabs/tab_about.png");
+	background-image: url("../images/tabs/tab_about.png");
 	right: 344px;
 }
 
 #menu #menu-download {
-	background-image: url("images/tabs/tab_install.png");
+	background-image: url("../images/tabs/tab_install.png");
 	right: 258px;
 }
 
 /* This is for shipped documentation only.. */
 #menu #menu-doc-index {
-        background-image: url("images/tabs/tab_docs.png");
+        background-image: url("../images/tabs/tab_docs.png");
         right: 258px;
 }
 
 /* This is for shipped documentation only.. */
 #menu #menu-doc-api {
-        background-image: url("images/tabs/tab_API.png");
+        background-image: url("../images/tabs/tab_API.png");
         right: 172px;
 }
 
 /* This is for shipped documentation only.. */
 #menu #menu-doc-snippets {
-        background-image: url("images/tabs/tab_snippets.png");
+        background-image: url("../images/tabs/tab_snippets.png");
         right: 88px;
 }
 
 #menu #menu-support {
-	background-image: url("images/tabs/tab_docs.png");
+	background-image: url("../images/tabs/tab_docs.png");
 	right: 172px;
 }
 
 /* This is for website only.. */
 #menu #menu-doc-api-www {
-        background-image: url("images/tabs/tab_API.png");
+        background-image: url("../images/tabs/tab_API.png");
         right: 86px;
 }
 
 #menu #menu-developers {
-	background-image: url("images/tabs/tab_developers.png");
+	background-image: url("../images/tabs/tab_developers.png");
 	right: 0px;
 }
 
@@ -164,12 +164,12 @@ h2 {
 }
 
 #sidebar .box-say {
-	background-image: url("images/boxes/box_blue_bg.png");
+	background-image: url("../images/boxes/box_blue_bg.png");
 	background-color: #CCF;
 }
 
 #sidebar .box-say h3 {
-	background-image: url("images/boxes/box_blue_top.png");
+	background-image: url("../images/boxes/box_blue_top.png");
 }
 
 #sidebar .box-say blockquote {
@@ -185,29 +185,29 @@ h2 {
 }
 
 #sidebar .box-say .box-bottom {
-	background-image: url("images/boxes/box_blue_say.png");
+	background-image: url("../images/boxes/box_blue_say.png");
 }
 
 #sidebar .box-see {
-	background-image: url("images/boxes/box_red_bg.png");
+	background-image: url("../images/boxes/box_red_bg.png");
 	background-color: #FCC;
 }
 
 #sidebar .box-see h3 {
-	background-image: url("images/boxes/box_red_top.png");
+	background-image: url("../images/boxes/box_red_top.png");
 }
 
 #sidebar .box-see .box-bottom {
-	background-image: url("images/boxes/box_red_see.png");
+	background-image: url("../images/boxes/box_red_see.png");
 }
 
 #sidebar .box-hear {
-	background-image: url("images/boxes/box_green_bg.png");
+	background-image: url("../images/boxes/box_green_bg.png");
 	background-color: #FCC;
 }
 
 #sidebar .box-hear h3 {
-	background-image: url("images/boxes/box_green_top.png");
+	background-image: url("../images/boxes/box_green_top.png");
 }
 
 #sidebar .box-hear p.content {
@@ -220,7 +220,7 @@ h2 {
 }
 
 #sidebar .box-hear .box-bottom {
-	background-image: url("images/boxes/box_green_hear.png");
+	background-image: url("../images/boxes/box_green_hear.png");
 }
 
 #footer {
