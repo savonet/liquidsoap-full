@@ -4,6 +4,8 @@ PRJ:=$(shell cat PACKAGES | grep -v '^\#')
 PRJ:=$(shell for p in $(PRJ) ; do ls -d $$p* | head -1 ; done)
 LIQ:=$(shell ls -d liquidsoap* | head -1)
 
+SED:=$(shell which gsed || which sed)
+
 default: all
 
 all:
@@ -22,13 +24,13 @@ install:
 versions:
 	@for i in ocaml-* liquidsoap ; do \
 	  if [ -f $$i/configure.ac ] ; then \
-	  v=`grep AC_INIT $$i/configure.ac | sed -e 's/AC_INIT([^,]\+,\s*\[\?\([0-9.a-z-]\+\).*/\1/'` ; \
+	  v=`grep AC_INIT $$i/configure.ac | $(SED) -e 's/AC_INIT([^,]\+,\s*\[\?\([0-9.a-z-]\+\).*/\1/'` ; \
 	  echo $$i-$$v ; \
 	  fi ; \
 	done
 
-PKGS:=$(shell grep '^\#\?\s*ocaml-[a-z]\+$$' PACKAGES.default | sed -e 's/\#//')
-VERSION:=`grep AC_INIT liquidsoap/configure.ac | sed -e 's/AC_INIT([^,]\+,\s*\[\?\([0-9.a-z-]\+\).*/\1/'`
+PKGS:=$(shell grep '^\#\?\s*ocaml-[a-z]\+$$' PACKAGES.default | $(SED) -e 's/\#//')
+VERSION:=`grep AC_INIT liquidsoap/configure.ac | $(SED) -e 's/AC_INIT([^,]\+,\s*\[\?\([0-9.a-z-]\+\).*/\1/'`
 FULL:=liquidsoap-$(VERSION)-full
 
 # $i = package name
@@ -40,7 +42,7 @@ download_latest:
 	mkdir -p latest
 	@cd latest ; \
 	for i in $(PKGS) ; do \
-  	  v=`grep AC_INIT ../$$i/configure.ac | sed -e 's/AC_INIT([^,]\+,\s*\[\?\([0-9.a-z-]\+\).*/\1/'` ; \
+  	  v=`grep AC_INIT ../$$i/configure.ac | $(SED) -e 's/AC_INIT([^,]\+,\s*\[\?\([0-9.a-z-]\+\).*/\1/'` ; \
 	  if test ! -s $$i-$$v.tar.gz; then \
 	    echo wget $(HTTP)/$$i/$$v/$$i-$$v.tar.gz/download -O $$i-$$v.tar.gz --tries=2; \
 	    wget $(HTTP)/$$i/$$v/$$i-$$v.tar.gz -O $$i-$$v.tar.gz --tries=2 || rm -f $$i-$$v.tar.gz; \
@@ -53,7 +55,7 @@ full: bootstrap makefiles
 	  README LICENSE INSTALL $(FULL)
 	@echo Did you run \"make download_latest\" to get official tarballs?
 	@for i in $(PKGS) ; do \
-	  v=`grep AC_INIT $$i/configure.ac | sed -e 's/AC_INIT([^,]\+,\s*\[\?\([0-9.a-z-]\+\).*/\1/'` ; \
+	  v=`grep AC_INIT $$i/configure.ac | $(SED) -e 's/AC_INIT([^,]\+,\s*\[\?\([0-9.a-z-]\+\).*/\1/'` ; \
 	  if [ -f latest/$$i-$$v.tar.gz ] ; then \
 	  	cp latest/$$i-$$v.tar.gz $(FULL) ; else \
 	  echo " *** Latest tarball not found for $$i-$$v: building it..." ; \
