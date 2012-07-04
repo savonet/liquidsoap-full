@@ -23,7 +23,7 @@ h3. Latest releases
 
 h3. Previous releases
 
-* "1.0.1":doc-1.0.1/documentation.html
+* "1.0.0":doc-1.0.0/documentation.html
 * "1.0.0 beta3":doc-1.0.0-beta3/documentation.html
 * "1.0.0 beta2":doc-1.0.0-beta2/documentation.html
 * "1.0.0 beta1":doc-1.0.0-beta1/documentation.html
