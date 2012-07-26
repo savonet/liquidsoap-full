@@ -52,6 +52,9 @@ ocaml-taglib
 # LAME is for MP3 encoding.
 ocaml-lame
 
+# SHINE is for fixed-point MP3 encoding.
+#ocaml-shine
+
 # AACPLUS is for AAC+ encoding.
 #ocaml-aacplus
 
