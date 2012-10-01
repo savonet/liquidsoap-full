@@ -8,6 +8,15 @@ init:
 	git submodule foreach git submodule init
 	git submodule update --recursive
 
+devel:
+	git submodule foreach 'make -f ../Makefile.git devel-module'
+	git remote rm origin
+	git remote add origin git@github.com:savonet/liquidsoap-full.git
+
+devel-module:
+	git remote rm origin
+	git remote add origin git@github.com:savonet/$(DIR).git
+
 update:
 	git checkout master
 	git pull
