@@ -1,4 +1,4 @@
-.PHONY: install git
+.PHONY: install init update
 
 init:
 	git submodule init
