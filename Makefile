@@ -2,11 +2,12 @@
 
 init:
 	git submodule init
+	git submodule update --recursive
 	git submodule foreach git submodule init
 
 update:
 	git fetch
-	git pull
+	git checkout
 	git submodule update --recursive
 
 PRJ:=$(shell (cat PACKAGES 2>/dev/null || echo "") | grep -v '^\#')
