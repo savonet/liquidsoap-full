@@ -1,0 +1,99 @@
+[submodule "liquidsoap"]
+	path = liquidsoap
+	url = git://github.com/savonet/liquidsoap.git
+[submodule "ocaml-cry"]
+	path = ocaml-cry
+	url = git://github.com/savonet/ocaml-cry.git
+[submodule "ocaml-ao"]
+	path = ocaml-ao
+	url = git://github.com/savonet/ocaml-ao.git
+[submodule "ocaml-portaudio"]
+	path = ocaml-portaudio
+	url = git://github.com/savonet/ocaml-portaudio.git
+[submodule "ocaml-alsa"]
+	path = ocaml-alsa
+	url = git://github.com/savonet/ocaml-alsa.git
+[submodule "ocaml-pulseaudio"]
+	path = ocaml-pulseaudio
+	url = git://github.com/savonet/ocaml-pulseaudio.git
+[submodule "ocaml-bjack"]
+	path = ocaml-bjack
+	url = git://github.com/savonet/ocaml-bjack.git
+[submodule "ocaml-gstreamer"]
+	path = ocaml-gstreamer
+	url = git://github.com/savonet/ocaml-gstreamer.git
+[submodule "ocaml-mad"]
+	path = ocaml-mad
+	url = git://github.com/savonet/ocaml-mad.git
+[submodule "ocaml-taglib"]
+	path = ocaml-taglib
+	url = git://github.com/savonet/ocaml-taglib.git
+[submodule "ocaml-lame"]
+	path = ocaml-lame
+	url = git://github.com/savonet/ocaml-lame.git
+[submodule "ocaml-shine"]
+	path = ocaml-shine
+	url = git://github.com/savonet/ocaml-shine.git
+[submodule "ocaml-aacplus"]
+	path = ocaml-aacplus
+	url = git://github.com/savonet/ocaml-aacplus.git
+[submodule "ocaml-ogg"]
+	path = ocaml-ogg
+	url = git://github.com/savonet/ocaml-ogg.git
+[submodule "ocaml-vorbis"]
+	path = ocaml-vorbis
+	url = git://github.com/savonet/ocaml-vorbis.git
+[submodule "ocaml-speex"]
+	path = ocaml-speex
+	url = git://github.com/savonet/ocaml-speex.git
+[submodule "ocaml-theora"]
+	path = ocaml-theora
+	url = git://github.com/savonet/ocaml-theora.git
+[submodule "ocaml-opus"]
+	path = ocaml-opus
+	url = git://github.com/savonet/ocaml-opus.git
+[submodule "ocaml-schroedinger"]
+	path = ocaml-schroedinger
+	url = git://github.com/savonet/ocaml-schroedinger.git
+[submodule "ocaml-voaacenc"]
+	path = ocaml-voaacenc
+	url = git://github.com/savonet/ocaml-voaacenc.git
+[submodule "ocaml-faad"]
+	path = ocaml-faad
+	url = git://github.com/savonet/ocaml-faad.git
+[submodule "ocaml-flac"]
+	path = ocaml-flac
+	url = git://github.com/savonet/ocaml-flac.git
+[submodule "ocaml-ladspa"]
+	path = ocaml-ladspa
+	url = git://github.com/savonet/ocaml-ladspa.git
+[submodule "ocaml-soundtouch"]
+	path = ocaml-soundtouch
+	url = git://github.com/savonet/ocaml-soundtouch.git
+[submodule "ocaml-samplerate"]
+	path = ocaml-samplerate
+	url = git://github.com/savonet/ocaml-samplerate.git
+[submodule "ocaml-gavl"]
+	path = ocaml-gavl
+	url = git://github.com/savonet/ocaml-gavl.git
+[submodule "ocaml-dssi"]
+	path = ocaml-dssi
+	url = git://github.com/savonet/ocaml-dssi.git
+[submodule "ocaml-xmlplaylist"]
+	path = ocaml-xmlplaylist
+	url = git://github.com/savonet/ocaml-xmlplaylist.git
+[submodule "ocaml-lastfm"]
+	path = ocaml-lastfm
+	url = git://github.com/savonet/ocaml-lastfm.git
+[submodule "ocaml-lo"]
+	path = ocaml-lo
+	url = git://github.com/savonet/ocaml-lo.git
+[submodule "ocaml-dtools"]
+	path = ocaml-dtools
+	url = git://github.com/savonet/ocaml-dtools.git
+[submodule "ocaml-duppy"]
+	path = ocaml-duppy
+	url = git://github.com/savonet/ocaml-duppy.git
+[submodule "ocaml-mm"]
+	path = ocaml-mm
+	url = git://github.com/savonet/ocaml-mm.git

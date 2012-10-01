@@ -20,6 +20,10 @@ doc:
 install:
 	$(MAKE) -C $(LIQ) install
 
+git:
+	git submodule foreach git submodule init 1>/dev/null
+	git submodule update --recursive 1>/dev/null
+
 # Display current version numbers of all components
 versions:
 	@for i in ocaml-* liquidsoap ; do \
