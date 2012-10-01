@@ -4,6 +4,7 @@ init:
 	git submodule init
 	git submodule update --recursive
 	git submodule foreach git submodule init
+	git submodule update --recursive
 
 update:
 	git fetch
