@@ -1,16 +1,3 @@
-.PHONY: install init update
-
-init:
-	git submodule init
-	git submodule update --recursive
-	git submodule foreach git submodule init
-	git submodule update --recursive
-
-update:
-	git fetch
-	git checkout
-	git submodule update --recursive
-
 PRJ:=$(shell (cat PACKAGES 2>/dev/null || echo "") | grep -v '^\#')
 PRJ:=$(shell for p in $(PRJ) ; do ls -d $$p* | head -1 ; done)
 LIQ:=$(shell ls -d liquidsoap* | head -1)
@@ -30,6 +17,17 @@ doc:
 
 install:
 	$(MAKE) -C $(LIQ) install
+
+init:
+	git submodule init
+	git submodule update --recursive
+	git submodule foreach git submodule init
+	git submodule update --recursive
+
+update:
+	git fetch
+	git checkout
+	git submodule update --recursive
 
 # Display current version numbers of all components
 versions:
@@ -53,7 +51,7 @@ download_latest:
 	mkdir -p latest
 	@cd latest ; \
 	for i in $(PKGS) ; do \
-  	  v=`grep AC_INIT ../$$i/configure.ac | $(SED) -e 's/AC_INIT([^,]\+,\s*\[\?\([0-9.a-z-]\+\).*/\1/'` ; \
+	  v=`grep AC_INIT ../$$i/configure.ac | $(SED) -e 's/AC_INIT([^,]\+,\s*\[\?\([0-9.a-z-]\+\).*/\1/'` ; \
 	  if test ! -s $$i-$$v.tar.gz; then \
 	    echo wget $(HTTP)/$$i/$$v/$$i-$$v.tar.gz/download -O $$i-$$v.tar.gz --tries=2; \
 	    wget $(HTTP)/$$i/$$v/$$i-$$v.tar.gz -O $$i-$$v.tar.gz --tries=2 || rm -f $$i-$$v.tar.gz; \
@@ -113,3 +111,5 @@ liquidsoap/Makefile.defs: liquidsoap/configure
 	@echo "*** configuring `dirname $@`"
 	@cd `dirname $@` ; `cat configure-with-options` > /dev/null || \
 	  echo "Skipping failed configure..."
+
+.PHONY: install init update
