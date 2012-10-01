@@ -26,7 +26,7 @@ update:
 sync-module:
 	git reset --hard HEAD
 	git checkout master
-	git commit m4 -m"Updated module(s)." || true
+	git commit m4 -m"Updated m4 module." || true
 	git push git@github.com:savonet/$(DIR).git
 
 sync-modules:
