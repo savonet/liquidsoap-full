@@ -18,17 +18,6 @@ doc:
 install:
 	$(MAKE) -C $(LIQ) install
 
-init:
-	git submodule init
-	git submodule update --recursive
-	git submodule foreach git submodule init
-	git submodule update --recursive
-
-update:
-	git fetch
-	git checkout
-	git submodule update --recursive
-
 # Display current version numbers of all components
 versions:
 	@for i in ocaml-* liquidsoap ; do \
@@ -112,4 +101,6 @@ liquidsoap/Makefile.defs: liquidsoap/configure
 	@cd `dirname $@` ; `cat configure-with-options` > /dev/null || \
 	  echo "Skipping failed configure..."
 
-.PHONY: install init update
+.PHONY: install
+
+include Makefile.git

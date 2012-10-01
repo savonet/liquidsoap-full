@@ -1,0 +1,27 @@
+.PHONY: init update sync-module sync
+
+DIR:=$(shell basename $(PWD))
+
+init:
+	git submodule init
+	git submodule update --recursive
+	git submodule foreach git submodule init
+	git submodule update --recursive
+
+update:
+	git checkout master
+	git pull
+	git submodule foreach --recursive 'git checkout master && git pull'
+
+sync-module:
+	git reset --hard HEAD
+	git checkout master
+	git commit -a -m"Updated module(s)." || true
+	git push git@github.com:savonet/$(DIR).git
+
+sync-modules:
+	git reset --hard HEAD
+	git checkout master
+	git submodule foreach 'make -f ../Makefile.git sync-module'
+	git commit -a -m"Updated module(s)." || true
+	git push git@github.com:savonet/liquidsoap-full.git
