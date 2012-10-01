@@ -1,6 +1,15 @@
-.PHONY: install
+.PHONY: install git
 
-PRJ:=$(shell cat PACKAGES | grep -v '^\#')
+init:
+	git submodule init
+	git submodule foreach git submodule init
+
+update:
+	git fetch
+	git pull
+	git submodule update --recursive
+
+PRJ:=$(shell (cat PACKAGES 2>/dev/null || echo "") | grep -v '^\#')
 PRJ:=$(shell for p in $(PRJ) ; do ls -d $$p* | head -1 ; done)
 LIQ:=$(shell ls -d liquidsoap* | head -1)
 
@@ -19,10 +28,6 @@ doc:
 
 install:
 	$(MAKE) -C $(LIQ) install
-
-git:
-	git submodule foreach git submodule init 1>/dev/null
-	git submodule update --recursive 1>/dev/null
 
 # Display current version numbers of all components
 versions:
