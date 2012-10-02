@@ -22,11 +22,10 @@ update:
 	git pull
 	git submodule foreach --recursive 'git checkout master && git pull'
 
-# This rely on the fact that only m4/ is a submodule at the moment.
 sync-module:
 	git reset --hard HEAD
 	git checkout master
-	git commit m4 -m"Updated m4 module." || true
+	git commit -a -m"Updated  module." || true
 	git push git@github.com:savonet/$(DIR).git
 
 sync-modules:
