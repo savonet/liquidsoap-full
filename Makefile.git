@@ -25,12 +25,21 @@ update:
 sync-module:
 	git reset --hard HEAD
 	git checkout master
-	git commit -a -m"Updated  module." || true
+	git commit m4 -m"Updated m4 module." || true
 	git push git@github.com:savonet/$(DIR).git
 
 sync-modules:
 	git reset --hard HEAD
 	git checkout master
 	git submodule foreach 'make -f ../Makefile.git sync-module'
+	git commit -a -m"Updated module(s)." || true
+	git push git@github.com:savonet/liquidsoap-full.git
+
+commit-module:
+	git commit -a -m"Updated module." || true
+	git push git@github.com:savonet/$(DIR).git
+
+commit-modules:
+	git submodule foreach 'make -f ../Makefile.git commit-module'
 	git commit -a -m"Updated module(s)." || true
 	git push git@github.com:savonet/liquidsoap-full.git
