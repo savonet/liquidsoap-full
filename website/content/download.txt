@@ -72,16 +72,42 @@ h3@arch. ArchLinux
 A package for Arch Linux users is available from the distribution,
 see the "ArchLinux Liquidsoap package page":http://aur.archlinux.org/packages.php?ID=23902
 
-h3@hg. Mercurial repository (and other distributions)
+h3@hg. Git repository (and other distributions)
 
-If you want a cutting-edge version, you can use the mercurial (HG) repository.
-To get a copy of it, just run:
+If you want a cutting-edge version, you can use the git repository.
+To get a copy of it, you have to run:
 
 <pre>
-hg clone http://savonet.hg.sourceforge.net:8000/hgroot/savonet/savonet
+git clone https://github.com/savonet/liquidsoap-full.git liquidsoap
+cd liquidsoap
+make init
 </pre>
 
-After that, you can synchronize your repository using @hg pull ; hg update@.
-Once you have an up-to-date working copy,
-start with a @./bootstrap@ and follow the usual
-"build instructions":doc-svn/build.html.
+After, that you have to create a list of modules that you want to compile. A
+good starting point is to do
+
+<pre>
+cp PACKAGES.minimal PACKAGES
+</pre>
+
+and edit the @PACKAGES@ file to uncomment the libraries you are interested in.
+You should then run the configuration scripts by
+
+<pre>
+./bootstrap
+./configure
+</pre>
+
+and finally build Liquidsoap:
+
+<pre>
+make
+</pre>
+
+After that, you should synchronize the repository from time to time using
+
+<pre>
+make update
+</pre>
+
+Some more explanations can be found in the "build instructions":doc-svn/build.html.
