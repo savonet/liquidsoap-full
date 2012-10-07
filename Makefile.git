@@ -3,9 +3,11 @@
 DIR:=$(shell basename $(PWD))
 
 init:
+	git fetch
+	git branch --set-upstream master origin/master
 	git submodule init
 	git submodule update --recursive
-	git submodule foreach git submodule init
+	git submodule foreach "git fetch && git branch --set-upstream master origin/master && git submodule init"
 	git submodule update --recursive
 
 devel:
