@@ -1,2 +1,4 @@
 *.sw*
 PACKAGES
+website/html
+website/reference.txt

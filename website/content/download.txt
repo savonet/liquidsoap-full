@@ -12,7 +12,7 @@ There are several ways to install liquidsoap, either compiled from source, or us
 * "FreeBSD":#freebsd
 * "Cygwin (windows)":#cygwin
 * "ArchLinux":#arch
-* "Latest development version":#hg
+* "Latest development version":#latest
 
 h3@source. Installing from source
 
@@ -72,7 +72,7 @@ h3@arch. ArchLinux
 A package for Arch Linux users is available from the distribution,
 see the "ArchLinux Liquidsoap package page":http://aur.archlinux.org/packages.php?ID=23902
 
-h3@hg. Git repository (and other distributions)
+h3@latest. Git repository (and other distributions)
 
 If you want a cutting-edge version, you can use the git repository.
 To get a copy of it, you have to run:
