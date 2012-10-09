@@ -1,4 +1,4 @@
-.PHONY: init update sync-module sync
+.PHONY: init update
 
 DIR:=$(shell basename $(PWD))
 
@@ -11,7 +11,7 @@ init:
 	git submodule update --recursive
 
 devel:
-	git submodule foreach 'make -f ../Makefile.git devel-module'
+	git submodule foreach '$(MAKE) -f ../Makefile.git devel-module'
 	git remote rm origin
 	git remote add origin git@github.com:savonet/liquidsoap-full.git
 
@@ -24,24 +24,19 @@ update:
 	git pull
 	git submodule foreach --recursive 'git checkout master && git pull'
 
-sync-module:
-	git reset --hard HEAD
-	git checkout master
-	git commit m4 -m"Updated m4 module." || true
+reset-module:
+	git reset --hard origin/master
 	git push git@github.com:savonet/$(DIR).git
 
-sync-modules:
-	git reset --hard HEAD
-	git checkout master
-	git submodule foreach 'make -f ../Makefile.git sync-module'
-	git commit -a -m"Updated module(s)." || true
-	git push git@github.com:savonet/liquidsoap-full.git
+reset:
+	git reset --hard origin/master
+	git submodule foreach '$(MAKE) -f ../Makefile.git sync-module'
 
 commit-module:
 	git commit -a -m"Updated module." || true
 	git push git@github.com:savonet/$(DIR).git
 
-commit-modules:
-	git submodule foreach 'make -f ../Makefile.git commit-module'
+commit:
+	git submodule foreach '$(MAKE) -f ../Makefile.git commit-module'
 	git commit -a -m"Updated module(s)." || true
 	git push git@github.com:savonet/liquidsoap-full.git
