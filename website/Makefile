@@ -169,8 +169,8 @@ RHOST=$(USER),savonet@web.sourceforge.net:/home/groups/s/sa/savonet/htdocs
 upload: dist
 	cd html ; $(RCP) . $(RHOST) || true
 
-upload-%:
-	cd html ; $(RCP) $* $(RHOST) || true
+%-upload:
+	cd html ; $(RCP) $* $(RHOST)/$(shell dirname $*) || true
 
 rss: $(PWD)/html/liquidsoap.rss
 
