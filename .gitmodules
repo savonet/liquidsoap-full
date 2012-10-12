@@ -130,3 +130,6 @@
 	path = ocaml-mm
 	url = git://github.com/savonet/ocaml-mm.git
         ignore = dirty
+[submodule "ocaml-ffmpeg"]
+	path = ocaml-ffmpeg
+	url = git://github.com/savonet/ocaml-ffmpeg.git
