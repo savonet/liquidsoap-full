@@ -26,7 +26,6 @@ update:
 
 reset-module:
 	git reset --hard origin/master
-	git push git@github.com:savonet/$(DIR).git
 
 reset:
 	git reset --hard origin/master
