@@ -30,7 +30,7 @@ reset-module:
 
 reset:
 	git reset --hard origin/master
-	git submodule foreach '$(MAKE) -f ../Makefile.git sync-module'
+	git submodule foreach '$(MAKE) -f ../Makefile.git reset-module'
 
 commit-module:
 	git commit -a -m"Updated module." || true
