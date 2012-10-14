@@ -9,6 +9,10 @@ body {
     color: #404040;
 }
 
+p {
+    text-align: justify;
+}
+
 a {
     text-decoration: none;
     line-height: inherit;
@@ -217,8 +221,8 @@ h5 {
 
 #liq123 div {
   word-spacing: 0px; /* restore spacing... */
-  text-align: center;
   display: inline ;
+  text-align: center;
   padding: 4% 2% 4% 2% ;
   margin: 0 0 0 0 ;
 }
