@@ -5,6 +5,7 @@ PWD := $(shell pwd)
 LIQ_DIR := $(PWD)/../liquidsoap
 LIQI := $(LIQ_DIR)/doc/liqi/liqi
 LIQUIDSOAP := $(LIQ_DIR)/src/liquidsoap
+OCAMLDOC := ocamldoc.opt
 
 
 # Versions for which documentation should be build and included
@@ -49,7 +50,7 @@ $(PWD)/html/modules.txt: $(PWD)/html $(PWD)/../PACKAGES.default
 	cat $(PWD)/../PACKAGES.default | grep '^ocaml' | sort | while read i; do \
 	  echo "* \"$$i\":modules/$$i/index.html" >> $(@) ; \
 	  mkdir -p $(PWD)/html/modules/$$i; \
-	  ocamldoc -html -stars -d $(PWD)/html/modules/$$i $(MODULES_INC:%=-I %) $(PWD)/../$$i/src/*.mli; \
+	  $(OCAMLDOC) -html -stars -d $(PWD)/html/modules/$$i $(MODULES_INC:%=-I %) $(PWD)/../$$i/src/*.mli; \
 	done
 
 $(PWD)/html/modules.html: $(PWD)/html/modules.txt $(LIQI)
