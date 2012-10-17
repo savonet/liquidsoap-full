@@ -133,3 +133,6 @@
 [submodule "ocaml-ffmpeg"]
 	path = ocaml-ffmpeg
 	url = git://github.com/savonet/ocaml-ffmpeg.git
+[submodule "ocaml-frei0r"]
+	path = ocaml-frei0r
+	url = git://github.com/savonet/ocaml-frei0r.git
