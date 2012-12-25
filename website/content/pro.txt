@@ -1,0 +1,66 @@
+title: Liquidsoap Consulting
+
+If you plan to use liquidsoap, or if you are already using it, we can help
+you by providing advice in the use of liquidsoap.
+
+h3. Who are we?
+
+Liquidsoap Consulting is run by liquidsoap's core developers, making us the
+formost experts on this technology.
+
+But we are not just liquidsoap exerts. Most projects using liquidsoap have also
+to interact other with components and we are also qualified to assist you with these
+challenges as well. 
+
+Our team has extensive expertise in a great variety of frameworks and
+languages, such as Python, Django, PHP, Ruby, Rails, Javascript, node.js, jQuery,
+coffeescript, C and many more. We are also Debian Developers and can provide 
+expert advice on linux/POSIX infrastructure, software packaging, server maintenance,
+cloud hosting such as heroku and much more...
+
+h3. What can we do?
+
+We are open to any request for any liquidsoap project. We will gladly help you
+find out what kind of help we can provide.
+
+If you want to know about specific services you can hire us for, here's a quick list:
+
+h4. First contact
+
+At the beginning of your project, you can discuss with us to make
+the best choices, for the architecture of your liquidsoap project, for the components
+that you are going to use, and for the developers that you are going to hire.
+
+h4. Project Audit
+
+At any stage of a liquidsoap project, you can query us for an external
+audit of your project. We can use this opportunity to teach your developers guidelines
+and good practices when writing liquidsoap code, and to improve the readability and 
+maintainability of the code, while optimizing its performance.
+
+h4. Training
+
+For your project, you won't need to master every aspect of the liquidsoap language, but usually,
+a few features will be critical in your particular application. We can design new courses
+on the fly, to teach your developers the aspects of liquidsoap that really matter in your case.
+
+h4. Support
+
+You can engage us for a long-term support contract on all the open-source components that
+your software is using.
+
+h4. On-demand features
+
+If your project needs a specific feature that is not currently available, you can
+hire us to implement that feature within liquidsoap.
+
+h3. How to contact us?
+
+You can reach us by email at: "pro@liquidsoap.fm":mailto:pro@liquidsoap.fm.
+
+Liquidsoap Consulting services are provided and billed through:
+%%
+EURYDICE Consulting
+http://eurydiceconsulting.eu,
+788 914 000 R.C.S. NANTERRE
+%%
