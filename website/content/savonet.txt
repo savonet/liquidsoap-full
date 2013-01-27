@@ -29,7 +29,7 @@ h3. Contacting Savonet
 Any question or remark? Please contact us:
 
 * "Mailing-lists":http://sourceforge.net/mail/?group_id=89802: in particular "savonet-users":mailto:savonet-users@lists.sf.net 
-* "JIRA":http://dev.sourcefabric.org/browse/LS for bug reports.
+* "GIT bugtracker":https://github.com/savonet/liquidsoap/issues for bug reports.
 * "Sourceforce project page":http://sourceforge.net/projects/savonet/
 * "Facebook":http://www.facebook.com/savonet
 * "Twitter":http://twitter.com/savonet
