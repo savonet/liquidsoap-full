@@ -36,7 +36,8 @@ ocaml-ao
 #ocaml-bjack
 
 # Gstreamer is a library for constructing graphs of media-handling components.
-# It is currently used to provide V4l inputs for liquidsoap
+# It is currently used to provide audio and video encoding and decoding
+# as well as input and outputs such as V4l inputs.
 #ocaml-gstreamer
 
 # ============================================================================
