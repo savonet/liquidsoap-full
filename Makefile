@@ -75,16 +75,22 @@ full: bootstrap makefiles
 	@tar cjf $(FULL).tar.bz2 $(FULL)
 	@echo Full release ready in subdirectory $(FULL)
 
+check-init:
+	@if [ ! -e liquidsoap/configure.ac ] ; then \
+	echo "Liquidsoap directory seems empty. I assume that submodules were not downloaded. Hold on, I'm doing it for you!"; \
+	$(MAKE) init; \
+	fi
+
 # The bootstrap target creates/updates */configure as needed
 # It is more efficient than ./bootstrap, avoiding to regenerate
 # everything when only one configure.ac was changed. However,
 # it also bootstraps libraries which are commented out in PACKAGES.
 # We use PKGDIRS and LIQDIRS which have -$(version) prefixes,
 # so that the target will work in -full archives.
-.PHONY: bootstrap
+.PHONY: bootstrap check-init
 PKGDIRS:=$(shell for p in $(PKGS) ; do ls -d $$p* | head -1 ; done)
 LIQDIR:=$(shell ls -d liquidsoap* | head -1)
-bootstrap: $(PKGDIRS:=/configure) $(LIQDIR)/configure
+bootstrap: check-init $(PKGDIRS:=/configure) $(LIQDIR)/configure
 %/configure: %/configure.ac
 	@echo "*** bootstrapping `dirname $@`"
 	@cd `dirname $@` ; ./bootstrap
