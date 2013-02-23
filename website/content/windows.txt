@@ -80,7 +80,7 @@ Then, you need to install the dependencies for liquidsoap
 that are not provided by the Savonet project. This includes
 OCaml modules and, when needed, their corresponding C library.
 When installing compiled binaries, we take the simplest option and
-install everything under @/usr/i586-mingw32msvc@. 
+install everything under @/usr/i686-w64-mingw32@. 
 
 Unfortunately, it is currently next to impossible to document
 properly how to build a complete cross-compilation environment.
@@ -93,9 +93,9 @@ it works like this:
 % apt-get source libogg
 % cd libogg-<VERSION>
 % export \
-   PKG_CONFIG_PATH=/usr/i586-mingw32msvc/lib/pkgconfig 
-% ./configure --prefix=/usr/i586-mingw32msvc \
-              --host=i586-mingw32msvc
+   PKG_CONFIG_PATH=/usr/i686-w64-mingw32/lib/pkgconfig 
+% ./configure --prefix=/usr/i686-w64-mingw32 \
+              --host=i686-w64-mingw32
 % make
 # make install
 %%
@@ -104,12 +104,13 @@ Once you have setup a complete cross-compilation environment,
 the compilation of Liquidsoap goes as follows:
 %%
 % export \
-   PKG_CONFIG_PATH=/usr/i586-mingw32msvc/lib/pkgconfig
+   PKG_CONFIG_PATH=/usr/i686-w64-mingw32/lib/pkgconfig
 % export \
-   OCAMLFIND_CONF=/etc/i586-mingw32msvc-ocamlfind.conf
-% ./configure --prefix=/usr/i586-mingw32msvc \
-              --host=i586-mingw32msvc \
-              --disable-camlp4 --disable-debugging
+   OCAMLFIND_CONF=/etc/i686-w64-mingw32-ocamlfind.conf
+% ./configure --prefix=/usr/i686-w64-mingw32 \
+              --host=i686-w64-mingw32 \
+              --disable-camlp4 --disable-debugging \
+              --enable-custom-path --disable-graphics
 % make
 %%
 
