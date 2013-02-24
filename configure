@@ -23,7 +23,7 @@ fi;
 
 if [ ! -f liquidsoap/configure ]; then
   echo "You don't seem to have bootstraped yet. I'm doing it for you.";
-  ./bootstrap
+  ./bootstrap;
 fi;
 
 packages=`grep -v '\#' PACKAGES`
