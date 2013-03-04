@@ -13,6 +13,7 @@ MSG
 
 OPTS=""
 error=""
+LIQDIR=`ls -d liquidsoap* | head -1`
 
 if [ ! -f PACKAGES ]; then
   echo "Please copy PACKAGES.default to PACKAGES";
@@ -21,7 +22,7 @@ if [ ! -f PACKAGES ]; then
   exit 1;
 fi;
 
-if [ ! -f liquidsoap/configure ]; then
+if [ ! -f $LIQDIR/configure ]; then
   echo "You don't seem to have bootstraped yet. I'm doing it for you.";
   ./bootstrap;
 fi;

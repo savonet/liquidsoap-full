@@ -1,6 +1,7 @@
 PRJ:=$(shell (cat PACKAGES 2>/dev/null || echo "") | grep -v '^\#')
 PRJ:=$(shell for p in $(PRJ) ; do ls -d $$p* | head -1 ; done)
 LIQ:=$(shell ls -d liquidsoap* | head -1)
+LIQDIR:=$(shell ls -d liquidsoap* | head -1)
 
 SED:=$(shell which gsed || which sed)
 
@@ -76,7 +77,7 @@ full: bootstrap makefiles
 	@echo Full release ready in subdirectory $(FULL)
 
 check-init:
-	@if [ ! -e liquidsoap/configure.ac ] ; then \
+	@if [ ! -e $(LIQDIR)/configure.ac ] ; then \
 	echo "Liquidsoap directory seems empty. I assume that submodules were not downloaded. Hold on, I'm doing it for you!"; \
 	$(MAKE) init; \
 	fi
@@ -89,7 +90,6 @@ check-init:
 # so that the target will work in -full archives.
 .PHONY: bootstrap check-init
 PKGDIRS:=$(shell for p in $(PKGS) ; do ls -d $$p* | head -1 ; done)
-LIQDIR:=$(shell ls -d liquidsoap* | head -1)
 bootstrap: check-init $(PKGDIRS:=/configure) $(LIQDIR)/configure
 %/configure: %/configure.ac
 	@echo "*** bootstrapping `dirname $@`"
@@ -109,4 +109,4 @@ liquidsoap/Makefile.defs: liquidsoap/configure
 
 .PHONY: install
 
-include Makefile.git
+-include Makefile.git
