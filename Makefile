@@ -50,7 +50,7 @@ download_latest:
 
 full: bootstrap makefiles
 	@rm -rf $(FULL) ; mkdir $(FULL)
-	@cp bootstrap configure Makefile Makefile.git PACKAGES.default PACKAGES.minimal \
+	@cp bootstrap configure Makefile PACKAGES.default PACKAGES.minimal \
 	  README LICENSE INSTALL $(FULL)
 	@echo Did you run \"make download_latest\" to get official tarballs?
 	@for i in $(PKGS) ; do \
