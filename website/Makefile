@@ -37,7 +37,7 @@ GENERATED_FILES := $(PWD)/html/doc-@@VERSION@@/reference.html \
                    $(PWD)/html/doc-@@VERSION@@/scripts/index.html \
                    $(PWD)/html/doc-@@VERSION@@/settings.html
 generated_files_subst = $(subst @@VERSION@@,$(version),$(GENERATED_FILES))
-generated_files := $(foreach version,$(VERSIONS),$(generated_files_subst)) $(PWD)/html/modules.html
+generated_files := $(foreach version,$(VERSIONS),$(generated_files_subst)) $(PWD)/html/modules.html $(PWD)/html/modules/liquidsoap
 
 all: $(PWD)/html $(HTML) $(JS) rss $(generated_files)
 	@find html -name '.svn' | xargs rm -rf --
@@ -58,6 +58,10 @@ $(PWD)/html/modules.html: $(PWD)/html/modules.txt $(LIQI)
 	  $(LIQI) \
 	    --template ../main.html \
 	    -i $(<) -o $(@)
+
+$(PWD)/html/modules/liquidsoap: $(PWD)/html
+	@$(MAKE) -C $(LIQ_DIR) doc
+	cp -r $(LIQ_DIR)/autodoc/liquidsoap $(PWD)/html/modules/
 
 # Removes all unecessary stuff before upload
 dist: all
