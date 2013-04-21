@@ -18,6 +18,10 @@
 	path = ocaml-alsa
 	url = git://github.com/savonet/ocaml-alsa.git
         ignore = dirty
+[submodule "ocaml-fdkaac"]
+	path = ocaml-fdkaac
+	url = git://github.com/savonet/ocaml-fdkaac.git
+        ignore = dirty
 [submodule "ocaml-pulseaudio"]
 	path = ocaml-pulseaudio
 	url = git://github.com/savonet/ocaml-pulseaudio.git
