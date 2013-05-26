@@ -4,11 +4,12 @@ h2. Documentation for previous versions
 
 h3. Latest releases
 
-* "Latest release (1.1.0)":doc-1.1.0/documentation.html
+* "Latest release (1.1.1)":doc-1.1.1/documentation.html
 * "Latest development trunk":doc-svn/documentation.html
 
 h3. Previous releases
 
+* "1.1.0":doc-1.1.0/documentation.html
 * "1.0.1":doc-1.0.1/documentation.html
 * "1.0.0":doc-1.0.0/documentation.html
 * "1.0.0 beta3":doc-1.0.0-beta3/documentation.html
