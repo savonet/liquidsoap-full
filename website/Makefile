@@ -68,6 +68,7 @@ dist: all
 $(PWD)/html: $(wildcard orig/*)
 	@mkdir -p $(PWD)/html/scripts
 	@cp -r $(PWD)/orig/* $(PWD)/html
+	@cp -r $(PWD)/orig/.htaccess $(PWD)/html
 	@rm -f $(PWD)/html/js/*.js
 
 $(LIQI):
