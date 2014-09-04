@@ -27,7 +27,7 @@ ocaml-portaudio
 # ALSA is only for LINUX, and is sometimes not working.
 ocaml-alsa
 
-# PulseAudio is a cross-plateform audio sound server. It is intended to
+# PulseAudio is a cross-platform audio sound server. It is intended to
 # be a single replacement for sound support under linux, windows or OSX.
 ocaml-pulseaudio
 
