@@ -14,7 +14,7 @@ function selectSearch(event,ui) {
     target.children().fadeIn("fast");
     header.find("a").click(function () {
       target.children().fadeOut("fast");
-      document.location.hash = null;
+      document.location.hash = "";
       return false;
     });
   }
