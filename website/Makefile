@@ -1,4 +1,4 @@
-.PHONY: all clean upload dist
+.PHONY: all serve clean upload dist
 
 PWD := $(shell pwd)
 # Should be built there
@@ -223,3 +223,6 @@ html/_news.html: news.txt
 	| sed 's|^- descr: \(.*\)$$|<div class="content">\n\1\n</div>|' \
 	>> $@
 	@echo '</div>' >> $@
+
+serve:
+	cd html && python -m SimpleHTTPServer

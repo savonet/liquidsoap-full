@@ -10,9 +10,11 @@ function selectSearch(event,ui) {
                  .css('display','none');
     var target = $('#liq-search-result');
     target.empty().append(header).append(doc);
+    document.location.hash = id;
     target.children().fadeIn("fast");
     header.find("a").click(function () {
       target.children().fadeOut("fast");
+      document.location.hash = null;
       return false;
     });
   }
@@ -56,8 +58,17 @@ function enhanceRef (ref) {
     /* Hide section */
     hide.push(section);
     /* Add click action. */
+    var open = false;
+    var complete = function () {
+      if (open) {
+        document.location.hash = "";
+      } else {
+        document.location.hash = anchor;
+      }
+      open = !open;
+    };
     target.click(function () {
-      section.fadeToggle("fast");
+      section.fadeToggle({duration: "fast", complete: complete});
       return false;
     });
     /* Append section. */
@@ -88,8 +99,17 @@ function enhanceRef (ref) {
       /* Hide doc. */
       hide.push(div);
       /* Toggle showing on links on click. */
+      var open;
+      var complete = function () {
+          if (open) {
+            document.location.hash = "";
+          } else {
+            document.location.hash = id;
+          }
+          open = !open;
+      };
       link.click(function () {
-        div.fadeToggle();
+        div.fadeToggle({complete: complete});
         return false;
       });
       /* Remove elem. */
