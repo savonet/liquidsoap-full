@@ -65,7 +65,10 @@ $(PWD)/html/modules/liquidsoap: $(PWD)/html
 dist: all
 	@find $(PWD)/html -name '*.txt' | xargs rm -rf --
 	git submodule init savonet.github.io && git submodule update savonet.github.io
-	cd savonet.github.io && git checkout master && git pull
+	cd savonet.github.io && git remote rm origin && \
+	  git remote add origin git@github.com:savonet/savonet.github.io.git && \
+	  git fetch && git checkout master && \
+	  git branch --set-upstream-to=origin/master master && git pull
 	find savonet.github.io -mindepth 1 | grep -v 'savonet.github.io/.git' | xargs rm -rf
 	cp -rf html/* html/.htaccess savonet.github.io
 

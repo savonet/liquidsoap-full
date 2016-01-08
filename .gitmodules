@@ -142,4 +142,4 @@
 	url = git://github.com/savonet/ocaml-frei0r.git
 [submodule "website/savonet.github.io"]
 	path = website/savonet.github.io
-	url = git@github.com:savonet/savonet.github.io.git
+	url = git://github.com/savonet/savonet.github.io.git
