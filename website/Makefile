@@ -64,11 +64,15 @@ $(PWD)/html/modules/liquidsoap: $(PWD)/html
 # Removes all unecessary stuff before upload
 dist: all
 	@find $(PWD)/html -name '*.txt' | xargs rm -rf --
+	git submodule init savonet.github.io && git submodule update savonet.github.io
+	find savonet.github.io -mindepth 1 | grep -v 'savonet.github.io/.git' | xargs rm -rf
+	cp -rf html/* html/.htaccess savonet.github.io
 
 $(PWD)/html: $(wildcard orig/*)
 	@mkdir -p $(PWD)/html/scripts
 	@cp -r $(PWD)/orig/* $(PWD)/html
 	@cp -r $(PWD)/orig/.htaccess $(PWD)/html
+	@cp -r $(PWD)/orig/CNAME $(PWD)/html
 	@rm -f $(PWD)/html/js/*.js
 
 $(LIQI):
@@ -164,6 +168,7 @@ $(PWD)/content/%.txt.spell: content/%.txt
 	touch $(@)
 
 clean:
+	cd savonet.github.io && git reset --hard
 	rm -rf html content/*.txt.spell
 
 RCP=rsync -rLtCPz --exclude="*.swp" --exclude="*.svn" \
@@ -171,7 +176,8 @@ RCP=rsync -rLtCPz --exclude="*.swp" --exclude="*.svn" \
 RHOST=$(USER),savonet@web.sourceforge.net:/home/groups/s/sa/savonet/htdocs
 
 upload: dist
-	cd html ; $(RCP) . $(RHOST) || true
+	cd savonet.github.io && git add . && \
+	git commit -m"Update website" && git push
 
 %-upload:
 	cd html ; $(RCP) $* $(RHOST)/$(shell dirname $*) || true
