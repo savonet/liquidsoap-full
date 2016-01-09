@@ -3,16 +3,32 @@ title: Download and install liquidsoap
 
 h2. Installing Savonet/Liquidsoap
 
-There are several ways to install liquidsoap, either compiled from source, or using a package available for your distribution.
+You can install liquidsoap with OPAM (recommended), from source, or using a package available for your distribution.
 
+* "Using OPAM":#opam
 * "From source":#source
 * "Debian/Ubuntu":#deb
 * "Windows":#win32
-* "Mac OS X":#osx
-* "FreeBSD":#freebsd
-* "Cygwin (windows)":#cygwin
 * "ArchLinux":#arch
 * "Latest development version":#latest
+
+h3@opam. Install using OPAM
+
+The recommended method to install liquidsoap is by using the "OCaml Package Manager":http://opam.ocaml.org/. OPAM is available in all major distributions and on windows. We actively support the liquidsoap packages there and its dependencis.
+
+After installing OPAM, you should be able to install liquidsoap by executing:
+
+%%
+opam install liquidsoap
+%%
+
+Additionally, the command:
+
+%%
+opam info liquidsoap
+%%
+
+will give you more information and options for installing liquidsoap via opam.
 
 h3@source. Installing from source
 
@@ -29,48 +45,14 @@ Liquidsoap is included in Debian and Ubuntu distributions:
 * "Debian packages":http://packages.debian.org/liquidsoap
 * "Ubuntu packages":http://packages.ubuntu.com/liquidsoap
 
-Starting with package version @1.0.0~beta3-1@, official Debian and Ubuntu packages support MP3 encoding
-by installing the optional @liquidsoap-plugin-lame@ package. These packages can also dynamically
-load the AAC+ encoders without the need to recompile!
-
-In order to activate the AAC+ encoder, you can either compile and install @ocaml-aacplus@ or, more simply, 
-install the @libaacplus-ocaml-dynlink@ package available from 
-"Debian Multimedia":http://debian-multimedia.org/.
-
-We also maintain custom packages for liquidsoap:
-
-* "Daily Debian packages":debian_daily.html
-
-**Disclaimer: custom packages are currently outdated. We are looking for contributors to help bringing them back!**
-
-The daily packages are mostly aimed toward developers.
-
 h3@win32. Windows
 
-A native windows binary is available in our "sourceforge download section":http://sourceforge.net/project/showfiles.php?group_id=89802. See
-"this page":windows.html for more information concerning this port
-and how it is built.
-
-h3@osx. Mac OS X
-
-You can download and build liquidsoap using "Homebrew":homebrew.html.
-
-h3@freebsd. FreeBSD
-
-Liquidsoap is "available":http://www.freebsd.org/cgi/cvsweb.cgi/ports/audio/liquidsoap/ in FreeBSD using the port system.
-
-h3@cygwin. Cygwin (Windows)
-
-Liquidsoap is available as a Cygwin port, thanks to the Cywin Ports project ! You can get instructions
-on how to install Cygwin ports on their website: "http://sourceware.org/cygwinports/":http://sourceware.org/cygwinports/.
-
-This port allows you to compile a liquidsoap binary running on windows systems and using the (great) Cygwin unix
-environment for windows.
+We do not maintain windows build for liquidsoap anymore. See "this page":windows.html for instructions on how to build it yourself.
 
 h3@arch. ArchLinux
 
 A package for Arch Linux users is available from the distribution,
-see the "ArchLinux Liquidsoap package page":http://aur.archlinux.org/packages.php?ID=23902
+see the "ArchLinux Liquidsoap package page":https://aur.archlinux.org/packages/liquidsoap/
 
 h3@latest. Git repository (and other distributions)
 
