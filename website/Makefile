@@ -5,11 +5,11 @@ PWD := $(shell pwd)
 LIQ_DIR := $(PWD)/../liquidsoap
 LIQI := $(LIQ_DIR)/doc/liqi/liqi
 LIQUIDSOAP := $(LIQ_DIR)/src/liquidsoap
-OCAMLDOC := ocamldoc.opt
+OCAMLDOC := ocamldoc
 
 
 # Versions for which documentation should be build and included
-VERSIONS := svn 0.9.2 1.0.0 1.0.1 1.1.0 1.1.1
+VERSIONS := svn 0.9.2 1.0.0 1.0.1 1.1.0 1.1.1 1.2.0
 
 # Static content
 content_expand = $(wildcard $(PWD)/content/doc-$(version)/*.txt)
