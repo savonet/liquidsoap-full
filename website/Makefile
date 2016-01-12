@@ -70,12 +70,11 @@ dist: all
 	  git fetch && git checkout master && \
 	  git branch --set-upstream-to=origin/master master && git pull
 	find savonet.github.io -mindepth 1 | grep -v 'savonet.github.io/.git' | xargs rm -rf
-	cp -rf html/* html/.htaccess savonet.github.io
+	cp -rf html/* savonet.github.io
 
 $(PWD)/html: $(wildcard orig/*)
 	@mkdir -p $(PWD)/html/scripts
 	@cp -r $(PWD)/orig/* $(PWD)/html
-	@cp -r $(PWD)/orig/.htaccess $(PWD)/html
 	@cp -r $(PWD)/orig/CNAME $(PWD)/html
 	@rm -f $(PWD)/html/js/*.js
 

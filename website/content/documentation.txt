@@ -1,8 +1,8 @@
 title: Documentation
 
-h2. Documentation for previous versions
+h2. Liquidsoap Documentation
 
-h3. Latest releases
+h3. Latest
 
 * "Latest release (1.2.0)":doc-1.2.0/documentation.html
 * "Latest development trunk":doc-svn/documentation.html
