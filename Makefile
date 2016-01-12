@@ -34,8 +34,8 @@ FULL:=liquidsoap-$(VERSION)-full
 
 # $i = package name
 # $v = version
-# wget $(HTTP)/$$i/$$v/$$i-$$v.tar.gz
-HTTP=http://downloads.sourceforge.net/project/savonet
+# wget $(HTTP)/$$i/releases/download/$$v/$$i-$$v.tar.gz
+HTTP=https://github.com/savonet
 
 download_latest:
 	mkdir -p latest
@@ -43,8 +43,8 @@ download_latest:
 	for i in $(PKGS) ; do \
 	  v=`grep AC_INIT ../$$i/configure.ac | $(SED) -e 's/AC_INIT([^,]\+,\s*\[\?\([0-9.a-z-]\+\).*/\1/'` ; \
 	  if test ! -s $$i-$$v.tar.gz; then \
-	    echo wget $(HTTP)/$$i/$$v/$$i-$$v.tar.gz/download -O $$i-$$v.tar.gz --tries=2; \
-	    wget $(HTTP)/$$i/$$v/$$i-$$v.tar.gz -O $$i-$$v.tar.gz --tries=2 || rm -f $$i-$$v.tar.gz; \
+	    echo wget $(HTTP)/$$i/releases/download/$$v/$$i-$$v.tar.gz -O $$i-$$v.tar.gz --tries=2; \
+	    wget $(HTTP)/$$i/releases/download/$$v/$$i-$$v.tar.gz -O $$i-$$v.tar.gz --tries=2 || rm -f $$i-$$v.tar.gz; \
 	  fi \
 	done
 
