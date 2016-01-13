@@ -32,9 +32,14 @@ will give you more information and options for installing liquidsoap via opam.
 
 h3@source. Installing from source
 
-You can download source code published by Savonet in our "sourceforge download section":http://sourceforge.net/project/showfiles.php?group_id=89802.
+You can download source code published by Savonet from the "github releases
+page":https://github.com/savonet/liquidsoap/releases.
 
-The recommended way for newcomers is to use the liquidsoap-full-xxx.tar.gz tarball. This tarball includes all required OCaml bindings and allows you to compile and install liquidsoap in a single @configure@, @make@ and @make install@ procedure. You will still need the corresponding C libraries and their development files, though.
+The recommended way for newcomers is to use the liquidsoap-full-xxx.tar.gz
+tarball. This tarball includes all required OCaml bindings and allows you to
+compile and install liquidsoap in a single @configure@, @make@ and @make
+install@ procedure. You will still need the corresponding C libraries and their
+development files, though.
 
 You will then have to "build the source":doc-svn/build.html.
 
