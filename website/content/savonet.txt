@@ -26,13 +26,12 @@ h3. Contacting Savonet
 
 Any question or remark? Please contact us:
 
+* "Github project page":https://github.com/savonet
 * "Mailing-lists":http://sourceforge.net/mail/?group_id=89802: in particular "savonet-users":mailto:savonet-users@lists.sf.net 
-* "GIT bugtracker":https://github.com/savonet/liquidsoap/issues for bug reports.
-* "github project page":https://github.com/savonet
+* "Bugtracker":https://github.com/savonet/liquidsoap/issues for bug reports.
 * "Facebook":http://www.facebook.com/savonet
 * "Twitter":http://twitter.com/savonet
 * "Github":https://github.com/toots/savonet
-* "IRC":irc://irc.freenode.net/savonet: <code>#savonet</code> on <code>irc.freenode.org</code> (not very much used by the developpers at the moment..)
 
 h3. Who is Savonet?
 
