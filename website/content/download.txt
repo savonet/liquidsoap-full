@@ -3,7 +3,8 @@ title: Download and install liquidsoap
 
 h2. Installing Savonet/Liquidsoap
 
-You can install liquidsoap with OPAM (recommended), from source, or using a package available for your distribution.
+You can install liquidsoap with OPAM (recommended), from source, or using a
+package available for your distribution.
 
 * "Using OPAM":#opam
 * "From source":#source
@@ -14,7 +15,10 @@ You can install liquidsoap with OPAM (recommended), from source, or using a pack
 
 h3@opam. Install using OPAM
 
-The recommended method to install liquidsoap is by using the "OCaml Package Manager":http://opam.ocaml.org/. OPAM is available in all major distributions and on windows. We actively support the liquidsoap packages there and its dependencis.
+The recommended method to install liquidsoap is by using the "OCaml Package
+Manager":http://opam.ocaml.org/. OPAM is available in all major distributions
+and on windows. We actively support the liquidsoap packages there and its
+dependencis.
 
 After installing OPAM, you should be able to install liquidsoap by executing:
 
@@ -22,13 +26,20 @@ After installing OPAM, you should be able to install liquidsoap by executing:
 opam install liquidsoap
 %%
 
-Additionally, the command:
+Additionally, the command
 
 %%
 opam info liquidsoap
 %%
 
 will give you more information and options for installing liquidsoap via opam.
+
+If you want to update Liquidsoap to the latest version, simply execute:
+
+%%
+opam update
+opam upgrade
+%%
 
 h3@source. Installing from source
 

@@ -176,7 +176,7 @@ clean:
 
 upload: dist
 	cd savonet.github.io && git add . && \
-	git commit -m"Update website" && git push
+	git commit -m"Update website." && git push
 
 %-upload:
 	cd html ; $(RCP) $* $(RHOST)/$(shell dirname $*) || true
