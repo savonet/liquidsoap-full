@@ -4,7 +4,7 @@ function show_search()
     if (search_showed)
         return;
     var search = document.getElementById("search_btn");
-    var form = '<form action="http://savonet.sourceforge.net/search.html" id="cse-search-box"> \
+    var form = '<form action="http://liquidsoap.fm/search.html" id="cse-search-box"> \
 <div> \
 <input type="hidden" name="cx" value="partner-pub-4393423157723487:7k03ha-nv9n" /> \
 <input type="hidden" name="cof" value="FORID:10" /> \

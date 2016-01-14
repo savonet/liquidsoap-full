@@ -1,7 +1,7 @@
 # date -R to generate the date
 # strictly follow the format and don't add useless newlines...
 # validate with
-# http://validator.w3.org/feed/check.cgi?url=http%3A%2F%2Fsavonet.sourceforge.net%2Fliquidsoap.rss
+# http://validator.w3.org/feed/check.cgi?url=http%3A%2F%2Fliquidsoap.fm%2Fliquidsoap.rss
 #
 * New bugtracker
 - date: 03 Nov 2010 00:00:00 +0100

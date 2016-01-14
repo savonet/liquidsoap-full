@@ -9,9 +9,7 @@ the programming language that ties all the pieces together.
 Note that the liquidsoap language is not OCaml;
 it draws inspiration from various languages, but you don't need to know
 that to use liquidsoap.
-Savonet also provides
-"OCaml libraries":http://sourceforge.net/project/showfiles.php?group_id=89802
-to the open-source community,
+Savonet also provides OCaml libraries to the open-source community,
 in particular bindings of widespread C libraries such as
 SSL, Vorbis, Mad, Lame, Jack, ALSA, LADSPA, etc.
 
@@ -30,7 +28,7 @@ Any question or remark? Please contact us:
 
 * "Mailing-lists":http://sourceforge.net/mail/?group_id=89802: in particular "savonet-users":mailto:savonet-users@lists.sf.net 
 * "GIT bugtracker":https://github.com/savonet/liquidsoap/issues for bug reports.
-* "Sourceforce project page":http://sourceforge.net/projects/savonet/
+* "github project page":https://github.com/savonet
 * "Facebook":http://www.facebook.com/savonet
 * "Twitter":http://twitter.com/savonet
 * "Github":https://github.com/toots/savonet
@@ -41,9 +39,9 @@ h3. Who is Savonet?
 Savonet is a team created by David Baelde and Samuel Mimram. Currently active 
 developers are listed below, with their nick(s) on IRC:
 
-* "David Baelde":http://www.lix.polytechnique.fr/~dbaelde (@love-pingoo@, @mrpingouin@)
-* "Romain Beauxis":http://blog.rastageeks.org/ (@toots@)
-* "Samuel Mimram":http://www.pps.jussieu.fr/~smimram/ (@smimou@, @smimram@, @ppsmimou@)
+* "David Baelde":http://www.lsv.ens-cachan.fr/~baelde/ (@love-pingoo@, @mrpingouin@)
+* "Romain Beauxis":https://github.com/toots (@toots@)
+* "Samuel Mimram":http://www.lix.polytechnique.fr/Labo/Samuel.Mimram/ (@smimou@, @smimram@, @ppsmimou@)
 
 Formerly active developers:
 * Vincent Tabard (@balbinus@)

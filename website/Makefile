@@ -174,10 +174,6 @@ clean:
 	cd savonet.github.io && git reset --hard
 	rm -rf html content/*.txt.spell
 
-RCP=rsync -rLtCPz --exclude="*.swp" --exclude="*.svn" \
-	--delete --stats
-RHOST=$(USER),savonet@web.sourceforge.net:/home/groups/s/sa/savonet/htdocs
-
 upload: dist
 	cd savonet.github.io && git add . && \
 	git commit -m"Update website" && git push
@@ -195,7 +191,7 @@ $(PWD)/html/liquidsoap.rss: news.txt
 	@echo '<channel>' >> $@
 	@echo '<title>Liquidsoap: news</title>' >> $@
 	@echo '<description>savonet.sf.net</description>' >> $@
-	@echo '<atom:link href="http://savonet.sourceforge.net/liquidsoap.rss" rel="self" type="application/rss+xml" />' >> $@
+	@echo '<atom:link href="http://liquidsoap.fm/liquidsoap.rss" rel="self" type="application/rss+xml" />' >> $@
 	@echo '<link>http://savonet.sf.net/</link>' >> $@
 	@echo -n '<lastBuildDate>' >> $@
 	@echo -n `date -R` >> $@
