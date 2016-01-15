@@ -18,21 +18,17 @@ h3@opam. Install using OPAM
 The recommended method to install liquidsoap is by using the "OCaml Package
 Manager":http://opam.ocaml.org/. OPAM is available in all major distributions
 and on windows. We actively support the liquidsoap packages there and its
-dependencis.
+dependencies. After installing OPAM for the first time, you should run
 
-After installing OPAM, you should be able to install liquidsoap by executing:
+%%
+opam init
+%%
+
+You should now be able to install liquidsoap by executing:
 
 %%
 opam install liquidsoap
 %%
-
-Additionally, the command
-
-%%
-opam info liquidsoap
-%%
-
-will give you more information and options for installing liquidsoap via opam.
 
 If you want to update Liquidsoap to the latest version, simply execute:
 
