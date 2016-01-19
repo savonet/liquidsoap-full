@@ -24,6 +24,10 @@ dependencies. After installing OPAM for the first time, you should run
 opam init
 %%
 
+and answer <code>y</code> (for _yes_) to the question it asks, about whether you
+want OPAM to modify some configuration files (this will put the directory where
+Liquidsoap in your path).
+
 You should now be able to install liquidsoap by executing:
 
 %%
