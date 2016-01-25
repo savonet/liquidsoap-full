@@ -12,6 +12,7 @@ We know the following netradios to use Liquidsoap in various ways:
 
 * "Art En Sort":http://artensort.com/ is an association to promote music in Normandy.
 * "BAZE☆FM":http://baze.fm: an Hungarian Hip-Hop & R'n'B station, declaring 3 years of stable running.
+* "Cool Guy Radio":http://coolguyradio.com/ a radio broadcasting improvised electronic music from Denver, Colorado.
 * "DEADMEDIAFM":http://www.deadmediafm.org/ is a free form, open community streaming radio and podcast from Indonesia.
 * "Deliradio":http://www.deliradio.it/ is a live web radio located in Rome, with many DJs and speakers from all Italy and many flavours of music.
 * "Eargazm":http://eargazm.com is playing a mix of all flavors of rock, scads of jazz, a bit of fusion, a teaspoon of folk and a dash of comedy...
