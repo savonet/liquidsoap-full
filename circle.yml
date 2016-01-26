@@ -1,0 +1,7 @@
+machine:
+  services:
+    - docker
+
+dependencies:
+  override:
+    - docker build -t savonet/liquidsoap-full .
