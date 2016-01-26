@@ -1,7 +1,7 @@
-machine:
-  services:
-    - docker
+sudo: required
 
-dependencies:
-  override:
-    - docker build -t savonet/liquidsoap-full .
+services:
+  - docker
+
+script:
+  - docker build -t savonet/liquidsoap-full .
