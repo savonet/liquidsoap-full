@@ -18,7 +18,9 @@ h3@opam. Install using OPAM
 The recommended method to install liquidsoap is by using the "OCaml Package
 Manager":http://opam.ocaml.org/. OPAM is available in all major distributions
 and on windows. We actively support the liquidsoap packages there and its
-dependencies. After installing OPAM for the first time, you should run
+dependencies.
+
+When using OPAM for the first time, you should run
 
 %%
 opam init
@@ -38,8 +40,21 @@ If you want to update Liquidsoap to the latest version, simply execute:
 
 %%
 opam update
-opam upgrade
+opam upgrade liquidsoap
 %%
+
+Most of liquidsoap's dependencies are only optionally installed by OPAM. For instance,
+if you want to enable MP3 and vorbis encoding and decoding, you should execute the following:
+
+%%
+opam install mad lame vorbis liquidsoap
+%%
+
+If your system is missing some dependencies for these optional features, OPAM may be
+able to tell you which package to install. This is particularly true for Debian and Ubuntu systems.
+
+Finally, @opam info liquidsoap@ should give you the list of all optional dependencies that you may
+enable in liquidsoap.
 
 h3@source. Installing from source
 
