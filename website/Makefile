@@ -168,8 +168,7 @@ $(PWD)/content/%.txt.spell: content/%.txt
 	touch $(@)
 
 clean:
-	cd savonet.github.io && git reset --hard
-	rm -rf html content/*.txt.spell
+	rm -rf savonet.github.io html content/*.txt.spell
 
 actual-upload: dist
 	cd savonet.github.io && git add . && \
