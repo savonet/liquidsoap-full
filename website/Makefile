@@ -1,4 +1,4 @@
-.PHONY: all serve clean upload dist
+.PHONY: all serve clean upload atual-upload dist
 
 PWD := $(shell pwd)
 # Should be built there
@@ -64,11 +64,8 @@ $(PWD)/html/modules/liquidsoap: $(PWD)/html
 # Removes all unecessary stuff before upload
 dist: all
 	@find $(PWD)/html -name '*.txt' | xargs rm -rf --
-	git submodule init savonet.github.io && git submodule update savonet.github.io
-	cd savonet.github.io && git remote rm origin && \
-	  git remote add origin git@github.com:savonet/savonet.github.io.git && \
-	  git fetch && git checkout master && \
-	  git branch --set-upstream-to=origin/master master && git pull
+	rm -rf savonet.github.io
+	git clone git@github.com:savonet/savonet.github.io.git
 	find savonet.github.io -mindepth 1 | grep -v 'savonet.github.io/.git' | xargs rm -rf
 	cp -rf html/* savonet.github.io
 
@@ -174,9 +171,13 @@ clean:
 	cd savonet.github.io && git reset --hard
 	rm -rf html content/*.txt.spell
 
-upload: dist
+actual-upload: dist
 	cd savonet.github.io && git add . && \
 	git commit -m"Update website." && git push
+
+upload: Dockerfile
+	@echo "Make sure that you have comitted and pushed your changes!"
+	tar cvzf - $${HOME}/.ssh $${HOME}/.gitconfig Dockerfile | docker build -t savonet/website --no-cache --build-arg DIST_HOME=$${HOME} -
 
 %-upload:
 	cd html ; $(RCP) $* $(RHOST)/$(shell dirname $*) || true
