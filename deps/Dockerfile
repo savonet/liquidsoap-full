@@ -1,13 +1,14 @@
-FROM ocaml/opam
+FROM ocaml/opam:debian-testing_ocaml-4.02.3
 
 MAINTAINER The Savonet Team <savonet-users@lists.sourceforge.net>
 
 USER root
 
+# For libfdk-aac-dev
 RUN sed -e 's#main#main contrib non-free#' -i /etc/apt/sources.list
 
 # For libaacplus-dev
-RUN echo "deb http://www.deb-multimedia.org stable main non-free" >> /etc/apt/sources.list
+RUN echo "deb http://www.deb-multimedia.org testing main non-free" >> /etc/apt/sources.list
 
 RUN apt-get update
 
