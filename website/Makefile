@@ -176,7 +176,7 @@ actual-upload: dist
 
 upload: Dockerfile
 	@echo "Make sure that you have comitted and pushed your changes!"
-	tar cvzf - $${HOME}/.ssh $${HOME}/.gitconfig Dockerfile | docker build -t savonet/website --no-cache --build-arg DIST_HOME=$${HOME} -
+	tar cvzf - Dockerfile -C $${HOME} .ssh .gitconfig | docker build -t savonet/website --no-cache -
 
 %-upload:
 	cd html ; $(RCP) $* $(RHOST)/$(shell dirname $*) || true

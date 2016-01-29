@@ -4,12 +4,10 @@ MAINTAINER The Savonet Team <savonet-users@lists.sourceforge.net>
 
 USER root
 
-ARG DIST_HOME
-
-COPY $DIST_HOME/.gitconfig /home/opam/.gitconfig
+COPY .gitconfig /home/opam/.gitconfig
 RUN chown -R opam /home/opam/.gitconfig && chmod 600 /home/opam/.gitconfig
 
-COPY $DIST_HOME/.ssh /home/opam/.ssh
+COPY .ssh /home/opam/.ssh
 RUN chown -R opam /home/opam/.ssh && chmod 600 /home/opam/.ssh/*
 
 USER opam
