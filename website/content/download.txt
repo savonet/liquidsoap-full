@@ -47,7 +47,7 @@ Most of liquidsoap's dependencies are only optionally installed by OPAM. For ins
 if you want to enable MP3 and vorbis encoding and decoding, you should execute the following:
 
 %%
-opam install mad lame vorbis liquidsoap
+opam install mad lame vorbis
 %%
 
 If your system is missing some dependencies for these optional features, OPAM may be
