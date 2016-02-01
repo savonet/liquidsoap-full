@@ -178,9 +178,6 @@ upload: Dockerfile
 	@echo "Make sure that you have comitted and pushed your changes!"
 	tar cvzf - Dockerfile -C $${HOME} .ssh .gitconfig | docker build -t savonet/website --no-cache -
 
-%-upload:
-	cd html ; $(RCP) $* $(RHOST)/$(shell dirname $*) || true
-
 rss: $(PWD)/html/liquidsoap.rss
 
 DATE := $(shell date -R 2>/dev/null || date)
