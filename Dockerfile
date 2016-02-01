@@ -21,3 +21,8 @@ RUN eval $(opam config env) && ./configure && make clean && make
 USER root
 
 RUN make install
+
+# Make sure the image is always up-to date.
+ONBUILD USER opam
+ONBUILD WORKDIR /tmp/liquidsoap-full
+ONBUILD RUN eval $(opam config env) && make update && ./bootstrap && ./configure && make clean && make
