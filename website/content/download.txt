@@ -33,7 +33,7 @@ Liquidsoap in your path).
 You should now be able to install liquidsoap. A typical installation with MP3 and Vorbis encoding/decoding and icecast support is done by executing:
 
 %%
-opam install taglib lame vorbis cry liquidsoap
+opam install taglib mad lame vorbis cry liquidsoap
 %%
 
 If you want to update Liquidsoap to the latest version, simply execute:
