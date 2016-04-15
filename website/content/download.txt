@@ -30,10 +30,10 @@ and answer <code>y</code> (for _yes_) to the question it asks, about whether you
 want OPAM to modify some configuration files (this will put the directory where
 Liquidsoap in your path).
 
-You should now be able to install liquidsoap by executing:
+You should now be able to install liquidsoap. A typical installation with MP3 and Vorbis encoding/decoding and icecast support is done by executing:
 
 %%
-opam install liquidsoap
+opam install taglib lame vorbis cry liquidsoap
 %%
 
 If you want to update Liquidsoap to the latest version, simply execute:
@@ -44,14 +44,20 @@ opam upgrade liquidsoap
 %%
 
 Most of liquidsoap's dependencies are only optionally installed by OPAM. For instance,
-if you want to enable MP3 and vorbis encoding and decoding, you should execute the following:
+if you want to enable opus encoding and decoding after you've already installed liquidsoap, you should execute the following:
 
 %%
-opam install mad lame vorbis
+opam install opus
 %%
 
 If your system is missing some dependencies for these optional features, OPAM may be
 able to tell you which package to install. This is particularly true for Debian and Ubuntu systems.
+This can be acheived this way:
+
+%%
+opam install depext
+opam depext taglib lame vorbis cry liquidsoap
+%%
 
 Finally, @opam info liquidsoap@ should give you the list of all optional dependencies that you may
 enable in liquidsoap.
