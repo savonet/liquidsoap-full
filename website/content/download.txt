@@ -56,7 +56,7 @@ This can be acheived this way:
 
 %%
 opam install depext
-opam depext taglib lame vorbis cry liquidsoap
+opam depext taglib mad lame vorbis cry liquidsoap
 %%
 
 Finally, @opam info liquidsoap@ should give you the list of all optional dependencies that you may
