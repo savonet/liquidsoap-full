@@ -49,7 +49,7 @@ Here are liquidsoap's dependencies (all OCaml libraries are distributed by Savon
 * "ocamlfind":http://www.ocaml-programming.de/programming/findlib.html
 * ocaml-dtools
 * ocaml-duppy (>= 0.1.2)
-* "ocaml-pcre":http://www.ocaml.info/home/ocaml_sources.html
+* "ocaml-pcre":https://github.com/mmottl/pcre-ocaml
 
 And also optional dependencies:
 
