@@ -59,8 +59,19 @@ opam install depext
 opam depext taglib mad lame vorbis cry liquidsoap
 %%
 
-Finally, @opam info liquidsoap@ should give you the list of all optional dependencies that you may
+@opam info liquidsoap@ should give you the list of all optional dependencies that you may
 enable in liquidsoap.
+
+If you need to run liquidsoap as daemon, we provide a package named @liquidsoap-daemon@. It works as follows:
+* Create the directory @$HOME/liquidsoap-daemon@
+* Place your script at: @$HOME/liquidsoap-daemon/main.liq@
+* Check and install the dependencies for @liquidsoap-daemon@: @opam depext liquidsoap-daemon@
+* Run @opam install liquidsoap-daemon@
+
+See "savonet/liquidsoap-daemon":https://github.com/savonet/liquidsoap-daemon for more information.
+
+The daemon script only work on OSX and Debian/Ubuntu or any linux system with 
+the @update-rc.d@ command for now.
 
 h3@source. Installing from source
 
