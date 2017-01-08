@@ -50,10 +50,6 @@
 	path = ocaml-shine
 	url = git://github.com/savonet/ocaml-shine.git
         ignore = dirty
-[submodule "ocaml-aacplus"]
-	path = ocaml-aacplus
-	url = git://github.com/savonet/ocaml-aacplus.git
-        ignore = dirty
 [submodule "ocaml-ogg"]
 	path = ocaml-ogg
 	url = git://github.com/savonet/ocaml-ogg.git
@@ -73,14 +69,6 @@
 [submodule "ocaml-opus"]
 	path = ocaml-opus
 	url = git://github.com/savonet/ocaml-opus.git
-        ignore = dirty
-[submodule "ocaml-schroedinger"]
-	path = ocaml-schroedinger
-	url = git://github.com/savonet/ocaml-schroedinger.git
-        ignore = dirty
-[submodule "ocaml-voaacenc"]
-	path = ocaml-voaacenc
-	url = git://github.com/savonet/ocaml-voaacenc.git
         ignore = dirty
 [submodule "ocaml-faad"]
 	path = ocaml-faad

@@ -56,9 +56,6 @@ ocaml-lame
 # SHINE is for fixed-point MP3 encoding.
 #ocaml-shine
 
-# AACPLUS is for AAC+ encoding.
-#ocaml-aacplus
-
 # OGG is for ogg/vorbis and ogg/theora encoding and decoding
 ocaml-ogg
 
@@ -78,13 +75,6 @@ ocaml-vorbis
 # suitable for interactive real-time applications over the Internet.
 # you need ocaml-ogg to enable ocaml-opus
 #ocaml-opus
-
-# SCHROEDINGER is for ogg/dirac encoding and decoding
-# you need ocaml-ogg to enable ocaml-schroedinger
-#ocaml-schroedinger
-
-# VOAACENC is for AAC encoding.
-#ocaml-voaacenc
 
 # FDK-AAC is for AAC and AAC+ encoding
 #ocaml-fdkaac
