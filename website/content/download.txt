@@ -20,27 +20,10 @@ Manager":http://opam.ocaml.org/. OPAM is available in all major distributions
 and on windows. We actively support the liquidsoap packages there and its
 dependencies.
 
-When using OPAM for the first time, you should run
-
-%%
-opam init
-%%
-
-and answer <code>y</code> (for _yes_) to the question it asks, about whether you
-want OPAM to modify some configuration files (this will put the directory where
-Liquidsoap in your path).
-
-You should now be able to install liquidsoap. A typical installation with MP3 and Vorbis encoding/decoding and icecast support is done by executing:
+A typical installation with MP3 and Vorbis encoding/decoding and icecast support is done by executing:
 
 %%
 opam install taglib mad lame vorbis cry liquidsoap
-%%
-
-If you want to update Liquidsoap to the latest version, simply execute:
-
-%%
-opam update
-opam upgrade liquidsoap
 %%
 
 Most of liquidsoap's dependencies are only optionally installed by OPAM. For instance,
@@ -50,9 +33,8 @@ if you want to enable opus encoding and decoding after you've already installed 
 opam install opus
 %%
 
-If your system is missing some dependencies for these optional features, OPAM may be
-able to tell you which package to install. This is particularly true for Debian and Ubuntu systems.
-This can be acheived this way:
+If your system is missing external dependencies for these optional features, OPAM may be
+able to tell you which package to install. This can be acheived this way:
 
 %%
 opam install depext
@@ -62,16 +44,28 @@ opam depext taglib mad lame vorbis cry liquidsoap
 @opam info liquidsoap@ should give you the list of all optional dependencies that you may
 enable in liquidsoap.
 
-If you need to run liquidsoap as daemon, we provide a package named @liquidsoap-daemon@. It works as follows:
-* Create the directory @$HOME/liquidsoap-daemon@
-* Place your script at: @$HOME/liquidsoap-daemon/main.liq@
-* Check and install the dependencies for @liquidsoap-daemon@: @opam depext liquidsoap-daemon@
-* Run @opam install liquidsoap-daemon@
-
+If you need to run liquidsoap as daemon, we provide a package named @liquidsoap-daemon@.
 See "savonet/liquidsoap-daemon":https://github.com/savonet/liquidsoap-daemon for more information.
 
-The daemon script only work on OSX and Debian/Ubuntu or any linux system with 
-the @update-rc.d@ command for now.
+Using OPAM, you can also install liquidsoap or any of its dependencies from source. For instance:
+
+%%
+git clone https://github.com/savonet/liquidsoap.git
+cd liquidsop
+opam pin add liquidsoap .
+%%
+
+Most dependencies should be compatible with OPAM pinning. Let us know if you find one that isn't!
+
+When using OPAM for the first time, you should run
+
+%%
+opam init
+%%
+
+and answer <code>y</code> (for _yes_) to the question it asks, about whether you
+want OPAM to modify some configuration files (this will put the directory where
+Liquidsoap in your path).
 
 h3@source. Installing from source
 
