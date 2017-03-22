@@ -52,6 +52,8 @@ Using OPAM, you can also install liquidsoap or any of its dependencies from sour
 %%
 git clone https://github.com/savonet/liquidsoap.git
 cd liquidsoap
+git submodule init
+git submodule update
 opam pin add liquidsoap .
 %%
 
