@@ -32,6 +32,7 @@ endif
 
 # Generated content
 GENERATED_FILES := $(PWD)/html/doc-@@VERSION@@/reference.html \
+		   $(PWD)/html/doc-@@VERSION@@/protocols.html \
                    $(PWD)/html/doc-@@VERSION@@/scripts/index.html \
                    $(PWD)/html/doc-@@VERSION@@/settings.html
 generated_files_subst = $(subst @@VERSION@@,$(version),$(GENERATED_FILES))
@@ -98,6 +99,14 @@ $(PWD)/html/doc-svn/settings.txt: $(LIQUIDSOAP)
 	@echo "Did you enable all features ?"
 	@$(LIQUIDSOAP) --no-pervasives $(LIQ_DIR)/scripts/utils.liq --conf-descr-liqi > $(PWD)/html/doc-svn/settings.txt
 
+$(PWD)/html/doc-svn/protocols.txt: $(LIQUIDSOAP)
+	@echo "Generating svn protocols reference..."
+	@echo "Did you enable all features ?"
+	@($(LIQUIDSOAP) --no-pervasives \
+	  $(LIQ_DIR)/scripts/utils.liq --list-plugins-xml | \
+	$(LIQ_DIR)/doc/protocols_to_liqi.pl || cat $(LIQ_DIR)/doc/no-proto.txt) > $(PWD)/protocols.txt
+	cp $(PWD)/protocols.txt $(PWD)/html/doc-svn/protocols.txt
+
 # We copy ref and settings to the svn:external directories where they belong
 
 $(PWD)/html/doc-%/reference.txt:
@@ -105,6 +114,10 @@ $(PWD)/html/doc-%/reference.txt:
 
 $(PWD)/html/doc-%/settings.txt:
 	@cp $(PWD)/settings-$(*).txt $(PWD)/html/doc-$(*)/settings.txt
+
+$(PWD)/html/doc-%/protocols.txt:
+	@([ -f $(PWD)/protocols-$(*).txt ] && cp $(PWD)/protocols-$(*).txt $(PWD)/html/doc-$(*)/protocols.txt) || \
+	  cp $(LIQ_DIR)/doc/no-proto.txt $(PWD)/html/doc-$(*)/protocols.txt
 
 # HTML generation
 #$(PWD)/html/_index.html: savonet.html
@@ -126,6 +139,12 @@ $(PWD)/html/doc-%/reference.html: $(PWD)/html/doc-%/reference.txt versioned.html
 	  -i $(<) -o $(@)
 
 $(PWD)/html/doc-%/settings.html: $(PWD)/html/doc-%/settings.txt versioned.html snippet.html
+	@cd html/doc-$(*) && $(LIQI) \
+	  --template ../../versioned.html --snippet-template ../../snippet.html \
+	  --subst version:$(*) --basedir .. \
+	  -i $(<) -o $(@)
+
+$(PWD)/html/doc-%/protocols.html: $(PWD)/html/doc-%/protocols.txt versioned.html snippet.html
 	@cd html/doc-$(*) && $(LIQI) \
 	  --template ../../versioned.html --snippet-template ../../snippet.html \
 	  --subst version:$(*) --basedir .. \
