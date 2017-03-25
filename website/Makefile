@@ -9,7 +9,7 @@ OCAMLDOC := ocamldoc
 
 
 # Versions for which documentation should be build and included
-VERSIONS := svn 0.9.2 1.0.0 1.0.1 1.1.0 1.1.1 1.2.0 1.2.1
+VERSIONS := latest 0.9.2 1.0.0 1.0.1 1.1.0 1.1.1 1.2.0 1.2.1
 
 # Static content
 content_expand = $(wildcard $(PWD)/content/doc-$(version)/*.txt)
@@ -39,7 +39,7 @@ generated_files_subst = $(subst @@VERSION@@,$(version),$(GENERATED_FILES))
 generated_files := $(foreach version,$(VERSIONS),$(generated_files_subst)) $(PWD)/html/modules.html $(PWD)/html/modules/liquidsoap
 
 all: $(PWD)/html $(HTML) $(JS) rss $(generated_files)
-	@find html -name '.svn' | xargs rm -rf --
+	@find html -name '.git' | xargs rm -rf --
 
 MODULES_INC := $(wildcard $(PWD)/../ocaml-*/src)
 
@@ -86,28 +86,28 @@ $(LIQUIDSOAP):
 
 # Auto-generated content files
 
-$(PWD)/html/doc-svn/reference.txt: $(LIQUIDSOAP)
-	@echo "Generating svn language reference..."
+$(PWD)/html/doc-latest/reference.txt: $(LIQUIDSOAP)
+	@echo "Generating latest language reference..."
 	@echo "Did you enable all features ?"
 	@($(LIQUIDSOAP) --no-pervasives \
 	  $(LIQ_DIR)/scripts/pervasives.liq --list-plugins-xml | \
 	$(LIQ_DIR)/doc/reference_to_liqi.pl || cat $(LIQ_DIR)/doc/no-ref.txt) > $(PWD)/reference.txt
-	cp $(PWD)/reference.txt $(PWD)/html/doc-svn/reference.txt
+	cp $(PWD)/reference.txt $(PWD)/html/doc-latest/reference.txt
 
-$(PWD)/html/doc-svn/settings.txt: $(LIQUIDSOAP)
-	@echo "Generating svn language settings..."
+$(PWD)/html/doc-latest/settings.txt: $(LIQUIDSOAP)
+	@echo "Generating latest language settings..."
 	@echo "Did you enable all features ?"
-	@$(LIQUIDSOAP) --no-pervasives $(LIQ_DIR)/scripts/pervasives.liq --conf-descr-liqi > $(PWD)/html/doc-svn/settings.txt
+	@$(LIQUIDSOAP) --no-pervasives $(LIQ_DIR)/scripts/pervasives.liq --conf-descr-liqi > $(PWD)/html/doc-latest/settings.txt
 
-$(PWD)/html/doc-svn/protocols.txt: $(LIQUIDSOAP)
-	@echo "Generating svn protocols reference..."
+$(PWD)/html/doc-latest/protocols.txt: $(LIQUIDSOAP)
+	@echo "Generating latest protocols reference..."
 	@echo "Did you enable all features ?"
 	@($(LIQUIDSOAP) --no-pervasives \
 	  $(LIQ_DIR)/scripts/pervasives.liq --list-plugins-xml | \
 	$(LIQ_DIR)/doc/protocols_to_liqi.pl || cat $(LIQ_DIR)/doc/no-proto.txt) > $(PWD)/protocols.txt
-	cp $(PWD)/protocols.txt $(PWD)/html/doc-svn/protocols.txt
+	cp $(PWD)/protocols.txt $(PWD)/html/doc-latest/protocols.txt
 
-# We copy ref and settings to the svn:external directories where they belong
+# We copy ref and settings to the git:external directories where they belong
 
 $(PWD)/html/doc-%/reference.txt:
 	@cp $(PWD)/reference-$(*).txt $(PWD)/html/doc-$(*)/reference.txt

@@ -5,7 +5,7 @@ h2. Liquidsoap Documentation
 h3. Latest
 
 * "Latest release (1.2.1)":doc-1.2.1/documentation.html
-* "Latest development trunk":doc-svn/documentation.html
+* "Latest development trunk":doc-latest/documentation.html
 
 h3. Previous releases
 
