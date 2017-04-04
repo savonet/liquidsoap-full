@@ -9,7 +9,7 @@ OCAMLDOC := ocamldoc
 
 
 # Versions for which documentation should be build and included
-VERSIONS := latest 0.9.2 1.0.0 1.0.1 1.1.0 1.1.1 1.2.0 1.2.1
+VERSIONS := dev 0.9.2 1.0.0 1.0.1 1.1.0 1.1.1 1.2.0 1.2.1
 
 # Static content
 content_expand = $(wildcard $(PWD)/content/doc-$(version)/*.txt)
@@ -86,26 +86,26 @@ $(LIQUIDSOAP):
 
 # Auto-generated content files
 
-$(PWD)/html/doc-latest/reference.txt: $(LIQUIDSOAP)
-	@echo "Generating latest language reference..."
+$(PWD)/html/doc-dev/reference.txt: $(LIQUIDSOAP)
+	@echo "Generating dev language reference..."
 	@echo "Did you enable all features ?"
 	@($(LIQUIDSOAP) --no-pervasives \
 	  $(LIQ_DIR)/scripts/pervasives.liq --list-plugins-xml | \
 	$(LIQ_DIR)/doc/reference_to_liqi.pl || cat $(LIQ_DIR)/doc/no-ref.txt) > $(PWD)/reference.txt
-	cp $(PWD)/reference.txt $(PWD)/html/doc-latest/reference.txt
+	cp $(PWD)/reference.txt $(PWD)/html/doc-dev/reference.txt
 
-$(PWD)/html/doc-latest/settings.txt: $(LIQUIDSOAP)
-	@echo "Generating latest language settings..."
+$(PWD)/html/doc-dev/settings.txt: $(LIQUIDSOAP)
+	@echo "Generating dev language settings..."
 	@echo "Did you enable all features ?"
-	@$(LIQUIDSOAP) --no-pervasives $(LIQ_DIR)/scripts/pervasives.liq --conf-descr-liqi > $(PWD)/html/doc-latest/settings.txt
+	@$(LIQUIDSOAP) --no-pervasives $(LIQ_DIR)/scripts/pervasives.liq --conf-descr-liqi > $(PWD)/html/doc-dev/settings.txt
 
-$(PWD)/html/doc-latest/protocols.txt: $(LIQUIDSOAP)
-	@echo "Generating latest protocols reference..."
+$(PWD)/html/doc-dev/protocols.txt: $(LIQUIDSOAP)
+	@echo "Generating dev protocols reference..."
 	@echo "Did you enable all features ?"
 	@($(LIQUIDSOAP) --no-pervasives \
 	  $(LIQ_DIR)/scripts/pervasives.liq --list-plugins-xml | \
 	$(LIQ_DIR)/doc/protocols_to_liqi.pl || cat $(LIQ_DIR)/doc/no-proto.txt) > $(PWD)/protocols.txt
-	cp $(PWD)/protocols.txt $(PWD)/html/doc-latest/protocols.txt
+	cp $(PWD)/protocols.txt $(PWD)/html/doc-dev/protocols.txt
 
 # We copy ref and settings to the git:external directories where they belong
 
