@@ -18,7 +18,7 @@ RUN rm -rf website/savonet.github.io
 
 RUN git checkout master && git reset --hard HEAD && git pull
 
-RUN eval $(opam config env) && make update && ./bootstrap && ./configure && make clean && make
+RUN eval $(opam config env) && make update && ./bootstrap && ./configure --enable-graphics && make clean && make
 
 WORKDIR /tmp/liquidsoap-full/website
 
