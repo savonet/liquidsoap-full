@@ -23,7 +23,7 @@ dependencies.
 A typical installation with MP3 and Vorbis encoding/decoding and icecast support is done by executing:
 
 %%
-opam install taglib mad lame vorbis cry liquidsoap
+opam install taglib mad lame vorbis cry samplerate liquidsoap
 %%
 
 Most of liquidsoap's dependencies are only optionally installed by OPAM. For instance,
@@ -38,7 +38,7 @@ able to tell you which package to install. This can be acheived this way:
 
 %%
 opam install depext
-opam depext taglib mad lame vorbis cry liquidsoap
+opam depext taglib mad lame vorbis cry samplerate liquidsoap
 %%
 
 @opam info liquidsoap@ should give you the list of all optional dependencies that you may
@@ -50,10 +50,8 @@ See "savonet/liquidsoap-daemon":https://github.com/savonet/liquidsoap-daemon for
 Using OPAM, you can also install liquidsoap or any of its dependencies from source. For instance:
 
 %%
-git clone https://github.com/savonet/liquidsoap.git
+git clone --recursive https://github.com/savonet/liquidsoap.git
 cd liquidsoap
-git submodule init
-git submodule update
 opam pin add liquidsoap .
 %%
 
