@@ -20,4 +20,4 @@ RUN eval $(opam config env) && ./configure && make clean && make
 
 USER root
 
-RUN make install
+RUN eval $(opam config env) && make install
