@@ -111,7 +111,7 @@ ocaml-gavl
 
 # FFMPEG is currently only used to convert from
 # and to many formats.
-ocaml-ffmpeg
+#ocaml-ffmpeg
 
 # Frei0r is a minimalistic plugin API for video sources and filters.
 ocaml-frei0r
