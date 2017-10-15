@@ -9,7 +9,7 @@ OCAMLDOC := ocamldoc
 
 
 # Versions for which documentation should be build and included
-VERSIONS := dev 0.9.2 1.0.0 1.0.1 1.1.0 1.1.1 1.2.0 1.2.1 1.3.0 1.3.1 1.3.2 1.3.3
+VERSIONS := dev 1.0.0 1.0.1 1.1.0 1.1.1 1.2.0 1.2.1 1.3.0 1.3.1 1.3.2 1.3.3
 
 # Static content
 content_expand = $(wildcard $(PWD)/content/doc-$(version)/*.txt)
@@ -195,7 +195,7 @@ actual-upload: dist
 
 upload: Dockerfile
 	@echo "Make sure that you have comitted and pushed your changes!"
-	tar cvzf - Dockerfile -C $${HOME} .ssh .gitconfig | docker build -t savonet/website --no-cache -
+	tar cvzf - Dockerfile -C $${HOME} .ssh .gitconfig | sudo docker build -t savonet/website --no-cache -
 
 rss: $(PWD)/html/liquidsoap.rss
 
