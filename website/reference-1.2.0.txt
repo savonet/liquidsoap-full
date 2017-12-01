@@ -1081,7 +1081,7 @@ Output to shoutcast.
 * <code>user</code> (<code>string</code> -- defaults to <code>"source"</code>): User for shout source connection. Useful only in special cases, like with per-mountpoint users.
 * <code>password</code> (<code>string</code> -- defaults to <code>"hackme"</code>)
 * <code>genre</code> (<code>string</code> -- defaults to <code>"Misc"</code>)
-* <code>url</code> (<code>string</code> -- defaults to <code>"http://liquidsoap.fm"</code>)
+* <code>url</code> (<code>string</code> -- defaults to <code>"http://liquidsoap.info"</code>)
 * <code>name</code> (<code>string</code> -- defaults to <code>"Liquidsoap Radio!"</code>)
 * <code>public</code> (<code>bool</code> -- defaults to <code>true</code>)
 * <code>format</code> (<code>string</code> -- defaults to <code>""</code>): Format, e.g. "audio/ogg". When empty, the encoder is used to guess.

@@ -207,7 +207,7 @@ $(PWD)/html/liquidsoap.rss: news.txt
 	@echo '<channel>' >> $@
 	@echo '<title>Liquidsoap: news</title>' >> $@
 	@echo '<description>savonet.sf.net</description>' >> $@
-	@echo '<atom:link href="http://liquidsoap.fm/liquidsoap.rss" rel="self" type="application/rss+xml" />' >> $@
+	@echo '<atom:link href="http://liquidsoap.info/liquidsoap.rss" rel="self" type="application/rss+xml" />' >> $@
 	@echo '<link>http://savonet.sf.net/</link>' >> $@
 	@echo -n '<lastBuildDate>' >> $@
 	@echo -n `date -R` >> $@
