@@ -8,9 +8,6 @@ package available for your distribution.
 
 * "Using OPAM":#opam
 * "From source":#source
-* "Debian/Ubuntu":#deb
-* "Windows":#win32
-* "ArchLinux":#arch
 * "Latest development version":#latest
 
 h3@opam. Install using OPAM
@@ -20,25 +17,26 @@ Manager":http://opam.ocaml.org/. OPAM is available in all major distributions
 and on windows. We actively support the liquidsoap packages there and its
 dependencies.
 
+You can read "here":https://opam.ocaml.org/doc/Usage.html about how to use OPAM.
+
 A typical installation with MP3 and Vorbis encoding/decoding and icecast support is done by executing:
 
 %%
+opam switch 4.05.0
+opam depext taglib mad lame vorbis cry samplerate liquidsoap
 opam install taglib mad lame vorbis cry samplerate liquidsoap
 %%
+
+* @opam switch 4.05.0@ installs a version of the OCaml compiler that works fine with @liquidsoap@. If your compiler has version @4.05.0@ or less you can skip this step.
+* @opam depext ...@ takes care of installing the require external dependencies. In some cases external dependencies might be missing for your system. If that is the case, please report it to us!
+* Finally @opam install ...@ installs the packages themselves.
 
 Most of liquidsoap's dependencies are only optionally installed by OPAM. For instance,
 if you want to enable opus encoding and decoding after you've already installed liquidsoap, you should execute the following:
 
 %%
+opam depext opus
 opam install opus
-%%
-
-If your system is missing external dependencies for these optional features, OPAM may be
-able to tell you which package to install. This can be acheived this way:
-
-%%
-opam install depext
-opam depext taglib mad lame vorbis cry samplerate liquidsoap
 %%
 
 @opam info liquidsoap@ should give you the list of all optional dependencies that you may
@@ -47,7 +45,7 @@ enable in liquidsoap.
 If you need to run liquidsoap as daemon, we provide a package named @liquidsoap-daemon@.
 See "savonet/liquidsoap-daemon":https://github.com/savonet/liquidsoap-daemon for more information.
 
-Using OPAM, you can also install liquidsoap or any of its dependencies from source. For instance:
+You can also install liquidsoap or any of its dependencies from source using OPAM. For instance:
 
 %%
 git clone --recursive https://github.com/savonet/liquidsoap.git
@@ -56,16 +54,6 @@ opam pin add liquidsoap .
 %%
 
 Most dependencies should be compatible with OPAM pinning. Let us know if you find one that isn't!
-
-When using OPAM for the first time, you should run
-
-%%
-opam init
-%%
-
-and answer <code>y</code> (for _yes_) to the question it asks, about whether you
-want OPAM to modify some configuration files (this will put the directory where
-Liquidsoap in your path).
 
 h3@source. Installing from source
 
@@ -79,22 +67,6 @@ install@ procedure. You will still need the corresponding C libraries and their
 development files, though.
 
 You will then have to "build the source":doc-dev/build.html.
-
-h3@deb. Debian/Ubuntu packages
-
-Liquidsoap is included in Debian and Ubuntu distributions:
-
-* "Debian packages":http://packages.debian.org/liquidsoap
-* "Ubuntu packages":http://packages.ubuntu.com/liquidsoap
-
-h3@win32. Windows
-
-We do not maintain windows build for liquidsoap anymore. See "this page":windows.html for instructions on how to build it yourself.
-
-h3@arch. ArchLinux
-
-A package for Arch Linux users is available from the distribution,
-see the "ArchLinux Liquidsoap package page":https://aur.archlinux.org/packages/liquidsoap/
 
 h3@latest. Git repository (and other distributions)
 
