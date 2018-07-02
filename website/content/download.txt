@@ -3,8 +3,8 @@ title: Download and install liquidsoap
 
 h2. Installing Savonet/Liquidsoap
 
-You can install liquidsoap with OPAM (recommended), from source, or using a
-package available for your distribution.
+You can install liquidsoap with OPAM (recommended) or from source, or using a
+package available for your distribution (not covered by this documentation).
 
 * "Using OPAM":#opam
 * "From source":#source
@@ -28,7 +28,7 @@ opam install taglib mad lame vorbis cry samplerate liquidsoap
 %%
 
 * @opam switch 4.05.0@ installs a version of the OCaml compiler that works fine with @liquidsoap@. If your compiler has version @4.05.0@ or less you can skip this step.
-* @opam depext ...@ takes care of installing the require external dependencies. In some cases external dependencies might be missing for your system. If that is the case, please report it to us!
+* @opam depext ...@ takes care of installing the required external dependencies. In some cases external dependencies might be missing for your system. If that is the case, please report it to us!
 * Finally @opam install ...@ installs the packages themselves.
 
 Most of liquidsoap's dependencies are only optionally installed by OPAM. For instance,
@@ -68,7 +68,7 @@ development files, though.
 
 You will then have to "build the source":doc-dev/build.html.
 
-h3@latest. Git repository (and other distributions)
+h3@latest. Latest development version
 
 If you want a cutting-edge version, you can use the git repository.
 To get a copy of it, you have to run:
