@@ -4,4 +4,4 @@ services:
   - docker
 
 script:
-  - docker build -t savonet/liquidsoap-full .
+  - cd docker && docker build -t savonet/liquidsoap-full .
