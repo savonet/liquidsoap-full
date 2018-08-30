@@ -1,0 +1,17 @@
+FROM savonet/liquidsoap-win32-deps
+
+USER opam
+
+RUN eval `opam config env` && opam reinstall -y `echo ${OPAM_DEPS} | sed -e 's#,# #g'` 
+
+WORKDIR /tmp
+
+RUN eval `opam config env` && git clone --recursive https://github.com/savonet/liquidsoap.git && cd liquidsoap && ./bootstrap && ./configure --enable-custom-path --host=x86_64-w64-mingw32.static OCAMLFIND_TOOLCHAIN=windows && env OCAMLFIND_TOOLCHAIN=windows make
+
+RUN mkdir /tmp/win32
+
+COPY --chown=opam:root win32 /tmp/win32
+
+ARG LIQUIDSOAP_VERSION
+
+RUN eval `opam config env` && mv /tmp/win32 /tmp/liquidsoap-$LIQUIDSOAP_VERSION && cd /tmp/liquidsoap-$LIQUIDSOAP_VERSION && cp /tmp/liquidsoap/src/liquidsoap.exe . && cp /tmp/liquidsoap/scripts/*.liq libs && cp -rf `ocamlfind -toolchain windows ocamlc -where`/../../share/camomile . && cd .. && zip -r liquidsoap-$LIQUIDSOAP_VERSION.zip liquidsoap-$LIQUIDSOAP_VERSION 

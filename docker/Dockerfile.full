@@ -12,9 +12,6 @@ WORKDIR /tmp/liquidsoap-full
 
 RUN make init && make update
 
-# Temp
-RUN cd ocaml-ffmpeg && git checkout 0.1.2
-
 RUN cp PACKAGES.default PACKAGES
 
 RUN ./bootstrap
