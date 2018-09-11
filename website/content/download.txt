@@ -22,12 +22,10 @@ You can read "here":https://opam.ocaml.org/doc/Usage.html about how to use OPAM.
 A typical installation with MP3 and Vorbis encoding/decoding and icecast support is done by executing:
 
 %%
-opam switch 4.05.0
 opam depext taglib mad lame vorbis cry samplerate liquidsoap
 opam install taglib mad lame vorbis cry samplerate liquidsoap
 %%
 
-* @opam switch 4.05.0@ installs a version of the OCaml compiler that works fine with @liquidsoap@. If your compiler has version @4.05.0@ or less you can skip this step.
 * @opam depext ...@ takes care of installing the required external dependencies. In some cases external dependencies might be missing for your system. If that is the case, please report it to us!
 * Finally @opam install ...@ installs the packages themselves.
 
