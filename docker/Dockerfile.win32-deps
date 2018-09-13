@@ -1,11 +1,10 @@
-FROM ocamlcross/windows-x64-base:4.06.1
+FROM ocamlcross/windows-x64-base:4.07.0
 
-ENV OPAM_DEPS=winsvc-windows,camomile-windows,duppy-windows,dtools-windows,pcre-windows,mm-windows,ao-windows,fdkaac-windows,flac-windows,faad-windows,lame-windows,mad-windows,ogg-windows,opus-windows,ssl-windows,portaudio-windows,samplerate-windows,speex-windows,taglib-windows,theora-windows,vorbis-windows,yojson-windows,cry-windows
+# TODO: fix compilation with ffmpeg-windows
+ENV OPAM_DEPS=winsvc-windows,camomile-windows,duppy-windows,dtools-windows,pcre-windows,mm-windows,ao-windows,fdkaac-windows,flac-windows,faad-windows,lame-windows,mad-windows,ogg-windows,opus-windows,ssl-windows,portaudio-windows,samplerate-windows,speex-windows,taglib-windows,theora-windows,vorbis-windows,yojson-windows,gstreamer-windows,cry-windows
 
 RUN opam list --short --recursive --external=mxe --required-by=$OPAM_DEPS > /home/opam/mxe-deps
 
 USER root
-
-RUN sed -i /etc/apt/sources.list -e 's#jessie#testing#g' && (apt-get update || true) && apt-get install automake
 
 RUN cd /usr/src/mxe/ && cat /home/opam/mxe-deps | xargs make
