@@ -7,6 +7,7 @@ You can install liquidsoap with OPAM (recommended) or from source, or using a
 package available for your distribution (not covered by this documentation).
 
 * "Using OPAM":#opam
+* "Windows":#windows
 * "From source":#source
 * "Latest development version":#latest
 
@@ -52,6 +53,12 @@ opam pin add liquidsoap .
 %%
 
 Most dependencies should be compatible with OPAM pinning. Let us know if you find one that isn't!
+
+h3@windows. Windows build
+
+You can download a liquidsoap for windows from our "release page":https://github.com/savonet/liquidsoap/releases, starting with version @1.3.4@.
+
+The build process is described "here":windows.html.
 
 h3@source. Installing from source
 
