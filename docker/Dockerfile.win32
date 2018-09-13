@@ -1,15 +1,21 @@
-FROM savonet/liquidsoap-win32-deps
+ARG IMAGE
+FROM $IMAGE
 
 ARG RELEASE=dev
 ARG BUILD
+ARG HOST
 
 WORKDIR /tmp
+
+USER opam
+
+RUN eval `opam config env` && opam reinstall -y `echo $OPAM_DEPS | sed -e 's#,# #g'`
 
 RUN if [ "x$RELEASE" != "xdev" ]; then curl https://github.com/savonet/liquidsoap/releases/download/$RELEASE/liquidsoap-$RELEASE.tar.bz2 -L -o /tmp/liquidsoap.tar.bz2 && cd /tmp && tar xvf liquidsoap.tar.bz2 && mv /tmp/liquidsoap-$RELEASE /tmp/liquidsoap ; fi
 
 RUN if [ "x$RELEASE" = "xdev" ]; then git clone --recursive https://github.com/savonet/liquidsoap.git && cd liquidsoap && ./bootstrap ; fi
 
-RUN eval `opam config env` && cd /tmp/liquidsoap && ./configure --enable-custom-path --host=x86_64-w64-mingw32.static OCAMLFIND_TOOLCHAIN=windows && env OCAMLFIND_TOOLCHAIN=windows make
+RUN eval `opam config env` && cd /tmp/liquidsoap && ./configure --enable-custom-path --host=$HOST OCAMLFIND_TOOLCHAIN=windows && env OCAMLFIND_TOOLCHAIN=windows make
 
 RUN mkdir /tmp/win32
 

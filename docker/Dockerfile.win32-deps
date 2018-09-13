@@ -1,4 +1,5 @@
-FROM ocamlcross/windows-x64-base:4.07.0
+ARG IMAGE
+FROM $IMAGE
 
 # TODO: fix compilation with ffmpeg-windows
 ENV OPAM_DEPS=winsvc-windows,camomile-windows,duppy-windows,dtools-windows,pcre-windows,mm-windows,ao-windows,fdkaac-windows,flac-windows,faad-windows,lame-windows,mad-windows,ogg-windows,opus-windows,ssl-windows,portaudio-windows,samplerate-windows,speex-windows,taglib-windows,theora-windows,vorbis-windows,yojson-windows,gstreamer-windows,cry-windows
