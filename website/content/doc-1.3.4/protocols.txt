@@ -83,7 +83,7 @@ Generate speech synthesis using text2wave and sox. Result is always stereo.
 
 h5. Text2wave
 
-* Syntax: @text2wav:Text to read@
+* Syntax: @text2wave:Text to read@
 * Static: @true@
 
 Generate speech synthesis using text2wave. Result may be mono.
