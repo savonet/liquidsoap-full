@@ -32,7 +32,7 @@ else
 endif
 
 # Generated content
-GENERATED_FILES := $(PWD)/html/doc-@@VERSION@@/reference.html \
+GENERATED_FILES := $(PWD)/html/doc.html $(PWD)/html/doc-@@VERSION@@/reference.html \
 		               $(PWD)/html/doc-@@VERSION@@/protocols.html \
                    $(PWD)/html/doc-@@VERSION@@/scripts/index.html \
                    $(PWD)/html/doc-@@VERSION@@/settings.html
@@ -43,6 +43,9 @@ all: $(PWD)/html $(HTML) $(JS) rss $(generated_files)
 	@find html -name '.git' | xargs rm -rf --
 
 MODULES_INC := $(wildcard $(PWD)/../ocaml-*/src)
+
+$(PWD)/html/doc.html: $(PWD)/doc.html
+	sed -e "s#@version@#$(DEFAULT_VERSION)#" < $(<) > $(@) 
 
 $(PWD)/html/modules.txt: $(PWD)/html $(PWD)/../PACKAGES.default
 	echo "title: Savonet modules documentation.\n" > $(@)
