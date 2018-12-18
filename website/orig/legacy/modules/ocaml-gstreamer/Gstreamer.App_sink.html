@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link rel="previous" href="Gstreamer.App_src.html">
+<link rel="next" href="Gstreamer.Caps.html">
+<link rel="Up" href="Gstreamer.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Gstreamer" rel="Chapter" href="Gstreamer.html"><title>Gstreamer.App_sink</title>
+</head>
+<body>
+<div class="navbar"><a class="pre" href="Gstreamer.App_src.html" title="Gstreamer.App_src">Previous</a>
+&nbsp;<a class="up" href="Gstreamer.html" title="Gstreamer">Up</a>
+&nbsp;<a class="post" href="Gstreamer.Caps.html" title="Gstreamer.Caps">Next</a>
+</div>
+<h1>Module <a href="type_Gstreamer.App_sink.html">Gstreamer.App_sink</a></h1>
+
+<pre><span id="MODULEApp_sink"><span class="keyword">module</span> App_sink</span>: <code class="code">sig</code> <a href="Gstreamer.App_sink.html">..</a> <code class="code">end</code></pre><div class="info module top">
+<div class="info-desc">
+<p>App sinks.</p>
+</div>
+</div>
+<hr width="100%">
+
+<pre><span id="TYPEt"><span class="keyword">type</span> <code class="type"></code>t</span> </pre>
+
+
+<pre><span id="VALof_element"><span class="keyword">val</span> of_element</span> : <code class="type"><a href="Gstreamer.Element.html#TYPEt">Gstreamer.Element.t</a> -> <a href="Gstreamer.App_sink.html#TYPEt">t</a></code></pre>
+<pre><span id="VALpull_buffer_data"><span class="keyword">val</span> pull_buffer_data</span> : <code class="type"><a href="Gstreamer.App_sink.html#TYPEt">t</a> -> <a href="Gstreamer.html#TYPEdata">Gstreamer.data</a></code></pre><div class="info ">
+<div class="info-desc">
+<p>Pull a buffer in data format.</p>
+</div>
+</div>
+
+<pre><span id="VALpull_buffer_string"><span class="keyword">val</span> pull_buffer_string</span> : <code class="type"><a href="Gstreamer.App_sink.html#TYPEt">t</a> -> string</code></pre><div class="info ">
+<div class="info-desc">
+<p>Pull a buffer in string format.</p>
+</div>
+</div>
+
+<pre><span id="VALemit_signals"><span class="keyword">val</span> emit_signals</span> : <code class="type"><a href="Gstreamer.App_sink.html#TYPEt">t</a> -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p>Enable signal emitting.</p>
+</div>
+</div>
+
+<pre><span id="VALis_eos"><span class="keyword">val</span> is_eos</span> : <code class="type"><a href="Gstreamer.App_sink.html#TYPEt">t</a> -> bool</code></pre><div class="info ">
+<div class="info-desc">
+<p>Check whether the end of stream was reached.</p>
+</div>
+</div>
+
+<pre><span id="VALon_new_sample"><span class="keyword">val</span> on_new_sample</span> : <code class="type"><a href="Gstreamer.App_sink.html#TYPEt">t</a> -> (unit -> unit) -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p>Register a callback which will be called whenever a sample (a buffer in
+      GStreamer terminology) is available. <code class="code">emit_signals</code> should be called first
+      in order for the callback to be called.</p>
+</div>
+</div>
+
+<pre><span id="VALset_max_buffers"><span class="keyword">val</span> set_max_buffers</span> : <code class="type"><a href="Gstreamer.App_sink.html#TYPEt">t</a> -> int -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p>Set the maximal number of internal buffers.</p>
+</div>
+</div>
+</body></html>

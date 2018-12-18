@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+  <title>Savonet / Liquidsoap 1.1.0 :: Multimedia Stream Generation</title>
+  <link href="../css/new.css" type="text/css" rel="stylesheet" />
+  <link href="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.17/themes/base/jquery-ui.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="//www.google.com/jsapi"></script>
+  <link rel="shortcut icon" href="../favicon.ico" />
+  <script>
+    google.load("jquery", "1.6.1");
+    google.load("jqueryui", "1.8.14");
+  </script>
+  <script type="text/javascript" src="../js/jQuery.syntax/jquery.syntax.min.js"></script>
+  <script type="text/javascript" src="../js/liq-jquery.js"></script>
+</head>
+<body>
+  <div class="menu">
+    <ul>
+      <li id="menu-developers">
+        <a href="https://github.com/savonet/liquidsoap/issues" target="_blank">developers</a></li>
+      <li id="menu-flows"><a href="https://flows.liquidsoap.info/">Flows!</a></li>
+      <li id="menu-doc-api-www">
+        <a href="reference.html">API</a></li>
+      <li id="menu-support">
+        <a href="documentation.html">documentation</a></li>
+      <li id="menu-download">
+        <a href="../download.html">download</a></li>
+      <li id="menu-about">
+        <a href="../index.html">about</a></li>
+    </ul>
+  </div>
+  <div class="section" id="main">
+    <h1>Liquidsoap 1.1.0 : Sources using requests</h1>
+    <div class="content">
+      <p>
+Playing files is the most common way to build an audio stream.
+In liquidsoap, files are accessed through <a href="requests.html">requests</a>,
+which combine the retrieval of a possibly remote file, and its
+decoding.
+</p>
+<p>
+Liquidsoap provides several operators for playing requests:
+<code>single</code>, <code>playlist</code> and <code>playlist.safe</code>,
+<code>request.dynamic</code>, <code>request.queue</code> and <code>request.equeue</code>.
+In a few cases (<code>single</code> with a local file,
+or <code>playlist.safe</code>) a request operator will know
+that it can always get a ready request instantaneously.
+It will then be <a href="sources.html">infallible</a>.
+Otherwise, it will have a queue of requests ready
+to be played (local files with a valid content), and will
+feed this queue in the background.
+This process is described here.
+</p>
+<h3>Common parameters</h3>
+<p>
+Queued request sources maintain an <em>estimated remaining time</em>,
+and trigger a new request resolution when this remaining time
+goes below their <code>length</code> parameter.
+</p>
+<p>
+The estimation is based on the duration of files prepared in the queue,
+and the estimated remaining time in the currently playing file.
+Precise file durations being expensive to compute, they are not
+forced: if a duration is provided in the metadata it shall be used,
+otherwise the <code>default_length</code> is assumed.
+</p>
+<p>
+For example, with the default 10 seconds of wanted queue length,
+the operator will only prepare a new file 10 seconds before
+the end of the current one.
+</p>
+<p>
+Up to liquidsoap 0.9.1, the estimated remaining time
+in the current track was not taken into account.
+With this behavior, each request-based source would keep at least
+one song in queue, which was sometimes inconvenient.
+This behavior can be restored by passing <code>conservative=true</code>,
+which is useful in some cases:
+it helps to ensure that a song will be ready in case of skip;
+generally, it prepares things more in advance, which is good when
+resolution is long (<em>e.g.</em>, heavily loaded server, remote files).
+</p>
+<h3>Request.dynamic</h3>
+<p>
+This source takes a custom function for creating its new requests.
+This function, of type <code>()-&gt;request</code>,
+can for example call an external program.
+</p>
+<p>
+To create the request, the function will have 
+to use the <code>request.create</code> function which has type
+<code>(string,?indicators:[string])</code>.
+The first string is the initial URI of the request, 
+which is resolved to get an audio file.
+The second argument can be used to directly specify the first row of URIs
+(see the page about <a href="requests.html">requests</a> for more details),
+in which case the initial URI is just here for naming,
+and the resolving process will try your list of indicators one by one
+until a valid audio file is obtained.
+</p>
+<p>
+An example that takes the output of an external script as an URI
+to create a new request can be:
+</p>
+<pre class="syntax liq">def my_request_function() = 
+  # Get the first line of my external process
+  result =
+    list.hd(
+      get_process_lines("my_script my_params"))
+  # Create and return a request using this result
+  request.create(result)
+end
+
+# Create the source
+s = request.dynamic(my_request_function)
+</pre>
+<div align="right">
+<a href="scripts/scripted_dynamic_request.liq">
+<img class="grab" src="../images/grab.png" alt="Grab the code!">
+</a>
+</div></p>
+<h3>Queues</h3>
+<p>
+Liquidsoap features two sources which provide request queues that
+can be directly manipulated by the user, via the server interface:
+<code>request.queue</code> and <code>request.equeue</code>.
+The former is a queued source where you can only push new requests,
+while the later can be edited.
+</p>
+<p>
+Both operators actually deal with two queues: <em>primary</em> and <em>secondary</em> queues.
+The secondary queue is user-controlled.
+The primary queue is the one that all queued request sources have,
+its behavior is the same as described above, and it cannot be changed
+in any way by the user.
+Requests added to the secondary queue sit there until
+the feeding process gets them and attempts to prepare them
+and put them in the primary queue.
+You can set how many requests will be in that primary queue
+by tweaking the common parameters of all queued request sources.
+</p>
+<p>
+The two sources are controlled via the <a href="advanced.html">command server</a>.
+They both feature commands for looking up the queues,
+queuing new requests, and the <code>equeue</code> operator also allows
+removal and exchange of requests in the secondary queue.
+</p>
+      <div id="footer"> 2003-2017 Savonet team</div>
+    </div>
+  </div>
+  <script type="text/javascript" src="//www.google.com/cse/brand?form=cse-search-box&amp;lang=en"></script>
+  <script type="text/javascript" src="../js/search.js"></script>
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-927362-1']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+</body>
+</html>

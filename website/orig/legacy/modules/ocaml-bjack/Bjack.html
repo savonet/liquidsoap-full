@@ -1,0 +1,304 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link rel="Up" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Bjack" rel="Chapter" href="Bjack.html"><link title="Types and exceptions " rel="Section" href="#2_Typesandexceptions">
+<link title="Blocking API " rel="Section" href="#2_BlockingAPI">
+<link title="Parameters and informations " rel="Section" href="#2_Parametersandinformations">
+<title>Bjack</title>
+</head>
+<body>
+<div class="navbar">&nbsp;<a class="up" href="index.html" title="Index">Up</a>
+&nbsp;</div>
+<h1>Module <a href="type_Bjack.html">Bjack</a></h1>
+
+<pre><span id="MODULEBjack"><span class="keyword">module</span> Bjack</span>: <code class="code">sig</code> <a href="Bjack.html">..</a> <code class="code">end</code></pre><div class="info module top">
+<div class="info-desc">
+<p>Ocaml blocking API to jack audio connection kit</p>
+</div>
+</div>
+<hr width="100%">
+<h3 id="2_Typesandexceptions">Types and exceptions </h3>
+<pre><span id="TYPEt"><span class="keyword">type</span> <code class="type"></code>t</span> </pre>
+<div class="info ">
+<div class="info-desc">
+<p>Type for a Bjack device</p>
+</div>
+</div>
+
+
+<pre><code><span id="TYPEconverter"><span class="keyword">type</span> <code class="type"></code>converter</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTconverter.Best_quality"><span class="constructor">Best_quality</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTconverter.Medium_quality"><span class="constructor">Medium_quality</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTconverter.Fastest"><span class="constructor">Fastest</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTconverter.Zero_order_hold"><span class="constructor">Zero_order_hold</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTconverter.Linear"><span class="constructor">Linear</span></span></code></td>
+
+</tr></table>
+
+<div class="info ">
+<div class="info-desc">
+<p>Various possible samplerate converters</p>
+</div>
+</div>
+
+
+<pre><span id="EXCEPTIONOpen"><span class="keyword">exception</span> Open</span></pre>
+
+<pre><span id="EXCEPTIONBytes_per_output_frame_invalid"><span class="keyword">exception</span> Bytes_per_output_frame_invalid</span></pre>
+
+<pre><span id="EXCEPTIONBytes_per_input_frame_invalid"><span class="keyword">exception</span> Bytes_per_input_frame_invalid</span></pre>
+
+<pre><span id="EXCEPTIONToo_many_output_channels"><span class="keyword">exception</span> Too_many_output_channels</span></pre>
+
+<pre><span id="EXCEPTIONPort_name_output_channel_mismatch"><span class="keyword">exception</span> Port_name_output_channel_mismatch</span></pre>
+
+<pre><span id="EXCEPTIONPort_not_found"><span class="keyword">exception</span> Port_not_found</span></pre>
+
+<pre><span id="EXCEPTIONToo_many_input_channels"><span class="keyword">exception</span> Too_many_input_channels</span></pre>
+
+<pre><span id="EXCEPTIONPort_name_input_channel_mismatch"><span class="keyword">exception</span> Port_name_input_channel_mismatch</span></pre>
+
+<pre><span id="VALset_conversion_function"><span class="keyword">val</span> set_conversion_function</span> : <code class="type"><a href="Bjack.html#TYPEconverter">converter</a> -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p>Set conversion function</p>
+</div>
+</div>
+
+<pre><code><span id="TYPEport_flag"><span class="keyword">type</span> <code class="type"></code>port_flag</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTport_flag.Input"><span class="constructor">Input</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTport_flag.Output"><span class="constructor">Output</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTport_flag.Physical"><span class="constructor">Physical</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTport_flag.Monitor"><span class="constructor">Monitor</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTport_flag.Terminal"><span class="constructor">Terminal</span></span></code></td>
+
+</tr></table>
+
+<div class="info ">
+<div class="info-desc">
+<p>Various jack port options</p>
+</div>
+</div>
+
+<h3 id="2_BlockingAPI">Blocking API </h3>
+<pre><span id="VALopen_t"><span class="keyword">val</span> open_t</span> : <code class="type">?ringbuffer_size:int -><br>       ?server_name:string -><br>       rate:int -><br>       bits_per_sample:int -><br>       input_channels:int -><br>       output_channels:int -><br>       flags:<a href="Bjack.html#TYPEport_flag">port_flag</a> list -> client_name:string -> unit -> <a href="Bjack.html#TYPEt">t</a></code></pre><div class="info ">
+<div class="info-desc">
+<p>Open a Bjack device</p>
+</div>
+</div>
+
+<pre><span id="VALclose"><span class="keyword">val</span> close</span> : <code class="type"><a href="Bjack.html#TYPEt">t</a> -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p>Close a Bjack device</p>
+</div>
+</div>
+
+<pre><span id="VALwrite"><span class="keyword">val</span> write</span> : <code class="type"><a href="Bjack.html#TYPEt">t</a> -> string -> int</code></pre><div class="info ">
+<div class="info-desc">
+<p>Write to a device.
+ Raises <code class="code">Too_many_output_channels</code> if there are no output
+    channels available on the device</p>
+</div>
+</div>
+
+<pre><span id="VALread"><span class="keyword">val</span> read</span> : <code class="type"><a href="Bjack.html#TYPEt">t</a> -> int -> string</code></pre><div class="info ">
+<div class="info-desc">
+<p>Read from a device.
+ Raises <code class="code">Too_many_input_channels</code> if there are no input 
+    channels available on the device</p>
+</div>
+</div>
+
+<pre><span id="VALreset"><span class="keyword">val</span> reset</span> : <code class="type"><a href="Bjack.html#TYPEt">t</a> -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p>Reset a Bjack device</p>
+</div>
+</div>
+<h3 id="2_Parametersandinformations">Parameters and informations </h3>
+<pre><code><span id="TYPEposition_unit"><span class="keyword">type</span> <code class="type"></code>position_unit</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTposition_unit.Bytes"><span class="constructor">Bytes</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTposition_unit.Milliseconds"><span class="constructor">Milliseconds</span></span></code></td>
+
+</tr></table>
+
+
+
+<pre><code><span id="TYPEposition_type"><span class="keyword">type</span> <code class="type"></code>position_type</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTposition_type.Played"><span class="constructor">Played</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTposition_type.Written_to_jack"><span class="constructor">Written_to_jack</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTposition_type.Written"><span class="constructor">Written</span></span></code></td>
+
+</tr></table>
+
+
+
+<pre><span id="VALget_position"><span class="keyword">val</span> get_position</span> : <code class="type">position_unit:<a href="Bjack.html#TYPEposition_unit">position_unit</a> -><br>       position_type:<a href="Bjack.html#TYPEposition_type">position_type</a> -> <a href="Bjack.html#TYPEt">t</a> -> int</code></pre>
+<pre><span id="VALset_position"><span class="keyword">val</span> set_position</span> : <code class="type">position_unit:<a href="Bjack.html#TYPEposition_unit">position_unit</a> -> <a href="Bjack.html#TYPEt">t</a> -> int -> unit</code></pre>
+<pre><span id="VALget_output_latency"><span class="keyword">val</span> get_output_latency</span> : <code class="type"><a href="Bjack.html#TYPEt">t</a> -> int</code></pre>
+<pre><span id="VALget_input_latency"><span class="keyword">val</span> get_input_latency</span> : <code class="type"><a href="Bjack.html#TYPEt">t</a> -> int</code></pre>
+<pre><code><span id="TYPEplaying_state"><span class="keyword">type</span> <code class="type"></code>playing_state</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTplaying_state.Playing"><span class="constructor">Playing</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTplaying_state.Paused"><span class="constructor">Paused</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTplaying_state.Stopped"><span class="constructor">Stopped</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTplaying_state.Closed"><span class="constructor">Closed</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTplaying_state.Reset"><span class="constructor">Reset</span></span></code></td>
+
+</tr></table>
+
+
+
+<pre><span id="VALset_state"><span class="keyword">val</span> set_state</span> : <code class="type"><a href="Bjack.html#TYPEt">t</a> -> <a href="Bjack.html#TYPEplaying_state">playing_state</a> -> unit</code></pre>
+<pre><span id="VALget_state"><span class="keyword">val</span> get_state</span> : <code class="type"><a href="Bjack.html#TYPEt">t</a> -> <a href="Bjack.html#TYPEplaying_state">playing_state</a></code></pre>
+<pre><span id="VALget_max_output_buffered_bytes"><span class="keyword">val</span> get_max_output_buffered_bytes</span> : <code class="type"><a href="Bjack.html#TYPEt">t</a> -> int</code></pre>
+<pre><span id="VALget_max_input_buffered_bytes"><span class="keyword">val</span> get_max_input_buffered_bytes</span> : <code class="type"><a href="Bjack.html#TYPEt">t</a> -> int</code></pre>
+<pre><span id="VALget_jack_buffered_bytes"><span class="keyword">val</span> get_jack_buffered_bytes</span> : <code class="type"><a href="Bjack.html#TYPEt">t</a> -> int</code></pre>
+<pre><code><span id="TYPEvolume"><span class="keyword">type</span> <code class="type"></code>volume</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTvolume.Linear"><span class="constructor">Linear</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTvolume.Decibel"><span class="constructor">Decibel</span></span></code></td>
+
+</tr></table>
+
+
+
+<pre><span id="VALset_volume_effect_type"><span class="keyword">val</span> set_volume_effect_type</span> : <code class="type"><a href="Bjack.html#TYPEt">t</a> -> <a href="Bjack.html#TYPEvolume">volume</a> -> <a href="Bjack.html#TYPEvolume">volume</a></code></pre>
+<pre><span id="VALset_all_volume"><span class="keyword">val</span> set_all_volume</span> : <code class="type"><a href="Bjack.html#TYPEt">t</a> -> int -> unit</code></pre>
+<pre><span id="VALset_channel_volume"><span class="keyword">val</span> set_channel_volume</span> : <code class="type">channel:int -> device:<a href="Bjack.html#TYPEt">t</a> -> int -> unit</code></pre>
+<pre><span id="VALget_channel_volume"><span class="keyword">val</span> get_channel_volume</span> : <code class="type"><a href="Bjack.html#TYPEt">t</a> -> int -> int</code></pre>
+<pre><span id="VALget_output_bytes_per_second"><span class="keyword">val</span> get_output_bytes_per_second</span> : <code class="type"><a href="Bjack.html#TYPEt">t</a> -> int</code></pre>
+<pre><span id="VALget_input_bytes_per_second"><span class="keyword">val</span> get_input_bytes_per_second</span> : <code class="type"><a href="Bjack.html#TYPEt">t</a> -> int</code></pre>
+<pre><span id="VALget_bytes_stored"><span class="keyword">val</span> get_bytes_stored</span> : <code class="type"><a href="Bjack.html#TYPEt">t</a> -> int</code></pre>
+<pre><span id="VALget_bytes_free_space"><span class="keyword">val</span> get_bytes_free_space</span> : <code class="type"><a href="Bjack.html#TYPEt">t</a> -> int</code></pre>
+<pre><span id="VALget_bytes_used_space"><span class="keyword">val</span> get_bytes_used_space</span> : <code class="type"><a href="Bjack.html#TYPEt">t</a> -> int</code></pre>
+<pre><span id="VALget_bytes_per_output_frame"><span class="keyword">val</span> get_bytes_per_output_frame</span> : <code class="type"><a href="Bjack.html#TYPEt">t</a> -> int</code></pre>
+<pre><span id="VALget_bytes_per_input_frame"><span class="keyword">val</span> get_bytes_per_input_frame</span> : <code class="type"><a href="Bjack.html#TYPEt">t</a> -> int</code></pre>
+<pre><span id="VALget_num_output_channels"><span class="keyword">val</span> get_num_output_channels</span> : <code class="type"><a href="Bjack.html#TYPEt">t</a> -> int</code></pre>
+<pre><span id="VALget_num_input_channels"><span class="keyword">val</span> get_num_input_channels</span> : <code class="type"><a href="Bjack.html#TYPEt">t</a> -> int</code></pre>
+<pre><span id="VALget_sample_rate"><span class="keyword">val</span> get_sample_rate</span> : <code class="type"><a href="Bjack.html#TYPEt">t</a> -> int</code></pre></body></html>

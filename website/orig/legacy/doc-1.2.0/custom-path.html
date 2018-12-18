@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+  <title>Savonet / Liquidsoap 1.2.0 :: Multimedia Stream Generation</title>
+  <link href="../css/new.css" type="text/css" rel="stylesheet" />
+  <link href="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.17/themes/base/jquery-ui.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="//www.google.com/jsapi"></script>
+  <link rel="shortcut icon" href="../favicon.ico" />
+  <script>
+    google.load("jquery", "1.6.1");
+    google.load("jqueryui", "1.8.14");
+  </script>
+  <script type="text/javascript" src="../js/jQuery.syntax/jquery.syntax.min.js"></script>
+  <script type="text/javascript" src="../js/liq-jquery.js"></script>
+</head>
+<body>
+  <div class="menu">
+    <ul>
+      <li id="menu-developers">
+        <a href="https://github.com/savonet/liquidsoap/issues" target="_blank">developers</a></li>
+      <li id="menu-flows"><a href="https://flows.liquidsoap.info/">Flows!</a></li>
+      <li id="menu-doc-api-www">
+        <a href="reference.html">API</a></li>
+      <li id="menu-support">
+        <a href="documentation.html">documentation</a></li>
+      <li id="menu-download">
+        <a href="../download.html">download</a></li>
+      <li id="menu-about">
+        <a href="../index.html">about</a></li>
+    </ul>
+  </div>
+  <div class="section" id="main">
+    <h1>Liquidsoap 1.2.0 : Custom loading path</h1>
+    <div class="content">
+      <h3>Basics</h3>
+<p>
+Starting with version <code>1.0.1</code>, it is possible to build a liquidsoap binary that can load
+all its dependencies from any arbitrary path. This is very useful to distribute a liquidsoap
+bundled binary, independent of the distribution used.
+</p>
+<p>
+You can enable custom path at configure time, by passing the <code>--enable-custom-path</code> configuration option.
+A custom loading path is a directory that contains the following file/directories:
+</p>
+<ul>
+<li>
+<code>./camomile</code>: Camomile shared data. They are usually located in <code>/usr/(local/)share/camomile</code></li>
+<li>
+<code>./libs</code>: pervasive scripts. Their are located in <code>liquidsoap/scripts</code> in liquidsoap's sources</li>
+<li>
+<code>./log</code>: default log directories</li>
+<li>
+<code>./magic</code>: directory for magic files. See below for more details.</li>
+<li>
+<code>./plugins</code>: default plugins directory (most likely empty)</li>
+<li>
+<code>./run</code>: default runtime files directory</li>
+<li>
+<code>liquidtts</code>: <code>liquidtts</code> script.</li>
+<li>
+<code>liquidget</code>: <code>liquidget</code> script.</li>
+</ul>
+<h3>Adding liquidsoap binary</h3>
+<p>
+In order to ship a liquidsoap binary which is independent of the distribution it will
+be run on, one need to also include its dynamic libraries, except for the most common.
+The following command may be used to list them:
+</p>
+<pre class="syntax ">ldd ./liquidsoap | grep usr | cut -d' ' -f 3
+</pre>
+<p>
+Those libraries are usually copied into a <code>./ld</code> directory. Then, the <code>LD_LIBRARY_PATH</code>
+is used to point the dynamic loader to this directory.
+</p>
+<p>
+Finally, the <code>liquidsoap</code> library is usually added in <code>./bin/liquidsoap</code>
+</p>
+<h3>Configuration variables</h3>
+<p>
+In the following, configuration variables may refer to either absolute or relative paths. If referring to
+a relative path, the path is resolved relatively to the directory where the <code>liquidsoap</code> binary
+is located at.
+</p>
+<p>
+In order to tell liquidsoap where its custom path is located, you need to set the 
+<code>LIQUIDSOAP_BASE_DIR</code>.
+</p>
+<p>
+Another important variable is <code>MAGIC</code>. It tells liquidsoap where to load the libmagic's
+definitions and defaults to <code>../magic/magic.mgc</code>. Older versions of libmagic may
+require to use <code>magic/magic.mime</code> instead.
+</p>
+<h3>Full example</h3>
+<p>
+For a fully-functional example, you can check our <a href="https://github.com/savonet/heroku-buildpack-liquidsoap">heroku buildpack</a>. 
+Its layout is:
+</p>
+<pre class="syntax ">./bin
+./bin/liquidsoap
+./camomile
+./camomile/charmaps
+(...)
+./ld
+./ld/libao.so.2
+(...)
+./libs
+./libs/externals.liq
+(...)
+./liquidtts
+./log
+./magic
+./magic/magic.mime
+./plugins
+./run
+</pre>
+<p>
+Its configuration variables are set to:
+</p>
+<pre class="syntax ">LD_LIBRARY_PATH=/path/to/ld
+LIQUIDSOAP_BASE_DIR=..
+MAGIC=../magic/magic.mime
+</pre>
+<p>
+As you can see, we use an old version of <code>libmagic</code> so we need to load <code>magic.mime</code> instead of <code>magic.mgc</code>.
+</p>
+      <div id="footer"> 2003-2017 Savonet team</div>
+    </div>
+  </div>
+  <script type="text/javascript" src="//www.google.com/cse/brand?form=cse-search-box&amp;lang=en"></script>
+  <script type="text/javascript" src="../js/search.js"></script>
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-927362-1']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+  <title>Savonet / Liquidsoap 1.0.0 :: Multimedia Stream Generation</title>
+  <link href="../css/new.css" type="text/css" rel="stylesheet" />
+  <link href="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.17/themes/base/jquery-ui.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="//www.google.com/jsapi"></script>
+  <link rel="shortcut icon" href="../favicon.ico" />
+  <script>
+    google.load("jquery", "1.6.1");
+    google.load("jqueryui", "1.8.14");
+  </script>
+  <script type="text/javascript" src="../js/jQuery.syntax/jquery.syntax.min.js"></script>
+  <script type="text/javascript" src="../js/liq-jquery.js"></script>
+</head>
+<body>
+  <div class="menu">
+    <ul>
+      <li id="menu-developers">
+        <a href="https://github.com/savonet/liquidsoap/issues" target="_blank">developers</a></li>
+      <li id="menu-flows"><a href="https://flows.liquidsoap.info/">Flows!</a></li>
+      <li id="menu-doc-api-www">
+        <a href="reference.html">API</a></li>
+      <li id="menu-support">
+        <a href="documentation.html">documentation</a></li>
+      <li id="menu-download">
+        <a href="../download.html">download</a></li>
+      <li id="menu-about">
+        <a href="../index.html">about</a></li>
+    </ul>
+  </div>
+  <div class="section" id="main">
+    <h1>Liquidsoap 1.0.0 : Interactions with the Harbor</h1>
+    <div class="content">
+      <h3>Harbor as HTTP server</h3>
+<p>
+The harbor server can be used as a HTTP server. You 
+can use the function <code>harbor.http.register</code> to register
+HTTP handlers for GET and POST requests. Its parameters
+are are follow:
+</p>
+<p>
+<code>harbor.http.register(port=8080,uri,handler)</code> where:
+</p>
+<ul>
+<li>
+<code>port</code> is the port where to receive incoming connections</li>
+<li>
+<code>uri</code> is used to match requested uri. Perl regular expressions are accepted.</li>
+<li>
+<code>handler</code> is the function used to process requests.</li>
+</ul>
+<p>
+<code>handler</code> function has type:
+</p>
+<pre class="syntax ">(~method:string, ~protocol:string, ~data:string, 
+ ~headers:[(string*string)], string)-&gt;string))-&gt;unit
+</pre>
+<p>
+where:
+</p>
+<ul>
+<li>
+<code>method</code> is the HTTP method used by the client. Currently, one of <code>"POST"</code> or <code>"GET"</code></li>
+<li>
+<code>protocol</code> is the HTTP protocol used by the client. Currently, one of <code>"HTTP/1.0"</code> or <code>"HTTP/1.1"</code></li>
+<li>
+<code>data</code> is the data passed during a POST request</li>
+<li>
+<code>headers</code> is the list of HTTP headers sent by the client</li>
+<li>
+<code>string</code> is the (unparsed) uri requested by the client, e.g.: <code>"/foo?var=bar"</code></li>
+</ul>
+<p>
+The <code>handler</code> function returns HTTP and HTML data to be sent to the client,
+for instance:
+</p>
+<pre class="syntax ">HTTP/1.1 200 OK\r\n\
+Content-type: text/html\r\n\
+Content-Length: 35\r\n\
+\r\n\
+&lt;html&gt;&lt;body&gt;It works!&lt;/body&gt;&lt;/html&gt;
+</pre>
+<p>
+(<code>\r\n</code> should always be used for line return
+in HTTP content)
+</p>
+<p>
+For convenience, a <code>http_response</code> function is provided to 
+create a HTTP response string. It has the following type:
+</p>
+<pre class="syntax ">(?protocol:string,?code:int,?headers:[(string*string)],
+ ?data:string)-&gt;string
+</pre>
+<p>
+where:
+</p>
+<ul>
+<li>
+<code>protocol</code> is the HTTP protocol of the response (default <code>HTTP/1.1</code>)</li>
+<li>
+<code>code</code> is the response code (default <code>200</code>)</li>
+<li>
+<code>headers</code> is the response headers. It defaults to <code>[]</code> but an appropriate <code>"Content-Length"</code> header is added if not set by the user and <code>data</code> is not empty.</li>
+<li>
+<code>data</code> is an optional response data (default <code>""</code>)</li>
+</ul>
+<p>
+Thess functions can be used to create your own HTTP interface. Some examples
+are:
+</p>
+<h4>Redirect Icecast's pages</h4>
+<p>
+Some source clients using the harbor may also request pages that
+are served by an icecast server, for instance listeners statistics.
+In this case, you can register the following handler:
+</p>
+<pre class="syntax liq"># Redirect all files other
+# than /admin.* to icecast,
+# located at localhost:8000
+def redirect_icecast(~method,~protocol,~data,~headers,uri) =
+   http_response(
+     protocol=protocol,
+     code=301,
+     headers=[("Location","http://localhost:8000#{uri}")]
+   )
+end
+
+# Register this handler at port 8005
+# (provided harbor sources are also served
+#  from this port).
+harbor.http.register(port=8005,"^/(?!admin)",
+                     redirect_icecast)
+</pre>
+<div align="right">
+<a href="scripts/icecast_redirect.liq">
+<img class="grab" src="../images/grab.png" alt="Grab the code!">
+</a>
+</div></p>
+<p>
+Another alternative, less recommended, is to
+directly fetch the page's content from the Icecast server:
+</p>
+<pre class="syntax liq"># Serve all files other
+# than /admin.* by fetching data
+# from Icecast, located at localhost:8000
+def proxy_icecast(~method,~protocol,~data,~headers,uri) =
+  def f(x) =
+    # Replace Host
+    if string.capitalize(fst(x)) == "HOST" then
+      "Host: localhost:8000"
+    else
+      "#{fst(x)}: #{snd(x)}"
+    end
+  end
+  headers = list.map(f,headers)
+  headers = string.concat(separator="\r\n",headers)
+  request = 
+    "#{method} #{uri} #{protocol}\r\n\
+     #{headers}\r\n\r\n"
+  get_process_output("echo #{quote(request)} | \
+                      nc localhost 8000")
+end
+
+# Register this handler at port 8005
+# (provided harbor sources are also served
+#  from this port).
+harbor.http.register(port=8005,"^/(?!admin)",
+                     proxy_icecast)
+</pre>
+<div align="right">
+<a href="scripts/icecast_proxy.liq">
+<img class="grab" src="../images/grab.png" alt="Grab the code!">
+</a>
+</div></p>
+<p>
+This method is not recommended because some servers may not
+close the socket after serving a request, causing <code>nc</code> and
+liquidsoap to hang.
+</p>
+<h4>Get metadata</h4>
+<p>
+You can use harbor to register HTTP services to 
+fecth/set the metadata of a source. For instance, 
+using the <a href="json.html">JSON export function</a> <code>json_of</code>:
+</p>
+<pre class="syntax liq">meta = ref []
+
+# s = some source
+
+# Update current metadata
+# converted in UTF8
+def update_meta(m) =
+  m = metadata.export(m)
+  recode = string.recode(out_enc="UTF-8")
+  def f(x) =
+    (recode(fst(x)),recode(snd(x)))
+  end
+  meta := list.map(f,m)
+end
+
+# Apply update_metadata
+# every time we see a new
+# metadata
+s = on_metadata(update_meta,s)
+
+# Return the json content
+# of meta
+def get_meta(~method,~protocol,~data,~headers,uri) =
+  m = !meta
+  http_response(
+    protocol=protocol,
+    code=200,
+    headers=[("Content-Type","application/json; charset=utf-8")],
+    data=json_of(m)
+  )
+end
+
+# Register get_meta at port 700
+harbor.http.register(port=7000,"/getmeta",get_meta)
+</pre>
+<div align="right">
+<a href="scripts/get_json_metadata.liq">
+<img class="grab" src="../images/grab.png" alt="Grab the code!">
+</a>
+</div></p>
+<p>
+Once the script is running, 
+a GET/POST request for <code>/getmeta</code> at port <code>7000</code>
+returns the following:
+</p>
+<pre class="syntax ">HTTP/1.1 200 OK
+Content-Type: application/json; charset=utf-8
+
+{
+  "genre": "Soul",
+  "album": "The Complete Stax-Volt Singles: 1959-1968 (Disc 8)",
+  "artist": "Astors",
+  "title": "Daddy Didn't Tell Me"
+}
+</pre>
+<p>
+Which can be used with AJAX-based backends to fetch the current 
+metadata of source <code>s</code>
+</p>
+<h4>Set metadata</h4>
+<p>
+Using <code>insert_metadata</code>, you can register a GET handler that
+updates the metadata of a given source. For instance:
+</p>
+<pre class="syntax liq">
+# s = some source
+
+# x is of type ((metadata)-&gt;unit)*source
+# first part is a function used to update
+# metadata and second part is the source 
+# whose metadata are updated
+x = insert_metadata(s)
+
+# Get the function
+insert = fst(x)
+
+# Redefine s as the new source
+s = snd(x)
+
+# The handler
+def set_meta(~method,~protocol,~data,~headers,uri) =
+  # Split uri of the form request?foo=bar&...
+  # into (request,[("foo","bar"),..])
+  x = url.split(uri)
+
+  # Filter out unusual metadata
+  meta = metadata.export(snd(x))
+  
+  # Grab the returned message
+  ret =
+    if meta != [] then
+      insert(meta)
+      "OK!"
+    else
+      "No metadata to add!"
+  end
+
+  # Return response
+  http_response(
+   protocol=protocol,
+   code=200,
+   headers=[("Content-Type","text/html")],
+   data="&lt;html&gt;&lt;body&gt;&lt;b&gt;#{ret}&lt;/b&gt;&lt;/body&gt;&lt;/html&gt;"
+  )
+end
+
+# Register handler on port 700
+harbor.http.register(port=7000,"/setmeta",set_meta)
+</pre>
+<div align="right">
+<a href="scripts/set_json_metadata.liq">
+<img class="grab" src="../images/grab.png" alt="Grab the code!">
+</a>
+</div></p>
+<p>
+Now, a request of the form <code>http://server:7000/setmeta?title=foo</code>
+will update the metadata of source <code>s</code> with <code>[("title","foo")]</code>. You
+can use this handler, for instance, in a custom HTML form.
+</p>
+<h3>Limitations</h3>
+<p>
+When using harbor's HTTP server, please be warned that the server is 
+<b>not</b> meant to be used under heavy load. Therefore, it should <b>not</b>
+be exposed to your users/listeners if you expect many of them. In this
+case, you should use it as a backend/middle-end and have some kind of 
+caching between harbor and the final user. In particular, the harbor server
+is not meant to server big files because it loads their entire content in 
+memory before sending them. However, the harbor HTTP server is fully equipped 
+to serve any kind of CGI script. 
+</p>
+      <div id="footer"> 2003-2017 Savonet team</div>
+    </div>
+  </div>
+  <script type="text/javascript" src="//www.google.com/cse/brand?form=cse-search-box&amp;lang=en"></script>
+  <script type="text/javascript" src="../js/search.js"></script>
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-927362-1']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+</body>
+</html>

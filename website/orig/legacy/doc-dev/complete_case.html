@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+  <title>Savonet / Liquidsoap dev :: Multimedia Stream Generation</title>
+  <link href="../css/new.css" type="text/css" rel="stylesheet" />
+  <link href="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.17/themes/base/jquery-ui.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="//www.google.com/jsapi"></script>
+  <link rel="shortcut icon" href="../favicon.ico" />
+  <script>
+    google.load("jquery", "1.6.1");
+    google.load("jqueryui", "1.8.14");
+  </script>
+  <script type="text/javascript" src="../js/jQuery.syntax/jquery.syntax.min.js"></script>
+  <script type="text/javascript" src="../js/liq-jquery.js"></script>
+</head>
+<body>
+  <div class="menu">
+    <ul>
+      <li id="menu-developers">
+        <a href="https://github.com/savonet/liquidsoap/issues" target="_blank">developers</a></li>
+      <li id="menu-flows"><a href="https://flows.liquidsoap.info/">Flows!</a></li>
+      <li id="menu-doc-api-www">
+        <a href="reference.html">API</a></li>
+      <li id="menu-support">
+        <a href="documentation.html">documentation</a></li>
+      <li id="menu-download">
+        <a href="../download.html">download</a></li>
+      <li id="menu-about">
+        <a href="../index.html">about</a></li>
+    </ul>
+  </div>
+  <div class="section" id="main">
+    <h1>Liquidsoap dev : A complete case analysis</h1>
+    <div class="content">
+      <h3>A complete case analysis</h3>
+<p>
+We will develop here a more complex example, according to the following specifications:
+</p>
+<ul>
+<li>
+play different playlists during the day;</li>
+<li>
+play user requests &ndash; done via the telnet server;</li>
+<li>
+insert about 1 jingle every 5 songs;</li>
+<li>
+add one special jingle at the beginning of every hour, mixed on top of the normal stream;</li>
+<li>
+relay live shows as soon as one is available;</li>
+<li>
+and set up several outputs.</li>
+</ul>
+<p>
+Once you've managed to describe what you want in such a modular way, you're half the way. More precisely, you should think of a diagram such as the following, through which the audio streams flow, following the arrows. The nodes can modify the stream using some basic operators: switching and mixing in our case. The final nodes, the ends of the paths, are outputs: they are in charge of pulling the data out of the graph and send it to the world. In our case, we only have outputs to icecast, using two different formats.
+</p>
+<img alt="Graph for 'radio.liq'" src="../images/liqgraph.png" /><p>
+Now here is how to write that in <a href="index.html">Liquidsoap</a>.
+</p>
+<pre class="syntax liq">#!/usr/bin/liquidsoap
+
+# Lines starting with # are comments, they are ignored.
+
+# Put the log file in some directory where
+# you have permission to write.
+set("log.file.path","/tmp/&lt;script&gt;.log")
+# Print log messages to the console,
+# can also be done by passing the -v option to liquidsoap.
+set("log.stdout", true)
+# Use the telnet server for requests
+set("server.telnet", true)
+
+# A bunch of files and playlists,
+# supposedly all located in the same base dir.
+
+default = single("~/radio/default.ogg")
+
+day     = playlist("~/radio/day.pls")
+night   = playlist("~/radio/night.pls")
+jingles = playlist("~/radio/jingles.pls")
+
+clock   = single("~/radio/clock.ogg")
+start   = single("~/radio/live_start.ogg")
+stop    = single("~/radio/live_stop.ogg")
+
+# Play user requests if there are any,
+# otherwise one of our playlists,
+# and the default file if anything goes wrong.
+radio = fallback([ request.queue(id="request"),
+	                switch([({ 6h-22h }, day),
+	                        ({ 22h-6h }, night)]),
+	                default])
+# Add the normal jingles
+radio = random(weights=[1,5],[ jingles, radio ])
+# And the clock jingle
+radio = add([radio, switch([({0m0s},clock)])])
+
+# Add the ability to relay live shows
+full =
+  fallback(track_sensitive=false,
+           [input.http("http://localhost:8000/live.ogg"),
+            radio])
+
+# Output the full stream in OGG and MP3
+output.icecast(%mp3, 
+  host="localhost",port=8000,password="hackme",
+  mount="radio",full)
+output.icecast(%vorbis, 
+  host="localhost",port=8000,password="hackme",
+  mount="radio.ogg",full)
+
+# Output the stream without live in OGG
+output.icecast(%vorbis, 
+  host="localhost",port=8000,password="hackme",
+  mount="radio_nolive.ogg",radio)
+</pre>
+<div align="right">
+<a href="scripts/complete_case.liq">
+<img class="grab" src="../images/grab.png" alt="Grab the code!">
+</a>
+</div></p>
+<p>
+To try this example you need to edit the file names. In order to witness the switch from one playlist to another you can change the time intervals. If it is 16:42, try the intervals <code>0h-16h45</code> and <code>16h45-24h</code> instead of <code>6h-22h</code> and <code>22h-6h</code>. To witness the clock jingle, you can ask for it to be played every minute by using the <code>0s</code> interval instead of <code>0m0s</code>.
+</p>
+<p>
+To try the transition to a live show you need to start a new stream on the <code>live.ogg</code> mount of your server. You can send a playlist to it using examples from the <a href="quick_start.html">quickstart</a>. To start a real live show from soundcard input you can use <code>darkice</code>, or simply liquidsoap if you have a working ALSA input, with:
+</p>
+<pre class="syntax sh">liquidsoap 'output.icecast(%vorbis, 
+  mount="live.ogg",host="...",password="...",input.alsa())'
+</pre>
+<div align="right">
+<a href="scripts/run_alsa_input.sh">
+<img class="grab" src="../images/grab.png" alt="Grab the code!">
+</a>
+</div></p>
+      <div id="footer"> 2003-2017 Savonet team</div>
+    </div>
+  </div>
+  <script type="text/javascript" src="//www.google.com/cse/brand?form=cse-search-box&amp;lang=en"></script>
+  <script type="text/javascript" src="../js/search.js"></script>
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-927362-1']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+</body>
+</html>

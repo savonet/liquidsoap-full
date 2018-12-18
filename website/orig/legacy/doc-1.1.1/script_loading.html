@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+  <title>Savonet / Liquidsoap 1.1.1 :: Multimedia Stream Generation</title>
+  <link href="../css/new.css" type="text/css" rel="stylesheet" />
+  <link href="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.17/themes/base/jquery-ui.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="//www.google.com/jsapi"></script>
+  <link rel="shortcut icon" href="../favicon.ico" />
+  <script>
+    google.load("jquery", "1.6.1");
+    google.load("jqueryui", "1.8.14");
+  </script>
+  <script type="text/javascript" src="../js/jQuery.syntax/jquery.syntax.min.js"></script>
+  <script type="text/javascript" src="../js/liq-jquery.js"></script>
+</head>
+<body>
+  <div class="menu">
+    <ul>
+      <li id="menu-developers">
+        <a href="https://github.com/savonet/liquidsoap/issues" target="_blank">developers</a></li>
+      <li id="menu-flows"><a href="https://flows.liquidsoap.info/">Flows!</a></li>
+      <li id="menu-doc-api-www">
+        <a href="reference.html">API</a></li>
+      <li id="menu-support">
+        <a href="documentation.html">documentation</a></li>
+      <li id="menu-download">
+        <a href="../download.html">download</a></li>
+      <li id="menu-about">
+        <a href="../index.html">about</a></li>
+    </ul>
+  </div>
+  <div class="section" id="main">
+    <h1>Liquidsoap 1.1.1 : Script loading</h1>
+    <div class="content">
+      <h3>Script loading</h3>
+<p>
+When you run liquidsoap for streaming, the command line has the following form:
+</p>
+<pre class="syntax ">$ liquidsoap script_or_expr_1 ... script_or_expr_N
+</pre>
+<p>
+This allows you to ask liquidsoap to load definition and settings from
+some scripts so that the become available when processing the next ones.
+</p>
+<p>
+For example you can store your passwords by defined the variable <code>xxx</code>
+in <code>secret.liq</code>, and then refer to that variable in your main script 
+<code>main.liq</code>. You would then run <code>liquidsoap secret.liq main.liq</code>. If you ever 
+need to communicate <code>main.liq</code> there won't be any risk of divulgating your 
+password.
+</p>
+<h4>The pervasive script library</h4>
+<p>
+In fact, liquidsoap also implicitly loads scripts before those that you specify 
+on the command-line. These scripts are meant to contain standard utilities.
+Liquidsoap finds them in <code>LIBDIR/liquidsoap/VERSION</code> where <code>LIBDIR</code> depends on 
+your configuration (it is typically <code>/usr/local/lib</code> or <code>/usr/lib</code>) and 
+<code>VERSION</code> is the version of liquidsoap (<em>e.g.</em> <code>0.3.8</code> or <code>svn</code>).
+</p>
+<p>
+Currently, liquidsoap loads <code>pervasives.liq</code> from the library directory,
+and this file includes some others.
+You can add your personal standard library in that directory
+if you find it useful.
+</p>
+      <div id="footer"> 2003-2017 Savonet team</div>
+    </div>
+  </div>
+  <script type="text/javascript" src="//www.google.com/cse/brand?form=cse-search-box&amp;lang=en"></script>
+  <script type="text/javascript" src="../js/search.js"></script>
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-927362-1']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+</body>
+</html>

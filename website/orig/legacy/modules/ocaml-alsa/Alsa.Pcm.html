@@ -1,0 +1,449 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link rel="Up" href="Alsa.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Alsa" rel="Chapter" href="Alsa.html"><title>Alsa.Pcm</title>
+</head>
+<body>
+<div class="navbar">&nbsp;<a class="up" href="Alsa.html" title="Alsa">Up</a>
+&nbsp;</div>
+<h1>Module <a href="type_Alsa.Pcm.html">Alsa.Pcm</a></h1>
+
+<pre><span id="MODULEPcm"><span class="keyword">module</span> Pcm</span>: <code class="code">sig</code> <a href="Alsa.Pcm.html">..</a> <code class="code">end</code></pre><hr width="100%">
+
+<pre><span id="TYPEhandle"><span class="keyword">type</span> <code class="type"></code>handle</span> </pre>
+<div class="info ">
+<div class="info-desc">
+<p>Handle to a device.</p>
+</div>
+</div>
+
+
+<pre><span id="TYPEparams"><span class="keyword">type</span> <code class="type"></code>params</span> </pre>
+<div class="info ">
+<div class="info-desc">
+<p>Parameters of a device.</p>
+</div>
+</div>
+
+
+<pre><code><span id="TYPEstream"><span class="keyword">type</span> <code class="type"></code>stream</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTstream.Playback"><span class="constructor">Playback</span></span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<div class="info-desc">
+<p>Playback stream.</p>
+</div>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTstream.Capture"><span class="constructor">Capture</span></span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<div class="info-desc">
+<p>Capture stream.</p>
+</div>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr></table>
+
+<div class="info ">
+<div class="info-desc">
+<p>Wanted stream.</p>
+</div>
+</div>
+
+
+<pre><code><span id="TYPEmode"><span class="keyword">type</span> <code class="type"></code>mode</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTmode.Async"><span class="constructor">Async</span></span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<div class="info-desc">
+<p>Asynchronous notification (not supported yet).</p>
+</div>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTmode.Non_blocking"><span class="constructor">Non_blocking</span></span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<div class="info-desc">
+<p>Non blocking I/O.</p>
+</div>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr></table>
+
+<div class="info ">
+<div class="info-desc">
+<p>Modes for opening a stream.</p>
+</div>
+</div>
+
+
+<pre><span id="VALopen_pcm"><span class="keyword">val</span> open_pcm</span> : <code class="type">string -> <a href="Alsa.Pcm.html#TYPEstream">stream</a> list -> <a href="Alsa.Pcm.html#TYPEmode">mode</a> list -> <a href="Alsa.Pcm.html#TYPEhandle">handle</a></code></pre>
+<pre><span id="VALclose"><span class="keyword">val</span> close</span> : <code class="type"><a href="Alsa.Pcm.html#TYPEhandle">handle</a> -> unit</code></pre>
+<pre><span id="VALprepare"><span class="keyword">val</span> prepare</span> : <code class="type"><a href="Alsa.Pcm.html#TYPEhandle">handle</a> -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p>Prepare PCM for use.</p>
+</div>
+</div>
+
+<pre><span id="VALresume"><span class="keyword">val</span> resume</span> : <code class="type"><a href="Alsa.Pcm.html#TYPEhandle">handle</a> -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p>Resume from suspend, no samples are lost.</p>
+</div>
+</div>
+
+<pre><span id="VALrecover"><span class="keyword">val</span> recover</span> : <code class="type">?verbose:bool -> <a href="Alsa.Pcm.html#TYPEhandle">handle</a> -> exn -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p>Recover the stream state from an error or suspend.
+ This a high-level helper function building on other functions.
+ This functions handles Interrupted, Buffer_xrun and Suspended 
+ exceptions trying to prepare given stream for next I/O. 
+ Raises the given exception when not recognized/used.</p>
+</div>
+</div>
+
+<pre><span id="VALstart"><span class="keyword">val</span> start</span> : <code class="type"><a href="Alsa.Pcm.html#TYPEhandle">handle</a> -> unit</code></pre>
+<pre><span id="VALdrain"><span class="keyword">val</span> drain</span> : <code class="type"><a href="Alsa.Pcm.html#TYPEhandle">handle</a> -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p>Stop a PCM preserving pending frames.</p>
+</div>
+</div>
+
+<pre><span id="VALdrop"><span class="keyword">val</span> drop</span> : <code class="type"><a href="Alsa.Pcm.html#TYPEhandle">handle</a> -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p>Stop a PCM dropping pending frames.</p>
+</div>
+</div>
+
+<pre><span id="VALpause"><span class="keyword">val</span> pause</span> : <code class="type"><a href="Alsa.Pcm.html#TYPEhandle">handle</a> -> bool -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p><code class="code">pause hnd pause</code> pauses (when <code class="code">pause</code> is <code class="code">true</code>) or resume (when <code class="code">pause</code>
+ is <code class="code">false</code>) a PCM.</p>
+</div>
+</div>
+
+<pre><span id="VALreset"><span class="keyword">val</span> reset</span> : <code class="type"><a href="Alsa.Pcm.html#TYPEhandle">handle</a> -> unit</code></pre>
+<pre><span id="VALwait"><span class="keyword">val</span> wait</span> : <code class="type"><a href="Alsa.Pcm.html#TYPEhandle">handle</a> -> int -> bool</code></pre><div class="info ">
+<div class="info-desc">
+<p>Wait for a PCM to become ready. The second argument is the timeout in
+ milliseconds (negative for infinite). Returns <code class="code">false</code> if a timeout
+ occured.</p>
+</div>
+</div>
+
+<pre><span id="VALreadi"><span class="keyword">val</span> readi</span> : <code class="type"><a href="Alsa.Pcm.html#TYPEhandle">handle</a> -> string -> int -> int -> int</code></pre><div class="info ">
+<div class="info-desc">
+<p><code class="code">readi handle buf ofs len</code> reads <code class="code">len</code> interleaved <i>frames</i> in <code class="code">buf</code>
+ starting at offset <code class="code">ofs</code> (in bytes). It returns the actual number of
+ frames read.</p>
+</div>
+</div>
+
+<pre><span id="VALwritei"><span class="keyword">val</span> writei</span> : <code class="type"><a href="Alsa.Pcm.html#TYPEhandle">handle</a> -> string -> int -> int -> int</code></pre><div class="info ">
+<div class="info-desc">
+<p><code class="code">writei handle buf ofs len</code> writes <code class="code">len</code> interleaved <i>frames</i> of <code class="code">buf</code>
+ starting at offset <code class="code">ofs</code> (in bytes).</p>
+</div>
+</div>
+
+<pre><span id="VALreadn"><span class="keyword">val</span> readn</span> : <code class="type"><a href="Alsa.Pcm.html#TYPEhandle">handle</a> -> string array -> int -> int -> int</code></pre>
+<pre><span id="VALwriten"><span class="keyword">val</span> writen</span> : <code class="type"><a href="Alsa.Pcm.html#TYPEhandle">handle</a> -> string array -> int -> int -> int</code></pre>
+<pre><span id="VALreadn_float"><span class="keyword">val</span> readn_float</span> : <code class="type"><a href="Alsa.Pcm.html#TYPEhandle">handle</a> -> float array array -> int -> int -> int</code></pre>
+<pre><span id="VALwriten_float"><span class="keyword">val</span> writen_float</span> : <code class="type"><a href="Alsa.Pcm.html#TYPEhandle">handle</a> -> float array array -> int -> int -> int</code></pre>
+<pre><span id="VALreadn_float64"><span class="keyword">val</span> readn_float64</span> : <code class="type"><a href="Alsa.Pcm.html#TYPEhandle">handle</a> -> float array array -> int -> int -> int</code></pre>
+<pre><span id="VALwriten_float64"><span class="keyword">val</span> writen_float64</span> : <code class="type"><a href="Alsa.Pcm.html#TYPEhandle">handle</a> -> float array array -> int -> int -> int</code></pre>
+<pre><span id="VALget_delay"><span class="keyword">val</span> get_delay</span> : <code class="type"><a href="Alsa.Pcm.html#TYPEhandle">handle</a> -> int</code></pre><div class="info ">
+<div class="info-desc">
+<p>Get the delay (in frames).</p>
+</div>
+</div>
+
+<pre><code><span id="TYPEstate"><span class="keyword">type</span> <code class="type"></code>state</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTstate.St_open"><span class="constructor">St_open</span></span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<div class="info-desc">
+<p>open</p>
+</div>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTstate.St_setup"><span class="constructor">St_setup</span></span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<div class="info-desc">
+<p>setup installed</p>
+</div>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTstate.St_prepared"><span class="constructor">St_prepared</span></span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<div class="info-desc">
+<p>ready to start</p>
+</div>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTstate.St_running"><span class="constructor">St_running</span></span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<div class="info-desc">
+<p>running</p>
+</div>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTstate.St_xrun"><span class="constructor">St_xrun</span></span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<div class="info-desc">
+<p>stopped: underrun (playback) or overrun (capture) detected</p>
+</div>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTstate.St_draining"><span class="constructor">St_draining</span></span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<div class="info-desc">
+<p>draining: running (playback) or stopped (capture)</p>
+</div>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTstate.St_paused"><span class="constructor">St_paused</span></span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<div class="info-desc">
+<p>paused</p>
+</div>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTstate.St_suspended"><span class="constructor">St_suspended</span></span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<div class="info-desc">
+<p>hardware is suspended</p>
+</div>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTstate.St_disconnected"><span class="constructor">St_disconnected</span></span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<div class="info-desc">
+<p>hardward is disconnected</p>
+</div>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr></table>
+
+<div class="info ">
+<div class="info-desc">
+<p>State.</p>
+</div>
+</div>
+
+
+<pre><span id="VALget_state"><span class="keyword">val</span> get_state</span> : <code class="type"><a href="Alsa.Pcm.html#TYPEhandle">handle</a> -> <a href="Alsa.Pcm.html#TYPEstate">state</a></code></pre><div class="info ">
+<div class="info-desc">
+<p>Get the current state.</p>
+</div>
+</div>
+
+<pre><span id="VALget_params"><span class="keyword">val</span> get_params</span> : <code class="type"><a href="Alsa.Pcm.html#TYPEhandle">handle</a> -> <a href="Alsa.Pcm.html#TYPEparams">params</a></code></pre>
+<pre><span id="VALset_params"><span class="keyword">val</span> set_params</span> : <code class="type"><a href="Alsa.Pcm.html#TYPEhandle">handle</a> -> <a href="Alsa.Pcm.html#TYPEparams">params</a> -> unit</code></pre>
+<pre><code><span id="TYPEaccess"><span class="keyword">type</span> <code class="type"></code>access</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTaccess.Access_rw_interleaved"><span class="constructor">Access_rw_interleaved</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTaccess.Access_rw_noninterleaved"><span class="constructor">Access_rw_noninterleaved</span></span></code></td>
+
+</tr></table>
+
+<div class="info ">
+<div class="info-desc">
+<p>Access mode.</p>
+</div>
+</div>
+
+
+<pre><span id="VALset_access"><span class="keyword">val</span> set_access</span> : <code class="type"><a href="Alsa.Pcm.html#TYPEhandle">handle</a> -> <a href="Alsa.Pcm.html#TYPEparams">params</a> -> <a href="Alsa.Pcm.html#TYPEaccess">access</a> -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p>Set the access mode.</p>
+</div>
+</div>
+
+<pre><code><span id="TYPEfmt"><span class="keyword">type</span> <code class="type"></code>fmt</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTfmt.Format_s16_le"><span class="constructor">Format_s16_le</span></span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<div class="info-desc">
+<p>16 bits, little endian</p>
+</div>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTfmt.Format_s24_3le"><span class="constructor">Format_s24_3le</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTfmt.Format_float"><span class="constructor">Format_float</span></span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<div class="info-desc">
+<p>float 32 bit CPU endian</p>
+</div>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTfmt.Format_float64"><span class="constructor">Format_float64</span></span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<div class="info-desc">
+<p>float 64 bit CPU endian</p>
+</div>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr></table>
+
+<div class="info ">
+<div class="info-desc">
+<p>Format of audio data.</p>
+</div>
+</div>
+
+
+<pre><span id="VALset_format"><span class="keyword">val</span> set_format</span> : <code class="type"><a href="Alsa.Pcm.html#TYPEhandle">handle</a> -> <a href="Alsa.Pcm.html#TYPEparams">params</a> -> <a href="Alsa.Pcm.html#TYPEfmt">fmt</a> -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p>Set the format of audio data.</p>
+</div>
+</div>
+
+<pre><span id="VALset_rate_near"><span class="keyword">val</span> set_rate_near</span> : <code class="type"><a href="Alsa.Pcm.html#TYPEhandle">handle</a> -> <a href="Alsa.Pcm.html#TYPEparams">params</a> -> int -> <a href="Alsa.html#TYPEdirection">Alsa.direction</a> -> int</code></pre><div class="info ">
+<div class="info-desc">
+<p><code class="code">set_rate_near handle params rate dir</code> sets the sampling rate (in Hz).
+ If the rate is not avalaible, <code class="code">dir</code> is used to determine the direction of
+ the nearest available sampling rate to use . The actual sampling rate used
+ is returned.</p>
+</div>
+</div>
+
+<pre><span id="VALset_channels"><span class="keyword">val</span> set_channels</span> : <code class="type"><a href="Alsa.Pcm.html#TYPEhandle">handle</a> -> <a href="Alsa.Pcm.html#TYPEparams">params</a> -> int -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p>Set the number of channels.</p>
+</div>
+</div>
+
+<pre><span id="VALset_periods"><span class="keyword">val</span> set_periods</span> : <code class="type"><a href="Alsa.Pcm.html#TYPEhandle">handle</a> -> <a href="Alsa.Pcm.html#TYPEparams">params</a> -> int -> <a href="Alsa.html#TYPEdirection">Alsa.direction</a> -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p>Set the number of periods.</p>
+</div>
+</div>
+
+<pre><span id="VALget_periods_min"><span class="keyword">val</span> get_periods_min</span> : <code class="type"><a href="Alsa.Pcm.html#TYPEparams">params</a> -> int * <a href="Alsa.html#TYPEdirection">Alsa.direction</a></code></pre><div class="info ">
+<div class="info-desc">
+<p>Get the number of periods.</p>
+</div>
+</div>
+
+<pre><span id="VALget_periods_max"><span class="keyword">val</span> get_periods_max</span> : <code class="type"><a href="Alsa.Pcm.html#TYPEparams">params</a> -> int * <a href="Alsa.html#TYPEdirection">Alsa.direction</a></code></pre>
+<pre><span id="VALset_buffer_size"><span class="keyword">val</span> set_buffer_size</span> : <code class="type"><a href="Alsa.Pcm.html#TYPEhandle">handle</a> -> <a href="Alsa.Pcm.html#TYPEparams">params</a> -> int -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p>Set the buffer size in <i>frames</i>.</p>
+</div>
+</div>
+
+<pre><span id="VALset_buffer_size_near"><span class="keyword">val</span> set_buffer_size_near</span> : <code class="type"><a href="Alsa.Pcm.html#TYPEhandle">handle</a> -> <a href="Alsa.Pcm.html#TYPEparams">params</a> -> int -> int</code></pre><div class="info ">
+<div class="info-desc">
+<p>Set the buffer size near a value in <i>frames</i>.</p>
+</div>
+</div>
+
+<pre><span id="VALget_buffer_size_min"><span class="keyword">val</span> get_buffer_size_min</span> : <code class="type"><a href="Alsa.Pcm.html#TYPEparams">params</a> -> int</code></pre>
+<pre><span id="VALget_buffer_size_max"><span class="keyword">val</span> get_buffer_size_max</span> : <code class="type"><a href="Alsa.Pcm.html#TYPEparams">params</a> -> int</code></pre>
+<pre><span id="VALset_nonblock"><span class="keyword">val</span> set_nonblock</span> : <code class="type"><a href="Alsa.Pcm.html#TYPEhandle">handle</a> -> bool -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p>Set blocking mode (<code class="code">true</code> means non-blocking).</p>
+</div>
+</div>
+
+<pre><span id="VALget_frame_size"><span class="keyword">val</span> get_frame_size</span> : <code class="type"><a href="Alsa.Pcm.html#TYPEparams">params</a> -> int</code></pre><div class="info ">
+<div class="info-desc">
+<p>Get the size of a frame in bytes.</p>
+</div>
+</div>
+</body></html>

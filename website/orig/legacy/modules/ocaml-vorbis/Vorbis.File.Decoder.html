@@ -1,0 +1,121 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link rel="Up" href="Vorbis.File.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Ogg_demuxer_vorbis_decoder" rel="Chapter" href="Ogg_demuxer_vorbis_decoder.html">
+<link title="Vorbis" rel="Chapter" href="Vorbis.html"><title>Vorbis.File.Decoder</title>
+</head>
+<body>
+<div class="navbar">&nbsp;<a class="up" href="Vorbis.File.html" title="Vorbis.File">Up</a>
+&nbsp;</div>
+<h1>Module <a href="type_Vorbis.File.Decoder.html">Vorbis.File.Decoder</a></h1>
+
+<pre><span id="MODULEDecoder"><span class="keyword">module</span> Decoder</span>: <code class="code">sig</code> <a href="Vorbis.File.Decoder.html">..</a> <code class="code">end</code></pre><hr width="100%">
+
+<pre><span id="TYPEt"><span class="keyword">type</span> <code class="type"></code>t</span> </pre>
+<div class="info ">
+<div class="info-desc">
+<p>Internal state of a decoder.</p>
+</div>
+</div>
+
+
+<pre><span id="VALcreate"><span class="keyword">val</span> create</span> : <code class="type">(int -> string * int) -><br>       (int -> Unix.seek_command -> int) -> (unit -> int) -> <a href="Vorbis.File.Decoder.html#TYPEt">t</a></code></pre><div class="info ">
+<div class="info-desc">
+<p><code class="code">create read_func seek_func tell_func params</code> opens a
+ stream like <code class="code">openfile</code> for decoding but callbacks are used to
+ manipulate the data. <code class="code">read_func</code> should return the requested amount of bytes
+ (or less if it is the end of file), <code class="code">seek_funk</code> should return 0 if the seek
+ was ok or -1 if the stream is not seekable, <code class="code">tell_func</code> should return the current 
+ offset or -1 if there is no notion of offset in the stream. 
+ Raises: <code class="code">Read_error</code>, <code class="code">Not_vorbis</code>, <code class="code">Version_mismatch</code>, <code class="code">Bad_header</code>, <code class="code">Internal_fault</code>.</p>
+</div>
+</div>
+
+<pre><span id="VALopenfile"><span class="keyword">val</span> openfile</span> : <code class="type">string -> <a href="Vorbis.File.Decoder.html#TYPEt">t</a> * Unix.file_descr</code></pre><div class="info ">
+<div class="info-desc">
+<p>Open a vorbis file for decoding.</p>
+</div>
+</div>
+
+<pre><span id="VALopenfile_with_fd"><span class="keyword">val</span> openfile_with_fd</span> : <code class="type">Unix.file_descr -> <a href="Vorbis.File.Decoder.html#TYPEt">t</a></code></pre>
+<pre><span id="VALdecode_float"><span class="keyword">val</span> decode_float</span> : <code class="type"><a href="Vorbis.File.Decoder.html#TYPEt">t</a> -> float array array -> int -> int -> int</code></pre><div class="info ">
+<div class="info-desc">
+<p><code class="code">decode_float dec buff ofs len</code> decodes <code class="code">len</code> samples in each channel and puts
+ the result in <code class="code">buff</code> starting at position <code class="code">ofs</code>.</p>
+</div>
+<ul class="info-attributes">
+<li><b>Raises</b><ul><li><code>Hole_in_data</code> if there was an interruption of the data.</li>
+<li><code>Invalid_parameters</code> if all the data cannot fit in the buffer starting at the given position.</li>
+</ul></li>
+</ul>
+</div>
+
+<pre><span id="VALdecode_float_alloc"><span class="keyword">val</span> decode_float_alloc</span> : <code class="type"><a href="Vorbis.File.Decoder.html#TYPEt">t</a> -> int -> float array array</code></pre>
+<pre><span id="VALdecode"><span class="keyword">val</span> decode</span> : <code class="type"><a href="Vorbis.File.Decoder.html#TYPEt">t</a> -><br>       ?big_endian:bool -><br>       ?sample_size:int -> ?signed:bool -> string -> int -> int -> int</code></pre><div class="info ">
+<div class="info-desc">
+<p>Same as <code class="code">decode_float</code> but decodes to integers.</p>
+</div>
+</div>
+
+<pre><span id="VALstreams"><span class="keyword">val</span> streams</span> : <code class="type"><a href="Vorbis.File.Decoder.html#TYPEt">t</a> -> int</code></pre><div class="info ">
+<div class="info-desc">
+<p>Get the number of logical bitstreams within a physical bitstream.</p>
+</div>
+</div>
+
+<pre><span id="VALbitstream"><span class="keyword">val</span> bitstream</span> : <code class="type"><a href="Vorbis.File.Decoder.html#TYPEt">t</a> -> <a href="Vorbis.html#TYPEbitstream">Vorbis.bitstream</a></code></pre><div class="info ">
+<div class="info-desc">
+<p>Get the index of the sequential logical bitstream currently being decoded
+ (incremented at chaining boundaries even for non-seekable streams). For
+ seekable streams, it represents the actual chaining index within the
+ physical bitstream.</p>
+</div>
+</div>
+
+<pre><span id="VALcomments"><span class="keyword">val</span> comments</span> : <code class="type"><a href="Vorbis.File.Decoder.html#TYPEt">t</a> -> <a href="Vorbis.html#TYPEbitstream">Vorbis.bitstream</a> -> string * (string * string) list</code></pre><div class="info ">
+<div class="info-desc">
+<p>Get the vorbis comments from a vorbis file. The second argument is the
+ number of the logical bitstream (the current bitstream is used if it is set
+ to <code class="code">None</code>).</p>
+</div>
+</div>
+
+<pre><span id="VALinfo"><span class="keyword">val</span> info</span> : <code class="type"><a href="Vorbis.File.Decoder.html#TYPEt">t</a> -> <a href="Vorbis.html#TYPEbitstream">Vorbis.bitstream</a> -> <a href="Vorbis.html#TYPEinfo">Vorbis.info</a></code></pre><div class="info ">
+<div class="info-desc">
+<p>Get the vorbis information from the stream header of a bitstream.</p>
+</div>
+</div>
+
+<pre><span id="VALbitrate"><span class="keyword">val</span> bitrate</span> : <code class="type"><a href="Vorbis.File.Decoder.html#TYPEt">t</a> -> <a href="Vorbis.html#TYPEbitstream">Vorbis.bitstream</a> -> int</code></pre><div class="info ">
+<div class="info-desc">
+<p>Get the bitrate of a bitsream (in bps).</p>
+</div>
+</div>
+
+<pre><span id="VALsamples"><span class="keyword">val</span> samples</span> : <code class="type"><a href="Vorbis.File.Decoder.html#TYPEt">t</a> -> <a href="Vorbis.html#TYPEbitstream">Vorbis.bitstream</a> -> int</code></pre><div class="info ">
+<div class="info-desc">
+<p>Get the total pcm samples of a bitstream.</p>
+</div>
+</div>
+
+<pre><span id="VALduration"><span class="keyword">val</span> duration</span> : <code class="type"><a href="Vorbis.File.Decoder.html#TYPEt">t</a> -> <a href="Vorbis.html#TYPEbitstream">Vorbis.bitstream</a> -> float</code></pre><div class="info ">
+<div class="info-desc">
+<p>Get the duration in seconds of a bitstream.</p>
+</div>
+</div>
+
+<pre><span id="VALserialnumber"><span class="keyword">val</span> serialnumber</span> : <code class="type"><a href="Vorbis.File.Decoder.html#TYPEt">t</a> -> <a href="Vorbis.html#TYPEbitstream">Vorbis.bitstream</a> -> int</code></pre><div class="info ">
+<div class="info-desc">
+<p>Get the serial number of a bitstream.</p>
+</div>
+</div>
+</body></html>

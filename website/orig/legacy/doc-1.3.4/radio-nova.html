@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+  <title>Savonet / Liquidsoap 1.3.4 :: Multimedia Stream Generation</title>
+  <link href="../css/new.css" type="text/css" rel="stylesheet" />
+  <link href="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.17/themes/base/jquery-ui.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="//www.google.com/jsapi"></script>
+  <link rel="shortcut icon" href="../favicon.ico" />
+  <script>
+    google.load("jquery", "1.6.1");
+    google.load("jqueryui", "1.8.14");
+  </script>
+  <script type="text/javascript" src="../js/jQuery.syntax/jquery.syntax.min.js"></script>
+  <script type="text/javascript" src="../js/liq-jquery.js"></script>
+</head>
+<body>
+  <div class="menu">
+    <ul>
+      <li id="menu-developers">
+        <a href="https://github.com/savonet/liquidsoap/issues" target="_blank">developers</a></li>
+      <li id="menu-flows"><a href="https://flows.liquidsoap.info/">Flows!</a></li>
+      <li id="menu-doc-api-www">
+        <a href="reference.html">API</a></li>
+      <li id="menu-support">
+        <a href="documentation.html">documentation</a></li>
+      <li id="menu-download">
+        <a href="../download.html">download</a></li>
+      <li id="menu-about">
+        <a href="../index.html">about</a></li>
+    </ul>
+  </div>
+  <div class="section" id="main">
+    <h1>Liquidsoap 1.3.4 : Listening to radio nova with liquidsoap</h1>
+    <div class="content">
+      <h3>An advanced script to listen to radio nova.</h3>
+<h4>Introduction</h4>
+<p>
+<a href="http://www.novaplanet.com/" target="_blank">Radio Nova</a> is a french eclectic radio that provides a mp3 stream
+via Icecast. However, they don't include the metadata (probably to avoid rippers..).
+</p>
+<p>
+Still, these metadata are available on their webpage:
+</p>
+<pre class="syntax ">14:29 toots@leonard /tmp% wget -q http://www.novaplanet.com -O - | grep 'scroll_play'
+   scroll_play("ESTHER PHILLIPS","DISPOSABLE SOCIETY", 'playing_now', '0');
+</pre>
+<p>
+Hence, it would be nice to dynamically grab these metadata and insert it in the stream. The following 
+script will perform this.
+</p>
+<h4>The script</h4>
+<pre class="syntax liq">#!/usr/bin/liquidsoap
+# Liquidsoap script to listen to radio nova, grabbing metadata
+# on the webpage.
+
+# Disable file log, enable stdout log
+set("log.file",false)
+set("log.stdout",true)
+
+# Initial input.http source
+nova = input.http("http://broadcast.infomaniak.net:80/radionova-high.mp3")
+# Remove metadata, add a hook to insert new metadata
+nova = insert_metadata(id="nova",
+         clear_metadata(nova))
+
+# This string references will be used to keed track
+# of previous metadata
+title = ref "unknown title"
+artist = ref "unknown artist"
+
+# Capitalize and lowercase
+def cap(s)
+  string.capitalize(string.case(s))
+end
+
+# Process to grab metadata on the webpage
+# Returns "artist","title"
+def metas() = 
+  s = list.hd(
+        default="",
+        get_process_lines(
+	   "wget -q http://www.novaplanet.com -O - | grep 'scroll_play'"))
+  s = string.extract(pattern='scroll_play\("([^"]*)",\s*"([^"]*)"',s)
+  (cap(list.assoc(default="","1",s)),cap(list.assoc(default="","2",s)))
+end
+
+# Process that inserts grabbed metadata
+# to the stream
+def add_meta_nova()
+  log = log(level=4)
+  log("Checking for metas")
+  x = metas()
+  new_artist = fst(x)
+  new_title = snd(x)
+  old_title = !title
+  old_artist = !artist
+  if (old_artist != new_artist or old_title != new_title) and 
+     (new_title != "" or new_artist != "") 
+  then
+    log("Got new metas: #{new_artist} -- #{new_title}")
+    ignore(
+      server.execute(
+        'nova.insert artist="#{new_artist}",title="#{new_title}"'))
+    title := new_title
+    artist := new_artist
+  else
+    log("Keeping old metas")
+  end
+  0.2
+end
+
+# Schedule the insert process every 0.2 second
+add_timeout(fast=false,0.2,add_meta_nova)
+
+# function to display new metadatas
+def print_meta(m) = 
+  def print(z) = 
+    label = fst(z)
+    value = snd(z)
+    log("Metadata: #{label}=#{value}")
+  end
+  list.iter(print,m)
+end
+
+# Hook the previous function on the stream
+nova = on_metadata(print_meta,nova)
+
+# Play the stream !
+out(nova)
+</pre>
+<div align="right">
+<a href="scripts/radio-nova.liq">
+<img class="grab" src="../images/grab.png" alt="Grab the code!">
+</a>
+</div></p>
+      <div id="footer"> 2003-2017 Savonet team</div>
+    </div>
+  </div>
+  <script type="text/javascript" src="//www.google.com/cse/brand?form=cse-search-box&amp;lang=en"></script>
+  <script type="text/javascript" src="../js/search.js"></script>
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-927362-1']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+</body>
+</html>

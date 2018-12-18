@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+  <title>Savonet / Liquidsoap 1.1.1 :: Multimedia Stream Generation</title>
+  <link href="../css/new.css" type="text/css" rel="stylesheet" />
+  <link href="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.17/themes/base/jquery-ui.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="//www.google.com/jsapi"></script>
+  <link rel="shortcut icon" href="../favicon.ico" />
+  <script>
+    google.load("jquery", "1.6.1");
+    google.load("jqueryui", "1.8.14");
+  </script>
+  <script type="text/javascript" src="../js/jQuery.syntax/jquery.syntax.min.js"></script>
+  <script type="text/javascript" src="../js/liq-jquery.js"></script>
+</head>
+<body>
+  <div class="menu">
+    <ul>
+      <li id="menu-developers">
+        <a href="https://github.com/savonet/liquidsoap/issues" target="_blank">developers</a></li>
+      <li id="menu-flows"><a href="https://flows.liquidsoap.info/">Flows!</a></li>
+      <li id="menu-doc-api-www">
+        <a href="reference.html">API</a></li>
+      <li id="menu-support">
+        <a href="documentation.html">documentation</a></li>
+      <li id="menu-download">
+        <a href="../download.html">download</a></li>
+      <li id="menu-about">
+        <a href="../index.html">about</a></li>
+    </ul>
+  </div>
+  <div class="section" id="main">
+    <h1>Liquidsoap 1.1.1 : Developping Flows</h1>
+    <div class="content">
+      <h3>Developping Flows</h3>
+<p>
+<a href="flows.html">Flows</a> is handled on the <a href="https://www.heroku.com/">Heroku</a> platform.
+</p>
+<h4>Getting started</h4>
+<p>
+First steps to get started.
+</p>
+<ul>
+<li>
+Create an account on <a href="https://www.heroku.com/">Heroku</a>.</li>
+<li>
+Install the <a href="https://toolbelt.heroku.com/">Heroku utilities</a>.</li>
+<li>
+Ask a Liquidsoap administrator to give you access to the repositories.</li>
+</ul>
+<p>
+The repositories of the main components are organized as follows.
+</p>
+<ul>
+<li>
+<code>savonet-flows</code> is the python handler to submit metadata:<ul>
+<li>
+the associated <a href="https://github.com/savonet/flows-submit">github repository</a></li>
+<li>
+the Heroku repository is <code>git&#64;heroku.com:savonet-liquidsoap.git</code></li>
+</ul>
+</li>
+<li>
+<code>savonet-flows-socket</code> is the node application to serve the webpage and client stuff.<ul>
+<li>
+the associated <a href="https://github.com/savonet/flows-push">github repository</a></li>
+<li>
+the <a href="http://savonet-flows-socket.herokuapp.com/" target="_blank">test Heroku webpage</a> is updated by pushing on <code>git&#64;heroku.com:savonet-flows-socket-next.git</code></li>
+<li>
+the <a href="http://savonet-flows-socket.herokuapp.com/" target="_blank">prod Heroku webpage</a> is updated by pushing on <code>git&#64;heroku.com:savonet-flows-socket.git</code></li>
+</ul>
+</li>
+</ul>
+<p>
+Some more experimental repositories include:
+</p>
+<ul>
+<li>
+a <a href="https://github.com/savonet/flows-client">command-line client</a></li>
+</ul>
+<h4>Useful commands</h4>
+<p>
+Getting the environment variables:
+</p>
+<pre class="syntax ">heroku config -s --app savonet-flows
+</pre>
+<p>
+Seeing the logs of the socket application:
+</p>
+<pre class="syntax ">heroku logs -t --app savonet-flows-socket
+</pre>
+      <div id="footer"> 2003-2017 Savonet team</div>
+    </div>
+  </div>
+  <script type="text/javascript" src="//www.google.com/cse/brand?form=cse-search-box&amp;lang=en"></script>
+  <script type="text/javascript" src="../js/search.js"></script>
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-927362-1']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+</body>
+</html>

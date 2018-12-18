@@ -1,0 +1,196 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link rel="Up" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Ao" rel="Chapter" href="Ao.html"><title>Ao</title>
+</head>
+<body>
+<div class="navbar">&nbsp;<a class="up" href="index.html" title="Index">Up</a>
+&nbsp;</div>
+<h1>Module <a href="type_Ao.html">Ao</a></h1>
+
+<pre><span id="MODULEAo"><span class="keyword">module</span> Ao</span>: <code class="code">sig</code> <a href="Ao.html">..</a> <code class="code">end</code></pre><div class="info module top">
+<div class="info-desc">
+<p>OCaml interface to the ao library.</p>
+</div>
+</div>
+<hr width="100%">
+
+<pre><span id="TYPEt"><span class="keyword">type</span> <code class="type"></code>t</span> </pre>
+<div class="info ">
+<div class="info-desc">
+<p>Device type.</p>
+</div>
+</div>
+
+
+<pre><span id="TYPEdriver_kind_t"><span class="keyword">type</span> <code class="type"></code>driver_kind_t</span> = <code class="type">[ `FILE | `LIVE | `UNKNOWN ]</code> </pre>
+<div class="info ">
+<div class="info-desc">
+<p>Which kind of driver?</p>
+</div>
+</div>
+
+
+<pre><span id="TYPEbyte_format_t"><span class="keyword">type</span> <code class="type"></code>byte_format_t</span> = <code class="type">[ `BIG_ENDIAN | `LITTLE_ENDIAN | `NATIVE | `UNKNOWN ]</code> </pre>
+<div class="info ">
+<div class="info-desc">
+<p>Byte format specifier.</p>
+</div>
+</div>
+
+
+<pre><code><span id="TYPEdriver_t"><span class="keyword">type</span> <code class="type"></code>driver_t</span> = private {</code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTdriver_t.id">id</span>&nbsp;: <code class="type">int</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTdriver_t.kind">kind</span>&nbsp;: <code class="type"><a href="Ao.html#TYPEdriver_kind_t">driver_kind_t</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTdriver_t.short_name">short_name</span>&nbsp;: <code class="type">string</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTdriver_t.name">name</span>&nbsp;: <code class="type">string</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTdriver_t.comment">comment</span>&nbsp;: <code class="type">string</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTdriver_t.author">author</span>&nbsp;: <code class="type">string</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTdriver_t.priority">priority</span>&nbsp;: <code class="type">int</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTdriver_t.preferred_byte_format">preferred_byte_format</span>&nbsp;: <code class="type"><a href="Ao.html#TYPEbyte_format_t">byte_format_t</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTdriver_t.options">options</span>&nbsp;: <code class="type">string list</code>;</code></td>
+
+</tr></table>
+}
+
+<div class="info ">
+<div class="info-desc">
+<p>Driver type (private).</p>
+</div>
+</div>
+
+
+<pre><span id="EXCEPTIONClosed"><span class="keyword">exception</span> Closed</span></pre>
+<div class="info ">
+<div class="info-desc">
+<p>Raised when trying to play or close 
+ a closed device.</p>
+</div>
+</div>
+
+<pre><span id="EXCEPTIONInvalid_value"><span class="keyword">exception</span> Invalid_value</span></pre>
+<div class="info ">
+<div class="info-desc">
+<p>Raised when passing an invalid parameter's value.</p>
+</div>
+</div>
+
+<pre><span id="VALget_default_driver"><span class="keyword">val</span> get_default_driver</span> : <code class="type">unit -> <a href="Ao.html#TYPEdriver_t">driver_t</a></code></pre><div class="info ">
+<div class="info-desc">
+<p>Get default driver</p>
+</div>
+</div>
+
+<pre><span id="VALdrivers"><span class="keyword">val</span> drivers</span> : <code class="type"><a href="Ao.html#TYPEdriver_t">driver_t</a> list</code></pre><div class="info ">
+<div class="info-desc">
+<p><code class="code">drivers</code> is a list of available drivers.</p>
+</div>
+</div>
+
+<pre><span id="VALopen_live"><span class="keyword">val</span> open_live</span> : <code class="type">?bits:int -><br>       ?rate:int -><br>       ?channels:int -><br>       ?channels_matrix:string -><br>       ?byte_format:<a href="Ao.html#TYPEbyte_format_t">byte_format_t</a> -><br>       ?options:(string * string) list -> ?driver:<a href="Ao.html#TYPEdriver_t">driver_t</a> -> unit -> <a href="Ao.html#TYPEt">t</a></code></pre><div class="info ">
+<div class="info-desc">
+<p><code class="code">open_live</code>.
+ The <code class="code">channels_matrix</code> parameter is 
+ used only if the module is compiled against
+ libao &gt;= 1.0.</p>
+</div>
+</div>
+
+<pre><span id="VALopen_file"><span class="keyword">val</span> open_file</span> : <code class="type">?bits:int -><br>       ?rate:int -><br>       ?channels:int -><br>       ?channels_matrix:string -><br>       ?byte_format:<a href="Ao.html#TYPEbyte_format_t">byte_format_t</a> -><br>       ?options:(string * string) list -><br>       ?driver:<a href="Ao.html#TYPEdriver_t">driver_t</a> -> ?overwrite:bool -> string -> <a href="Ao.html#TYPEt">t</a></code></pre><div class="info ">
+<div class="info-desc">
+<p><code class="code">open_file</code>. 
+ The <code class="code">channels_matrix</code> parameter is  
+ used only if the module is compiled against 
+ libao &gt;= 1.0.</p>
+</div>
+</div>
+
+<pre><span id="VALfind_driver"><span class="keyword">val</span> find_driver</span> : <code class="type">string -> <a href="Ao.html#TYPEdriver_t">driver_t</a></code></pre><div class="info ">
+<div class="info-desc">
+<p><code class="code">find_driver name</code> returns the driver associated with the given <b>short</b>
+ name.</p>
+</div>
+</div>
+
+<pre><span id="VALplay"><span class="keyword">val</span> play</span> : <code class="type"><a href="Ao.html#TYPEt">t</a> -> string -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p><code class="code">play device buf</code> plays the sequence of samples in <code class="code">buf</code>.</p>
+</div>
+</div>
+
+<pre><span id="VALclose"><span class="keyword">val</span> close</span> : <code class="type"><a href="Ao.html#TYPEt">t</a> -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p><code class="code">close device</code> closes the given device.</p>
+</div>
+</div>
+<p>Backward compatibility functions, do not use them in new code.</p>
+
+<pre><span id="VALdriver_kind"><span class="keyword">val</span> driver_kind</span> : <code class="type"><a href="Ao.html#TYPEdriver_t">driver_t</a> -> <a href="Ao.html#TYPEdriver_kind_t">driver_kind_t</a></code></pre>
+<pre><span id="VALdriver_name"><span class="keyword">val</span> driver_name</span> : <code class="type"><a href="Ao.html#TYPEdriver_t">driver_t</a> -> string</code></pre>
+<pre><span id="VALdriver_short_name"><span class="keyword">val</span> driver_short_name</span> : <code class="type"><a href="Ao.html#TYPEdriver_t">driver_t</a> -> string</code></pre>
+<pre><span id="VALdriver_comment"><span class="keyword">val</span> driver_comment</span> : <code class="type"><a href="Ao.html#TYPEdriver_t">driver_t</a> -> string</code></pre>
+<pre><span id="VALdriver_author"><span class="keyword">val</span> driver_author</span> : <code class="type"><a href="Ao.html#TYPEdriver_t">driver_t</a> -> string</code></pre>
+<pre><span id="VALdriver_priority"><span class="keyword">val</span> driver_priority</span> : <code class="type"><a href="Ao.html#TYPEdriver_t">driver_t</a> -> int</code></pre>
+<pre><span id="VALdriver_preferred_byte_format"><span class="keyword">val</span> driver_preferred_byte_format</span> : <code class="type"><a href="Ao.html#TYPEdriver_t">driver_t</a> -> <a href="Ao.html#TYPEbyte_format_t">byte_format_t</a></code></pre>
+<pre><span id="VALdriver_options"><span class="keyword">val</span> driver_options</span> : <code class="type"><a href="Ao.html#TYPEdriver_t">driver_t</a> -> string list</code></pre></body></html>

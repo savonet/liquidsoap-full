@@ -1,0 +1,212 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link rel="previous" href="Ladspa.Plugin.html">
+<link rel="Up" href="Ladspa.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Ladspa" rel="Chapter" href="Ladspa.html"><title>Ladspa.Descriptor</title>
+</head>
+<body>
+<div class="navbar"><a class="pre" href="Ladspa.Plugin.html" title="Ladspa.Plugin">Previous</a>
+&nbsp;<a class="up" href="Ladspa.html" title="Ladspa">Up</a>
+&nbsp;</div>
+<h1>Module <a href="type_Ladspa.Descriptor.html">Ladspa.Descriptor</a></h1>
+
+<pre><span id="MODULEDescriptor"><span class="keyword">module</span> Descriptor</span>: <code class="code">sig</code> <a href="Ladspa.Descriptor.html">..</a> <code class="code">end</code></pre><div class="info module top">
+<div class="info-desc">
+<p>Descriptors.</p>
+</div>
+</div>
+<hr width="100%">
+
+<pre><span id="TYPEt"><span class="keyword">type</span> <code class="type"></code>t</span> </pre>
+<div class="info ">
+<div class="info-desc">
+<p>A descriptor.</p>
+</div>
+</div>
+
+
+<pre><span id="VALdescriptor"><span class="keyword">val</span> descriptor</span> : <code class="type"><a href="Ladspa.Plugin.html#TYPEt">Ladspa.Plugin.t</a> -> int -> <a href="Ladspa.Descriptor.html#TYPEt">t</a></code></pre><div class="info ">
+<div class="info-desc">
+<p>Retrieve the <code class="code">n</code>-th descriptor of a plugin.</p>
+</div>
+</div>
+
+<pre><span id="VALdescriptors"><span class="keyword">val</span> descriptors</span> : <code class="type"><a href="Ladspa.Plugin.html#TYPEt">Ladspa.Plugin.t</a> -> <a href="Ladspa.Descriptor.html#TYPEt">t</a> array</code></pre><div class="info ">
+<div class="info-desc">
+<p>Retrieve all the descriptors of a plugin.</p>
+</div>
+</div>
+
+<pre><span id="VALunique_id"><span class="keyword">val</span> unique_id</span> : <code class="type"><a href="Ladspa.Descriptor.html#TYPEt">t</a> -> int</code></pre><div class="info ">
+<div class="info-desc">
+<p>This numeric identifier indicates the plugin type uniquely. Plugin
+ programmers may reserve ranges of IDs from a central body to avoid
+ clashes. Hosts may assume that IDs are below 0x1000000.</p>
+</div>
+</div>
+
+<pre><span id="VALlabel"><span class="keyword">val</span> label</span> : <code class="type"><a href="Ladspa.Descriptor.html#TYPEt">t</a> -> string</code></pre><div class="info ">
+<div class="info-desc">
+<p>This identifier can be used as a unique, case-sensitive identifier for the
+ plugin type within the plugin file. Plugin types should be identified by
+ file and label rather than by index or plugin name, which may be changed
+ in new plugin versions. Labels must not contain white-space characters.</p>
+</div>
+</div>
+
+<pre><span id="VALname"><span class="keyword">val</span> name</span> : <code class="type"><a href="Ladspa.Descriptor.html#TYPEt">t</a> -> string</code></pre><div class="info ">
+<div class="info-desc">
+<p>Name of the plugin (e.g. "Sine Oscillator").</p>
+</div>
+</div>
+
+<pre><span id="VALmaker"><span class="keyword">val</span> maker</span> : <code class="type"><a href="Ladspa.Descriptor.html#TYPEt">t</a> -> string</code></pre><div class="info ">
+<div class="info-desc">
+<p>String indicating the maker of the plugin.</p>
+</div>
+</div>
+
+<pre><span id="VALcopyright"><span class="keyword">val</span> copyright</span> : <code class="type"><a href="Ladspa.Descriptor.html#TYPEt">t</a> -> string option</code></pre><div class="info ">
+<div class="info-desc">
+<p>String indicating any copyright applying to the plugin.</p>
+</div>
+</div>
+
+<pre><span id="VALport_count"><span class="keyword">val</span> port_count</span> : <code class="type"><a href="Ladspa.Descriptor.html#TYPEt">t</a> -> int</code></pre><div class="info ">
+<div class="info-desc">
+<p>This indicates the number of ports (input AND output) present on the
+      plugin.</p>
+</div>
+</div>
+
+<pre><span id="VALport_name"><span class="keyword">val</span> port_name</span> : <code class="type"><a href="Ladspa.Descriptor.html#TYPEt">t</a> -> int -> string</code></pre><div class="info ">
+<div class="info-desc">
+<p>Name of the <code class="code">n</code>-th port.</p>
+</div>
+</div>
+
+<pre><span id="VALport_is_input"><span class="keyword">val</span> port_is_input</span> : <code class="type"><a href="Ladspa.Descriptor.html#TYPEt">t</a> -> int -> bool</code></pre><div class="info ">
+<div class="info-desc">
+<p>Is the <code class="code">n</code>-th port an input?</p>
+</div>
+</div>
+
+<pre><span id="VALport_is_output"><span class="keyword">val</span> port_is_output</span> : <code class="type"><a href="Ladspa.Descriptor.html#TYPEt">t</a> -> int -> bool</code></pre><div class="info ">
+<div class="info-desc">
+<p>Is the <code class="code">n</code>-th port an output?</p>
+</div>
+</div>
+
+<pre><span id="VALport_is_audio"><span class="keyword">val</span> port_is_audio</span> : <code class="type"><a href="Ladspa.Descriptor.html#TYPEt">t</a> -> int -> bool</code></pre><div class="info ">
+<div class="info-desc">
+<p>Is the <code class="code">n</code>-th port an audio port?</p>
+</div>
+</div>
+
+<pre><span id="VALport_is_control"><span class="keyword">val</span> port_is_control</span> : <code class="type"><a href="Ladspa.Descriptor.html#TYPEt">t</a> -> int -> bool</code></pre><div class="info ">
+<div class="info-desc">
+<p>Is the <code class="code">n</code>-th port a control port?</p>
+</div>
+</div>
+
+<pre><span id="VALport_is_integer"><span class="keyword">val</span> port_is_integer</span> : <code class="type"><a href="Ladspa.Descriptor.html#TYPEt">t</a> -> int -> bool</code></pre>
+<pre><span id="VALport_is_boolean"><span class="keyword">val</span> port_is_boolean</span> : <code class="type"><a href="Ladspa.Descriptor.html#TYPEt">t</a> -> int -> bool</code></pre>
+<pre><span id="VALport_is_logarithmic"><span class="keyword">val</span> port_is_logarithmic</span> : <code class="type"><a href="Ladspa.Descriptor.html#TYPEt">t</a> -> int -> bool</code></pre>
+<pre><span id="VALport_get_default"><span class="keyword">val</span> port_get_default</span> : <code class="type"><a href="Ladspa.Descriptor.html#TYPEt">t</a> -> ?samplerate:int -> int -> float option</code></pre><div class="info ">
+<div class="info-desc">
+<p>Get a sensible default value for a control port.</p>
+</div>
+</div>
+
+<pre><span id="VALport_get_min"><span class="keyword">val</span> port_get_min</span> : <code class="type"><a href="Ladspa.Descriptor.html#TYPEt">t</a> -> ?samplerate:int -> int -> float option</code></pre>
+<pre><span id="VALport_get_max"><span class="keyword">val</span> port_get_max</span> : <code class="type"><a href="Ladspa.Descriptor.html#TYPEt">t</a> -> ?samplerate:int -> int -> float option</code></pre>
+<pre><span id="TYPEinstance"><span class="keyword">type</span> <code class="type"></code>instance</span> </pre>
+<div class="info ">
+<div class="info-desc">
+<p>Instance of a descriptor.</p>
+</div>
+</div>
+
+
+<pre><span id="VALinstantiate"><span class="keyword">val</span> instantiate</span> : <code class="type"><a href="Ladspa.Descriptor.html#TYPEt">t</a> -> int -> int -> <a href="Ladspa.Descriptor.html#TYPEinstance">instance</a></code></pre><div class="info ">
+<div class="info-desc">
+<p><code class="code">instantiate descr freq len</code> instantiates the descriptor <code class="code">descr</code> with a
+ sampling frequency <code class="code">freq</code> indicating that <code class="code">len</code> samples should be
+ processed at each run.</p>
+</div>
+</div>
+
+<pre><span id="VALset_samples"><span class="keyword">val</span> set_samples</span> : <code class="type"><a href="Ladspa.Descriptor.html#TYPEinstance">instance</a> -> int -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p>Change the number of samples that should be processed at each <code class="code">run</code>.</p>
+</div>
+</div>
+
+<pre><span id="VALconnect_audio_port"><span class="keyword">val</span> connect_audio_port</span> : <code class="type"><a href="Ladspa.Descriptor.html#TYPEinstance">instance</a> -> int -> float array -> int -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p><code class="code">connect_audio_port inst p buf ofs</code> connects the audio port <code class="code">p</code> of
+ instance <code class="code">inst</code> to the buffer <code class="code">buf</code> starting at position <code class="code">ofs</code>.</p>
+</div>
+</div>
+
+<pre><span id="VALconnect_control_port_in"><span class="keyword">val</span> connect_control_port_in</span> : <code class="type"><a href="Ladspa.Descriptor.html#TYPEinstance">instance</a> -> int -> float -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p>Connect an input control port.</p>
+</div>
+</div>
+
+<pre><span id="VALconnect_control_port_out"><span class="keyword">val</span> connect_control_port_out</span> : <code class="type"><a href="Ladspa.Descriptor.html#TYPEinstance">instance</a> -> int -> float Stdlib.ref -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p>Connect an output control port.</p>
+</div>
+</div>
+
+<pre><span id="VALactivate"><span class="keyword">val</span> activate</span> : <code class="type"><a href="Ladspa.Descriptor.html#TYPEinstance">instance</a> -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p>Activate (i.e. initialize) a plugin.</p>
+</div>
+</div>
+
+<pre><span id="VALdeactivate"><span class="keyword">val</span> deactivate</span> : <code class="type"><a href="Ladspa.Descriptor.html#TYPEinstance">instance</a> -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p>Deactivate a plugin.</p>
+</div>
+</div>
+
+<pre><span id="EXCEPTIONInput_port_not_connected"><span class="keyword">exception</span> Input_port_not_connected</span> <span class="keyword">of</span> <code class="type">int</code></pre>
+<div class="info ">
+<div class="info-desc">
+<p>An input port is not connected.</p>
+</div>
+</div>
+
+<pre><span id="VALrun"><span class="keyword">val</span> run</span> : <code class="type"><a href="Ladspa.Descriptor.html#TYPEinstance">instance</a> -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p>Process samples.</p>
+</div>
+</div>
+
+<pre><span id="VALpre_run"><span class="keyword">val</span> pre_run</span> : <code class="type"><a href="Ladspa.Descriptor.html#TYPEinstance">instance</a> -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p>Internal function used by the DSSI binding.</p>
+
+<p>Internal function used by the DSSI binding.</p>
+</div>
+</div>
+
+<pre><span id="VALpost_run"><span class="keyword">val</span> post_run</span> : <code class="type"><a href="Ladspa.Descriptor.html#TYPEinstance">instance</a> -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p>Internal function used by the DSSI binding.</p>
+</div>
+</div>
+
+<pre><span id="VALpost_run_adding"><span class="keyword">val</span> post_run_adding</span> : <code class="type"><a href="Ladspa.Descriptor.html#TYPEinstance">instance</a> -> unit</code></pre></body></html>

@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link rel="previous" href="Gstreamer.Pipeline.html">
+<link rel="next" href="Gstreamer.App_src.html">
+<link rel="Up" href="Gstreamer.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Gstreamer" rel="Chapter" href="Gstreamer.html"><title>Gstreamer.Buffer</title>
+</head>
+<body>
+<div class="navbar"><a class="pre" href="Gstreamer.Pipeline.html" title="Gstreamer.Pipeline">Previous</a>
+&nbsp;<a class="up" href="Gstreamer.html" title="Gstreamer">Up</a>
+&nbsp;<a class="post" href="Gstreamer.App_src.html" title="Gstreamer.App_src">Next</a>
+</div>
+<h1>Module <a href="type_Gstreamer.Buffer.html">Gstreamer.Buffer</a></h1>
+
+<pre><span id="MODULEBuffer"><span class="keyword">module</span> Buffer</span>: <code class="code">sig</code> <a href="Gstreamer.Buffer.html">..</a> <code class="code">end</code></pre><div class="info module top">
+<div class="info-desc">
+<p>Buffers.</p>
+</div>
+</div>
+<hr width="100%">
+
+<pre><span id="TYPEt"><span class="keyword">type</span> <code class="type"></code>t</span> </pre>
+<div class="info ">
+<div class="info-desc">
+<p>A buffer.</p>
+</div>
+</div>
+
+
+<pre><span id="VALof_string"><span class="keyword">val</span> of_string</span> : <code class="type">string -> int -> int -> <a href="Gstreamer.Buffer.html#TYPEt">t</a></code></pre><div class="info ">
+<div class="info-desc">
+<p>Create a buffer containing a given string as contents.</p>
+</div>
+</div>
+
+<pre><span id="VALof_data"><span class="keyword">val</span> of_data</span> : <code class="type"><a href="Gstreamer.html#TYPEdata">Gstreamer.data</a> -> int -> int -> <a href="Gstreamer.Buffer.html#TYPEt">t</a></code></pre><div class="info ">
+<div class="info-desc">
+<p>Create a buffer containing given data as contents.</p>
+</div>
+</div>
+
+<pre><span id="VALset_presentation_time"><span class="keyword">val</span> set_presentation_time</span> : <code class="type"><a href="Gstreamer.Buffer.html#TYPEt">t</a> -> Stdlib.Int64.t -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p>Set the presentation time of a buffer.</p>
+</div>
+</div>
+
+<pre><span id="VALset_decoding_time"><span class="keyword">val</span> set_decoding_time</span> : <code class="type"><a href="Gstreamer.Buffer.html#TYPEt">t</a> -> Stdlib.Int64.t -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p>Set the decoding time of a buffer.</p>
+</div>
+</div>
+
+<pre><span id="VALset_duration"><span class="keyword">val</span> set_duration</span> : <code class="type"><a href="Gstreamer.Buffer.html#TYPEt">t</a> -> Stdlib.Int64.t -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p>Set the duration of a buffer.</p>
+</div>
+</div>
+</body></html>

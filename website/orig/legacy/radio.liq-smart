@@ -1,0 +1,24 @@
+set("log.file",false)
+set("log.stdout",true)
+set("log.level",3)
+
+%include "library.liq"
+
+set("server.telnet",true)
+
+s = request.dynamic(id="s",get_request)
+
+s = map_metadata(add_replaygain,s)
+
+s = amplify(override="replay_gain",1.,s)
+
+s = my_crossfade(s)
+
+s = map_metadata(update_title,s)
+
+s = on_metadata(apply_metadata,s)
+
+s = my_safe(s)
+
+outputs(s)
+

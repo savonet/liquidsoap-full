@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+  <title>Savonet / Liquidsoap 1.1.1 :: Multimedia Stream Generation</title>
+  <link href="../css/new.css" type="text/css" rel="stylesheet" />
+  <link href="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.17/themes/base/jquery-ui.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="//www.google.com/jsapi"></script>
+  <link rel="shortcut icon" href="../favicon.ico" />
+  <script>
+    google.load("jquery", "1.6.1");
+    google.load("jqueryui", "1.8.14");
+  </script>
+  <script type="text/javascript" src="../js/jQuery.syntax/jquery.syntax.min.js"></script>
+  <script type="text/javascript" src="../js/liq-jquery.js"></script>
+</head>
+<body>
+  <div class="menu">
+    <ul>
+      <li id="menu-developers">
+        <a href="https://github.com/savonet/liquidsoap/issues" target="_blank">developers</a></li>
+      <li id="menu-flows"><a href="https://flows.liquidsoap.info/">Flows!</a></li>
+      <li id="menu-doc-api-www">
+        <a href="reference.html">API</a></li>
+      <li id="menu-support">
+        <a href="documentation.html">documentation</a></li>
+      <li id="menu-download">
+        <a href="../download.html">download</a></li>
+      <li id="menu-about">
+        <a href="../index.html">about</a></li>
+    </ul>
+  </div>
+  <div class="section" id="main">
+    <h1>Liquidsoap 1.1.1 : LADSPA plugins</h1>
+    <div class="content">
+      <h3>LADSPA plugins in Liquidsoap</h3>
+<p>
+<a href="http://www.ladspa.org/" target="_blank">LADSPA</a> is a standard that allows software audio processors and effects to be plugged into a 
+wide range of audio synthesis and recording packages.
+</p>
+<p>
+If enabled, Liquidsoap supports LADSPA plugins. In this case,
+installed plugins are detected at run-time and are all available in Liquidsoap under a name 
+of the form: <code>ladspa.plugin</code>, for instance <code>ladspa.karaoke</code>, <code>ladspa.flanger</code> etc..
+</p>
+<p>
+The full list of those operators can be found using <code>liquidsoap --list-plugins</code>.
+Also, as usual, <code>liquidsoap -h ladspa.plugin</code> returns a detailed description of each LADSPA's operators.
+For instance:
+</p>
+<pre class="syntax ">./liquidsoap -h ladspa.flanger           
+*** One entry in scripting values:
+Flanger by Steve Harris &lt;steve@plugin.org.uk&gt;.
+Category: Source / Sound Processing
+Type: (?id:string,?delay_base:'a,?feedback:'b,
+ ?lfo_frequency:'c,?max_slowdown:'d,
+ source(audio='#e,video='#f,midi='#g))-&gt;
+source(audio='#e,video='#f,midi='#g)
+where 'a, 'b, 'c, 'd is either float or ()-&gt;float
+Flag: hidden
+Parameters:
+* id : string (default "")
+    Force the value of the source ID.
+* delay_base : anything that is either float or ()-&gt;float (default 6.32499980927)
+    Delay base (ms) (0.1 &lt;= delay_base &lt;= 25).
+* feedback : anything that is either float or ()-&gt;float (default 0.)
+    Feedback (-1 &lt;= feedback &lt;= 1).
+* lfo_frequency : anything that is either float or ()-&gt;float (default 0.334370166063)
+    LFO frequency (Hz) (0.05 &lt;= lfo_frequency &lt;= 100).
+* max_slowdown : anything that is either float or ()-&gt;float (default 2.5)
+    Max slowdown (ms) (0 &lt;= max_slowdown &lt;= 10).
+* (unlabeled) : source(audio='#e,video='#f,midi='#g) (default None)
+</pre>
+<p>
+For advanced users, it is worth nothing that most of the parameters associated with LADSPA operators
+can take a function, for instance in the above: <code>max_slowdown : anything that is either float or ()-&gt;float</code>.
+This means that those parameters may be dynamically changed while running a liquidsoap script.
+</p>
+      <div id="footer"> 2003-2017 Savonet team</div>
+    </div>
+  </div>
+  <script type="text/javascript" src="//www.google.com/cse/brand?form=cse-search-box&amp;lang=en"></script>
+  <script type="text/javascript" src="../js/search.js"></script>
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-927362-1']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+</body>
+</html>

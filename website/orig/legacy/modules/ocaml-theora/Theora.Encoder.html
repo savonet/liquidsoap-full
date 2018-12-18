@@ -1,0 +1,104 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link rel="next" href="Theora.Decoder.html">
+<link rel="Up" href="Theora.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Ogg_demuxer_theora_decoder" rel="Chapter" href="Ogg_demuxer_theora_decoder.html">
+<link title="Theora" rel="Chapter" href="Theora.html"><title>Theora.Encoder</title>
+</head>
+<body>
+<div class="navbar">&nbsp;<a class="up" href="Theora.html" title="Theora">Up</a>
+&nbsp;<a class="post" href="Theora.Decoder.html" title="Theora.Decoder">Next</a>
+</div>
+<h1>Module <a href="type_Theora.Encoder.html">Theora.Encoder</a></h1>
+
+<pre><span id="MODULEEncoder"><span class="keyword">module</span> Encoder</span>: <code class="code">sig</code> <a href="Theora.Encoder.html">..</a> <code class="code">end</code></pre><hr width="100%">
+
+<pre><span id="TYPEt"><span class="keyword">type</span> <code class="type"></code>t</span> </pre>
+
+
+<pre><code><span id="TYPEsettings"><span class="keyword">type</span> <code class="type"></code>settings</span> = {</code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTsettings.keyframe_frequency">keyframe_frequency</span>&nbsp;: <code class="type">int option</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTsettings.vp3_compatible">vp3_compatible</span>&nbsp;: <code class="type">bool option</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTsettings.soft_target">soft_target</span>&nbsp;: <code class="type">bool option</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTsettings.buffer_delay">buffer_delay</span>&nbsp;: <code class="type">int option</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTsettings.speed">speed</span>&nbsp;: <code class="type">int option</code>;</code></td>
+
+</tr></table>
+}
+
+
+
+<pre><span id="VALcreate"><span class="keyword">val</span> create</span> : <code class="type"><a href="Theora.html#TYPEinfo">Theora.info</a> -><br>       <a href="Theora.Encoder.html#TYPEsettings">settings</a> -> (string * string) list -> <a href="Theora.Encoder.html#TYPEt">t</a></code></pre><div class="info ">
+<div class="info-desc">
+<p>Initialize a <code class="code">state</code> handle for decoding.</p>
+</div>
+</div>
+
+<pre><span id="VALencode_header"><span class="keyword">val</span> encode_header</span> : <code class="type"><a href="Theora.Encoder.html#TYPEt">t</a> -> Ogg.Stream.stream -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p>Fills the given stream with the header packets.</p>
+</div>
+</div>
+
+<pre><span id="VALencode_page"><span class="keyword">val</span> encode_page</span> : <code class="type"><a href="Theora.Encoder.html#TYPEt">t</a> -><br>       Ogg.Stream.stream -> (unit -> <a href="Theora.html#TYPEyuv_buffer">Theora.yuv_buffer</a>) -> Ogg.Page.t</code></pre><div class="info ">
+<div class="info-desc">
+<p>Encode data until a page is filled.</p>
+</div>
+</div>
+
+<pre><span id="VALencode_buffer"><span class="keyword">val</span> encode_buffer</span> : <code class="type"><a href="Theora.Encoder.html#TYPEt">t</a> -> Ogg.Stream.stream -> <a href="Theora.html#TYPEyuv_buffer">Theora.yuv_buffer</a> -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p>Encode a buffer.</p>
+</div>
+</div>
+
+<pre><span id="VALframes_of_granulepos"><span class="keyword">val</span> frames_of_granulepos</span> : <code class="type"><a href="Theora.Encoder.html#TYPEt">t</a> -> Stdlib.Int64.t -> Stdlib.Int64.t</code></pre><div class="info ">
+<div class="info-desc">
+<p>Convert a granulepos to an absolute frame index, starting at 0.
+ The granulepos is interpreted in the context of a given theora_state handle.</p>
+</div>
+</div>
+
+<pre><span id="VALeos"><span class="keyword">val</span> eos</span> : <code class="type"><a href="Theora.Encoder.html#TYPEt">t</a> -> Ogg.Stream.stream -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p>Set end of stream</p>
+</div>
+</div>
+</body></html>

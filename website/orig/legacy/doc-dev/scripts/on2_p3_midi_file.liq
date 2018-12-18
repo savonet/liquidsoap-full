@@ -1,0 +1,6 @@
+s = single("file.mid")
+s = midi.remove([9],s)
+s = mux_audio(audio=blank(),s)
+s = synth.all.saw(s)
+s = drop_midi(s)
+out(s)

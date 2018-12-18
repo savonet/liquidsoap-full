@@ -1,0 +1,321 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link rel="previous" href="Ogg_demuxer_speex_decoder.html">
+<link rel="Up" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Ogg_demuxer_speex_decoder" rel="Chapter" href="Ogg_demuxer_speex_decoder.html">
+<link title="Speex" rel="Chapter" href="Speex.html"><title>Speex</title>
+</head>
+<body>
+<div class="navbar"><a class="pre" href="Ogg_demuxer_speex_decoder.html" title="Ogg_demuxer_speex_decoder">Previous</a>
+&nbsp;<a class="up" href="index.html" title="Index">Up</a>
+&nbsp;</div>
+<h1>Module <a href="type_Speex.html">Speex</a></h1>
+
+<pre><span id="MODULESpeex"><span class="keyword">module</span> Speex</span>: <code class="code">sig</code> <a href="Speex.html">..</a> <code class="code">end</code></pre><div class="info module top">
+<div class="info-desc">
+<p>Functions for manipulating speex audio data using libspeex.</p>
+
+</div>
+<ul class="info-attributes">
+<li><b>Author(s):</b> Romain Beauxis</li>
+</ul>
+</div>
+<hr width="100%">
+
+<pre><span id="EXCEPTIONInvalid_frame_size"><span class="keyword">exception</span> Invalid_frame_size</span></pre>
+
+<pre><code><span id="TYPEmode"><span class="keyword">type</span> <code class="type"></code>mode</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTmode.Narrowband"><span class="constructor">Narrowband</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTmode.Wideband"><span class="constructor">Wideband</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTmode.Ultra_wideband"><span class="constructor">Ultra_wideband</span></span></code></td>
+
+</tr></table>
+
+
+
+<pre><code><span id="TYPEcontrol"><span class="keyword">type</span> <code class="type"></code>control</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTcontrol.SPEEX_RESET_STATE"><span class="constructor">SPEEX_RESET_STATE</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTcontrol.SPEEX_SET_ENH"><span class="constructor">SPEEX_SET_ENH</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTcontrol.SPEEX_GET_ENH"><span class="constructor">SPEEX_GET_ENH</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTcontrol.SPEEX_GET_FRAME_SIZE"><span class="constructor">SPEEX_GET_FRAME_SIZE</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTcontrol.SPEEX_SET_QUALITY"><span class="constructor">SPEEX_SET_QUALITY</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTcontrol.SPEEX_SET_MODE"><span class="constructor">SPEEX_SET_MODE</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTcontrol.SPEEX_GET_MODE"><span class="constructor">SPEEX_GET_MODE</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTcontrol.SPEEX_SET_LOW_MODE"><span class="constructor">SPEEX_SET_LOW_MODE</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTcontrol.SPEEX_GET_LOW_MODE"><span class="constructor">SPEEX_GET_LOW_MODE</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTcontrol.SPEEX_SET_HIGH_MODE"><span class="constructor">SPEEX_SET_HIGH_MODE</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTcontrol.SPEEX_GET_HIGH_MODE"><span class="constructor">SPEEX_GET_HIGH_MODE</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTcontrol.SPEEX_SET_VBR"><span class="constructor">SPEEX_SET_VBR</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTcontrol.SPEEX_GET_VBR"><span class="constructor">SPEEX_GET_VBR</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTcontrol.SPEEX_SET_VBR_QUALITY"><span class="constructor">SPEEX_SET_VBR_QUALITY</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTcontrol.SPEEX_GET_VBR_QUALITY"><span class="constructor">SPEEX_GET_VBR_QUALITY</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTcontrol.SPEEX_SET_COMPLEXITY"><span class="constructor">SPEEX_SET_COMPLEXITY</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTcontrol.SPEEX_GET_COMPLEXITY"><span class="constructor">SPEEX_GET_COMPLEXITY</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTcontrol.SPEEX_SET_BITRATE"><span class="constructor">SPEEX_SET_BITRATE</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTcontrol.SPEEX_GET_BITRATE"><span class="constructor">SPEEX_GET_BITRATE</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTcontrol.SPEEX_SET_SAMPLING_RATE"><span class="constructor">SPEEX_SET_SAMPLING_RATE</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTcontrol.SPEEX_GET_SAMPLING_RATE"><span class="constructor">SPEEX_GET_SAMPLING_RATE</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTcontrol.SPEEX_SET_VAD"><span class="constructor">SPEEX_SET_VAD</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTcontrol.SPEEX_GET_VAD"><span class="constructor">SPEEX_GET_VAD</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTcontrol.SPEEX_SET_ABR"><span class="constructor">SPEEX_SET_ABR</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTcontrol.SPEEX_GET_ABR"><span class="constructor">SPEEX_GET_ABR</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTcontrol.SPEEX_SET_DTX"><span class="constructor">SPEEX_SET_DTX</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTcontrol.SPEEX_GET_DTX"><span class="constructor">SPEEX_GET_DTX</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTcontrol.SPEEX_SET_SUBMODE_ENCODING"><span class="constructor">SPEEX_SET_SUBMODE_ENCODING</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTcontrol.SPEEX_GET_SUBMODE_ENCODING"><span class="constructor">SPEEX_GET_SUBMODE_ENCODING</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTcontrol.SPEEX_SET_PLC_TUNING"><span class="constructor">SPEEX_SET_PLC_TUNING</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTcontrol.SPEEX_GET_PLC_TUNING"><span class="constructor">SPEEX_GET_PLC_TUNING</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTcontrol.SPEEX_SET_VBR_MAX_BITRATE"><span class="constructor">SPEEX_SET_VBR_MAX_BITRATE</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTcontrol.SPEEX_GET_VBR_MAX_BITRATE"><span class="constructor">SPEEX_GET_VBR_MAX_BITRATE</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTcontrol.SPEEX_SET_HIGHPASS"><span class="constructor">SPEEX_SET_HIGHPASS</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTcontrol.SPEEX_GET_HIGHPASS"><span class="constructor">SPEEX_GET_HIGHPASS</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTcontrol.SPEEX_GET_ACTIVITY"><span class="constructor">SPEEX_GET_ACTIVITY</span></span></code></td>
+
+</tr></table>
+
+
+
+<pre><span id="MODULEHeader"><span class="keyword">module</span> <a href="Speex.Header.html">Header</a></span>: <code class="code">sig</code> <a href="Speex.Header.html">..</a> <code class="code">end</code></pre>
+<pre><span id="MODULEEncoder"><span class="keyword">module</span> <a href="Speex.Encoder.html">Encoder</a></span>: <code class="code">sig</code> <a href="Speex.Encoder.html">..</a> <code class="code">end</code></pre>
+<pre><span id="MODULEDecoder"><span class="keyword">module</span> <a href="Speex.Decoder.html">Decoder</a></span>: <code class="code">sig</code> <a href="Speex.Decoder.html">..</a> <code class="code">end</code></pre>
+<pre><span id="MODULEWrapper"><span class="keyword">module</span> <a href="Speex.Wrapper.html">Wrapper</a></span>: <code class="code">sig</code> <a href="Speex.Wrapper.html">..</a> <code class="code">end</code></pre>
+<pre><span id="MODULESkeleton"><span class="keyword">module</span> <a href="Speex.Skeleton.html">Skeleton</a></span>: <code class="code">sig</code> <a href="Speex.Skeleton.html">..</a> <code class="code">end</code></pre></body></html>

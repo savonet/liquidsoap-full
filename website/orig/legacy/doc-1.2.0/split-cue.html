@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+  <title>Savonet / Liquidsoap 1.2.0 :: Multimedia Stream Generation</title>
+  <link href="../css/new.css" type="text/css" rel="stylesheet" />
+  <link href="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.17/themes/base/jquery-ui.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="//www.google.com/jsapi"></script>
+  <link rel="shortcut icon" href="../favicon.ico" />
+  <script>
+    google.load("jquery", "1.6.1");
+    google.load("jqueryui", "1.8.14");
+  </script>
+  <script type="text/javascript" src="../js/jQuery.syntax/jquery.syntax.min.js"></script>
+  <script type="text/javascript" src="../js/liq-jquery.js"></script>
+</head>
+<body>
+  <div class="menu">
+    <ul>
+      <li id="menu-developers">
+        <a href="https://github.com/savonet/liquidsoap/issues" target="_blank">developers</a></li>
+      <li id="menu-flows"><a href="https://flows.liquidsoap.info/">Flows!</a></li>
+      <li id="menu-doc-api-www">
+        <a href="reference.html">API</a></li>
+      <li id="menu-support">
+        <a href="documentation.html">documentation</a></li>
+      <li id="menu-download">
+        <a href="../download.html">download</a></li>
+      <li id="menu-about">
+        <a href="../index.html">about</a></li>
+    </ul>
+  </div>
+  <div class="section" id="main">
+    <h1>Liquidsoap 1.2.0 : Split a CUE sheet.</h1>
+    <div class="content">
+      <h3>Split and re-encode a CUE sheet.</h3>
+<p>
+CUE sheets are sometimes distributed along with a single audio file containing a whole CD.
+Liquidsoap can parse CUE sheets as playlists and use them in your request-based sources.
+</p>
+<p>
+Here's for instance an example of a simple code to split a CUE sheet into several mp3 files
+with <code>id3v2</code> tags:
+</p>
+<pre class="syntax liq"> # Log to stdout
+ set("log.file",false)
+ set("log.stdout",true)
+ set("log.level",4)
+
+ # Initial playlist
+ cue = "/path/to/sheet.cue"
+
+ # Create a reloadable playlist with this CUE sheet.
+ # Tell liquidsoap to shutdown when we are done.
+ x = playlist.reloadable(cue, on_done=shutdown)
+
+ # We will never reload this playlist so we drop the first
+ # returned value:
+ s = snd(x)
+
+ # Add a cue_cut to cue-in/cue-out according to
+ # markers in "sheet.cue"
+ s = cue_cut(s)
+
+ # Shove all that to a output.file operator.
+ output.file(%mp3(id3v2=true,bitrate=320), 
+             fallible=true,
+             reopen_on_metadata=true,
+             "/path/to/$(track) - $(title).mp3",
+             s)
+</pre>
+<div align="right">
+<a href="scripts/split_cue.liq">
+<img class="grab" src="../images/grab.png" alt="Grab the code!">
+</a>
+</div></p>
+      <div id="footer"> 2003-2017 Savonet team</div>
+    </div>
+  </div>
+  <script type="text/javascript" src="//www.google.com/cse/brand?form=cse-search-box&amp;lang=en"></script>
+  <script type="text/javascript" src="../js/search.js"></script>
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-927362-1']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+  <title>Liquidsoap 1.1.1 :: Audio Stream Generation</title>
+  <link href="../../css/new.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="//www.google.com/jsapi"></script>
+  <link rel="shortcut icon" href="../favicon.ico" />
+  <script>
+    google.load("jquery", "1.6.1");
+    google.load("jqueryui", "1.8.14");
+  </script>
+  <script type="text/javascript" src="../../js/jQuery.syntax/jquery.syntax.min.js"></script>
+  <script type="text/javascript" src="../../js/liq-jquery.js"></script>
+</head>
+<body>
+  <div class="menu">
+    <ul>
+      <li id="menu-developers">
+        <a href="https://github.com/savonet/liquidsoap/issues" target="_blank">developpers</a>
+      </li>
+      <li id="menu-doc-api-www">
+        <a href="../reference.html">API</a>
+      </li>
+      <li id="menu-support">
+        <a href="documentation.html">documentation</a>
+      </li>
+      <li id="menu-download">
+        <a href="../../download.html">download</a>
+      </li>
+      <li id="menu-about">
+        <a href="../../index.html">about</a>
+      </li>
+    </ul>
+  </div>
+  <div class="section" id="main">
+    <h1>set_json_metadata.liq</h1>
+    <div class="content">
+      <pre class="syntax">
+# s = some source
+
+# x is of type ((metadata)->unit)*source
+# first part is a function used to update
+# metadata and second part is the source 
+# whose metadata are updated
+x = insert_metadata(s)
+
+# Get the function
+insert = fst(x)
+
+# Redefine s as the new source
+s = snd(x)
+
+# The handler
+def set_meta(~protocol,~data,~headers,uri) =
+  # Split uri of the form request?foo=bar&...
+  # into (request,[("foo","bar"),..])
+  x = url.split(uri)
+
+  # Filter out unusual metadata
+  meta = metadata.export(snd(x))
+  
+  # Grab the returned message
+  ret =
+    if meta != [] then
+      insert(meta)
+      "OK!"
+    else
+      "No metadata to add!"
+  end
+
+  # Return response
+  http_response(
+   protocol=protocol,
+   code=200,
+   headers=[("Content-Type","text/html")],
+   data="<html><body><b>#{ret}</b></body></html>"
+  )
+end
+
+# Register handler on port 700
+harbor.http.register(port=7000,method="GET","/setmeta",set_meta)
+</pre>      <a href="set_json_metadata.liq">
+        <img class="grab" src="../../images/grab.png" alt="Grab the code!" title="Grab the code!">
+      </a>
+    </div>
+    <div id="footer"> 2003-2017 Savonet team</div>
+  </div>
+  <script type="text/javascript" src="//www.google.com/cse/brand?form=cse-search-box&amp;lang=en"></script>
+  <script type="text/javascript" src="../../js/search.js"></script>
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-927362-1']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+</body>
+</html>

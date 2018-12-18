@@ -1,0 +1,427 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+  <title>Savonet / Liquidsoap 1.3.2 :: Multimedia Stream Generation</title>
+  <link href="../css/new.css" type="text/css" rel="stylesheet" />
+  <link href="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.17/themes/base/jquery-ui.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="//www.google.com/jsapi"></script>
+  <link rel="shortcut icon" href="../favicon.ico" />
+  <script>
+    google.load("jquery", "1.6.1");
+    google.load("jqueryui", "1.8.14");
+  </script>
+  <script type="text/javascript" src="../js/jQuery.syntax/jquery.syntax.min.js"></script>
+  <script type="text/javascript" src="../js/liq-jquery.js"></script>
+</head>
+<body>
+  <div class="menu">
+    <ul>
+      <li id="menu-developers">
+        <a href="https://github.com/savonet/liquidsoap/issues" target="_blank">developers</a></li>
+      <li id="menu-flows"><a href="https://flows.liquidsoap.info/">Flows!</a></li>
+      <li id="menu-doc-api-www">
+        <a href="reference.html">API</a></li>
+      <li id="menu-support">
+        <a href="documentation.html">documentation</a></li>
+      <li id="menu-download">
+        <a href="../download.html">download</a></li>
+      <li id="menu-about">
+        <a href="../index.html">about</a></li>
+    </ul>
+  </div>
+  <div class="section" id="main">
+    <h1>Liquidsoap 1.3.2 : Liquidsoap Workshop, part I</h1>
+    <div class="content">
+      <p>
+This part starts from scratch. All you need is a working install
+of liquidsoap.
+If you don't have one already, we can help you;
+but if you haven't, check the <a href="download.html">corresponding page</a>.
+</p>
+<h2>Run liquidsoap on one-liners</h2>
+<p>
+A good way to test your install and get started
+is to execute very small liquidsoap programs.
+Such “one-liners” are also often useful to accomplish simple tasks.
+</p>
+<h3>Play a synthesized sound</h3>
+<p>
+Simply execute the following command,
+and you should hear a 440Hz sound on your soundcard:
+</p>
+<pre class="syntax ">liquidsoap 'out(sine())'
+</pre>
+<p>
+Did it work? If so, try to modify it:
+</p>
+<ul>
+<li>
+Change the pitch. Hint: get the doc of <code>sine</code> using <code>liquidsoap -h sine</code> or <a href="doc-dev/reference.html">online</a>.</li>
+<li>
+Use a different wave shape, or perhaps some white noise. Hint: look-up the <a href="doc-dev/reference.html">API</a> in the <code>Source / Input</code> section.</li>
+</ul>
+<h3>Play a remote stream, discover fallibility</h3>
+<p>
+Try to execute the liquidsoap expression:
+</p>
+<pre class="syntax liq">out(input.http("http://ice.rosebud-media.de:8000/88vier"))
+</pre>
+<div align="right">
+<a href="scripts/on2_p1_http_out.liq">
+<img class="grab" src="../images/grab.png" alt="Grab the code!">
+</a>
+</div></p>
+<p>
+You should now be listening to <a href="http://piradio.de" target="_blank">Pi-Radio</a>,
+unless you have no network connection, in which case the
+<code>input.http(...)</code> source <em>fails</em>.
+</p>
+<p>
+The output operator <code>out</code> is okay with failure: it simply plays silence
+when the source fails, waiting for it to be ready again.
+But some operators are stricter.
+If you try
+</p>
+<pre class="syntax liq">output.ao(input.http("http://ice.rosebud-media.de:8000/88vier"))
+</pre>
+<div align="right">
+<a href="scripts/on2_p1_output_ao.liq">
+<img class="grab" src="../images/grab.png" alt="Grab the code!">
+</a>
+</div></p>
+<p>
+the AO output (which uses libao to access your soundcard)
+warns you that there might be a failure.
+To ignore this problem, pass <code>fallible=true</code> to the output.
+</p>
+<p>
+This might seem annoying
+but it can make sense if you have listeners and you want to make
+sure that your stream is always up and running for them.
+</p>
+<h3>Play a list of files</h3>
+<p>
+The <code>playlist</code> operator can be used to build a source that plays
+a list of files. The resulting source will be fallible.
+You can either pass a directory name, or a text file containing the
+list of files.
+There are lots of possibilities here, but for now just look
+at the <code>mode</code> parameter; we'll learn more later.
+</p>
+<h3>An interactive example</h3>
+<p>
+Suppose we want to be able to request a particular file for playout
+instead of the automatically chosen files of the playlist.
+This is achieved by wrapping the playlist in a fallback choice
+with a request queue:
+</p>
+<pre class="syntax liq">out(fallback([request.queue(id="q"),playlist("music")]))
+</pre>
+<div align="right">
+<a href="scripts/on2_p1_interactive.liq">
+<img class="grab" src="../images/grab.png" alt="Grab the code!">
+</a>
+</div></p>
+<p>
+If you run this example, you'll hear your playlist, because the queue
+is empty. The queue can be fed through <em>server commands</em>. Enable the
+telnet server interface by passing <code>-t</code> on liquidsoap's command line,
+and connect to it using <code>telnet localhost 1234</code>.
+</p>
+<ul>
+<li>
+Type <code>help</code>, find the command for pushing a request (by its file name) in the queue, and try it.</li>
+<li>
+Find the command for skipping the current track. If you skip a playlist track after having pushed a request in the queue, you should hear that request &ndash; unless the request failed to be prepared.</li>
+<li>
+Find the command for listing the next requests in queue. They are given by their request id (RID); the commands <code>request.metadata</code> and <code>request.trace</code> give you info from the RID.</li>
+<li>
+Also notice commands for listing the next files to be played by the playlist (depends on the playlist more), and reloading the playlist.</li>
+<li>
+Try setting <code>track_sensitive=false</code> for the fallback, see what it does (better, guess what it does from the doc).</li>
+</ul>
+<h3>Encode a file</h3>
+<p>
+You have learned how to build a few sources, synthesizing sound from scratch,
+from a remote stream or from a list of files. Now, instead of playing the
+stream directly to your soundcard, we'll encode it and save it to a local
+file:
+</p>
+<pre class="syntax liq">output.file(%vorbis,"test.ogg",source)
+</pre>
+<div align="right">
+<a href="scripts/on2_p1_file_output.liq">
+<img class="grab" src="../images/grab.png" alt="Grab the code!">
+</a>
+</div></p>
+<p>
+Here <code>source</code> is whatever you want, for example <code>sine()</code>.
+</p>
+<p>
+You can tweak the options of the encoding format, or change the encoding
+format; the available options are listed <a href="doc-dev/encoding_formats.html">here</a>.
+You can change the number of channels (for example, using <code>%vorbis(mono)</code>)
+but this may create problems with a playlist or remote stream,
+because conversions are not implicit in liquidsoap;
+we'll see later how to deal with them.
+</p>
+<h3>Icecast output</h3>
+<p>
+You can now easily change the file example to send you stream to an
+icecast server: simply use <code>output.icecast</code> instead of <code>output.file</code>,
+passing a <code>mount</code> parameter instead of a file name,
+and perhaps overriding the defaults for <code>host</code> (<code>"127.0.0.1"</code>)
+and <code>password</code> (<code>"hackme"</code>).
+You just created your first Internet radio using liquidsoap!
+</p>
+<p>
+If you have control over the icecast server (or over the network link to that
+server) you can simulate a loss of connection. Notice that liquidsoap only
+attempts once to reconnect, then fails and shuts down. For another behavior
+that tolerates more persistent failures, set <code>restart=true</code>.
+</p>
+<h2>Using liquidsoap in production</h2>
+<p>
+One-liners are good for one-shot uses, but not the most convenient
+for more complex liquidsoap programs, and for saving/editing the program.
+</p>
+<h3>Running a script file</h3>
+<p>
+Write the interactive example expression in a file, say <code>test.liq</code>.
+</p>
+<ul>
+<li>
+You can run it using <code>liquidsoap -t - &lt; test.liq</code>, you get the same behavior as before.</li>
+<li>
+If you run it using <code>liquidsoap -t test.liq</code> the logs will be written in <code>test.log</code> in the default logging directory. This can fail as you may not have access to that directory. Change the directory using the setting (see <a href="doc-dev/help.html">how to get help</a> about that) <code>log.file.path</code>. Then use the settings <code>log.stdout</code> and <code>log.file</code> for logging to the terminal and not to a file.</li>
+<li>
+Finally, find the setting for getting rid of the <code>-t</code> option on the command line.</li>
+<li>
+You can also use <code>#!/usr/bin/liquidsoap</code> (adapt the path) as the first line of your script to directly run <code>./test.liq</code> instead of <code>liquidsoap test.liq</code> (you need to <code>chmod +x test.liq</code>).</li>
+</ul>
+<p>
+You can also load several scripts and expression on the command line. The last
+script or expression is taken as the main one, and determines the logging behavior of liquidsoap.
+</p>
+<h3>Daemon mode</h3>
+<p>
+Finally, the <code>-d</code> command-line option (or <code>init.daemon</code> setting) triggers
+the <em>daemon mode</em> where liquidsoap detaches from the terminal to run in the
+background.
+</p>
+<h3>Checking a media file</h3>
+<p>
+To check how liquidsoap sees a file, you can run <code>liquidsoap -r &lt;FILE&gt;</code>.
+Liquidsoap will attempt to decode the file and its metadata,
+and compute its duration.
+This is (almost) the same process as used during streaming,
+so it can be used for checking how something works (or doesn't work).
+</p>
+<h2>Get comfortable with the language</h2>
+<p>
+Although it's easy to forget it when using simple liquidsoap expressions,
+liquidsoap is a rich programming language.
+Below is a list of simple exercises to get more comfortable with it.
+Those exercises do not deal with sources and even less with radio,
+and might seem pretty dull. But it's useful to go through them and
+try to understand what's going on: it will allow you to avoid the
+most common mistakes later,
+when trying to write more complex liquidsoap scripts.
+</p>
+<p>
+You can write the following examples in a script and execute it, or
+type them directly in your terminal, followed by ctrl-D, on the
+standard input of <code>liquidsoap -</code>.
+You can also pass <code>-c</code> so that liquidsoap does not warn you that
+it has no source to stream.
+</p>
+<h3>Using variables</h3>
+<p>
+Run the following script:
+</p>
+<pre class="syntax liq">x = 42
+print(x)
+</pre>
+<div align="right">
+<a href="scripts/on2_p1_variables.liq">
+<img class="grab" src="../images/grab.png" alt="Grab the code!">
+</a>
+</div></p>
+<p>
+As follows:
+</p>
+<pre class="syntax ">% liquidsoap --no-pervasives -i /path/to/script.liq
+x     : int
+42
+No output defined, nothing to do.
+</pre>
+<p>
+Try to obtain the following types
+(some help can be found <a href="doc-dev/language.html">there</a>):
+</p>
+<ul>
+<li>
+<code>float</code></li>
+<li>
+<code>bool</code></li>
+<li>
+<code>string</code></li>
+<li>
+<code>[string]</code> (list of strings)</li>
+<li>
+<code>(bool*string)</code> (a pair made of a boolean and a string)</li>
+</ul>
+<p>
+You can redefine a variable:
+</p>
+<pre class="syntax liq">x = 42
+y = "42"
+x = (y,y)
+z = (x,y)
+print(z)
+</pre>
+<div align="right">
+<a href="scripts/on2_p1_redef_var.liq">
+<img class="grab" src="../images/grab.png" alt="Grab the code!">
+</a>
+</div></p>
+<h3>Defining a function</h3>
+<p>
+Try this:
+</p>
+<pre class="syntax liq">def double(s)
+  s ^ s
+end
+print(double("foo"))
+</pre>
+<div align="right">
+<a href="scripts/on2_p1_double.liq">
+<img class="grab" src="../images/grab.png" alt="Grab the code!">
+</a>
+</div></p>
+<p>
+Change <code>^</code> for <code>+</code>. Liquidsoap will complain that it cannot add strings;
+additions are only for numbers (integers and floats). Adapt the last line
+to fix that problem.
+</p>
+<h3>Conditionals</h3>
+<p>
+A simple example:
+</p>
+<pre class="syntax liq">if "foo"=="bar" then
+  print("This is madness.")
+else
+  print("Phew.")
+end
+</pre>
+<div align="right">
+<a href="scripts/on2_p1_conditionals.liq">
+<img class="grab" src="../images/grab.png" alt="Grab the code!">
+</a>
+</div></p>
+<p>
+It can also be written as follows:
+</p>
+<pre class="syntax liq">print(
+  if "foo"=="bar" then
+    "This is madness."
+  else
+    "Phew."
+  end)
+</pre>
+<div align="right">
+<a href="scripts/on2_p1_conditionals_bis.liq">
+<img class="grab" src="../images/grab.png" alt="Grab the code!">
+</a>
+</div></p>
+<p>
+Now, define the variable <code>message</code> to be the correct message depending
+on the test, and finish by <code>print(message)</code>.
+To do this, keep in mind the following:
+A variable definition is local to the current scope.
+Redefining a new variable does not erase or override previous definitions
+but only masks them in the current scope.
+In other words, <em>definitions</em> should not be confused with
+<em>assignments</em> (which are performed by <code>x=...</code> in non-functional languages).
+You'll learn later how to use assignments when you really need them.
+</p>
+<h3>Sequencing, returning</h3>
+<p>
+Here is a function that prints the date and returns 42:
+</p>
+<pre class="syntax liq">def f()
+  print(get_process_output("date"))
+  42
+end
+# Let's use it:
+print(f())
+print(1+f())
+</pre>
+<div align="right">
+<a href="scripts/on2_p1_print_date.liq">
+<img class="grab" src="../images/grab.png" alt="Grab the code!">
+</a>
+</div></p>
+<p>
+Note that there is no return statement in liquidsoap (in fact there is
+no “statement” at all). Every expression evaluates to a value. A sequence
+evaluates to the value of its last expression (<code>42</code> in the body of the function
+<code>f</code>, and <code>print(1+f())</code> in the full program).
+The value “returned” by a function is simply the result of evaluating its
+body.
+</p>
+<h3>Labels and optional parameters</h3>
+<p>
+In liquidsoap, functions arguments can be labeled or not.
+For example, in <code>f(x,y,foo=z)</code> we pass <code>x</code> and <code>y</code> as the first two
+unlabeled arguments, and <code>z</code> for the argument labeled <code>foo</code>.
+Moreover, labeled arguments can be optional:
+you saw this with most examples in this page, where each operator
+had lots of parameters that you didn't set (for example,
+<code>track_sensitive</code> in <code>fallback</code>).
+</p>
+<p>
+When reading the doc of a function, you see the type of the function,
+followed by a description of its arguments. Often you can ignore the
+type, but when you write an incorrect script, you might need to read
+types to understand error messages. A function type is written
+<code>(A1,..,AN)-&gt;T</code> where <code>T</code> is the type of values returned by the function
+and each <code>Ai</code> specifies one parameters:
+</p>
+<ul>
+<li>
+unlabeled parameters are simply given by their type (for example, string concatenation has type <code>(string,string)-&gt;string</code>);</li>
+<li>
+mandatory labeled parameters are written <code>label:T</code> where <code>T</code> is the type of the parameter;</li>
+<li>
+optional labeled parameters are written <code>?label:T</code>.</li>
+</ul>
+<p>
+You will rarely have to define a function with labeled parameters,
+but if you're curious you can learn it <a href="doc-dev/language.html">there</a>.
+</p>
+<h3>What you cannot do</h3>
+<p>
+Liquidsoap does not have <code>while</code> and <code>for</code> loops, nor recursion.
+This is mostly because they are not really needed (yet...), notably
+since functions like <code>list.map</code> and <code>list.iter</code> are often a good replacement.
+</p>
+      <div id="footer"> 2003-2017 Savonet team</div>
+    </div>
+  </div>
+  <script type="text/javascript" src="//www.google.com/cse/brand?form=cse-search-box&amp;lang=en"></script>
+  <script type="text/javascript" src="../js/search.js"></script>
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-927362-1']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+</body>
+</html>

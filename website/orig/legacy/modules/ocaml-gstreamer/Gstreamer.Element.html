@@ -1,0 +1,158 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link rel="previous" href="Gstreamer.Event.html">
+<link rel="next" href="Gstreamer.Element_factory.html">
+<link rel="Up" href="Gstreamer.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Gstreamer" rel="Chapter" href="Gstreamer.html"><title>Gstreamer.Element</title>
+</head>
+<body>
+<div class="navbar"><a class="pre" href="Gstreamer.Event.html" title="Gstreamer.Event">Previous</a>
+&nbsp;<a class="up" href="Gstreamer.html" title="Gstreamer">Up</a>
+&nbsp;<a class="post" href="Gstreamer.Element_factory.html" title="Gstreamer.Element_factory">Next</a>
+</div>
+<h1>Module <a href="type_Gstreamer.Element.html">Gstreamer.Element</a></h1>
+
+<pre><span id="MODULEElement"><span class="keyword">module</span> Element</span>: <code class="code">sig</code> <a href="Gstreamer.Element.html">..</a> <code class="code">end</code></pre><div class="info module top">
+<div class="info-desc">
+<p>Elements.</p>
+</div>
+</div>
+<hr width="100%">
+
+<pre><span id="TYPEt"><span class="keyword">type</span> <code class="type"></code>t</span> </pre>
+<div class="info ">
+<div class="info-desc">
+<p>An element.</p>
+</div>
+</div>
+
+
+<pre><span id="VALset_property_string"><span class="keyword">val</span> set_property_string</span> : <code class="type"><a href="Gstreamer.Element.html#TYPEt">t</a> -> string -> string -> unit</code></pre>
+<pre><span id="VALset_property_int"><span class="keyword">val</span> set_property_int</span> : <code class="type"><a href="Gstreamer.Element.html#TYPEt">t</a> -> string -> string -> unit</code></pre>
+<pre><span id="VALset_property_bool"><span class="keyword">val</span> set_property_bool</span> : <code class="type"><a href="Gstreamer.Element.html#TYPEt">t</a> -> string -> string -> unit</code></pre>
+<pre><code><span id="TYPEstate"><span class="keyword">type</span> <code class="type"></code>state</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTstate.State_void_pending"><span class="constructor">State_void_pending</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTstate.State_null"><span class="constructor">State_null</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTstate.State_ready"><span class="constructor">State_ready</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTstate.State_paused"><span class="constructor">State_paused</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTstate.State_playing"><span class="constructor">State_playing</span></span></code></td>
+
+</tr></table>
+
+<div class="info ">
+<div class="info-desc">
+<p>State of an element.</p>
+</div>
+</div>
+
+
+<pre><span id="VALstring_of_state"><span class="keyword">val</span> string_of_state</span> : <code class="type"><a href="Gstreamer.Element.html#TYPEstate">state</a> -> string</code></pre><div class="info ">
+<div class="info-desc">
+<p>String representation of a state.</p>
+</div>
+</div>
+
+<pre><code><span id="TYPEstate_change"><span class="keyword">type</span> <code class="type"></code>state_change</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTstate_change.State_change_success"><span class="constructor">State_change_success</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTstate_change.State_change_async"><span class="constructor">State_change_async</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTstate_change.State_change_no_preroll"><span class="constructor">State_change_no_preroll</span></span></code></td>
+
+</tr></table>
+
+<div class="info ">
+<div class="info-desc">
+<p>Return value for state change.</p>
+</div>
+</div>
+
+
+<pre><span id="VALset_state"><span class="keyword">val</span> set_state</span> : <code class="type"><a href="Gstreamer.Element.html#TYPEt">t</a> -><br>       <a href="Gstreamer.Element.html#TYPEstate">state</a> -> <a href="Gstreamer.Element.html#TYPEstate_change">state_change</a></code></pre>
+<pre><span id="VALget_state"><span class="keyword">val</span> get_state</span> : <code class="type"><a href="Gstreamer.Element.html#TYPEt">t</a> -><br>       <a href="Gstreamer.Element.html#TYPEstate_change">state_change</a> * <a href="Gstreamer.Element.html#TYPEstate">state</a> *<br>       <a href="Gstreamer.Element.html#TYPEstate">state</a></code></pre><div class="info ">
+<div class="info-desc">
+<p>Current state of an element: return value, current state and pending state.</p>
+</div>
+</div>
+
+<pre><span id="VALlink"><span class="keyword">val</span> link</span> : <code class="type"><a href="Gstreamer.Element.html#TYPEt">t</a> -> <a href="Gstreamer.Element.html#TYPEt">t</a> -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p>Link two elements.</p>
+</div>
+</div>
+
+<pre><span id="VALlink_many"><span class="keyword">val</span> link_many</span> : <code class="type"><a href="Gstreamer.Element.html#TYPEt">t</a> list -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p>Sequentially link a list of element.</p>
+</div>
+</div>
+
+<pre><span id="VALposition"><span class="keyword">val</span> position</span> : <code class="type"><a href="Gstreamer.Element.html#TYPEt">t</a> -> <a href="Gstreamer.Format.html#TYPEt">Gstreamer.Format.t</a> -> Stdlib.Int64.t</code></pre><div class="info ">
+<div class="info-desc">
+<p>Current position of an element.</p>
+</div>
+</div>
+
+<pre><span id="VALduration"><span class="keyword">val</span> duration</span> : <code class="type"><a href="Gstreamer.Element.html#TYPEt">t</a> -> <a href="Gstreamer.Format.html#TYPEt">Gstreamer.Format.t</a> -> Stdlib.Int64.t</code></pre><div class="info ">
+<div class="info-desc">
+<p>Duration of an element.</p>
+</div>
+</div>
+
+<pre><span id="VALseek_simple"><span class="keyword">val</span> seek_simple</span> : <code class="type"><a href="Gstreamer.Element.html#TYPEt">t</a> -><br>       <a href="Gstreamer.Format.html#TYPEt">Gstreamer.Format.t</a> -><br>       <a href="Gstreamer.Event.html#TYPEseek_flag">Gstreamer.Event.seek_flag</a> list -> Stdlib.Int64.t -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p>Seek to a given position relative to the start of the stream.</p>
+</div>
+</div>
+</body></html>

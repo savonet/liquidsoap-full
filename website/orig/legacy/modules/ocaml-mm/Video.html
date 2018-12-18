@@ -1,0 +1,97 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link rel="previous" href="Synth.html">
+<link rel="Up" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of class methods" rel=Appendix href="index_methods.html">
+<link title="Index of classes" rel=Appendix href="index_classes.html">
+<link title="Index of class types" rel=Appendix href="index_class_types.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="MIDI" rel="Chapter" href="MIDI.html">
+<link title="Audio" rel="Chapter" href="Audio.html">
+<link title="Image" rel="Chapter" href="Image.html">
+<link title="Ringbuffer" rel="Chapter" href="Ringbuffer.html">
+<link title="Synth" rel="Chapter" href="Synth.html">
+<link title="Video" rel="Chapter" href="Video.html"><title>Video</title>
+</head>
+<body>
+<div class="navbar"><a class="pre" href="Synth.html" title="Synth">Previous</a>
+&nbsp;<a class="up" href="index.html" title="Index">Up</a>
+&nbsp;</div>
+<h1>Module <a href="type_Video.html">Video</a></h1>
+
+<pre><span id="MODULEVideo"><span class="keyword">module</span> Video</span>: <code class="code">sig</code> <a href="Video.html">..</a> <code class="code">end</code></pre><div class="info module top">
+<div class="info-desc">
+<p>Operations on video data.</p>
+</div>
+</div>
+<hr width="100%">
+
+<pre><span id="TYPEframe"><span class="keyword">type</span> <code class="type"></code>frame</span> = <code class="type"><a href="Image.RGBA32.html#TYPEt">Image.RGBA32.t</a></code> </pre>
+<div class="info ">
+<div class="info-desc">
+<p>A frame.</p>
+</div>
+</div>
+
+
+<pre><span id="TYPEbuffer"><span class="keyword">type</span> <code class="type"></code>buffer</span> = <code class="type"><a href="Video.html#TYPEframe">frame</a> array</code> </pre>
+<div class="info ">
+<div class="info-desc">
+<p>A video buffer.</p>
+</div>
+</div>
+
+
+<pre><span id="VALsize"><span class="keyword">val</span> size</span> : <code class="type"><a href="Video.html#TYPEbuffer">buffer</a> -> int</code></pre><div class="info ">
+<div class="info-desc">
+<p>Size of the buffer in frames.</p>
+</div>
+</div>
+
+<pre><span id="VALcreate"><span class="keyword">val</span> create</span> : <code class="type">int -> <a href="Video.html#TYPEbuffer">buffer</a></code></pre><div class="info ">
+<div class="info-desc">
+<p>Create a buffer with a given number of frames. The frames themselves should
+    not be read or written to, otherwise use <code class="code">make</code>.</p>
+</div>
+</div>
+
+<pre><span id="VALmake"><span class="keyword">val</span> make</span> : <code class="type">int -> int -> int -> <a href="Video.html#TYPEbuffer">buffer</a></code></pre><div class="info ">
+<div class="info-desc">
+<p>Create a buffer with a given number of frames of given size.</p>
+</div>
+</div>
+
+<pre><span id="VALcopy"><span class="keyword">val</span> copy</span> : <code class="type"><a href="Video.html#TYPEbuffer">buffer</a> -> <a href="Video.html#TYPEbuffer">buffer</a></code></pre><div class="info ">
+<div class="info-desc">
+<p>Create a fresh copy of a buffer.</p>
+</div>
+</div>
+
+<pre><span id="VALappend"><span class="keyword">val</span> append</span> : <code class="type"><a href="Video.html#TYPEbuffer">buffer</a> -> <a href="Video.html#TYPEbuffer">buffer</a> -> <a href="Video.html#TYPEbuffer">buffer</a></code></pre><div class="info ">
+<div class="info-desc">
+<p>Concatenate two buffers.</p>
+</div>
+</div>
+
+<pre><span id="VALblit"><span class="keyword">val</span> blit</span> : <code class="type"><a href="Video.html#TYPEbuffer">buffer</a> -> int -> <a href="Video.html#TYPEbuffer">buffer</a> -> int -> int -> unit</code></pre>
+<pre><span id="VALiter_all"><span class="keyword">val</span> iter_all</span> : <code class="type"><a href="Video.html#TYPEbuffer">buffer</a> -> (<a href="Video.html#TYPEframe">frame</a> -> unit) -> unit</code></pre>
+<pre><span id="VALmap_all"><span class="keyword">val</span> map_all</span> : <code class="type"><a href="Video.html#TYPEbuffer">buffer</a> -> (<a href="Video.html#TYPEframe">frame</a> -> <a href="Video.html#TYPEframe">frame</a>) -> unit</code></pre>
+<pre><span id="VALrandomize"><span class="keyword">val</span> randomize</span> : <code class="type"><a href="Video.html#TYPEbuffer">buffer</a> -> int -> int -> unit</code></pre>
+<pre><span id="VALblank"><span class="keyword">val</span> blank</span> : <code class="type"><a href="Video.html#TYPEbuffer">buffer</a> -> int -> int -> unit</code></pre>
+<pre><span id="MODULERingbuffer_ext"><span class="keyword">module</span> <a href="Video.Ringbuffer_ext.html">Ringbuffer_ext</a></span>: <code class="type"><a href="Ringbuffer.R.html">Ringbuffer.R</a></code><code class="type">  with type elt = frame</code></pre>
+<pre><span id="MODULERingbuffer"><span class="keyword">module</span> <a href="Video.Ringbuffer.html">Ringbuffer</a></span>: <code class="type"><a href="Ringbuffer.R.html">Ringbuffer.R</a></code><code class="type">  with type elt = frame</code></pre>
+<pre><span id="MODULEFPS"><span class="keyword">module</span> <a href="Video.FPS.html">FPS</a></span>: <code class="code">sig</code> <a href="Video.FPS.html">..</a> <code class="code">end</code></pre><div class="info">
+<p>Operations on frame rates.</p>
+
+</div>
+
+<pre><span id="MODULEIO"><span class="keyword">module</span> <a href="Video.IO.html">IO</a></span>: <code class="code">sig</code> <a href="Video.IO.html">..</a> <code class="code">end</code></pre></body></html>

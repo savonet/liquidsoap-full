@@ -1,0 +1,108 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link rel="previous" href="Dtools.Conf.html">
+<link rel="next" href="Dtools.Log.html">
+<link rel="Up" href="Dtools.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Dtools" rel="Chapter" href="Dtools.html"><title>Dtools.Init</title>
+</head>
+<body>
+<div class="navbar"><a class="pre" href="Dtools.Conf.html" title="Dtools.Conf">Previous</a>
+&nbsp;<a class="up" href="Dtools.html" title="Dtools">Up</a>
+&nbsp;<a class="post" href="Dtools.Log.html" title="Dtools.Log">Next</a>
+</div>
+<h1>Module <a href="type_Dtools.Init.html">Dtools.Init</a></h1>
+
+<pre><span id="MODULEInit"><span class="keyword">module</span> Init</span>: <code class="code">sig</code> <a href="Dtools.Init.html">..</a> <code class="code">end</code></pre><div class="info module top">
+<div class="info-desc">
+<p>Initialisation management module.
+  Allow to define procedures that must be executed at start up, and
+  procedures that are to be executed at exit to have a clean quit.</p>
+</div>
+</div>
+<hr width="100%">
+
+<pre><span id="TYPEt"><span class="keyword">type</span> <code class="type"></code>t</span> </pre>
+
+
+<pre><span id="VALstart"><span class="keyword">val</span> start</span> : <code class="type"><a href="Dtools.Init.html#TYPEt">t</a></code></pre><div class="info ">
+<div class="info-desc">
+<p>Root start atom</p>
+</div>
+</div>
+
+<pre><span id="VALstop"><span class="keyword">val</span> stop</span> : <code class="type"><a href="Dtools.Init.html#TYPEt">t</a></code></pre><div class="info ">
+<div class="info-desc">
+<p>Root stop atom</p>
+</div>
+</div>
+
+<pre><span id="VALmake"><span class="keyword">val</span> make</span> : <code class="type">?name:string -><br>       ?depends:<a href="Dtools.Init.html#TYPEt">t</a> list -><br>       ?triggers:<a href="Dtools.Init.html#TYPEt">t</a> list -><br>       ?after:<a href="Dtools.Init.html#TYPEt">t</a> list -><br>       ?before:<a href="Dtools.Init.html#TYPEt">t</a> list -> (unit -> unit) -> <a href="Dtools.Init.html#TYPEt">t</a></code></pre><div class="info ">
+<div class="info-desc">
+<p>Define a init atom associated with the given <code class="code">(unit -&gt; unit)</code>
+      procedure, which eventualy depends on others atoms (these atoms
+      will be executed before the one currently defined) an triggers
+      other atoms (these atoms will be executed after the one currently
+      defined). <code class="code">after</code> and <code class="code">before</code> allow to register the currently
+      defined atom in the depend and triggers lists of other atoms.</p>
+</div>
+</div>
+
+<pre><span id="VALat_start"><span class="keyword">val</span> at_start</span> : <code class="type">?name:string -><br>       ?depends:<a href="Dtools.Init.html#TYPEt">t</a> list -><br>       ?triggers:<a href="Dtools.Init.html#TYPEt">t</a> list -><br>       ?after:<a href="Dtools.Init.html#TYPEt">t</a> list -><br>       ?before:<a href="Dtools.Init.html#TYPEt">t</a> list -> (unit -> unit) -> <a href="Dtools.Init.html#TYPEt">t</a></code></pre><div class="info ">
+<div class="info-desc">
+<p>Same as <code class="code">make</code> plus a shortcut for "after Init.start".</p>
+</div>
+</div>
+
+<pre><span id="VALat_stop"><span class="keyword">val</span> at_stop</span> : <code class="type">?name:string -><br>       ?depends:<a href="Dtools.Init.html#TYPEt">t</a> list -><br>       ?triggers:<a href="Dtools.Init.html#TYPEt">t</a> list -><br>       ?after:<a href="Dtools.Init.html#TYPEt">t</a> list -><br>       ?before:<a href="Dtools.Init.html#TYPEt">t</a> list -> (unit -> unit) -> <a href="Dtools.Init.html#TYPEt">t</a></code></pre><div class="info ">
+<div class="info-desc">
+<p>Same as <code class="code">make</code> plus a shortcut for "before Init.stop".</p>
+</div>
+</div>
+
+<pre><span id="VALexec"><span class="keyword">val</span> exec</span> : <code class="type"><a href="Dtools.Init.html#TYPEt">t</a> -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p>Launch the execution of a given init atom.</p>
+</div>
+</div>
+
+<pre><span id="EXCEPTIONRoot_prohibited"><span class="keyword">exception</span> Root_prohibited</span> <span class="keyword">of</span> <code class="type">[ `Both | `Group | `User ]</code></pre>
+
+<pre><span id="VALinit"><span class="keyword">val</span> init</span> : <code class="type">?prohibit_root:bool -> (unit -> unit) -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p>This fuction must be used to launch the main procedure of the
+      program. It first execute the registered start atoms, then call
+      the main procedure, then execute the registered stop atoms.
+      Exceptions raised by the main procedure are catched, in order to
+      close properly even in such cases. Exceptions are raised again
+      after cleaning.
+      When invoqued with <code class="code">~prohibit_root:true</code>, it checks for root access
+      rights (euid, egid) and exit in this case.</p>
+</div>
+</div>
+
+<pre><span id="EXCEPTIONStartError"><span class="keyword">exception</span> StartError</span> <span class="keyword">of</span> <code class="type">exn</code></pre>
+
+<pre><span id="EXCEPTIONStopError"><span class="keyword">exception</span> StopError</span> <span class="keyword">of</span> <code class="type">exn</code></pre>
+
+<pre><span id="VALconf"><span class="keyword">val</span> conf</span> : <code class="type"><a href="Dtools.Conf.html#TYPEut">Dtools.Conf.ut</a></code></pre>
+<pre><span id="VALconf_daemon"><span class="keyword">val</span> conf_daemon</span> : <code class="type">bool <a href="Dtools.Conf.html#TYPEt">Dtools.Conf.t</a></code></pre>
+<pre><span id="VALconf_daemon_pidfile"><span class="keyword">val</span> conf_daemon_pidfile</span> : <code class="type">bool <a href="Dtools.Conf.html#TYPEt">Dtools.Conf.t</a></code></pre>
+<pre><span id="VALconf_daemon_pidfile_path"><span class="keyword">val</span> conf_daemon_pidfile_path</span> : <code class="type">string <a href="Dtools.Conf.html#TYPEt">Dtools.Conf.t</a></code></pre>
+<pre><span id="VALconf_concurrent"><span class="keyword">val</span> conf_concurrent</span> : <code class="type">bool <a href="Dtools.Conf.html#TYPEt">Dtools.Conf.t</a></code></pre>
+<pre><span id="VALconf_trace"><span class="keyword">val</span> conf_trace</span> : <code class="type">bool <a href="Dtools.Conf.html#TYPEt">Dtools.Conf.t</a></code></pre>
+<pre><span id="VALconf_catch_exn"><span class="keyword">val</span> conf_catch_exn</span> : <code class="type">bool <a href="Dtools.Conf.html#TYPEt">Dtools.Conf.t</a></code></pre>
+<pre><span id="VALargs"><span class="keyword">val</span> args</span> : <code class="type">(string list * Stdlib.Arg.spec * string) list</code></pre><div class="info ">
+<div class="info-desc">
+<p>A set of command line options to be used with the Arg module.</p>
+</div>
+</div>
+</body></html>

@@ -1,0 +1,371 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link rel="Up" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Mad" rel="Chapter" href="Mad.html"><link title="Exceptions" rel="Section" href="#1_Exceptions">
+<link title="Decoding files" rel="Section" href="#1_Decodingfiles">
+<title>Mad</title>
+</head>
+<body>
+<div class="navbar">&nbsp;<a class="up" href="index.html" title="Index">Up</a>
+&nbsp;</div>
+<h1>Module <a href="type_Mad.html">Mad</a></h1>
+
+<pre><span id="MODULEMad"><span class="keyword">module</span> Mad</span>: <code class="code">sig</code> <a href="Mad.html">..</a> <code class="code">end</code></pre><div class="info module top">
+<div class="info-desc">
+<p>Functions for decoding mp3 files using the libmad.</p>
+
+</div>
+<ul class="info-attributes">
+<li><b>Author(s):</b> Samuel Mimram</li>
+</ul>
+</div>
+<hr width="100%">
+<h2 id="1_Exceptions">Exceptions</h2>
+<pre><span id="EXCEPTIONMad_error"><span class="keyword">exception</span> Mad_error</span> <span class="keyword">of</span> <code class="type">string</code></pre>
+<div class="info ">
+<div class="info-desc">
+<p>An error occured with libmad.</p>
+</div>
+</div>
+
+<pre><span id="EXCEPTIONRead_error"><span class="keyword">exception</span> Read_error</span> <span class="keyword">of</span> <code class="type">string</code></pre>
+<div class="info ">
+<div class="info-desc">
+<p>An error occured while reading a file.</p>
+</div>
+</div>
+
+<pre><span id="EXCEPTIONEnd_of_stream"><span class="keyword">exception</span> End_of_stream</span></pre>
+<div class="info ">
+<div class="info-desc">
+<p>The end of the mp3 stream was reached.</p>
+</div>
+</div>
+
+<pre><span id="EXCEPTIONOpenfile_error"><span class="keyword">exception</span> Openfile_error</span> <span class="keyword">of</span> <code class="type">string</code></pre>
+<div class="info ">
+<div class="info-desc">
+<p>Could not open a file.</p>
+</div>
+</div>
+
+<pre><span id="EXCEPTIONClosefile_error"><span class="keyword">exception</span> Closefile_error</span> <span class="keyword">of</span> <code class="type">string</code></pre>
+<div class="info ">
+<div class="info-desc">
+<p>Could not close a file.</p>
+</div>
+</div>
+<h2 id="1_Decodingfiles">Decoding files</h2>
+<pre><span id="TYPEmad_file"><span class="keyword">type</span> <code class="type"></code>mad_file</span> </pre>
+<div class="info ">
+<div class="info-desc">
+<p>An mp3 file opened for decoding.</p>
+</div>
+</div>
+
+
+<pre><code><span id="TYPEmpeg_layer"><span class="keyword">type</span> <code class="type"></code>mpeg_layer</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTmpeg_layer.Layer_I"><span class="constructor">Layer_I</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTmpeg_layer.Layer_II"><span class="constructor">Layer_II</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTmpeg_layer.Layer_III"><span class="constructor">Layer_III</span></span></code></td>
+
+</tr></table>
+
+
+
+<pre><code><span id="TYPEemphasis"><span class="keyword">type</span> <code class="type"></code>emphasis</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTemphasis.None"><span class="constructor">None</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTemphasis.MS_50_15"><span class="constructor">MS_50_15</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTemphasis.CCITT_J_17"><span class="constructor">CCITT_J_17</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTemphasis.Reserved"><span class="constructor">Reserved</span></span></code></td>
+
+</tr></table>
+
+
+
+<pre><code><span id="TYPEchannel_mode"><span class="keyword">type</span> <code class="type"></code>channel_mode</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTchannel_mode.Single_channel"><span class="constructor">Single_channel</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTchannel_mode.Dual_channel"><span class="constructor">Dual_channel</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTchannel_mode.Joint_stereo"><span class="constructor">Joint_stereo</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTchannel_mode.Stereo"><span class="constructor">Stereo</span></span></code></td>
+
+</tr></table>
+
+
+
+<pre><code><span id="TYPEframe_format"><span class="keyword">type</span> <code class="type"></code>frame_format</span> = {</code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTframe_format.layer">layer</span>&nbsp;: <code class="type"><a href="Mad.html#TYPEmpeg_layer">mpeg_layer</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTframe_format.mode">mode</span>&nbsp;: <code class="type"><a href="Mad.html#TYPEchannel_mode">channel_mode</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTframe_format.emphasis">emphasis</span>&nbsp;: <code class="type"><a href="Mad.html#TYPEemphasis">emphasis</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTframe_format.bitrate">bitrate</span>&nbsp;: <code class="type">int</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTframe_format.samplerate">samplerate</span>&nbsp;: <code class="type">int</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTframe_format.channels">channels</span>&nbsp;: <code class="type">int</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTframe_format.samples_per_channel">samples_per_channel</span>&nbsp;: <code class="type">int</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTframe_format.original">original</span>&nbsp;: <code class="type">bool</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTframe_format.copyright">copyright</span>&nbsp;: <code class="type">bool</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTframe_format.private_bit">private_bit</span>&nbsp;: <code class="type">bool</code>;</code></td>
+
+</tr></table>
+}
+
+
+
+<pre><span id="VALopenfile"><span class="keyword">val</span> openfile</span> : <code class="type">string -> <a href="Mad.html#TYPEmad_file">mad_file</a></code></pre><div class="info ">
+<div class="info-desc">
+<p>Open an mp3 file.</p>
+
+</div>
+<ul class="info-attributes">
+<li><b>Raises</b> <code>Openfile_error</code> if an error occured while trying to open the file.</li>
+</ul>
+</div>
+
+<pre><span id="VALopenstream"><span class="keyword">val</span> openstream</span> : <code class="type">(int -> string * int) -> <a href="Mad.html#TYPEmad_file">mad_file</a></code></pre><div class="info ">
+<div class="info-desc">
+<p><code class="code">openstream read_func</code> opens a stream where <code class="code">read_func n</code> should be a
+ function which returns <code class="code">n</code> bytes of data or less, the second component of
+ the result being the number of bytes to read in the fist component.</p>
+</div>
+</div>
+
+<pre><span id="VALskip_id3tags"><span class="keyword">val</span> skip_id3tags</span> : <code class="type">read:(int -> string * int) -> seek:(int -> int) -> tell:(unit -> int) -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p>Skip ID3 tags that may be present at 
+ the beginning of a stream. This function
+ may be used to a mp3 file opened using <code class="code">openstream</code>.
+ ID3 tags are always skipped when using <code class="code">openfile</code>.</p>
+
+<p><code class="code">seek</code> is a callback to seek to an absolute
+ position on the encoded data, and <code class="code">tell</code> a callback
+ to fetch the current position. <code class="code">read</code> is the reading
+ callback.</p>
+</div>
+</div>
+
+<pre><span id="VALclose"><span class="keyword">val</span> close</span> : <code class="type"><a href="Mad.html#TYPEmad_file">mad_file</a> -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p>Close an mp3 file previously opened with <code class="code">openfile</code>.</p>
+
+</div>
+<ul class="info-attributes">
+<li><b>Raises</b> <code>Closefile_error</code> if an error occured while trying to close the file.</li>
+</ul>
+</div>
+
+<pre><span id="VALget_current_position"><span class="keyword">val</span> get_current_position</span> : <code class="type"><a href="Mad.html#TYPEmad_file">mad_file</a> -> int</code></pre><div class="info ">
+<div class="info-desc">
+<p>Get the current position (in bytes) of the decoder in the mp3 file which
+ should have been opened with <code class="code">openfile</code>.</p>
+</div>
+</div>
+
+<pre><code><span id="TYPEtime_unit"><span class="keyword">type</span> <code class="type"></code>time_unit</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTtime_unit.Hours"><span class="constructor">Hours</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTtime_unit.Minutes"><span class="constructor">Minutes</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTtime_unit.Seconds"><span class="constructor">Seconds</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTtime_unit.Deciseconds"><span class="constructor">Deciseconds</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTtime_unit.Centiseconds"><span class="constructor">Centiseconds</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTtime_unit.Milliseconds"><span class="constructor">Milliseconds</span></span></code></td>
+
+</tr></table>
+
+
+
+<pre><span id="VALget_current_time"><span class="keyword">val</span> get_current_time</span> : <code class="type"><a href="Mad.html#TYPEmad_file">mad_file</a> -> <a href="Mad.html#TYPEtime_unit">time_unit</a> -> int</code></pre><div class="info ">
+<div class="info-desc">
+<p>Get the current time position (in the given unit) of the decoder.</p>
+</div>
+</div>
+
+<pre><span id="VALdecode_frame"><span class="keyword">val</span> decode_frame</span> : <code class="type"><a href="Mad.html#TYPEmad_file">mad_file</a> -> string</code></pre><div class="info ">
+<div class="info-desc">
+<p>Decode an mp3 frame. 
+ Returned data in interleaved when
+ there are two channels, and mono data
+ when there is only one.</p>
+</div>
+</div>
+
+<pre><span id="VALdecode_frame_float"><span class="keyword">val</span> decode_frame_float</span> : <code class="type"><a href="Mad.html#TYPEmad_file">mad_file</a> -> float array array</code></pre><div class="info ">
+<div class="info-desc">
+<p>Decode an mp3 frame.</p>
+</div>
+</div>
+
+<pre><span id="VALskip_frame"><span class="keyword">val</span> skip_frame</span> : <code class="type"><a href="Mad.html#TYPEmad_file">mad_file</a> -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p>Skip one frame. The current time/position is
+ updated but the frame is not decoded.</p>
+</div>
+</div>
+
+<pre><span id="VALget_frame_format"><span class="keyword">val</span> get_frame_format</span> : <code class="type"><a href="Mad.html#TYPEmad_file">mad_file</a> -> <a href="Mad.html#TYPEframe_format">frame_format</a></code></pre>
+<pre><span id="VALget_output_format"><span class="keyword">val</span> get_output_format</span> : <code class="type"><a href="Mad.html#TYPEmad_file">mad_file</a> -> int * int * int</code></pre>
+<pre><span id="VALduration"><span class="keyword">val</span> duration</span> : <code class="type">string -> float</code></pre><div class="info ">
+<div class="info-desc">
+<p>Compute the duration of a file, in seconds.
+ Never raises any exception, but returns 0. in case of error.</p>
+</div>
+</div>
+</body></html>

@@ -1,0 +1,170 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link rel="Up" href="Lame_dynlink.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Lame" rel="Chapter" href="Lame.html">
+<link title="Lame_dynlink" rel="Chapter" href="Lame_dynlink.html"><title>Lame_dynlink.Lame_t</title>
+</head>
+<body>
+<div class="navbar">&nbsp;<a class="up" href="Lame_dynlink.html" title="Lame_dynlink">Up</a>
+&nbsp;</div>
+<h1>Module type <a href="type_Lame_dynlink.Lame_t.html">Lame_dynlink.Lame_t</a></h1>
+
+<pre><span id="MODULETYPELame_t"><span class="keyword">module type</span> Lame_t</span> = <code class="code">sig</code> <a href="Lame_dynlink.Lame_t.html">..</a> <code class="code">end</code></pre><hr width="100%">
+
+<pre><span id="VALget_lame_version"><span class="keyword">val</span> get_lame_version</span> : <code class="type">unit -> string</code></pre>
+<pre><span id="VALget_lame_short_version"><span class="keyword">val</span> get_lame_short_version</span> : <code class="type">unit -> string</code></pre>
+<pre><span id="VALget_lame_very_short_version"><span class="keyword">val</span> get_lame_very_short_version</span> : <code class="type">unit -> string</code></pre>
+<pre><span id="VALget_lame_url"><span class="keyword">val</span> get_lame_url</span> : <code class="type">unit -> string</code></pre>
+<pre><span id="VALget_psy_version"><span class="keyword">val</span> get_psy_version</span> : <code class="type">unit -> string</code></pre>
+<pre><span id="TYPEencoder"><span class="keyword">type</span> <code class="type"></code>encoder</span> </pre>
+
+
+<pre><span id="VALcreate_encoder"><span class="keyword">val</span> create_encoder</span> : <code class="type">unit -> <a href="Lame_dynlink.Lame_t.html#TYPEencoder">encoder</a></code></pre>
+<pre><span id="VALset_in_samplerate"><span class="keyword">val</span> set_in_samplerate</span> : <code class="type"><a href="Lame_dynlink.Lame_t.html#TYPEencoder">encoder</a> -> int -> unit</code></pre>
+<pre><span id="VALset_num_channels"><span class="keyword">val</span> set_num_channels</span> : <code class="type"><a href="Lame_dynlink.Lame_t.html#TYPEencoder">encoder</a> -> int -> unit</code></pre>
+<pre><span id="VALset_out_samplerate"><span class="keyword">val</span> set_out_samplerate</span> : <code class="type"><a href="Lame_dynlink.Lame_t.html#TYPEencoder">encoder</a> -> int -> unit</code></pre>
+<pre><span id="VALset_quality"><span class="keyword">val</span> set_quality</span> : <code class="type"><a href="Lame_dynlink.Lame_t.html#TYPEencoder">encoder</a> -> int -> unit</code></pre>
+<pre><code><span id="TYPEmode"><span class="keyword">type</span> <code class="type"></code>mode</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTmode.Stereo"><span class="constructor">Stereo</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTmode.Joint_stereo"><span class="constructor">Joint_stereo</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTmode.Dual_channel"><span class="constructor">Dual_channel</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTmode.Mono"><span class="constructor">Mono</span></span></code></td>
+
+</tr></table>
+
+
+
+<pre><span id="VALset_mode"><span class="keyword">val</span> set_mode</span> : <code class="type"><a href="Lame_dynlink.Lame_t.html#TYPEencoder">encoder</a> -> <a href="Lame_dynlink.Lame_t.html#TYPEmode">mode</a> -> unit</code></pre>
+<pre><code><span id="TYPEvbr_mode"><span class="keyword">type</span> <code class="type"></code>vbr_mode</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTvbr_mode.Vbr_off"><span class="constructor">Vbr_off</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTvbr_mode.Vbr_rh"><span class="constructor">Vbr_rh</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTvbr_mode.Vbr_abr"><span class="constructor">Vbr_abr</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTvbr_mode.Vbr_mtrh"><span class="constructor">Vbr_mtrh</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTvbr_mode.Vbr_max_indicator"><span class="constructor">Vbr_max_indicator</span></span></code></td>
+
+</tr></table>
+
+
+
+<pre><span id="VALset_vbr_mode"><span class="keyword">val</span> set_vbr_mode</span> : <code class="type"><a href="Lame_dynlink.Lame_t.html#TYPEencoder">encoder</a> -> <a href="Lame_dynlink.Lame_t.html#TYPEvbr_mode">vbr_mode</a> -> unit</code></pre>
+<pre><span id="VALset_vbr_quality"><span class="keyword">val</span> set_vbr_quality</span> : <code class="type"><a href="Lame_dynlink.Lame_t.html#TYPEencoder">encoder</a> -> int -> unit</code></pre>
+<pre><span id="VALset_vbr_mean_bitrate"><span class="keyword">val</span> set_vbr_mean_bitrate</span> : <code class="type"><a href="Lame_dynlink.Lame_t.html#TYPEencoder">encoder</a> -> int -> unit</code></pre>
+<pre><span id="VALset_vbr_min_bitrate"><span class="keyword">val</span> set_vbr_min_bitrate</span> : <code class="type"><a href="Lame_dynlink.Lame_t.html#TYPEencoder">encoder</a> -> int -> unit</code></pre>
+<pre><span id="VALset_vbr_max_bitrate"><span class="keyword">val</span> set_vbr_max_bitrate</span> : <code class="type"><a href="Lame_dynlink.Lame_t.html#TYPEencoder">encoder</a> -> int -> unit</code></pre>
+<pre><span id="VALset_vbr_hard_min"><span class="keyword">val</span> set_vbr_hard_min</span> : <code class="type"><a href="Lame_dynlink.Lame_t.html#TYPEencoder">encoder</a> -> bool -> unit</code></pre>
+<pre><span id="VALset_brate"><span class="keyword">val</span> set_brate</span> : <code class="type"><a href="Lame_dynlink.Lame_t.html#TYPEencoder">encoder</a> -> int -> unit</code></pre>
+<pre><span id="VALset_compression_ratio"><span class="keyword">val</span> set_compression_ratio</span> : <code class="type"><a href="Lame_dynlink.Lame_t.html#TYPEencoder">encoder</a> -> float -> unit</code></pre>
+<pre><span id="VALset_private"><span class="keyword">val</span> set_private</span> : <code class="type"><a href="Lame_dynlink.Lame_t.html#TYPEencoder">encoder</a> -> bool -> unit</code></pre>
+<pre><span id="VALget_private"><span class="keyword">val</span> get_private</span> : <code class="type"><a href="Lame_dynlink.Lame_t.html#TYPEencoder">encoder</a> -> bool</code></pre>
+<pre><span id="VALset_copyright"><span class="keyword">val</span> set_copyright</span> : <code class="type"><a href="Lame_dynlink.Lame_t.html#TYPEencoder">encoder</a> -> bool -> unit</code></pre>
+<pre><span id="VALget_copyright"><span class="keyword">val</span> get_copyright</span> : <code class="type"><a href="Lame_dynlink.Lame_t.html#TYPEencoder">encoder</a> -> bool</code></pre>
+<pre><span id="VALset_original"><span class="keyword">val</span> set_original</span> : <code class="type"><a href="Lame_dynlink.Lame_t.html#TYPEencoder">encoder</a> -> bool -> unit</code></pre>
+<pre><span id="VALget_original"><span class="keyword">val</span> get_original</span> : <code class="type"><a href="Lame_dynlink.Lame_t.html#TYPEencoder">encoder</a> -> bool</code></pre>
+<pre><span id="EXCEPTIONInit_params_failed"><span class="keyword">exception</span> Init_params_failed</span></pre>
+
+<pre><span id="VALinit_params"><span class="keyword">val</span> init_params</span> : <code class="type"><a href="Lame_dynlink.Lame_t.html#TYPEencoder">encoder</a> -> unit</code></pre>
+<pre><span id="VALinit_bitstream"><span class="keyword">val</span> init_bitstream</span> : <code class="type"><a href="Lame_dynlink.Lame_t.html#TYPEencoder">encoder</a> -> unit</code></pre>
+<pre><span id="EXCEPTIONInit_params_not_called"><span class="keyword">exception</span> Init_params_not_called</span></pre>
+
+<pre><span id="EXCEPTIONPsychoacoustic_problem"><span class="keyword">exception</span> Psychoacoustic_problem</span></pre>
+
+<pre><span id="EXCEPTIONUnknown_error"><span class="keyword">exception</span> Unknown_error</span> <span class="keyword">of</span> <code class="type">int</code></pre>
+
+<pre><span id="VALencode_buffer_part"><span class="keyword">val</span> encode_buffer_part</span> : <code class="type"><a href="Lame_dynlink.Lame_t.html#TYPEencoder">encoder</a> -> string -> int -> int -> string</code></pre>
+<pre><span id="VALencode_buffer"><span class="keyword">val</span> encode_buffer</span> : <code class="type"><a href="Lame_dynlink.Lame_t.html#TYPEencoder">encoder</a> -> string -> int -> string</code></pre>
+<pre><span id="VALencode_buffer_float_part"><span class="keyword">val</span> encode_buffer_float_part</span> : <code class="type"><a href="Lame_dynlink.Lame_t.html#TYPEencoder">encoder</a> -><br>       float array -> float array -> int -> int -> string</code></pre>
+<pre><span id="VALencode_buffer_float"><span class="keyword">val</span> encode_buffer_float</span> : <code class="type"><a href="Lame_dynlink.Lame_t.html#TYPEencoder">encoder</a> -> float array -> float array -> int -> string</code></pre>
+<pre><span id="VALencode_flush"><span class="keyword">val</span> encode_flush</span> : <code class="type"><a href="Lame_dynlink.Lame_t.html#TYPEencoder">encoder</a> -> string</code></pre>
+<pre><span id="VALencode_flush_nogap"><span class="keyword">val</span> encode_flush_nogap</span> : <code class="type"><a href="Lame_dynlink.Lame_t.html#TYPEencoder">encoder</a> -> string</code></pre>
+<pre><span id="MODULEId3tag"><span class="keyword">module</span> <a href="Lame_dynlink.Lame_t.Id3tag.html">Id3tag</a></span>: <code class="code">sig</code> <a href="Lame_dynlink.Lame_t.Id3tag.html">..</a> <code class="code">end</code></pre>
+<pre><code><span id="TYPEmpeg_version"><span class="keyword">type</span> <code class="type"></code>mpeg_version</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTmpeg_version.Mpeg_1"><span class="constructor">Mpeg_1</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTmpeg_version.Mpeg_2"><span class="constructor">Mpeg_2</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTmpeg_version.Mpeg_2_5"><span class="constructor">Mpeg_2_5</span></span></code></td>
+
+</tr></table>
+
+
+
+<pre><span id="VALget_version"><span class="keyword">val</span> get_version</span> : <code class="type"><a href="Lame_dynlink.Lame_t.html#TYPEencoder">encoder</a> -> <a href="Lame_dynlink.Lame_t.html#TYPEmpeg_version">mpeg_version</a></code></pre>
+<pre><span id="VALget_encoder_delay"><span class="keyword">val</span> get_encoder_delay</span> : <code class="type"><a href="Lame_dynlink.Lame_t.html#TYPEencoder">encoder</a> -> int</code></pre>
+<pre><span id="VALget_framesize"><span class="keyword">val</span> get_framesize</span> : <code class="type"><a href="Lame_dynlink.Lame_t.html#TYPEencoder">encoder</a> -> int</code></pre>
+<pre><span id="VALget_nb_samples_to_encode"><span class="keyword">val</span> get_nb_samples_to_encode</span> : <code class="type"><a href="Lame_dynlink.Lame_t.html#TYPEencoder">encoder</a> -> int</code></pre>
+<pre><span id="VALget_nb_encoded_frames"><span class="keyword">val</span> get_nb_encoded_frames</span> : <code class="type"><a href="Lame_dynlink.Lame_t.html#TYPEencoder">encoder</a> -> int</code></pre>
+<pre><span id="VALget_nb_frames"><span class="keyword">val</span> get_nb_frames</span> : <code class="type"><a href="Lame_dynlink.Lame_t.html#TYPEencoder">encoder</a> -> int</code></pre></body></html>
