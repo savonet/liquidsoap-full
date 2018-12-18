@@ -70,7 +70,7 @@ and all sources of a box produce streams at the same rate.
 For example, 
 <code>output.icecast(fallback([crossfade(playlist(...)),jingles]))</code>
 yields the following graph:
-!images/graph_clocks.png(Graph representation with clocks)!
+!/assets/img/graph_clocks.png(Graph representation with clocks)!
 Here, clock_2 was created specifically for the crossfading
 operator; the rate of that clock is controlled by that operator,
 which can hence accelerate it around track changes without any

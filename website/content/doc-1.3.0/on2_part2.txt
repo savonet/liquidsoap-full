@@ -53,7 +53,7 @@ a static playlist, with some jingles, with 3 songs for one jingle,
 and output the result to an icecast server. This 
 is described by the following graph:
 
-!images/on2_part2_schema1.svg(Initial stream model)!
+!/assets/img/on2_part2_schema1.svg(Initial stream model)!
 
 This very simple stream is defined by the following content
 in @radio.liq@:
@@ -374,7 +374,7 @@ Now that we have a controllable initial radio, we extend our initial
 scripts to add advanced features. The following graph illustrates what 
 we are going to add:
 
-!images/on2_part2_schema2.svg(Advanced stream model)!
+!/assets/img/on2_part2_schema2.svg(Advanced stream model)!
 
 * The @Replay gain@ node normalizes all the songs using the "Replay Gain":http://replaygain.org technology.
 * The @Smart crossfade@ node adds crossfading between songs but not jingles.

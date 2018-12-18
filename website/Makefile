@@ -9,7 +9,8 @@ OCAMLDOC := ocamldoc
 
 
 # Versions for which documentation should be build and included
-VERSIONS := dev 1.0.0 1.0.1 1.1.0 1.1.1 1.2.0 1.2.1 1.3.0 1.3.1 1.3.2 1.3.3 1.3.4
+VERSIONS := dev 1.3.0 1.3.1 1.3.2 1.3.3 1.3.4
+DEFAULT_VERSION := 1.3.4
 
 # Static content
 content_expand = $(wildcard $(PWD)/content/doc-$(version)/*.txt)
@@ -32,7 +33,7 @@ endif
 
 # Generated content
 GENERATED_FILES := $(PWD)/html/doc-@@VERSION@@/reference.html \
-		   $(PWD)/html/doc-@@VERSION@@/protocols.html \
+		               $(PWD)/html/doc-@@VERSION@@/protocols.html \
                    $(PWD)/html/doc-@@VERSION@@/scripts/index.html \
                    $(PWD)/html/doc-@@VERSION@@/settings.html
 generated_files_subst = $(subst @@VERSION@@,$(version),$(GENERATED_FILES))
@@ -55,7 +56,7 @@ $(PWD)/html/modules.txt: $(PWD)/html $(PWD)/../PACKAGES.default
 $(PWD)/html/modules.html: $(PWD)/html/modules.txt $(LIQI)
 	@cd html && \
 	  $(LIQI) \
-	    --template ../main.html \
+	    --template ../template.html \
 	    -i $(<) -o $(@)
 
 $(PWD)/html/modules/liquidsoap: $(PWD)/html
@@ -129,38 +130,39 @@ $(PWD)/html/_index.html: savonet.html html/_news.html
 $(PWD)/html/index.html: $(PWD)/content/index.txt $(LIQI) $(PWD)/html/_index.html snippet.html
 	@echo Converting $(<) to $(@)...
 	@cd $(PWD)/html && $(LIQI) \
+		--subst version:$(DEFAULT_VERSION) --subst versions:"$(VERSIONS)" \
 	  --template $(PWD)/html/_index.html --snippet-template ../snippet.html \
 	  -i $(<) -o $(@)
 
-$(PWD)/html/doc-%/reference.html: $(PWD)/html/doc-%/reference.txt versioned.html snippet.html
+$(PWD)/html/doc-%/reference.html: $(PWD)/html/doc-%/reference.txt template.html snippet.html
 	@cd html/doc-$(*) && $(LIQI) \
-	  --template ../../versioned.html --snippet-template ../../snippet.html \
-	  --subst version:$(*) --basedir .. \
+	  --template ../../template.html --snippet-template ../../snippet.html \
+	  --subst version:$(*) --subst versions:"$(VERSIONS)" --basedir .. \
 	  -i $(<) -o $(@)
 
-$(PWD)/html/doc-%/settings.html: $(PWD)/html/doc-%/settings.txt versioned.html snippet.html
+$(PWD)/html/doc-%/settings.html: $(PWD)/html/doc-%/settings.txt template.html snippet.html
 	@cd html/doc-$(*) && $(LIQI) \
-	  --template ../../versioned.html --snippet-template ../../snippet.html \
-	  --subst version:$(*) --basedir .. \
+	  --template ../../template.html --snippet-template ../../snippet.html \
+	  --subst version:$(*) --subst versions:"$(VERSIONS)" --basedir .. \
 	  -i $(<) -o $(@)
 
-$(PWD)/html/doc-%/protocols.html: $(PWD)/html/doc-%/protocols.txt versioned.html snippet.html
+$(PWD)/html/doc-%/protocols.html: $(PWD)/html/doc-%/protocols.txt template.html snippet.html
 	@cd html/doc-$(*) && $(LIQI) \
-	  --template ../../versioned.html --snippet-template ../../snippet.html \
-	  --subst version:$(*) --basedir .. \
+	  --template ../../template.html --snippet-template ../../snippet.html \
+	  --subst version:$(*) --subst versions:"$(VERSIONS)" --basedir .. \
 	  -i $(<) -o $(@)
 
-$(PWD)/html/doc-%/scripts/index.html: $(PWD)/versioned.html
+$(PWD)/html/doc-%/scripts/index.html: $(PWD)/template.html
 	@echo Generating script index for $(*)
 	@cd $(shell dirname $(@)) && \
           if [ "$(shell basename $(shell dirname $(@)))" != "html" ]; then \
           mkdir -p scripts; fi && \
           $(LIQI) \
-		    --template ../../../versioned.html \
-			--subst rel:../ --subst version:$(*) --basedir ../.. \
+		    --template ../../../template.html \
+			--subst rel:../ --subst version:$(*) --subst versions:"$(VERSIONS)" --basedir ../.. \
 		    -i $(shell dirname $(@))/index.txt -o $(@)
 
-$(PWD)/html/doc-%.html: $(PWD)/content/doc-%.txt $(LIQI) $(PWD)/versioned.html $(PWD)/snippet.html
+$(PWD)/html/doc-%.html: $(PWD)/content/doc-%.txt $(LIQI) $(PWD)/template.html $(PWD)/snippet.html
 	@echo Converting $(<) to $(@)...
 	@test -d $(shell dirname $(@)) || (mkdir -p $(shell dirname $(@)))
 	@#Has to be called from html/doc-VERSION to put scripts in the right place
@@ -168,16 +170,8 @@ $(PWD)/html/doc-%.html: $(PWD)/content/doc-%.txt $(LIQI) $(PWD)/versioned.html $
 	  if [ "$(shell basename $(shell dirname $(@)))" != "html" ]; then \
 	  mkdir -p scripts; fi && \
 	  $(LIQI) \
-	    --template ../../versioned.html --snippet-template ../../snippet.html \
-		--subst version:`dirname $(*)` --basedir .. \
-	    -i $(<) -o $(@)
-
-$(PWD)/html/%.html: $(PWD)/content/%.txt $(LIQI) $(PWD)/main.html
-	@echo Converting main doc $(<) to $(@)...
-	@test -d $(shell dirname $(@)) || (mkdir -p $(shell dirname $(@)))
-	@cd html && \
-	  $(LIQI) \
-	    --template ../main.html \
+	    --template ../../template.html --snippet-template ../../snippet.html \
+		--subst version:`dirname $(*)` --subst versions:"$(VERSIONS)" --basedir .. \
 	    -i $(<) -o $(@)
 
 spell-check: $(content_website:.txt=.txt.spell)
