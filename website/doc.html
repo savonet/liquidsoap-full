@@ -1,1 +1,5 @@
-<meta http-equiv="refresh" content="0; url=./doc-@version@" />
+<script type="text/javascript">
+    var params = new URL(document.location).searchParams;
+    var path = params.get("path") || "";
+    window.location.href = window.location.protocol + "//" + window.location.host + "/doc-@version@/" + path;
+</script>

@@ -20,7 +20,7 @@
     <meta name="twitter:title" content="Liquidsoap Streaming Language">
     <meta name="twitter:description" content="Swiss-army knife for multimedia streaming">
     <meta name="twitter:creator" content="@savonet">
-    <meta name="twitter:image" content="https://www.liquidsoap.info//assets/img/bottle_invert.png">
+    <meta name="twitter:image" content="https://www.liquidsoap.info/assets/img/bottle_invert.png">
 
     <title>Liquidsoap - Audio &amp; Video Streaming Language</title>
 
@@ -56,10 +56,13 @@
               <a class="nav-link js-scroll-trigger" href="#intro">Introduction</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
+              <a class="nav-link js-scroll-trigger" href="#examples">Examples</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="doc.html">Documentation</a>
+              <a class="nav-link js-scroll-trigger" href="#doc">Documentation</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#download">Download</a>
             </li>
           </ul>
         </div>
@@ -70,6 +73,7 @@
     <header class="masthead">
       <div class="container">
         <div class="intro-text">
+          <img src="/assets/img/bottle_invert.png" />
           <div class="intro-heading text-uppercase">Liquidsoap</div>
           <div class="intro-lead-in">Audio &amp; Video Streaming Language</div>
           <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="#intro">Tell Me More</a>
@@ -83,10 +87,16 @@
         <div class="row">
           <div class="col-lg-12 text-center">
             <h2 class="section-heading text-uppercase">What is Liquidsoap?</h2>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-2"></div>
+          <div class="col-lg-8 text-center">
             <h3 class="section-subheading text-muted">
-              Liquidsoap is a powerful and flexible language for describing your streams. It offers a rich collection of operators that you can combine at will, giving you more power than you need for creating or transforming streams.
+              Liquidsoap is a powerful and flexible language for describing audio and video streams. It offers a rich collection of operators that you can combine at will, giving you more power than you need for creating or transforming streams.
             </h3>
           </div>
+          <div class="col-lg-2"></div>
         </div>
         <div class="row text-center">
           <div class="col-md-4">
@@ -122,27 +132,175 @@
             </p>
           </div>
         </div>
-        <div class="row" style="margin-top: 25px;">
+      </div>
+    </section>
+
+    <section id="examples">
+      <div class="container">
+        <div class="row">
           <div class="col-lg-12 text-center">
-            <h2>
-              Want to learn more? Checkout our <a href="doc.html">online documentation</a>
-            </h2>
+            <h2 class="section-heading text-uppercase">Examples</h2>
+            <h3 class="section-subheading text-muted">
+              Some of the things you can do with Liquidsoap
+            </h3>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-12">
+            <ul class="timeline">
+              <li>
+                <div class="timeline-image">
+                  <img class="rounded-circle img-fluid" src="/assets/img/about/1.jpg" alt="">
+                </div>
+                <div class="timeline-panel">
+                  <div class="timeline-heading">
+                    <h4>Start a webradio</h4>
+                    <h4 class="subheading"></h4>
+                  </div>
+                  <div class="timeline-body">
+                    <p class="text-muted">
+                      Creating a webradio and sending it to a <a href="http://icecast.org/">icecast</a> or <a href="https://www.shoutcast.com/">shoutcast</a> server is a simple as two lines of 
+                      code! Setup a folder with your tracks and start streaming right away!
+                    </p>
+                  </div>
+                </div>
+              </li>
+              <li class="timeline-inverted">
+                <div class="timeline-image">
+                  <img class="rounded-circle img-fluid" src="/assets/img/about/2.jpg" alt="">
+                </div>
+                <div class="timeline-panel">
+                  <div class="timeline-heading">
+                    <h4>Add live shows</h4>
+                    <h4 class="subheading"></h4>
+                  </div>
+                  <div class="timeline-body">
+                    <p class="text-muted">
+                      Bring live DJs to your web stream! Liquidsoap can accept connections from most live DJ software such as <a href="https://mixxx.org/">Mixxx</a>
+                      or <a href="http://www.darkice.org/">Darkice</a>. Or you can simply direct your DJs to a webpage using the <a href="https://github.com/webcast/webcaster">Webcaster</a> client!
+                    </p>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="timeline-image">
+                  <img class="rounded-circle img-fluid" src="/assets/img/about/3.jpg" alt="">
+                </div>
+                <div class="timeline-panel">
+                  <div class="timeline-heading">
+                    <h4>Customize your transitions</h4>
+                    <h4 class="subheading"></h4>
+                  </div>
+                  <div class="timeline-body">
+                    <p class="text-muted">
+                      Define your own custom transitions between songs. Insert a jingle, fade the ending track out, or not.
+                      You can decide and write the code to implement it with little effort! See <a href="https://github.com/savonet/liquidsoap/blob/master/scripts/fades.liq#L274">our default implementation</a>.
+                    </p>
+                  </div>
+                </div>
+              </li>
+              <li class="timeline-inverted">
+                <div class="timeline-image">
+                  <img class="rounded-circle img-fluid" src="/assets/img/about/4.jpg" alt="">
+                </div>
+                <div class="timeline-panel">
+                  <div class="timeline-heading">
+                    <h4>Use your own infrastructure</h4>
+                    <h4 class="subheading"></h4>
+                  </div>
+                  <div class="timeline-body">
+                    <p class="text-muted">
+                        Operator such as <code>request.dynamic</code> allow you to feed tracks to your Liquidsoap stream
+                        using whichever backend you desire. Multiple projects have been taking advantage of it, such 
+                        as <a href="https://libretime.org/">Libretime</a>, <a href="https://centova.com/">Centova</a>
+                        or <a href="https://www.radionomy.com/">Radionomy</a>.
+                    </p>
+                  </div>
+                </div>
+              </li>
+              <li class="timeline-inverted">
+                <div class="timeline-image">
+                  <h4>Add
+                    <br>your own
+                    <br>project!</h4>
+                </div>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Contact -->
-    <section id="contact">
+    <section id="doc">
       <div class="container">
         <div class="row">
           <div class="col-lg-12 text-center">
-            <h2 class="section-heading text-uppercase">Contact Us</h2>
+            <h2 class="section-heading text-uppercase">Documentation</h2>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-12 text-center">
             <h3 class="section-subheading text-muted">
-              The best place for support and discussions is the <a href="mailto:savonet-users@lists.sf.net">savonet-users</a> mailing list (<a href="https://lists.sourceforge.net/lists/listinfo/savonet-users">registration page</a>).<br/>
-              For bug reports and feature requests, you should visit out <a href="https://github.com/savonet/liquidsoap">Github</a> page.
+              Want to learn more? Checkout our <a href="doc.html">online documentation</a>.
             </h3>
           </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-6">
+            <a href="doc.html?path=quick_start.html">
+              <img src="/assets/img/schema-webradio-inkscape.png"/>
+            </a>
+            <h3 class="section-subheading text-muted" style="padding-top: 10px;">
+              You can begin with the <a href="doc.html?path=quick_start.html">Quick Start</a>
+            </h3>
+          </div>
+          <div class="col-lg-6 text-center">
+            <a href="doc.html?path=complete_case.html">
+              <img src="/assets/img/basic-radio-graph.png"/>
+            </a>
+            <h3 class="section-subheading text-muted" style="padding-top: 10px;">
+              Or checkout the <a href="doc.html?path=complete_case.html">complete case analysis</a>
+            </h3>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-2"></div>
+          <div class="col-lg-8" "text-center">
+            <a href="doc.html?path=cookbook.html">
+              <img src="/assets/img/cookbook.png"/>
+            </a>
+            <h3 class="section-subheading text-muted" style="padding-top: 10px;">
+              The <a href="doc.html?path=cookbook.html">cookbook</a> provides many simple
+              script examples to get you started.
+            </h3>
+          </div>
+          <div class="col-lg-2"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Install -->
+    <section id="download">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12 text-center">
+            <h2 class="section-heading text-uppercase">Download Liquidsoap</h2>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-2"></div>
+          <div class="col-lg-8">
+            <h3 class="section-subheading text-muted" style="margin-top: 25px;">
+              The recommended way to install it is via the Opam package manager. This is described in our <a href="doc.html?path=install.html">install</a> 
+              page.<br/><br/>
+              Liquidsoap is also available in most major distributions such as <a href="https://packages.debian.org/liquidsoap">Debian</a>, <a href="https://packages.ubuntu.com/liquidsoap">Ubuntu</a> or
+              <a href="https://github.com/radiorabe/centos-rpm-liquidsoap">CentOS</a>. Please note that distribution-specific packages are not maintained by the Savonet Team and may some times be outdated.<br/><br/>
+              We also provide Windows binaries, as described in our <a href="doc.html?path=install.html">install</a> page.<br/><br/>
+              The best place for support and discussions is the <a href="mailto:savonet-users@lists.sf.net">savonet-users</a> mailing list (<a href="https://lists.sourceforge.net/lists/listinfo/savonet-users">registration page</a>).
+              For bug reports and feature requests, you should visit our <a href="https://github.com/savonet/liquidsoap">Github</a> page.
+            </h3>
+          </div>
+          <div class="col-lg-2"></div>
         </div>
         <div class="row">
           <div class="col-lg-12">
