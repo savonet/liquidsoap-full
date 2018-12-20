@@ -601,10 +601,7 @@ section#download {
   background-image: url("/assets/img/map-image.png");
   background-repeat: no-repeat;
   background-position: center;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
+  background-size: 100%;
 }
 
 section#download .section-heading {
