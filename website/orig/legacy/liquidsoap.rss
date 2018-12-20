@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+<title>Liquidsoap: news</title>
+<description>savonet.sf.net</description>
+<atom:link href="http://liquidsoap.info/liquidsoap.rss" rel="self" type="application/rss+xml" />
+<link>http://savonet.sf.net/</link>
+<lastBuildDate>Sat, 10 Nov 2018 14:40:18 +0000</lastBuildDate>
+<pubDate>Sat, 10 Nov 2018 14:40:02 +0000</pubDate>
+<item>
+<title>Liquidsoap: New bugtracker</title>
+<pubDate>03 Nov 2010 00:00:00 +0100</pubDate>
+<link>http://dev.sourcefabric.org/browse/LS</link>
+<description>
+Sourcefabric was kind enough to provide us with &lt;a href="http://dev.sourcefabric.org/browse/LS" target="_blank"&gt;a better tracker for reporting bugs&lt;/a&gt;. Please use this one from now on!
+</description>
+</item>
+<item>
+<title>Liquidsoap: Savonet at ON2: Test Signals</title>
+<pubDate>10 Oct 2010 00:00:00 +0100</pubDate>
+<link>http://savonet.sf.net/on2.html</link>
+<description>
+Savonet will be at the &lt;em&gt;ON2: Test Signals&lt;/em&gt; &lt;b&gt;conference&lt;/b&gt; in Berlin on Oct 22-23. We gave &lt;a href="http://vimeo.com/16528307" target="_blank"&gt;a presentation and workshop on Liquidsoap&lt;/a&gt;. &lt;a href="http://savonet.sf.net/on2.html"&gt;More&amp;hellip;&lt;/a&gt;
+</description>
+</item>
+<item>
+<title>Liquidsoap: New article</title>
+<pubDate>10 Sep 2010 00:00:00 +0100</pubDate>
+<link>http://savonet.sf.net/publications.html</link>
+<description>
+We wrote a new &lt;b&gt;article&lt;/b&gt; (in English this time) describing Liquidsoap and some of the new features of the upcoming 1.0 version. &lt;a href="http://savonet.sf.net/publications.html"&gt;More&amp;hellip;&lt;/a&gt;
+</description>
+</item>
+<item>
+<title>Liquidsoap: Beta 1.0.0 release!</title>
+<pubDate>07 Sep 2010 00:00:00 +0100</pubDate>
+<link>http://savonet.sf.net/download.html</link>
+<description>
+We finally issued the first 1.0.0 beta &lt;b&gt;release&lt;/b&gt;! It came with the 0.9.3 bugfix version that closes the 0.9 line. &lt;a href="http://savonet.sf.net/download.html"&gt;More&amp;hellip;&lt;/a&gt;
+</description>
+</item>
+</channel>
+</rss>

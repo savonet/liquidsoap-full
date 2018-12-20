@@ -1,0 +1,123 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link rel="Up" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Samplerate" rel="Chapter" href="Samplerate.html"><title>Samplerate</title>
+</head>
+<body>
+<div class="navbar">&nbsp;<a class="up" href="index.html" title="Index">Up</a>
+&nbsp;</div>
+<h1>Module <a href="type_Samplerate.html">Samplerate</a></h1>
+
+<pre><span id="MODULESamplerate"><span class="keyword">module</span> Samplerate</span>: <code class="code">sig</code> <a href="Samplerate.html">..</a> <code class="code">end</code></pre><div class="info module top">
+<div class="info-desc">
+<p>Bindings for libsamplerate.</p>
+
+</div>
+<ul class="info-attributes">
+<li><b>Author(s):</b> Samuel Mimram</li>
+</ul>
+</div>
+<hr width="100%">
+
+<pre><code><span id="TYPEconverter"><span class="keyword">type</span> <code class="type"></code>converter</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTconverter.Conv_sinc_best_quality"><span class="constructor">Conv_sinc_best_quality</span></span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<div class="info-desc">
+<p>This is a bandlimited interpolator derived from the mathematical sinc function and this is the highest quality sinc based converter, providing a worst case Signal-to-Noise Ratio (SNR) of 97 decibels (dB) at a bandwidth of 97%. All three Conv_sinc_* converters are based on the techniques of Julius O. Smith  although this code was developed independantly.</p>
+</div>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTconverter.Conv_sinc_medium_quality"><span class="constructor">Conv_sinc_medium_quality</span></span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<div class="info-desc">
+<p>This is another bandlimited interpolator much like the previous one. It has an SNR of 97dB and a bandwidth of 90%. The speed of the conversion is much faster than the previous one.</p>
+</div>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTconverter.Conv_fastest"><span class="constructor">Conv_fastest</span></span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<div class="info-desc">
+<p>This is the fastest bandlimited interpolator and has an SNR of 97dB and a bandwidth of 80%.</p>
+</div>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTconverter.Conv_zero_order_hold"><span class="constructor">Conv_zero_order_hold</span></span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<div class="info-desc">
+<p>A Zero Order Hold converter (interpolated value is equal to the last value). The quality is poor but the conversion speed is blindlingly fast.</p>
+</div>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTconverter.Conv_linear"><span class="constructor">Conv_linear</span></span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<div class="info-desc">
+<p>A linear converter. Again the quality is poor, but the conversion speed is blindingly fast.</p>
+</div>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr></table>
+
+<div class="info ">
+<div class="info-desc">
+<p>Kind of converter.</p>
+</div>
+</div>
+
+
+<pre><span id="VALget_conv_name"><span class="keyword">val</span> get_conv_name</span> : <code class="type"><a href="Samplerate.html#TYPEconverter">converter</a> -> string</code></pre><div class="info ">
+<div class="info-desc">
+<p>Name of a converter.</p>
+</div>
+</div>
+
+<pre><span id="VALget_conv_descr"><span class="keyword">val</span> get_conv_descr</span> : <code class="type"><a href="Samplerate.html#TYPEconverter">converter</a> -> string</code></pre><div class="info ">
+<div class="info-desc">
+<p>Description of a converter.</p>
+</div>
+</div>
+
+<pre><span id="VALconvert"><span class="keyword">val</span> convert</span> : <code class="type"><a href="Samplerate.html#TYPEconverter">converter</a> -><br>       int -> float -> float array -> int -> int -> float array</code></pre><div class="info ">
+<div class="info-desc">
+<p><code class="code">convert converter channels ratio inbuf offset length</code>.</p>
+</div>
+</div>
+
+<pre><span id="TYPEt"><span class="keyword">type</span> <code class="type"></code>t</span> </pre>
+
+
+<pre><span id="VALcreate"><span class="keyword">val</span> create</span> : <code class="type"><a href="Samplerate.html#TYPEconverter">converter</a> -> int -> <a href="Samplerate.html#TYPEt">t</a></code></pre>
+<pre><span id="VALprocess"><span class="keyword">val</span> process</span> : <code class="type"><a href="Samplerate.html#TYPEt">t</a> -><br>       float -> float array -> int -> int -> float array -> int -> int -> int * int</code></pre>
+<pre><span id="VALprocess_alloc"><span class="keyword">val</span> process_alloc</span> : <code class="type"><a href="Samplerate.html#TYPEt">t</a> -> float -> float array -> int -> int -> float array</code></pre>
+<pre><span id="VALreset"><span class="keyword">val</span> reset</span> : <code class="type"><a href="Samplerate.html#TYPEt">t</a> -> unit</code></pre></body></html>

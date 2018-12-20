@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+  <title>Savonet / Liquidsoap 1.3.1 :: Multimedia Stream Generation</title>
+  <link href="../css/new.css" type="text/css" rel="stylesheet" />
+  <link href="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.17/themes/base/jquery-ui.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="//www.google.com/jsapi"></script>
+  <link rel="shortcut icon" href="../favicon.ico" />
+  <script>
+    google.load("jquery", "1.6.1");
+    google.load("jqueryui", "1.8.14");
+  </script>
+  <script type="text/javascript" src="../js/jQuery.syntax/jquery.syntax.min.js"></script>
+  <script type="text/javascript" src="../js/liq-jquery.js"></script>
+</head>
+<body>
+  <div class="menu">
+    <ul>
+      <li id="menu-developers">
+        <a href="https://github.com/savonet/liquidsoap/issues" target="_blank">developers</a></li>
+      <li id="menu-flows"><a href="https://flows.liquidsoap.info/">Flows!</a></li>
+      <li id="menu-doc-api-www">
+        <a href="reference.html">API</a></li>
+      <li id="menu-support">
+        <a href="documentation.html">documentation</a></li>
+      <li id="menu-download">
+        <a href="../download.html">download</a></li>
+      <li id="menu-about">
+        <a href="../index.html">about</a></li>
+    </ul>
+  </div>
+  <div class="section" id="main">
+    <h1>Liquidsoap 1.3.1 : Gstreamer Encoder</h1>
+    <div class="content">
+      <h3>The Gstreamer encoder</h3>
+<p>
+The <code>%gstreamer</code> encoder can be used to encode streams using the <code>gstreamer</code> multimedia framework.
+This encoder extends liquidsoap with all available GStreamer formats (provided they are 
+compatible with liquidsoap's model of streams, see Caveats section below), which includes a
+huge array of encoders.
+</p>
+<h4>Presentation</h4>
+<p>
+A basic understanding of gstreamer's pipelines and configuration should be expected in order to
+understand the following documentation.
+</p>
+<p>
+The encoder's parameters are as follows:
+</p>
+<pre class="syntax liq">%gstreamer(channels=2,
+           audio="lamemp3enc",
+           has_video=true,
+           video="x264enc",
+           muxer="mpegtsmux",
+           metadata="metadata",
+           log=5,
+           pipeline="")
+</pre>
+<div align="right">
+<a href="scripts/gstreamer_encoder_example.liq">
+<img class="grab" src="../images/grab.png" alt="Grab the code!">
+</a>
+</div></p>
+<p>
+Without using the <code>pipeline</code> argument, the <code>audio</code> and <code>video</code> arguments are used to build the
+gstreamer pipeline used to encode. By setting the <code>log</code> parameter to a lower value or by using
+<code>set("log.level",..)</code>, you should be able to see some example.
+</p>
+<h4>Basic examples</h4>
+<p>
+Here are a couple of examples:
+</p>
+<p>
+An MP3 encoder that expects sources of type <code>audio=2, video=0, midi=0</code>:
+</p>
+<pre class="syntax ">% liquidsoap 'output.file(%gstreamer(audio="lamemp3enc",
+                                     muxer="",
+                                     video="",
+                                     log=3),...)'
+(...)
+2012/12/13 19:16:23 [encoder.gstreamer:3] Gstreamer encoder pipeline: appsrc 
+  name="audio_src" block=true caps="audio/x-raw,format=S16LE,layout=interleaved,
+  channels=2,rate=44100" format=time ! queue ! audioconvert ! audioresample !
+  lamemp3enc ! appsink name=sink sync=false emit-signals=true
+</pre>
+<p>
+A x264 encoder that expects sources of type <code>audio=0, video=1, midi=0</code>:
+</p>
+<pre class="syntax ">% liquidsoap 'output.file(%gstreamer(audio="",
+                                     muxer="mpegtsmux",
+                                     video="x264enc",
+                                     log=3),...)'
+(...)
+2012/12/13 19:14:43 [encoder.gstreamer:3] Gstreamer encoder pipeline:  appsrc
+  name="video_src" block=true caps="video/x-raw,format=RGBA,width=320,height=240,
+  framerate=25/1,pixel-aspect-ratio=1/1" format=time blocksize=307200 ! queue !
+  videoconvert ! videoscale add-borders=true ! videorate ! x264enc ! 
+  mpegtsmux name=muxer ! appsink name=sink sync=false emit-signals=true
+</pre>
+<p>
+An MPEG TS encoder that expects sources of type <code>audio=2, video=1, midi=0</code>:
+</p>
+<pre class="syntax ">% liquidsoap 'output.file(%gstreamer(audio="lamemp3enc",
+                                     muxer="mpegtsmux",
+                                     video="x264enc",
+                                     log=3),...)'
+(...)
+2012/12/13 19:18:09 [encoder.gstreamer:3] Gstreamer encoder pipeline: appsrc
+  name="audio_src" block=true caps="audio/x-raw,format=S16LE,
+  layout=interleaved,channels=2,rate=44100" format=time ! queue ! audioconvert 
+  ! audioresample ! lamemp3enc ! muxer. appsrc name="video_src" block=true
+  caps="video/x-raw,format=RGBA,width=320,height=240,framerate=25/1,
+  pixel-aspect-ratio=1/1" format=time blocksize=307200 ! queue ! videoconvert
+  ! videoscale add-borders=true ! videorate ! x264enc ! muxer. mpegtsmux 
+  name=muxer ! appsink name=sink sync=false emit-signals=true
+</pre>
+<p>
+An ogg/vorbis+theora encoder that expects source of type <code>audio=1, video=1, midi=0</code>:
+</p>
+<pre class="syntax ">% liquidsoap 'output.file(%gstreamer(audio="vorbisenc",
+                                     muxer="oggmux",
+                                     video="theoraenc",
+                                     channels=1,
+                                     log=3),...)'
+(...)
+2012/12/13 19:21:17 [encoder.gstreamer:3] Gstreamer encoder pipeline: appsrc
+  name="audio_src" block=true caps="audio/x-raw,format=S16LE,layout=interleaved,
+  channels=1,rate=44100" format=time ! queue ! audioconvert ! audioresample !
+  vorbisenc ! muxer. appsrc name="video_src" block=true caps="video/x-raw,
+  format=RGBA,width=320,height=240,framerate=25/1,pixel-aspect-ratio=1/1"
+  format=time blocksize=307200 ! queue ! videoconvert ! videoscale add-borders=true
+  ! videorate ! theoraenc ! muxer. oggmux name=muxer ! appsink name=sink 
+  sync=false emit-signals=true
+</pre>
+<p>
+For advanced users, the <code>pipeline</code> argument can be used to override the whole pipeline. For instance:
+</p>
+<pre class="syntax ">% liquidsoap 'output.file(%gstreamer(pipeline="appsrc name=\"audio_src\"
+    block=true caps=\"audio/x-raw,format=S16LE,layout=interleaved,
+    channels=1,rate=44100\" format=time ! lamemp3enc ! appsink name=sink
+    sync=false emit-signals=true",channels=1,log=3),...)'
+(...)
+</pre>
+<h4>Content type inference</h4>
+<p>
+When starting its sources and outputs, liquidsoap determines the content type of each source (audio, video and midi channels).
+During that process, encoders have to inform liquidsoap what type of sources they are expecting. It works as follows for the <code>%gstreamer</code>
+encoder:
+</p>
+<ul>
+<li>
+If the <code>audio</code> parameter is a string different than <code>""</code> then the encoder expects a stream with <code>channels</code> audio channels.</li>
+<li>
+If the <code>video</code> parameter is a string different than <code>""</code> then the encoder expects a stream with <code>1</code> video channel.</li>
+<li>
+If the <code>pipeline</code> parameter is a string different than <code>""</code> then the encoder expects a stream with <code>channels</code> audio channels and a video channels only if <code>has_video</code> is true.</li>
+</ul>
+<p>
+The <code>has_video</code> parameter is only used when using the <code>pipeline</code> parameter.
+</p>
+<h4>Metadata</h4>
+<p>
+The <code>%gstreamer</code> encoder tries to also encode metadata attached to the stream. This requires that you specify a pipeline element
+named according to the <code>metadata</code> parameter (default: <code>"metadata"</code>) that can be used with GStreamer's <code>tag_setter</code> API. Here are two such examples:
+</p>
+<p>
+An ogg/vorbis encoder with vorbis tags:
+</p>
+<pre class="syntax ">% liquidsoap 'output.file(%gstreamer(audio="vorbisenc ! vorbistag name='metadata'",
+                                     muxer="oggmux",
+                                     video=""),...)'
+</pre>
+<p>
+An MP3 encoder with id3v2 tags:
+</p>
+<pre class="syntax ">% liquidsoap 'output.file(%gstreamer(audio="lamemp3enc",
+                                     muxer="id3v2mux",
+                                     video="",
+                                     metadata="muxer"),...)'
+</pre>
+<p>
+In the last example, we tell the <code>%gstreamer</code> encoder that the element for injecting metadata is named
+<code>"muxer"</code> because, for id3v2 tags, the gstreamer muxer element is also the element used to inject metadata
+and the <code>"muxer"</code> name is implicitely added by liquidsoap to the muxer element. You can see that by printing
+out the constructed pipeline, as shown before.
+</p>
+<h4>Caveats</h4>
+<p>
+When using the <code>%gstreamer</code> encoder, one must think of it as an encoder for an infinite stream. This, in particular,
+means that not all containers (muxers) will work. For instance, the AVI and MP4 containers need to write in their
+header informations that are only known with finite streams, such as the stream total's time and etc.. These containers
+are usually not fit for streaming, which is liquidsoap's main functionality.
+</p>
+      <div id="footer"> 2003-2017 Savonet team</div>
+    </div>
+  </div>
+  <script type="text/javascript" src="//www.google.com/cse/brand?form=cse-search-box&amp;lang=en"></script>
+  <script type="text/javascript" src="../js/search.js"></script>
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-927362-1']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+</body>
+</html>

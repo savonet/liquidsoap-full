@@ -1,0 +1,179 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link rel="previous" href="Ogg.Sync.html">
+<link rel="next" href="Ogg.Skeleton.html">
+<link rel="Up" href="Ogg.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Ogg" rel="Chapter" href="Ogg.html">
+<link title="Ogg_demuxer" rel="Chapter" href="Ogg_demuxer.html"><title>Ogg.Stream</title>
+</head>
+<body>
+<div class="navbar"><a class="pre" href="Ogg.Sync.html" title="Ogg.Sync">Previous</a>
+&nbsp;<a class="up" href="Ogg.html" title="Ogg">Up</a>
+&nbsp;<a class="post" href="Ogg.Skeleton.html" title="Ogg.Skeleton">Next</a>
+</div>
+<h1>Module <a href="type_Ogg.Stream.html">Ogg.Stream</a></h1>
+
+<pre><span id="MODULEStream"><span class="keyword">module</span> Stream</span>: <code class="code">sig</code> <a href="Ogg.Stream.html">..</a> <code class="code">end</code></pre><hr width="100%">
+
+<pre><span id="TYPEstream"><span class="keyword">type</span> <code class="type"></code>stream</span> </pre>
+<div class="info ">
+<div class="info-desc">
+<p>The <code class="code">stream</code> values track the current encode/decode state of the
+ current logical bitstream.</p>
+</div>
+</div>
+
+
+<pre><span id="TYPEpacket"><span class="keyword">type</span> <code class="type"></code>packet</span> </pre>
+<div class="info ">
+<div class="info-desc">
+<p>A data packet to pass to the decoder</p>
+</div>
+</div>
+
+
+<pre><span id="VALcreate"><span class="keyword">val</span> create</span> : <code class="type">?serial:nativeint -> unit -> <a href="Ogg.Stream.html#TYPEstream">stream</a></code></pre><div class="info ">
+<div class="info-desc">
+<p>Create a <code class="code">stream</code>.</p>
+</div>
+</div>
+
+<pre><span id="VALserialno"><span class="keyword">val</span> serialno</span> : <code class="type"><a href="Ogg.Stream.html#TYPEstream">stream</a> -> nativeint</code></pre><div class="info ">
+<div class="info-desc">
+<p>Get a stream's serial number.</p>
+</div>
+</div>
+
+<pre><span id="VALeos"><span class="keyword">val</span> eos</span> : <code class="type"><a href="Ogg.Stream.html#TYPEstream">stream</a> -> bool</code></pre><div class="info ">
+<div class="info-desc">
+<p>Returns true if the end of stream has been reached.</p>
+</div>
+</div>
+
+<pre><span id="VALget_page"><span class="keyword">val</span> get_page</span> : <code class="type">?fill:int -> <a href="Ogg.Stream.html#TYPEstream">stream</a> -> <a href="Ogg.Page.html#TYPEt">Ogg.Page.t</a></code></pre><div class="info ">
+<div class="info-desc">
+<p>This function forms packets into pages. Internally,
+ it assembles the accumulated packet bodies into an Ogg page
+ suitable for writing to a stream.</p>
+
+<p>If no <code class="code">fill</code> argument is passed, this function will only return 
+ a page when a "reasonable" amount of packet data is available. 
+ Normally this is appropriate since it limits the overhead of the 
+ Ogg page headers in the bitstream.</p>
+
+<p>If a <code class="code">fill</code> argument is passed, this function will return a page when at
+ least four packets have been accumulated and accumulated packet data meets
+ or exceeds the specified number of bytes, and/or when the accumulated
+ packet data meets/exceeds the maximum page size regardless of accumulated
+ packet count.</p>
+
+<p>Call <code class="code">flush_page</code> if immediate  page generation is desired. This 
+ may be occasionally necessary, for example, to limit the temporal 
+ latency of a variable bitrate stream.</p>
+</div>
+</div>
+
+<pre><span id="VALput_page"><span class="keyword">val</span> put_page</span> : <code class="type"><a href="Ogg.Stream.html#TYPEstream">stream</a> -> <a href="Ogg.Page.html#TYPEt">Ogg.Page.t</a> -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p>This function adds a complete page to the bitstream.</p>
+
+<p>In a typical decoding situation, this function would be called after 
+ using <code class="code">Sync.read</code> to create a valid <code class="code">Page.t</code></p>
+
+<p>Raises <code class="code">Bad_data</code> if the serial number of the page did not match the 
+ serial number of the bitstream, or the page version was incorrect.</p>
+</div>
+</div>
+
+<pre><span id="VALget_packet"><span class="keyword">val</span> get_packet</span> : <code class="type"><a href="Ogg.Stream.html#TYPEstream">stream</a> -> <a href="Ogg.Stream.html#TYPEpacket">packet</a></code></pre><div class="info ">
+<div class="info-desc">
+<p>This function assembles a data packet for output 
+ to the codec decoding engine.</p>
+
+<p>Each successive call returns the next complete packet built from those segments.
+ In a typical decoding situation, this should be used after calling 
+ <code class="code">put_page</code> to submit a page of data to the bitstream.</p>
+
+<p>This function should *not* be used. Because of ocaml's paradigm, it is necessary 
+ to copy each packet since they are only valid until this function is called again.
+ When dealing with many packets, this will lead to multiple unecessary memory allocation 
+ and desallocation.</p>
+
+<p>Raises <code class="code">Not_enough_data</code> if more data is needed and another page should be submitted.</p>
+
+<p>Raises <code class="code">Out_of_sync</code>  if we are out of sync and there is a gap in the data.</p>
+</div>
+</div>
+
+<pre><span id="VALpeek_packet"><span class="keyword">val</span> peek_packet</span> : <code class="type"><a href="Ogg.Stream.html#TYPEstream">stream</a> -> <a href="Ogg.Stream.html#TYPEpacket">packet</a></code></pre><div class="info ">
+<div class="info-desc">
+<p>This function assembles a data packet for output
+ to the codec decoding engine without advancing the stream.</p>
+
+<p>Raises <code class="code">Not_enough_data</code> if more data is needed and another page should be submitted.</p>
+
+<p>Raises <code class="code">Out_of_sync</code>  if we are out of sync and there is a gap in the data</p>
+</div>
+</div>
+
+<pre><span id="VALpeek_granulepos"><span class="keyword">val</span> peek_granulepos</span> : <code class="type"><a href="Ogg.Stream.html#TYPEstream">stream</a> -> Stdlib.Int64.t</code></pre><div class="info ">
+<div class="info-desc">
+<p>This function picks up the granule position
+ of the next packet in the stream without advancing it.</p>
+
+<p>Raises <code class="code">Not_enough_data</code> if more data is needed and another page should be submitted.</p>
+
+<p>Raises <code class="code">Out_of_sync</code>  if we are out of sync and there is a gap in the data</p>
+</div>
+</div>
+
+<pre><span id="VALskip_packet"><span class="keyword">val</span> skip_packet</span> : <code class="type"><a href="Ogg.Stream.html#TYPEstream">stream</a> -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p>This function discards the next packet in the stream.</p>
+
+<p>Raises <code class="code">Not_enough_data</code> if more data is needed and another page should be submitted.</p>
+
+<p>Raises <code class="code">Out_of_sync</code>  if we are out of sync and there is a gap in the data</p>
+</div>
+</div>
+
+<pre><span id="VALput_packet"><span class="keyword">val</span> put_packet</span> : <code class="type"><a href="Ogg.Stream.html#TYPEstream">stream</a> -> <a href="Ogg.Stream.html#TYPEpacket">packet</a> -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p>This function submits a packet to the bitstream for page encapsulation. 
+ After this is called, more packets can be submitted, or pages can be written out.</p>
+
+<p>This function is provided to ease ogg strea multiplexing, where packet submission
+ order is important. It should not be used to encoder further data.</p>
+</div>
+</div>
+
+<pre><span id="VALflush_page"><span class="keyword">val</span> flush_page</span> : <code class="type"><a href="Ogg.Stream.html#TYPEstream">stream</a> -> <a href="Ogg.Page.html#TYPEt">Ogg.Page.t</a></code></pre><div class="info ">
+<div class="info-desc">
+<p>This function checks for remaining packets inside the stream and forces
+ remaining packets into a page, regardless of the size of the page.</p>
+
+<p>This should only be used when you want to flush an undersized page from the
+ middle of the stream. Otherwise, <code class="code">get_page</code> should always be used.</p>
+
+<p>This function can be used to verify that all packets have been flushed.</p>
+
+<p>Raises <code class="code">Not_enough_data</code> if  all packet data has already been flushed into pages,
+ and there are no packets to put into the page.</p>
+</div>
+</div>
+
+<pre><span id="VALpacket_granulepos"><span class="keyword">val</span> packet_granulepos</span> : <code class="type"><a href="Ogg.Stream.html#TYPEpacket">packet</a> -> Stdlib.Int64.t</code></pre><div class="info ">
+<div class="info-desc">
+<p>Returns a packet's granule position.</p>
+</div>
+</div>
+</body></html>

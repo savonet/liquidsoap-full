@@ -1,0 +1,164 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link rel="Up" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Taglib" rel="Chapter" href="Taglib.html"><link title="Types " rel="Section" href="#2_Types">
+<link title="Values " rel="Section" href="#2_Values">
+<link title="Generic tag interface " rel="Section" href="#2_Generictaginterface">
+<link title="Set tag interface " rel="Section" href="#2_Settaginterface">
+<link title="File interface " rel="Section" href="#2_Fileinterface">
+<link title="Inline interface " rel="Section" href="#2_Inlineinterface">
+<link title="Deprecated " rel="Section" href="#2_Deprecated">
+<title>Taglib</title>
+</head>
+<body>
+<div class="navbar">&nbsp;<a class="up" href="index.html" title="Index">Up</a>
+&nbsp;</div>
+<h1>Module <a href="type_Taglib.html">Taglib</a></h1>
+
+<pre><span id="MODULETaglib"><span class="keyword">module</span> Taglib</span>: <code class="code">sig</code> <a href="Taglib.html">..</a> <code class="code">end</code></pre><div class="info module top">
+<div class="info-desc">
+<p>Ocaml bindings to taglib</p>
+</div>
+</div>
+<hr width="100%">
+<p>Taglib provides a set/get interface for several audio file format's tags informations.</p>
+
+<p>All strings used in this module should be UTF8-encoded.</p>
+<h3 id="2_Types">Types </h3>
+<pre><span id="TYPEt"><span class="keyword">type</span> <code class="type">'a</code> t</span> </pre>
+<div class="info ">
+<div class="info-desc">
+<p>Main type.</p>
+</div>
+</div>
+
+<h3 id="2_Values">Values </h3>
+<pre><span id="VALversion"><span class="keyword">val</span> version</span> : <code class="type">string</code></pre><div class="info ">
+<div class="info-desc">
+<p>Taglib's version.</p>
+</div>
+</div>
+<h3 id="2_Generictaginterface">Generic tag interface </h3>
+<pre><span id="VALtag_title"><span class="keyword">val</span> tag_title</span> : <code class="type">'a <a href="Taglib.html#TYPEt">t</a> -> string</code></pre>
+<pre><span id="VALtag_artist"><span class="keyword">val</span> tag_artist</span> : <code class="type">'a <a href="Taglib.html#TYPEt">t</a> -> string</code></pre>
+<pre><span id="VALtag_album"><span class="keyword">val</span> tag_album</span> : <code class="type">'a <a href="Taglib.html#TYPEt">t</a> -> string</code></pre>
+<pre><span id="VALtag_comment"><span class="keyword">val</span> tag_comment</span> : <code class="type">'a <a href="Taglib.html#TYPEt">t</a> -> string</code></pre>
+<pre><span id="VALtag_genre"><span class="keyword">val</span> tag_genre</span> : <code class="type">'a <a href="Taglib.html#TYPEt">t</a> -> string</code></pre>
+<pre><span id="VALtag_year"><span class="keyword">val</span> tag_year</span> : <code class="type">'a <a href="Taglib.html#TYPEt">t</a> -> int</code></pre>
+<pre><span id="VALtag_track"><span class="keyword">val</span> tag_track</span> : <code class="type">'a <a href="Taglib.html#TYPEt">t</a> -> int</code></pre><h3 id="2_Settaginterface">Set tag interface </h3>
+<pre><span id="VALtag_set_title"><span class="keyword">val</span> tag_set_title</span> : <code class="type">'a <a href="Taglib.html#TYPEt">t</a> -> string -> unit</code></pre>
+<pre><span id="VALtag_set_artist"><span class="keyword">val</span> tag_set_artist</span> : <code class="type">'a <a href="Taglib.html#TYPEt">t</a> -> string -> unit</code></pre>
+<pre><span id="VALtag_set_album"><span class="keyword">val</span> tag_set_album</span> : <code class="type">'a <a href="Taglib.html#TYPEt">t</a> -> string -> unit</code></pre>
+<pre><span id="VALtag_set_comment"><span class="keyword">val</span> tag_set_comment</span> : <code class="type">'a <a href="Taglib.html#TYPEt">t</a> -> string -> unit</code></pre>
+<pre><span id="VALtag_set_genre"><span class="keyword">val</span> tag_set_genre</span> : <code class="type">'a <a href="Taglib.html#TYPEt">t</a> -> string -> unit</code></pre>
+<pre><span id="VALtag_set_year"><span class="keyword">val</span> tag_set_year</span> : <code class="type">'a <a href="Taglib.html#TYPEt">t</a> -> int -> unit</code></pre>
+<pre><span id="VALtag_set_track"><span class="keyword">val</span> tag_set_track</span> : <code class="type">'a <a href="Taglib.html#TYPEt">t</a> -> int -> unit</code></pre><h3 id="2_Fileinterface">File interface </h3>
+<pre><span id="MODULEFile"><span class="keyword">module</span> <a href="Taglib.File.html">File</a></span>: <code class="code">sig</code> <a href="Taglib.File.html">..</a> <code class="code">end</code></pre><h3 id="2_Inlineinterface">Inline interface </h3>
+<pre><span id="MODULEInline"><span class="keyword">module</span> <a href="Taglib.Inline.html">Inline</a></span>: <code class="code">sig</code> <a href="Taglib.Inline.html">..</a> <code class="code">end</code></pre><div class="info">
+<p>This module provides an API to manipulate tags not
+ attached to a file.</p>
+
+</div>
+<h3 id="2_Deprecated">Deprecated </h3><p>This section is for backward compatibility with previous API. It 
+ may be removed at any time.</p>
+
+<pre><code><span id="TYPEfile_type"><span class="keyword">type</span> <code class="type"></code>file_type</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTfile_type.Mpeg"><span class="constructor">Mpeg</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTfile_type.OggVorbis"><span class="constructor">OggVorbis</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTfile_type.Flac"><span class="constructor">Flac</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTfile_type.Mpc"><span class="constructor">Mpc</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTfile_type.OggFlac"><span class="constructor">OggFlac</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTfile_type.WavPack"><span class="constructor">WavPack</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTfile_type.Speex"><span class="constructor">Speex</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTfile_type.TrueAudio"><span class="constructor">TrueAudio</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTfile_type.Mp4"><span class="constructor">Mp4</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTfile_type.Asf"><span class="constructor">Asf</span></span></code></td>
+
+</tr></table>
+
+
+
+<pre><span id="EXCEPTIONClosed"><span class="keyword">exception</span> Closed</span></pre>
+
+<pre><span id="EXCEPTIONNot_implemented"><span class="keyword">exception</span> Not_implemented</span></pre>
+
+<pre><span id="VALset_strings_unicode"><span class="keyword">val</span> set_strings_unicode</span> : <code class="type">bool -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p>This does not do anything now..</p>
+</div>
+</div>
+
+<pre><span id="VALopen_file"><span class="keyword">val</span> open_file</span> : <code class="type">?file_type:<a href="Taglib.html#TYPEfile_type">file_type</a> -><br>       string -> <a href="Taglib.File.html#TYPEfile_type">File.file_type</a> <a href="Taglib.File.html#TYPEfile">File.file</a></code></pre>
+<pre><span id="VALaudioproperties_length"><span class="keyword">val</span> audioproperties_length</span> : <code class="type"><a href="Taglib.File.html#TYPEfile_type">File.file_type</a> <a href="Taglib.File.html#TYPEfile">File.file</a> -> int</code></pre>
+<pre><span id="VALaudioproperties_bitrate"><span class="keyword">val</span> audioproperties_bitrate</span> : <code class="type"><a href="Taglib.File.html#TYPEfile_type">File.file_type</a> <a href="Taglib.File.html#TYPEfile">File.file</a> -> int</code></pre>
+<pre><span id="VALaudioproperties_samplerate"><span class="keyword">val</span> audioproperties_samplerate</span> : <code class="type"><a href="Taglib.File.html#TYPEfile_type">File.file_type</a> <a href="Taglib.File.html#TYPEfile">File.file</a> -> int</code></pre>
+<pre><span id="VALaudioproperties_channels"><span class="keyword">val</span> audioproperties_channels</span> : <code class="type"><a href="Taglib.File.html#TYPEfile_type">File.file_type</a> <a href="Taglib.File.html#TYPEfile">File.file</a> -> int</code></pre>
+<pre><span id="VALclose_file"><span class="keyword">val</span> close_file</span> : <code class="type"><a href="Taglib.File.html#TYPEfile_type">File.file_type</a> <a href="Taglib.File.html#TYPEfile">File.file</a> -> unit</code></pre>
+<pre><span id="VALfile_save"><span class="keyword">val</span> file_save</span> : <code class="type"><a href="Taglib.File.html#TYPEfile_type">File.file_type</a> <a href="Taglib.File.html#TYPEfile">File.file</a> -> bool</code></pre></body></html>

@@ -1,0 +1,6 @@
+s = single("chord.txt")
+s = midi.chord(s)
+s = mux_audio(audio=blank(),s)
+s = synth.saw(s)
+s = drop_midi(s)
+out(s)

@@ -1,0 +1,177 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link rel="previous" href="Duppy.html">
+<link rel="Up" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Duppy" rel="Chapter" href="Duppy.html">
+<link title="Pa_duppy" rel="Chapter" href="Pa_duppy.html"><title>Pa_duppy</title>
+</head>
+<body>
+<div class="navbar"><a class="pre" href="Duppy.html" title="Duppy">Previous</a>
+&nbsp;<a class="up" href="index.html" title="Index">Up</a>
+&nbsp;</div>
+<h1>Module <a href="type_Pa_duppy.html">Pa_duppy</a></h1>
+
+<pre><span id="MODULEPa_duppy"><span class="keyword">module</span> Pa_duppy</span>: <code class="code">sig</code> <a href="Pa_duppy.html">..</a> <code class="code">end</code></pre><div class="info module top">
+<div class="info-desc">
+<h3 id="2_SyntacticsugarforDuppyMonad">Syntactic sugar for <a href="Duppy.Monad.html"><code class="code">Duppy.Monad</code></a> </h3>
+<p>This module provides syntactic extensions to OCaml
+ using Camlp4 used to write code using <a href="Duppy.Monad.html"><code class="code">Duppy.Monad</code></a>.</p>
+
+<p>It provides the following extensions:</p>
+
+<h3 id="2_MainMonad">Main Monad </h3>
+<ul>
+<li><pre class="codepre"><code class="code"> duppy v = 
+   foo
+  in
+  bar x </code></pre>
+
+ is equivalent to:
+
+ <code class="code">Duppy.Monad.bind foo (fun x -&gt; bar x)</code> 
+
+ </li>
+<li><pre class="codepre"><code class="code"> duppy_run
+     foo
+   with
+     { return = f ;
+       raise  = g } </code></pre>
+
+ is equivalent to:
+
+ <code class="code">Duppy.Monad.run ~return:f ~raise:g ()</code>
+
+ </li>
+<li><pre class="codepre"><code class="code"> duppy_try
+     foo
+   with
+     | a -&gt; f
+     | b -&gt; g </code></pre>
+
+ is equivalent to:
+
+ <pre class="codepre"><code class="code"> Duppy.Monad.catch
+     foo
+     (function
+         | a -&gt; f
+         | b -&gt; g) </code></pre> 
+
+ </li>
+<li><code class="code">duppy_fold_left</code> is equivalent to <code class="code">Duppy.Monad.fold_left</code>
+
+ </li>
+<li><code class="code">duppy_iter</code> is equivalent to <code class="code">Duppy.Monad.iter</code>
+
+ </li>
+<li><code class="code">duppy_return</code> is equivalent to <code class="code">Duppy.Monad.return</code>
+
+ </li>
+<li><code class="code">duppy_raise</code> is equivalent to <code class="code">Duppy.Monad.raise</code>
+
+ </li>
+<li><pre class="codepre"><code class="code"> duppy_do
+   foo ;
+   bar ;
+   ...
+ done </code></pre>
+
+ is equivalent to:
+
+ <pre class="codepre"><code class="code"> Duppy.Monad.bind
+     (Duppy.Monad.bind 
+       foo 
+       (fun () -&gt; bar))
+     (fun () -&gt; ...) </code></pre>
+
+ </li>
+</ul>
+
+<h3 id="2_IOmodule">I/O module </h3>
+<ul>
+<li><pre class="codepre"><code class="code">duppy_exec
+  foo
+ with
+   { priority = p ;
+     handler  = h 
+     delay    = d } </code></pre>
+
+ is equivalent to:
+
+ <pre class="codepre"><code class="code"> Duppy.Monad.Io.exec
+  ~priority:p ~delay:d h foo </code></pre> 
+
+ <code class="code">delay</code> is an optional field.
+
+ </li>
+<li><code class="code">duppy_delay</code> is equivalent to <code class="code">Duppy.Monad.Io.delay</code></li>
+<li><pre class="codepre"><code class="code">duppy_read
+  marker
+ with
+   { priority = p ;
+     handler  = h ;
+     timeout  = t } </code></pre> 
+
+ is equivalent to:
+
+ <pre class="codepre"><code class="code"> Duppy.Monad.Io.read
+  ~timeout:t ~priority:p h marker </code></pre>
+
+ Timeout parameter is optional.
+ </li>
+<li><pre class="codepre"><code class="code">duppy_read_all
+  socket
+ with
+   { priority  = p ;
+     handler   = h ;
+     timeout   = t } </code></pre>
+
+ is equivalent to:
+
+ <pre class="codepre"><code class="code"> Duppy.Monad.Io.read_all
+  ~timeout:t ~priority:p s socket </code></pre>
+
+ Timeout parameter is optional.
+ </li>
+<li><pre class="codepre"><code class="code">duppy_write
+  s
+ with
+   { priority = p ;
+     handler  = h ;
+     timeout  = t } </code></pre>
+
+ is equivalent to:
+
+ <pre class="codepre"><code class="code"> Duppy.Monad.Io.write
+  ~timeout:t ~priority:p ~string:s h </code></pre>
+
+ Timeout parameter is optional.
+ </li>
+<li><pre class="codepre"><code class="code">duppy_write_bigarray
+  ba
+ with
+   { priority = p ;
+     handler  = h ;
+     timeout  = t } </code></pre>
+
+ is equivalent to:
+
+ <pre class="codepre"><code class="code"> Duppy.Monad.Io.write
+  ~timeout:t ~priority:p ~bigarray:ba h </code></pre>
+
+ Timeout parameter is optional.
+ </li>
+</ul>
+</div>
+</div>
+<hr width="100%">
+</body></html>

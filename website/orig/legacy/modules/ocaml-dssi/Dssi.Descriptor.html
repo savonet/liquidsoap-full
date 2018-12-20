@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link rel="previous" href="Dssi.Plugin.html">
+<link rel="Up" href="Dssi.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Dssi" rel="Chapter" href="Dssi.html"><title>Dssi.Descriptor</title>
+</head>
+<body>
+<div class="navbar"><a class="pre" href="Dssi.Plugin.html" title="Dssi.Plugin">Previous</a>
+&nbsp;<a class="up" href="Dssi.html" title="Dssi">Up</a>
+&nbsp;</div>
+<h1>Module <a href="type_Dssi.Descriptor.html">Dssi.Descriptor</a></h1>
+
+<pre><span id="MODULEDescriptor"><span class="keyword">module</span> Descriptor</span>: <code class="code">sig</code> <a href="Dssi.Descriptor.html">..</a> <code class="code">end</code></pre><div class="info module top">
+<div class="info-desc">
+<p>Operations on descriptors.</p>
+</div>
+</div>
+<hr width="100%">
+
+<pre><span id="TYPEt"><span class="keyword">type</span> <code class="type"></code>t</span> </pre>
+<div class="info ">
+<div class="info-desc">
+<p>A descriptor.</p>
+</div>
+</div>
+
+
+<pre><span id="EXCEPTIONNot_implemented"><span class="keyword">exception</span> Not_implemented</span></pre>
+
+<pre><span id="VALdescriptor"><span class="keyword">val</span> descriptor</span> : <code class="type"><a href="Dssi.Plugin.html#TYPEt">Dssi.Plugin.t</a> -> int -> <a href="Dssi.Descriptor.html#TYPEt">t</a></code></pre>
+<pre><span id="VALdescriptors"><span class="keyword">val</span> descriptors</span> : <code class="type"><a href="Dssi.Plugin.html#TYPEt">Dssi.Plugin.t</a> -> <a href="Dssi.Descriptor.html#TYPEt">t</a> array</code></pre>
+<pre><span id="VALapi_version"><span class="keyword">val</span> api_version</span> : <code class="type"><a href="Dssi.Descriptor.html#TYPEt">t</a> -> int</code></pre>
+<pre><span id="VALladspa"><span class="keyword">val</span> ladspa</span> : <code class="type"><a href="Dssi.Descriptor.html#TYPEt">t</a> -> Ladspa.Descriptor.t</code></pre>
+<pre><span id="VALconfigure"><span class="keyword">val</span> configure</span> : <code class="type"><a href="Dssi.Descriptor.html#TYPEt">t</a> -> Ladspa.Descriptor.instance -> string -> string -> string</code></pre>
+<pre><span id="VALget_program"><span class="keyword">val</span> get_program</span> : <code class="type"><a href="Dssi.Descriptor.html#TYPEt">t</a> -> Ladspa.Descriptor.instance -> int -> int * int * string</code></pre>
+<pre><span id="VALselect_program"><span class="keyword">val</span> select_program</span> : <code class="type"><a href="Dssi.Descriptor.html#TYPEt">t</a> -> Ladspa.Descriptor.instance -> int -> int -> unit</code></pre>
+<pre><span id="VALget_midi_controller"><span class="keyword">val</span> get_midi_controller</span> : <code class="type"><a href="Dssi.Descriptor.html#TYPEt">t</a> -> Ladspa.Descriptor.instance -> int -> int</code></pre>
+<pre><span id="VALcan_run_synth"><span class="keyword">val</span> can_run_synth</span> : <code class="type"><a href="Dssi.Descriptor.html#TYPEt">t</a> -> bool</code></pre>
+<pre><span id="VALcan_run_synth_adding"><span class="keyword">val</span> can_run_synth_adding</span> : <code class="type"><a href="Dssi.Descriptor.html#TYPEt">t</a> -> bool</code></pre>
+<pre><span id="VALcan_run_multiple_synths"><span class="keyword">val</span> can_run_multiple_synths</span> : <code class="type"><a href="Dssi.Descriptor.html#TYPEt">t</a> -> bool</code></pre>
+<pre><span id="VALcan_run_multiple_synths_adding"><span class="keyword">val</span> can_run_multiple_synths_adding</span> : <code class="type"><a href="Dssi.Descriptor.html#TYPEt">t</a> -> bool</code></pre>
+<pre><span id="VALrun_multiple_synths"><span class="keyword">val</span> run_multiple_synths</span> : <code class="type"><a href="Dssi.Descriptor.html#TYPEt">t</a> -><br>       ?adding:bool -><br>       Ladspa.Descriptor.instance array -><br>       int -> (int * <a href="Dssi.html#TYPEevent">Dssi.event</a>) array array -> unit</code></pre>
+<pre><span id="VALrun_synth"><span class="keyword">val</span> run_synth</span> : <code class="type"><a href="Dssi.Descriptor.html#TYPEt">t</a> -><br>       ?adding:bool -><br>       Ladspa.Descriptor.instance -> int -> (int * <a href="Dssi.html#TYPEevent">Dssi.event</a>) array -> unit</code></pre></body></html>

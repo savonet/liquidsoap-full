@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+  <title>Savonet / Liquidsoap 1.2.1 :: Multimedia Stream Generation</title>
+  <link href="../css/new.css" type="text/css" rel="stylesheet" />
+  <link href="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.17/themes/base/jquery-ui.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="//www.google.com/jsapi"></script>
+  <link rel="shortcut icon" href="../favicon.ico" />
+  <script>
+    google.load("jquery", "1.6.1");
+    google.load("jqueryui", "1.8.14");
+  </script>
+  <script type="text/javascript" src="../js/jQuery.syntax/jquery.syntax.min.js"></script>
+  <script type="text/javascript" src="../js/liq-jquery.js"></script>
+</head>
+<body>
+  <div class="menu">
+    <ul>
+      <li id="menu-developers">
+        <a href="https://github.com/savonet/liquidsoap/issues" target="_blank">developers</a></li>
+      <li id="menu-flows"><a href="https://flows.liquidsoap.info/">Flows!</a></li>
+      <li id="menu-doc-api-www">
+        <a href="reference.html">API</a></li>
+      <li id="menu-support">
+        <a href="documentation.html">documentation</a></li>
+      <li id="menu-download">
+        <a href="../download.html">download</a></li>
+      <li id="menu-about">
+        <a href="../index.html">about</a></li>
+    </ul>
+  </div>
+  <div class="section" id="main">
+    <h1>Liquidsoap 1.2.1 : Liquidsoap documentation</h1>
+    <div class="content">
+      <h3>Documentation index</h3>
+<p>
+<b>How to use</b>: Start with the <a href="quick_start.html">quickstart</a> and make sure you
+learn <a href="help.html">how to find help</a>. Then it's as you like: go for another
+<a href="#general">general tutorial</a>, or a <a href="#specific">specific example</a>, pick a <a href="#core">basic
+notion</a>, or some examples from the <a href="cookbook.html">cookbook</a>. If you've
+understood all you need, just browse the <a href="reference.html">reference</a> and compose
+your dream stream.
+</p>
+<p>
+If you downloaded a source tarball of liquidsoap, you may first read the
+<a href="build.html">build instructions</a>.
+</p>
+<p>
+If you are looking for a way to build a distribution-independant bundle of
+liquidsoap, you may want to read the <a href="custom-path.html">custom path</a> page.
+</p>
+<h4><a name="general">General tutorials</a></h4>
+<ul>
+<li>
+<a href="quick_start.html">Quickstart</a>: where anyone should start.</li>
+<li>
+<a href="on2.html">ON2 tutorial</a>: a in-depth tutorial of Liquidsoap from scratch.</li>
+<li>
+<a href="complete_case.html">Complete case analysis</a>: an example that is not a toy.</li>
+<li>
+<a href="advanced.html">Advanced</a>: overview of more advanced features for serious usage.</li>
+<li>
+<a href="help.html">How to find help</a> about operators, settings, server commands, etc.</li>
+<li>
+<a href="cookbook.html">Cookbook</a>: contains lots of idiomatic examples.</li>
+<li>
+<a href="faq.html">Frequently Asked Questions, Troubleshooting</a></li>
+</ul>
+<h4><a name="reference">Reference</a></h4>
+<ul>
+<li>
+<a href="reference.html">API reference</a>: All the builtin functions of liquidsoap.</li>
+<li>
+<a href="settings.html">Settings</a>: The list of available settings for liquidsoap.</li>
+<li>
+<a href="language.html">Script language</a>: A more detailed presentation.</li>
+<li>
+<a href="encoding_formats.html">Encoding formats</a>: The available formats for encoding outputs.</li>
+<li>
+<a href="playlist_parsers.html">Playlist parsers</a>: Supported playlist formats.</li>
+<li>
+<a href="json.html">JSON import/export</a>: Importing and exporting language values in JSON.</li>
+<li>
+<a href="ladspa.html">LADSPA plugins</a>: Using LADSPA plugins.</li>
+</ul>
+<h4><a name="core">Core</a></h4>
+<ul>
+<li>
+Basic concepts: <a href="sources.html">sources</a>, <a href="clocks.html">clocks</a> and <a href="requests.html">requests</a>.</li>
+<li>
+<a href="stream_content.html">Stream contents</a>: what kind of streams are supported, and how.</li>
+<li>
+<a href="script_loading.html">Script loading</a>: load several scripts, learn about the script library.</li>
+<li>
+<a href="phases.html">Execution phases</a></li>
+</ul>
+<h4><a name="specific">Specific tutorials</a></h4>
+<ul>
+<li>
+<a href="blank.html">Blank detection</a></li>
+<li>
+<a href="metadata.html">Customize metadata</a></li>
+<li>
+<a href="seek.html">Seek and cue support</a>: seek and set cue-in and cue-out points in sources.</li>
+<li>
+<a href="external_decoders.html">External decoders</a>: use an external program for decoding audio files.</li>
+<li>
+<a href="external_streams.html">External streams</a>: use an external program for streaming audio data.</li>
+<li>
+<a href="external_encoders.html">External encoders</a>: use an external audio encoding program.</li>
+<li>
+<a href="http_input.html">HTTP input</a>: relay external streams.</li>
+<li>
+<a href="harbor.html">Harbor input</a>: receive streams from icecast and shoutcast source clients.</li>
+<li>
+<a href="harbor_http.html">Interaction with the Harbor</a>: interact with a running Liquidsoap using the Harbor server.</li>
+<li>
+<a href="server.html">Interaction with the server</a> interact with a running Liquidsoap instance using the telnet server.</li>
+<li>
+<a href="icy_metadata.html">ICY metadata update</a>: manipulate and configure metadata update in Icecast.</li>
+<li>
+<a href="replay_gain.html">Normalization and replay gain</a>: normalize audio data.</li>
+<li>
+<a href="request_sources.html">Requests-based sources</a>: create advanced sources using requests.</li>
+<li>
+<a href="shoutcast.html">Shoutcast output</a>: output to shoutcast.</li>
+<li>
+<a href="dynamic_sources.html">Dynamic source creation</a>: dynamically create sources using server requests.</li>
+<li>
+<a href="smartcrossfade.html">Smart crossfading</a>: define custom crossfade transitions.</li>
+<li>
+<a href="in_production.html">Using in production</a>: integrate liquidsoap scripts in a production environment.</li>
+<li>
+<a href="flows.html">Liquid Flows</a>: add your radio to the <a href="http://flows.liquidsoap.info/" target="_blank">webpage</a> of proud users.</li>
+<li>
+<a href="video.html">Videos streams</a>: why restrict yourself to sound only?</li>
+</ul>
+<h4><a name="users">User scripts</a></h4>
+<ul>
+<li>
+<a href="bubble.html">Bubble</a>: a simple example of a database interface as a custom protocol.</li>
+<li>
+<a href="geekradio.html">Geekradio</a></li>
+<li>
+<a href="radiopi.html">RadioPi</a></li>
+<li>
+<a href="dolebrai.html">Dolebraï</a></li>
+<li>
+<a href="kube.html">Kube</a></li>
+<li>
+<a href="frequence3.html">Frequence3</a></li>
+<li>
+<a href="radio-nova.html">Listen to Radio Nova</a></li>
+<li>
+<a href="video-static.html">Video with a single static image</a></li>
+<li>
+<a href="split-cue.html">Split a CUE sheet</a></li>
+</ul>
+<h4>Code snippets</h4>
+<ul>
+<li>
+<a href="scripts/index.html">Code example index</a></li>
+</ul>
+<h4>Behind the curtains</h4>
+<ul>
+<li>
+<a href="../publications.html">Some presentations and publications</a> explaining the theory underlying Liquidsoap</li>
+<li>
+<a href="../modules.html">OCaml libraries</a> used in Liquidsoap, that can be reused in other projects</li>
+<li>
+<a href="../modules/liquidsoap/index.html">Documentation of some internals</a> of Liquidsoap</li>
+<li>
+<a href="../previously.html">Documentation for previous versions</a></li>
+</ul>
+      <div id="footer"> 2003-2017 Savonet team</div>
+    </div>
+  </div>
+  <script type="text/javascript" src="//www.google.com/cse/brand?form=cse-search-box&amp;lang=en"></script>
+  <script type="text/javascript" src="../js/search.js"></script>
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-927362-1']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+</body>
+</html>

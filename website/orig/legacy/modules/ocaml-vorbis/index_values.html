@@ -1,0 +1,228 @@
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Ogg_demuxer_vorbis_decoder" rel="Chapter" href="Ogg_demuxer_vorbis_decoder.html">
+<link title="Vorbis" rel="Chapter" href="Vorbis.html"><title>Index of values</title>
+</head>
+<body>
+<div class="navbar">&nbsp;<a class="up" href="index.html" title="Index">Up</a>
+&nbsp;</div>
+<h1>Index of values</h1>
+<table>
+<tr><td align="left"><div>B</div></td></tr>
+<tr><td><a href="Vorbis.File.Decoder.html#VALbitrate">bitrate</a> [<a href="Vorbis.File.Decoder.html">Vorbis.File.Decoder</a>]</td>
+<td><div class="info">
+<p>Get the bitrate of a bitsream (in bps).</p>
+
+</div>
+</td></tr>
+<tr><td><a href="Vorbis.File.Decoder.html#VALbitstream">bitstream</a> [<a href="Vorbis.File.Decoder.html">Vorbis.File.Decoder</a>]</td>
+<td><div class="info">
+<p>Get the index of the sequential logical bitstream currently being decoded
+ (incremented at chaining boundaries even for non-seekable streams).</p>
+
+</div>
+</td></tr>
+<tr><td align="left"><div>C</div></td></tr>
+<tr><td><a href="Vorbis.Decoder.html#VALcheck_packet">check_packet</a> [<a href="Vorbis.Decoder.html">Vorbis.Decoder</a>]</td>
+<td><div class="info">
+<p>Check wether a ogg packet contains vorbis data.</p>
+
+</div>
+</td></tr>
+<tr><td><a href="Vorbis.File.Decoder.html#VALcomments">comments</a> [<a href="Vorbis.File.Decoder.html">Vorbis.File.Decoder</a>]</td>
+<td><div class="info">
+<p>Get the vorbis comments from a vorbis file.</p>
+
+</div>
+</td></tr>
+<tr><td><a href="Vorbis.Decoder.html#VALcomments">comments</a> [<a href="Vorbis.Decoder.html">Vorbis.Decoder</a>]</td>
+<td><div class="info">
+<p>Get vorbis comments from the decoder</p>
+
+</div>
+</td></tr>
+<tr><td><a href="Vorbis.File.Decoder.html#VALcreate">create</a> [<a href="Vorbis.File.Decoder.html">Vorbis.File.Decoder</a>]</td>
+<td><div class="info">
+<p><code class="code">create read_func seek_func tell_func params</code> opens a
+ stream like <code class="code">openfile</code> for decoding but callbacks are used to
+ manipulate the data.</p>
+
+</div>
+</td></tr>
+<tr><td><a href="Vorbis.Encoder.html#VALcreate">create</a> [<a href="Vorbis.Encoder.html">Vorbis.Encoder</a>]</td>
+<td><div class="info">
+<p><code class="code">create chans rate max_br nom_br min_br</code> creates a new encoder with
+ <code class="code">chans</code> channels, with sample rate <code class="code">rate</code> Hz and with respectively <code class="code">max_br</code>,
+ <code class="code">nom_br</code> and <code class="code">min_br</code> as maximal, nominal and minimal bitrates (in bps).</p>
+
+</div>
+</td></tr>
+<tr><td><a href="Vorbis.Encoder.html#VALcreate_vbr">create_vbr</a> [<a href="Vorbis.Encoder.html">Vorbis.Encoder</a>]</td>
+<td><div class="info">
+<p><code class="code">create_vbr chans rate quality</code> creates a new encoder in variable bitrate
+ with <code class="code">chans</code> channels, with sample rate <code class="code">rate</code> Hz and with quality
+ <code class="code">quality</code>, which should be between -1 and 1 (1 is the best).</p>
+
+</div>
+</td></tr>
+<tr><td align="left"><div>D</div></td></tr>
+<tr><td><a href="Vorbis.File.Decoder.html#VALdecode">decode</a> [<a href="Vorbis.File.Decoder.html">Vorbis.File.Decoder</a>]</td>
+<td><div class="info">
+<p>Same as <code class="code">decode_float</code> but decodes to integers.</p>
+
+</div>
+</td></tr>
+<tr><td><a href="Vorbis.File.Decoder.html#VALdecode_float">decode_float</a> [<a href="Vorbis.File.Decoder.html">Vorbis.File.Decoder</a>]</td>
+<td><div class="info">
+<p><code class="code">decode_float dec buff ofs len</code> decodes <code class="code">len</code> samples in each channel and puts
+ the result in <code class="code">buff</code> starting at position <code class="code">ofs</code>.</p>
+
+</div>
+</td></tr>
+<tr><td><a href="Vorbis.File.Decoder.html#VALdecode_float_alloc">decode_float_alloc</a> [<a href="Vorbis.File.Decoder.html">Vorbis.File.Decoder</a>]</td>
+<td></td></tr>
+<tr><td><a href="Vorbis.Decoder.html#VALdecode_pcm">decode_pcm</a> [<a href="Vorbis.Decoder.html">Vorbis.Decoder</a>]</td>
+<td><div class="info">
+<p><code class="code">decode_pcm dec stream buffer pos offset</code> decodes pcm float data
+ from <code class="code">stream</code>.</p>
+
+</div>
+</td></tr>
+<tr><td><a href="Vorbis.File.Decoder.html#VALduration">duration</a> [<a href="Vorbis.File.Decoder.html">Vorbis.File.Decoder</a>]</td>
+<td><div class="info">
+<p>Get the duration in seconds of a bitstream.</p>
+
+</div>
+</td></tr>
+<tr><td align="left"><div>E</div></td></tr>
+<tr><td><a href="Vorbis.Encoder.html#VALencode_buffer_float">encode_buffer_float</a> [<a href="Vorbis.Encoder.html">Vorbis.Encoder</a>]</td>
+<td><div class="info">
+<p>Encode a buffer of PCM data.</p>
+
+</div>
+</td></tr>
+<tr><td><a href="Vorbis.Encoder.html#VALend_of_stream">end_of_stream</a> [<a href="Vorbis.Encoder.html">Vorbis.Encoder</a>]</td>
+<td></td></tr>
+<tr><td align="left"><div>F</div></td></tr>
+<tr><td><a href="Vorbis.Skeleton.html#VALfisbone">fisbone</a> [<a href="Vorbis.Skeleton.html">Vorbis.Skeleton</a>]</td>
+<td><div class="info">
+<p>Generate a vorbis fisbone packet with 
+ these parameters, to use in an ogg skeleton.</p>
+
+</div>
+</td></tr>
+<tr><td align="left"><div>G</div></td></tr>
+<tr><td><a href="Vorbis.Encoder.html#VALget_channels">get_channels</a> [<a href="Vorbis.Encoder.html">Vorbis.Encoder</a>]</td>
+<td><div class="info">
+<p>Get the number of audio channels expected by 
+ the encoder.</p>
+
+</div>
+</td></tr>
+<tr><td align="left"><div>H</div></td></tr>
+<tr><td><a href="Vorbis.Encoder.html#VALheaderout">headerout</a> [<a href="Vorbis.Encoder.html">Vorbis.Encoder</a>]</td>
+<td><div class="info">
+<p>Encode a header given a list of tags.</p>
+
+</div>
+</td></tr>
+<tr><td><a href="Vorbis.Encoder.html#VALheaderout_packetout">headerout_packetout</a> [<a href="Vorbis.Encoder.html">Vorbis.Encoder</a>]</td>
+<td><div class="info">
+<p>Encoder a header, but do not submit packet to
+ Ogg Stream.</p>
+
+</div>
+</td></tr>
+<tr><td align="left"><div>I</div></td></tr>
+<tr><td><a href="Vorbis.File.Decoder.html#VALinfo">info</a> [<a href="Vorbis.File.Decoder.html">Vorbis.File.Decoder</a>]</td>
+<td><div class="info">
+<p>Get the vorbis information from the stream header of a bitstream.</p>
+
+</div>
+</td></tr>
+<tr><td><a href="Vorbis.Decoder.html#VALinfo">info</a> [<a href="Vorbis.Decoder.html">Vorbis.Decoder</a>]</td>
+<td><div class="info">
+<p>Get vorbis infos from the decoder</p>
+
+</div>
+</td></tr>
+<tr><td><a href="Vorbis.Decoder.html#VALinit">init</a> [<a href="Vorbis.Decoder.html">Vorbis.Decoder</a>]</td>
+<td><div class="info">
+<p>Initialize decoder.</p>
+
+</div>
+</td></tr>
+<tr><td align="left"><div>O</div></td></tr>
+<tr><td><a href="Vorbis.File.Decoder.html#VALopenfile">openfile</a> [<a href="Vorbis.File.Decoder.html">Vorbis.File.Decoder</a>]</td>
+<td><div class="info">
+<p>Open a vorbis file for decoding.</p>
+
+</div>
+</td></tr>
+<tr><td><a href="Vorbis.File.Decoder.html#VALopenfile_with_fd">openfile_with_fd</a> [<a href="Vorbis.File.Decoder.html">Vorbis.File.Decoder</a>]</td>
+<td></td></tr>
+<tr><td align="left"><div>R</div></td></tr>
+<tr><td><a href="Ogg_demuxer_vorbis_decoder.html#VALregister">register</a> [<a href="Ogg_demuxer_vorbis_decoder.html">Ogg_demuxer_vorbis_decoder</a>]</td>
+<td><div class="info">
+<p>Register the vorbis decoder</p>
+
+</div>
+</td></tr>
+<tr><td><a href="Vorbis.Encoder.html#VALreset">reset</a> [<a href="Vorbis.Encoder.html">Vorbis.Encoder</a>]</td>
+<td></td></tr>
+<tr><td><a href="Vorbis.Decoder.html#VALrestart">restart</a> [<a href="Vorbis.Decoder.html">Vorbis.Decoder</a>]</td>
+<td><div class="info">
+<p>Restart the decoder</p>
+
+</div>
+</td></tr>
+<tr><td align="left"><div>S</div></td></tr>
+<tr><td><a href="Vorbis.File.Decoder.html#VALsamples">samples</a> [<a href="Vorbis.File.Decoder.html">Vorbis.File.Decoder</a>]</td>
+<td><div class="info">
+<p>Get the total pcm samples of a bitstream.</p>
+
+</div>
+</td></tr>
+<tr><td><a href="Vorbis.File.Decoder.html#VALserialnumber">serialnumber</a> [<a href="Vorbis.File.Decoder.html">Vorbis.File.Decoder</a>]</td>
+<td><div class="info">
+<p>Get the serial number of a bitstream.</p>
+
+</div>
+</td></tr>
+<tr><td><a href="Vorbis.File.Decoder.html#VALstreams">streams</a> [<a href="Vorbis.File.Decoder.html">Vorbis.File.Decoder</a>]</td>
+<td><div class="info">
+<p>Get the number of logical bitstreams within a physical bitstream.</p>
+
+</div>
+</td></tr>
+<tr><td><a href="Vorbis.html#VALstring_of_exc">string_of_exc</a> [<a href="Vorbis.html">Vorbis</a>]</td>
+<td><div class="info">
+<p>Return a string representation
+ of an exception</p>
+
+</div>
+</td></tr>
+<tr><td align="left"><div>T</div></td></tr>
+<tr><td><a href="Vorbis.html#VALtags">tags</a> [<a href="Vorbis.html">Vorbis</a>]</td>
+<td><div class="info">
+<p>Create a list of vorbis tags.</p>
+
+</div>
+</td></tr>
+<tr><td><a href="Vorbis.Encoder.html#VALtime_of_granulepos">time_of_granulepos</a> [<a href="Vorbis.Encoder.html">Vorbis.Encoder</a>]</td>
+<td><div class="info">
+<p>Convert a granulepos to absolute time in seconds.</p>
+
+</div>
+</td></tr>
+</table>
+</body>
+</html>

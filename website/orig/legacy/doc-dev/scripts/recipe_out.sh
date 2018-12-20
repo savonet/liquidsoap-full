@@ -1,0 +1,1 @@
+liquidsoap -v 'out(recipe)'

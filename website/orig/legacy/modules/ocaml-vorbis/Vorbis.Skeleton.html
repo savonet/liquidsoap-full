@@ -1,0 +1,35 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link rel="previous" href="Vorbis.File.html">
+<link rel="Up" href="Vorbis.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Ogg_demuxer_vorbis_decoder" rel="Chapter" href="Ogg_demuxer_vorbis_decoder.html">
+<link title="Vorbis" rel="Chapter" href="Vorbis.html"><title>Vorbis.Skeleton</title>
+</head>
+<body>
+<div class="navbar"><a class="pre" href="Vorbis.File.html" title="Vorbis.File">Previous</a>
+&nbsp;<a class="up" href="Vorbis.html" title="Vorbis">Up</a>
+&nbsp;</div>
+<h1>Module <a href="type_Vorbis.Skeleton.html">Vorbis.Skeleton</a></h1>
+
+<pre><span id="MODULESkeleton"><span class="keyword">module</span> Skeleton</span>: <code class="code">sig</code> <a href="Vorbis.Skeleton.html">..</a> <code class="code">end</code></pre><hr width="100%">
+
+<pre><span id="VALfisbone"><span class="keyword">val</span> fisbone</span> : <code class="type">?start_granule:Stdlib.Int64.t -><br>       ?headers:(string * string) list -><br>       serialno:Stdlib.Nativeint.t -><br>       samplerate:Stdlib.Int64.t -> unit -> Ogg.Stream.packet</code></pre><div class="info ">
+<div class="info-desc">
+<p>Generate a vorbis fisbone packet with 
+ these parameters, to use in an ogg skeleton.
+ Default value for <code class="code">start_granule</code> is <code class="code">Int64.zero</code>,
+ Default value for <code class="code">headers</code> is <code class="code">"Content-type","audio/vorbis"</code></p>
+
+<p>See: http://xiph.org/ogg/doc/skeleton.html.</p>
+</div>
+</div>
+</body></html>

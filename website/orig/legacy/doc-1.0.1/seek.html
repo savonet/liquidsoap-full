@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+  <title>Savonet / Liquidsoap 1.0.1 :: Multimedia Stream Generation</title>
+  <link href="../css/new.css" type="text/css" rel="stylesheet" />
+  <link href="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.17/themes/base/jquery-ui.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="//www.google.com/jsapi"></script>
+  <link rel="shortcut icon" href="../favicon.ico" />
+  <script>
+    google.load("jquery", "1.6.1");
+    google.load("jqueryui", "1.8.14");
+  </script>
+  <script type="text/javascript" src="../js/jQuery.syntax/jquery.syntax.min.js"></script>
+  <script type="text/javascript" src="../js/liq-jquery.js"></script>
+</head>
+<body>
+  <div class="menu">
+    <ul>
+      <li id="menu-developers">
+        <a href="https://github.com/savonet/liquidsoap/issues" target="_blank">developers</a></li>
+      <li id="menu-flows"><a href="https://flows.liquidsoap.info/">Flows!</a></li>
+      <li id="menu-doc-api-www">
+        <a href="reference.html">API</a></li>
+      <li id="menu-support">
+        <a href="documentation.html">documentation</a></li>
+      <li id="menu-download">
+        <a href="../download.html">download</a></li>
+      <li id="menu-about">
+        <a href="../index.html">about</a></li>
+    </ul>
+  </div>
+  <div class="section" id="main">
+    <h1>Liquidsoap 1.0.1 : Seeking and cue points</h1>
+    <div class="content">
+      <h3>Seeking in liquidsoap</h3>
+<p>
+Starting with Liquidsoap <code>1.0.0-beta2</code>, it is now possible to seek within sources! 
+Not all sources support seeking though: currently, they are mostly file-based sources
+such as <code>request.queue</code>, <code>playlist</code>, <code>request.dynamic</code> etc..
+</p>
+<p>
+The basic function to seek within a source is <code>source.seek</code>. It has the following type:
+</p>
+<pre class="syntax ">(source('a),float)-&gt;float
+</pre>
+<p>
+The parameters are:
+</p>
+<ul>
+<li>
+The source to seek.</li>
+<li>
+The duration in seconds to seek from current position.</li>
+</ul>
+<p>
+The function returns the duration actually seeked.
+</p>
+<p>
+Please note that seeking is done to a position relative to the <em>current</em>
+position. For instance, <code>source.seek(s,3.)</code> will seek 3 seconds forward in
+source <code>s</code> and <code>source.seek(s,(-4.))</code> will seek 4 seconds backward.
+</p>
+<p>
+Since seeking is currently only supported by request-based sources, it is recommended
+to hook the function as close as possible to the original source. Here is an example
+that implements a server/telnet seek function:
+</p>
+<pre class="syntax liq"># A playlist source
+s = playlist("/path/to/music")
+
+# The server seeking function
+def seek(t) =
+  t = float_of_string(default=0.,t)
+  log("Seeking #{t} sec")
+  ret = source.seek(s,t)
+  "Seeked #{ret} seconds."
+end
+
+# Register the function
+server.register(namespace=source.id(s),
+                description="Seek to a relative position \
+                             in source #{source.id(s)}",
+                usage="seek &lt;duration&gt;",
+                "seek",seek)
+</pre>
+<div align="right">
+<a href="scripts/server_seek.liq">
+<img class="grab" src="../images/grab.png" alt="Grab the code!">
+</a>
+</div></p>
+<h3>Cue points.</h3>
+<p>
+Sources that support seeking can also be used to implement cue points.
+The basic operator for this is <code>cue_cut</code>. Its has type:
+</p>
+<pre class="syntax ">(?id:string,?cue_in_metadata:string,
+ ?cue_out_metadata:string,
+ source(audio='#a,video='#b,midi='#c))-&gt;
+    source(audio='#a,video='#b,midi='#c)
+</pre>
+<p>
+Its parameters are:
+</p>
+<ul>
+<li>
+<code>cue_in_metadata</code>: Metadata for cue in points, default: <code>"liq_cue_in"</code>.</li>
+<li>
+<code>cue_out_metadata</code>: Metadata for cue out points, default: <code>"liq_cue_out"</code>.</li>
+<li>
+The source to apply cue points to.</li>
+</ul>
+<p>
+The values of cue-in and cue-out points are given in absolute
+position through the source's metadata. For instance, the following
+source will cue-in at 10 seconds and cue-out at 45 seconds on all its tracks:
+</p>
+<pre class="syntax liq">s = playlist(prefix="annotate:liq_cue_in=\"10.\",liq_cue_out=\"45\":",
+             "/path/to/music")
+
+s = cue_cut(s)
+</pre>
+<div align="right">
+<a href="scripts/cue_cut_playlist.liq">
+<img class="grab" src="../images/grab.png" alt="Grab the code!">
+</a>
+</div></p>
+<p>
+As in the above example, you may use the <code>annotate</code> protocol to pass custom cue
+points along with the files passed to Liquidsoap. This is particularly useful 
+in combination with <code>request.dymanic</code> as an external script can build-up
+the appropriate URI, including cue-points, based on information from your
+own scheduling back-end.
+</p>
+<p>
+Alternatively, you may use <code>map_metadata</code> to add those metadata. The operator
+<code>map_metadata</code> supports seeking and passes it to its underlying source.
+</p>
+      <div id="footer"> 2003-2017 Savonet team</div>
+    </div>
+  </div>
+  <script type="text/javascript" src="//www.google.com/cse/brand?form=cse-search-box&amp;lang=en"></script>
+  <script type="text/javascript" src="../js/search.js"></script>
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-927362-1']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,189 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link rel="previous" href="MIDI.html">
+<link rel="next" href="Image.html">
+<link rel="Up" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of class methods" rel=Appendix href="index_methods.html">
+<link title="Index of classes" rel=Appendix href="index_classes.html">
+<link title="Index of class types" rel=Appendix href="index_class_types.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="MIDI" rel="Chapter" href="MIDI.html">
+<link title="Audio" rel="Chapter" href="Audio.html">
+<link title="Image" rel="Chapter" href="Image.html">
+<link title="Ringbuffer" rel="Chapter" href="Ringbuffer.html">
+<link title="Synth" rel="Chapter" href="Synth.html">
+<link title="Video" rel="Chapter" href="Video.html"><title>Audio</title>
+</head>
+<body>
+<div class="navbar"><a class="pre" href="MIDI.html" title="MIDI">Previous</a>
+&nbsp;<a class="up" href="index.html" title="Index">Up</a>
+&nbsp;<a class="post" href="Image.html" title="Image">Next</a>
+</div>
+<h1>Module <a href="type_Audio.html">Audio</a></h1>
+
+<pre><span id="MODULEAudio"><span class="keyword">module</span> Audio</span>: <code class="code">sig</code> <a href="Audio.html">..</a> <code class="code">end</code></pre><div class="info module top">
+<div class="info-desc">
+<p>Operations on audio data.</p>
+</div>
+</div>
+<hr width="100%">
+
+<pre><span id="VALsamples_of_seconds"><span class="keyword">val</span> samples_of_seconds</span> : <code class="type">int -> float -> int</code></pre><div class="info ">
+<div class="info-desc">
+<p>At given sample rate, number of samples in given amount of time.</p>
+</div>
+</div>
+
+<pre><span id="VALseconds_of_samples"><span class="keyword">val</span> seconds_of_samples</span> : <code class="type">int -> int -> float</code></pre><div class="info ">
+<div class="info-desc">
+<p>At given sample rate, duration of given number of samples.</p>
+</div>
+</div>
+
+<pre><span id="VALlin_of_dB"><span class="keyword">val</span> lin_of_dB</span> : <code class="type">float -> float</code></pre><div class="info ">
+<div class="info-desc">
+<p>Convert decibels to linear coefficient.</p>
+</div>
+</div>
+
+<pre><span id="VALdB_of_lin"><span class="keyword">val</span> dB_of_lin</span> : <code class="type">float -> float</code></pre><div class="info ">
+<div class="info-desc">
+<p>Convert linear coefficient to decibels.</p>
+</div>
+</div>
+
+<pre><span id="MODULESample"><span class="keyword">module</span> <a href="Audio.Sample.html">Sample</a></span>: <code class="code">sig</code> <a href="Audio.Sample.html">..</a> <code class="code">end</code></pre><div class="info">
+<p>Operations on samples.</p>
+
+</div>
+
+<pre><span id="MODULENote"><span class="keyword">module</span> <a href="Audio.Note.html">Note</a></span>: <code class="code">sig</code> <a href="Audio.Note.html">..</a> <code class="code">end</code></pre><div class="info">
+<p>Operations on notes.</p>
+
+</div>
+
+<pre><span id="MODULEMono"><span class="keyword">module</span> <a href="Audio.Mono.html">Mono</a></span>: <code class="code">sig</code> <a href="Audio.Mono.html">..</a> <code class="code">end</code></pre><div class="info">
+<p>Operations on mono buffers (with only one channel).</p>
+
+</div>
+
+<pre><span id="TYPEbuffer"><span class="keyword">type</span> <code class="type"></code>buffer</span> = <code class="type"><a href="Audio.Mono.html#TYPEbuffer">Mono.buffer</a> array</code> </pre>
+<div class="info ">
+<div class="info-desc">
+<p>An audio buffer.</p>
+</div>
+</div>
+
+
+<pre><span id="VALcreate"><span class="keyword">val</span> create</span> : <code class="type">int -> int -> <a href="Audio.html#TYPEbuffer">buffer</a></code></pre><div class="info ">
+<div class="info-desc">
+<p><code class="code">create chans len</code> creates a buffer with <code class="code">chans</code> channels and <code class="code">len</code> samples
+    as duration.</p>
+</div>
+</div>
+
+<pre><span id="VALcreate_same"><span class="keyword">val</span> create_same</span> : <code class="type"><a href="Audio.html#TYPEbuffer">buffer</a> -> <a href="Audio.html#TYPEbuffer">buffer</a></code></pre><div class="info ">
+<div class="info-desc">
+<p>Create a buffer with the same number of channels and duration as the given
+    buffer.</p>
+</div>
+</div>
+
+<pre><span id="VALclear"><span class="keyword">val</span> clear</span> : <code class="type"><a href="Audio.html#TYPEbuffer">buffer</a> -> int -> int -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p>Clear the buffer (sets all the samples to zero).</p>
+</div>
+</div>
+
+<pre><span id="VALcopy"><span class="keyword">val</span> copy</span> : <code class="type"><a href="Audio.html#TYPEbuffer">buffer</a> -> <a href="Audio.html#TYPEbuffer">buffer</a></code></pre><div class="info ">
+<div class="info-desc">
+<p>Copy the given buffer.</p>
+</div>
+</div>
+
+<pre><span id="VALappend"><span class="keyword">val</span> append</span> : <code class="type"><a href="Audio.html#TYPEbuffer">buffer</a> -> <a href="Audio.html#TYPEbuffer">buffer</a> -> <a href="Audio.html#TYPEbuffer">buffer</a></code></pre>
+<pre><span id="VALchannels"><span class="keyword">val</span> channels</span> : <code class="type"><a href="Audio.html#TYPEbuffer">buffer</a> -> int</code></pre>
+<pre><span id="VALduration"><span class="keyword">val</span> duration</span> : <code class="type"><a href="Audio.html#TYPEbuffer">buffer</a> -> int</code></pre><div class="info ">
+<div class="info-desc">
+<p>Duration of a buffer in samples.</p>
+</div>
+</div>
+
+<pre><span id="VALto_mono"><span class="keyword">val</span> to_mono</span> : <code class="type"><a href="Audio.html#TYPEbuffer">buffer</a> -> <a href="Audio.Mono.html#TYPEbuffer">Mono.buffer</a></code></pre><div class="info ">
+<div class="info-desc">
+<p>Convert a buffer to a mono buffer by computing the mean of all channels.</p>
+</div>
+</div>
+
+<pre><span id="VALof_mono"><span class="keyword">val</span> of_mono</span> : <code class="type"><a href="Audio.Mono.html#TYPEbuffer">Mono.buffer</a> -> <a href="Audio.html#TYPEbuffer">buffer</a></code></pre><div class="info ">
+<div class="info-desc">
+<p>Convert a mono buffer into a buffer. Notice that the original mono buffer is
+    not copied an might thus be modified afterwards.</p>
+</div>
+</div>
+
+<pre><span id="MODULEU8"><span class="keyword">module</span> <a href="Audio.U8.html">U8</a></span>: <code class="code">sig</code> <a href="Audio.U8.html">..</a> <code class="code">end</code></pre>
+<pre><span id="MODULES16LE"><span class="keyword">module</span> <a href="Audio.S16LE.html">S16LE</a></span>: <code class="code">sig</code> <a href="Audio.S16LE.html">..</a> <code class="code">end</code></pre>
+<pre><span id="MODULES16BE"><span class="keyword">module</span> <a href="Audio.S16BE.html">S16BE</a></span>: <code class="code">sig</code> <a href="Audio.S16BE.html">..</a> <code class="code">end</code></pre>
+<pre><span id="MODULES24LE"><span class="keyword">module</span> <a href="Audio.S24LE.html">S24LE</a></span>: <code class="code">sig</code> <a href="Audio.S24LE.html">..</a> <code class="code">end</code></pre>
+<pre><span id="MODULES32LE"><span class="keyword">module</span> <a href="Audio.S32LE.html">S32LE</a></span>: <code class="code">sig</code> <a href="Audio.S32LE.html">..</a> <code class="code">end</code></pre>
+<pre><span id="VALresample"><span class="keyword">val</span> resample</span> : <code class="type">?mode:[ `Linear | `Nearest ] -><br>       float -> <a href="Audio.html#TYPEbuffer">buffer</a> -> int -> int -> <a href="Audio.html#TYPEbuffer">buffer</a></code></pre>
+<pre><span id="VALblit"><span class="keyword">val</span> blit</span> : <code class="type"><a href="Audio.html#TYPEbuffer">buffer</a> -> int -> <a href="Audio.html#TYPEbuffer">buffer</a> -> int -> int -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p>Same as <code class="code">Array.blit</code> for audio data.</p>
+</div>
+</div>
+
+<pre><span id="VALclip"><span class="keyword">val</span> clip</span> : <code class="type"><a href="Audio.html#TYPEbuffer">buffer</a> -> int -> int -> unit</code></pre>
+<pre><span id="VALamplify"><span class="keyword">val</span> amplify</span> : <code class="type">float -> <a href="Audio.html#TYPEbuffer">buffer</a> -> int -> int -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p>Amplify a portion of the buffer by a given coefficient.</p>
+</div>
+</div>
+
+<pre><span id="VALpan"><span class="keyword">val</span> pan</span> : <code class="type">float -> <a href="Audio.html#TYPEbuffer">buffer</a> -> int -> int -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p>Pan a stereo buffer from left to right (the buffer should have exactly two
+    channels!). The coefficient should be between <code class="code">-1.</code> and <code class="code">1.</code>.</p>
+</div>
+</div>
+
+<pre><span id="VALadd"><span class="keyword">val</span> add</span> : <code class="type"><a href="Audio.html#TYPEbuffer">buffer</a> -> int -> <a href="Audio.html#TYPEbuffer">buffer</a> -> int -> int -> unit</code></pre>
+<pre><span id="VALadd_coeff"><span class="keyword">val</span> add_coeff</span> : <code class="type"><a href="Audio.html#TYPEbuffer">buffer</a> -> int -> float -> <a href="Audio.html#TYPEbuffer">buffer</a> -> int -> int -> unit</code></pre>
+<pre><span id="MODULEBuffer_ext"><span class="keyword">module</span> <a href="Audio.Buffer_ext.html">Buffer_ext</a></span>: <code class="code">sig</code> <a href="Audio.Buffer_ext.html">..</a> <code class="code">end</code></pre><div class="info">
+<p>Buffers of variable size.</p>
+
+</div>
+
+<pre><span id="MODULERingbuffer"><span class="keyword">module</span> <a href="Audio.Ringbuffer.html">Ringbuffer</a></span>: <code class="code">sig</code> <a href="Audio.Ringbuffer.html">..</a> <code class="code">end</code></pre><div class="info">
+<p>Circular ringbuffers.</p>
+
+</div>
+
+<pre><span id="MODULERingbuffer_ext"><span class="keyword">module</span> <a href="Audio.Ringbuffer_ext.html">Ringbuffer_ext</a></span>: <code class="code">sig</code> <a href="Audio.Ringbuffer_ext.html">..</a> <code class="code">end</code></pre>
+<pre><span id="MODULEAnalyze"><span class="keyword">module</span> <a href="Audio.Analyze.html">Analyze</a></span>: <code class="code">sig</code> <a href="Audio.Analyze.html">..</a> <code class="code">end</code></pre>
+<pre><span id="MODULEEffect"><span class="keyword">module</span> <a href="Audio.Effect.html">Effect</a></span>: <code class="code">sig</code> <a href="Audio.Effect.html">..</a> <code class="code">end</code></pre><div class="info">
+<p>Audio effects.</p>
+
+</div>
+
+<pre><span id="MODULEGenerator"><span class="keyword">module</span> <a href="Audio.Generator.html">Generator</a></span>: <code class="code">sig</code> <a href="Audio.Generator.html">..</a> <code class="code">end</code></pre><div class="info">
+<p>Sound generators.</p>
+
+</div>
+
+<pre><span id="MODULEIO"><span class="keyword">module</span> <a href="Audio.IO.html">IO</a></span>: <code class="code">sig</code> <a href="Audio.IO.html">..</a> <code class="code">end</code></pre><div class="info">
+<p>Operation for reading and writing audio data from files, streams or
+    devices.</p>
+
+</div>
+</body></html>

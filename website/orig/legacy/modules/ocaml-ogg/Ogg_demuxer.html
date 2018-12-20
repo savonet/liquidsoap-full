@@ -1,0 +1,631 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link rel="previous" href="Ogg.html">
+<link rel="Up" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Ogg" rel="Chapter" href="Ogg.html">
+<link title="Ogg_demuxer" rel="Chapter" href="Ogg_demuxer.html"><link title="Decoding" rel="Section" href="#2_Decoding">
+<link title="Implementing decoders" rel="Section" href="#2_Implementingdecoders">
+<link title="Types" rel="Subsection" href="#3_Types">
+<link title="Exceptions " rel="Subsection" href="#3_Exceptions">
+<link title="Initialization functions " rel="Subsection" href="#3_Initializationfunctions">
+<link title="Information functions" rel="Subsection" href="#3_Informationfunctions">
+<link title="Seeking functions" rel="Subsection" href="#3_Seekingfunctions">
+<link title="Decoding functions" rel="Subsection" href="#3_Decodingfunctions">
+<link title="Types " rel="Subsection" href="#3_Types">
+<link title="Functions" rel="Subsection" href="#3_Functions">
+<title>Ogg_demuxer</title>
+</head>
+<body>
+<div class="navbar"><a class="pre" href="Ogg.html" title="Ogg">Previous</a>
+&nbsp;<a class="up" href="index.html" title="Index">Up</a>
+&nbsp;</div>
+<h1>Module <a href="type_Ogg_demuxer.html">Ogg_demuxer</a></h1>
+
+<pre><span id="MODULEOgg_demuxer"><span class="keyword">module</span> Ogg_demuxer</span>: <code class="code">sig</code> <a href="Ogg_demuxer.html">..</a> <code class="code">end</code></pre><div class="info module top">
+<div class="info-desc">
+<p>Ogg stream demuxer</p>
+</div>
+</div>
+<hr width="100%">
+<p>This module provides a functional abstract API to 
+ decode and seek in Ogg streams.</p>
+
+<p>Decoders are also provided in ocaml-vorbis,
+ ocaml-speex, ocaml-schroedinger, ocaml-flac and
+ ocaml-theora.</p>
+
+<p>Functions in this module are not thread safe!</p>
+<h3 id="2_Decoding">Decoding</h3><h4 id="3_Types">Types</h4>
+<pre><span id="TYPEt"><span class="keyword">type</span> <code class="type"></code>t</span> </pre>
+<div class="info ">
+<div class="info-desc">
+<p>Type of an ogg stream decoder.</p>
+</div>
+</div>
+
+
+<pre><code><span id="TYPEcallbacks"><span class="keyword">type</span> <code class="type"></code>callbacks</span> = {</code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTcallbacks.read">read</span>&nbsp;: <code class="type">int -> string * int</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTcallbacks.seek">seek</span>&nbsp;: <code class="type">(int -> int) option</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTcallbacks.tell">tell</span>&nbsp;: <code class="type">(unit -> int) option</code>;</code></td>
+
+</tr></table>
+}
+
+<div class="info ">
+<div class="info-desc">
+<p>Type for callbacks used to acess encoded data.</p>
+</div>
+</div>
+
+
+<pre><code><span id="TYPEtrack"><span class="keyword">type</span> <code class="type"></code>track</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTtrack.Audio_track"><span class="constructor">Audio_track</span></span> <span class="keyword">of</span> <code class="type">(string * nativeint)</code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTtrack.Video_track"><span class="constructor">Video_track</span></span> <span class="keyword">of</span> <code class="type">(string * nativeint)</code></code></td>
+
+</tr></table>
+
+<div class="info ">
+<div class="info-desc">
+<p>Type for a decodable track. 
+ First element is a string describing
+ the decoder used to decode the track.
+ Second element is the serial number
+ associated to the <code class="code">Ogg.Stream.stream</code> logical
+ stream used to pull data packets for that
+ track.</p>
+</div>
+</div>
+
+
+<pre><code><span id="TYPEstandard_tracks"><span class="keyword">type</span> <code class="type"></code>standard_tracks</span> = {</code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span class="keyword">mutable&nbsp;</span><span id="TYPEELTstandard_tracks.audio_track">audio_track</span>&nbsp;: <code class="type"><a href="Ogg_demuxer.html#TYPEtrack">track</a> option</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span class="keyword">mutable&nbsp;</span><span id="TYPEELTstandard_tracks.video_track">video_track</span>&nbsp;: <code class="type"><a href="Ogg_demuxer.html#TYPEtrack">track</a> option</code>;</code></td>
+
+</tr></table>
+}
+
+<div class="info ">
+<div class="info-desc">
+<p>Type for standard tracks (see <code class="code">get_standard_tracks</code> below).</p>
+</div>
+</div>
+
+
+<pre><span id="TYPEmetadata"><span class="keyword">type</span> <code class="type"></code>metadata</span> = <code class="type">string * (string * string) list</code> </pre>
+<div class="info ">
+<div class="info-desc">
+<p>Type for metadata. First element
+ is a string describing the vendor, second
+ element is a list of metadata of the form:
+ <code class="code">(label,value)</code>.</p>
+</div>
+</div>
+
+
+<pre><code><span id="TYPEaudio_info"><span class="keyword">type</span> <code class="type"></code>audio_info</span> = {</code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTaudio_info.channels">channels</span>&nbsp;: <code class="type">int</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTaudio_info.sample_rate">sample_rate</span>&nbsp;: <code class="type">int</code>;</code></td>
+
+</tr></table>
+}
+
+<div class="info ">
+<div class="info-desc">
+<p>Type for audio information.</p>
+</div>
+</div>
+
+
+<pre><span id="TYPEaudio_data"><span class="keyword">type</span> <code class="type"></code>audio_data</span> = <code class="type">float array array</code> </pre>
+<div class="info ">
+<div class="info-desc">
+<p>Type for audio data.</p>
+</div>
+</div>
+
+
+<pre><span id="TYPEvideo_plane"><span class="keyword">type</span> <code class="type"></code>video_plane</span> = <code class="type">(int, Bigarray.int8_unsigned_elt, Bigarray.c_layout) Bigarray.Array1.t</code> </pre>
+<div class="info ">
+<div class="info-desc">
+<p>Type of a video plane.</p>
+</div>
+</div>
+
+
+<pre><code><span id="TYPEvideo_format"><span class="keyword">type</span> <code class="type"></code>video_format</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTvideo_format.Yuvj_420"><span class="constructor">Yuvj_420</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTvideo_format.Yuvj_422"><span class="constructor">Yuvj_422</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTvideo_format.Yuvj_444"><span class="constructor">Yuvj_444</span></span></code></td>
+
+</tr></table>
+
+<div class="info ">
+<div class="info-desc">
+<p>Supported video formats.</p>
+</div>
+</div>
+
+
+<pre><code><span id="TYPEvideo_info"><span class="keyword">type</span> <code class="type"></code>video_info</span> = {</code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTvideo_info.fps_numerator">fps_numerator</span>&nbsp;: <code class="type">int</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTvideo_info.fps_denominator">fps_denominator</span>&nbsp;: <code class="type">int</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTvideo_info.width">width</span>&nbsp;: <code class="type">int</code>;</code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<div class="info-desc">
+<p>Width of the Y' luminance plane</p>
+</div>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTvideo_info.height">height</span>&nbsp;: <code class="type">int</code>;</code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<div class="info-desc">
+<p>Height of the luminance plane</p>
+</div>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr></table>
+}
+
+<div class="info ">
+<div class="info-desc">
+<p>Type for video information.</p>
+</div>
+</div>
+
+
+<pre><code><span id="TYPEvideo_data"><span class="keyword">type</span> <code class="type"></code>video_data</span> = {</code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTvideo_data.format">format</span>&nbsp;: <code class="type"><a href="Ogg_demuxer.html#TYPEvideo_format">video_format</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTvideo_data.frame_width">frame_width</span>&nbsp;: <code class="type">int</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTvideo_data.frame_height">frame_height</span>&nbsp;: <code class="type">int</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTvideo_data.y_stride">y_stride</span>&nbsp;: <code class="type">int</code>;</code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<div class="info-desc">
+<p>Length, in bytes, per line</p>
+</div>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTvideo_data.uv_stride">uv_stride</span>&nbsp;: <code class="type">int</code>;</code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<div class="info-desc">
+<p>Length, in bytes, per line</p>
+</div>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTvideo_data.y">y</span>&nbsp;: <code class="type"><a href="Ogg_demuxer.html#TYPEvideo_plane">video_plane</a></code>;</code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<div class="info-desc">
+<p>luminance data</p>
+</div>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTvideo_data.u">u</span>&nbsp;: <code class="type"><a href="Ogg_demuxer.html#TYPEvideo_plane">video_plane</a></code>;</code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<div class="info-desc">
+<p>Cb data</p>
+</div>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTvideo_data.v">v</span>&nbsp;: <code class="type"><a href="Ogg_demuxer.html#TYPEvideo_plane">video_plane</a></code>;</code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<div class="info-desc">
+<p>Cr data</p>
+</div>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr></table>
+}
+
+<div class="info ">
+<div class="info-desc">
+<p>Type for video data.</p>
+</div>
+</div>
+
+<h4 id="3_Exceptions">Exceptions </h4>
+<pre><span id="EXCEPTIONInvalid_stream"><span class="keyword">exception</span> Invalid_stream</span></pre>
+
+<pre><span id="EXCEPTIONNot_available"><span class="keyword">exception</span> Not_available</span></pre>
+
+<pre><span id="EXCEPTIONEnd_of_stream"><span class="keyword">exception</span> End_of_stream</span></pre>
+<h4 id="3_Initializationfunctions">Initialization functions </h4>
+<pre><span id="VALinit"><span class="keyword">val</span> init</span> : <code class="type">?log:(string -> unit) -> <a href="Ogg_demuxer.html#TYPEcallbacks">callbacks</a> -> <a href="Ogg_demuxer.html#TYPEt">t</a></code></pre><div class="info ">
+<div class="info-desc">
+<p>Initiate a decoder with the given callbacks. 
+ <code class="code">log</code> is an optional functioned used to 
+ return logged messages during the deocding
+ process.</p>
+</div>
+</div>
+
+<pre><span id="VALinit_from_file"><span class="keyword">val</span> init_from_file</span> : <code class="type">?log:(string -> unit) -> string -> <a href="Ogg_demuxer.html#TYPEt">t</a> * Unix.file_descr</code></pre><div class="info ">
+<div class="info-desc">
+<p>Initiate a decoder from a given file name.</p>
+</div>
+</div>
+
+<pre><span id="VALinit_from_fd"><span class="keyword">val</span> init_from_fd</span> : <code class="type">?log:(string -> unit) -> Unix.file_descr -> <a href="Ogg_demuxer.html#TYPEt">t</a></code></pre><div class="info ">
+<div class="info-desc">
+<p>Initate a decoder from a given <code class="code">Unix.file_descriptor</code></p>
+</div>
+</div>
+
+<pre><span id="VALget_ogg_sync"><span class="keyword">val</span> get_ogg_sync</span> : <code class="type"><a href="Ogg_demuxer.html#TYPEt">t</a> -> <a href="Ogg.Sync.html#TYPEt">Ogg.Sync.t</a></code></pre><div class="info ">
+<div class="info-desc">
+<p>Get the Ogg.Sync handler associated to 
+ the decoder. Use only if know what you are doing.</p>
+</div>
+</div>
+
+<pre><span id="VALreset"><span class="keyword">val</span> reset</span> : <code class="type"><a href="Ogg_demuxer.html#TYPEt">t</a> -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p>Reset encoder, try to parse a new sequentialized stream.
+ To use when end_of_stream has been reached.</p>
+</div>
+</div>
+
+<pre><span id="VALabort"><span class="keyword">val</span> abort</span> : <code class="type"><a href="Ogg_demuxer.html#TYPEt">t</a> -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p>Consume all remaining pages of the current
+ stream. This function may be called to skip
+ a sequentialized stream but it may be quite
+ CPU intensive if there are many pages remaining..</p>
+
+<p><code class="code">eos dec</code> is <code class="code">true</code> after this call.</p>
+</div>
+</div>
+
+<pre><span id="VALeos"><span class="keyword">val</span> eos</span> : <code class="type"><a href="Ogg_demuxer.html#TYPEt">t</a> -> bool</code></pre><div class="info ">
+<div class="info-desc">
+<p><code class="code">true</code> if the decoder has reached the end of each
+ logical streams and all data has been decoded.</p>
+
+<p>If you do not plan on decoding some data, 
+ you should use <code class="code">drop_track</code> to indicate it
+ to the decoder. Otherwise, <code class="code">eos</code> will return
+ <code class="code">false</code> until you have decoded all data.</p>
+</div>
+</div>
+
+<pre><span id="VALget_tracks"><span class="keyword">val</span> get_tracks</span> : <code class="type"><a href="Ogg_demuxer.html#TYPEt">t</a> -> <a href="Ogg_demuxer.html#TYPEtrack">track</a> list</code></pre><div class="info ">
+<div class="info-desc">
+<p>Get all decodable tracks available.</p>
+</div>
+</div>
+
+<pre><span id="VALget_standard_tracks"><span class="keyword">val</span> get_standard_tracks</span> : <code class="type"><a href="Ogg_demuxer.html#TYPEt">t</a> -> <a href="Ogg_demuxer.html#TYPEstandard_tracks">standard_tracks</a></code></pre><div class="info ">
+<div class="info-desc">
+<p>Get the first available audio and
+ video tracks and drop the other one.</p>
+</div>
+</div>
+
+<pre><span id="VALupdate_standard_tracks"><span class="keyword">val</span> update_standard_tracks</span> : <code class="type"><a href="Ogg_demuxer.html#TYPEt">t</a> -> <a href="Ogg_demuxer.html#TYPEstandard_tracks">standard_tracks</a> -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p>Update a given record of standard tracks. You should
+ use this after a <code class="code">reset</code> to update the standard tracks
+ with the newly created tracks.</p>
+</div>
+</div>
+
+<pre><span id="VALdrop_track"><span class="keyword">val</span> drop_track</span> : <code class="type"><a href="Ogg_demuxer.html#TYPEt">t</a> -> <a href="Ogg_demuxer.html#TYPEtrack">track</a> -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p>Remove all tracks of the given type.</p>
+</div>
+</div>
+<h4 id="3_Informationfunctions">Information functions</h4>
+<pre><span id="VALaudio_info"><span class="keyword">val</span> audio_info</span> : <code class="type"><a href="Ogg_demuxer.html#TYPEt">t</a> -><br>       <a href="Ogg_demuxer.html#TYPEtrack">track</a> -> <a href="Ogg_demuxer.html#TYPEaudio_info">audio_info</a> * <a href="Ogg_demuxer.html#TYPEmetadata">metadata</a></code></pre><div class="info ">
+<div class="info-desc">
+<p>Get informations about the
+ audio track.</p>
+</div>
+</div>
+
+<pre><span id="VALvideo_info"><span class="keyword">val</span> video_info</span> : <code class="type"><a href="Ogg_demuxer.html#TYPEt">t</a> -><br>       <a href="Ogg_demuxer.html#TYPEtrack">track</a> -> <a href="Ogg_demuxer.html#TYPEvideo_info">video_info</a> * <a href="Ogg_demuxer.html#TYPEmetadata">metadata</a></code></pre><div class="info ">
+<div class="info-desc">
+<p>Get informations about the
+ video track.</p>
+</div>
+</div>
+
+<pre><span id="VALsample_rate"><span class="keyword">val</span> sample_rate</span> : <code class="type"><a href="Ogg_demuxer.html#TYPEt">t</a> -> <a href="Ogg_demuxer.html#TYPEtrack">track</a> -> int * int</code></pre><div class="info ">
+<div class="info-desc">
+<p>Get the sample_rate of the track
+ of that type. Returns a pair <code class="code">(numerator,denominator)</code>.</p>
+</div>
+</div>
+
+<pre><span id="VALget_track_position"><span class="keyword">val</span> get_track_position</span> : <code class="type"><a href="Ogg_demuxer.html#TYPEt">t</a> -> <a href="Ogg_demuxer.html#TYPEtrack">track</a> -> float</code></pre><div class="info ">
+<div class="info-desc">
+<p>Get track absolute position.</p>
+</div>
+</div>
+
+<pre><span id="VALget_position"><span class="keyword">val</span> get_position</span> : <code class="type"><a href="Ogg_demuxer.html#TYPEt">t</a> -> float</code></pre><div class="info ">
+<div class="info-desc">
+<p>Get absolute position in the stream.</p>
+</div>
+</div>
+<h4 id="3_Seekingfunctions">Seeking functions</h4>
+<pre><span id="VALcan_seek"><span class="keyword">val</span> can_seek</span> : <code class="type"><a href="Ogg_demuxer.html#TYPEt">t</a> -> bool</code></pre><div class="info ">
+<div class="info-desc">
+<p>Returns <code class="code">true</code> if the decoder
+ can be used with the <code class="code">seek</code> function.</p>
+</div>
+</div>
+
+<pre><span id="VALseek"><span class="keyword">val</span> seek</span> : <code class="type">?relative:bool -> <a href="Ogg_demuxer.html#TYPEt">t</a> -> float -> float</code></pre><div class="info ">
+<div class="info-desc">
+<p>Seek to an absolute or relative position in seconds.</p>
+
+<p>Raises <code class="code">Not_available</code> if seeking is
+ not possible.</p>
+
+<p>Raises <code class="code">End_of_stream</code> if the end of
+ current stream has been reached while
+ seeking. You may call <code class="code">reset</code> in this
+ situation to see if there is a new seqentialized
+ stream available.</p>
+
+<p>Returns the time actually reached, either in 
+ relative time or absolute time.</p>
+</div>
+</div>
+<h4 id="3_Decodingfunctions">Decoding functions</h4>
+<pre><span id="VALdecode_audio"><span class="keyword">val</span> decode_audio</span> : <code class="type"><a href="Ogg_demuxer.html#TYPEt">t</a> -><br>       <a href="Ogg_demuxer.html#TYPEtrack">track</a> -> (<a href="Ogg_demuxer.html#TYPEaudio_data">audio_data</a> -> unit) -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p>Decode audio data, if possible. 
+ Decoded data is passed to the second argument.</p>
+
+<p>Raises <code class="code">End_of_stream</code> if all stream have ended.
+ In this case, you can try <code class="code">reset</code> to see if there is a
+ new sequentialized stream.</p>
+</div>
+</div>
+
+<pre><span id="VALdecode_video"><span class="keyword">val</span> decode_video</span> : <code class="type"><a href="Ogg_demuxer.html#TYPEt">t</a> -><br>       <a href="Ogg_demuxer.html#TYPEtrack">track</a> -> (<a href="Ogg_demuxer.html#TYPEvideo_data">video_data</a> -> unit) -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p>Decode video data, if possible. 
+ Decoded data is passed to the second argument.</p>
+
+<p>Raises <code class="code">End_of_stream</code> if all streams have ended.
+ In this case, you can try <code class="code">reset</code> to see if there is a
+ new sequentialized stream.</p>
+</div>
+</div>
+<h3 id="2_Implementingdecoders">Implementing decoders</h3><h4 id="3_Types">Types </h4>
+<pre><code><span id="TYPEdecoder"><span class="keyword">type</span> <code class="type">('a, 'b)</code> decoder</span> = {</code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTdecoder.name">name</span>&nbsp;: <code class="type">string</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTdecoder.info">info</span>&nbsp;: <code class="type">unit -> 'a * <a href="Ogg_demuxer.html#TYPEmetadata">metadata</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTdecoder.decode">decode</span>&nbsp;: <code class="type">('b -> unit) -> unit</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTdecoder.restart">restart</span>&nbsp;: <code class="type"><a href="Ogg.Stream.html#TYPEstream">Ogg.Stream.stream</a> -> unit</code>;</code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<div class="info-desc">
+<p>This function is called after seeking
+ to notify the decoder of the new <code class="code">Ogg.Stream.stream</code>
+ that is should use to pull data packets.</p>
+</div>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTdecoder.samples_of_granulepos">samples_of_granulepos</span>&nbsp;: <code class="type">Stdlib.Int64.t -> Stdlib.Int64.t</code>;</code></td>
+
+</tr></table>
+}
+
+<div class="info ">
+<div class="info-desc">
+<p>Generic type for a decoder.</p>
+</div>
+</div>
+
+
+<pre><code><span id="TYPEdecoders"><span class="keyword">type</span> <code class="type"></code>decoders</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTdecoders.Video"><span class="constructor">Video</span></span> <span class="keyword">of</span> <code class="type">(<a href="Ogg_demuxer.html#TYPEvideo_info">video_info</a>, <a href="Ogg_demuxer.html#TYPEvideo_data">video_data</a>) <a href="Ogg_demuxer.html#TYPEdecoder">decoder</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTdecoders.Audio"><span class="constructor">Audio</span></span> <span class="keyword">of</span> <code class="type">(<a href="Ogg_demuxer.html#TYPEaudio_info">audio_info</a>, <a href="Ogg_demuxer.html#TYPEaudio_data">audio_data</a>) <a href="Ogg_demuxer.html#TYPEdecoder">decoder</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTdecoders.Unknown"><span class="constructor">Unknown</span></span></code></td>
+
+</tr></table>
+
+<div class="info ">
+<div class="info-desc">
+<p>Type for a generic logical stream decoder.</p>
+</div>
+</div>
+
+
+<pre><span id="TYPEregister_decoder"><span class="keyword">type</span> <code class="type"></code>register_decoder</span> = <code class="type">(<a href="Ogg.Stream.html#TYPEpacket">Ogg.Stream.packet</a> -> bool) * (<a href="Ogg.Stream.html#TYPEstream">Ogg.Stream.stream</a> -> <a href="Ogg_demuxer.html#TYPEdecoders">decoders</a>)</code> </pre>
+<div class="info ">
+<div class="info-desc">
+<p>Type used to register a new decoder. First
+ element is a function used to check if the initial <code class="code">Ogg.Stream.packet</code>
+ of an <code class="code">Ogg.Stream.stream</code> matches the format decodable by this decoder.
+ Second element is a function that instanciates the actual decoder
+ using the initial <code class="code">Ogg.Stream.stream</code> used to pull data packets for the
+ decoder.</p>
+</div>
+</div>
+
+<h4 id="3_Functions">Functions</h4>
+<pre><span id="VALogg_decoders"><span class="keyword">val</span> ogg_decoders</span> : <code class="type">(string, <a href="Ogg_demuxer.html#TYPEregister_decoder">register_decoder</a>) Stdlib.Hashtbl.t</code></pre><div class="info ">
+<div class="info-desc">
+<p>Register a new decoder.</p>
+</div>
+</div>
+</body></html>

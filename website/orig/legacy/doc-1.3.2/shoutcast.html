@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+  <title>Savonet / Liquidsoap 1.3.2 :: Multimedia Stream Generation</title>
+  <link href="../css/new.css" type="text/css" rel="stylesheet" />
+  <link href="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.17/themes/base/jquery-ui.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="//www.google.com/jsapi"></script>
+  <link rel="shortcut icon" href="../favicon.ico" />
+  <script>
+    google.load("jquery", "1.6.1");
+    google.load("jqueryui", "1.8.14");
+  </script>
+  <script type="text/javascript" src="../js/jQuery.syntax/jquery.syntax.min.js"></script>
+  <script type="text/javascript" src="../js/liq-jquery.js"></script>
+</head>
+<body>
+  <div class="menu">
+    <ul>
+      <li id="menu-developers">
+        <a href="https://github.com/savonet/liquidsoap/issues" target="_blank">developers</a></li>
+      <li id="menu-flows"><a href="https://flows.liquidsoap.info/">Flows!</a></li>
+      <li id="menu-doc-api-www">
+        <a href="reference.html">API</a></li>
+      <li id="menu-support">
+        <a href="documentation.html">documentation</a></li>
+      <li id="menu-download">
+        <a href="../download.html">download</a></li>
+      <li id="menu-about">
+        <a href="../index.html">about</a></li>
+    </ul>
+  </div>
+  <div class="section" id="main">
+    <h1>Liquidsoap 1.3.2 : Streaming to Shoutcast</h1>
+    <div class="content">
+      <h3>Streaming to Shoutcast</h3>
+<p>
+Although Liquidsoap is primarily aimed at streaming to Icecast servers (that provide 
+much more features than Shoutcast), it is also able to stream to Shoutcast.
+</p>
+<h4>Shoutcast output</h4>
+<p>
+Shoutcast server accept streams encoded with the MP3 or AAC/AAC+ codec. You to compile Liquidsoap with 
+<code>lame</code> support, so it can encode in MP3. Liquidsoap also has support for AAC+ encoding
+using FDK-AAC or using an <a href="external_encoders.html">external encoder</a>. The recommended format is MP3.
+</p>
+<p>
+Shoutcast output are done using the <code>output.shoutcast</code> operator with the appropriate parameters.
+An example is:
+</p>
+<pre class="syntax liq">source = single("audiofile.ogg")
+
+output.shoutcast(%mp3, host="shoutcast.example.org",
+                     port=8000, password="changeme",
+                     source)
+</pre>
+<div align="right">
+<a href="scripts/shoutcast.liq">
+<img class="grab" src="../images/grab.png" alt="Grab the code!">
+</a>
+</div></p>
+<p>
+As usual, <code>liquidsoap -h output.shoutcast</code> gives you the full list of options for this operator.
+</p>
+<h4>Shoutcast as relay</h4>
+<p>
+A side note for those of you who feel they “need” to use Shoutcast for non-technical reasons (such as their stream 
+directory service...): you can still benefit from Icecast's power by streaming to an Icecast server, and then relaying 
+it through a shoutcast server.
+</p>
+<p>
+In order to do that, you have to alias the root mountpoint (“<code>/</code>”) to your MP3 mountpoint in your icecast server 
+configuration, like this:
+</p>
+<pre class="syntax ">
+&lt;alias source="/" dest="/mystream.mp3" /&gt;
+</pre>
+<p>
+Be careful that icecast often aliases the status page (<code>/status.xsl</code>) with the <code>/</code>. In this case, comment 
+out the status page alias before inserting yours.
+</p>
+      <div id="footer"> 2003-2017 Savonet team</div>
+    </div>
+  </div>
+  <script type="text/javascript" src="//www.google.com/cse/brand?form=cse-search-box&amp;lang=en"></script>
+  <script type="text/javascript" src="../js/search.js"></script>
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-927362-1']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+</body>
+</html>

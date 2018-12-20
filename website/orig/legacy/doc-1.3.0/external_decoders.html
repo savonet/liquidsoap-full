@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+  <title>Savonet / Liquidsoap 1.3.0 :: Multimedia Stream Generation</title>
+  <link href="../css/new.css" type="text/css" rel="stylesheet" />
+  <link href="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.17/themes/base/jquery-ui.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="//www.google.com/jsapi"></script>
+  <link rel="shortcut icon" href="../favicon.ico" />
+  <script>
+    google.load("jquery", "1.6.1");
+    google.load("jqueryui", "1.8.14");
+  </script>
+  <script type="text/javascript" src="../js/jQuery.syntax/jquery.syntax.min.js"></script>
+  <script type="text/javascript" src="../js/liq-jquery.js"></script>
+</head>
+<body>
+  <div class="menu">
+    <ul>
+      <li id="menu-developers">
+        <a href="https://github.com/savonet/liquidsoap/issues" target="_blank">developers</a></li>
+      <li id="menu-flows"><a href="https://flows.liquidsoap.info/">Flows!</a></li>
+      <li id="menu-doc-api-www">
+        <a href="reference.html">API</a></li>
+      <li id="menu-support">
+        <a href="documentation.html">documentation</a></li>
+      <li id="menu-download">
+        <a href="../download.html">download</a></li>
+      <li id="menu-about">
+        <a href="../index.html">about</a></li>
+    </ul>
+  </div>
+  <div class="section" id="main">
+    <h1>Liquidsoap 1.3.0 : External decoders.</h1>
+    <div class="content">
+      <h3>Introduction</h3>
+<p>
+You can use external programs in liquidsoap to decode audio files. The program must be able to
+output WAV data to its standard output (<code>stdout</code>) and, posssibly, read encoded data from its 
+standard input.
+</p>
+<p>
+Please note that this feature is not available under Windows.
+</p>
+<h3>Basic operators</h3>
+<p>
+External decoders are registered using the <code>add_decoder</code> and <code>add_oblivious_decoder</code> operators. 
+They are invoked the following way: 
+</p>
+<h4>add_decoder</h4>
+<pre class="syntax liq">add_decoder(name="my_decoder",description="My custom decoder",
+            test,decoder)
+</pre>
+<div align="right">
+<a href="scripts/add_decoder.liq">
+<img class="grab" src="../images/grab.png" alt="Grab the code!">
+</a>
+</div></p>
+<p>
+<code>add_decoder</code> is used for external decoders that can read the encoded data from their standard
+input (stdin) and write the decoded data as WAV to their standard output (stdout). This operator
+is recommended because its estimation of the remaining time is better than the estimation done
+by the decoders registered using <code>add_oblivious_decoder</code>. The important parameters are:
+</p>
+<ul>
+<li>
+<code>test</code> is a function used to determine if the file should be decoded by the decoder. Returned values are: <ul>
+<li>
+<code>0</code>: no decodable audio, </li>
+<li>
+<code>-1</code>: decodable audio but number of audio channels unknown, </li>
+<li>
+<code>x</code>: fixed number of decodable audio channels.</li>
+</ul>
+</li>
+<li>
+<code>decoder</code> is the string containing the shell command to run to execute the decoding process.</li>
+</ul>
+<h4>add_oblivious_decoder</h4>
+<p>
+<code>add_oblivious_decoder</code> is very similar to <code>add_decoder</code>. The main difference is that the
+decoding program reads encoded data directly from the local files and not its standard input.
+Decoders registered using this operator do not have a reliable estimation of the remaining
+time. You should use <code>add_oblivious_decoder</code> only if your decoding program is not able
+to read the encoded data from its standard input.
+</p>
+<pre class="syntax liq">add_oblivious_decoder(name="my_decoder",description="My custom decoder",
+                      buffer=5., test,decoder)
+</pre>
+<div align="right">
+<a href="scripts/add_oblivious_decoder.liq">
+<img class="grab" src="../images/grab.png" alt="Grab the code!">
+</a>
+</div></p>
+<p>
+<code>add_decoder</code> is used for external decoders that can read the encoded data from their standard
+input (stdin) and write the decoded data as WAV to their standard output (stdout). This operator
+is recommended because its estimation of the remaining time is better than the estimation done
+by the decoders registered using <code>add_oblivious_decoder</code>. The important parameters are:
+</p>
+<ul>
+<li>
+<code>test</code> is a function used to determine if the file should be decoded by the decoder. Returned values are: <ul>
+<li>
+<code>0</code>: no decodable audio,</li>
+<li>
+<code>-1</code>: decodable audio but number of audio channels unknown,</li>
+<li>
+<code>x</code>: fixed number of decodable audio channels.</li>
+</ul>
+</li>
+<li>
+<code>decoder</code> is a function that receives the name of the file that should be decoded and returns a string containing the shell command to run to execute the decoding process.</li>
+</ul>
+<h4>add_metadata_resolver</h4>
+<p>
+You may also register new metadata resolvers using the <code>add_metadata_resolver</code> operator. It is invoked the
+following way: <code>add_metadata_resolver(format,resolver)</code>, where:
+</p>
+<ul>
+<li>
+<code>format</code> is the name of the resolved format. It is only informative.</li>
+<li>
+<code>resolver</code> is a function <code>f</code> that returns a list of metadata of the form: <code>(label, value)</code>. It is invoked the following way: <code>f(format=name,file)</code>, where:<ul>
+<li>
+<code>format</code> contains the name of the format, as returned by the decoder that accepted to decode the file. <code>f</code> may return immediately if this is not an expected value.</li>
+<li>
+<code>file</code> is the name of the file to decode.</li>
+</ul>
+</li>
+</ul>
+<h3>Wrappers</h3>
+<p>
+On top of the basic operators, wrappers have been written for some common decoders. This includes the <code>flac</code> and 
+<code>faad</code> decoders, by default. All the operators are defined in <code>externals.liq</code>.
+</p>
+<h4>The FLAC decoder</h4>
+<p>
+The flac decoder uses the <code>flac</code> command line. It is enabled if the binary can be found in the current <code>$PATH</code>.
+</p>
+<p>
+Its code is the following:
+</p>
+<pre class="syntax liq">  def test_flac(file) =
+    if test_process("which metaflac") then
+      channels = list.hd(get_process_lines("metaflac \
+                                            --show-channels #{quote(file)} \
+                                            2&gt;/dev/null"))
+      # If the value is not an int, this returns 0 and we are ok :)
+      int_of_string(channels)
+    else
+      # Try to detect using mime test..
+      mime = get_mime(file)
+      if string.match(pattern="flac",file) then
+        # We do not know the number of audio channels
+        # so setting to -1
+        (-1)
+      else
+        # All tests failed: no audio decodable using flac..
+        0
+      end
+    end
+  end
+  add_decoder(name="FLAC",description="Decode files using the flac \
+              decoder binary.", test=test_flac,flac_p)
+</pre>
+<div align="right">
+<a href="scripts/flac_decoder.liq">
+<img class="grab" src="../images/grab.png" alt="Grab the code!">
+</a>
+</div></p>
+<p>
+Additionaly, a metadata resolver is registered when the <code>metaflac</code> command can be found in the <code>$PATH</code>:
+</p>
+<pre class="syntax liq">if test_process("which metaflac") then
+  log(level=3,"Found metaflac binary: \
+               enabling flac external metadata resolver.")
+  def flac_meta(file)
+    ret = get_process_lines("metaflac --export-tags-to=- \
+                            #{quote(file)} 2&gt;/dev/null")
+    ret = list.map(string.split(separator="="),ret)
+    # Could be made better..
+    def f(l',l)=
+      if list.length(l) &gt;= 2 then
+        list.append([(list.hd(l),list.nth(l,1))],l')
+      else
+        if list.length(l) &gt;= 1 then
+          list.append([(list.hd(l),"")],l')
+        else
+          l'
+        end
+      end
+    end
+  list.fold(f,[],ret)
+  end
+  add_metadata_resolver("FLAC",flac_meta)
+end
+</pre>
+<div align="right">
+<a href="scripts/flac_resolver.liq">
+<img class="grab" src="../images/grab.png" alt="Grab the code!">
+</a>
+</div></p>
+<h4>The faad decoder</h4>
+<p>
+The faad decoder uses the <code>faad</code> program, if found in the <code>$PATH</code>. 
+It can decode AAC and AAC+ audio files. This program does not support
+reading encoded data from its standard input so the decoder is 
+registered using <code>add_oblivious_decoder</code>.
+</p>
+<p>
+Its code is the following:
+</p>
+<pre class="syntax liq">  aac_mimes = ["audio/aac", "audio/aacp", "audio/3gpp", "audio/3gpp2", "audio/mp4",
+               "audio/MP4A-LATM", "audio/mpeg4-generic", "audio/x-hx-aac-adts"]
+  aac_filexts = ["m4a", "m4b", "m4p", "m4v",
+                 "m4r", "3gp", "mp4", "aac"]
+
+  # Faad is not very selective so
+  # We are checking only file that
+  # end with a known extension or mime type
+  def faad_test(file) =
+    # Get the file's mime
+    mime = get_mime(file)
+    # Test mime
+    if list.mem(mime,aac_mimes) then
+      true
+    else
+      # Otherwise test file extension
+      ret = string.extract(pattern='\.(.+)$',file)
+        if list.length(ret) != 0 then
+          ext = ret["1"]
+          list.mem(ext,aac_filexts)
+        else
+          false
+        end
+    end
+  end
+
+  if test_process("which faad") then
+    log(level=3,"Found faad binary: enabling external faad decoder and \
+                 metadata resolver.")
+    faad_p = (fun (f) -&gt; "faad -w #{quote(f)} 2&gt;/dev/null")
+    def test_faad(file) =
+      if faad_test(file) then
+        channels = list.hd(get_process_lines("faad -i #{quote(file)} 2&gt;&1 | \
+                                              grep 'ch,'"))
+        ret = string.extract(pattern=", (\d) ch,",channels)
+        ret =
+          if list.length(ret) == 0 then
+          # If we pass the faad_test, chances are
+          # high that the file will contain aac audio data..
+            "-1"
+          else
+            ret["1"]
+          end
+        int_of_string(default=(-1),ret)
+      else
+        0
+      end
+    end
+    add_oblivious_decoder(name="FAAD",description="Decode files using \
+                          the faad binary.", test=test_faad, faad_p)
+    def faad_meta(file) =
+      if faad_test(file) then
+        ret = get_process_lines("faad -i \
+                     #{quote(file)} 2&gt;&1")
+        # Yea, this is tuff programming (again) !
+        def get_meta(l,s)=
+          ret = string.extract(pattern="^(\w+):\s(.+)$",s)
+          if list.length(ret) &gt; 0 then
+            list.append([(ret["1"],ret["2"])],l)
+          else
+            l
+          end
+        end
+        list.fold(get_meta,[],ret)
+      else
+        []
+      end
+    end
+    add_metadata_resolver("FAAD",faad_meta)
+  end
+</pre>
+<div align="right">
+<a href="scripts/faad_decoder.liq">
+<img class="grab" src="../images/grab.png" alt="Grab the code!">
+</a>
+</div></p>
+      <div id="footer"> 2003-2017 Savonet team</div>
+    </div>
+  </div>
+  <script type="text/javascript" src="//www.google.com/cse/brand?form=cse-search-box&amp;lang=en"></script>
+  <script type="text/javascript" src="../js/search.js"></script>
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-927362-1']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link rel="previous" href="Speex.Encoder.html">
+<link rel="next" href="Speex.Wrapper.html">
+<link rel="Up" href="Speex.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Ogg_demuxer_speex_decoder" rel="Chapter" href="Ogg_demuxer_speex_decoder.html">
+<link title="Speex" rel="Chapter" href="Speex.html"><title>Speex.Decoder</title>
+</head>
+<body>
+<div class="navbar"><a class="pre" href="Speex.Encoder.html" title="Speex.Encoder">Previous</a>
+&nbsp;<a class="up" href="Speex.html" title="Speex">Up</a>
+&nbsp;<a class="post" href="Speex.Wrapper.html" title="Speex.Wrapper">Next</a>
+</div>
+<h1>Module <a href="type_Speex.Decoder.html">Speex.Decoder</a></h1>
+
+<pre><span id="MODULEDecoder"><span class="keyword">module</span> Decoder</span>: <code class="code">sig</code> <a href="Speex.Decoder.html">..</a> <code class="code">end</code></pre><hr width="100%">
+
+<pre><span id="TYPEt"><span class="keyword">type</span> <code class="type"></code>t</span> </pre>
+<div class="info ">
+<div class="info-desc">
+<p>Opaque type for the speex decoder.</p>
+</div>
+</div>
+
+
+<pre><span id="VALinit"><span class="keyword">val</span> init</span> : <code class="type"><a href="Speex.html#TYPEmode">Speex.mode</a> -> <a href="Speex.Decoder.html#TYPEt">t</a></code></pre><div class="info ">
+<div class="info-desc">
+<p>Initiate a new decoder.</p>
+</div>
+</div>
+
+<pre><span id="VALget"><span class="keyword">val</span> get</span> : <code class="type"><a href="Speex.Decoder.html#TYPEt">t</a> -> <a href="Speex.html#TYPEcontrol">Speex.control</a> -> int</code></pre><div class="info ">
+<div class="info-desc">
+<p>Get a setting.</p>
+</div>
+</div>
+
+<pre><span id="VALset"><span class="keyword">val</span> set</span> : <code class="type"><a href="Speex.Decoder.html#TYPEt">t</a> -> <a href="Speex.html#TYPEcontrol">Speex.control</a> -> int -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p>Set a setting.</p>
+</div>
+</div>
+
+<pre><span id="VALdecode"><span class="keyword">val</span> decode</span> : <code class="type"><a href="Speex.Decoder.html#TYPEt">t</a> -> Ogg.Stream.stream -> float array list</code></pre><div class="info ">
+<div class="info-desc">
+<p>Decode data.</p>
+</div>
+</div>
+
+<pre><span id="VALdecode_stereo"><span class="keyword">val</span> decode_stereo</span> : <code class="type"><a href="Speex.Decoder.html#TYPEt">t</a> -> Ogg.Stream.stream -> float array array list</code></pre><div class="info ">
+<div class="info-desc">
+<p>Decode stereo data.</p>
+</div>
+</div>
+
+<pre><span id="VALdecode_feed"><span class="keyword">val</span> decode_feed</span> : <code class="type"><a href="Speex.Decoder.html#TYPEt">t</a> -> Ogg.Stream.stream -> (float array -> unit) -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p>Decode data, passing them to the given feed.</p>
+</div>
+</div>
+
+<pre><span id="VALdecode_feed_stereo"><span class="keyword">val</span> decode_feed_stereo</span> : <code class="type"><a href="Speex.Decoder.html#TYPEt">t</a> -> Ogg.Stream.stream -> (float array array -> unit) -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p>Decode stereo data, passing them to the given feed.</p>
+</div>
+</div>
+
+<pre><span id="VALdecode_int"><span class="keyword">val</span> decode_int</span> : <code class="type"><a href="Speex.Decoder.html#TYPEt">t</a> -> Ogg.Stream.stream -> int array list</code></pre><div class="info ">
+<div class="info-desc">
+<p>Same as <code class="code">decode</code> but with integers.</p>
+</div>
+</div>
+
+<pre><span id="VALdecode_int_stereo"><span class="keyword">val</span> decode_int_stereo</span> : <code class="type"><a href="Speex.Decoder.html#TYPEt">t</a> -> Ogg.Stream.stream -> int array array list</code></pre><div class="info ">
+<div class="info-desc">
+<p>Same as <code class="code">decode_stereo</code> but with integers.</p>
+</div>
+</div>
+
+<pre><span id="VALdecode_int_feed"><span class="keyword">val</span> decode_int_feed</span> : <code class="type"><a href="Speex.Decoder.html#TYPEt">t</a> -> Ogg.Stream.stream -> (int array -> unit) -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p>Same as <code class="code">decode_feed</code> but with integers.</p>
+</div>
+</div>
+
+<pre><span id="VALdecode_int_feed_stereo"><span class="keyword">val</span> decode_int_feed_stereo</span> : <code class="type"><a href="Speex.Decoder.html#TYPEt">t</a> -> Ogg.Stream.stream -> (int array array -> unit) -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p>Same as <code class="code">decode_feed_stereo</code> but with integers.</p>
+</div>
+</div>
+</body></html>

@@ -1,0 +1,22 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Xmlplaylist" rel="Chapter" href="Xmlplaylist.html"><title>Xmlplaylist</title>
+</head>
+<body>
+<code class="code"><span class="keyword">sig</span><br>
+&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;error&nbsp;=&nbsp;<span class="constructor">XmlError</span>&nbsp;<span class="keyword">of</span>&nbsp;string&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Empty</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">UnknownType</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Internal</span><br>
+&nbsp;&nbsp;<span class="keyword">exception</span>&nbsp;<span class="constructor">Error</span>&nbsp;<span class="keyword">of</span>&nbsp;<span class="constructor">Xmlplaylist</span>.error<br>
+&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;format&nbsp;=&nbsp;<span class="constructor">Podcast</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Xspf</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Smil</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Asx</span><br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;string_of_error&nbsp;:&nbsp;<span class="constructor">Xmlplaylist</span>.error&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;tracks&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;?format:<span class="constructor">Xmlplaylist</span>.format&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;string&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;((string&nbsp;*&nbsp;string)&nbsp;list&nbsp;*&nbsp;string)&nbsp;list<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;detect_format&nbsp;:&nbsp;string&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Xmlplaylist</span>.format<br>
+<span class="keyword">end</span></code></body></html>

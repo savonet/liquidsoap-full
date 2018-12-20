@@ -1,0 +1,305 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link rel="next" href="Flac.Encoder.html">
+<link rel="Up" href="Flac.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Flac" rel="Chapter" href="Flac.html">
+<link title="Ogg_demuxer_flac_decoder" rel="Chapter" href="Ogg_demuxer_flac_decoder.html">
+<link title="Ogg_flac" rel="Chapter" href="Ogg_flac.html"><link title="Usage" rel="Section" href="#3_Usage">
+<link title="Types " rel="Section" href="#3_Types">
+<link title="Exceptions " rel="Section" href="#3_Exceptions">
+<link title="Functions" rel="Section" href="#3_Functions">
+<link title="Convenience" rel="Section" href="#3_Convenience">
+<title>Flac.Decoder</title>
+</head>
+<body>
+<div class="navbar">&nbsp;<a class="up" href="Flac.html" title="Flac">Up</a>
+&nbsp;<a class="post" href="Flac.Encoder.html" title="Flac.Encoder">Next</a>
+</div>
+<h1>Module <a href="type_Flac.Decoder.html">Flac.Decoder</a></h1>
+
+<pre><span id="MODULEDecoder"><span class="keyword">module</span> Decoder</span>: <code class="code">sig</code> <a href="Flac.Decoder.html">..</a> <code class="code">end</code></pre><div class="info module top">
+<div class="info-desc">
+<p>Decode native FLAC data</p>
+</div>
+</div>
+<hr width="100%">
+<h4 id="3_Usage">Usage</h4><p>A typical use of the FLAC decoder is the following:</p>
+
+<pre class="verbatim"> (* Raise this when streams has ended. *)
+ exception End_of_stream
+ (* Define a read function *)
+ let input = (..a function of type read..) in
+ (* Define a write function *)
+ let output = (..a function of type write..) in
+ (* Create callbacks *)
+ let callbacks = Flac.Decoder.get_callbacks input write in
+ (* Create an unitialized decoder *)
+ let decoder = Flac.Decoder.create callbacks in
+ (* Initialize decoder *)
+ let decoder,info,comments = Flac.Decoder.init decoder callbacks in
+ (..do something with info and comments..)
+ (* Decode data *)
+ match Flac.Decoder.state decoder c with
+   | `Search_for_metadata
+   | `Read_metadata
+   | `Search_for_frame_sync
+   | `Read_frame -&gt;
+         Flac.Decoder.process decoder callbacks
+   | _ -&gt; raise End_of_stream</pre>
+<p>Some remarks:</p>
+<ul>
+<li>Exceptions raised by callbacks should be treated
+   as fatal errors. The dehaviour of the flac library 
+   after being interrupted by an exception is unknown.
+   The only notable exception is Ogg/flac decoding, where
+   the read callback raises <code class="code">Ogg.Not_enough_data</code>.</li>
+<li>The state of the decoder should be checked prior to calling
+   <code class="code">process</code>. Termination may not be detected nor raise an
+   exception so it is the caller's responsibility to check
+   on this. </li>
+<li>See FLAC documentation for the information on the 
+   callbacks. </li>
+<li>The variant type for decoder and callbacks is used
+   to make sure that different type of decoders 
+   (generic, file, ogg) are only used with the same
+   type of callbacks.</li>
+</ul>
+<h4 id="3_Types">Types </h4>
+<pre><span id="TYPEdec"><span class="keyword">type</span> <code class="type">'a</code> dec</span> </pre>
+<div class="info ">
+<div class="info-desc">
+<p>Type of an uninitialized decoder.</p>
+</div>
+</div>
+
+
+<pre><span id="TYPEt"><span class="keyword">type</span> <code class="type">'a</code> t</span> </pre>
+<div class="info ">
+<div class="info-desc">
+<p>Type of an initialized decoder.</p>
+</div>
+</div>
+
+
+<pre><span id="TYPEwrite"><span class="keyword">type</span> <code class="type"></code>write</span> = <code class="type">float array array -> unit</code> </pre>
+<div class="info ">
+<div class="info-desc">
+<p>Type of a write callback.</p>
+</div>
+</div>
+
+
+<pre><span id="TYPEread"><span class="keyword">type</span> <code class="type"></code>read</span> = <code class="type">int -> string * int</code> </pre>
+<div class="info ">
+<div class="info-desc">
+<p>Type of  a read callback.</p>
+</div>
+</div>
+
+
+<pre><span id="TYPEcallbacks"><span class="keyword">type</span> <code class="type">'a</code> callbacks</span> </pre>
+<div class="info ">
+<div class="info-desc">
+<p>Type of a collection of callbacks.</p>
+</div>
+</div>
+
+
+<pre><span id="TYPEgeneric"><span class="keyword">type</span> <code class="type"></code>generic</span> </pre>
+<div class="info ">
+<div class="info-desc">
+<p>Generic variant type for callbacks and decoder.</p>
+</div>
+</div>
+
+
+<pre><code><span id="TYPEinfo"><span class="keyword">type</span> <code class="type"></code>info</span> = {</code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTinfo.sample_rate">sample_rate</span>&nbsp;: <code class="type">int</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTinfo.channels">channels</span>&nbsp;: <code class="type">int</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTinfo.bits_per_sample">bits_per_sample</span>&nbsp;: <code class="type">int</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTinfo.total_samples">total_samples</span>&nbsp;: <code class="type">int64</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTinfo.md5sum">md5sum</span>&nbsp;: <code class="type">string</code>;</code></td>
+
+</tr></table>
+}
+
+<div class="info ">
+<div class="info-desc">
+<p>Info about decoded FLAC data.</p>
+</div>
+</div>
+
+
+<pre><span id="TYPEcomments"><span class="keyword">type</span> <code class="type"></code>comments</span> = <code class="type">string * (string * string) list</code> </pre>
+<div class="info ">
+<div class="info-desc">
+<p>(Vorbis) comments of decoded FLAC data.</p>
+</div>
+</div>
+
+
+<pre><span id="TYPEstate"><span class="keyword">type</span> <code class="type"></code>state</span> = <code class="type">[ `Aborted<br>       | `End_of_stream<br>       | `Memory_allocation_error<br>       | `Ogg_error<br>       | `Read_frame<br>       | `Read_metadata<br>       | `Search_for_frame_sync<br>       | `Search_for_metadata<br>       | `Seek_error<br>       | `Uninitialized ]</code> </pre>
+<div class="info ">
+<div class="info-desc">
+<p>Possible states of a decoder.</p>
+</div>
+</div>
+
+<h4 id="3_Exceptions">Exceptions </h4>
+<pre><span id="EXCEPTIONLost_sync"><span class="keyword">exception</span> Lost_sync</span></pre>
+<div class="info ">
+<div class="info-desc">
+<p>An error in the stream caused the decoder to lose synchronization.</p>
+</div>
+</div>
+
+<pre><span id="EXCEPTIONBad_header"><span class="keyword">exception</span> Bad_header</span></pre>
+<div class="info ">
+<div class="info-desc">
+<p>The decoder encountered a corrupted frame header.</p>
+</div>
+</div>
+
+<pre><span id="EXCEPTIONFrame_crc_mismatch"><span class="keyword">exception</span> Frame_crc_mismatch</span></pre>
+<div class="info ">
+<div class="info-desc">
+<p>The frame's data did not match the CRC in the footer.</p>
+</div>
+</div>
+
+<pre><span id="EXCEPTIONUnparseable_stream"><span class="keyword">exception</span> Unparseable_stream</span></pre>
+<div class="info ">
+<div class="info-desc">
+<p>The decoder encountered reserved fields in use in the stream.</p>
+</div>
+</div>
+
+<pre><span id="EXCEPTIONNot_flac"><span class="keyword">exception</span> Not_flac</span></pre>
+<div class="info ">
+<div class="info-desc">
+<p>Raised if trying to decode a stream that
+ is not flac.</p>
+</div>
+</div>
+<h4 id="3_Functions">Functions</h4>
+<pre><span id="VALget_callbacks"><span class="keyword">val</span> get_callbacks</span> : <code class="type">?seek:(int64 -> unit) -><br>       ?tell:(unit -> int64) -><br>       ?length:(unit -> int64) -><br>       ?eof:(unit -> bool) -><br>       <a href="Flac.Decoder.html#TYPEread">read</a> -><br>       <a href="Flac.Decoder.html#TYPEwrite">write</a> -> <a href="Flac.Decoder.html#TYPEgeneric">generic</a> <a href="Flac.Decoder.html#TYPEcallbacks">callbacks</a></code></pre><div class="info ">
+<div class="info-desc">
+<p>Create a set of callbacks.</p>
+</div>
+</div>
+
+<pre><span id="VALcreate"><span class="keyword">val</span> create</span> : <code class="type">'a <a href="Flac.Decoder.html#TYPEcallbacks">callbacks</a> -> 'a <a href="Flac.Decoder.html#TYPEdec">dec</a></code></pre><div class="info ">
+<div class="info-desc">
+<p>Create an uninitialized decoder.</p>
+</div>
+</div>
+
+<pre><span id="VALinit"><span class="keyword">val</span> init</span> : <code class="type">'a <a href="Flac.Decoder.html#TYPEdec">dec</a> -><br>       'a <a href="Flac.Decoder.html#TYPEcallbacks">callbacks</a> -><br>       'a <a href="Flac.Decoder.html#TYPEt">t</a> * <a href="Flac.Decoder.html#TYPEinfo">info</a> * <a href="Flac.Decoder.html#TYPEcomments">comments</a> option</code></pre><div class="info ">
+<div class="info-desc">
+<p>Initialize a decoder. The decoder will be used to decode
+ all metadata. Initial audio data shall be immediatly available
+ after this call.</p>
+</div>
+</div>
+
+<pre><span id="VALprocess"><span class="keyword">val</span> process</span> : <code class="type">'a <a href="Flac.Decoder.html#TYPEt">t</a> -> 'a <a href="Flac.Decoder.html#TYPEcallbacks">callbacks</a> -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p>Decode one frame of audio data.</p>
+</div>
+</div>
+
+<pre><span id="VALseek"><span class="keyword">val</span> seek</span> : <code class="type">'a <a href="Flac.Decoder.html#TYPEt">t</a> -> 'a <a href="Flac.Decoder.html#TYPEcallbacks">callbacks</a> -> Stdlib.Int64.t -> bool</code></pre><div class="info ">
+<div class="info-desc">
+<p>Flush the input and seek to an absolute sample.
+ Decoding will resume at the given sample. Note 
+ that because of this, the next write callback may 
+ contain a partial block.  The client must support seeking 
+ the input or this function will fail and return <code class="code">false</code>.  
+ Furthermore, if the decoder state is <code class="code">`Seek_error</code>
+ then the decoder must be flushed or reset
+ before decoding can continue.</p>
+</div>
+</div>
+
+<pre><span id="VALflush"><span class="keyword">val</span> flush</span> : <code class="type">'a <a href="Flac.Decoder.html#TYPEt">t</a> -> 'a <a href="Flac.Decoder.html#TYPEcallbacks">callbacks</a> -> bool</code></pre><div class="info ">
+<div class="info-desc">
+<p>Flush the stream input.
+  The decoder's input buffer will be cleared and the state set to
+  <code class="code">`Search_for_frame_sync</code>.  This will also turn
+  off MD5 checking.</p>
+</div>
+</div>
+
+<pre><span id="VALreset"><span class="keyword">val</span> reset</span> : <code class="type">'a <a href="Flac.Decoder.html#TYPEt">t</a> -> 'a <a href="Flac.Decoder.html#TYPEcallbacks">callbacks</a> -> bool</code></pre><div class="info ">
+<div class="info-desc">
+<p>Reset the decoding process.
+  The decoder's input buffer will be cleared and the state set to
+  <code class="code">`Search_for_metadata</code>. MD5 checking will be restored to its original
+  setting.</p>
+
+<p>If the decoder is seekable, the decoder will also attempt to seek to 
+  the beginning of the stream. If this rewind fails, this function will 
+ return <code class="code">false</code>.  It follows that <code class="code">reset</code> cannot be used when decoding 
+ from <code class="code">stdin</code>.</p>
+
+<p>If the decoder is not seekable (i.e. no seek callback was provided) 
+  it is the duty of the client to start feeding data from the beginning 
+  of the stream on the next <code class="code">process</code>.</p>
+</div>
+</div>
+
+<pre><span id="VALstate"><span class="keyword">val</span> state</span> : <code class="type">'a <a href="Flac.Decoder.html#TYPEt">t</a> -> 'a <a href="Flac.Decoder.html#TYPEcallbacks">callbacks</a> -> <a href="Flac.Decoder.html#TYPEstate">state</a></code></pre><div class="info ">
+<div class="info-desc">
+<p>Get the state of a decoder.</p>
+</div>
+</div>
+<h4 id="3_Convenience">Convenience</h4>
+<pre><span id="VALto_s16le"><span class="keyword">val</span> to_s16le</span> : <code class="type">float array array -> string</code></pre><div class="info ">
+<div class="info-desc">
+<p>Convert an audio array to a S16LE string for 
+ decoding FLAC to WAV and raw PCM</p>
+</div>
+</div>
+
+<pre><span id="MODULEFile"><span class="keyword">module</span> <a href="Flac.Decoder.File.html">File</a></span>: <code class="code">sig</code> <a href="Flac.Decoder.File.html">..</a> <code class="code">end</code></pre><div class="info">
+<p>Local file decoding.</p>
+
+</div>
+</body></html>

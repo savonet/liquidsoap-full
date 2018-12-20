@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+  <title>Savonet / Liquidsoap 1.3.0 :: Multimedia Stream Generation</title>
+  <link href="../../css/new.css" type="text/css" rel="stylesheet" />
+  <link href="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.17/themes/base/jquery-ui.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="//www.google.com/jsapi"></script>
+  <link rel="shortcut icon" href="../../favicon.ico" />
+  <script>
+    google.load("jquery", "1.6.1");
+    google.load("jqueryui", "1.8.14");
+  </script>
+  <script type="text/javascript" src="../../js/jQuery.syntax/jquery.syntax.min.js"></script>
+  <script type="text/javascript" src="../../js/liq-jquery.js"></script>
+</head>
+<body>
+  <div class="menu">
+    <ul>
+      <li id="menu-developers">
+        <a href="https://github.com/savonet/liquidsoap/issues" target="_blank">developers</a></li>
+      <li id="menu-flows"><a href="https://flows.liquidsoap.info/">Flows!</a></li>
+      <li id="menu-doc-api-www">
+        <a href="../reference.html">API</a></li>
+      <li id="menu-support">
+        <a href="../documentation.html">documentation</a></li>
+      <li id="menu-download">
+        <a href="../../download.html">download</a></li>
+      <li id="menu-about">
+        <a href="../../index.html">about</a></li>
+    </ul>
+  </div>
+  <div class="section" id="main">
+    <h1>Liquidsoap 1.3.0 : </h1>
+    <div class="content">
+      <ul>
+<li>
+<a href="add_decoder.html">add_decoder.liq</a></li>
+<li>
+<a href="add_image.html">add_image.liq</a></li>
+<li>
+<a href="add_oblivious_decoder.html">add_oblivious_decoder.liq</a></li>
+<li>
+<a href="alsa_output.html">alsa_output.sh</a></li>
+<li>
+<a href="alsa_output_unbuffered.html">alsa_output_unbuffered.sh</a></li>
+<li>
+<a href="alsa_unbuffered.html">alsa_unbuffered.liq</a></li>
+<li>
+<a href="alsa_unbuffered_debug.html">alsa_unbuffered_debug.sh</a></li>
+<li>
+<a href="append_title.html">append_title.liq</a></li>
+<li>
+<a href="bubble.html">bubble.liq</a></li>
+<li>
+<a href="bubble_full.html">bubble_full.liq</a></li>
+<li>
+<a href="clock_assign.html">clock_assign.liq</a></li>
+<li>
+<a href="complete_case.html">complete_case.liq</a></li>
+<li>
+<a href="crossfade.html">crossfade.liq</a></li>
+<li>
+<a href="cue_cut.html">cue_cut.liq</a></li>
+<li>
+<a href="cue_cut_playlist.html">cue_cut_playlist.liq</a></li>
+<li>
+<a href="custom_cue_points.html">custom_cue_points.liq</a></li>
+<li>
+<a href="dolebrai.html">dolebrai.liq</a></li>
+<li>
+<a href="dolutils.html">dolutils.liq</a></li>
+<li>
+<a href="dynamic_playlist.html">dynamic_playlist.liq</a></li>
+<li>
+<a href="enable_replaygain_metadata.html">enable_replaygain_metadata.liq</a></li>
+<li>
+<a href="external_enc.html">external_enc.liq</a></li>
+<li>
+<a href="external_encoder_introduction.html">external_encoder_introduction.liq</a></li>
+<li>
+<a href="external_output_file.html">external_output_file.liq</a></li>
+<li>
+<a href="faad_decoder.html">faad_decoder.liq</a></li>
+<li>
+<a href="fallback_basic.html">fallback_basic.liq</a></li>
+<li>
+<a href="fallback_quickstart.html">fallback_quickstart.liq</a></li>
+<li>
+<a href="fdkaac_enc.html">fdkaac_enc.liq</a></li>
+<li>
+<a href="flac_decoder.html">flac_decoder.liq</a></li>
+<li>
+<a href="flac_enc.html">flac_enc.liq</a></li>
+<li>
+<a href="flac_resolver.html">flac_resolver.liq</a></li>
+<li>
+<a href="get_json_metadata.html">get_json_metadata.liq</a></li>
+<li>
+<a href="gstreamer_codecs.html">gstreamer_codecs.liq</a></li>
+<li>
+<a href="gstreamer_enc.html">gstreamer_enc.liq</a></li>
+<li>
+<a href="gstreamer_encoder_example.html">gstreamer_encoder_example.liq</a></li>
+<li>
+<a href="gstreamer_single.html">gstreamer_single.liq</a></li>
+<li>
+<a href="harbor.html">harbor.liq</a></li>
+<li>
+<a href="harbor_auth.html">harbor_auth.liq</a></li>
+<li>
+<a href="harbor_source.html">harbor_source.liq</a></li>
+<li>
+<a href="hour_jingle.html">hour_jingle.liq</a></li>
+<li>
+<a href="http_source.html">http_source.liq</a></li>
+<li>
+<a href="icecast.html">icecast.sh</a></li>
+<li>
+<a href="icecast_proxy.html">icecast_proxy.liq</a></li>
+<li>
+<a href="icecast_redirect.html">icecast_redirect.liq</a></li>
+<li>
+<a href="icy_update_via_telnet.html">icy_update_via_telnet.liq</a></li>
+<li>
+<a href="input_mplayer.html">input_mplayer.liq</a></li>
+<li>
+<a href="interactive_bool.html">interactive_bool.liq</a></li>
+<li>
+<a href="json_multiple_parse.html">json_multiple_parse.liq</a></li>
+<li>
+<a href="json_parse.html">json_parse.liq</a></li>
+<li>
+<a href="lan_rec_func.html">lan_rec_func.liq</a></li>
+<li>
+<a href="lang_dummy_example.html">lang_dummy_example.liq</a></li>
+<li>
+<a href="lang_fun_def.html">lang_fun_def.liq</a></li>
+<li>
+<a href="lang_func_type.html">lang_func_type.liq</a></li>
+<li>
+<a href="lang_partial_application.html">lang_partial_application.liq</a></li>
+<li>
+<a href="lang_rewrite.html">lang_rewrite.liq</a></li>
+<li>
+<a href="manual_dump.html">manual_dump.liq</a></li>
+<li>
+<a href="normalization_protocol.html">normalization_protocol.liq</a></li>
+<li>
+<a href="ogg_enc.html">ogg_enc.liq</a></li>
+<li>
+<a href="on2_p1_conditionals.html">on2_p1_conditionals.liq</a></li>
+<li>
+<a href="on2_p1_conditionals_bis.html">on2_p1_conditionals_bis.liq</a></li>
+<li>
+<a href="on2_p1_double.html">on2_p1_double.liq</a></li>
+<li>
+<a href="on2_p1_file_output.html">on2_p1_file_output.liq</a></li>
+<li>
+<a href="on2_p1_http_out.html">on2_p1_http_out.liq</a></li>
+<li>
+<a href="on2_p1_interactive.html">on2_p1_interactive.liq</a></li>
+<li>
+<a href="on2_p1_output_ao.html">on2_p1_output_ao.liq</a></li>
+<li>
+<a href="on2_p1_print_date.html">on2_p1_print_date.liq</a></li>
+<li>
+<a href="on2_p1_redef_var.html">on2_p1_redef_var.liq</a></li>
+<li>
+<a href="on2_p1_variables.html">on2_p1_variables.liq</a></li>
+<li>
+<a href="on2_p2_add_replaygain.html">on2_p2_add_replaygain.liq</a></li>
+<li>
+<a href="on2_p2_apply_outputs.html">on2_p2_apply_outputs.liq</a></li>
+<li>
+<a href="on2_p2_custom_auth.html">on2_p2_custom_auth.liq</a></li>
+<li>
+<a href="on2_p2_custom_auth_apply.html">on2_p2_custom_auth_apply.liq</a></li>
+<li>
+<a href="on2_p2_debug.html">on2_p2_debug.liq</a></li>
+<li>
+<a href="on2_p2_get_request.html">on2_p2_get_request.liq</a></li>
+<li>
+<a href="on2_p2_harbor_conf.html">on2_p2_harbor_conf.liq</a></li>
+<li>
+<a href="on2_p2_harbor_icy.html">on2_p2_harbor_icy.liq</a></li>
+<li>
+<a href="on2_p2_harbor_input.html">on2_p2_harbor_input.liq</a></li>
+<li>
+<a href="on2_p2_harbor_multiple_fallbacks.html">on2_p2_harbor_multiple_fallbacks.liq</a></li>
+<li>
+<a href="on2_p2_harbor_multiple_ports.html">on2_p2_harbor_multiple_ports.liq</a></li>
+<li>
+<a href="on2_p2_infallible.html">on2_p2_infallible.liq</a></li>
+<li>
+<a href="on2_p2_live1_live2.html">on2_p2_live1_live2.liq</a></li>
+<li>
+<a href="on2_p2_live_fallback.html">on2_p2_live_fallback.liq</a></li>
+<li>
+<a href="on2_p2_map_metadata.html">on2_p2_map_metadata.liq</a></li>
+<li>
+<a href="on2_p2_metadata.html">on2_p2_metadata.liq</a></li>
+<li>
+<a href="on2_p2_my_crossfade.html">on2_p2_my_crossfade.liq</a></li>
+<li>
+<a href="on2_p2_my_crossfade_apply.html">on2_p2_my_crossfade_apply.liq</a></li>
+<li>
+<a href="on2_p2_my_safe.html">on2_p2_my_safe.liq</a></li>
+<li>
+<a href="on2_p2_nice_transition.html">on2_p2_nice_transition.liq</a></li>
+<li>
+<a href="on2_p2_nice_transition_fallback.html">on2_p2_nice_transition_fallback.liq</a></li>
+<li>
+<a href="on2_p2_on_metadata.html">on2_p2_on_metadata.liq</a></li>
+<li>
+<a href="on2_p2_outputs.html">on2_p2_outputs.liq</a></li>
+<li>
+<a href="on2_p2_replaygain_amplify.html">on2_p2_replaygain_amplify.liq</a></li>
+<li>
+<a href="on2_p2_replaygain_map.html">on2_p2_replaygain_map.liq</a></li>
+<li>
+<a href="on2_p2_request_dynamic.html">on2_p2_request_dynamic.liq</a></li>
+<li>
+<a href="on2_p2_simple.html">on2_p2_simple.liq</a></li>
+<li>
+<a href="on2_p2_special_source.html">on2_p2_special_source.liq</a></li>
+<li>
+<a href="on2_p2_update_title.html">on2_p2_update_title.liq</a></li>
+<li>
+<a href="on2_p3_add.html">on2_p3_add.liq</a></li>
+<li>
+<a href="on2_p3_audio_volume.html">on2_p3_audio_volume.liq</a></li>
+<li>
+<a href="on2_p3_demo.html">on2_p3_demo.liq</a></li>
+<li>
+<a href="on2_p3_images.html">on2_p3_images.liq</a></li>
+<li>
+<a href="on2_p3_keyboard.html">on2_p3_keyboard.liq</a></li>
+<li>
+<a href="on2_p3_midi_file.html">on2_p3_midi_file.liq</a></li>
+<li>
+<a href="on2_p3_play_chord.html">on2_p3_play_chord.liq</a></li>
+<li>
+<a href="on2_p3_play_video.html">on2_p3_play_video.liq</a></li>
+<li>
+<a href="on2_p3_sepia.html">on2_p3_sepia.liq</a></li>
+<li>
+<a href="on2_p3_video_add.html">on2_p3_video_add.liq</a></li>
+<li>
+<a href="on2_p3_video_add_text.html">on2_p3_video_add_text.liq</a></li>
+<li>
+<a href="on2_p3_video_fade_in.html">on2_p3_video_fade_in.liq</a></li>
+<li>
+<a href="on2_p3_volume_viz.html">on2_p3_volume_viz.liq</a></li>
+<li>
+<a href="on_blank.html">on_blank.liq</a></li>
+<li>
+<a href="on_p2_telnet.html">on_p2_telnet.liq</a></li>
+<li>
+<a href="osc_metadata.html">osc_metadata.liq</a></li>
+<li>
+<a href="out.html">out.sh</a></li>
+<li>
+<a href="out_playlist.html">out_playlist.sh</a></li>
+<li>
+<a href="out_smartcross.html">out_smartcross.sh</a></li>
+<li>
+<a href="play_every_xx.html">play_every_xx.liq</a></li>
+<li>
+<a href="playlist.html">playlist.liq</a></li>
+<li>
+<a href="playlist_cue_settings.html">playlist_cue_settings.liq</a></li>
+<li>
+<a href="playlist_dynamic_request.html">playlist_dynamic_request.liq</a></li>
+<li>
+<a href="radio-nova.html">radio-nova.liq</a></li>
+<li>
+<a href="radio_basic.html">radio_basic.liq</a></li>
+<li>
+<a href="recipe_base.html">recipe_base.liq</a></li>
+<li>
+<a href="recipe_out.html">recipe_out.sh</a></li>
+<li>
+<a href="reencoding.html">reencoding.liq</a></li>
+<li>
+<a href="register_flow.html">register_flow.liq</a></li>
+<li>
+<a href="replaygain.html">replaygain.liq</a></li>
+<li>
+<a href="rewrite_metadata.html">rewrite_metadata.liq</a></li>
+<li>
+<a href="rotated_dump.html">rotated_dump.liq</a></li>
+<li>
+<a href="run_alsa_input.html">run_alsa_input.sh</a></li>
+<li>
+<a href="s3_protocol.html">s3_protocol.liq</a></li>
+<li>
+<a href="schedulers.html">schedulers.liq</a></li>
+<li>
+<a href="scripted_dynamic_request.html">scripted_dynamic_request.liq</a></li>
+<li>
+<a href="sdl_v4l.html">sdl_v4l.liq</a></li>
+<li>
+<a href="self_signed.html">self_signed.sh</a></li>
+<li>
+<a href="server_insert_metadata.html">server_insert_metadata.liq</a></li>
+<li>
+<a href="server_interactive_variables.html">server_interactive_variables.liq</a></li>
+<li>
+<a href="server_seek.html">server_seek.liq</a></li>
+<li>
+<a href="server_socket_settings.html">server_socket_settings.liq</a></li>
+<li>
+<a href="set_default_video_size.html">set_default_video_size.liq</a></li>
+<li>
+<a href="set_ffmpeg_converter.html">set_ffmpeg_converter.liq</a></li>
+<li>
+<a href="set_gavl_scale_mode.html">set_gavl_scale_mode.liq</a></li>
+<li>
+<a href="set_json_metadata.html">set_json_metadata.liq</a></li>
+<li>
+<a href="shine_enc.html">shine_enc.liq</a></li>
+<li>
+<a href="shoutcast.html">shoutcast.liq</a></li>
+<li>
+<a href="shoutcast.html">shoutcast.sh</a></li>
+<li>
+<a href="simple_crossfade.html">simple_crossfade.liq</a></li>
+<li>
+<a href="single.html">single.liq</a></li>
+<li>
+<a href="skip_blank.html">skip_blank.liq</a></li>
+<li>
+<a href="smart_crossfade.html">smart_crossfade.liq</a></li>
+<li>
+<a href="smooth_add.html">smooth_add.liq</a></li>
+<li>
+<a href="source_skip_command.html">source_skip_command.liq</a></li>
+<li>
+<a href="speex_enc.html">speex_enc.liq</a></li>
+<li>
+<a href="split_cue.html">split_cue.liq</a></li>
+<li>
+<a href="stream_constant_type_annotation.html">stream_constant_type_annotation.liq</a></li>
+<li>
+<a href="stream_content_conversions_drop.html">stream_content_conversions_drop.liq</a></li>
+<li>
+<a href="stream_content_guess_content.html">stream_content_guess_content.liq</a></li>
+<li>
+<a href="stream_content_set_frame.html">stream_content_set_frame.liq</a></li>
+<li>
+<a href="strip_blank.html">strip_blank.liq</a></li>
+<li>
+<a href="switch_generic.html">switch_generic.liq</a></li>
+<li>
+<a href="theora_enc.html">theora_enc.liq</a></li>
+<li>
+<a href="track_sensitive_fallback.html">track_sensitive_fallback.liq</a></li>
+<li>
+<a href="transcoding.html">transcoding.liq</a></li>
+<li>
+<a href="users_kube-dev.html">users_kube-dev.liq</a></li>
+<li>
+<a href="users_kube.html">users_kube.liq</a></li>
+<li>
+<a href="users_radiopi.html">users_radiopi.liq</a></li>
+<li>
+<a href="v4l_drop_audio_sdl.html">v4l_drop_audio_sdl.liq</a></li>
+<li>
+<a href="v4l_input.html">v4l_input.liq</a></li>
+<li>
+<a href="v4l_with_audio_sdl.html">v4l_with_audio_sdl.liq</a></li>
+<li>
+<a href="video_blue_screen.html">video_blue_screen.liq</a></li>
+<li>
+<a href="video_fade_in.html">video_fade_in.liq</a></li>
+<li>
+<a href="video_osc.html">video_osc.liq</a></li>
+<li>
+<a href="video_scale.html">video_scale.liq</a></li>
+<li>
+<a href="video_scroll_text.html">video_scroll_text.liq</a></li>
+<li>
+<a href="video_static.html">video_static.liq</a></li>
+<li>
+<a href="video_stream_icecast.html">video_stream_icecast.liq</a></li>
+<li>
+<a href="video_weather.html">video_weather.liq</a></li>
+<li>
+<a href="vorbis_enc.html">vorbis_enc.liq</a></li>
+<li>
+<a href="wav_enc.html">wav_enc.liq</a></li>
+</ul>
+      <div id="footer"> 2003-2017 Savonet team</div>
+    </div>
+  </div>
+  <script type="text/javascript" src="//www.google.com/cse/brand?form=cse-search-box&amp;lang=en"></script>
+  <script type="text/javascript" src="../../js/search.js"></script>
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-927362-1']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+</body>
+</html>

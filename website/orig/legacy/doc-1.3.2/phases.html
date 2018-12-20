@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+  <title>Savonet / Liquidsoap 1.3.2 :: Multimedia Stream Generation</title>
+  <link href="../css/new.css" type="text/css" rel="stylesheet" />
+  <link href="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.17/themes/base/jquery-ui.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="//www.google.com/jsapi"></script>
+  <link rel="shortcut icon" href="../favicon.ico" />
+  <script>
+    google.load("jquery", "1.6.1");
+    google.load("jqueryui", "1.8.14");
+  </script>
+  <script type="text/javascript" src="../js/jQuery.syntax/jquery.syntax.min.js"></script>
+  <script type="text/javascript" src="../js/liq-jquery.js"></script>
+</head>
+<body>
+  <div class="menu">
+    <ul>
+      <li id="menu-developers">
+        <a href="https://github.com/savonet/liquidsoap/issues" target="_blank">developers</a></li>
+      <li id="menu-flows"><a href="https://flows.liquidsoap.info/">Flows!</a></li>
+      <li id="menu-doc-api-www">
+        <a href="reference.html">API</a></li>
+      <li id="menu-support">
+        <a href="documentation.html">documentation</a></li>
+      <li id="menu-download">
+        <a href="../download.html">download</a></li>
+      <li id="menu-about">
+        <a href="../index.html">about</a></li>
+    </ul>
+  </div>
+  <div class="section" id="main">
+    <h1>Liquidsoap 1.3.2 : Liquidsoap execution phases</h1>
+    <div class="content">
+      <h3>Liquidsoap execution phases</h3>
+<p>
+There are various stages of running liquidsoap:
+</p>
+<ul>
+<li>
+<b>Parsing</b>: read scripts and scripting expressions, can fail with syntax errors.</li>
+<li>
+<b>Static analysis</b>: infer the type of all expressions, leaves some type unknown and may fail with type errors.</li>
+<li>
+<b>Instantiation</b>: when script is executed, sources get created. Remaining unknown <a href="stream_contents.html">stream types</a> are forced according to <code>frame.*.channels</code> settings, <a href="clock.html">clocks</a> are assigned (but unknown clocks may remain) and some sources are checked to be <a href="source.htmls">infallible</a>. Each of these steps may raise an error.</li>
+<li>
+<b>Collection</b>: Unknown clocks become the default wallclock so that all sources are assigned to one clock. Active sources newly attached to clocks are initialized for streaming, shutdown sources are detached from their clocks, and clocks are started or destroyed as needed. Streaming has started.</li>
+</ul>
+<p>
+Usually, liquidsoap is ran by passing one or several scripts and expressions to execute. Those expressions set up some sources, and outputs typically don't change anymore. If those initially provided active sources fail to be initialized (invalid parameter, fail to connect, etc.) liquidsoap will terminate with an error.
+</p>
+<p>
+It is however possible to <b>dynamically</b> create active sources,
+through registered server commands, event handlers, etc.
+They will be initialized and run as statically created ones.
+In <b>interactive</b> mode (passing the <code>--interactive</code> option)
+it is also possible to input expressions in a liquidsoap prompt,
+and their execution can trigger the creation of new outputs.
+</p>
+<p>
+Outputs can be desactivated using <code>source.shutdown()</code>:
+they will stop streaming and will be destroyed.
+</p>
+<p>
+The full liquidsoap instance
+can be shutdown using the <code>shutdown()</code> command.
+</p>
+      <div id="footer"> 2003-2017 Savonet team</div>
+    </div>
+  </div>
+  <script type="text/javascript" src="//www.google.com/cse/brand?form=cse-search-box&amp;lang=en"></script>
+  <script type="text/javascript" src="../js/search.js"></script>
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-927362-1']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+</body>
+</html>

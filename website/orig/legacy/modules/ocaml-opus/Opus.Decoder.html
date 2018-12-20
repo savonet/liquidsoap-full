@@ -1,0 +1,41 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link rel="next" href="Opus.Encoder.html">
+<link rel="Up" href="Opus.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Ogg_demuxer_opus_decoder" rel="Chapter" href="Ogg_demuxer_opus_decoder.html">
+<link title="Opus" rel="Chapter" href="Opus.html"><title>Opus.Decoder</title>
+</head>
+<body>
+<div class="navbar">&nbsp;<a class="up" href="Opus.html" title="Opus">Up</a>
+&nbsp;<a class="post" href="Opus.Encoder.html" title="Opus.Encoder">Next</a>
+</div>
+<h1>Module <a href="type_Opus.Decoder.html">Opus.Decoder</a></h1>
+
+<pre><span id="MODULEDecoder"><span class="keyword">module</span> Decoder</span>: <code class="code">sig</code> <a href="Opus.Decoder.html">..</a> <code class="code">end</code></pre><hr width="100%">
+
+<pre><span id="TYPEcontrol"><span class="keyword">type</span> <code class="type"></code>control</span> = <code class="type">[ `Get_bandwidth of <a href="Opus.html#TYPEbandwidth">Opus.bandwidth</a> Stdlib.ref<br>       | `Get_final_range of int Stdlib.ref<br>       | `Get_gain of int Stdlib.ref<br>       | `Get_lsb_depth of int Stdlib.ref<br>       | `Get_pitch of int Stdlib.ref<br>       | `Reset_state<br>       | `Set_gain of int<br>       | `Set_lsb_depth of int ]</code> </pre>
+
+
+<pre><span id="TYPEt"><span class="keyword">type</span> <code class="type"></code>t</span> </pre>
+
+
+<pre><span id="VALcheck_packet"><span class="keyword">val</span> check_packet</span> : <code class="type">Ogg.Stream.packet -> bool</code></pre>
+<pre><span id="VALcreate"><span class="keyword">val</span> create</span> : <code class="type">?samplerate:int -> Ogg.Stream.packet -> Ogg.Stream.packet -> <a href="Opus.Decoder.html#TYPEt">t</a></code></pre><div class="info ">
+<div class="info-desc">
+<p>Create a decoder with given samplerate an number of channels.</p>
+</div>
+</div>
+
+<pre><span id="VALcomments"><span class="keyword">val</span> comments</span> : <code class="type"><a href="Opus.Decoder.html#TYPEt">t</a> -> string * (string * string) list</code></pre>
+<pre><span id="VALchannels"><span class="keyword">val</span> channels</span> : <code class="type"><a href="Opus.Decoder.html#TYPEt">t</a> -> int</code></pre>
+<pre><span id="VALapply_control"><span class="keyword">val</span> apply_control</span> : <code class="type"><a href="Opus.Decoder.html#TYPEcontrol">control</a> -> <a href="Opus.Decoder.html#TYPEt">t</a> -> unit</code></pre>
+<pre><span id="VALdecode_float"><span class="keyword">val</span> decode_float</span> : <code class="type">?decode_fec:bool -><br>       <a href="Opus.Decoder.html#TYPEt">t</a> -> Ogg.Stream.stream -> float array array -> int -> int -> int</code></pre></body></html>
