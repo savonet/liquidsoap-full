@@ -9,8 +9,8 @@ OCAMLDOC := ocamldoc
 
 
 # Versions for which documentation should be build and included
-VERSIONS := dev 1.3.0 1.3.1 1.3.2 1.3.3 1.3.4 1.3.5
-DEFAULT_VERSION := 1.3.5
+VERSIONS := dev 1.3.0 1.3.1 1.3.2 1.3.3 1.3.4 1.3.5 1.3.6
+DEFAULT_VERSION := 1.3.6
 
 # Static content
 content_expand = $(wildcard $(PWD)/content/doc-$(version)/*.txt)
