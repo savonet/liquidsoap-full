@@ -4,6 +4,7 @@ BUILD=$1
 RELEASE=$2
 SYSTEM=$3
 OCAML_VERSION=$4
+BRANCH=$5
 
 if [ -z "${SYSTEM}" ]; then
   SYSTEM="x64"
@@ -11,6 +12,10 @@ fi
 
 if [ -z "${OCAML_VERSION}" ]; then
   OCAML_VERSION=4.07.0
+fi
+
+if [ -z "${BRANCH}" ]; then
+  BRANCH=master
 fi
 
 BASE_IMAGE="ocamlcross/windows-${SYSTEM}-base:${OCAML_VERSION}"
@@ -25,7 +30,7 @@ fi
 
 docker build -f Dockerfile.win32-deps -t ${DEPS_IMAGE} \
   --build-arg IMAGE=${BASE_IMAGE} .
-docker build -f Dockerfile.win32 -t ${IMAGE} --build-arg RELEASE=${RELEASE} \
+docker build -f Dockerfile.win32 -t ${IMAGE} --build-arg RELEASE=${RELEASE} --build-arg BRANCH=${BRANCH} \
   --build-arg IMAGE=${DEPS_IMAGE} --build-arg HOST=${HOST} --build-arg BUILD=${BUILD} .
 id=$(docker create ${IMAGE})
 docker cp ${id}:/tmp/liquidsoap-${BUILD}.zip .
