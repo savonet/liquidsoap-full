@@ -13,10 +13,13 @@ VERSIONS := dev 1.3.0 1.3.1 1.3.2 1.3.3 1.3.4 1.3.5 1.3.6
 DEFAULT_VERSION := 1.3.6
 
 # Static content
+images_expand = $(wildcard $(PWD)/content/doc-$(version)/images/*)
+images_expanded := $(foreach version,$(VERSIONS),$(images_expand))
+
 content_expand = $(wildcard $(PWD)/content/doc-$(version)/*.txt)
 content_expanded := $(foreach version,$(VERSIONS),$(content_expand))
 content_website := $(wildcard $(PWD)/content/*.txt)
-CONTENT := $(content_website) $(content_expanded)
+CONTENT := $(content_website) $(content_expanded) $(images_expanded)
 
 JS := $(shell echo $(wildcard $(PWD)/orig/js/*.js) | sed -e 's|/orig/|/html/|g')
 HTML := $(shell echo $(CONTENT:.txt=.html) | sed -e 's|/content/|/html/|'g)
@@ -176,6 +179,12 @@ $(PWD)/html/doc-%.html: $(PWD)/content/doc-%.txt $(LIQI) $(PWD)/template.html $(
 	    --template ../../template.html --snippet-template ../../snippet.html \
 		--subst version:`dirname $(*)` --subst versions:"$(VERSIONS)" --basedir .. \
 	    -i $(<) -o $(@)
+
+define IMAGE_RULE
+$(PWD)/html/doc-$(version)/images/%: $(PWD)/content/doc-$(version)/images/%
+	@echo cp -rf $$(<) $$(@)
+endef
+$(foreach version,$(VERSIONS),$(eval $(IMAGE_RULE)))
 
 spell-check: $(content_website:.txt=.txt.spell)
 

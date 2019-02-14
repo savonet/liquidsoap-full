@@ -80,7 +80,7 @@ also @libtool@.
 * ocaml-bjack for Jack output/input
 * ocaml-ladspa for LADSPA plugins
 * "xmlm":http://erratique.ch/software/xmlm
-* "camlimages":http://pauillac.inria.fr/caml/assets/img/ for image decoding
+* "camlimages":http://pauillac.inria.fr/camlimages/ for image decoding
 * "ocaml-sdl":http://ocamlsdl.sourceforge.net/home.html for display, font & image support
 * "ocaml-inotify":http://projects.snarc.org/ocaml-inotify to monitor file changes, in particular with playlists.
 
