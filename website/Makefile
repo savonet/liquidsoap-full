@@ -182,7 +182,9 @@ $(PWD)/html/doc-%.html: $(PWD)/content/doc-%.txt $(LIQI) $(PWD)/template.html $(
 
 define IMAGE_RULE
 $(PWD)/html/doc-$(version)/images/%: $(PWD)/content/doc-$(version)/images/%
-	@echo cp -rf $$(<) $$(@)
+	@echo "$$(<) -> $$(@)"
+	@mkdir -p $$(shell dirname $$(@))
+	@cp -rf $$(<) $$(@)
 endef
 $(foreach version,$(VERSIONS),$(eval $(IMAGE_RULE)))
 
