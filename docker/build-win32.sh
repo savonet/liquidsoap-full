@@ -4,7 +4,6 @@ BUILD=$1
 RELEASE=$2
 SYSTEM=$3
 OCAML_VERSION=$4
-BRANCH=$5
 
 if [ -z "${SYSTEM}" ]; then
   SYSTEM="x64"
