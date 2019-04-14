@@ -10,8 +10,6 @@ WORKDIR /tmp
 
 USER opam
 
-RUN eval `opam config env` && opam reinstall -y `echo $OPAM_DEPS | sed -e 's#,# #g'`
-
 RUN git clone --recursive https://github.com/savonet/liquidsoap.git && \
     cd liquidsoap && git checkout $RELEASE && ./bootstrap
 

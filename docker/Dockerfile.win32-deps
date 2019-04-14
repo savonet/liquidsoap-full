@@ -9,3 +9,7 @@ RUN eval `opam config env` && opam repository remove windows --all && opam repos
 USER root
 
 RUN cd /usr/src/mxe/ && cat /home/opam/mxe-deps | xargs make
+
+USER opam
+
+RUN eval `opam config env` && opam reinstall -y `echo $OPAM_DEPS | sed -e 's#,# #g'`
