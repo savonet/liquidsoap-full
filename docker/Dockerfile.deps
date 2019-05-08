@@ -13,7 +13,7 @@ RUN adduser opam
 
 USER opam
 
-RUN opam init -y && opam update && opam switch 4.07.0 && opam install camlp4 pcre camomile inotify gd magic base-bytes xmlm camlimages ocamlsdl yojson ssl
+RUN opam init -y && opam update && opam switch 4.07.0 && opam install camlp4 pcre camomile inotify gd magic base-bytes xmlm camlimages ocamlsdl yojson ssl sedlex
 
 WORKDIR /tmp
 
