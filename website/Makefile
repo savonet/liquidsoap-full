@@ -46,10 +46,9 @@ $(PWD)/html/doc.html: $(PWD)/doc.html
 	sed -e "s#@version@#$(DEFAULT_VERSION)#" < $(<) > $(@) 
 
 $(PWD)/html/modules.md: $(PWD)/html $(PWD)/../PACKAGES.default
-	echo "# Savonet modules documentation.\n" > $(@)
-	echo "## Savonet modules documentation\n" >> $(@)
+	echo "## Savonet modules documentation\n" > $(@)
 	cat $(PWD)/../PACKAGES.default | grep '^ocaml' | sort | while read i; do \
-	  echo "* \"$$i\":modules/$$i/index.html" >> $(@) ; \
+	  echo "* [$$i](modules/$$i/index.html)" >> $(@) ; \
 	  mkdir -p $(PWD)/html/modules/$$i; \
 	  $(OCAMLDOC) -html -stars -d $(PWD)/html/modules/$$i $(MODULES_INC:%=-I %) $(PWD)/../$$i/src/*.mli; \
 	done
