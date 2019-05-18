@@ -1,9 +1,6 @@
 *.sw*
 PACKAGES
-website/html
-website/reference.txt
-website/protocols.txt
 latest/
 liquidsoap-*-full*
-website/savonet.github.io
 docker/*.zip
+*~
