@@ -80,10 +80,11 @@ $(LIQUIDSOAP):
 
 # Auto-generated content files
 
-$(PWD)/html/doc-dev/reference.md: $(LIQUIDSOAP)
+$(PWD)/html/doc-dev/reference.md: $(LIQUIDSOAP) $(PWD)/reference-header.md
 	@echo "Generating dev language reference..."
 	@echo "Did you enable all features ?"
-	$(LIQUIDSOAP) --no-pervasives $(LIQ_DIR)/lib/pervasives.liq --list-functions-md > $(PWD)/reference.md
+	cat $(PWD)/reference-header.md > $(PWD)/reference.md
+	$(LIQUIDSOAP) --no-pervasives $(LIQ_DIR)/lib/pervasives.liq --list-functions-md >> $(PWD)/reference.md
 	cp $(PWD)/reference.md $@
 
 $(PWD)/html/doc-dev/settings.md: $(LIQUIDSOAP)
