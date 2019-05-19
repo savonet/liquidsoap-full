@@ -1,7 +1,6 @@
 Liquidsoap scripting language reference
 =======================================
-Categories
-----------
+
 The **Source / ...** categories contain all functions that return sources.
 The **Input** functions are those which build elementary sources
 (playing files, synthesizing sound, etc.).
