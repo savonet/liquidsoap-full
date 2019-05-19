@@ -90,7 +90,7 @@ $(PWD)/html/doc-dev/reference.md: $(LIQUIDSOAP) $(PWD)/reference-header.md
 $(PWD)/html/doc-dev/settings.md: $(LIQUIDSOAP)
 	@echo "Generating dev language settings..."
 	@echo "Did you enable all features ?"
-	@$(LIQUIDSOAP) --no-pervasives $(LIQ_DIR)/lib/pervasives.liq --conf-descr > $@
+	@$(LIQUIDSOAP) --no-pervasives $(LIQ_DIR)/lib/pervasives.liq --conf-descr | grep -v "# Liquidsoap configuration" > $@
 
 $(PWD)/html/doc-dev/protocols.md: $(LIQUIDSOAP)
 	@echo "Generating dev protocols reference..."
@@ -118,7 +118,7 @@ $(PWD)/html/doc-%/reference.html: $(PWD)/html/doc-%/reference.md template.html
 	@pandoc --template template.html --metadata version=$(firstword $(subst /, ,$(*))) --metadata versions="$(VERSIONS)" --metadata pagetitle=Reference -i $< -o $@
 
 $(PWD)/html/doc-%/settings.html: $(PWD)/html/doc-%/settings.md template.html
-	@pandoc --template template.html --metadata version=$(firstword $(subst /, ,$(*))) --metadata versions="$(VERSIONS)" --metadata pagetitle=Settings -i $< -o $@
+	@pandoc --toc --template template.html --metadata version=$(firstword $(subst /, ,$(*))) --metadata versions="$(VERSIONS)" --metadata pagetitle=Settings -i $< -o $@
 
 $(PWD)/html/doc-%/protocols.html: $(PWD)/html/doc-%/protocols.md template.html
 	@pandoc --template template.html --metadata version=$(firstword $(subst /, ,$(*))) --metadata versions="$(VERSIONS)" --metadata pagetitle=Protocols -i $< -o $@
