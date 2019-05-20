@@ -49,6 +49,20 @@
       background: white;
     }
     </style>
+$if(highlighting-css)$
+    <style type="text/css">
+$highlighting-css$
+    </style>
+$endif$
+$for(css)$
+    <link rel="stylesheet" href="$css$" />
+$endfor$
+$if(math)$
+  $math$
+$endif$
+$for(header-includes)$
+  $header-includes$
+$endfor$
   </head>
 
   <body class="bd-docs" data-spy="scroll" data-target=".bd-sidenav-active">

@@ -4,6 +4,7 @@ PWD := $(shell pwd)
 LIQ_DIR := $(PWD)/../liquidsoap
 LIQUIDSOAP := $(LIQ_DIR)/src/liquidsoap
 OCAMLDOC := ocamldoc
+PANDOC := pandoc --syntax-definition=liquidsoap.xml --highlight=pygments
 NODE := $(shell which node)
 
 # Versions for which documentation should be built and included
@@ -37,7 +38,7 @@ GENERATED_FILES := $(PWD)/html/doc.html $(PWD)/html/doc-@@VERSION@@/reference.ht
 generated_files_subst = $(subst @@VERSION@@,$(version),$(GENERATED_FILES))
 generated_files := $(foreach version,$(VERSIONS),$(generated_files_subst)) $(PWD)/html/modules.html $(PWD)/html/modules/liquidsoap
 
-all: $(PWD)/html $(HTML) $(JS) $(generated_files)
+all: language.dtd $(PWD)/html $(HTML) $(JS) $(generated_files)
 	@find html -name '.git' | xargs rm -rf --
 
 MODULES_INC := $(wildcard $(PWD)/../ocaml-*/src)
@@ -54,7 +55,7 @@ $(PWD)/html/modules.md: $(PWD)/html $(PWD)/../PACKAGES.default
 	done
 
 $(PWD)/html/modules.html: $(PWD)/html/modules.md
-	pandoc --template template.html --metadata pagetitle=Modules -i $< -o $@
+	$(PANDOC) --template template.html --metadata pagetitle=Modules -i $< -o $@
 
 $(PWD)/html/modules/liquidsoap: $(PWD)/html
 	@$(MAKE) -C $(LIQ_DIR) doc
@@ -112,21 +113,21 @@ $(PWD)/html/doc-%/protocols.md:
 
 $(PWD)/html/index.html: $(PWD)/content/index.md
 	@echo Converting $(<) to $(@)...
-	@pandoc --template template.html --metadata version=$(DEFAULT_VERSION) --metadata versions="$(VERSIONS)" --metadata pagetitle=Index -i $< -o $@
+	@$(PANDOC) --template template.html --metadata version=$(DEFAULT_VERSION) --metadata versions="$(VERSIONS)" --metadata pagetitle=Index -i $< -o $@
 
 $(PWD)/html/doc-%/reference.html: $(PWD)/html/doc-%/reference.md template.html
-	@pandoc --template template.html --metadata version=$(firstword $(subst /, ,$(*))) --metadata versions="$(VERSIONS)" --metadata pagetitle=Reference -i $< -o $@
+	@$(PANDOC) --template template.html --metadata version=$(firstword $(subst /, ,$(*))) --metadata versions="$(VERSIONS)" --metadata pagetitle=Reference -i $< -o $@
 
 $(PWD)/html/doc-%/settings.html: $(PWD)/html/doc-%/settings.md template.html
-	@pandoc --toc --template template.html --metadata version=$(firstword $(subst /, ,$(*))) --metadata versions="$(VERSIONS)" --metadata pagetitle=Settings -i $< -o $@
+	@$(PANDOC) --toc --template template.html --metadata version=$(firstword $(subst /, ,$(*))) --metadata versions="$(VERSIONS)" --metadata pagetitle=Settings -i $< -o $@
 
 $(PWD)/html/doc-%/protocols.html: $(PWD)/html/doc-%/protocols.md template.html
-	@pandoc --template template.html --metadata version=$(firstword $(subst /, ,$(*))) --metadata versions="$(VERSIONS)" --metadata pagetitle=Protocols -i $< -o $@
+	@$(PANDOC) --template template.html --metadata version=$(firstword $(subst /, ,$(*))) --metadata versions="$(VERSIONS)" --metadata pagetitle=Protocols -i $< -o $@
 
 $(PWD)/html/doc-%.html: $(PWD)/content/doc-%.md $(PWD)/template.html
 	@echo Converting $(<) to $(@)...
 	@test -d $(shell dirname $(@)) || (mkdir -p $(shell dirname $(@)))
-	@pandoc --template template.html --metadata version=$(firstword $(subst /, ,$(*))) --metadata versions="$(VERSIONS)" --metadata pagetitle="$(basename $(notdir $@))" -i $< -o $@
+	@$(PANDOC) --template template.html --metadata version=$(firstword $(subst /, ,$(*))) --metadata versions="$(VERSIONS)" --metadata pagetitle="$(basename $(notdir $@))" -i $< -o $@
 
 define IMAGE_RULE
 $(PWD)/html/doc-$(version)/images/%: $(PWD)/content/doc-$(version)/images/%
@@ -149,3 +150,6 @@ upload: Dockerfile
 
 serve:
 	cd html && python -m SimpleHTTPServer
+
+language.dtd:
+	wget https://raw.githubusercontent.com/jgm/highlighting-kate/master/xml/language.dtd
