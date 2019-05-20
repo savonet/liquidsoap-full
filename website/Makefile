@@ -152,4 +152,4 @@ serve:
 	cd html && python -m SimpleHTTPServer
 
 language.dtd:
-	wget https://raw.githubusercontent.com/jgm/highlighting-kate/master/xml/language.dtd
+	curl https://raw.githubusercontent.com/jgm/highlighting-kate/master/xml/language.dtd -o $@
