@@ -1,4 +1,4 @@
-.PHONY: all serve clean upload atual-upload dist
+.PHONY: all serve clean upload actual-upload dist
 
 PWD := $(shell pwd)
 LIQ_DIR := $(PWD)/../liquidsoap
