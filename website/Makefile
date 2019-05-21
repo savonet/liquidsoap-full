@@ -9,7 +9,8 @@ NODE := $(shell which node)
 
 # Versions for which documentation should be built and included
 VERSIONS := dev 1.3.0 1.3.1 1.3.2 1.3.3 1.3.4 1.3.5 1.3.6
-DEFAULT_VERSION := 1.3.6
+# DEFAULT_VERSION := 1.3.6
+DEFAULT_VERSION := dev
 
 # Static content
 images_expand = $(wildcard $(PWD)/content/doc-$(version)/images/*)
@@ -20,10 +21,10 @@ content_expanded := $(foreach version,$(VERSIONS),$(content_expand))
 content_website := $(wildcard $(PWD)/content/*.md)
 CONTENT := $(content_website) $(content_expanded) $(images_expanded)
 
-JS := $(shell echo $(wildcard $(PWD)/orig/js/*.js) | sed -e 's|/orig/|/html/|g')
+JS := $(shell echo $(wildcard $(PWD)/orig/assets/js/*.js) | sed -e 's|/orig/|/html/|g')
 HTML := $(shell echo $(CONTENT:.md=.html) | sed -e 's|/content/|/html/|'g)
 
-$(PWD)/html/js/%.js: orig/js/%.js
+$(PWD)/html/assets/js/%.js: orig/assets/js/%.js
 ifneq ($(NODE),)
 	@echo Uglifying $(@)
 	@node scripts/uglify.js < $(<) > $(@)
