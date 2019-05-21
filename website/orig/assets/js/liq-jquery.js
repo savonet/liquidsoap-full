@@ -1,3 +1,33 @@
+/* -*- Mode: javascript; js-indent-level : 2  -*- */
+
+/* Enhance reference presentation. */
+function enhanceRef(ref) {
+  /* Operators */
+  var operators = ref.parent().find('h3');
+  /* Autocompletion source. */
+  var source = [];
+  /* Fill the list. */
+  operators.each(function () {
+    var link = $(this);
+    var name = link.text();
+    var id = link.attr("id");
+    source.push({label: name, value: id});
+  });
+  /* Construct the search box. */
+  var search = $("<p><div id=\"liq-div-search\">\
+                  <label for=\"liq-search\">Search: </label>\
+                  <input id=\"liq-search\"/>\
+                  </div></p>");
+  search.find("#liq-search").autocomplete({
+    source: source,
+    select: function( event, ui ) {
+      window.location.href = "#"+ui.item.value;
+    }
+  });
+  /* Add the search box. */
+  ref.nextAll("ul").first().before(search);
+}
+
 function setHash(hash) {
   if (history.pushState) {
     history.pushState(null, null, "#" + hash);
@@ -42,7 +72,7 @@ function searchBox(source) {
 }
 
 /* Enhance reference presentation. */
-function enhanceRef (ref) {
+function enhanceRefOld (ref) {
   /* Find all links that have attribute "name" */
   var links = ref.parent().find('h3').find('a[name]');
   /* Hidding is expensive, therefore we store
@@ -270,9 +300,15 @@ function enhanceDownloads(ref) {
 }
 
 $(document).ready(function () {
-  var ref = $("h2:contains('Liquidsoap scripting language reference')");
+  // New version
+  var ref = $("h1:contains('Liquidsoap scripting language reference')");
   if (ref.length > 0) {
     enhanceRef(ref);
+  }
+  // Old version
+  var ref = $("h2:contains('Liquidsoap scripting language reference')");
+  if (ref.length > 0) {
+    enhanceRefOld(ref);
 
     if (document.location.hash) {
       var id=document.location.hash;

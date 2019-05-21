@@ -25,12 +25,12 @@ JS := $(shell echo $(wildcard $(PWD)/orig/assets/js/*.js) | sed -e 's|/orig/|/ht
 HTML := $(shell echo $(CONTENT:.md=.html) | sed -e 's|/content/|/html/|'g)
 
 $(PWD)/html/assets/js/%.js: orig/assets/js/%.js
-ifneq ($(NODE),)
-	@echo Uglifying $(@)
-	@node scripts/uglify.js < $(<) > $(@)
-else
+# ifneq ($(NODE),)
+#	@echo Uglifying $(@)
+#	@node scripts/uglify.js < $(<) > $(@)
+# else
 	@cp $(<) $(@)
-endif
+#endif
 
 # Generated content
 GENERATED_FILES := $(PWD)/html/doc.html $(PWD)/html/doc-@@VERSION@@/reference.html \
