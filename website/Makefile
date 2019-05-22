@@ -92,7 +92,7 @@ $(PWD)/html/doc-dev/reference.md: $(LIQUIDSOAP) $(PWD)/reference-header.md
 $(PWD)/html/doc-dev/settings.md: $(LIQUIDSOAP)
 	@echo "Generating dev language settings..."
 	@echo "Did you enable all features ?"
-	@$(LIQUIDSOAP) --no-pervasives $(LIQ_DIR)/lib/pervasives.liq --conf-descr | grep -v "# Liquidsoap configuration" > $@
+	@$(LIQUIDSOAP) --no-pervasives $(LIQ_DIR)/lib/pervasives.liq --conf-descr-md | grep -v "# Liquidsoap configuration" > $@
 
 $(PWD)/html/doc-dev/protocols.md: $(LIQUIDSOAP)
 	@echo "Generating dev protocols reference..."
