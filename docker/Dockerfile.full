@@ -1,5 +1,7 @@
 FROM savonet/liquidsoap-deps
 
+ENTRYPOINT bash
+
 MAINTAINER The Savonet Team <savonet-users@lists.sourceforge.net>
 
 USER opam
