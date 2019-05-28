@@ -14,10 +14,3 @@ RUN adduser opam
 USER opam
 
 RUN opam init -y --disable-sandboxing && opam update -y && opam install -y camlp4 pcre camomile inotify gd magic menhir base-bytes xmlm camlimages ocamlsdl yojson ssl sedlex
-
-WORKDIR /tmp
-
-# Install gd module.
-#RUN curl -L http://sourceforge.net/projects/gd4o/files/gd4o/1.0%20Alpha%205/gd4o-1.0a5.tar.gz -o gd4o-1.0a5.tar.gz && tar xvzf gd4o-1.0a5.tar.gz
-#WORKDIR /tmp/gd4o-1.0a5
-#RUN eval $(opam config env) && make CFLAGS=-fPIC all opt install
