@@ -1,4 +1,4 @@
-FROM debian:testing
+FROM debian:unstable
 
 MAINTAINER The Savonet Team <savonet-users@lists.sourceforge.net>
 
@@ -7,13 +7,15 @@ USER root
 # For libfdk-aac-dev
 RUN sed -e 's#main#main contrib non-free#' -i /etc/apt/sources.list
 
-RUN apt-get update && apt-get install -y --force-yes --no-install-recommends libssl-dev ncurses-dev autoconf automake curl festival sox git libxml-dom-perl libgd-dev libao-dev portaudio19-dev libasound2-dev libpulse-dev libjack-dev libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev libmad0-dev libtag1-dev libmp3lame-dev libshine-dev  libogg-dev libvorbis-dev libspeex-dev libtheora-dev libopus-dev libfdk-aac-dev libfaad-dev libflac-dev ladspa-sdk libsoundtouch-dev libsamplerate0-dev libgavl-dev libavutil-dev libavformat-dev libswscale-dev frei0r-plugins-dev dssi-dev liblo-dev libmagic-dev libsdl1.2-dev libsdl-image1.2-dev libsdl-mixer1.2-dev libsdl-ttf2.0-dev libsdl-gfx1.2-dev libgl1-mesa-dev libglu1-mesa-dev tk-dev opam pandoc texlive-latex-recommended texlive-fonts-recommended texlive-xetex lmodern
+RUN apt-get update && apt-get install -y --force-yes --no-install-recommends aspcud autoconf automake build-essential curl dssi-dev festival frei0r-plugins-dev git ladspa-sdk libao-dev libasound2-dev libavformat-dev libavutil-dev libfaad-dev libfdk-aac-dev libflac-dev libgavl-dev libgd-dev libgl1-mesa-dev libglu1-mesa-dev libgstreamer-plugins-base1.0-dev libgstreamer1.0-dev libjack-dev liblo-dev libmad0-dev libmagic-dev libmp3lame-dev libogg-dev libopus-dev libpulse-dev libsamplerate0-dev libsdl-gfx1.2-dev libsdl-image1.2-dev libsdl-mixer1.2-dev libsdl-ttf2.0-dev libsdl1.2-dev libshine-dev libsoundtouch-dev libspeex-dev libssl-dev libswscale-dev libtag1-dev libtheora-dev libvorbis-dev libxml-dom-perl lmodern m4 ncurses-dev pandoc portaudio19-dev sox texlive-fonts-recommended texlive-latex-recommended texlive-xetex tk-dev unzip && apt-get -y --force-yes autoclean && apt-get -y --force-yes clean
+
+RUN curl -sL https://raw.githubusercontent.com/ocaml/opam/master/shell/install.sh -o /tmp/install.sh && echo /usr/local/bin | sh /tmp/install.sh
 
 RUN adduser opam
 
 USER opam
 
-RUN opam init -y --disable-sandboxing && opam update -y && opam install -y camlp4 pcre camomile inotify gd magic menhir base-bytes xmlm camlimages ocamlsdl yojson ssl sedlex
+RUN opam init -y --disable-sandboxing --compiler=4.07.1 && opam update -y && opam install -y camlp4 pcre camomile inotify gd magic menhir base-bytes xmlm camlimages ocamlsdl yojson ssl sedlex
 
 WORKDIR /tmp
 
