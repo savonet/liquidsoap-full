@@ -4,12 +4,15 @@ ENTRYPOINT bash
 
 MAINTAINER The Savonet Team <savonet-users@lists.sourceforge.net>
 
+ENV EXT_PACKAGES="camlimages gd graphics inotify sdl-liquidsoap ssl yojson"
+
 USER root
 
 # For libfdk-aac-dev
 RUN sed -e 's#main#main contrib non-free#' -i /etc/apt/sources.list
 
-RUN apt-get update && apt-get install -y --force-yes --no-install-recommends aspcud autoconf automake build-essential curl dssi-dev festival frei0r-plugins-dev git ladspa-sdk libao-dev libasound2-dev libavformat-dev libavutil-dev libfaad-dev libfdk-aac-dev libflac-dev libgavl-dev libgd-dev libgl1-mesa-dev libglu1-mesa-dev libgstreamer-plugins-base1.0-dev libgstreamer1.0-dev libjack-dev liblo-dev libmad0-dev libmagic-dev libmp3lame-dev libogg-dev libopus-dev libpulse-dev libsamplerate0-dev libsdl-gfx1.2-dev libsdl-image1.2-dev libsdl-mixer1.2-dev libsdl-ttf2.0-dev libsdl1.2-dev libshine-dev libsoundtouch-dev libspeex-dev libssl-dev libswscale-dev libtag1-dev libtheora-dev libvorbis-dev libxml-dom-perl lmodern m4 ncurses-dev pandoc portaudio19-dev sox texlive-fonts-recommended texlive-latex-recommended texlive-xetex tk-dev unzip && apt-get -y --force-yes autoclean && apt-get -y --force-yes clean
+RUN apt-get update && apt-get install -y --force-yes --no-install-recommends aspcud autoconf automake build-essential ca-certificates curl git pandoc unzip && \
+    apt-get -y --force-yes autoclean && apt-get -y --force-yes clean
 
 RUN curl -sL https://raw.githubusercontent.com/ocaml/opam/master/shell/install.sh -o /tmp/install.sh && echo /usr/local/bin | sh /tmp/install.sh
 
@@ -17,5 +20,31 @@ RUN adduser opam
 
 USER opam
 
-RUN opam init -y --disable-sandboxing --compiler=4.07.1 && opam update -y && opam install -y camlp4 pcre camomile inotify gd magic menhir base-bytes xmlm camlimages ocamlsdl yojson ssl sedlex
+WORKDIR /tmp
 
+RUN git clone https://github.com/savonet/liquidsoap-full.git
+
+WORKDIR /tmp/liquidsoap-full
+
+RUN make init && make update
+
+RUN opam init -y --disable-sandboxing --compiler=4.07.1 && opam update -y && opam install -y depext
+
+RUN cat PACKAGES.default | grep '^ocaml' | cut -d'-' -f 2 | while read package; do \
+      cd ocaml-$package && opam pin add --no-action . && cd ..; \
+    done && cd liquidsoap && opam pin add --no-action .
+
+RUN opam depext -y -l liquidsoap $EXT_PACKAGES `cat PACKAGES.default | grep '^ocaml' | cut -d'-' -f 2 | xargs echo` > /tmp/deps
+      
+USER root
+
+RUN cat /tmp/deps | xargs apt-get install  -y --force-yes --no-install-recommends && \
+    apt-get -y --force-yes autoclean && apt-get -y --force-yes clean 
+
+USER opam
+
+RUN eval $(opam config env) && opam install -y $EXT_PACKAGES
+
+RUN eval $(opam config env) && \
+  PACKAGES=`cat PACKAGES.default | grep '^ocaml' | cut -d'-' -f 2 | xargs echo` && \
+    opam install -y liquidsoap $PACKAGES && opam uninstall liquidsoap $PACKAGES
