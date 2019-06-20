@@ -54,7 +54,10 @@ RUN \
 
 USER opam
 
-RUN eval $(opam config env) && opam install -y $EXT_PACKAGES
+RUN \
+    eval $(opam config env) && \
+    opam install -y $EXT_PACKAGES && \
+    opam clean
 
 RUN \
     eval $(opam config env) && \
