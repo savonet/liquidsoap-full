@@ -86,18 +86,18 @@ $(PWD)/html/doc-dev/reference.md: $(LIQUIDSOAP) $(PWD)/reference-header.md
 	@echo "Generating dev language reference..."
 	@echo "Did you enable all features ?"
 	cat $(PWD)/reference-header.md > $(PWD)/reference.md
-	$(LIQUIDSOAP) --no-pervasives $(LIQ_DIR)/lib/pervasives.liq --list-functions-md >> $(PWD)/reference.md
+	$(LIQUIDSOAP) --no-pervasives $(LIQ_DIR)/libs/pervasives.liq --list-functions-md >> $(PWD)/reference.md
 	cp $(PWD)/reference.md $@
 
 $(PWD)/html/doc-dev/settings.md: $(LIQUIDSOAP)
 	@echo "Generating dev language settings..."
 	@echo "Did you enable all features ?"
-	@$(LIQUIDSOAP) --no-pervasives $(LIQ_DIR)/lib/pervasives.liq --conf-descr-md | grep -v "# Liquidsoap configuration" > $@
+	@$(LIQUIDSOAP) --no-pervasives $(LIQ_DIR)/libs/pervasives.liq --conf-descr-md | grep -v "# Liquidsoap configuration" > $@
 
 $(PWD)/html/doc-dev/protocols.md: $(LIQUIDSOAP)
 	@echo "Generating dev protocols reference..."
 	@echo "Did you enable all features ?"
-	@$(LIQUIDSOAP) --no-pervasives $(LIQ_DIR)/lib/pervasives.liq --list-protocols-md > $(PWD)/protocols.md
+	@$(LIQUIDSOAP) --no-pervasives $(LIQ_DIR)/libs/pervasives.liq --list-protocols-md > $(PWD)/protocols.md
 	cp $(PWD)/protocols.md $@
 
 # We copy ref and settings to the git:external directories where they belong
