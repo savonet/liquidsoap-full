@@ -34,7 +34,7 @@ WORKDIR /tmp/liquidsoap-full
 RUN make init && make update
 
 RUN \
-    opam init -y --disable-sandboxing --compiler=4.07.1 && \
+    opam init -y --disable-sandboxing --compiler=4.08.0 && \
     opam update -y && \
     opam install -y depext && \
     opam clean
