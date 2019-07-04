@@ -10,6 +10,8 @@ RUN chown -R opam /home/opam/.gitconfig && chmod 600 /home/opam/.gitconfig
 COPY .ssh /home/opam/.ssh
 RUN chown -R opam /home/opam/.ssh && chmod 600 /home/opam/.ssh/*
 
+RUN apt-get update && apt-get -y install openssh-client
+
 USER opam
 
 WORKDIR /tmp/liquidsoap-full
