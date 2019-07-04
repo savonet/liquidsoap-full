@@ -147,6 +147,7 @@ actual-upload: dist
 
 upload: Dockerfile
 	@echo "Make sure that you have comitted and pushed your changes!"
+	docker pull savonet/liquidsoap-full
 	tar cvzf - Dockerfile -C $${HOME} .ssh .gitconfig | docker build -t savonet/website --no-cache -
 
 serve:

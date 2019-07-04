@@ -20,7 +20,7 @@ RUN git checkout master && git reset --hard HEAD && git pull
 
 RUN cp PACKAGES.default PACKAGES
 
-RUN make update && cd ocaml-ffmpeg && git checkout 0.1.2
+RUN make update
 
 RUN eval $(opam config env) && ./bootstrap && ./configure --enable-graphics && make clean && make
 
