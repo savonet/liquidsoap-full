@@ -9,8 +9,8 @@ NODE := $(shell which node)
 
 # Versions for which documentation should be built and included
 VERSIONS := dev 1.3.0 1.3.1 1.3.2 1.3.3 1.3.4 1.3.5 1.3.6 1.3.7
-# DEFAULT_VERSION := 1.3.6
-DEFAULT_VERSION := dev
+DEFAULT_VERSION := 1.3.7
+# DEFAULT_VERSION := dev
 
 # Static content
 images_expand = $(wildcard $(PWD)/content/doc-$(version)/images/*)

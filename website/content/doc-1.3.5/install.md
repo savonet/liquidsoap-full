@@ -1,5 +1,10 @@
 Installing Savonet/Liquidsoap
 =============================
+
+*Note* These instructions are from the documentation from liquidsoap `1.3.5`.
+Make sure to consult the instructions from the version you wish to install,
+most likely the latest stable release.
+
 You can install liquidsoap with OPAM (recommended) or from source, or using a
 package available for your distribution (not covered by this documentation).
 
@@ -15,7 +20,11 @@ Manager](http://opam.ocaml.org/). OPAM is available in all major distributions
 and on windows. We actively support the liquidsoap packages there and its
 dependencies.
 
-You can read [here](https://opam.ocaml.org/doc/Usage.html) about how to use OPAM.
+- [you should have at least OPAM version 2.0](https://opam.ocaml.org/doc/Install.html),
+- you should have OCaml version 4.07, which can be achieved by typing
+  ```
+  opam switch create 4.07.1
+  ```
 
 A typical installation with MP3 and Vorbis encoding/decoding and icecast support is done by executing:
 
