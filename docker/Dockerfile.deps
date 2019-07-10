@@ -14,7 +14,9 @@ RUN sed -e 's#main#main contrib non-free#' -i /etc/apt/sources.list
 
 RUN \
     apt-get update && \
-    apt-get install -y --no-install-recommends aspcud autoconf automake build-essential ca-certificates curl git pandoc unzip && \
+    apt-get install -y --no-install-recommends aspcud autoconf automake \
+            build-essential ca-certificates curl debhelper devscripts \
+            fakeroot git openssh-client pandoc unzip && \
     apt-get -y autoclean && \
     apt-get -y clean
 
