@@ -1,4 +1,5 @@
-FROM debian:testing
+ARG BASE_IMAGE
+FROM $BASE_IMAGE
 
 ENTRYPOINT bash
 

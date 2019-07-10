@@ -1,4 +1,5 @@
-FROM savonet/liquidsoap-deps
+ARG TAG
+FROM savonet/liquidsoap-deps:$TAG
 
 ENTRYPOINT bash
 
