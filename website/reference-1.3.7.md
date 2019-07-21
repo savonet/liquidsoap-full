@@ -41,7 +41,8 @@ Source / Conversions
 #### audio_to_stereo
 ```
 (?id:string,source(audio=*+1,video=0,midi=0))->
-source(audio=2,video=0,midi=0)```
+source(audio=2,video=0,midi=0)
+```
 
 Convert any kind of audio source into a stereo source.
 
@@ -51,7 +52,8 @@ Convert any kind of audio source into a stereo source.
 #### drop_audio
 ```
 (?id:string,source(audio='#a,video='#b,midi='#c))->
-source(audio=0,video='#b,midi='#c)```
+source(audio=0,video='#b,midi='#c)
+```
 
 Drop all audio channels of a stream.
 
@@ -61,7 +63,8 @@ Drop all audio channels of a stream.
 #### drop_midi
 ```
 (?id:string,source(audio='#a,video='#b,midi='#c))->
-source(audio='#a,video='#b,midi=0)```
+source(audio='#a,video='#b,midi=0)
+```
 
 Drop all midi channels of a stream.
 
@@ -71,7 +74,8 @@ Drop all midi channels of a stream.
 #### drop_video
 ```
 (?id:string,source(audio='#a,video='#b,midi='#c))->
-source(audio='#a,video=0,midi='#c)```
+source(audio='#a,video=0,midi='#c)
+```
 
 Drop all video channels of a stream.
 
@@ -80,7 +84,8 @@ Drop all video channels of a stream.
 
 #### id
 ```
-(?id:string,source('a))->source('a)```
+(?id:string,source('a))->source('a)
+```
 
 Does not do anything, simply forwards its input stream.
 
@@ -90,7 +95,8 @@ Does not do anything, simply forwards its input stream.
 #### mean
 ```
 (?id:string,source(audio='#a,video='#b,midi='#c))->
-source(audio=1,video='#b,midi='#c)```
+source(audio=1,video='#b,midi='#c)
+```
 
 Produce mono audio by taking the mean of all audio channels.
 
@@ -101,7 +107,8 @@ Produce mono audio by taking the mean of all audio channels.
 ```
 (?id:string,audio:source(audio='#a,video=0,midi=0),
  source(audio=0,video='#b,midi='#c))->
-source(audio='#a,video='#b,midi='#c)```
+source(audio='#a,video='#b,midi='#c)
+```
 
 Mux an audio stream into an audio-free stream.
 
@@ -113,7 +120,8 @@ Mux an audio stream into an audio-free stream.
 ```
 (?id:string,mono:source(audio=1,video=0,midi=0),
  source(audio='#a,video='#b,midi='#c))->
-source(audio='#a+1,video='#b,midi='#c)```
+source(audio='#a+1,video='#b,midi='#c)
+```
 
 Mux a mono audio stream into another stream.
 
@@ -125,7 +133,8 @@ Mux a mono audio stream into another stream.
 ```
 (?id:string,stereo:source(audio=2,video=0,midi=0),
  source(audio='#a,video='#b,midi='#c))->
-source(audio='#a+2,video='#b,midi='#c)```
+source(audio='#a+2,video='#b,midi='#c)
+```
 
 Mux a stereo audio stream into another stream.
 
@@ -137,7 +146,8 @@ Mux a stereo audio stream into another stream.
 ```
 (?id:string,video:source(audio=0,video='#a,midi=0),
  source(audio='#b,video=0,midi='#c))->
-source(audio='#b,video='#a,midi='#c)```
+source(audio='#b,video='#a,midi='#c)
+```
 
 Add video channnels to a stream.
 
@@ -148,7 +158,8 @@ Add video channnels to a stream.
 #### stereo.left
 ```
 (source(audio=2,video=0,midi=0))->
-source(audio=1,video=0,midi=0)```
+source(audio=1,video=0,midi=0)
+```
 
 Extract the left channel of a stereo source
 
@@ -157,7 +168,8 @@ Extract the left channel of a stereo source
 #### stereo.right
 ```
 (source(audio=2,video=0,midi=0))->
-source(audio=1,video=0,midi=0)```
+source(audio=1,video=0,midi=0)
+```
 
 Extract the right channel of a stereo source
 
@@ -166,7 +178,8 @@ Extract the right channel of a stereo source
 #### swap
 ```
 (?id:string,source(audio=2,video=0,midi=0))->
-source(audio=2,video=0,midi=0)```
+source(audio=2,video=0,midi=0)
+```
 
 Swap two channels of a stereo source.
 
@@ -177,7 +190,8 @@ Source / Input
 --------------
 #### blank
 ```
-(?id:string,?duration:float)->source('a)```
+(?id:string,?duration:float)->source('a)
+```
 
 Produce silence and blank images.
 
@@ -186,7 +200,8 @@ Produce silence and blank images.
 
 #### empty
 ```
-(?id:string)->source(audio='a,video='b,midi='c)```
+(?id:string)->source(audio='a,video='b,midi='c)
+```
 
 A source that does not produce anything. No silence, no track at all.
 
@@ -194,7 +209,8 @@ A source that does not produce anything. No silence, no track at all.
 
 #### fail
 ```
-(?id:string)->source('b)```
+(?id:string)->source('b)
+```
 
 Creates a source that fails to produce anything.
 
@@ -202,7 +218,8 @@ Creates a source that fails to produce anything.
 
 #### gstreamer.hls
 ```
-(?id:string,'a)->source(audio=2,video=1,midi=0)```
+(?id:string,'a)->source(audio=2,video=1,midi=0)
+```
 
 Play an http live stream.
 
@@ -213,7 +230,8 @@ Play an http live stream.
 ```
 (?id:string,?start:bool,?on_start:(()->unit),
  ?on_stop:(()->unit),?fallible:bool)->
-active_source(audio='#a+1,video='#b,midi='#c)```
+active_source(audio='#a+1,video='#b,midi='#c)
+```
 
 Create a source from the first available input driver in pulseaudio, portaudio, oss, alsa, blank.
 
@@ -228,7 +246,8 @@ Create a source from the first available input driver in pulseaudio, portaudio, 
 (?id:string,?bufferize:bool,?clock_safe:bool,
  ?device:string,?fallible:bool,?on_start:(()->unit),
  ?on_stop:(()->unit),?start:bool)->
-active_source(audio='#a+1,video=0,midi=0)```
+active_source(audio='#a+1,video=0,midi=0)
+```
 
 Stream from an ALSA input device.
 
@@ -245,7 +264,8 @@ Stream from an ALSA input device.
 ```
 (?id:string,?buffer:float,?channels:int,?max:float,
  ?restart:bool,?restart_on_error:bool,?samplerate:int,
- string)->source(audio='#a+1,video=0,midi=0)```
+ string)->source(audio='#a+1,video=0,midi=0)
+```
 
 Stream data from an external application.
 
@@ -262,7 +282,8 @@ Stream data from an external application.
 ```
 (?id:string,?buffer:float,?max:float,?restart:bool,
  ?restart_on_error:bool,string)->
-source(audio='#a,video='#b,midi=0)```
+source(audio='#a,video='#b,midi=0)
+```
 
 WARNING: This is only EXPERIMENTAL!
 
@@ -279,7 +300,8 @@ Stream data from an external application.
 ```
 (?id:string,?buffer:float,?max:float,?restart:bool,
  ?restart_on_error:bool,string)->
-source(audio=0,video=1,midi=0)```
+source(audio=0,video=1,midi=0)
+```
 
 WARNING: This is only EXPERIMENTAL!
 
@@ -296,7 +318,8 @@ Stream data from an external application.
 ```
 (?id:string,?restart:bool,?restart_on_error:bool,
  ?buffer:float,?max:float,?format:string,string)->
-source(audio='#a,video='#b,midi=0)```
+source(audio='#a,video='#b,midi=0)
+```
 
 No documentation available.
 
@@ -312,7 +335,8 @@ No documentation available.
 ```
 (?id:string,?max:float,?on_error:((string)->float),
  ?pipeline:string,?restart:bool)->
-source(audio='#a+1,video=0,midi=0)```
+source(audio='#a+1,video=0,midi=0)
+```
 
 Stream audio from a GStreamer pipeline.
 
@@ -327,7 +351,8 @@ Stream audio from a GStreamer pipeline.
 (?id:string,?audio_pipeline:string,?max:float,
  ?on_error:((string)->float),?pipeline:string,
  ?restart:bool,?video_pipeline:string)->
-source(audio=2,video=1,midi=0)```
+source(audio=2,video=1,midi=0)
+```
 
 Stream audio+video from a GStreamer pipeline.
 
@@ -343,7 +368,8 @@ Stream audio+video from a GStreamer pipeline.
 ```
 (?id:string,?max:float,?on_error:((string)->float),
  ?pipeline:string,?restart:bool)->
-source(audio=0,video=1,midi=0)```
+source(audio=0,video=1,midi=0)
+```
 
 Stream video from a GStreamer pipeline.
 
@@ -362,7 +388,8 @@ Stream video from a GStreamer pipeline.
  ?on_connect:(([(string*string)])->unit),
  ?on_disconnect:(()->unit),?password:string,?port:int,
  ?replay_metadata:bool,?timeout:float,?user:string,
- string)->source('a)```
+ string)->source('a)
+```
 
 Retrieves the given http stream from the harbor.
 
@@ -394,7 +421,8 @@ Retrieves the given http stream from the harbor.
  ?on_connect:(([(string*string)])->unit),
  ?on_disconnect:(()->unit),?password:string,?port:int,
  ?replay_metadata:bool,?timeout:float,?user:string,
- string)->source('a)```
+ string)->source('a)
+```
 
 Retrieves the given https stream from the harbor.
 
@@ -425,7 +453,8 @@ Retrieves the given https stream from the harbor.
  ?on_connect:(([(string*string)])->unit),
  ?on_disconnect:(()->unit),?playlist_mode:string,
  ?poll_delay:float,?timeout:float,?user_agent:string,
- string)->source('a)```
+ string)->source('a)
+```
 
 Forwards the given http stream. The relay can be paused/resumed using the start/stop telnet commands.
 
@@ -454,7 +483,8 @@ Forwards the given http stream. The relay can be paused/resumed using the start/
  ?on_connect:(([(string*string)])->unit),
  ?on_disconnect:(()->unit),?playlist_mode:string,
  ?poll_delay:float,?timeout:float,?user_agent:string,
- string)->source('a)```
+ string)->source('a)
+```
 
 Forwards the given https stream. The relay can be paused/resumed using the start/stop telnet commands.
 
@@ -478,7 +508,8 @@ Forwards the given https stream. The relay can be paused/resumed using the start
 #### input.jack
 ```
 (?id:string,?buffer_size:int,?clock_safe:bool,
- ?server:string)->source(audio='#a+1,video=0,midi=0)```
+ ?server:string)->source(audio='#a+1,video=0,midi=0)
+```
 
 Get stream from jack.
 
@@ -490,7 +521,8 @@ Get stream from jack.
 #### input.keyboard.sdl
 ```
 (?id:string,?velocity:float)->
-source(audio='#a,video=0,midi='#b+1)```
+source(audio='#a,video=0,midi='#b+1)
+```
 
 WARNING: This is only EXPERIMENTAL!
 
@@ -503,7 +535,8 @@ Play notes from the keyboard.
 ```
 (?id:string,?restart:bool,?restart_on_error:bool,
  ?buffer:float,?max:float,string)->
-source(audio=0,video=1,midi=0)```
+source(audio=0,video=1,midi=0)
+```
 
 No documentation available.
 
@@ -518,7 +551,8 @@ No documentation available.
 ```
 (?id:string,?restart:bool,?restart_on_error:bool,
  ?buffer:float,?max:float,string)->
-source(audio='#a+1,video=0,midi=0)```
+source(audio='#a+1,video=0,midi=0)
+```
 
 Stream data from mplayer
 
@@ -533,7 +567,8 @@ Stream data from mplayer
 ```
 (?id:string,?clock_safe:bool,?device:string,
  ?fallible:bool,?on_start:(()->unit),?on_stop:(()->unit),
- ?start:bool)->active_source(audio='#a+1,video=0,midi=0)```
+ ?start:bool)->active_source(audio='#a+1,video=0,midi=0)
+```
 
 Stream from an OSS input device.
 
@@ -549,7 +584,8 @@ Stream from an OSS input device.
 ```
 (?id:string,?buflen:int,?clock_safe:bool,?fallible:bool,
  ?on_start:(()->unit),?on_stop:(()->unit),?start:bool)->
-source(audio='#a+1,video='#b,midi='#c)```
+source(audio='#a+1,video='#b,midi='#c)
+```
 
 Stream from a portaudio input device.
 
@@ -566,7 +602,8 @@ Stream from a portaudio input device.
 (?id:string,?client:string,?clock_safe:bool,
  ?device:string,?fallible:bool,?on_start:(()->unit),
  ?on_stop:(()->unit),?start:bool)->
-active_source(audio='#a+1,video='#b,midi='#c)```
+active_source(audio='#a+1,video='#b,midi='#c)
+```
 
 Stream from a portaudio input device.
 
@@ -582,7 +619,8 @@ Stream from a portaudio input device.
 #### input.udp
 ```
 (?id:string,?buffer:float,host:string,port:int,string)->
-active_source('a)```
+active_source('a)
+```
 
 WARNING: This is only EXPERIMENTAL!
 
@@ -597,7 +635,8 @@ Input encoded data from UDP, without any control whatsoever.
 #### input.v4l2
 ```
 (?id:string,?device:string)->
-source(audio=0,video=1,midi=0)```
+source(audio=0,video=1,midi=0)
+```
 
 Stream from a video4linux 2 input device, such as a webcam.
 
@@ -607,7 +646,8 @@ Stream from a video4linux 2 input device, such as a webcam.
 #### input.v4l2_with_audio
 ```
 (?id:string,?device:string)->
-source(audio=2,video=1,midi=0)```
+source(audio=2,video=1,midi=0)
+```
 
 Stream from a video4linux 2 input device, such as a webcam.
 
@@ -617,7 +657,8 @@ Stream from a video4linux 2 input device, such as a webcam.
 #### noise
 ```
 (?id:string,?duration:float)->
-source(audio='a,video='b,midi=0)```
+source(audio='a,video='b,midi=0)
+```
 
 Generate (audio and/or video) white noise.
 
@@ -631,7 +672,8 @@ Generate (audio and/or video) white noise.
  ?length:float,?mime_type:string,?mode:string,
  ?on_track:((last:bool,int)->bool),?prefix:string,
  ?reload:int,?reload_mode:string,?timeout:float,string)->
-source('a)```
+source('a)
+```
 
 Loop on a playlist of URIs.
 
@@ -652,7 +694,8 @@ Loop on a playlist of URIs.
 #### playlist.once
 ```
 (?id:string,?random:bool,?on_done:(()->unit),
- ?reload_mode:string,string)->source('a)```
+ ?reload_mode:string,string)->source('a)
+```
 
 Custom playlist source written using the script language. It will read directory or playlist, play all files and stop.
 
@@ -666,7 +709,8 @@ Custom playlist source written using the script language. It will read directory
 ```
 (?id:string,?random:bool,?on_done:(()->unit),
  ?filter:(([(string*string)])->bool),string)->
-(((?uri:string)->unit)*source('a))```
+(((?uri:string)->unit)*source('a))
+```
 
 Custom playlist source written using the script language. Will read directory or playlist, play all files and stop. Returns a pair `(reload,source)` where `reload` is a function of type `(?uri:string)->unit` used to reload the source and `source` is the actual source. The reload function can optionally be called with a new playlist URI. Otherwise, it reloads the previous URI.
 
@@ -680,7 +724,8 @@ Custom playlist source written using the script language. Will read directory or
 ```
 (?id:string,?mime_type:string,?mode:string,
  ?on_track:((last:bool,int)->bool),?prefix:string,
- ?reload:int,?reload_mode:string,string)->source('a)```
+ ?reload:int,?reload_mode:string,string)->source('a)
+```
 
 Loop on a playlist of local files, and never fail. In order to do so, it has to check every file at the loading, so the streamer startup may take a few seconds. To avoid this, use a standard playlist, and put only a few local files in a default safe_playlist in order to ensure the liveness of the streamer.
 
@@ -697,7 +742,8 @@ Loop on a playlist of local files, and never fail. In order to do so, it has to 
 ```
 (?id:string,?conservative:bool,?default_duration:float,
  ?length:float,?timeout:float,(()->request('a)))->
-source('a)```
+source('a)
+```
 
 Play request dynamically created by a given function.
 
@@ -711,7 +757,8 @@ Play request dynamically created by a given function.
 #### request.equeue
 ```
 (?id:string,?conservative:bool,?default_duration:float,
- ?length:float,?timeout:float)->source('a)```
+ ?length:float,?timeout:float)->source('a)
+```
 
 Receive URIs from users, and play them. Insertion and deletion possible at any position.
 
@@ -725,7 +772,8 @@ Receive URIs from users, and play them. Insertion and deletion possible at any p
 ```
 (?id:string,?conservative:bool,?default_duration:float,
  ?interactive:bool,?length:float,?queue:[request('a)],
- ?timeout:float)->source('a)```
+ ?timeout:float)->source('a)
+```
 
 Receive URIs from users, and play them.
 
@@ -740,7 +788,8 @@ Receive URIs from users, and play them.
 #### saw
 ```
 (?id:string,?amplitude:float,?duration:float,?float)->
-source(audio='#a+1,video=0,midi=0)```
+source(audio='#a+1,video=0,midi=0)
+```
 
 Generate a saw wave.
 
@@ -752,7 +801,8 @@ Generate a saw wave.
 #### sine
 ```
 (?id:string,?amplitude:float,?duration:float,?float)->
-source(audio='#a+1,video=0,midi=0)```
+source(audio='#a+1,video=0,midi=0)
+```
 
 Generate a sine wave.
 
@@ -764,7 +814,8 @@ Generate a sine wave.
 #### single
 ```
 (?id:string,?conservative:bool,?default_duration:float,
- ?length:float,?timeout:float,string)->source('a)```
+ ?length:float,?timeout:float,string)->source('a)
+```
 
 Loop on a request. It never fails if the request is static, meaning that it can be fetched once. Typically, http, ftp, say requests are static, and time is not.
 
@@ -778,7 +829,8 @@ Loop on a request. It never fails if the request is static, meaning that it can 
 #### square
 ```
 (?id:string,?amplitude:float,?duration:float,?float)->
-source(audio='#a+1,video=0,midi=0)```
+source(audio='#a+1,video=0,midi=0)
+```
 
 Generate a square wave.
 
@@ -793,7 +845,8 @@ Source / Liquidsoap
 ```
 (?id:string,?buffer:float,?fallible:bool,?max:float,
  ?on_start:(()->unit),?on_stop:(()->unit),?start:bool,
- source('a))->source('a)```
+ source('a))->source('a)
+```
 
 Create a buffer between two different clocks.
 
@@ -812,7 +865,8 @@ Create a buffer between two different clocks.
  ?fallible:bool,?limit:float,?max:float,
  ?on_start:(()->unit),?on_stop:(()->unit),?reset:bool,
  ?start:bool,source(audio='#a+1,video=0,midi=0))->
-source(audio='#a+1,video=0,midi=0)```
+source(audio='#a+1,video=0,midi=0)
+```
 
 WARNING: This is only EXPERIMENTAL!
 
@@ -836,7 +890,8 @@ Source / MIDI Processing
 ```
 (?id:string,?metadata:string,
  source(audio='#a,video='#b,midi='#c))->
-source(audio='#a,video='#b,midi='#c+1)```
+source(audio='#a,video='#b,midi='#c+1)
+```
 
 Generate a chord.
 
@@ -848,7 +903,8 @@ Generate a chord.
 ```
 (?id:string,?track_out:int,
  source(audio='#a,video='#b,midi='#c+1))->
-source(audio='#a,video='#b,midi='#c+1)```
+source(audio='#a,video='#b,midi='#c+1)
+```
 
 Merge all MIDI tracks in one.
 
@@ -859,7 +915,8 @@ Merge all MIDI tracks in one.
 #### midi.remove
 ```
 (?id:string,[int],source(audio='#a,video='#b,midi='#c+1))->
-source(audio='#a,video='#b,midi='#c+1)```
+source(audio='#a,video='#b,midi='#c+1)
+```
 
 Remove MIDI tracks.
 
@@ -872,7 +929,8 @@ Source / Output
 #### gstreamer.encode_jpeg_avi
 ```
 ('a,source(audio='#b,video='#c+1,midi='#d))->
-active_source(audio='#b,video='#c+1,midi='#d)```
+active_source(audio='#b,video='#c+1,midi='#d)
+```
 
 Encode jpeg video file using gstreamer
 
@@ -882,7 +940,8 @@ Encode jpeg video file using gstreamer
 #### gstreamer.encode_mp3
 ```
 ('a,source(audio='#b+1,video='#c,midi='#d))->
-active_source(audio='#b+1,video='#c,midi='#d)```
+active_source(audio='#b+1,video='#c,midi='#d)
+```
 
 Encode a mp3 file using gstreamer
 
@@ -892,7 +951,8 @@ Encode a mp3 file using gstreamer
 #### gstreamer.encode_x264_avi
 ```
 ('a,source(audio='#b,video='#c+1,midi='#d))->
-active_source(audio='#b,video='#c+1,midi='#d)```
+active_source(audio='#b,video='#c+1,midi='#d)
+```
 
 Encode an x264 video file using gstreamer
 
@@ -903,7 +963,8 @@ Encode an x264 video file using gstreamer
 ```
 (?host:string,?port:int,
  source(audio='#a,video='#b+1,midi='#c))->
-active_source(audio='#a,video='#b+1,midi='#c)```
+active_source(audio='#a,video='#b+1,midi='#c)
+```
 
 Broadcast a video in RTP. In order to play it, save the following in xxx.sdp and use vlc xxx.sdp: v=0 m=video 5000 RTP/AVP 96 c=IN IP4 127.0.0.1 a=rtpmap:96 MP4V-ES/90000
 
@@ -914,7 +975,8 @@ Broadcast a video in RTP. In order to play it, save the following in xxx.sdp and
 #### out
 ```
 (source(audio='#a+1,video='#b,midi='#c))->
-active_source(audio='#a+1,video='#b,midi='#c)```
+active_source(audio='#a+1,video='#b,midi='#c)
+```
 
 Output a stream using the 'output.prefered' operator. The input source does not need to be infallible, blank will just be played during failures.
 
@@ -926,7 +988,8 @@ Output a stream using the 'output.prefered' operator. The input source does not 
  ?device:string,?fallible:bool,?on_start:(()->unit),
  ?on_stop:(()->unit),?start:bool,
  source(audio='#a+1,video='#b,midi='#c))->
-active_source(audio='#a+1,video='#b,midi='#c)```
+active_source(audio='#a+1,video='#b,midi='#c)
+```
 
 Output the source's stream to an ALSA output device.
 
@@ -947,7 +1010,8 @@ Output the source's stream to an ALSA output device.
  ?on_start:(()->unit),?on_stop:(()->unit),
  ?options:[(string*string)],?start:bool,
  source(audio='#a+1,video='#b,midi='#c))->
-active_source(audio='#a+1,video='#b,midi='#c)```
+active_source(audio='#a+1,video='#b,midi='#c)
+```
 
 Output stream to local sound card using libao.
 
@@ -967,7 +1031,8 @@ Output stream to local sound card using libao.
 ```
 (?id:string,?fallible:bool,?on_start:(()->unit),
  ?on_stop:(()->unit),?start:bool,source('a))->
-active_source('a)```
+active_source('a)
+```
 
 Dummy output for debugging purposes.
 
@@ -984,7 +1049,8 @@ Dummy output for debugging purposes.
  ?on_start:(()->unit),?on_stop:(()->unit),
  ?reopen_delay:float,?reopen_on_metadata:bool,
  ?reopen_when:(()->bool),?start:bool,format('a),string,
- source('a))->active_source('a)```
+ source('a))->active_source('a)
+```
 
 Send the stream to a process' standard input.
 
@@ -1008,7 +1074,8 @@ Send the stream to a process' standard input.
  ?on_start:(()->unit),?on_stop:(()->unit),?perm:int,
  ?reopen_delay:float,?reopen_on_metadata:bool,
  ?reopen_when:(()->bool),?start:bool,format('a),string,
- source('a))->active_source('a)```
+ source('a))->active_source('a)
+```
 
 Output the source stream to a file.
 
@@ -1035,7 +1102,8 @@ Output the source stream to a file.
  ?on_error:((string)->float),?on_start:(()->unit),
  ?on_stop:(()->unit),?pipeline:string,?start:bool,
  source(audio='#a+1,video='#b,midi='#c))->
-active_source(audio='#a+1,video='#b,midi='#c)```
+active_source(audio='#a+1,video='#b,midi='#c)
+```
 
 Output stream to a GStreamer pipeline.
 
@@ -1057,7 +1125,8 @@ Output stream to a GStreamer pipeline.
  ?on_stop:(()->unit),?pipeline:string,?start:bool,
  ?video_pipeline:string,
  source(audio='#a+1,video='#b+1,midi='#c))->
-active_source(audio='#a+1,video='#b+1,midi='#c)```
+active_source(audio='#a+1,video='#b+1,midi='#c)
+```
 
 Output stream to a GStreamer pipeline.
 
@@ -1072,9 +1141,7 @@ Output stream to a GStreamer pipeline.
 * `pipeline` (`string` -- defaults to `""`): GStreamer pipeline for sink.
 * `start` (`bool` -- defaults to `true`): Automatically start outputting whenever possible. If true, an infallible (normal) output will start outputting as soon as it is created, and a fallible output will (re)start as soon as its source becomes available for streaming.
 * `video_pipeline` (`string` -- defaults to `"videoconvert ! autovideosink"`): GStreamer pipeline for video sink.
-* `(unlabeled)` (```
-source(audio='#a+1,video='#b+1,midi='#c)```
-)
+* `(unlabeled)` (`source(audio='#a+1,video='#b+1,midi='#c)`)
 
 #### output.gstreamer.video
 ```
@@ -1082,7 +1149,8 @@ source(audio='#a+1,video='#b+1,midi='#c)```
  ?on_error:((string)->float),?on_start:(()->unit),
  ?on_stop:(()->unit),?pipeline:string,?start:bool,
  source(audio='#a,video='#b+1,midi='#c))->
-active_source(audio='#a,video='#b+1,midi='#c)```
+active_source(audio='#a,video='#b+1,midi='#c)
+```
 
 Output stream to a GStreamer pipeline.
 
@@ -1107,7 +1175,8 @@ Output stream to a GStreamer pipeline.
  ?on_disconnect:((string)->unit),?on_start:(()->unit),
  ?on_stop:(()->unit),?password:string,?port:int,
  ?start:bool,?timeout:float,?url:string,?user:string,
- format('a),source('a))->active_source('a)```
+ format('a),source('a))->active_source('a)
+```
 
 Encode and output the stream using the harbor server.
 
@@ -1150,7 +1219,8 @@ Encode and output the stream using the harbor server.
  ?on_disconnect:((string)->unit),?on_start:(()->unit),
  ?on_stop:(()->unit),?password:string,?port:int,
  ?start:bool,?timeout:float,?url:string,?user:string,
- format('a),source('a))->active_source('a)```
+ format('a),source('a))->active_source('a)
+```
 
 Encode and output the stream using the SSL harbor server.
 
@@ -1194,7 +1264,8 @@ Encode and output the stream using the SSL harbor server.
  ?on_stop:(()->unit),?password:string,?port:int,
  ?protocol:string,?public:bool,?start:bool,
  ?timeout:float,?url:string,?user:string,?verb:string,
- format('a),source('a))->active_source('a)```
+ format('a),source('a))->active_source('a)
+```
 
 Encode and output the stream to an icecast2 or shoutcast server.
 
@@ -1238,7 +1309,8 @@ Encode and output the stream to an icecast2 or shoutcast server.
  ?fallible:bool,?on_start:(()->unit),?on_stop:(()->unit),
  ?server:string,?start:bool,
  source(audio='#a+1,video=0,midi=0))->
-active_source(audio='#a+1,video=0,midi=0)```
+active_source(audio='#a+1,video=0,midi=0)
+```
 
 Output stream to jack.
 
@@ -1257,7 +1329,8 @@ Output stream to jack.
 (?id:string,?clock_safe:bool,?device:string,
  ?fallible:bool,?on_start:(()->unit),?on_stop:(()->unit),
  ?start:bool,source(audio='#a+1,video='#b,midi='#c))->
-active_source(audio='#a+1,video='#b,midi='#c)```
+active_source(audio='#a+1,video='#b,midi='#c)
+```
 
 Output the source's stream to an OSS output device.
 
@@ -1275,7 +1348,8 @@ Output the source's stream to an OSS output device.
 (?id:string,?buflen:int,?clock_safe:bool,?fallible:bool,
  ?on_start:(()->unit),?on_stop:(()->unit),?start:bool,
  source(audio='#a+1,video='#b,midi='#c))->
-active_source(audio='#a+1,video='#b,midi='#c)```
+active_source(audio='#a+1,video='#b,midi='#c)
+```
 
 Output the source's stream to a portaudio output device.
 
@@ -1293,7 +1367,8 @@ Output the source's stream to a portaudio output device.
 (?id:string,?fallible:bool,?on_start:(()->unit),
  ?on_stop:(()->unit),?start:bool,
  source(audio='#a+1,video='#b,midi='#c))->
-active_source(audio='#a+1,video='#b,midi='#c)```
+active_source(audio='#a+1,video='#b,midi='#c)
+```
 
 Output to local audio card using the first available driver in pulseaudio, portaudio, oss, alsa, ao, dummy.
 
@@ -1310,7 +1385,8 @@ Output to local audio card using the first available driver in pulseaudio, porta
  ?device:string,?fallible:bool,?on_start:(()->unit),
  ?on_stop:(()->unit),?start:bool,
  source(audio='#a+1,video='#b,midi='#c))->
-active_source(audio='#a+1,video='#b,midi='#c)```
+active_source(audio='#a+1,video='#b,midi='#c)
+```
 
 Output the source's stream to a portaudio output device.
 
@@ -1329,7 +1405,8 @@ Output the source's stream to a portaudio output device.
 (?id:string,?fallible:bool,?on_start:(()->unit),
  ?on_stop:(()->unit),?start:bool,
  source(audio=0,video=1,midi=0))->
-active_source(audio=0,video=1,midi=0)```
+active_source(audio=0,video=1,midi=0)
+```
 
 Display a video using SDL.
 
@@ -1351,7 +1428,8 @@ Display a video using SDL.
  ?irc:string,?icy_reset:bool,?fallible:bool,
  ?on_start:(()->unit),?on_stop:(()->unit),
  ?on_error:((string)->float),format('a),source('a))->
-active_source('a)```
+active_source('a)
+```
 
 Output to shoutcast.
 
@@ -1388,7 +1466,8 @@ Output to shoutcast.
 ```
 (?id:string,?fallible:bool,host:string,
  ?on_start:(()->unit),?on_stop:(()->unit),port:int,
- ?start:bool,format('a),source('a))->active_source('a)```
+ ?start:bool,format('a),source('a))->active_source('a)
+```
 
 WARNING: This is only EXPERIMENTAL!
 
@@ -1409,7 +1488,8 @@ Output encoded data to UDP, without any control whatsoever.
 (?id:string,?video_bitrate:int,?audio_encoder:string,
  ?audio_bitrate:int,?url:string,key:'a,
  source(audio='#b+1,video='#c+1,midi='#d))->
-active_source(audio='#b+1,video='#c+1,midi='#d)```
+active_source(audio='#b+1,video='#c+1,midi='#d)
+```
 
 Stream live on youtube. You need the following Gstreamer plugins: flvmux, rtmpsink, x264enc and a suitable AAC encoder (see `audio_encoder` params).
 
@@ -1419,9 +1499,7 @@ Stream live on youtube. You need the following Gstreamer plugins: flvmux, rtmpsi
 * `audio_bitrate` (`int` -- defaults to `128000`): Audio bitrate
 * `url` (`string` -- defaults to `"rtmp://a.rtmp.youtube.com/live2"`): Server URL
 * `key` (`'a`): Secret key
-* `(unlabeled)` (```
-source(audio='#b+1,video='#c+1,midi='#d)```
-): Source to stream
+* `(unlabeled)` (`source(audio='#b+1,video='#c+1,midi='#d)`): Source to stream
 
 Source / Sound Processing
 -------------------------
@@ -1429,7 +1507,8 @@ Source / Sound Processing
 ```
 (?id:string,?normalize:bool,?weights:[int],
  [source(audio='#a,video='#b,midi=0)])->
-source(audio='#a,video='#b,midi=0)```
+source(audio='#a,video='#b,midi=0)
+```
 
 Mix sources, with optional normalization. Only relay metadata from the first source that is effectively summed.
 
@@ -1443,22 +1522,22 @@ Mix sources, with optional normalization. Only relay metadata from the first sou
 (?id:string,?override:string,'a,
  source(audio='#b,video='#c,midi='#d))->
 source(audio='#b,video='#c,midi='#d)
-where 'a is either float or ()->float```
+where 'a is either float or ()->float
+```
 
 Multiply the amplitude of the signal.
 
 * `id` (`string` -- defaults to `""`): Force the value of the source ID.
 * `override` (`string` -- defaults to `"liq_amplify"`): Specify the name of a metadata field that, when present and well-formed, overrides the amplification factor for the current track. Well-formed values are floats in decimal notation (e.g. '0.7') which are taken as normal/linear multiplicative factors; values can be passed in decibels with the suffix 'dB' (e.g. '-8.2 dB', but the spaces do not matter).
-* `(unlabeled)` (```
-anything that is either float or ()->float```
-): Multiplicative factor.
+* `(unlabeled)` (`anything that is either float or ()->float`): Multiplicative factor.
 * `(unlabeled)` (`source(audio='#b,video='#c,midi='#d)`)
 
 #### bpm
 ```
 (?id:string,?every:float,((float)->unit),
  source(audio='#a,video='#b,midi='#c))->
-source(audio='#a,video='#b,midi='#c)```
+source(audio='#a,video='#b,midi='#c)
+```
 
 Detect the BPM.
 
@@ -1470,7 +1549,8 @@ Detect the BPM.
 #### clip
 ```
 (?id:string,source(audio='#a,video='#b,midi='#c))->
-source(audio='#a,video='#b,midi='#c)```
+source(audio='#a,video='#b,midi='#c)
+```
 
 Clip sound.
 
@@ -1482,14 +1562,14 @@ Clip sound.
 (?id:string,?delay:float,?feedback:'a,
  source(audio='#b,video='#c,midi='#d))->
 source(audio='#b,video='#c,midi='#d)
-where 'a is either float or ()->float```
+where 'a is either float or ()->float
+```
 
 Comb filter.
 
 * `id` (`string` -- defaults to `""`): Force the value of the source ID.
 * `delay` (`float` -- defaults to `0.001`): Delay in seconds.
-* `feedback` (```
-anything that is either float or ()->float```
+* `feedback` (```anything that is either float or ()->float```
  -- defaults to `-6.0`): Feedback coefficient in dB.
 * `(unlabeled)` (`source(audio='#b,video='#c,midi='#d)`)
 
@@ -1497,7 +1577,8 @@ anything that is either float or ()->float```
 ```
 (?id:string,?mu:float,
  source(audio='#a,video='#b,midi='#c))->
-source(audio='#a,video='#b,midi='#c)```
+source(audio='#a,video='#b,midi='#c)
+```
 
 Compand the signal
 
@@ -1511,7 +1592,8 @@ Compand the signal
  ?release:'d,?rms_window:float,?threshold:'e,
  source(audio='#f,video='#g,midi='#h))->
 source(audio='#f,video='#g,midi='#h)
-where 'a, 'b, 'c, 'd, 'e is either float or ()->float```
+where 'a, 'b, 'c, 'd, 'e is either float or ()->float
+```
 
 Compress the signal.
 
@@ -1539,7 +1621,8 @@ anything that is either float or ()->float```
 ```
 (?id:string,?mu:float,
  source(audio='#a,video='#b,midi='#c))->
-source(audio='#a,video='#b,midi='#c)```
+source(audio='#a,video='#b,midi='#c)
+```
 
 Exponential compressor.
 
@@ -1552,7 +1635,8 @@ Exponential compressor.
 (?id:string,?active:bool,?conservative:bool,
  ?duration:float,?inhibit:float,?minimum:float,
  ?override:string,((source('a),source('a))->source('a)),
- source('a))->source('a)```
+ source('a))->source('a)
+```
 
 Generic cross operator, allowing the composition of the N last seconds of a track with the beginning of the next track.
 
@@ -1571,7 +1655,8 @@ Generic cross operator, allowing the composition of the N last seconds of a trac
 (?id:string,?delay:'a,?feedback:'b,?ping_pong:bool,
  source(audio='#c,video='#d,midi='#e))->
 source(audio='#c,video='#d,midi='#e)
-where 'a, 'b is either float or ()->float```
+where 'a, 'b is either float or ()->float
+```
 
 Add echo.
 
@@ -1590,7 +1675,8 @@ anything that is either float or ()->float```
 (?id:string,?duration:float,?override_duration:string,
  ?override_type:string,?type:string,
  source(audio='#a,video='#b,midi='#c))->
-source(audio='#a,video='#b,midi='#c)```
+source(audio='#a,video='#b,midi='#c)
+```
 
 Fade a stream to silence.
 
@@ -1606,7 +1692,8 @@ Fade a stream to silence.
 (?id:string,?duration:float,?override_duration:string,
  ?override_type:string,?type:string,
  source(audio='#a,video='#b,midi='#c))->
-source(audio='#a,video='#b,midi='#c)```
+source(audio='#a,video='#b,midi='#c)
+```
 
 Fade the beginning of tracks.
 
@@ -1622,7 +1709,8 @@ Fade the beginning of tracks.
 (?id:string,?duration:float,?override_duration:string,
  ?override_type:string,?type:string,
  source(audio='#a,video='#b,midi='#c))->
-source(audio='#a,video='#b,midi='#c)```
+source(audio='#a,video='#b,midi='#c)
+```
 
 Fade the beginning of a stream.
 
@@ -1638,7 +1726,8 @@ Fade the beginning of a stream.
 (?id:string,?duration:float,?override_duration:string,
  ?override_type:string,?type:string,
  source(audio='#a,video='#b,midi='#c))->
-source(audio='#a,video='#b,midi='#c)```
+source(audio='#a,video='#b,midi='#c)
+```
 
 Fade the end of tracks.
 
@@ -1654,7 +1743,8 @@ Fade the end of tracks.
 (?id:string,freq:'a,mode:string,?q:'b,?wetness:'c,
  source(audio='#d,video='#e,midi='#f))->
 source(audio='#d,video='#e,midi='#f)
-where 'a, 'b, 'c is either float or ()->float```
+where 'a, 'b, 'c is either float or ()->float
+```
 
 Perform several kinds of filtering on the signal
 
@@ -1675,7 +1765,8 @@ anything that is either float or ()->float```
 ```
 (?id:string,beta:float,?coeffs:int,frequency:float,
  source(audio='#a,video='#b,midi='#c))->
-source(audio='#a,video='#b,midi='#c)```
+source(audio='#a,video='#b,midi='#c)
+```
 
 Low-pass FIR filter.
 
@@ -1689,7 +1780,8 @@ Low-pass FIR filter.
 ```
 (?id:string,frequency1:float,frequency2:float,?order:int,
  source(audio='#a,video='#b,midi='#c))->
-source(audio='#a,video='#b,midi='#c)```
+source(audio='#a,video='#b,midi='#c)
+```
 
 IIR filter
 
@@ -1703,7 +1795,8 @@ IIR filter
 ```
 (?id:string,frequency1:float,frequency2:float,?order:int,
  source(audio='#a,video='#b,midi='#c))->
-source(audio='#a,video='#b,midi='#c)```
+source(audio='#a,video='#b,midi='#c)
+```
 
 IIR filter
 
@@ -1717,7 +1810,8 @@ IIR filter
 ```
 (?id:string,frequency:float,?order:int,
  source(audio='#a,video='#b,midi='#c))->
-source(audio='#a,video='#b,midi='#c)```
+source(audio='#a,video='#b,midi='#c)
+```
 
 IIR filter
 
@@ -1730,7 +1824,8 @@ IIR filter
 ```
 (?id:string,frequency:float,?order:int,
  source(audio='#a,video='#b,midi='#c))->
-source(audio='#a,video='#b,midi='#c)```
+source(audio='#a,video='#b,midi='#c)
+```
 
 IIR filter
 
@@ -1743,7 +1838,8 @@ IIR filter
 ```
 (?id:string,?bandwidth:float,frequency:float,
  source(audio='#a,video='#b,midi='#c))->
-source(audio='#a,video='#b,midi='#c)```
+source(audio='#a,video='#b,midi='#c)
+```
 
 All pass biquad filter.
 
@@ -1756,7 +1852,8 @@ All pass biquad filter.
 ```
 (?id:string,frequency:float,?q:float,
  source(audio='#a,video='#b,midi='#c))->
-source(audio='#a,video='#b,midi='#c)```
+source(audio='#a,video='#b,midi='#c)
+```
 
 Band pass biquad filter.
 
@@ -1769,7 +1866,8 @@ Band pass biquad filter.
 ```
 (?id:string,frequency:float,?q:float,
  source(audio='#a,video='#b,midi='#c))->
-source(audio='#a,video='#b,midi='#c)```
+source(audio='#a,video='#b,midi='#c)
+```
 
 High pass biquad filter.
 
@@ -1782,7 +1880,8 @@ High pass biquad filter.
 ```
 (?id:string,frequency:float,?slope:float,
  source(audio='#a,video='#b,midi='#c))->
-source(audio='#a,video='#b,midi='#c)```
+source(audio='#a,video='#b,midi='#c)
+```
 
 High shelf biquad filter.
 
@@ -1795,7 +1894,8 @@ High shelf biquad filter.
 ```
 (?id:string,frequency:float,?q:float,
  source(audio='#a,video='#b,midi='#c))->
-source(audio='#a,video='#b,midi='#c)```
+source(audio='#a,video='#b,midi='#c)
+```
 
 Low pass biquad filter.
 
@@ -1808,7 +1908,8 @@ Low pass biquad filter.
 ```
 (?id:string,frequency:float,?slope:float,
  source(audio='#a,video='#b,midi='#c))->
-source(audio='#a,video='#b,midi='#c)```
+source(audio='#a,video='#b,midi='#c)
+```
 
 Low shelf biquad filter.
 
@@ -1821,7 +1922,8 @@ Low shelf biquad filter.
 ```
 (?id:string,frequency:float,?q:float,
  source(audio='#a,video='#b,midi='#c))->
-source(audio='#a,video='#b,midi='#c)```
+source(audio='#a,video='#b,midi='#c)
+```
 
 Band pass biquad filter.
 
@@ -1834,7 +1936,8 @@ Band pass biquad filter.
 ```
 (?id:string,frequency:float,?gain:float,?q:float,
  source(audio='#a,video='#b,midi='#c))->
-source(audio='#a,video='#b,midi='#c)```
+source(audio='#a,video='#b,midi='#c)
+```
 
 Peak EQ biquad filter.
 
@@ -1848,7 +1951,8 @@ Peak EQ biquad filter.
 ```
 (?id:string,frequency:float,?q:float,
  source(audio='#a,video='#b,midi='#c))->
-source(audio='#a,video='#b,midi='#c)```
+source(audio='#a,video='#b,midi='#c)
+```
 
 IIR filter
 
@@ -1861,7 +1965,8 @@ IIR filter
 ```
 (?id:string,frequency:float,?q:float,
  source(audio='#a,video='#b,midi='#c))->
-source(audio='#a,video='#b,midi='#c)```
+source(audio='#a,video='#b,midi='#c)
+```
 
 IIR filter
 
@@ -1874,7 +1979,8 @@ IIR filter
 ```
 (?id:string,frequency:float,?q:float,
  source(audio='#a,video='#b,midi='#c))->
-source(audio='#a,video='#b,midi='#c)```
+source(audio='#a,video='#b,midi='#c)
+```
 
 IIR filter
 
@@ -1888,7 +1994,8 @@ IIR filter
 (?id:string,mode:string,rc:'a,?wetness:'b,
  source(audio='#c,video='#d,midi='#e))->
 source(audio='#c,video='#d,midi='#e)
-where 'a, 'b is either float or ()->float```
+where 'a, 'b is either float or ()->float
+```
 
 First-order filter (RC filter).
 
@@ -1907,7 +2014,8 @@ anything that is either float or ()->float```
 (?id:string,?delay:float,?feedback:'a,?freq:'b,?phase:'c,
  source(audio='#d,video='#e,midi='#f))->
 source(audio='#d,video='#e,midi='#f)
-where 'a, 'b, 'c is either float or ()->float```
+where 'a, 'b, 'c is either float or ()->float
+```
 
 Flanger effect.
 
@@ -1927,7 +2035,8 @@ anything that is either float or ()->float```
 #### helium
 ```
 (source(audio='#a+1,video=0,midi=0))->
-source(audio='#a+1,video=0,midi=0)```
+source(audio='#a+1,video=0,midi=0)
+```
 
 Increases the pitch, making voices sound like on helium.
 
@@ -1938,7 +2047,8 @@ Increases the pitch, making voices sound like on helium.
 (?id:string,?gain:'a,
  source(audio='#b,video='#c,midi='#d))->
 source(audio='#b,video='#c,midi='#d)
-where 'a is either float or ()->float```
+where 'a is either float or ()->float
+```
 
 Mono Amplifier by Richard Furse (LADSPA example plugins).
 
@@ -1952,7 +2062,8 @@ anything that is either float or ()->float```
 ```
 (?id:string,?gain:'a,source(audio=2,video=0,midi=0))->
 source(audio=2,video=0,midi=0)
-where 'a is either float or ()->float```
+where 'a is either float or ()->float
+```
 
 Stereo Amplifier by Richard Furse (LADSPA example plugins).
 
@@ -1967,7 +2078,8 @@ anything that is either float or ()->float```
 (?id:string,?delay:'a,?dry_wet_balance:'b,
  source(audio='#c,video='#d,midi='#e))->
 source(audio='#c,video='#d,midi='#e)
-where 'a, 'b is either float or ()->float```
+where 'a, 'b is either float or ()->float
+```
 
 Simple Delay Line by Richard Furse (LADSPA example plugins).
 
@@ -1985,7 +2097,8 @@ anything that is either float or ()->float```
 (?id:string,?cutoff_frequency:'a,
  source(audio='#b,video='#c,midi='#d))->
 source(audio='#b,video='#c,midi='#d)
-where 'a is either float or ()->float```
+where 'a is either float or ()->float
+```
 
 Simple High Pass Filter by Richard Furse (LADSPA example plugins).
 
@@ -2000,7 +2113,8 @@ anything that is either float or ()->float```
 (?id:string,?cutoff_frequency:'a,
  source(audio='#b,video='#c,midi='#d))->
 source(audio='#b,video='#c,midi='#d)
-where 'a is either float or ()->float```
+where 'a is either float or ()->float
+```
 
 Simple Low Pass Filter by Richard Furse (LADSPA example plugins).
 
@@ -2014,7 +2128,8 @@ anything that is either float or ()->float```
 ```
 (?id:string,?amplitude:'a)->
 source(audio=1,video=0,midi=0)
-where 'a is either float or ()->float```
+where 'a is either float or ()->float
+```
 
 White Noise Source by Richard Furse (LADSPA example plugins).
 
@@ -2026,7 +2141,8 @@ anything that is either float or ()->float```
 #### ladspa.sine_faaa
 ```
 (?id:string,source(audio=2,video=0,midi=0))->
-source(audio=1,video=0,midi=0)```
+source(audio=1,video=0,midi=0)
+```
 
 Sine Oscillator (Freq:audio, Amp:audio) by Richard Furse (LADSPA example plugins).
 
@@ -2038,7 +2154,8 @@ Sine Oscillator (Freq:audio, Amp:audio) by Richard Furse (LADSPA example plugins
 (?id:string,?amplitude:'a,
  source(audio='#b,video='#c,midi='#d))->
 source(audio='#b,video='#c,midi='#d)
-where 'a is either float or ()->float```
+where 'a is either float or ()->float
+```
 
 Sine Oscillator (Freq:audio, Amp:control) by Richard Furse (LADSPA example plugins).
 
@@ -2053,7 +2170,8 @@ anything that is either float or ()->float```
 (?id:string,?frequency:'a,
  source(audio='#b,video='#c,midi='#d))->
 source(audio='#b,video='#c,midi='#d)
-where 'a is either float or ()->float```
+where 'a is either float or ()->float
+```
 
 Sine Oscillator (Freq:control, Amp:audio) by Richard Furse (LADSPA example plugins).
 
@@ -2067,7 +2185,8 @@ anything that is either float or ()->float```
 ```
 (?id:string,?amplitude:'a,?frequency:'b)->
 source(audio=1,video=0,midi=0)
-where 'a, 'b is either float or ()->float```
+where 'a, 'b is either float or ()->float
+```
 
 Sine Oscillator (Freq:control, Amp:control) by Richard Furse (LADSPA example plugins).
 
@@ -2085,7 +2204,8 @@ anything that is either float or ()->float```
  ?release:'d,?rms_window:float,?threshold:'e,
  source(audio='#f,video='#g,midi='#h))->
 source(audio='#f,video='#g,midi='#h)
-where 'a, 'b, 'c, 'd, 'e is either float or ()->float```
+where 'a, 'b, 'c, 'd, 'e is either float or ()->float
+```
 
 Limit the signal.
 
@@ -2112,7 +2232,8 @@ anything that is either float or ()->float```
 #### mic_filter
 ```
 (source(audio='#a,video='#b,midi='#c))->
-source(audio='#a,video='#b,midi='#c)```
+source(audio='#a,video='#b,midi='#c)
+```
 
 Remove low frequencies often produced by microphones.
 
@@ -2121,7 +2242,8 @@ Remove low frequencies often produced by microphones.
 #### mix
 ```
 (?id:string,[source(audio='#a,video='#b,midi='#c)])->
-source(audio='#a,video='#b,midi='#c)```
+source(audio='#a,video='#b,midi='#c)
+```
 
 Mixing table controllable via the telnet interface.
 
@@ -2134,7 +2256,8 @@ Mixing table controllable via the telnet interface.
  ?k_up:'d,?target:'e,?threshold:'f,?window:float,
  source(audio='#g,video='#h,midi='#i))->
 source(audio='#g,video='#h,midi='#i)
-where 'a, 'b, 'c, 'd, 'e, 'f is either float or ()->float```
+where 'a, 'b, 'c, 'd, 'e, 'f is either float or ()->float
+```
 
 Normalize the signal. Dynamic normalization of the signal is sometimes the only option, and can make a listening experience much nicer. However, its dynamic aspect implies some limitations which can go as far as creating saturation in some extreme cases. If possible, consider using some track-based normalization techniques such as those based on replay gain. See the documentation for more details.
 
@@ -2163,7 +2286,8 @@ anything that is either float or ()->float```
 #### nrj
 ```
 (source(audio='#a,video='#b,midi='#c))->
-source(audio='#a,video='#b,midi='#c)```
+source(audio='#a,video='#b,midi='#c)
+```
 
 Compress and normalize, producing a more uniform and ``full'' sound.
 
@@ -2174,7 +2298,8 @@ Compress and normalize, producing a more uniform and ``full'' sound.
 (?id:string,?buffer:float,?max:float,process:string,
  ?restart:bool,?restart_on_error:bool,
  source(audio='#a+1,video=0,midi=0))->
-source(audio='#b+1,video=0,midi=0)```
+source(audio='#b+1,video=0,midi=0)
+```
 
 Process audio signal through a given process stdin/stdout.
 
@@ -2189,7 +2314,8 @@ Process audio signal through a given process stdin/stdout.
 #### sky
 ```
 (source(audio='#a,video='#b,midi=0))->
-source(audio='#a,video='#b,midi=0)```
+source(audio='#a,video='#b,midi=0)
+```
 
 Multiband-compression.
 
@@ -2204,7 +2330,8 @@ Multiband-compression.
    source(audio='#a+1,video=0,midi=0))->
   source(audio='#a+1,video=0,midi=0)),
  source(audio='#a+1,video=0,midi=0))->
-source(audio='#a+1,video=0,midi=0)```
+source(audio='#a+1,video=0,midi=0)
+```
 
 Cross operator, allowing the composition of the N last seconds of a track with the beginning of the next track, using a transition function depending on the relative power of the signal before and after the end of track.
 
@@ -2214,11 +2341,11 @@ Cross operator, allowing the composition of the N last seconds of a track with t
 * `duration` (`float` -- defaults to `5.0`): Duration in seconds of the crossed end of track.
 * `minimum` (`float` -- defaults to `-1.0`): Minimum duration (in sec.) for a cross: If the track ends without any warning (e.g. in case of skip) there may not be enough data for a decent composition. Set to 0. to avoid having transitions after skips, or more to avoid transitions on short tracks. With the negative default, transitions always occur.
 * `width` (`float` -- defaults to `1.0`): Width of the power computation window.
-* `(unlabeled)` (```
+* `(unlabeled)` (`
 (float,float,[(string*string)],[(string*string)],
  source(audio='#a+1,video=0,midi=0),
  source(audio='#a+1,video=0,midi=0))->
-source(audio='#a+1,video=0,midi=0)```
+source(audio='#a+1,video=0,midi=0)`
 ): Transition function, composing from the end of a track and the next track. It also takes the power of the signal before and after the transition, and the metadata.
 * `(unlabeled)` (`source(audio='#a+1,video=0,midi=0)`)
 
@@ -2227,28 +2354,30 @@ source(audio='#a+1,video=0,midi=0)```
 (?id:string,?pitch:'a,?rate:'b,?tempo:'c,
  source(audio='#d+1,video=0,midi=0))->
 source(audio='#d+1,video=0,midi=0)
-where 'a, 'b, 'c is either float or ()->float```
+where 'a, 'b, 'c is either float or ()->float
+```
 
 WARNING: This is only EXPERIMENTAL!
 
 Change the rate, the tempo or the pitch of the sound.
 
 * `id` (`string` -- defaults to `""`): Force the value of the source ID.
-* `pitch` (```
-anything that is either float or ()->float```
+* `pitch` (`
+anything that is either float or ()->float`
  -- defaults to `1.0`)
-* `rate` (```
-anything that is either float or ()->float```
+* `rate` (`
+anything that is either float or ()->float`
  -- defaults to `1.0`)
-* `tempo` (```
-anything that is either float or ()->float```
+* `tempo` (`
+anything that is either float or ()->float`
  -- defaults to `1.0`)
 * `(unlabeled)` (`source(audio='#d+1,video=0,midi=0)`)
 
 #### stereo.ms.decode
 ```
 (?id:string,?width:float,source(audio=2,video=0,midi=0))->
-source(audio=2,video=0,midi=0)```
+source(audio=2,video=0,midi=0)
+```
 
 Decode mid+side stereo (M/S) to left+right stereo.
 
@@ -2259,7 +2388,8 @@ Decode mid+side stereo (M/S) to left+right stereo.
 #### stereo.ms.encode
 ```
 (?id:string,source(audio=2,video=0,midi=0))->
-source(audio=2,video=0,midi=0)```
+source(audio=2,video=0,midi=0)
+```
 
 Encode left+right stereo to mid+side stereo (M/S).
 
@@ -2271,7 +2401,8 @@ Encode left+right stereo to mid+side stereo (M/S).
 (?id:string,?field:'a,?pan:'b,
  source(audio=2,video=0,midi=0))->
 source(audio=2,video=0,midi=0)
-where 'a, 'b is either float or ()->float```
+where 'a, 'b is either float or ()->float
+```
 
 Pan a stereo sound.
 
@@ -2289,14 +2420,15 @@ anything that is either float or ()->float```
 (?id:string,?active:bool,ratio:'a,
  source(audio='#b+1,video=0,midi=0))->
 source(audio='#c+1,video=0,midi=0)
-where 'a is either float or ()->float```
+where 'a is either float or ()->float
+```
 
 Slow down or accelerate an audio stream by stretching (sounds lower) or squeezing it (sounds higher).
 
 * `id` (`string` -- defaults to `""`): Force the value of the source ID.
 * `active` (`bool` -- defaults to `true`): The active behavior is to keep ticking the child's clock when the operator is not streaming. Otherwise the child's clock is strictly based on what is streamed off the child source, which results in time-dependent active sources to be frozen when that source is stopped.
-* `ratio` (```
-anything that is either float or ()->float```
+* `ratio` (`
+anything that is either float or ()->float`
 ): A value higher than 1 means slowing down.
 * `(unlabeled)` (`source(audio='#b+1,video=0,midi=0)`)
 
@@ -2304,7 +2436,8 @@ Source / Sound Synthesis
 ------------------------
 #### dssi.register
 ```
-(string)->unit```
+(string)->unit
+```
 
 Resgister a DSSI plugin.
 
@@ -2315,7 +2448,8 @@ Resgister a DSSI plugin.
 (?id:string,?attack:float,?decay:float,?envelope:bool,
  ?release:float,?sustain:float,
  source(audio='#a+1,video='#b,midi='#c+16))->
-source(audio='#a+1,video='#b,midi='#c+16)```
+source(audio='#a+1,video='#b,midi='#c+16)
+```
 
 Saw synthesizer. It creates one synthesizer for each channel.
 
@@ -2325,16 +2459,15 @@ Saw synthesizer. It creates one synthesizer for each channel.
 * `envelope` (`bool` -- defaults to `true`): Use envelope.
 * `release` (`float` -- defaults to `0.01`): Envelope release (in seconds).
 * `sustain` (`float` -- defaults to `0.9`): Envelope sustain level.
-* `(unlabeled)` (```
-source(audio='#a+1,video='#b,midi='#c+16)```
-)
+* `(unlabeled)` (`source(audio='#a+1,video='#b,midi='#c+16)`)
 
 #### synth.all.sine
 ```
 (?id:string,?attack:float,?decay:float,?envelope:bool,
  ?release:float,?sustain:float,
  source(audio='#a+1,video='#b,midi='#c+16))->
-source(audio='#a+1,video='#b,midi='#c+16)```
+source(audio='#a+1,video='#b,midi='#c+16)
+```
 
 Sine synthesizer. It creates one synthesizer for each channel.
 
@@ -2344,16 +2477,15 @@ Sine synthesizer. It creates one synthesizer for each channel.
 * `envelope` (`bool` -- defaults to `true`): Use envelope.
 * `release` (`float` -- defaults to `0.01`): Envelope release (in seconds).
 * `sustain` (`float` -- defaults to `0.9`): Envelope sustain level.
-* `(unlabeled)` (```
-source(audio='#a+1,video='#b,midi='#c+16)```
-)
+* `(unlabeled)` (`source(audio='#a+1,video='#b,midi='#c+16)`)
 
 #### synth.all.square
 ```
 (?id:string,?attack:float,?decay:float,?envelope:bool,
  ?release:float,?sustain:float,
  source(audio='#a+1,video='#b,midi='#c+16))->
-source(audio='#a+1,video='#b,midi='#c+16)```
+source(audio='#a+1,video='#b,midi='#c+16)
+```
 
 Square synthesizer. It creates one synthesizer for each channel.
 
@@ -2363,16 +2495,15 @@ Square synthesizer. It creates one synthesizer for each channel.
 * `envelope` (`bool` -- defaults to `true`): Use envelope.
 * `release` (`float` -- defaults to `0.01`): Envelope release (in seconds).
 * `sustain` (`float` -- defaults to `0.9`): Envelope sustain level.
-* `(unlabeled)` (```
-source(audio='#a+1,video='#b,midi='#c+16)```
-)
+* `(unlabeled)` (`source(audio='#a+1,video='#b,midi='#c+16)`)
 
 #### synth.saw
 ```
 (?id:string,?attack:float,?channel:int,?decay:float,
  ?envelope:bool,?release:float,?sustain:float,
  ?volume:float,source(audio='#a+1,video='#b,midi='#c+1))->
-source(audio='#a+1,video='#b,midi='#c+1)```
+source(audio='#a+1,video='#b,midi='#c+1)
+```
 
 Saw synthesizer.
 
@@ -2384,16 +2515,15 @@ Saw synthesizer.
 * `release` (`float` -- defaults to `0.05`): Envelope release (in seconds).
 * `sustain` (`float` -- defaults to `0.9`): Envelope sustain level.
 * `volume` (`float` -- defaults to `0.3`): Initial volume.
-* `(unlabeled)` (```
-source(audio='#a+1,video='#b,midi='#c+1)```
-)
+* `(unlabeled)` (`source(audio='#a+1,video='#b,midi='#c+1)`)
 
 #### synth.sine
 ```
 (?id:string,?attack:float,?channel:int,?decay:float,
  ?envelope:bool,?release:float,?sustain:float,
  ?volume:float,source(audio='#a+1,video='#b,midi='#c+1))->
-source(audio='#a+1,video='#b,midi='#c+1)```
+source(audio='#a+1,video='#b,midi='#c+1)
+```
 
 Sine synthesizer.
 
@@ -2405,16 +2535,15 @@ Sine synthesizer.
 * `release` (`float` -- defaults to `0.05`): Envelope release (in seconds).
 * `sustain` (`float` -- defaults to `0.9`): Envelope sustain level.
 * `volume` (`float` -- defaults to `0.3`): Initial volume.
-* `(unlabeled)` (```
-source(audio='#a+1,video='#b,midi='#c+1)```
-)
+* `(unlabeled)` (`source(audio='#a+1,video='#b,midi='#c+1)`)
 
 #### synth.square
 ```
 (?id:string,?attack:float,?channel:int,?decay:float,
  ?envelope:bool,?release:float,?sustain:float,
  ?volume:float,source(audio='#a+1,video='#b,midi='#c+1))->
-source(audio='#a+1,video='#b,midi='#c+1)```
+source(audio='#a+1,video='#b,midi='#c+1)
+```
 
 Square synthesizer.
 
@@ -2426,16 +2555,15 @@ Square synthesizer.
 * `release` (`float` -- defaults to `0.05`): Envelope release (in seconds).
 * `sustain` (`float` -- defaults to `0.9`): Envelope sustain level.
 * `volume` (`float` -- defaults to `0.3`): Initial volume.
-* `(unlabeled)` (```
-source(audio='#a+1,video='#b,midi='#c+1)```
-)
+* `(unlabeled)` (`source(audio='#a+1,video='#b,midi='#c+1)`)
 
 Source / Track Processing
 -------------------------
 #### append
 ```
 (?id:string,?insert_missing:bool,?merge:bool,source('a),
- (([(string*string)])->source('a)))->source('a)```
+ (([(string*string)])->source('a)))->source('a)
+```
 
 Append an extra track to every track. Set the metadata 'liq_append' to 'false' to inhibit appending on one track.
 
@@ -2447,7 +2575,8 @@ Append an extra track to every track. Set the metadata 'liq_append' to 'false' t
 
 #### at
 ```
-((()->bool),source('a))->source('a)```
+((()->bool),source('a))->source('a)
+```
 
 Restrict a source to play only when a predicate is true.
 
@@ -2459,7 +2588,8 @@ Restrict a source to play only when a predicate is true.
 (?id:string,?conservative:bool,?start_next:float,
  ?fade_in:float,?fade_out:float,
  source(audio='#a,video='#b,midi=0))->
-source(audio='#a,video='#b,midi=0)```
+source(audio='#a,video='#b,midi=0)
+```
 
 Simple crossfade.
 
@@ -2475,7 +2605,8 @@ Simple crossfade.
 (?id:string,?cue_in_metadata:string,
  ?cue_out_metadata:string,
  source(audio='#a,video='#b,midi='#c))->
-source(audio='#a,video='#b,midi='#c)```
+source(audio='#a,video='#b,midi='#c)
+```
 
 Start track after a cue in point and stop it at cue out point. The cue points are given as metadata, in seconds from the begining of tracks.
 
@@ -2486,7 +2617,8 @@ Start track after a cue in point and stop it at cue out point. The cue points ar
 
 #### delay
 ```
-(?id:string,?initial:bool,float,source('a))->source('a)```
+(?id:string,?initial:bool,float,source('a))->source('a)
+```
 
 Prevents the child from being ready again too fast after a end of track
 
@@ -2497,7 +2629,8 @@ Prevents the child from being ready again too fast after a end of track
 
 #### drop_metadata
 ```
-(source('a))->source('a)```
+(source('a))->source('a)
+```
 
 Removes all metadata coming from a source.
 
@@ -2509,7 +2642,8 @@ Removes all metadata coming from a source.
  ?min_noise:float,?start_blank:bool,?threshold:float,
  ?track_sensitive:bool,
  source(audio='#a,video='#b,midi='#c))->
-source(audio='#a,video='#b,midi='#c)```
+source(audio='#a,video='#b,midi='#c)
+```
 
 Eat blanks, i.e., drop the contents of the stream until it is not blank anymore.
 
@@ -2527,7 +2661,8 @@ Eat blanks, i.e., drop the contents of the stream until it is not blank anymore.
 (?id:string,?replay_metadata:bool,?track_sensitive:'a,
  ?transitions:[(source('b),source('b))->source('b)],
  [source('b)])->source('b)
-where 'a is either bool or ()->bool```
+where 'a is either bool or ()->bool
+```
 
 At the beginning of each track, select the first ready child.
 
@@ -2541,7 +2676,8 @@ anything that is either bool or ()->bool```
 
 #### fallback.skip
 ```
-(input:source('a),source('a))->source('a)```
+(input:source('a),source('a))->source('a)
+```
 
 Special track insensitive fallback that always skips current song before switching.
 
@@ -2551,7 +2687,8 @@ Special track insensitive fallback that always skips current song before switchi
 #### insert_metadata
 ```
 (?id:string,source('a))->
-((([(string*string)])->unit)*source('a))```
+((([(string*string)])->unit)*source('a))
+```
 
 Dynamically insert metadata in a stream. Returns a pair (f,s) where s is a new source and f is a function of type (metadata)->unit, used to insert metadata in s.
 
@@ -2562,7 +2699,8 @@ Dynamically insert metadata in a stream. Returns a pair (f,s) where s is a new s
 ```
 (?id:string,?insert_missing:bool,?strip:bool,
  ?update:bool,(([(string*string)])->[(string*string)]),
- source('a))->source('a)```
+ source('a))->source('a)
+```
 
 Rewrite metadata on the fly using a function.
 
@@ -2575,7 +2713,8 @@ Rewrite metadata on the fly using a function.
 
 #### merge_tracks
 ```
-(?id:string,source('a))->source('a)```
+(?id:string,source('a))->source('a)
+```
 
 Merge consecutive tracks from the input source.
 
@@ -2584,7 +2723,8 @@ Merge consecutive tracks from the input source.
 
 #### mksafe
 ```
-(?id:string,source('a))->source('a)```
+(?id:string,source('a))->source('a)
+```
 
 Turn a source into an infaillible source by adding blank when the source is not available.
 
@@ -2595,7 +2735,8 @@ Turn a source into an infaillible source by adding blank when the source is not 
 ```
 (?urgency:string,?icon:string,?time:int,
  ?display:(([(string*string)])->string),?title:string,
- source('a))->source('a)```
+ source('a))->source('a)
+```
 
 Use notify to display metadata info.
 
@@ -2612,7 +2753,8 @@ Use notify to display metadata info.
  ?on_noise:(()->unit),?start_blank:bool,?threshold:float,
  ?track_sensitive:bool,(()->unit),
  source(audio='#a,video='#b,midi='#c))->
-source(audio='#a,video='#b,midi='#c)```
+source(audio='#a,video='#b,midi='#c)
+```
 
 Calls a given handler when detecting a blank.
 
@@ -2630,7 +2772,8 @@ Calls a given handler when detecting a blank.
 ```
 (?id:string,?delay:float,
  ((float,[(string*string)])->unit),source('a))->
-source('a)```
+source('a)
+```
 
 Call a given handler when there is less than a given amount of time remaining before then end of track.
 
@@ -2642,7 +2785,8 @@ Call a given handler when there is less than a given amount of time remaining be
 #### on_metadata
 ```
 (?id:string,(([(string*string)])->unit),source('a))->
-source('a)```
+source('a)
+```
 
 Call a given handler on metadata packets.
 
@@ -2654,7 +2798,8 @@ Call a given handler on metadata packets.
 ```
 (?id:string,?force:bool,?offset:float,?override:string,
  ((float,[(string*string)])->unit),source('a))->
-source('a)```
+source('a)
+```
 
 Call a given handler when position in track is equal or more than a given amount of time.
 
@@ -2668,7 +2813,8 @@ Call a given handler when position in track is equal or more than a given amount
 #### on_track
 ```
 (?id:string,(([(string*string)])->unit),source('a))->
-source('a)```
+source('a)
+```
 
 Call a given handler on new tracks.
 
@@ -2678,7 +2824,8 @@ Call a given handler on new tracks.
 
 #### once
 ```
-(source('a))->source('a)```
+(source('a))->source('a)
+```
 
 Creates a source that plays only one track of the input source.
 
@@ -2688,7 +2835,8 @@ Creates a source that plays only one track of the input source.
 ```
 (?color:string,?position:string,?font:string,
  ?display:(([(string*string)])->string),source('a))->
-source('a)```
+source('a)
+```
 
 Use X On Screen Display to display metadata info.
 
@@ -2702,7 +2850,8 @@ Use X On Screen Display to display metadata info.
 ```
 (?id:string,?normalize:bool,?start_next:string,
  ?weights:[int],[source(audio='#a,video='#b,midi=0)])->
-source(audio='#a,video='#b,midi=0)```
+source(audio='#a,video='#b,midi=0)
+```
 
 Rotate between overlapping sources. Next track starts according to 'liq_start_next' offset metadata.
 
@@ -2714,7 +2863,8 @@ Rotate between overlapping sources. Next track starts according to 'liq_start_ne
 
 #### playlist.merge
 ```
-(?id:string,?random:bool,string)->source('a)```
+(?id:string,?random:bool,string)->source('a)
+```
 
 Play the whole playlist as one track.
 
@@ -2728,15 +2878,17 @@ Play the whole playlist as one track.
  source(audio='#a,video='#b,midi='#c),
  (([(string*string)])->
   source(audio='#a,video='#b,midi='#c)))->
-source(audio='#a,video='#b,midi='#c)```
+source(audio='#a,video='#b,midi='#c)
+```
 
 Prepend an extra track before every track. Set the metadata 'liq_prepend' to 'false' to inhibit prepending on one track.
 
 * `id` (`string` -- defaults to `""`): Force the value of the source ID.
 * `merge` (`bool` -- defaults to `false`): Merge the track with its appended track.
 * `(unlabeled)` (`source(audio='#a,video='#b,midi='#c)`)
-* `(unlabeled)` (```
-([(string*string)])->source(audio='#a,video='#b,midi='#c)```
+* `(unlabeled)` (`
+([(string*string)])->source(audio='#a,video='#b,midi='#c)
+`
 ): Given the metadata, build the source producing the track to prepend. This source is allowed to fail (produce nothing) if no relevant track is to be appended. However, success must be immediate or it will not be taken into account.
 
 #### random
@@ -2744,7 +2896,8 @@ Prepend an extra track before every track. Set the metadata 'liq_prepend' to 'fa
 (?id:string,?replay_metadata:bool,?track_sensitive:'a,
  ?transitions:[(source('b),source('b))->source('b)],
  ?weights:[int],[source('b)])->source('b)
-where 'a is either bool or ()->bool```
+where 'a is either bool or ()->bool
+```
 
 At the beginning of every track, select a random ready child.
 
@@ -2762,7 +2915,8 @@ anything that is either bool or ()->bool```
 (?id:string,?replay_metadata:bool,?track_sensitive:'a,
  ?transitions:[(source('b),source('b))->source('b)],
  ?weights:[int],[source('b)])->source('b)
-where 'a is either bool or ()->bool```
+where 'a is either bool or ()->bool
+```
 
 Rotate between the sources.
 
@@ -2779,7 +2933,8 @@ anything that is either bool or ()->bool```
 ```
 (?id:string,?track_sensitive:bool,
  ?transitions:[(source('a),source('a))->source('a)],
- ?weights:[int],[source('a)])->source('a)```
+ ?weights:[int],[source('a)])->source('a)
+```
 
 Same operator as rotate but merges tracks from each sources.
 For instance, `rotate.merge([intro,main,outro])` creates a source that plays a sequence `[intro,main,outro]` as single track and loops back.
@@ -2792,7 +2947,8 @@ For instance, `rotate.merge([intro,main,outro])` creates a source that plays a s
 
 #### say_metadata
 ```
-(source(?A),?pattern:string)->source(?A)```
+(source(?A),?pattern:string)->source(?A)
+```
 
 Append speech-synthesized tracks reading the metadata.
 
@@ -2803,7 +2959,8 @@ Append speech-synthesized tracks reading the metadata.
 
 #### sequence
 ```
-(?id:string,?merge:bool,[source('a)])->source('a)```
+(?id:string,?merge:bool,[source('a)])->source('a)
+```
 
 Play only one track of every successive source, except for the last one which is played as much as available. Sources are released after being used, allowing them to shutdown cleanly and free their resources.
 
@@ -2813,7 +2970,8 @@ Play only one track of every successive source, except for the last one which is
 
 #### server.insert_metadata
 ```
-(?id:string,source('a))->source('a)```
+(?id:string,source('a))->source('a)
+```
 
 Register a server/telnet command to update a source's metadata. Returns a new source, which will receive the updated metadata. The command has the following format: insert key1=``val1'',key2=``val2'',...
 
@@ -2825,7 +2983,8 @@ Register a server/telnet command to update a source's metadata. Returns a new so
 (?id:string,?threshold:float,?max_blank:float,
  ?min_noise:float,?track_sensitive:bool,
  source(audio='#a,video='#b,midi='#c))->
-source(audio='#a,video='#b,midi='#c)```
+source(audio='#a,video='#b,midi='#c)
+```
 
 Skip track when detecting a blank.
 
@@ -2844,17 +3003,19 @@ Skip track when detecting a blank.
            source(audio='#a+1,video=0,midi=0)),
  ?high:float,?medium:float,?margin:float,?width:float,
  ?conservative:bool,source(audio='#a+1,video=0,midi=0))->
-source(audio='#a+1,video=0,midi=0)```
+source(audio='#a+1,video=0,midi=0)
+```
 
 Crossfade between tracks, taking the respective volume levels into account in the choice of the transition.
 
 * `start_next` (`float` -- defaults to `5.0`): Crossing duration, if any.
 * `fade_in` (`float` -- defaults to `3.0`): Fade-in duration, if any.
 * `fade_out` (`float` -- defaults to `3.0`): Fade-out duration, if any.
-* `default` (```
+* `default` (`
 (source(audio='#a+1,video=0,midi=0),
  source(audio='#a+1,video=0,midi=0))->
-source(audio='#a+1,video=0,midi=0)```
+source(audio='#a+1,video=0,midi=0)
+`
  -- defaults to <code><fun></code>): Transition used when no rule applies (default: sequence).
 * `high` (`float` -- defaults to `-15.0`): Value, in dB, for loud sound level.
 * `medium` (`float` -- defaults to `-32.0`): Value, in dB, for medium sound level.
@@ -2868,7 +3029,8 @@ source(audio='#a+1,video=0,midi=0)```
 (?delay:float,?p:float,
  normal:source(audio='#a,video='#b,midi=0),
  special:source(audio='#a,video='#b,midi=0))->
-source(audio='#a,video='#b,midi=0)```
+source(audio='#a,video='#b,midi=0)
+```
 
 Mixes two streams, with faded transitions between the state when only the normal stream is available and when the special stream gets added on top of it.
 
@@ -2879,7 +3041,8 @@ Mixes two streams, with faded transitions between the state when only the normal
 
 #### source.dynamic
 ```
-(?id:string,(()->[source('a)]))->source('a)```
+(?id:string,(()->[source('a)]))->source('a)
+```
 
 WARNING: This is only EXPERIMENTAL!
 
@@ -2890,7 +3053,8 @@ Dynamically change the underlying source.
 
 #### store_metadata
 ```
-(?id:string,?size:int,source('a))->source('a)```
+(?id:string,?size:int,source('a))->source('a)
+```
 
 Keep track of the last N metadata packets in the stream, and make the history available via a server command.
 
@@ -2904,7 +3068,8 @@ Keep track of the last N metadata packets in the stream, and make the history av
  ?start_blank:bool,?threshold:float,
  ?track_sensitive:bool,
  source(audio='#a,video='#b,midi='#c))->
-active_source(audio='#a,video='#b,midi='#c)```
+active_source(audio='#a,video='#b,midi='#c)
+```
 
 Make the source unavailable when it is streaming blank.
 
@@ -2922,7 +3087,8 @@ Make the source unavailable when it is streaming blank.
  ?track_sensitive:'a,
  ?transitions:[(source('b),source('b))->source('b)],
  [((()->bool)*source('b))])->source('b)
-where 'a is either bool or ()->bool```
+where 'a is either bool or ()->bool
+```
 
 At the beginning of a track, select the first source whose predicate is true.
 
@@ -2941,7 +3107,8 @@ Source / Video Processing
 ```
 (?id:string,?width:int,?height:int,?x:int,?y:int,file:'a,
  source(audio='#b,video='#c,midi=0))->
-source(audio='#b,video='#c,midi=0)```
+source(audio='#b,video='#c,midi=0)
+```
 
 Add a static image on the first video channel.
 
@@ -2959,7 +3126,8 @@ Add a static image on the first video channel.
  ?metadata:string,?size:int,?speed:int,?x:int,?y:int,'a,
  source(audio='#b,video='#c+1,midi='#d))->
 source(audio='#b,video='#c+1,midi='#d)
-where 'a is either string or ()->string```
+where 'a is either string or ()->string
+```
 
 Add a scrolling line of text on video frames.
 
@@ -2985,7 +3153,8 @@ anything that is either string or ()->string```
  ?metadata:string,?size:int,?speed:int,?x:int,?y:int,'a,
  source(audio='#b,video='#c+1,midi='#d))->
 source(audio='#b,video='#c+1,midi='#d)
-where 'a is either string or ()->string```
+where 'a is either string or ()->string
+```
 
 Display a text (using the SDL library).
 
@@ -3011,7 +3180,8 @@ anything that is either string or ()->string```
  ?metadata:string,?size:int,?speed:int,?x:int,?y:int,'a,
  source(audio='#b,video='#c+1,midi='#d))->
 source(audio='#b,video='#c+1,midi='#d)
-where 'a is either string or ()->string```
+where 'a is either string or ()->string
+```
 
 Display a text (using the SDL library).
 
@@ -3037,7 +3207,8 @@ anything that is either string or ()->string```
  ?metadata:string,?size:int,?speed:int,?x:int,?y:int,'a,
  source(audio='#b,video='#c+1,midi='#d))->
 source(audio='#b,video='#c+1,midi='#d)
-where 'a is either string or ()->string```
+where 'a is either string or ()->string
+```
 
 Display a text (using the SDL library).
 
@@ -3061,7 +3232,8 @@ anything that is either string or ()->string```
 ```
 (?id:string,?duration:float,?transition:string,
  ?type:string,source(audio='#a,video='#b+1,midi='#c))->
-source(audio='#a,video='#b+1,midi='#c)```
+source(audio='#a,video='#b+1,midi='#c)
+```
 
 Fade a stream to black.
 
@@ -3076,7 +3248,8 @@ Fade a stream to black.
 (?id:string,?duration:float,?override:string,
  ?transition:string,?type:string,
  source(audio='#a,video='#b+1,midi='#c))->
-source(audio='#a,video='#b+1,midi='#c)```
+source(audio='#a,video='#b+1,midi='#c)
+```
 
 Fade the beginning of tracks. Metadata 'liq_video_fade_in' can be used to set the duration for a specific track (float in seconds).
 
@@ -3091,7 +3264,8 @@ Fade the beginning of tracks. Metadata 'liq_video_fade_in' can be used to set th
 ```
 (?id:string,?duration:float,?transition:string,
  ?type:string,source(audio='#a,video='#b+1,midi='#c))->
-source(audio='#a,video='#b+1,midi='#c)```
+source(audio='#a,video='#b+1,midi='#c)
+```
 
 Fade the beginning of a stream.
 
@@ -3106,7 +3280,8 @@ Fade the beginning of a stream.
 (?id:string,?duration:float,?override:string,
  ?transition:string,?type:string,
  source(audio='#a,video='#b+1,midi='#c))->
-source(audio='#a,video='#b+1,midi='#c)```
+source(audio='#a,video='#b+1,midi='#c)
+```
 
 Fade the end of tracks. Metadata 'liq_video_fade_out' can be used to set the duration for a specific track (float in seconds).
 
@@ -3121,7 +3296,8 @@ Fade the end of tracks. Metadata 'liq_video_fade_out' can be used to set the dur
 ```
 (?id:string,?color:int,
  source(audio='#a,video='#b+1,midi='#c))->
-source(audio='#a,video='#b+1,midi='#c)```
+source(audio='#a,video='#b+1,midi='#c)
+```
 
 Fill frame with a color.
 
@@ -3132,7 +3308,8 @@ Fill frame with a color.
 #### video.greyscale
 ```
 (?id:string,source(audio='#a,video='#b+1,midi='#c))->
-source(audio='#a,video='#b+1,midi='#c)```
+source(audio='#a,video='#b+1,midi='#c)
+```
 
 Convert video to greyscale.
 
@@ -3142,7 +3319,8 @@ Convert video to greyscale.
 #### video.invert
 ```
 (?id:string,source(audio='#a,video='#b+1,midi='#c))->
-source(audio='#a,video='#b+1,midi='#c)```
+source(audio='#a,video='#b+1,midi='#c)
+```
 
 Invert video.
 
@@ -3152,7 +3330,8 @@ Invert video.
 #### video.lomo
 ```
 (?id:string,source(audio='#a,video='#b+1,midi='#c))->
-source(audio='#a,video='#b+1,midi='#c)```
+source(audio='#a,video='#b+1,midi='#c)
+```
 
 Emulate the ``Lomo effect''.
 
@@ -3162,7 +3341,8 @@ Emulate the ``Lomo effect''.
 #### video.opacity
 ```
 (?id:string,float,source(audio='#a,video='#b+1,midi='#c))->
-source(audio='#a,video='#b+1,midi='#c)```
+source(audio='#a,video='#b+1,midi='#c)
+```
 
 Scale opacity of video.
 
@@ -3173,7 +3353,8 @@ Scale opacity of video.
 #### video.opacity.blur
 ```
 (?id:string,source(audio='#a,video='#b+1,midi='#c))->
-source(audio='#a,video='#b+1,midi='#c)```
+source(audio='#a,video='#b+1,midi='#c)
+```
 
 Blur opacity of video.
 
@@ -3185,7 +3366,8 @@ Blur opacity of video.
 (?id:string,?angle:'a,?speed:'b,
  source(audio='#c,video='#d+1,midi='#e))->
 source(audio='#c,video='#d+1,midi='#e)
-where 'a, 'b is either float or ()->float```
+where 'a, 'b is either float or ()->float
+```
 
 Rotate video.
 
@@ -3202,7 +3384,8 @@ anything that is either float or ()->float```
 ```
 (?id:string,?scale:float,?x:int,?xscale:float,?y:int,
  ?yscale:float,source(audio='#a,video='#b+1,midi='#c))->
-source(audio='#a,video='#b+1,midi='#c)```
+source(audio='#a,video='#b+1,midi='#c)
+```
 
 Scale and translate video.
 
@@ -3217,7 +3400,8 @@ Scale and translate video.
 #### video.sepia
 ```
 (?id:string,source(audio='#a,video='#b+1,midi='#c))->
-source(audio='#a,video='#b+1,midi='#c)```
+source(audio='#a,video='#b+1,midi='#c)
+```
 
 Convert video to sepia.
 
@@ -3228,7 +3412,8 @@ Convert video to sepia.
 ```
 (?id:string,?normalize:bool,?proportional:bool,
  ?weights:[int],[source(audio='#a,video='#b+1,midi='#c)])->
-source(audio='#a,video='#b+1,midi='#c)```
+source(audio='#a,video='#b+1,midi='#c)
+```
 
 Tile sources (same as add but produces tiles of videos).
 
@@ -3244,7 +3429,8 @@ Tile sources (same as add but produces tiles of videos).
 ```
 (?id:string,?color:int,?precision:float,
  source(audio='#a,video='#b+1,midi='#c))->
-source(audio='#a,video='#b+1,midi='#c)```
+source(audio='#a,video='#b+1,midi='#c)
+```
 
 Set a color to be transparent.
 
@@ -3260,7 +3446,8 @@ Source / Visualization
 (?id:string,?duration:'a,
  source(audio='#b,video='#c,midi='#d))->
 ((()->float)*source(audio='#b,video='#c,midi='#d))
-where 'a is either float or ()->float```
+where 'a is either float or ()->float
+```
 
 Get current peak volume of the source. Returns a pair `(f,s)` where s is a new source and `f` is a function of type `() -> float` and returns the current peak volume of the source.
 
@@ -3276,7 +3463,8 @@ anything that is either float or ()->float```
  source(audio='#b+2,video='#c,midi='#d))->
 ((()->(float*float))*
  source(audio='#b+2,video='#c,midi='#d))
-where 'a is either float or ()->float```
+where 'a is either float or ()->float
+```
 
 Get current peak volume of the source. Returns a pair `(f,s)` where s is a new source and `f` is a function of type `() -> float` and returns the current peak volume of the source.
 
@@ -3291,7 +3479,8 @@ anything that is either float or ()->float```
 (?id:string,?duration:'a,
  source(audio='#b,video='#c,midi='#d))->
 ((()->float)*source(audio='#b,video='#c,midi='#d))
-where 'a is either float or ()->float```
+where 'a is either float or ()->float
+```
 
 Get current RMS volume of the source. Returns a pair `(f,s)` where s is a new source and `f` is a function of type `() -> float` and returns the current RMS volume of the source.
 
@@ -3307,7 +3496,8 @@ anything that is either float or ()->float```
  source(audio='#b+2,video='#c,midi='#d))->
 ((()->(float*float))*
  source(audio='#b+2,video='#c,midi='#d))
-where 'a is either float or ()->float```
+where 'a is either float or ()->float
+```
 
 Get current RMS volume of the source. Returns a pair `(f,s)` where s is a new source and `f` is a function of type `() -> float` and returns the current RMS volume of the source.
 
@@ -3320,7 +3510,8 @@ anything that is either float or ()->float```
 #### server.rms
 ```
 (?id:string,source(audio='#a,video='#b,midi='#c))->
-source(audio='#a,video='#b,midi='#c)```
+source(audio='#a,video='#b,midi='#c)
+```
 
 Register a command that outputs the RMS of the returned source.
 
@@ -3330,7 +3521,8 @@ Register a command that outputs the RMS of the returned source.
 #### video.volume
 ```
 (?id:string,source(audio='#a+1,video=0,midi=0))->
-source(audio='#a+1,video=1,midi=0)```
+source(audio='#a+1,video=1,midi=0)
+```
 
 Graphical visualization of the sound.
 
@@ -3341,7 +3533,8 @@ Graphical visualization of the sound.
 ```
 (?id:string,?scroll:bool,
  source(audio='#a+1,video='#b,midi='#c))->
-source(audio='#a+1,video='#b,midi='#c)```
+source(audio='#a+1,video='#b,midi='#c)
+```
 
 VU meter (display the audio volume).
 
@@ -3353,7 +3546,8 @@ Bool
 ----
 #### !=
 ```
-('a,'a)->bool where 'a is an orderable type```
+('a,'a)->bool where 'a is an orderable type
+```
 
 Comparison of comparable values.
 
@@ -3362,7 +3556,8 @@ Comparison of comparable values.
 
 #### <
 ```
-('a,'a)->bool where 'a is an orderable type```
+('a,'a)->bool where 'a is an orderable type
+```
 
 Comparison of comparable values.
 
@@ -3371,7 +3566,8 @@ Comparison of comparable values.
 
 #### <=
 ```
-('a,'a)->bool where 'a is an orderable type```
+('a,'a)->bool where 'a is an orderable type
+```
 
 Comparison of comparable values.
 
@@ -3380,7 +3576,8 @@ Comparison of comparable values.
 
 #### ==
 ```
-('a,'a)->bool where 'a is an orderable type```
+('a,'a)->bool where 'a is an orderable type
+```
 
 Comparison of comparable values.
 
@@ -3389,7 +3586,8 @@ Comparison of comparable values.
 
 #### >
 ```
-('a,'a)->bool where 'a is an orderable type```
+('a,'a)->bool where 'a is an orderable type
+```
 
 Comparison of comparable values.
 
@@ -3398,7 +3596,8 @@ Comparison of comparable values.
 
 #### >=
 ```
-('a,'a)->bool where 'a is an orderable type```
+('a,'a)->bool where 'a is an orderable type
+```
 
 Comparison of comparable values.
 
@@ -3407,7 +3606,8 @@ Comparison of comparable values.
 
 #### and
 ```
-(bool,bool)->bool```
+(bool,bool)->bool
+```
 
 Return the conjunction of its arguments
 
@@ -3416,7 +3616,8 @@ Return the conjunction of its arguments
 
 #### not
 ```
-(bool)->bool```
+(bool)->bool
+```
 
 Returns the negation of its argument.
 
@@ -3424,7 +3625,8 @@ Returns the negation of its argument.
 
 #### or
 ```
-(bool,bool)->bool```
+(bool,bool)->bool
+```
 
 Return the disjunction of its arguments
 
@@ -3433,7 +3635,8 @@ Return the disjunction of its arguments
 
 #### random.bool
 ```
-()->bool```
+()->bool
+```
 
 Generate a random value.
 
@@ -3441,7 +3644,8 @@ Control
 -------
 #### add_timeout
 ```
-(?fast:bool,float,(()->float))->unit```
+(?fast:bool,float,(()->float))->unit
+```
 
 Call a function in N seconds. If the result of the function is positive or null, the task will be scheduled again after this amount of time (in seconds).
 
@@ -3451,7 +3655,8 @@ Call a function in N seconds. If the result of the function is positive or null,
 
 #### ignore
 ```
-('a)->unit```
+('a)->unit
+```
 
 Convert anything to unit, preventing warnings.
 
@@ -3461,7 +3666,8 @@ Interaction
 -----------
 #### add_skip_command
 ```
-(source('a))->unit```
+(source('a))->unit
+```
 
 Add a skip function to a source when it does not have one by default.
 
@@ -3470,7 +3676,8 @@ Add a skip function to a source when it does not have one by default.
 #### audioscrobbler.nowplaying
 ```
 (user:string,password:string,?host:string,?port:int,
- ?length:bool,[(string*string)])->unit```
+ ?length:bool,[(string*string)])->unit
+```
 
 Submit a now playing song using the audioscrobbler protocol.
 
@@ -3484,7 +3691,8 @@ Submit a now playing song using the audioscrobbler protocol.
 #### audioscrobbler.submit
 ```
 (?source:string,user:string,password:string,?host:string,
- ?port:int,?length:bool,[(string*string)])->unit```
+ ?port:int,?length:bool,[(string*string)])->unit
+```
 
 Submit a played song using the audioscrobbler protocol.
 
@@ -3499,7 +3707,8 @@ Submit a played song using the audioscrobbler protocol.
 #### http.delete
 ```
 (?headers:[(string*string)],?timeout:float,string)->
-((((string*int)*string)*[(string*string)])*string)```
+((((string*int)*string)*[(string*string)])*string)
+```
 
 Perform a full Http DELETE request and return (status,headers),data.
 
@@ -3510,7 +3719,8 @@ Perform a full Http DELETE request and return (status,headers),data.
 #### http.get
 ```
 (?headers:[(string*string)],?timeout:float,string)->
-((((string*int)*string)*[(string*string)])*string)```
+((((string*int)*string)*[(string*string)])*string)
+```
 
 Perform a full Http GET request and return (status,headers),data.
 
@@ -3521,7 +3731,8 @@ Perform a full Http GET request and return (status,headers),data.
 #### http.head
 ```
 (?headers:[(string*string)],?timeout:float,string)->
-((((string*int)*string)*[(string*string)])*string)```
+((((string*int)*string)*[(string*string)])*string)
+```
 
 Perform a full Http HEAD request and return (status,headers),data.
 
@@ -3533,7 +3744,8 @@ Perform a full Http HEAD request and return (status,headers),data.
 ```
 (?data:string,?headers:[(string*string)],?timeout:float,
  string)->
-((((string*int)*string)*[(string*string)])*string)```
+((((string*int)*string)*[(string*string)])*string)
+```
 
 Perform a full Http POST request and return (status,headers),data.
 
@@ -3546,7 +3758,8 @@ Perform a full Http POST request and return (status,headers),data.
 ```
 (?data:string,?headers:[(string*string)],?timeout:float,
  string)->
-((((string*int)*string)*[(string*string)])*string)```
+((((string*int)*string)*[(string*string)])*string)
+```
 
 Perform a full Http PUT request and return (status,headers),data.
 
@@ -3557,14 +3770,16 @@ Perform a full Http PUT request and return (status,headers),data.
 
 #### http_codes
 ```
-[(string*string)]```
+[(string*string)]
+```
 
 List of HTTP response codes and statuses.
 
 #### http_response
 ```
 (?protocol:string,?code:int,?headers:[(string*string)],
- ?data:string)->string```
+ ?data:string)->string
+ ```
 
 Create a HTTP response string
 
@@ -3576,7 +3791,8 @@ Create a HTTP response string
 #### https.delete
 ```
 (?headers:[(string*string)],?timeout:float,string)->
-((((string*int)*string)*[(string*string)])*string)```
+((((string*int)*string)*[(string*string)])*string)
+```
 
 Perform a full https DELETE request and return (status,headers),data.
 
@@ -3587,7 +3803,8 @@ Perform a full https DELETE request and return (status,headers),data.
 #### https.get
 ```
 (?headers:[(string*string)],?timeout:float,string)->
-((((string*int)*string)*[(string*string)])*string)```
+((((string*int)*string)*[(string*string)])*string)
+```
 
 Perform a full https GET request and return (status,headers),data.
 
@@ -3598,7 +3815,8 @@ Perform a full https GET request and return (status,headers),data.
 #### https.head
 ```
 (?headers:[(string*string)],?timeout:float,string)->
-((((string*int)*string)*[(string*string)])*string)```
+((((string*int)*string)*[(string*string)])*string)
+```
 
 Perform a full https HEAD request and return (status,headers),data.
 
@@ -3610,7 +3828,8 @@ Perform a full https HEAD request and return (status,headers),data.
 ```
 (?data:string,?headers:[(string*string)],?timeout:float,
  string)->
-((((string*int)*string)*[(string*string)])*string)```
+((((string*int)*string)*[(string*string)])*string)
+```
 
 Perform a full https POST request and return (status,headers),data.
 
@@ -3623,7 +3842,8 @@ Perform a full https POST request and return (status,headers),data.
 ```
 (?data:string,?headers:[(string*string)],?timeout:float,
  string)->
-((((string*int)*string)*[(string*string)])*string)```
+((((string*int)*string)*[(string*string)])*string)
+```
 
 Perform a full https PUT request and return (status,headers),data.
 
@@ -3637,7 +3857,8 @@ Perform a full https PUT request and return (status,headers),data.
 (?host:string,?port:int,?user:string,?password:string,
  ?mount:string,?icy_id:int,?protocol:string,
  ?encoding:string,?headers:[(string*string)],
- [(string*string)])->unit```
+ [(string*string)])->unit
+```
 
 Update metata on an icecast mountpoint using the ICY protocol.
 
@@ -3656,7 +3877,8 @@ Update metata on an icecast mountpoint using the ICY protocol.
 
 #### interactive.bool
 ```
-(string,bool)->()->bool```
+(string,bool)->()->bool
+```
 
 Read a boolean from an interactive input.
 
@@ -3665,7 +3887,8 @@ Read a boolean from an interactive input.
 
 #### interactive.float
 ```
-(string,float)->()->float```
+(string,float)->()->float
+```
 
 Read a float from an interactive input.
 
@@ -3674,7 +3897,8 @@ Read a float from an interactive input.
 
 #### interactive.string
 ```
-(string,string)->()->string```
+(string,string)->()->string
+```
 
 Read a string from an interactive input.
 
@@ -3683,7 +3907,8 @@ Read a string from an interactive input.
 
 #### osc.bool
 ```
-(string,bool)->()->bool```
+(string,bool)->()->bool
+```
 
 Read from an OSC path.
 
@@ -3692,7 +3917,8 @@ Read from an OSC path.
 
 #### osc.float
 ```
-(string,float)->()->float```
+(string,float)->()->float
+```
 
 Read from an OSC path.
 
@@ -3701,7 +3927,8 @@ Read from an OSC path.
 
 #### osc.float_pair
 ```
-(string,(float*float))->()->(float*float)```
+(string,(float*float))->()->(float*float)
+```
 
 Read from an OSC path.
 
@@ -3710,7 +3937,8 @@ Read from an OSC path.
 
 #### osc.int
 ```
-(string,int)->()->int```
+(string,int)->()->int
+```
 
 Read from an OSC path.
 
@@ -3719,7 +3947,8 @@ Read from an OSC path.
 
 #### osc.int_pair
 ```
-(string,(int*int))->()->(int*int)```
+(string,(int*int))->()->(int*int)
+```
 
 Read from an OSC path.
 
@@ -3728,7 +3957,8 @@ Read from an OSC path.
 
 #### osc.on_bool
 ```
-(string,((bool)->unit))->unit```
+(string,((bool)->unit))->unit
+```
 
 Register a callback on OSC messages.
 
@@ -3737,7 +3967,8 @@ Register a callback on OSC messages.
 
 #### osc.on_float
 ```
-(string,((float)->unit))->unit```
+(string,((float)->unit))->unit
+```
 
 Register a callback on OSC messages.
 
@@ -3746,7 +3977,8 @@ Register a callback on OSC messages.
 
 #### osc.on_float_pair
 ```
-(string,(((float*float))->unit))->unit```
+(string,(((float*float))->unit))->unit
+```
 
 Register a callback on OSC messages.
 
@@ -3755,7 +3987,8 @@ Register a callback on OSC messages.
 
 #### osc.on_int
 ```
-(string,((int)->unit))->unit```
+(string,((int)->unit))->unit
+```
 
 Register a callback on OSC messages.
 
@@ -3764,7 +3997,8 @@ Register a callback on OSC messages.
 
 #### osc.on_int_pair
 ```
-(string,(((int*int))->unit))->unit```
+(string,(((int*int))->unit))->unit
+```
 
 Register a callback on OSC messages.
 
@@ -3773,7 +4007,8 @@ Register a callback on OSC messages.
 
 #### osc.on_string
 ```
-(string,((string)->unit))->unit```
+(string,((string)->unit))->unit
+```
 
 Register a callback on OSC messages.
 
@@ -3782,7 +4017,8 @@ Register a callback on OSC messages.
 
 #### osc.on_string_pair
 ```
-(string,(((string*string))->unit))->unit```
+(string,(((string*string))->unit))->unit
+```
 
 Register a callback on OSC messages.
 
@@ -3791,7 +4027,8 @@ Register a callback on OSC messages.
 
 #### osc.send_bool
 ```
-(host:string,port:int,string,bool)->unit```
+(host:string,port:int,string,bool)->unit
+```
 
 Send a value to an OSC client.
 
@@ -3802,7 +4039,8 @@ Send a value to an OSC client.
 
 #### osc.send_float
 ```
-(host:string,port:int,string,float)->unit```
+(host:string,port:int,string,float)->unit
+```
 
 Send a value to an OSC client.
 
@@ -3813,7 +4051,8 @@ Send a value to an OSC client.
 
 #### osc.send_float_pair
 ```
-(host:string,port:int,string,(float*float))->unit```
+(host:string,port:int,string,(float*float))->unit
+```
 
 Send a value to an OSC client.
 
@@ -3824,7 +4063,8 @@ Send a value to an OSC client.
 
 #### osc.send_int
 ```
-(host:string,port:int,string,int)->unit```
+(host:string,port:int,string,int)->unit
+```
 
 Send a value to an OSC client.
 
@@ -3835,7 +4075,8 @@ Send a value to an OSC client.
 
 #### osc.send_int_pair
 ```
-(host:string,port:int,string,(int*int))->unit```
+(host:string,port:int,string,(int*int))->unit
+```
 
 Send a value to an OSC client.
 
@@ -3846,7 +4087,8 @@ Send a value to an OSC client.
 
 #### osc.send_string
 ```
-(host:string,port:int,string,string)->unit```
+(host:string,port:int,string,string)->unit
+```
 
 Send a value to an OSC client.
 
@@ -3857,7 +4099,8 @@ Send a value to an OSC client.
 
 #### osc.send_string_pair
 ```
-(host:string,port:int,string,(string*string))->unit```
+(host:string,port:int,string,(string*string))->unit
+```
 
 Send a value to an OSC client.
 
@@ -3868,7 +4111,8 @@ Send a value to an OSC client.
 
 #### osc.string
 ```
-(string,string)->()->string```
+(string,string)->()->string
+```
 
 Read from an OSC path.
 
@@ -3877,7 +4121,8 @@ Read from an OSC path.
 
 #### osc.string_pair
 ```
-(string,(string*string))->()->(string*string)```
+(string,(string*string))->()->(string*string)
+```
 
 Read from an OSC path.
 
@@ -3886,7 +4131,8 @@ Read from an OSC path.
 
 #### print
 ```
-(?newline:bool,'a)->unit```
+(?newline:bool,'a)->unit
+```
 
 Print on standard output.
 
@@ -3895,7 +4141,8 @@ Print on standard output.
 
 #### server.broadcast
 ```
-(('a*('b*(()->'c))))->'c```
+(('a*('b*(()->'c))))->'c
+```
 
 Restart all server clients waiting on the given condition
 
@@ -3903,13 +4150,15 @@ Restart all server clients waiting on the given condition
 
 #### server.condition
 ```
-()->((((()->string))->string)*((()->unit)*(()->unit)))```
+()->((((()->string))->string)*((()->unit)*(()->unit)))
+```
 
 Create a pair of functions `(wait,(signal,broadcast))` used to suspend and resume server command execution. Used to write interactive server commands through `server.wait`, `server.signal`, `server.broadcast` and `server.write`.
 
 #### server.read
 ```
-(((string)->string),string)->string```
+(((string)->string),string)->string
+```
 
 Read a string from the client up-to a marker. Marker can be any string of regular expression. Should be used via the syntactic sugar: ```
 server.read <marker> : <varname> then <after> end```
@@ -3920,7 +4169,8 @@ server.read <marker> : <varname> then <after> end```
 
 #### server.readchars
 ```
-(((string)->string),int)->string```
+(((string)->string),int)->string
+```
 
 Read a string of fixed length from the client up-to a marker. Should be used via the syntactic sugar: ```
 server.readchars <len> : <varname> then <after> end```
@@ -3931,7 +4181,8 @@ server.readchars <len> : <varname> then <after> end```
 
 #### server.readline
 ```
-(((string)->string))->string```
+(((string)->string))->string
+```
 
 Read a line from the client. Should be used via the syntactic sugar: ```
 server.readline <varname> then <after> end```
@@ -3942,7 +4193,8 @@ server.readline <varname> then <after> end```
 #### server.register
 ```
 (?namespace:string,?description:string,?usage:string,
- string,((string)->string))->unit```
+ string,((string)->string))->unit
+```
 
 Register a command. You can then execute this function through the server, either telnet or socket.
 
@@ -3954,7 +4206,8 @@ Register a command. You can then execute this function through the server, eithe
 
 #### server.signal
 ```
-(('a*((()->'b)*'c)))->'b```
+(('a*((()->'b)*'c)))->'b
+```
 
 Restart one server client waiting on the given condition
 
@@ -3962,7 +4215,8 @@ Restart one server client waiting on the given condition
 
 #### server.wait
 ```
-(((((()->string))->string)*'a),(()->string))->string```
+(((((()->string))->string)*'a),(()->string))->string
+```
 
 Wait on a server condition. Used to write interactive server command. Should be used via the syntactic sugar: ```
 server.wait <condition> then <after> end```
@@ -3973,7 +4227,8 @@ server.wait <condition> then <after> end```
 
 #### server.write
 ```
-((()->string),string)->string```
+((()->string),string)->string
+```
 
 Execute a partial write while executing a server command. Should be used via the syntactic sugar: `server.write <string> then <after> end`
 
@@ -3985,7 +4240,8 @@ Liquidsoap
 #### add_decoder
 ```
 (name:string,description:string,?mimes:[string],
- test:((string)->int),string)->unit```
+ test:((string)->int),string)->unit
+```
 
 Register an external decoder. The encoder should output in WAV format to his standard output (stdout) and read data from its standard input (stdin).
 
@@ -3997,7 +4253,8 @@ Register an external decoder. The encoder should output in WAV format to his sta
 
 #### add_metadata_resolver
 ```
-(string,((string)->[(string*string)]))->unit```
+(string,((string)->[(string*string)]))->unit
+```
 
 Register an external file metadata decoder.
 
@@ -4007,7 +4264,8 @@ Register an external file metadata decoder.
 #### add_oblivious_decoder
 ```
 (name:string,description:string,test:((string)->int),
- ?buffer:float,((string)->string))->unit```
+ ?buffer:float,((string)->string))->unit
+```
 
 Register an external file decoder. The encoder should output in WAV format to his standard output (stdout) and read data from the file it receives. The estimated remaining duration for this decoder will be unknown until the `buffer` last seconds of the file. If possible, it is recommended to decode from stdin and use `add_decoder`.
 
@@ -4021,7 +4279,8 @@ Register an external file decoder. The encoder should output in WAV format to hi
 ```
 (format:string,strict:bool,
  ((?pwd:string,string)->[([(string*string)]*string)]))->
-unit```
+unit
+```
 
 Register a new playlist parser.
 
@@ -4036,7 +4295,8 @@ Register a new playlist parser.
 (?temporary:bool,?static:bool,?syntax:string,?doc:string,
  string,
  ((rlog:((string)->unit),maxtime:float,string)->[string]))->
-unit```
+unit
+```
 
 Register a new protocol.
 
@@ -4051,7 +4311,8 @@ Register a new protocol.
 
 #### clock
 ```
-(?sync:bool,?id:string,source('a))->source('a)```
+(?sync:bool,?id:string,source('a))->source('a)
+```
 
 Assign a new clock to the given source (and to other time-dependent sources) and return the source. It is a conveniency wrapper around clock.assign_new(), allowing more concise scripts in some cases.
 
@@ -4061,7 +4322,8 @@ Assign a new clock to the given source (and to other time-dependent sources) and
 
 #### clock.assign_new
 ```
-(?id:string,?sync:bool,[source('a)])->unit```
+(?id:string,?sync:bool,[source('a)])->unit
+```
 
 Create a new clock and assign it to a list of sources.
 
@@ -4071,7 +4333,8 @@ Create a new clock and assign it to a list of sources.
 
 #### clock.unify
 ```
-([source('a)])->unit```
+([source('a)])->unit
+```
 
 Enforce that a list of sources all belong to the same clock.
 
@@ -4079,56 +4342,65 @@ Enforce that a list of sources all belong to the same clock.
 
 #### configure.default_font
 ```
-string```
+string
+```
 
 Liquidsoap's default font file.
 
 #### configure.libdir
 ```
-string```
+string
+```
 
 Liquidsoap's library directory.
 
 #### configure.logdir
 ```
-string```
+string
+```
 
 Liquidsoap's logging directory.
 
 #### configure.rundir
 ```
-string```
+string
+```
 
 Liquidsoap's PID file directory.
 
 #### enable_external_faad_decoder
 ```
-()->unit```
+()->unit
+```
 
 Enable or disable external FAAD (AAC/AAC+/M4A) decoders. Does not work on Win32.
 Please note that built-in support for faad is available in liquidsoap if compiled and should be preferred over the external decoder.
 
 #### enable_external_ffmpeg_decoder
 ```
-()->unit```
+()->unit
+```
 
 Enable ffmpeg decoder.
 
 #### enable_external_flac_decoder
 ```
-()->unit```
+()->unit
+```
 
 Enable external FLAC decoders. Please note that built-in support for FLAC is available in liquidsoap if compiled and should be preferred over the external decoder.
 
 #### enable_external_mpc_decoder
 ```
-()->unit```
+()->unit
+```
 
 Enable external Musepack decoder.
 
 #### enable_replaygain_metadata
 ```
-(?extract_replaygain:string)->unit```
+(?extract_replaygain:string)->unit
+```
 
 Enable replay gain metadata resolver. This resolver will process any file decoded by liquidsoap and add a replay_gain metadata when this value could be computed. For a finer-grained replay gain processing, use the replay_gain protocol.
 
@@ -4138,7 +4410,8 @@ Enable replay gain metadata resolver. This resolver will process any file decode
 
 #### file.duration
 ```
-(string)->float```
+(string)->float
+```
 
 Compute the duration in seconds of audio data contained in a file. The computation may be expensive. Returns -1. if computation failed, typically if the file was not recognized as valid audio.
 
@@ -4146,7 +4419,8 @@ Compute the duration in seconds of audio data contained in a file. The computati
 
 #### file.mime
 ```
-(string)->string```
+(string)->string
+```
 
 Get the MIME type of a file, according to libmagic.
 
@@ -4154,25 +4428,28 @@ Get the MIME type of a file, according to libmagic.
 
 #### garbage_collect
 ```
-()->unit```
+()->unit
+```
 
 Trigger full major garbage collection.
 
 #### get
 ```
 (default:'a,string)->'a
-where 'a is unit, bool, int, float, string or [string]```
+where 'a is unit, bool, int, float, string or [string]
+```
 
 Get a setting's value.
 
-* `default` (```
-anything that is unit, bool, int, float, string or [string]```
+* `default` (`
+anything that is unit, bool, int, float, string or [string]`
 )
 * `(unlabeled)` (`string`)
 
 #### get_clock_status
 ```
-()->[(string*int)]```
+()->[(string*int)]
+```
 
 Get the current time for all allocated clocks.
 
@@ -4180,7 +4457,8 @@ Get the current time for all allocated clocks.
 ```
 (port:int,method:string,string,
  ((protocol:string,data:string,headers:[(string*string)],
-   string)->string))->unit```
+   string)->string))->unit
+```
 
 Register a HTTP handler on the harbor. The given function receives as argument the full requested uri (e.g. ``foo?var=bar''), http protocol version, possible input data and the list of HTTP headers and returns the answer sent to the client, including HTTP headers. Registered uri can be regular expressions (e.g. ``.+\.php'') and can override default metadata handlers.
 
@@ -4194,7 +4472,8 @@ Register a HTTP handler on the harbor. The given function receives as argument t
 
 #### harbor.http.remove
 ```
-(method:string,port:int,string)->unit```
+(method:string,port:int,string)->unit
+```
 
 Remove a registered HTTP handler on the harbor.
 
@@ -4206,7 +4485,8 @@ Remove a registered HTTP handler on the harbor.
 ```
 (port:int,method:string,string,
  ((protocol:string,data:string,headers:[(string*string)],
-   string)->string))->unit```
+   string)->string))->unit
+```
 
 Register a HTTPS handler on the harbor. The given function receives as argument the full requested uri (e.g. ``foo?var=bar''), http protocol version, possible input data and the list of HTTP headers and returns the answer sent to the client, including HTTP headers. Registered uri can be regular expressions (e.g. ``.+\.php'') and can override default metadata handlers.
 
@@ -4220,7 +4500,8 @@ Register a HTTPS handler on the harbor. The given function receives as argument 
 
 #### harbor.https.remove
 ```
-(method:string,port:int,string)->unit```
+(method:string,port:int,string)->unit
+```
 
 Remove a registered HTTPS handler on the harbor.
 
@@ -4230,13 +4511,15 @@ Remove a registered HTTPS handler on the harbor.
 
 #### liquidsoap.version
 ```
-string```
+string
+```
 
 Liquidsoap version string.
 
 #### log
 ```
-(?label:string,?level:int,string)->unit```
+(?label:string,?level:int,string)->unit
+```
 
 Log a message.
 
@@ -4246,7 +4529,8 @@ Log a message.
 
 #### log_clocks
 ```
-(?delay:float,?interval:float,string)->unit```
+(?delay:float,?interval:float,string)->unit
+```
 
 Create a log of clock times for all the clocks initially present. The log is in a simple format which you can directly use with gnuplot.
 
@@ -4256,7 +4540,8 @@ Create a log of clock times for all the clocks initially present. The log is in 
 
 #### metadata.export
 ```
-([(string*string)])->[(string*string)]```
+([(string*string)])->[(string*string)]
+```
 
 Filter-out internal metadata.
 
@@ -4264,7 +4549,8 @@ Filter-out internal metadata.
 
 #### mutexify
 ```
-('a)->'a```
+('a)->'a
+```
 
 Protect functions with a mutex to avoid concurrent calls, return original value otherwise.
 
@@ -4272,7 +4558,8 @@ Protect functions with a mutex to avoid concurrent calls, return original value 
 
 #### playlist.parse
 ```
-(string)->[([(string*string)]*string)]```
+(string)->[([(string*string)]*string)]
+```
 
 Try to parse a local playlist. Return a list of (metadata,URI) items, where metadata is a list of (key,value) bindings.
 
@@ -4280,7 +4567,8 @@ Try to parse a local playlist. Return a list of (metadata,URI) items, where meta
 
 #### process_uri
 ```
-(extname:'a,?uri:string,string)->string```
+(extname:'a,?uri:string,string)->string
+```
 
 Create a process: uri, replacing `:` with `$(colon)`
 
@@ -4292,7 +4580,8 @@ Create a process: uri, replacing `:` with `$(colon)`
 ```
 (name:string,?descr:string,?on_change:(('a)->unit),
  string,'a)->unit
-where 'a is unit, bool, int, float, string or [string]```
+where 'a is unit, bool, int, float, string or [string]
+```
 
 Register a new setting.
 
@@ -4312,7 +4601,8 @@ anything that is unit, bool, int, float, string or [string]```
 (?server:string,?user:string,?password:string,
  ?email:string,radio:string,website:string,
  description:string,genre:string,
- streams:[(string*string)],source('a))->source('a)```
+ streams:[(string*string)],source('a))->source('a)
+```
 
 Register a radio on Liquidsoap Flows.
 
@@ -4330,7 +4620,8 @@ Register a radio on Liquidsoap Flows.
 #### request.create
 ```
 (?indicators:[string],?persistent:bool,string)->
-request('a)```
+request('a)
+```
 
 Create a request. Creation may fail if there is no available RID, which cannot be detected currently: in that case one will obtain a request that will fail to be resolved.
 
@@ -4341,7 +4632,8 @@ Create a request. Creation may fail if there is no available RID, which cannot b
 #### request.create.raw
 ```
 (?indicators:[string],?persistent:bool,string)->
-request(audio=0,video=0,midi=0)```
+request(audio=0,video=0,midi=0)
+```
 
 Create a raw request, i.e. for files that should not be decoded for streaming. Creation may fail if there is no available RID, which cannot be detected currently: in that case one will obtain a request that will fail to be resolved.
 
@@ -4351,7 +4643,8 @@ Create a raw request, i.e. for files that should not be decoded for streaming. C
 
 #### request.destroy
 ```
-(?force:bool,request('a))->unit```
+(?force:bool,request('a))->unit
+```
 
 Destroying a request causes any temporary associated file to be deleted, and releases its RID. Persistent requests resist to destroying, unless forced.
 
@@ -4360,7 +4653,8 @@ Destroying a request causes any temporary associated file to be deleted, and rel
 
 #### request.filename
 ```
-(request('a))->string```
+(request('a))->string
+```
 
 Return a valid local filename if the request is ready, and the empty string otherwise.
 
@@ -4368,7 +4662,8 @@ Return a valid local filename if the request is ready, and the empty string othe
 
 #### request.log
 ```
-(request('a))->string```
+(request('a))->string
+```
 
 Get log data associated to a request.
 
@@ -4376,7 +4671,8 @@ Get log data associated to a request.
 
 #### request.metadata
 ```
-(request('a))->[(string*string)]```
+(request('a))->[(string*string)]
+```
 
 Get the metadata associated to a request.
 
@@ -4384,7 +4680,8 @@ Get the metadata associated to a request.
 
 #### request.ready
 ```
-(request('a))->bool```
+(request('a))->bool
+```
 
 Check if a request is ready, i.e. is associated to a valid local file. Unless the initial URI was such a file, a request has to be resolved before being ready.
 
@@ -4392,7 +4689,8 @@ Check if a request is ready, i.e. is associated to a valid local file. Unless th
 
 #### request.resolve
 ```
-(?timeout:float,request('a))->bool```
+(?timeout:float,request('a))->bool
+```
 
 Resolve a request, i.e. attempt to get a valid local file. The operation can take some time. Return true if the resolving was successful, false otherwise (timeout or invalid URI).
 
@@ -4401,7 +4699,8 @@ Resolve a request, i.e. attempt to get a valid local file. The operation can tak
 
 #### server.execute
 ```
-(string,?string)->[string]```
+(string,?string)->[string]
+```
 
 Execute a liquidsoap server command.
 
@@ -4411,7 +4710,8 @@ Execute a liquidsoap server command.
 #### set
 ```
 (string,'a)->unit
-where 'a is unit, bool, int, float, string or [string]```
+where 'a is unit, bool, int, float, string or [string]
+```
 
 Change some setting. Use `liquidsoap --conf-descr` and `liquidsoap --conf-descr-key KEY` on the command-line to get some information about available settings.
 
@@ -4422,7 +4722,8 @@ anything that is unit, bool, int, float, string or [string]```
 
 #### source.fallible
 ```
-(source('a))->bool```
+(source('a))->bool
+```
 
 Indicate if a source may fail, i.e. may not be ready to stream.
 
@@ -4430,7 +4731,8 @@ Indicate if a source may fail, i.e. may not be ready to stream.
 
 #### source.id
 ```
-(source('a))->string```
+(source('a))->string
+```
 
 Get one source's identifier.
 
@@ -4439,7 +4741,8 @@ Get one source's identifier.
 #### source.init
 ```
 ([source(audio=*,video=*,midi=*)])->
-[source(audio=*,video=*,midi=*)]```
+[source(audio=*,video=*,midi=*)]
+```
 
 Simultaneously initialize sources, return the sublist of sources that failed to initialized.
 
@@ -4447,7 +4750,8 @@ Simultaneously initialize sources, return the sublist of sources that failed to 
 
 #### source.is_ready
 ```
-(source('a))->bool```
+(source('a))->bool
+```
 
 Indicate if a source is ready to stream, or currently streaming.
 
@@ -4455,7 +4759,8 @@ Indicate if a source is ready to stream, or currently streaming.
 
 #### source.remaining
 ```
-(source('a))->float```
+(source('a))->float
+```
 
 Estimation of remaining time in the current track.
 
@@ -4463,7 +4768,8 @@ Estimation of remaining time in the current track.
 
 #### source.seek
 ```
-(source('a),float)->float```
+(source('a),float)->float
+```
 
 Seek forward, in seconds. Returns the amount of time effectively seeked.
 
@@ -4472,7 +4778,8 @@ Seek forward, in seconds. Returns the amount of time effectively seeked.
 
 #### source.shutdown
 ```
-(source('a))->unit```
+(source('a))->unit
+```
 
 Desactivate a source.
 
@@ -4480,7 +4787,8 @@ Desactivate a source.
 
 #### source.skip
 ```
-(source('a))->unit```
+(source('a))->unit
+```
 
 Skip to the next track.
 
@@ -4490,7 +4798,8 @@ List
 ----
 #### _[_]
 ```
-(string,[(string*string)])->string```
+(string,[(string*string)])->string
+```
 
 l[k] returns the first v such that (k,v) is in the list l (or ``'' if no such v exists).
 
@@ -4499,7 +4808,8 @@ l[k] returns the first v such that (k,v) is in the list l (or ``'' if no such v 
 
 #### list.add
 ```
-('a,['a])->['a]```
+('a,['a])->['a]
+```
 
 Add an element at the top of a list.
 
@@ -4508,7 +4818,8 @@ Add an element at the top of a list.
 
 #### list.append
 ```
-(['a],['a])->['a]```
+(['a],['a])->['a]
+```
 
 Catenate two lists.
 
@@ -4517,7 +4828,8 @@ Catenate two lists.
 
 #### list.assoc
 ```
-(default:'a,'b,[('b*'a)])->'a```
+(default:'a,'b,[('b*'a)])->'a
+```
 
 Generalized l[k] with default value.
 
@@ -4527,7 +4839,8 @@ Generalized l[k] with default value.
 
 #### list.filter
 ```
-((('a)->bool),['a])->['a]```
+((('a)->bool),['a])->['a]
+```
 
 Filter a list according to a filtering function.
 
@@ -4536,7 +4849,8 @@ Filter a list according to a filtering function.
 
 #### list.filter_assoc
 ```
-('a,[('a*'b)])->[('a*'b)] where 'a is an orderable type```
+('a,[('a*'b)])->[('a*'b)] where 'a is an orderable type
+```
 
 list.filter_assoc(key,l) returns all the elements of the form (key, value) from l.
 
@@ -4545,7 +4859,8 @@ list.filter_assoc(key,l) returns all the elements of the form (key, value) from 
 
 #### list.fold
 ```
-((('a,'b)->'a),'a,['b])->'a```
+((('a,'b)->'a),'a,['b])->'a
+```
 
 Fold a function on every element of a list: list.fold(f,x1,[e1,..,en]) is f(...f(f(x1,e1),e2)...,en).
 
@@ -4555,7 +4870,8 @@ Fold a function on every element of a list: list.fold(f,x1,[e1,..,en]) is f(...f
 
 #### list.hd
 ```
-(default:'a,['a])->'a```
+(default:'a,['a])->'a
+```
 
 Return the head (first element) of a list, or 'default' if the list is empty.
 
@@ -4564,7 +4880,8 @@ Return the head (first element) of a list, or 'default' if the list is empty.
 
 #### list.iter
 ```
-((('a)->unit),['a])->unit```
+((('a)->unit),['a])->unit
+```
 
 Call a function on every element of a list.
 
@@ -4573,7 +4890,8 @@ Call a function on every element of a list.
 
 #### list.length
 ```
-(['a])->int```
+(['a])->int
+```
 
 Get the length of a list, i.e. its number of elements.
 
@@ -4581,7 +4899,8 @@ Get the length of a list, i.e. its number of elements.
 
 #### list.map
 ```
-((('a)->'b),['a])->['b]```
+((('a)->'b),['a])->['b]
+```
 
 Map a function on every element of a list.
 
@@ -4590,7 +4909,8 @@ Map a function on every element of a list.
 
 #### list.mapi
 ```
-(((int,'a)->'b),['a])->['b]```
+(((int,'a)->'b),['a])->['b]
+```
 
 Map a function on every element of a list, along with its index.
 
@@ -4599,7 +4919,8 @@ Map a function on every element of a list, along with its index.
 
 #### list.mem
 ```
-('a,['a])->bool where 'a is an orderable type```
+('a,['a])->bool where 'a is an orderable type
+```
 
 Check if an element belongs to a list.
 
@@ -4608,7 +4929,8 @@ Check if an element belongs to a list.
 
 #### list.mem_assoc
 ```
-('a,[('a*'b)])->bool where 'a is an orderable type```
+('a,[('a*'b)])->bool where 'a is an orderable type
+```
 
 list.mem_assoc(key,l) returns true if l contains a pair (key,value)
 
@@ -4617,7 +4939,8 @@ list.mem_assoc(key,l) returns true if l contains a pair (key,value)
 
 #### list.nth
 ```
-(default:'a,['a],int)->'a```
+(default:'a,['a],int)->'a
+```
 
 Get the n-th element of a list (the first element is at position 0), or'default' if element does not exist.
 
@@ -4627,7 +4950,8 @@ Get the n-th element of a list (the first element is at position 0), or'default'
 
 #### list.randomize
 ```
-(['a])->['a]```
+(['a])->['a]
+```
 
 Shuffle the content of a list.
 
@@ -4635,7 +4959,8 @@ Shuffle the content of a list.
 
 #### list.remove
 ```
-('a,['a])->['a]```
+('a,['a])->['a]
+```
 
 Remove a value from a list.
 
@@ -4644,7 +4969,8 @@ Remove a value from a list.
 
 #### list.remove_assoc
 ```
-('a,[('a*'c)])->[('a*'c)]```
+('a,[('a*'c)])->[('a*'c)]
+```
 
 Remove the first pair from an associative list.
 
@@ -4653,7 +4979,8 @@ Remove the first pair from an associative list.
 
 #### list.rev
 ```
-(['a])->['a]```
+(['a])->['a]
+```
 
 Revert list order.
 
@@ -4661,7 +4988,8 @@ Revert list order.
 
 #### list.sort
 ```
-((('a,'a)->int),['a])->['a]```
+((('a,'a)->int),['a])->['a]
+```
 
 Sort a list according to a comparison function.
 
@@ -4670,7 +4998,8 @@ Sort a list according to a comparison function.
 
 #### list.tl
 ```
-(['a])->['a]```
+(['a])->['a]
+```
 
 Return the list without its first element.
 
@@ -4680,7 +5009,8 @@ Math
 ----
 #### *
 ```
-('a,'a)->'a where 'a is a number type```
+('a,'a)->'a where 'a is a number type
+```
 
 Multiplication of numbers.
 
@@ -4689,7 +5019,8 @@ Multiplication of numbers.
 
 #### +
 ```
-('a,'a)->'a where 'a is a number type```
+('a,'a)->'a where 'a is a number type
+```
 
 Addition of numbers.
 
@@ -4698,7 +5029,8 @@ Addition of numbers.
 
 #### -
 ```
-('a,'a)->'a where 'a is a number type```
+('a,'a)->'a where 'a is a number type
+```
 
 Substraction of numbers.
 
@@ -4707,7 +5039,8 @@ Substraction of numbers.
 
 #### /
 ```
-('a,'a)->'a where 'a is a number type```
+('a,'a)->'a where 'a is a number type
+```
 
 Division of numbers.
 
@@ -4716,7 +5049,8 @@ Division of numbers.
 
 #### abs
 ```
-('a)->'a where 'a is a number type```
+('a)->'a where 'a is a number type
+```
 
 Absolute value.
 
@@ -4724,7 +5058,8 @@ Absolute value.
 
 #### acos
 ```
-(float)->float```
+(float)->float
+```
 
 Arc cosine. The argument must fall within the range [-1.0, 1.0]. Result is in radians and is between 0.0 and pi.
 
@@ -4732,7 +5067,8 @@ Arc cosine. The argument must fall within the range [-1.0, 1.0]. Result is in ra
 
 #### asin
 ```
-(float)->float```
+(float)->float
+```
 
 Arc sine. The argument must fall within the range [-1.0, 1.0]. Result is in radians and is between -pi/2 and pi/2.
 
@@ -4740,7 +5076,8 @@ Arc sine. The argument must fall within the range [-1.0, 1.0]. Result is in radi
 
 #### atan
 ```
-(float)->float```
+(float)->float
+```
 
 Arc tangent. Result is in radians and is between -pi/2 and pi/2.
 
@@ -4748,7 +5085,8 @@ Arc tangent. Result is in radians and is between -pi/2 and pi/2.
 
 #### bool_of_float
 ```
-(float)->bool```
+(float)->bool
+```
 
 Convert a float to a bool.
 
@@ -4756,7 +5094,8 @@ Convert a float to a bool.
 
 #### bool_of_int
 ```
-(int)->bool```
+(int)->bool
+```
 
 Convert an int to a bool.
 
@@ -4764,7 +5103,8 @@ Convert an int to a bool.
 
 #### cos
 ```
-(float)->float```
+(float)->float
+```
 
 Cosine. Argument is in radians.
 
@@ -4772,7 +5112,8 @@ Cosine. Argument is in radians.
 
 #### cosh
 ```
-(float)->float```
+(float)->float
+```
 
 Hyperbolic cosine. Argument is in radians.
 
@@ -4780,7 +5121,8 @@ Hyperbolic cosine. Argument is in radians.
 
 #### dB_of_lin
 ```
-(float)->float```
+(float)->float
+```
 
 Convert linear scale into decibels.
 
@@ -4788,7 +5130,8 @@ Convert linear scale into decibels.
 
 #### exp
 ```
-(float)->float```
+(float)->float
+```
 
 Exponential.
 
@@ -4796,7 +5139,8 @@ Exponential.
 
 #### float_of_int
 ```
-(int)->float```
+(int)->float
+```
 
 Convert an int to a float.
 
@@ -4804,7 +5148,8 @@ Convert an int to a float.
 
 #### int_of_float
 ```
-(float)->int```
+(float)->int
+```
 
 Convert a float to a int.
 
@@ -4812,7 +5157,8 @@ Convert a float to a int.
 
 #### lin_of_dB
 ```
-(float)->float```
+(float)->float
+```
 
 Convert decibels into linear scale.
 
@@ -4820,7 +5166,8 @@ Convert decibels into linear scale.
 
 #### log_10
 ```
-(float)->float```
+(float)->float
+```
 
 Base 10 logarithm.
 
@@ -4828,7 +5175,8 @@ Base 10 logarithm.
 
 #### log_e
 ```
-(float)->float```
+(float)->float
+```
 
 Natural logarithm.
 
@@ -4836,7 +5184,8 @@ Natural logarithm.
 
 #### mod
 ```
-(int,int)->int```
+(int,int)->int
+```
 
 Integer remainder. If y is not zero, x == (x / y) * y + x mod y, and abs(x mod y) <= abs(y)-1.
 
@@ -4845,7 +5194,8 @@ Integer remainder. If y is not zero, x == (x / y) * y + x mod y, and abs(x mod y
 
 #### pow
 ```
-('a,'a)->'a where 'a is a number type```
+('a,'a)->'a where 'a is a number type
+```
 
 Exponentiation of numbers.
 
@@ -4854,7 +5204,8 @@ Exponentiation of numbers.
 
 #### random.float
 ```
-(?min:float,?max:float)->float```
+(?min:float,?max:float)->float
+```
 
 Generate a random value.
 
@@ -4863,7 +5214,8 @@ Generate a random value.
 
 #### random.int
 ```
-(?min:float,?max:float)->int```
+(?min:float,?max:float)->int
+```
 
 Generate a random value.
 
@@ -4872,7 +5224,8 @@ Generate a random value.
 
 #### sin
 ```
-(float)->float```
+(float)->float
+```
 
 Sine. Argument is in radians.
 
@@ -4880,7 +5233,8 @@ Sine. Argument is in radians.
 
 #### sinh
 ```
-(float)->float```
+(float)->float
+```
 
 Hyperbolic sine. Argument is in radians.
 
@@ -4888,7 +5242,8 @@ Hyperbolic sine. Argument is in radians.
 
 #### sqrt
 ```
-(float)->float```
+(float)->float
+```
 
 Square root.
 
@@ -4896,7 +5251,8 @@ Square root.
 
 #### tan
 ```
-(float)->float```
+(float)->float
+```
 
 Tangent. Argument is in radians.
 
@@ -4904,7 +5260,8 @@ Tangent. Argument is in radians.
 
 #### tanh
 ```
-(float)->float```
+(float)->float
+```
 
 Hyperbolic tangent. Argument is in radians.
 
@@ -4912,7 +5269,8 @@ Hyperbolic tangent. Argument is in radians.
 
 #### ~-
 ```
-('a)->'a where 'a is a number type```
+('a)->'a where 'a is a number type
+```
 
 Returns the opposite of its argument.
 
@@ -4922,7 +5280,8 @@ Pair
 ----
 #### fst
 ```
-(('a*'b))->'a```
+(('a*'b))->'a
+```
 
 Get the first component of a pair.
 
@@ -4930,7 +5289,8 @@ Get the first component of a pair.
 
 #### snd
 ```
-(('a*'b))->'b```
+(('a*'b))->'b
+```
 
 Get the second component of a pair.
 
@@ -4940,7 +5300,8 @@ String
 ------
 #### %
 ```
-(string,[(string*string)])->string```
+(string,[(string*string)])->string
+```
 
 `pattern % [...,(k,v),...]` changes in the pattern occurences of:
 - `$(k)` into `v`;
@@ -4951,7 +5312,8 @@ String
 
 #### ^
 ```
-(string,string)->string```
+(string,string)->string
+```
 
 Concatenate strings.
 
@@ -4960,7 +5322,8 @@ Concatenate strings.
 
 #### base64.decode
 ```
-(string)->string```
+(string)->string
+```
 
 Decode a Base64 encoded string.
 
@@ -4968,7 +5331,8 @@ Decode a Base64 encoded string.
 
 #### base64.encode
 ```
-(string)->string```
+(string)->string
+```
 
 Encode a string in Base64.
 
@@ -4976,7 +5340,8 @@ Encode a string in Base64.
 
 #### bool_of_string
 ```
-(?default:bool,string)->bool```
+(?default:bool,string)->bool
+```
 
 Convert a string to a bool.
 
@@ -4985,7 +5350,8 @@ Convert a string to a bool.
 
 #### float_of_string
 ```
-(?default:float,string)->float```
+(?default:float,string)->float
+```
 
 Convert a string to a float.
 
@@ -4994,7 +5360,8 @@ Convert a string to a float.
 
 #### int_of_string
 ```
-(?default:int,string)->int```
+(?default:int,string)->int
+```
 
 Convert a string to a int.
 
@@ -5003,7 +5370,8 @@ Convert a string to a int.
 
 #### json_of
 ```
-(?compact:bool,'a)->string```
+(?compact:bool,'a)->string
+```
 
 Convert a value to a json string.
 
@@ -5012,7 +5380,8 @@ Convert a value to a json string.
 
 #### of_json
 ```
-(default:'a,string)->'a```
+(default:'a,string)->'a
+```
 
 Parse a json string into a liquidsoap value.
 
@@ -5021,7 +5390,8 @@ Parse a json string into a liquidsoap value.
 
 #### quote
 ```
-(string)->string```
+(string)->string
+```
 
 Escape shell metacharacters.
 
@@ -5029,7 +5399,8 @@ Escape shell metacharacters.
 
 #### string.capitalize
 ```
-(?capitalize:bool,?space_sensitive:bool,string)->string```
+(?capitalize:bool,?space_sensitive:bool,string)->string
+```
 
 Return a string with the first character set to upper case (capitalize), or to lower case (uncapitalize).
 
@@ -5039,7 +5410,8 @@ Return a string with the first character set to upper case (capitalize), or to l
 
 #### string.case
 ```
-(?lower:bool,string)->string```
+(?lower:bool,string)->string
+```
 
 Convert a string to lower or upper case.
 
@@ -5048,7 +5420,8 @@ Convert a string to lower or upper case.
 
 #### string.concat
 ```
-(?separator:string,[string])->string```
+(?separator:string,[string])->string
+```
 
 Concatenate strings.
 
@@ -5058,7 +5431,8 @@ Concatenate strings.
 #### string.escape
 ```
 (?special_chars:[string],?escape_char:((string)->string),
- string)->string```
+ string)->string
+ ```
 
 Escape special charaters in a string. String is parsed char by char. See `string.utf8.escape` for an UTF8-aware parsing function.
 
@@ -5070,7 +5444,8 @@ Escape special charaters in a string. String is parsed char by char. See `string
 
 #### string.extract
 ```
-(pattern:string,string)->[(string*string)]```
+(pattern:string,string)->[(string*string)]
+```
 
 Extract substrings from a string. 
 Perl compatible regular expressions are recognized. Hence, special characters should be escaped. 
@@ -5082,7 +5457,8 @@ If the list does not have a pair associated to some index, it means that the cor
 
 #### string.length
 ```
-(string)->int```
+(string)->int
+```
 
 Get the length of a string.
 
@@ -5090,7 +5466,8 @@ Get the length of a string.
 
 #### string.match
 ```
-(pattern:string,string)->bool```
+(pattern:string,string)->bool
+```
 
 Match a string with an expression. 
 Perl compatible regular expressions are recognized. Hence, special characters should be escaped.
@@ -5100,7 +5477,8 @@ Perl compatible regular expressions are recognized. Hence, special characters sh
 
 #### string.recode
 ```
-(?in_enc:string,?out_enc:string,string)->string```
+(?in_enc:string,?out_enc:string,string)->string
+```
 
 Convert a string. Effective only if Camomile is enabled.
 
@@ -5110,7 +5488,8 @@ Convert a string. Effective only if Camomile is enabled.
 
 #### string.replace
 ```
-(pattern:string,((string)->string),string)->string```
+(pattern:string,((string)->string),string)->string
+```
 
 Replace substrings in a string. 
 Will replace all substrings matched in the pattern by the string returned by the replace function.
@@ -5121,7 +5500,8 @@ Will replace all substrings matched in the pattern by the string returned by the
 
 #### string.split
 ```
-(separator:string,string)->[string]```
+(separator:string,string)->[string]
+```
 
 Split a string at 'separator'. 
 Perl compatible regular expressions are recognized. Hence, special characters should be escaped.
@@ -5131,7 +5511,8 @@ Perl compatible regular expressions are recognized. Hence, special characters sh
 
 #### string.sub
 ```
-(string,start:int,length:int)->string```
+(string,start:int,length:int)->string
+```
 
 Get a substring of a string. Returns ``'' if no such substring exists.
 
@@ -5141,7 +5522,8 @@ Get a substring of a string. Returns ``'' if no such substring exists.
 
 #### string.trim
 ```
-(string)->string```
+(string)->string
+```
 
 Return a string without leading and trailing whitespace.
 
@@ -5150,7 +5532,8 @@ Return a string without leading and trailing whitespace.
 #### string.utf8.escape
 ```
 (?special_chars:[string],?escape_char:((string)->string),
- string)->string```
+ string)->string
+```
 
 Escape special charaters in an UTF8 string.
 
@@ -5162,7 +5545,8 @@ Escape special charaters in an UTF8 string.
 
 #### string_of
 ```
-('a)->string```
+('a)->string
+```
 
 Return the representation of a value.
 
@@ -5170,7 +5554,8 @@ Return the representation of a value.
 
 #### string_of_metadata
 ```
-([(string*string)])->string```
+([(string*string)])->string
+```
 
 Standard function for displaying metadata.
 Shows artist and title, using ``Unknown'' when a field is empty.
@@ -5179,7 +5564,8 @@ Shows artist and title, using ``Unknown'' when a field is empty.
 
 #### url.decode
 ```
-(?plus:bool,string)->string```
+(?plus:bool,string)->string
+```
 
 Decode an encoded url (e.g. ``%20'' becomes `` '').
 
@@ -5188,7 +5574,8 @@ Decode an encoded url (e.g. ``%20'' becomes `` '').
 
 #### url.encode
 ```
-(?plus:bool,string)->string```
+(?plus:bool,string)->string
+```
 
 Encode an url (e.g. `` '' becomes ``%20'').
 
@@ -5197,7 +5584,8 @@ Encode an url (e.g. `` '' becomes ``%20'').
 
 #### url.split
 ```
-(string)->(string*[(string*string)])```
+(string)->(string*[(string*string)])
+```
 
 Split an url of the form foo?arg=bar&arg2=bar2 into (``foo'',[(``arg'',``bar''),(``arg2'',``bar2'')]).
 
@@ -5205,7 +5593,8 @@ Split an url of the form foo?arg=bar&arg2=bar2 into (``foo'',[(``arg'',``bar''),
 
 #### url.split_args
 ```
-(string)->[(string*string)]```
+(string)->[(string*string)]
+```
 
 Split the arguments of an url of the form arg=bar&arg2=bar2 into [(``arg'',``bar''),(``arg2'',``bar2'')].
 
@@ -5215,7 +5604,8 @@ System
 ------
 #### argv
 ```
-(?default:string,int)->string```
+(?default:string,int)->string
+```
 
 Get command-line parameters.
 
@@ -5224,7 +5614,8 @@ Get command-line parameters.
 
 #### basename
 ```
-(string)->string```
+(string)->string
+```
 
 Get the base name of a path.
 
@@ -5232,7 +5623,8 @@ Get the base name of a path.
 
 #### dirname
 ```
-(string)->string```
+(string)->string
+```
 
 Get the directory name of a path.
 
@@ -5240,19 +5632,22 @@ Get the directory name of a path.
 
 #### environment
 ```
-()->[(string*string)]```
+()->[(string*string)]
+```
 
 Return the process environment.
 
 #### exe_ext
 ```
-string```
+string
+```
 
 Executable file extension.
 
 #### exec_at
 ```
-(?freq:float,pred:(()->bool),(()->unit))->unit```
+(?freq:float,pred:(()->bool),(()->unit))->unit
+```
 
 Execute a given action when a predicate is true. This will be run in background.
 
@@ -5262,7 +5657,8 @@ Execute a given action when a predicate is true. This will be run in background.
 
 #### exit
 ```
-(int)->unit```
+(int)->unit
+```
 
 Immediately stop the application. This should only be used in extreme cases or to specify an exit value. The recommended way of stopping Liquidsoap is to use shutdown.
 
@@ -5270,7 +5666,8 @@ Immediately stop the application. This should only be used in extreme cases or t
 
 #### file.contents
 ```
-(string)->string```
+(string)->string
+```
 
 Read the whole contents of a file.
 
@@ -5278,7 +5675,8 @@ Read the whole contents of a file.
 
 #### file.exists
 ```
-(string)->bool```
+(string)->bool
+```
 
 Returns true if the file or directory exists.
 
@@ -5286,7 +5684,8 @@ Returns true if the file or directory exists.
 
 #### file.extension
 ```
-(?dir_sep:string,string)->string```
+(?dir_sep:string,string)->string
+```
 
 Returns a file's extension.
 
@@ -5295,7 +5694,8 @@ Returns a file's extension.
 
 #### file.is_directory
 ```
-(string)->bool```
+(string)->bool
+```
 
 Returns true if the file exists and is a directory.
 
@@ -5303,7 +5703,8 @@ Returns true if the file exists and is a directory.
 
 #### file.mime_default
 ```
-(string)->string```
+(string)->string
+```
 
 Alias of file.mime (because it is available)
 
@@ -5311,7 +5712,8 @@ Alias of file.mime (because it is available)
 
 #### file.temp
 ```
-(string,string)->string```
+(string,string)->string
+```
 
 Return a fresh temporary filename in the temporary directory.
 
@@ -5320,7 +5722,8 @@ Return a fresh temporary filename in the temporary directory.
 
 #### file.watch
 ```
-(string,(()->unit))->()->unit```
+(string,(()->unit))->()->unit
+```
 
 Call a function when a file is modified. Returns unwatch function.
 
@@ -5329,7 +5732,8 @@ Call a function when a file is modified. Returns unwatch function.
 
 #### get_mime
 ```
-(string)->string```
+(string)->string
+```
 
 Generic mime test. First try to use file.mime if it exist. Otherwise try to get the value using the file binary. Returns ``'' (empty string) if no value can be found.
 
@@ -5338,7 +5742,8 @@ Generic mime test. First try to use file.mime if it exist. Otherwise try to get 
 #### get_process_lines
 ```
 (?timeout:float,?env:[(string*string)],?inherit_env:bool,
- string)->[string]```
+ string)->[string]
+ ```
 
 Perform a shell call and return the list of its output lines.
 
@@ -5350,7 +5755,8 @@ Perform a shell call and return the list of its output lines.
 #### get_process_output
 ```
 (?timeout:float,?env:[(string*string)],?inherit_env:bool,
- string)->string```
+ string)->string
+```
 
 Perform a shell call and return its output.
 
@@ -5361,7 +5767,8 @@ Perform a shell call and return its output.
 
 #### getenv
 ```
-(string)->string```
+(string)->string
+```
 
 Get the value associated to a variable in the process environment. Return ``'' if variable is not set.
 
@@ -5369,7 +5776,8 @@ Get the value associated to a variable in the process environment. Return ``'' i
 
 #### getopt
 ```
-(?default:string,string)->string```
+(?default:string,string)->string
+```
 
 Parse command line options:
 `getopt("-o")` returns ``1'' if ``-o'' was passed without any parameter, ``0'' otherwise.
@@ -5382,13 +5790,15 @@ calls to `argv()` and `getopt()`.
 
 #### getpid
 ```
-()->int```
+()->int
+```
 
 Get the process' pid.
 
 #### gettimeofday
 ```
-()->float```
+()->float
+```
 
 Return the current time since 00:00:00 GMT, Jan. 1, 1970, in seconds.
 
@@ -5396,7 +5806,8 @@ Return the current time since 00:00:00 GMT, Jan. 1, 1970, in seconds.
 ```
 (float,
  ((sec:int,min:int,hour:int,mday:int,mon:int,year:int,
-   wday:int,yday:int,isdst:bool)->'a))->'a```
+   wday:int,yday:int,isdst:bool)->'a))->'a
+```
 
 Convert a time in seconds into a date in the UTC time zone and execute passed callback with the result. Fields meaning same as POSIX's `tm struct`. Warning: ``year'' is: year - 1900, i.e. 117 for 2017!
 
@@ -5408,7 +5819,8 @@ Convert a time in seconds into a date in the UTC time zone and execute passed ca
 
 #### is_directory
 ```
-(string)->bool```
+(string)->bool
+```
 
 Returns true if the directory exists.
 
@@ -5418,19 +5830,22 @@ Returns true if the directory exists.
 ```
 (float,
  ((sec:int,min:int,hour:int,mday:int,mon:int,year:int,
-   wday:int,yday:int,isdst:bool)->'a))->'a```
+   wday:int,yday:int,isdst:bool)->'a))->'a
+   ```
 
 Convert a time in seconds into a date in the local time zone and execute passed callback with the result. Fields meaning same as POSIX's `tm struct`. Warning: ``year'' is: year - 1900, i.e. 117 for 2017!
 
 * `(unlabeled)` (`float`)
-* `(unlabeled)` (```
+* `(unlabeled)` (`
 (sec:int,min:int,hour:int,mday:int,mon:int,year:int,
- wday:int,yday:int,isdst:bool)->'a```
+ wday:int,yday:int,isdst:bool)->'a
+ `
 )
 
 #### on_shutdown
 ```
-((()->unit))->unit```
+((()->unit))->unit
+```
 
 Register a function to be called when Liquidsoap shuts down.
 
@@ -5438,7 +5853,8 @@ Register a function to be called when Liquidsoap shuts down.
 
 #### on_start
 ```
-((()->unit))->unit```
+((()->unit))->unit
+```
 
 Register a function to be called when Liquidsoap starts.
 
@@ -5446,13 +5862,15 @@ Register a function to be called when Liquidsoap starts.
 
 #### os.type
 ```
-string```
+string
+```
 
 Type of OS running liquidsoap.
 
 #### path.concat
 ```
-(string,string)->string```
+(string,string)->string
+```
 
 Concatenate two paths, using the appropriate directory separator.
 
@@ -5461,7 +5879,8 @@ Concatenate two paths, using the appropriate directory separator.
 
 #### read
 ```
-(?hide:bool)->string```
+(?hide:bool)->string
+```
 
 Read some value from standard input (console).
 
@@ -5469,7 +5888,8 @@ Read some value from standard input (console).
 
 #### reopen.stderr
 ```
-(string)->unit```
+(string)->unit
+```
 
 Reopen standard error on the given file
 
@@ -5477,7 +5897,8 @@ Reopen standard error on the given file
 
 #### reopen.stdin
 ```
-(string)->unit```
+(string)->unit
+```
 
 Reopen standard input on the given file
 
@@ -5485,7 +5906,8 @@ Reopen standard input on the given file
 
 #### reopen.stdout
 ```
-(string)->unit```
+(string)->unit
+```
 
 Reopen standard output on the given file
 
@@ -5493,14 +5915,16 @@ Reopen standard output on the given file
 
 #### restart
 ```
-()->unit```
+()->unit
+```
 
 Restart the application.
 
 #### run_process
 ```
 (?env:[(string*string)],?inherit_env:bool,?timeout:float,
- string)->((string*string)*(string*string))```
+ string)->((string*string)*(string*string))
+```
 
 Run a process in a shell environment. Returns: `((stdout,stderr),status)` where status is one of: `("exit","<code>")`, `("killed","<signal number>")`, `("stopped","<signal number>")`, `("exception","<exception description>")`, `("timeout","<run time>")`.
 
@@ -5511,7 +5935,8 @@ Run a process in a shell environment. Returns: `((stdout,stderr),status)` where 
 
 #### setenv
 ```
-(string,string)->unit```
+(string,string)->unit
+```
 
 Set the value associated to a variable in the process environment.
 
@@ -5520,13 +5945,15 @@ Set the value associated to a variable in the process environment.
 
 #### shutdown
 ```
-()->unit```
+()->unit
+```
 
 Shutdown the application.
 
 #### source.is_up
 ```
-(source('a))->bool```
+(source('a))->bool
+```
 
 Check whether a source is up.
 
@@ -5534,7 +5961,8 @@ Check whether a source is up.
 
 #### source.on_shutdown
 ```
-(source('a),(()->unit))->unit```
+(source('a),(()->unit))->unit
+```
 
 Register a function to be called when source shuts down.
 
@@ -5543,7 +5971,8 @@ Register a function to be called when source shuts down.
 
 #### system
 ```
-(string)->unit```
+(string)->unit
+```
 
 Shell command call. Set verbose to true to log process' output and errors.
 
@@ -5552,7 +5981,8 @@ Shell command call. Set verbose to true to log process' output and errors.
 #### test_process
 ```
 (?timeout:float,?env:[(string*string)],?inherit_env:bool,
- string)->bool```
+ string)->bool
+```
 
 Return true if process exited with 0 code.
 
@@ -5563,13 +5993,15 @@ Return true if process exited with 0 code.
 
 #### time
 ```
-()->float```
+()->float
+```
 
 Return the current time since 00:00:00 GMT, Jan. 1, 1970, in seconds.
 
 #### which
 ```
-(string)->string```
+(string)->string
+```
 
 which(``progname'') searches for an executable named ``progname'' using directories from the PATH environment variable and returns ``'' if it could not find one.
 

@@ -102,7 +102,7 @@ $(PWD)/html/doc-dev/protocols.md: $(LIQUIDSOAP)
 
 # We copy ref and settings to the git:external directories where they belong
 
-$(PWD)/html/doc-%/reference.md:
+$(PWD)/html/doc-%/reference.md: $(PWD)/reference-%.md
 	@cp $(PWD)/reference-$(*).md $(PWD)/html/doc-$(*)/reference.md
 
 $(PWD)/html/doc-%/settings.md:
