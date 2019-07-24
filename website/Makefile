@@ -105,7 +105,7 @@ $(PWD)/html/doc-dev/protocols.md: $(LIQUIDSOAP)
 $(PWD)/html/doc-%/reference.md: $(PWD)/reference-%.md
 	@cp $(PWD)/reference-$(*).md $(PWD)/html/doc-$(*)/reference.md
 
-$(PWD)/html/doc-%/settings.md:
+$(PWD)/html/doc-%/settings.md: $(PWD)/settings-%.md
 	@cp $(PWD)/settings-$(*).md $(PWD)/html/doc-$(*)/settings.md
 
 $(PWD)/html/doc-%/protocols.md:

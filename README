@@ -1,9 +1,0 @@
-Savonet - Audio Streaming Tools
--------------------------------
-
-Savonet is a set of open-source tools for multimedia streaming, particularly
-adapted for netradios. It is mainly written in OCaml (but the Liquidsoap
-language has nothing to do with OCaml).
-
-Please follow the procedure described in the INSTALL file to build and install
-liquidsoap, savonet's streamer.

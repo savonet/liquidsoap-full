@@ -1,5 +1,0 @@
-To initialize all sub-modules:
-  make init
-
-To update, including sub-modules:
-  make update
