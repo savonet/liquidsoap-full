@@ -15,7 +15,7 @@ RUN cp PACKAGES.default PACKAGES
 
 RUN ./bootstrap
 
-RUN eval $(opam config env) && ./configure && make clean && make && make doc
+RUN eval $(opam config env) && export PKG_CONFIG_PATH=/usr/share/pkgconfig/pkgconfig && ./configure && make clean && make && make doc
 
 USER root
 

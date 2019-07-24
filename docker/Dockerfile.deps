@@ -69,5 +69,6 @@ RUN \
 
 RUN \
     eval $(opam config env) && \
+    export PKG_CONFIG_PATH=/usr/share/pkgconfig/pkgconfig && \
     PACKAGES=`cat PACKAGES.default | grep '^ocaml' | cut -d'-' -f 2 | xargs echo` && \
     opam install -y liquidsoap $PACKAGES && opam uninstall liquidsoap $PACKAGES
