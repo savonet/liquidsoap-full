@@ -24,7 +24,7 @@ RUN cp PACKAGES.default PACKAGES
 
 RUN make update
 
-RUN eval $(opam config env) && ./bootstrap && ./configure --enable-graphics && make clean && make
+RUN eval $(opam config env) && export PKG_CONFIG_PATH=/usr/share/pkgconfig/pkgconfig && ./bootstrap && ./configure --enable-graphics && make clean && make
 
 WORKDIR /tmp/liquidsoap-full/website
 
