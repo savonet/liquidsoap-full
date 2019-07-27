@@ -63,7 +63,7 @@ USER opam
 
 RUN \
   git clone https://github.com/toots/ocaml-sys-socket.git && \
-  cd ocaml-sys-socket && opam pin add -y .
+  cd ocaml-sys-socket && opam pin add --no-action .
 
 RUN \
     cat PACKAGES.default | grep '^ocaml' | cut -d'-' -f 2 | while read package; do \
