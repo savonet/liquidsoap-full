@@ -5,6 +5,9 @@ ENTRYPOINT bash
 
 MAINTAINER The Savonet Team <savonet-users@lists.sourceforge.net>
 
+ARG OS
+ARG DISTRIBUTION
+
 # Add back graphics when/if ported to 4.08.0
 ENV EXT_PACKAGES="camlimages gd inotify sdl-liquidsoap ssl yojson"
 
@@ -17,9 +20,14 @@ RUN \
     apt-get update && \
     apt-get install -y --no-install-recommends aspcud autoconf automake \
             build-essential ca-certificates curl debhelper devscripts \
-            fakeroot git openssh-client unzip && \
+            fakeroot git openssh-client unzip gnupg dirmngr && \
     apt-get -y autoclean && \
     apt-get -y clean
+
+# Add our own!
+RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 20D63CCDDD0F62C2 && \
+    echo deb http://deb.liquidsoap.info/$OS $DISTRIBUTION main >> /etc/apt/sources.list && \
+    apt-get update
 
 RUN \
     curl -sL https://github.com/jgm/pandoc/releases/download/2.7.3/pandoc-2.7.3-1-amd64.deb -o pandoc-2.7.3-1-amd64.deb && \
@@ -46,6 +54,20 @@ RUN \
     opam update -y && \
     opam install -y depext && \
     opam clean
+
+USER root
+
+RUN apt-get -y --no-install-recommends install pkg-config libsrt-dev && apt-get -y autoclean && apt-get -y clean
+
+USER opam
+
+RUN \
+  git clone https://github.com/toots/unix-sys-socket.git && \
+  cd unix-sys-socket && opam pin add -y .
+
+RUN \
+  git clone https://github.com/savonet/ocaml-srt.git && \
+  cd ocaml-srt && opam pin add -y .
 
 RUN \
     cat PACKAGES.default | grep '^ocaml' | cut -d'-' -f 2 | while read package; do \

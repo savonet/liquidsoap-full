@@ -128,3 +128,6 @@
 [submodule "ocaml-frei0r"]
 	path = ocaml-frei0r
 	url = git://github.com/savonet/ocaml-frei0r.git
+[submodule "ocaml-srt"]
+	path = ocaml-srt
+	url = https://github.com/savonet/ocaml-srt.git

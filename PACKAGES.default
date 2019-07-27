@@ -40,6 +40,9 @@ ocaml-bjack
 # as well as input and outputs such as V4l inputs.
 ocaml-gstreamer
 
+# Srt enabled input and output using the Secure, Reliable, Transport protocol library.
+ocaml-srt
+
 # ============================================================================
 # Codecs
 # ============================================================================
