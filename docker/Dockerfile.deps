@@ -20,7 +20,7 @@ RUN \
     apt-get update && \
     apt-get install -y --no-install-recommends aspcud autoconf automake \
             build-essential ca-certificates curl debhelper devscripts \
-            fakeroot git openssh-client unzip gnupg dirmngr && \
+            fakeroot git openssh-client unzip gnupg dirmngr apt-transport-https && \
     apt-get -y autoclean && \
     apt-get -y clean
 
