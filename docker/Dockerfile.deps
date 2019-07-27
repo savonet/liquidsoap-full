@@ -55,19 +55,13 @@ RUN \
     opam install -y depext && \
     opam clean
 
-USER root
-
-RUN apt-get -y --no-install-recommends install pkg-config libsrt-dev && apt-get -y autoclean && apt-get -y clean
-
-USER opam
-
 RUN \
   git clone https://github.com/toots/ocaml-sys-socket.git && \
-  cd ocaml-sys-socket && opam pin add --no-action .
+  cd ocaml-sys-socket && opam pin add -y --no-action .
 
 RUN \
     cat PACKAGES.default | grep '^ocaml' | cut -d'-' -f 2 | while read package; do \
-      cd ocaml-$package && opam pin add --no-action . && cd ..; \
+      cd ocaml-$package && opam pin add -y --no-action . && cd ..; \
     done && cd liquidsoap && opam pin add --no-action .
 
 RUN opam depext -y -l liquidsoap $EXT_PACKAGES `cat PACKAGES.default | grep '^ocaml' | cut -d'-' -f 2 | xargs echo` > /tmp/deps
