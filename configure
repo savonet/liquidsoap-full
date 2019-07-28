@@ -36,7 +36,12 @@ for p in `for i in $packages ; do ls -d $i* | head -1 ; done` ; do
     echo ./configure $OPTS $* > $liqdir/configure-with-options
   else
     base=`echo $p | sed -e 's/ocaml-//' | sed -e 's/-.*//'`
-    OPTS="$OPTS --with-$base-dir=../$p/src"
+    
+    if [ "${base}" = "srt" ]; then
+      OPTS="$OPTS --with-$base-dir=../$p/_build/install/default/lib/srt"
+    else
+      OPTS="$OPTS --with-$base-dir=../$p/src"
+    fi
   fi
   echo
   echo "****** Configuring $p"
