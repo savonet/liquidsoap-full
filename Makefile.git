@@ -22,7 +22,7 @@ devel-module:
 	git branch --set-upstream-to=origin/master master
 
 update:
-	git checkout master
+	git checkout master && git pull
 	git submodule foreach 'git checkout master && git pull'
 
 reset-module:
