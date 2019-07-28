@@ -15,6 +15,9 @@ OPTS=""
 error=""
 LIQDIR=`ls -d liquidsoap* | head -1`
 
+BASEDIR=`dirname $0`
+PWD=`cd ${BASEDIR} && pwd`
+
 if [ ! -f PACKAGES ]; then
   echo "Please copy PACKAGES.default to PACKAGES";
   echo "and edit it to enable the packages you";
@@ -38,7 +41,7 @@ for p in `for i in $packages ; do ls -d $i* | head -1 ; done` ; do
     base=`echo $p | sed -e 's/ocaml-//' | sed -e 's/-.*//'`
     
     if [ "${base}" = "srt" ]; then
-      OPTS="$OPTS --with-$base-dir=../$p/_build/install/default/lib/srt"
+      OPTS="$OPTS --with-$base-dir=${PWD}/$p/_build/install/default/lib/srt"
     else
       OPTS="$OPTS --with-$base-dir=../$p/src"
     fi
