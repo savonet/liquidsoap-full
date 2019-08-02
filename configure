@@ -39,6 +39,11 @@ for p in `for i in $packages ; do ls -d $i* | head -1 ; done` ; do
     echo ./configure $OPTS $* > $liqdir/configure-with-options
   else
     base=`echo $p | sed -e 's/ocaml-//' | sed -e 's/-.*//'`
+
+    # Temporary for SRT dev
+    if [ "${base}" = "ffmpeg" ]; then
+      git checkout io || true
+    fi
     
     if [ "${base}" = "srt" ]; then
       OPTS="$OPTS --with-$base-dir=${PWD}/$p/_build/install/default/lib/srt"
