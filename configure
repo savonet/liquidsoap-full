@@ -42,7 +42,7 @@ for p in `for i in $packages ; do ls -d $i* | head -1 ; done` ; do
 
     # Temporary for SRT dev
     if [ "${base}" = "ffmpeg" ]; then
-      git checkout io || true
+      git fetch && git checkout io || true
     fi
     
     if [ "${base}" = "srt" ]; then
