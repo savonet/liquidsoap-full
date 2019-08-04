@@ -131,3 +131,6 @@
 [submodule "ocaml-srt"]
 	path = ocaml-srt
 	url = https://github.com/savonet/ocaml-srt.git
+[submodule "ocaml-lilv"]
+	path = ocaml-lilv
+	url = git@github.com:savonet/ocaml-lilv.git
