@@ -96,6 +96,9 @@ ocaml-flac
 # LADSPA are audio plugins providing sound effects
 #ocaml-ladspa
 
+# Lilv intefaces LV2 plugins providing sound effects
+#ocaml-lilv
+
 # SoundTouch is for changing pitch and tempo of sound
 #ocaml-soundtouch
 
