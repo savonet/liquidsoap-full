@@ -42,8 +42,8 @@ for p in `for i in $packages ; do ls -d $i* | head -1 ; done` ; do
 
     # Temporary for SRT dev
     if [ "${base}" = "ffmpeg" ]; then
-      echo "Checking ffmpeg io branch.."
-      cd $p && git fetch origin io && git checkout io
+      echo "Checking ffmpeg library-errors branch.."
+      cd $p && git fetch origin library-errors && git checkout library-errors
     fi
     
     if [ "${base}" = "srt" ]; then
