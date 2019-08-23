@@ -32,7 +32,7 @@ fi;
 
 packages=`grep -v '\#' PACKAGES`
 
-function prepare() {
+function prepare {
   PACKAGE=$1
 
   if [ ! -f ocaml-$PACKAGE/dune-project ]; then
@@ -42,7 +42,7 @@ function prepare() {
   fi
 }
 
-function libdir() {
+function libdir {
   PACKAGE=$1
 
   LIBPATH=`cd ocaml-$PACKAGE && pwd`
