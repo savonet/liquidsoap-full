@@ -32,28 +32,6 @@ fi;
 
 packages=`grep -v '\#' PACKAGES`
 
-function prepare {
-  PACKAGE=$1
-
-  if [ ! -f ocaml-$PACKAGE/dune-project ]; then
-    cd ocaml-$PACKAGE && ./configure $OPTS && cd ..
-  else
-    echo "Dune project, no configure needed!"
-  fi
-}
-
-function libdir {
-  PACKAGE=$1
-
-  LIBPATH=`cd ocaml-$PACKAGE && pwd`
-
-  if [ -f ocaml-$PACKAGE/dune-project ]; then
-    echo "${LIBPATH}/_build/install/default/lib/$PACKAGE"
-  else
-    echo "${LIBPATH}/src"
-  fi
-}
-
 liqdir=`ls -d liquidsoap* | head -n 1`
 for p in `for i in $packages ; do ls -d $i* | head -1 ; done` ; do
   echo
@@ -64,8 +42,21 @@ for p in `for i in $packages ; do ls -d $i* | head -1 ; done` ; do
     cd $p && ./configure $OPTS $* && cd ..
   else
     base=`echo $p | sed -e 's/ocaml-//' | sed -e 's/-.*//'`
-    prepare $base
-    LIBDIR=`libdir $base`
+
+    if [ ! -f $p/dune-project ]; then
+      cd $p && ./configure $OPTS && cd ..
+    else
+      echo "Dune project, no configure needed!"
+    fi
+
+    LIBPATH=`cd $p && pwd`
+
+    if [ -f ocaml-$PACKAGE/dune-project ]; then
+      LIBDIR="${LIBPATH}/_build/install/default/lib/$base"
+    else
+      LIBDIR="${LIBPATH}/src"
+    fi
+
     OPTS="$OPTS --with-$base-dir=${LIBDIR}"
   fi
 done
