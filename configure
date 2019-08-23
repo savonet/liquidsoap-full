@@ -51,7 +51,7 @@ for p in `for i in $packages ; do ls -d $i* | head -1 ; done` ; do
 
     LIBPATH=`cd $p && pwd`
 
-    if [ -f ocaml-$PACKAGE/dune-project ]; then
+    if [ -f $p/dune-project ]; then
       LIBDIR="${LIBPATH}/_build/install/default/lib/$base"
     else
       LIBDIR="${LIBPATH}/src"

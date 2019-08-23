@@ -20,9 +20,9 @@ RUN rm -rf website/savonet.github.io
 
 RUN git checkout master && git reset --hard HEAD && git pull
 
-RUN cp PACKAGES.default PACKAGES
-
 RUN make update
+
+RUN cp PACKAGES.default PACKAGES
 
 RUN eval $(opam config env) && export PKG_CONFIG_PATH=/usr/share/pkgconfig/pkgconfig && ./bootstrap && ./configure --enable-graphics && make clean && make
 
