@@ -46,7 +46,7 @@ for p in `for i in $packages ; do ls -d $i* | head -1 ; done` ; do
     if [ ! -f $p/dune-project ]; then
       cd $p && ./configure $OPTS && cd ..
     else
-      echo "Dune project, no configure needed!"
+      cd $p && dune build && cd ..
     fi
 
     LIBPATH=`cd $p && pwd`
