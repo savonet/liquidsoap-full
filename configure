@@ -32,36 +32,40 @@ fi;
 
 packages=`grep -v '\#' PACKAGES`
 
+function prepare() {
+  PACKAGE=$1
+
+  if [ ! -f ocaml-$PACKAGE/dune-project ]; then
+    cd ocaml-$PACKAGE && ./configure $OPTS && cd ..
+  else
+    echo "Dune project, no configure needed!"
+  fi
+}
+
+function libdir() {
+  PACKAGE=$1
+
+  LIBPATH=`cd ocaml-$PACKAGE && pwd`
+
+  if [ -f ocaml-$PACKAGE/dune-project ]; then
+    echo "${LIBPATH}/_build/install/default/lib/$PACKAGE"
+  else
+    echo "${LIBPATH}/src"
+  fi
+}
+
 liqdir=`ls -d liquidsoap* | head -n 1`
 for p in `for i in $packages ; do ls -d $i* | head -1 ; done` ; do
-  if test "$p" = "$liqdir" ; then
-    base="liquidsoap"
-    echo ./configure $OPTS $* > $liqdir/configure-with-options
-  else
-    base=`echo $p | sed -e 's/ocaml-//' | sed -e 's/-.*//'`
-
-    # Temporary for SRT dev
-    if [ "${base}" = "ffmpeg" ]; then
-      echo "Checking ffmpeg library-errors branch.."
-      cd $p && git fetch origin library-errors && git checkout library-errors && ./bootstrap
-    fi
-    
-    if [ "${base}" = "srt" ]; then
-      OPTS="$OPTS --with-$base-dir=${PWD}/$p/_build/install/default/lib/srt"
-    else
-      OPTS="$OPTS --with-$base-dir=../$p/src"
-    fi
-  fi
   echo
   echo "****** Configuring $p"
   echo
-  cd $p
-  if test -f ./configure ; then
-    echo ./configure $OPTS $*
-    ./configure $OPTS $* || exit 1
+  if test "$p" = "$liqdir" ; then
+    echo ./configure $OPTS $* > $liqdir/configure-with-options
+    cd $p && ./configure $OPTS $* && cd ..
   else
-    echo "No configure script found for $*"
-    exit 1
+    base=`echo $p | sed -e 's/ocaml-//' | sed -e 's/-.*//'`
+    prepare $base
+    LIBDIR=`libdir $base`
+    OPTS="$OPTS --with-$base-dir=${LIBDIR}"
   fi
-  cd ..
 done

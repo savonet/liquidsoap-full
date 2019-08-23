@@ -8,10 +8,24 @@ SED:=$(shell which gsed || which sed)
 default: all
 
 all:
-	for i in $(PRJ); do $(MAKE) -C $$i || exit 1; done
+	@for i in $(PRJ); do \
+	  echo "Building $$i.."; \
+	  if [ -f $$i/dune-project ]; then \
+            cd $$i && dune build && cd ..; \
+          else \
+	    $(MAKE) -C $$i || exit 1; \
+	  fi; \
+        done
 
 clean:
-	for i in $(PRJ); do $(MAKE) -C $$i $@; done
+	@for i in $(PRJ); do \
+	  echo "Cleaning up $$i.."; \
+          if [ -f $$i/dune-project ]; then \
+            cd $$i && dune $@ && cd ..; \
+          else \
+            $(MAKE) -C $$i $@ || exit 1; \
+          fi; \
+        done
 
 doc:
 	$(MAKE) -C $(LIQ) doc
@@ -89,11 +103,16 @@ check-init:
 # We use PKGDIRS and LIQDIRS which have -$(version) prefixes,
 # so that the target will work in -full archives.
 .PHONY: bootstrap check-init
+
 PKGDIRS:=$(shell for p in $(PKGS) ; do ls -d $$p* | head -1 ; done)
-bootstrap: check-init $(PKGDIRS:=/configure) $(LIQDIR)/configure
+CONFIGURES:=$(shell for p in $(PKGDIRS); do if [ -f $$p/configure.ac ]; then echo $$p/configure; fi; done)
+
+bootstrap: check-init $(CONFIGURES) $(LIQDIR)/configure
+
 %/configure: %/configure.ac
 	@echo "*** bootstrapping `dirname $@`"
 	@cd `dirname $@` ; ./bootstrap
+
 # Generate each PKG/Makefile by running configure script
 # This may fail for some packages because specific configure options are
 # needed, in which case they should simply be ran manually
