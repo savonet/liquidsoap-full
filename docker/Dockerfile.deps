@@ -27,6 +27,8 @@ RUN \
 # Add our own!
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 20D63CCDDD0F62C2 && \
     echo deb http://deb.liquidsoap.info/$OS $DISTRIBUTION main >> /etc/apt/sources.list && \
+    touch cat /etc/apt/preferences && \
+    printf "Package: *\nPin: origin deb.liquidsoap.info\nPin-Priority: 900\n" >> cat /etc/apt/preferences && \
     apt-get update
 
 RUN \
