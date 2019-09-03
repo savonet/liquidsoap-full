@@ -5,8 +5,10 @@ can use the function `harbor.http.register` to register
 HTTP handlers. Its parameters are are follow:
 
 ```
-harbor.http.register(port=8080,method="GET",uri,handler)```
- where:
+harbor.http.register(port=8080,method="GET",uri,handler)
+```
+
+where:
 
 * `port` is the port where to receive incoming connections
 * `method` is for the http method (or verb), one of: `"GET"`, `"PUT"`, `"POST"`, `"DELETE"`, `"OPTIONS"` and `"HEAD"`
@@ -191,7 +193,6 @@ Using `insert_metadata`, you can register a GET handler that
 updates the metadata of a given source. For instance:
 
 ```
-
 # s = some source
 
 # x is of type ((metadata)->unit)*source
@@ -243,6 +244,7 @@ can use this handler, for instance, in a custom HTML form.
 
 Limitations
 ===========
+
 When using harbor's HTTP server, please be warned that the server is 
 **not** meant to be used under heavy load. Therefore, it should **not**
 be exposed to your users/listeners if you expect many of them. In this
