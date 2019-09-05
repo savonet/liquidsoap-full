@@ -44,7 +44,7 @@ for p in `for i in $packages ; do ls -d $i* | head -1 ; done` ; do
     base=`echo $p | sed -e 's/ocaml-//' | sed -e 's/-.*//'`
 
     if [ $base = "ffmpeg" ]; then
-      cd ocaml-ffmpeg && git checkout stream-output && ./bootstrap && cd ..
+      cd ocaml-ffmpeg && git checkout stream-output && git pull && ./bootstrap && cd ..
     fi
 
     if [ ! -f $p/dune-project ]; then
