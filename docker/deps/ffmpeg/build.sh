@@ -12,7 +12,7 @@ BUILD_IMAGE=savonet/ffmpeg:${TAG}
 export OS=`echo ${BASE_IMAGE} | cut -d':' -f 1`
 export DISTRIBUTION=`echo ${BASE_IMAGE} | cut -d':' -f 2`
 
-#docker build -t ${BUILD_IMAGE} --build-arg BASE_IMAGE --build-arg OS --build-arg DISTRIBUTION .
+docker build -t ${BUILD_IMAGE} --build-arg BASE_IMAGE --build-arg OS --build-arg DISTRIBUTION .
 
 id=$(docker create ${BUILD_IMAGE})
 
