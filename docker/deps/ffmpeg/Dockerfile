@@ -27,7 +27,7 @@ RUN \
 RUN \
     apt-get source ffmpeg && \
     cd ffmpeg-* && \
-    dch --bpo --distribution $DISTRIBUTION "Enable fdk-aac" && \
+    dch -i --distribution $DISTRIBUTION "Enable fdk-aac" && \
     sed -e 's#--prefix#--enable-nonfree --enable-libfdk-aac --prefix#' -i debian/rules && \
     if [ ${DISTRIBUTION} != stretch ] && [ ${DISTRIBUTION} != bionic ]; then \
       sed -e 's#--prefix#--enable-libsrt --prefix#' -i debian/rules; \
