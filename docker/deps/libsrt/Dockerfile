@@ -26,7 +26,7 @@ RUN \
     tar xvf libsrt-${SRT_VERSION}.orig.tar.gz && \
     cd srt-${SRT_VERSION} && \
     cp -rf ../libsrt/debian . && \
-    dch -v ${SRT_VERSION}-1 --distribution $DISTRIBUTION "New Upstream Release" && \
+    dch -v ${SRT_VERSION}-1~$DISTRIBUTION --distribution $DISTRIBUTION "New Upstream Release" && \
     grep -r srt-multiplex debian | cut -d':' -f 1 | sort -u | while read i; do sed -e 's#srt-multiplex#srt-tunnel#g' -i "$i"; done && \
     fakeroot debian/rules binary && \
     mkdir -p /tmp/debian/pkgs/${OS}_${DISTRIBUTION} && \
