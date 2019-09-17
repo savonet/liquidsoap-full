@@ -11,6 +11,7 @@ ARG SRT_VERSION
 
 ENV DEBFULLNAME="The Savonet Team"
 ENV DEBEMAIL="savonet-users@lists.sourceforge.net"
+ENV DEBIAN_FRONTEND=noninteractive
 
 RUN \
     cat /etc/apt/sources.list | grep '^deb' | sed -e 's#deb #deb-src #g' >> /etc/apt/sources.list && \
