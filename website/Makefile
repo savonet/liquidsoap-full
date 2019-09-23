@@ -116,10 +116,10 @@ define TEMPLATED_RULE
 $(PWD)/html/doc-$(version)/reference.html: $(PWD)/html/doc-$(version)/reference.md template-$(version).html
 	@$(PANDOC) --template template-$(version).html --metadata version=$(version) --metadata versions="$(VERSIONS)" --metadata pagetitle=Reference -i $$< -o $$@
 
-$(PWD)/html/doc-$(version)/settings.html: $(PWD)/html/doc-%/settings.md template-$(version).html
+$(PWD)/html/doc-$(version)/settings.html: $(PWD)/html/doc-$(version)/settings.md template-$(version).html
 	@$(PANDOC) --toc template-$(version).html --metadata version=$(version) --metadata versions="$(VERSIONS)" --metadata pagetitle=Settings -i $$< -o $$@
 
-$(PWD)/html/doc-$(version)/protocols.html: $(PWD)/html/doc-%/protocols.md template-$(version).html
+$(PWD)/html/doc-$(version)/protocols.html: $(PWD)/html/doc-$(version)/protocols.md template-$(version).html
 	@$(PANDOC) --template template-$(version).html --metadata version=$(version) --metadata versions="$(VERSIONS)" --metadata pagetitle=Protocols -i $$< -o $$@
 
 $(PWD)/html/doc-$(version)/%.html: $(PWD)/content/doc-$(version)/%.md $(PWD)/template-$(version).html
