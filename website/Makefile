@@ -82,60 +82,34 @@ $(LIQUIDSOAP):
 
 # Auto-generated content files
 
-$(PWD)/html/doc-dev/reference.md: $(LIQUIDSOAP) $(PWD)/reference-header.md
+$(PWD)/content/doc-dev/reference.md: $(LIQUIDSOAP) $(PWD)/reference-header.md
 	@echo "Generating dev language reference..."
 	@echo "Did you enable all features ?"
-	cat $(PWD)/reference-header.md > $(PWD)/reference.md
-	$(LIQUIDSOAP) --no-pervasives $(LIQ_DIR)/libs/pervasives.liq --list-functions-md >> $(PWD)/reference.md
-	cp $(PWD)/reference.md $@
+	cat $(PWD)/reference-header.md > $@
+	$(LIQUIDSOAP) --no-pervasives $(LIQ_DIR)/libs/pervasives.liq --list-functions-md >> $@
 
-$(PWD)/html/doc-dev/settings.md: $(LIQUIDSOAP)
+$(PWD)/content/doc-dev/settings.md: $(LIQUIDSOAP)
 	@echo "Generating dev language settings..."
 	@echo "Did you enable all features ?"
 	@$(LIQUIDSOAP) --no-pervasives $(LIQ_DIR)/libs/pervasives.liq --conf-descr-md | grep -v "# Liquidsoap configuration" > $@
 
-$(PWD)/html/doc-dev/protocols.md: $(LIQUIDSOAP)
+$(PWD)/content/doc-dev/protocols.md: $(LIQUIDSOAP)
 	@echo "Generating dev protocols reference..."
 	@echo "Did you enable all features ?"
-	@$(LIQUIDSOAP) --no-pervasives $(LIQ_DIR)/libs/pervasives.liq --list-protocols-md > $(PWD)/protocols.md
-	cp $(PWD)/protocols.md $@
+	@$(LIQUIDSOAP) --no-pervasives $(LIQ_DIR)/libs/pervasives.liq --list-protocols-md > $@
 
-# We copy ref and settings to the git:external directories where they belong
-
-$(PWD)/html/doc-%/reference.md: $(PWD)/reference-%.md
-	@cp $(PWD)/reference-$(*).md $(PWD)/html/doc-$(*)/reference.md
-
-$(PWD)/html/doc-%/settings.md: $(PWD)/settings-%.md
-	@cp $(PWD)/settings-$(*).md $(PWD)/html/doc-$(*)/settings.md
-
-$(PWD)/html/doc-%/protocols.md:
-	@([ -f $(PWD)/protocols-$(*).md ] && cp $(PWD)/protocols-$(*).md $(PWD)/html/doc-$(*)/protocols.md) || \
-	  cp $(LIQ_DIR)/doc/no-proto.md $(PWD)/html/doc-$(*)/protocols.md
-
-define TEMPLATED_RULE
-$(PWD)/html/doc-$(version)/reference.html: $(PWD)/html/doc-$(version)/reference.md template-$(version).html
-	@$(PANDOC) --template template-$(version).html --metadata version=$(version) --metadata versions="$(VERSIONS)" --metadata pagetitle=Reference -i $$< -o $$@
-
-$(PWD)/html/doc-$(version)/settings.html: $(PWD)/html/doc-$(version)/settings.md template-$(version).html
-	@$(PANDOC) --toc template-$(version).html --metadata version=$(version) --metadata versions="$(VERSIONS)" --metadata pagetitle=Settings -i $$< -o $$@
-
-$(PWD)/html/doc-$(version)/protocols.html: $(PWD)/html/doc-$(version)/protocols.md template-$(version).html
-	@$(PANDOC) --template template-$(version).html --metadata version=$(version) --metadata versions="$(VERSIONS)" --metadata pagetitle=Protocols -i $$< -o $$@
-
+define VERSIONED_RULES
 $(PWD)/html/doc-$(version)/%.html: $(PWD)/content/doc-$(version)/%.md $(PWD)/template-$(version).html
 	@echo Converting $$(<) to $$(@)...
 	@test -d $$(shell dirname $$(@)) || (mkdir -p $$(shell dirname $$(@)))
 	@$(PANDOC) --template template-$(version).html --metadata version=$(version) --metadata versions="$(VERSIONS)" --metadata pagetitle="$$(basename $$(notdir $$@))" -i $$< -o $$@
-endef
-$(foreach version,$(VERSIONS),$(eval $(TEMPLATED_RULE)))
 
-define IMAGE_RULE
 $(PWD)/html/doc-$(version)/images/%: $(PWD)/content/doc-$(version)/images/%
 	@echo "$$(<) -> $$(@)"
 	@mkdir -p $$(shell dirname $$(@))
 	@cp -rf $$(<) $$(@)
 endef
-$(foreach version,$(VERSIONS),$(eval $(IMAGE_RULE)))
+$(foreach version,$(VERSIONS),$(eval $(VERSIONED_RULES)))
 
 clean:
 	rm -rf savonet.github.io html
