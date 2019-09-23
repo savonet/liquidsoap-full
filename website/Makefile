@@ -112,19 +112,22 @@ $(PWD)/html/doc-%/protocols.md:
 	@([ -f $(PWD)/protocols-$(*).md ] && cp $(PWD)/protocols-$(*).md $(PWD)/html/doc-$(*)/protocols.md) || \
 	  cp $(LIQ_DIR)/doc/no-proto.md $(PWD)/html/doc-$(*)/protocols.md
 
-$(PWD)/html/doc-%/reference.html: $(PWD)/html/doc-%/reference.md template-%.html
-	@$(PANDOC) --template $(word 2,$^) --metadata version=$(firstword $(subst /, ,$(*))) --metadata versions="$(VERSIONS)" --metadata pagetitle=Reference -i $< -o $@
+define TEMPLATED_RULE
+$(PWD)/html/doc-$(version)/reference.html: $(PWD)/html/doc-$(version)/reference.md template-$(version).html
+	@$(PANDOC) --template template-$(version).html --metadata version=$(version) --metadata versions="$(VERSIONS)" --metadata pagetitle=Reference -i $$< -o $$@
 
-$(PWD)/html/doc-%/settings.html: $(PWD)/html/doc-%/settings.md template-%.html
-	@$(PANDOC) --toc --template $(word 2,$^) --metadata version=$(firstword $(subst /, ,$(*))) --metadata versions="$(VERSIONS)" --metadata pagetitle=Settings -i $< -o $@
+$(PWD)/html/doc-$(version)/settings.html: $(PWD)/html/doc-%/settings.md template-$(version).html
+	@$(PANDOC) --toc template-$(version).html --metadata version=$(version) --metadata versions="$(VERSIONS)" --metadata pagetitle=Settings -i $$< -o $$@
 
-$(PWD)/html/doc-%/protocols.html: $(PWD)/html/doc-%/protocols.md template-%.html
-	@$(PANDOC) --template $(word 2,$^) --metadata version=$(firstword $(subst /, ,$(*))) --metadata versions="$(VERSIONS)" --metadata pagetitle=Protocols -i $< -o $@
+$(PWD)/html/doc-$(version)/protocols.html: $(PWD)/html/doc-%/protocols.md template-$(version).html
+	@$(PANDOC) --template template-$(version).html --metadata version=$(version) --metadata versions="$(VERSIONS)" --metadata pagetitle=Protocols -i $$< -o $$@
 
-$(PWD)/html/doc-%.html: $(PWD)/content/doc-%.md $(PWD)/template-%.html
-	@echo Converting $(<) to $(@)...
-	@test -d $(shell dirname $(@)) || (mkdir -p $(shell dirname $(@)))
-	@$(PANDOC) --template $(word 2,$^) --metadata version=$(firstword $(subst /, ,$(*))) --metadata versions="$(VERSIONS)" --metadata pagetitle="$(basename $(notdir $@))" -i $< -o $@
+$(PWD)/html/doc-$(version)/%.html: $(PWD)/content/doc-$(version)/%.md $(PWD)/template-$(version).html
+	@echo Converting $$(<) to $$(@)...
+	@test -d $$(shell dirname $$(@)) || (mkdir -p $$(shell dirname $$(@)))
+	@$(PANDOC) --template template-$(version).html --metadata version=$(version) --metadata versions="$(VERSIONS)" --metadata pagetitle="$$(basename $$(notdir $$@))" -i $$< -o $$@
+endef
+$(foreach version,$(VERSIONS),$(eval $(TEMPLATED_RULE)))
 
 define IMAGE_RULE
 $(PWD)/html/doc-$(version)/images/%: $(PWD)/content/doc-$(version)/images/%
