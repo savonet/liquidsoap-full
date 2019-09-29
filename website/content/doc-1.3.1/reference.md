@@ -38,7 +38,7 @@ information that liquidsoap puts in streams: track limits and metadata.
 
 Source / Conversions
 --------------------
-#### audio_to_stereo
+### audio_to_stereo
 ```
 (?id:string,source(audio=*+1,video=0,midi=0))->
 source(audio=2,video=0,midi=0)```
@@ -48,7 +48,7 @@ Convert any kind of audio source into a stereo source.
 * `id` (`string` -- defaults to `""`): Force the value of the source ID.
 * `(unlabeled)` (`source(audio=*+1,video=0,midi=0)`)
 
-#### drop_audio
+### drop_audio
 ```
 (?id:string,source(audio='#a,video='#b,midi='#c))->
 source(audio=0,video='#b,midi='#c)```
@@ -58,7 +58,7 @@ Drop all audio channels of a stream.
 * `id` (`string` -- defaults to `""`): Force the value of the source ID.
 * `(unlabeled)` (`source(audio='#a,video='#b,midi='#c)`)
 
-#### drop_midi
+### drop_midi
 ```
 (?id:string,source(audio='#a,video='#b,midi='#c))->
 source(audio='#a,video='#b,midi=0)```
@@ -68,7 +68,7 @@ Drop all midi channels of a stream.
 * `id` (`string` -- defaults to `""`): Force the value of the source ID.
 * `(unlabeled)` (`source(audio='#a,video='#b,midi='#c)`)
 
-#### drop_video
+### drop_video
 ```
 (?id:string,source(audio='#a,video='#b,midi='#c))->
 source(audio='#a,video=0,midi='#c)```
@@ -78,7 +78,7 @@ Drop all video channels of a stream.
 * `id` (`string` -- defaults to `""`): Force the value of the source ID.
 * `(unlabeled)` (`source(audio='#a,video='#b,midi='#c)`)
 
-#### id
+### id
 ```
 (?id:string,source('a))->source('a)```
 
@@ -87,7 +87,7 @@ Does not do anything, simply forwards its input stream.
 * `id` (`string` -- defaults to `""`): Force the value of the source ID.
 * `(unlabeled)` (`source('a)`)
 
-#### mean
+### mean
 ```
 (?id:string,source(audio='#a,video='#b,midi='#c))->
 source(audio=1,video='#b,midi='#c)```
@@ -97,7 +97,7 @@ Produce mono audio by taking the mean of all audio channels.
 * `id` (`string` -- defaults to `""`): Force the value of the source ID.
 * `(unlabeled)` (`source(audio='#a,video='#b,midi='#c)`)
 
-#### mux_audio
+### mux_audio
 ```
 (?id:string,audio:source(audio='#a,video=0,midi=0),
  source(audio=0,video='#b,midi='#c))->
@@ -109,7 +109,7 @@ Mux an audio stream into an audio-free stream.
 * `audio` (`source(audio='#a,video=0,midi=0)`)
 * `(unlabeled)` (`source(audio=0,video='#b,midi='#c)`)
 
-#### mux_mono
+### mux_mono
 ```
 (?id:string,mono:source(audio=1,video=0,midi=0),
  source(audio='#a,video='#b,midi='#c))->
@@ -121,7 +121,7 @@ Mux a mono audio stream into another stream.
 * `mono` (`source(audio=1,video=0,midi=0)`)
 * `(unlabeled)` (`source(audio='#a,video='#b,midi='#c)`)
 
-#### mux_stereo
+### mux_stereo
 ```
 (?id:string,stereo:source(audio=2,video=0,midi=0),
  source(audio='#a,video='#b,midi='#c))->
@@ -133,7 +133,7 @@ Mux a stereo audio stream into another stream.
 * `stereo` (`source(audio=2,video=0,midi=0)`)
 * `(unlabeled)` (`source(audio='#a,video='#b,midi='#c)`)
 
-#### mux_video
+### mux_video
 ```
 (?id:string,video:source(audio=0,video='#a,midi=0),
  source(audio='#b,video=0,midi='#c))->
@@ -145,7 +145,7 @@ Add video channnels to a stream.
 * `video` (`source(audio=0,video='#a,midi=0)`)
 * `(unlabeled)` (`source(audio='#b,video=0,midi='#c)`)
 
-#### stereo.left
+### stereo.left
 ```
 (source(audio=2,video=0,midi=0))->
 source(audio=1,video=0,midi=0)```
@@ -154,7 +154,7 @@ Extract the left channel of a stereo source
 
 * `(unlabeled)` (`source(audio=2,video=0,midi=0)`): Source to extract from
 
-#### stereo.right
+### stereo.right
 ```
 (source(audio=2,video=0,midi=0))->
 source(audio=1,video=0,midi=0)```
@@ -163,7 +163,7 @@ Extract the right channel of a stereo source
 
 * `(unlabeled)` (`source(audio=2,video=0,midi=0)`): Source to extract from
 
-#### swap
+### swap
 ```
 (?id:string,source(audio=2,video=0,midi=0))->
 source(audio=2,video=0,midi=0)```
@@ -175,7 +175,7 @@ Swap two channels of a stereo source.
 
 Source / Input
 --------------
-#### blank
+### blank
 ```
 (?id:string,?duration:float)->source('a)```
 
@@ -184,7 +184,7 @@ Produce silence and blank images.
 * `id` (`string` -- defaults to `""`): Force the value of the source ID.
 * `duration` (`float` -- defaults to `0.0`): Duration of blank tracks in seconds, default means forever.
 
-#### empty
+### empty
 ```
 (?id:string)->source(audio='a,video='b,midi='c)```
 
@@ -192,7 +192,7 @@ A source that does not produce anything. No silence, no track at all.
 
 * `id` (`string` -- defaults to `""`): Force the value of the source ID.
 
-#### fail
+### fail
 ```
 (?id:string)->source('b)```
 
@@ -200,7 +200,7 @@ Creates a source that fails to produce anything.
 
 * `id` (`string` -- defaults to `""`)
 
-#### gstreamer.hls
+### gstreamer.hls
 ```
 (?id:string,'a)->source(audio=2,video=1,midi=0)```
 
@@ -209,7 +209,7 @@ Play an http live stream.
 * `id` (`string` -- defaults to `""`): Force the value of the source ID.
 * `(unlabeled)` (`'a`): URI of the HLS stream index.
 
-#### in
+### in
 ```
 (?id:string,?start:bool,?on_start:(()->unit),
  ?on_stop:(()->unit),?fallible:bool)->
@@ -223,7 +223,7 @@ Create a source from the first available input driver in pulseaudio, portaudio, 
 * `on_stop` (`()->unit` -- defaults to `{()}`)
 * `fallible` (`bool` -- defaults to `false`)
 
-#### input.external
+### input.external
 ```
 (?id:string,?buffer:float,?channels:int,?max:float,
  ?restart:bool,?restart_on_error:bool,?samplerate:int,
@@ -240,7 +240,7 @@ Stream data from an external application.
 * `samplerate` (`int` -- defaults to `44100`): Samplerate.
 * `(unlabeled)` (`string`): Command to execute.
 
-#### input.external.avi
+### input.external.avi
 ```
 (?id:string,?buffer:float,?max:float,?restart:bool,
  ?restart_on_error:bool,string)->
@@ -257,7 +257,7 @@ Stream data from an external application.
 * `restart_on_error` (`bool` -- defaults to `false`): Restart process when exited with error.
 * `(unlabeled)` (`string`): Command to execute.
 
-#### input.external.rawvideo
+### input.external.rawvideo
 ```
 (?id:string,?buffer:float,?max:float,?restart:bool,
  ?restart_on_error:bool,string)->
@@ -274,7 +274,7 @@ Stream data from an external application.
 * `restart_on_error` (`bool` -- defaults to `false`): Restart process when exited with error.
 * `(unlabeled)` (`string`): Command to execute.
 
-#### input.ffmpeg.video
+### input.ffmpeg.video
 ```
 (?id:string,?restart:bool,?restart_on_error:bool,
  ?buffer:float,?max:float,?format:string,string)->
@@ -290,7 +290,7 @@ No documentation available.
 * `format` (`string` -- defaults to `""`)
 * `(unlabeled)` (`string`)
 
-#### input.gstreamer.audio
+### input.gstreamer.audio
 ```
 (?id:string,?max:float,?pipeline:string)->
 source(audio='#a+1,video=0,midi=0)```
@@ -301,7 +301,7 @@ Stream audio from a GStreamer pipeline.
 * `max` (`float` -- defaults to `10.0`): Maximum duration of the buffered data.
 * `pipeline` (`string` -- defaults to `"audiotestsrc"`): GStreamer pipeline to input from.
 
-#### input.gstreamer.audio_video
+### input.gstreamer.audio_video
 ```
 (?id:string,?audio_pipeline:string,?max:float,
  ?pipeline:string,?video_pipeline:string)->
@@ -315,7 +315,7 @@ Stream audio+video from a GStreamer pipeline.
 * `pipeline` (`string` -- defaults to `""`): Main GStreamer pipeline.
 * `video_pipeline` (`string` -- defaults to `"videotestsrc"`): Video pipeline to input from.
 
-#### input.gstreamer.video
+### input.gstreamer.video
 ```
 (?id:string,?max:float,?pipeline:string)->
 source(audio=0,video=1,midi=0)```
@@ -326,7 +326,7 @@ Stream video from a GStreamer pipeline.
 * `max` (`float` -- defaults to `10.0`): Maximum duration of the buffered data.
 * `pipeline` (`string` -- defaults to `"videotestsrc"`): GStreamer pipeline to input from.
 
-#### input.harbor
+### input.harbor
 ```
 (?id:string,?auth:((string,string)->bool),?buffer:float,
  ?debug:bool,?dumpfile:string,?icy:bool,
@@ -358,7 +358,7 @@ Retrieves the given http stream from the harbor.
 * `user` (`string` -- defaults to `"source"`): Source user.
 * `(unlabeled)` (`string`): Mountpoint to look for.
 
-#### input.harbor.ssl
+### input.harbor.ssl
 ```
 (?id:string,?auth:((string,string)->bool),?buffer:float,
  ?debug:bool,?dumpfile:string,?icy:bool,
@@ -390,7 +390,7 @@ Retrieves the given https stream from the harbor.
 * `user` (`string` -- defaults to `"source"`): Source user.
 * `(unlabeled)` (`string`): Mountpoint to look for.
 
-#### input.http
+### input.http
 ```
 (?id:string,?autostart:bool,?bind_address:string,
  ?buffer:float,?debug:bool,?force_mime:string,
@@ -421,7 +421,7 @@ Forwards the given http stream. The relay can be paused/resumed using the start/
 ): User agent.
 * `(unlabeled)` (`string`): URL of an http stream (default port is 80).
 
-#### input.https
+### input.https
 ```
 (?id:string,?autostart:bool,?bind_address:string,
  ?buffer:float,?debug:bool,?force_mime:string,
@@ -452,7 +452,7 @@ Forwards the given https stream. The relay can be paused/resumed using the start
 ): User agent.
 * `(unlabeled)` (`string`): URL of an https stream (default port is 80).
 
-#### input.mencoder.video
+### input.mencoder.video
 ```
 (?id:string,?restart:bool,?restart_on_error:bool,
  ?buffer:float,?max:float,string)->
@@ -467,7 +467,7 @@ No documentation available.
 * `max` (`float` -- defaults to `10.0`)
 * `(unlabeled)` (`string`)
 
-#### input.mplayer
+### input.mplayer
 ```
 (?id:string,?restart:bool,?restart_on_error:bool,
  ?buffer:float,?max:float,string)->
@@ -482,7 +482,7 @@ Stream data from mplayer
 * `max` (`float` -- defaults to `10.0`): Maximum duration of the buffered data.
 * `(unlabeled)` (`string`): data URI.
 
-#### input.portaudio
+### input.portaudio
 ```
 (?id:string,?buflen:int,?clock_safe:bool,?fallible:bool,
  ?on_start:(()->unit),?on_stop:(()->unit),?start:bool)->
@@ -498,7 +498,7 @@ Stream from a portaudio input device.
 * `on_stop` (`()->unit` -- defaults to `{()}`): Callback executed when input stops.
 * `start` (`bool` -- defaults to `true`): Start input as soon as it is created. Disabling it is only taken into account for a fallible input.
 
-#### input.udp
+### input.udp
 ```
 (?id:string,?buffer:float,host:string,port:int,string)->
 active_source('a)```
@@ -513,7 +513,7 @@ Input encoded data from UDP, without any control whatsoever.
 * `port` (`int`)
 * `(unlabeled)` (`string`): Mime type.
 
-#### input.v4l2
+### input.v4l2
 ```
 (?id:string,?device:string)->
 source(audio=0,video=1,midi=0)```
@@ -523,7 +523,7 @@ Stream from a video4linux 2 input device, such as a webcam.
 * `id` (`string` -- defaults to `""`): Force the value of the source ID.
 * `device` (`string` -- defaults to `"/dev/video0"`): V4L2 device to use.
 
-#### input.v4l2_with_audio
+### input.v4l2_with_audio
 ```
 (?id:string,?device:string)->
 source(audio=2,video=1,midi=0)```
@@ -533,7 +533,7 @@ Stream from a video4linux 2 input device, such as a webcam.
 * `id` (`string` -- defaults to `""`): Force the value of the source ID.
 * `device` (`string` -- defaults to `"/dev/video0"`): V4L2 device to use.
 
-#### noise
+### noise
 ```
 (?id:string,?duration:float)->
 source(audio='a,video='b,midi=0)```
@@ -543,7 +543,7 @@ Generate (audio and/or video) white noise.
 * `id` (`string` -- defaults to `""`): Force the value of the source ID.
 * `duration` (`float` -- defaults to `0.0`)
 
-#### playlist
+### playlist
 ```
 (?id:string,?check_next:((request('a))->bool),
  ?conservative:bool,?default_duration:float,
@@ -566,7 +566,7 @@ Loop on a playlist of URIs.
 * `timeout` (`float` -- defaults to `20.0`): Timeout (in sec.) for a single download.
 * `(unlabeled)` (`string`): URI where to find the playlist.
 
-#### playlist.once
+### playlist.once
 ```
 (?id:string,?random:bool,?on_done:(()->unit),
  ?reload_mode:string,string)->source('a)```
@@ -579,7 +579,7 @@ Custom playlist source written using the script language. It will read directory
 * `reload_mode` (`string` -- defaults to `""`): If set to ``watch'', will be reloaded when the playlist is changed
 * `(unlabeled)` (`string`): Playlist URI
 
-#### playlist.reloadable
+### playlist.reloadable
 ```
 (?id:string,?random:bool,?on_done:(()->unit),
  ?filter:(([(string*string)])->bool),string)->
@@ -593,7 +593,7 @@ Custom playlist source written using the script language. Will read directory or
 * `filter` (`([(string*string)])->bool` -- defaults to `fun (_) -> true`): Filter out some files depending on metadata
 * `(unlabeled)` (`string`): Playlist URI
 
-#### playlist.safe
+### playlist.safe
 ```
 (?id:string,?mime_type:string,?mode:string,
  ?prefix:string,?reload:int,?reload_mode:string,string)->
@@ -609,7 +609,7 @@ Loop on a playlist of local files, and never fail. In order to do so, it has to 
 * `reload_mode` (`string` -- defaults to `"seconds"`): Unit of the reload parameter, either 'rounds', 'seconds' or 'watch' (reload the file whenever it is changed).
 * `(unlabeled)` (`string`): URI where to find the playlist.
 
-#### request.dynamic
+### request.dynamic
 ```
 (?id:string,?conservative:bool,?default_duration:float,
  ?length:float,?timeout:float,(()->request('a)))->
@@ -624,7 +624,7 @@ Play request dynamically created by a given function.
 * `timeout` (`float` -- defaults to `20.0`): Timeout (in sec.) for a single download.
 * `(unlabeled)` (`()->request('a)`)
 
-#### request.equeue
+### request.equeue
 ```
 (?id:string,?conservative:bool,?default_duration:float,
  ?length:float,?timeout:float)->source('a)```
@@ -637,7 +637,7 @@ Receive URIs from users, and play them. Insertion and deletion possible at any p
 * `length` (`float` -- defaults to `10.0`): How much audio (in sec.) should be queued in advance.
 * `timeout` (`float` -- defaults to `20.0`): Timeout (in sec.) for a single download.
 
-#### request.queue
+### request.queue
 ```
 (?id:string,?conservative:bool,?default_duration:float,
  ?interactive:bool,?length:float,?queue:[request('a)],
@@ -653,7 +653,7 @@ Receive URIs from users, and play them.
 * `queue` (`[request('a)]` -- defaults to `[]`): Initial queue of requests.
 * `timeout` (`float` -- defaults to `20.0`): Timeout (in sec.) for a single download.
 
-#### saw
+### saw
 ```
 (?id:string,?amplitude:float,?duration:float,?float)->
 source(audio='#a+1,video=0,midi=0)```
@@ -665,7 +665,7 @@ Generate a saw wave.
 * `duration` (`float` -- defaults to `0.0`): Duration in seconds (0. means infinite).
 * `(unlabeled)` (`float` -- defaults to `440.0`): Frequency of the saw.
 
-#### sine
+### sine
 ```
 (?id:string,?amplitude:float,?duration:float,?float)->
 source(audio='#a+1,video=0,midi=0)```
@@ -677,7 +677,7 @@ Generate a sine wave.
 * `duration` (`float` -- defaults to `0.0`): Duration in seconds (0. means infinite).
 * `(unlabeled)` (`float` -- defaults to `440.0`): Frequency of the sine.
 
-#### single
+### single
 ```
 (?id:string,?conservative:bool,?default_duration:float,
  ?length:float,?timeout:float,string)->source('a)```
@@ -691,7 +691,7 @@ Loop on a request. It never fails if the request is static, meaning that it can 
 * `timeout` (`float` -- defaults to `20.0`): Timeout (in sec.) for a single download.
 * `(unlabeled)` (`string`): URI where to find the file
 
-#### square
+### square
 ```
 (?id:string,?amplitude:float,?duration:float,?float)->
 source(audio='#a+1,video=0,midi=0)```
@@ -705,7 +705,7 @@ Generate a square wave.
 
 Source / Liquidsoap
 -------------------
-#### buffer
+### buffer
 ```
 (?id:string,?buffer:float,?fallible:bool,?max:float,
  ?on_start:(()->unit),?on_stop:(()->unit),?start:bool,
@@ -722,7 +722,7 @@ Create a buffer between two different clocks.
 * `start` (`bool` -- defaults to `true`): Automatically start outputting whenever possible. If true, an infallible (normal) output will start outputting as soon as it is created, and a fallible output will (re)start as soon as its source becomes available for streaming.
 * `(unlabeled)` (`source('a)`)
 
-#### buffer.adaptative
+### buffer.adaptative
 ```
 (?id:string,?averaging:float,?buffer:float,
  ?fallible:bool,?limit:float,?max:float,
@@ -748,7 +748,7 @@ Create a buffer between two different clocks. The speed of the output is adapted
 
 Source / MIDI Processing
 ------------------------
-#### midi.chord
+### midi.chord
 ```
 (?id:string,?metadata:string,
  source(audio='#a,video='#b,midi='#c))->
@@ -760,7 +760,7 @@ Generate a chord.
 * `metadata` (`string` -- defaults to `"chord"`): Name of the metadata containing the chords.
 * `(unlabeled)` (`source(audio='#a,video='#b,midi='#c)`)
 
-#### midi.merge_all
+### midi.merge_all
 ```
 (?id:string,?track_out:int,
  source(audio='#a,video='#b,midi='#c+1))->
@@ -772,7 +772,7 @@ Merge all MIDI tracks in one.
 * `track_out` (`int` -- defaults to `0`): Destination track.
 * `(unlabeled)` (`source(audio='#a,video='#b,midi='#c+1)`)
 
-#### midi.remove
+### midi.remove
 ```
 (?id:string,[int],source(audio='#a,video='#b,midi='#c+1))->
 source(audio='#a,video='#b,midi='#c+1)```
@@ -785,7 +785,7 @@ Remove MIDI tracks.
 
 Source / Output
 ---------------
-#### gstreamer.encode_jpeg_avi
+### gstreamer.encode_jpeg_avi
 ```
 ('a,source(audio='#b,video='#c+1,midi='#d))->
 active_source(audio='#b,video='#c+1,midi='#d)```
@@ -795,7 +795,7 @@ Encode jpeg video file using gstreamer
 * `(unlabeled)` (`'a`): Encoded file name
 * `(unlabeled)` (`source(audio='#b,video='#c+1,midi='#d)`): Source
 
-#### gstreamer.encode_mp3
+### gstreamer.encode_mp3
 ```
 ('a,source(audio='#b+1,video='#c,midi='#d))->
 active_source(audio='#b+1,video='#c,midi='#d)```
@@ -805,7 +805,7 @@ Encode a mp3 file using gstreamer
 * `(unlabeled)` (`'a`): Encoded file name
 * `(unlabeled)` (`source(audio='#b+1,video='#c,midi='#d)`): Source
 
-#### gstreamer.encode_x264_avi
+### gstreamer.encode_x264_avi
 ```
 ('a,source(audio='#b,video='#c+1,midi='#d))->
 active_source(audio='#b,video='#c+1,midi='#d)```
@@ -815,7 +815,7 @@ Encode an x264 video file using gstreamer
 * `(unlabeled)` (`'a`): Encoded file name
 * `(unlabeled)` (`source(audio='#b,video='#c+1,midi='#d)`): Source
 
-#### gstreamer.rtp.mpeg4
+### gstreamer.rtp.mpeg4
 ```
 (?host:string,?port:int,
  source(audio='#a,video='#b+1,midi='#c))->
@@ -827,7 +827,7 @@ Broadcast a video in RTP. In order to play it, save the following in xxx.sdp and
 * `port` (`int` -- defaults to `5000`)
 * `(unlabeled)` (`source(audio='#a,video='#b+1,midi='#c)`)
 
-#### out
+### out
 ```
 (source(audio='#a+1,video='#b,midi='#c))->
 active_source(audio='#a+1,video='#b,midi='#c)```
@@ -836,7 +836,7 @@ Output a stream using the 'output.prefered' operator. The input source does not 
 
 * `(unlabeled)` (`source(audio='#a+1,video='#b,midi='#c)`): the source to output
 
-#### output.ao
+### output.ao
 ```
 (?id:string,?buffer_size:int,?channels_matrix:string,
  ?clock_safe:bool,?driver:string,?fallible:bool,
@@ -859,7 +859,7 @@ Output stream to local sound card using libao.
 * `start` (`bool` -- defaults to `true`): Automatically start outputting whenever possible. If true, an infallible (normal) output will start outputting as soon as it is created, and a fallible output will (re)start as soon as its source becomes available for streaming.
 * `(unlabeled)` (`source(audio='#a+1,video='#b,midi='#c)`)
 
-#### output.dummy
+### output.dummy
 ```
 (?id:string,?fallible:bool,?on_start:(()->unit),
  ?on_stop:(()->unit),?start:bool,source('a))->
@@ -874,7 +874,7 @@ Dummy output for debugging purposes.
 * `start` (`bool` -- defaults to `true`): Automatically start outputting whenever possible. If true, an infallible (normal) output will start outputting as soon as it is created, and a fallible output will (re)start as soon as its source becomes available for streaming.
 * `(unlabeled)` (`source('a)`)
 
-#### output.external
+### output.external
 ```
 (?id:string,?fallible:bool,?flush:bool,
  ?on_start:(()->unit),?on_stop:(()->unit),
@@ -897,7 +897,7 @@ Send the stream to a process' standard input.
 * `(unlabeled)` (`string`): Process to pipe data to. Some strftime conversion specifiers are available: `%SMHdmY`. You can also use `$(..)` interpolation notation for metadata.
 * `(unlabeled)` (`source('a)`)
 
-#### output.file
+### output.file
 ```
 (?id:string,?append:bool,?dir_perm:int,?fallible:bool,
  ?flush:bool,?on_close:((string)->unit),
@@ -925,7 +925,7 @@ Output the source stream to a file.
 * `(unlabeled)` (`string`): Filename where to output the stream. Some strftime conversion specifiers are available: `%SMHdmY`. You can also use `$(..)` interpolation notation for metadata.
 * `(unlabeled)` (`source('a)`)
 
-#### output.gstreamer.audio
+### output.gstreamer.audio
 ```
 (?id:string,?clock_safe:bool,?fallible:bool,
  ?on_start:(()->unit),?on_stop:(()->unit),
@@ -944,7 +944,7 @@ Output stream to a GStreamer pipeline.
 * `start` (`bool` -- defaults to `true`): Automatically start outputting whenever possible. If true, an infallible (normal) output will start outputting as soon as it is created, and a fallible output will (re)start as soon as its source becomes available for streaming.
 * `(unlabeled)` (`source(audio='#a+1,video='#b,midi='#c)`)
 
-#### output.gstreamer.audio_video
+### output.gstreamer.audio_video
 ```
 (?id:string,?asynchronous:bool,?audio_pipeline:string,
  ?blocking:bool,?clock_safe:bool,?fallible:bool,
@@ -970,7 +970,7 @@ Output stream to a GStreamer pipeline.
 source(audio='#a+1,video='#b+1,midi='#c)```
 )
 
-#### output.gstreamer.video
+### output.gstreamer.video
 ```
 (?id:string,?clock_safe:bool,?fallible:bool,
  ?on_start:(()->unit),?on_stop:(()->unit),
@@ -989,7 +989,7 @@ Output stream to a GStreamer pipeline.
 * `start` (`bool` -- defaults to `true`): Automatically start outputting whenever possible. If true, an infallible (normal) output will start outputting as soon as it is created, and a fallible output will (re)start as soon as its source becomes available for streaming.
 * `(unlabeled)` (`source(audio='#a,video='#b+1,midi='#c)`)
 
-#### output.harbor
+### output.harbor
 ```
 (?id:string,?auth:((string,string)->bool),?buffer:int,
  ?burst:int,?chunk:int,?dumpfile:string,?encoding:string,
@@ -1032,7 +1032,7 @@ Encode and output the stream using the harbor server.
 * `(unlabeled)` (`format('a)`): Encoding format.
 * `(unlabeled)` (`source('a)`)
 
-#### output.harbor.ssl
+### output.harbor.ssl
 ```
 (?id:string,?auth:((string,string)->bool),?buffer:int,
  ?burst:int,?chunk:int,?dumpfile:string,?encoding:string,
@@ -1075,7 +1075,7 @@ Encode and output the stream using the SSL harbor server.
 * `(unlabeled)` (`format('a)`): Encoding format.
 * `(unlabeled)` (`source('a)`)
 
-#### output.icecast
+### output.icecast
 ```
 (?id:string,?chunked:bool,?connection_timeout:float,
  ?description:string,?dumpfile:string,?encoding:string,
@@ -1125,7 +1125,7 @@ Encode and output the stream to an icecast2 or shoutcast server.
 * `(unlabeled)` (`format('a)`): Encoding format.
 * `(unlabeled)` (`source('a)`)
 
-#### output.portaudio
+### output.portaudio
 ```
 (?id:string,?buflen:int,?clock_safe:bool,?fallible:bool,
  ?on_start:(()->unit),?on_stop:(()->unit),?start:bool,
@@ -1143,7 +1143,7 @@ Output the source's stream to a portaudio output device.
 * `start` (`bool` -- defaults to `true`): Automatically start outputting whenever possible. If true, an infallible (normal) output will start outputting as soon as it is created, and a fallible output will (re)start as soon as its source becomes available for streaming.
 * `(unlabeled)` (`source(audio='#a+1,video='#b,midi='#c)`)
 
-#### output.prefered
+### output.prefered
 ```
 (?id:string,?fallible:bool,?on_start:(()->unit),
  ?on_stop:(()->unit),?start:bool,
@@ -1159,7 +1159,7 @@ Output to local audio card using the first available driver in pulseaudio, porta
 * `start` (`bool` -- defaults to `true`)
 * `(unlabeled)` (`source(audio='#a+1,video='#b,midi='#c)`)
 
-#### output.shoutcast
+### output.shoutcast
 ```
 (?id:string,?start:bool,?host:string,?port:int,
  ?user:string,?password:string,?genre:string,?url:string,
@@ -1201,7 +1201,7 @@ Output to shoutcast.
 * `(unlabeled)` (`format('a)`): Encoding format. For shoutcast, should be mp3 or AAC(+).
 * `(unlabeled)` (`source('a)`): The source to output
 
-#### output.udp
+### output.udp
 ```
 (?id:string,?fallible:bool,host:string,
  ?on_start:(()->unit),?on_stop:(()->unit),port:int,
@@ -1223,7 +1223,7 @@ Output encoded data to UDP, without any control whatsoever.
 
 Source / Sound Processing
 -------------------------
-#### add
+### add
 ```
 (?id:string,?normalize:bool,?weights:[int],
  [source(audio='#a,video='#b,midi=0)])->
@@ -1236,7 +1236,7 @@ Mix sources, with optional normalization. Only relay metadata from the first sou
 * `weights` (`[int]` -- defaults to `[]`): Relative weight of the sources in the sum. The empty list stands for the homogeneous distribution.
 * `(unlabeled)` (`[source(audio='#a,video='#b,midi=0)]`)
 
-#### amplify
+### amplify
 ```
 (?id:string,?override:string,'a,
  source(audio='#b,video='#c,midi='#d))->
@@ -1252,7 +1252,7 @@ anything that is either float or ()->float```
 ): Multiplicative factor.
 * `(unlabeled)` (`source(audio='#b,video='#c,midi='#d)`)
 
-#### clip
+### clip
 ```
 (?id:string,source(audio='#a,video='#b,midi='#c))->
 source(audio='#a,video='#b,midi='#c)```
@@ -1262,7 +1262,7 @@ Clip sound.
 * `id` (`string` -- defaults to `""`): Force the value of the source ID.
 * `(unlabeled)` (`source(audio='#a,video='#b,midi='#c)`)
 
-#### comb
+### comb
 ```
 (?id:string,?delay:float,?feedback:'a,
  source(audio='#b,video='#c,midi='#d))->
@@ -1278,7 +1278,7 @@ anything that is either float or ()->float```
  -- defaults to `-6.0`): Feedback coefficient in dB.
 * `(unlabeled)` (`source(audio='#b,video='#c,midi='#d)`)
 
-#### compand
+### compand
 ```
 (?id:string,?mu:float,
  source(audio='#a,video='#b,midi='#c))->
@@ -1290,7 +1290,7 @@ Compand the signal
 * `mu` (`float` -- defaults to `1.0`)
 * `(unlabeled)` (`source(audio='#a,video='#b,midi='#c)`)
 
-#### compress
+### compress
 ```
 (?id:string,?attack:'a,?gain:'b,?knee:'c,?ratio:float,
  ?release:'d,?rms_window:float,?threshold:'e,
@@ -1320,7 +1320,7 @@ anything that is either float or ()->float```
  -- defaults to `-10.0`): Threshold level (dB).
 * `(unlabeled)` (`source(audio='#f,video='#g,midi='#h)`)
 
-#### compress.exponential
+### compress.exponential
 ```
 (?id:string,?mu:float,
  source(audio='#a,video='#b,midi='#c))->
@@ -1332,7 +1332,7 @@ Exponential compressor.
 * `mu` (`float` -- defaults to `2.0`): Exponential compression factor, typically greater than 1.
 * `(unlabeled)` (`source(audio='#a,video='#b,midi='#c)`)
 
-#### cross
+### cross
 ```
 (?id:string,?active:bool,?conservative:bool,
  ?duration:float,?inhibit:float,?minimum:float,
@@ -1351,7 +1351,7 @@ Generic cross operator, allowing the composition of the N last seconds of a trac
 * `(unlabeled)` (`(source('a),source('a))->source('a)`): Composition of an end of track and the next track.
 * `(unlabeled)` (`source('a)`)
 
-#### echo
+### echo
 ```
 (?id:string,?delay:'a,?feedback:'b,?ping_pong:bool,
  source(audio='#c,video='#d,midi='#e))->
@@ -1370,7 +1370,7 @@ anything that is either float or ()->float```
 * `ping_pong` (`bool` -- defaults to `false`): Use ping-pong delay.
 * `(unlabeled)` (`source(audio='#c,video='#d,midi='#e)`)
 
-#### fade.final
+### fade.final
 ```
 (?id:string,?duration:float,?override_duration:string,
  ?override_type:string,?type:string,
@@ -1386,7 +1386,7 @@ Fade a stream to silence.
 * `type` (`string` -- defaults to `"lin"`): Fader shape (lin|sin|log|exp): linear, sinusoidal, logarithmic or exponential.
 * `(unlabeled)` (`source(audio='#a,video='#b,midi='#c)`)
 
-#### fade.in
+### fade.in
 ```
 (?id:string,?duration:float,?override_duration:string,
  ?override_type:string,?type:string,
@@ -1402,7 +1402,7 @@ Fade the beginning of tracks.
 * `type` (`string` -- defaults to `"lin"`): Fader shape (lin|sin|log|exp): linear, sinusoidal, logarithmic or exponential.
 * `(unlabeled)` (`source(audio='#a,video='#b,midi='#c)`)
 
-#### fade.initial
+### fade.initial
 ```
 (?id:string,?duration:float,?override_duration:string,
  ?override_type:string,?type:string,
@@ -1418,7 +1418,7 @@ Fade the beginning of a stream.
 * `type` (`string` -- defaults to `"lin"`): Fader shape (lin|sin|log|exp): linear, sinusoidal, logarithmic or exponential.
 * `(unlabeled)` (`source(audio='#a,video='#b,midi='#c)`)
 
-#### fade.out
+### fade.out
 ```
 (?id:string,?duration:float,?override_duration:string,
  ?override_type:string,?type:string,
@@ -1434,7 +1434,7 @@ Fade the end of tracks.
 * `type` (`string` -- defaults to `"lin"`): Fader shape (lin|sin|log|exp): linear, sinusoidal, logarithmic or exponential.
 * `(unlabeled)` (`source(audio='#a,video='#b,midi='#c)`)
 
-#### filter
+### filter
 ```
 (?id:string,freq:'a,mode:string,?q:'b,?wetness:'c,
  source(audio='#d,video='#e,midi='#f))->
@@ -1456,7 +1456,7 @@ anything that is either float or ()->float```
  -- defaults to `1.0`): How much of the original signal should be added (1. means only filtered and 0. means only original signal).
 * `(unlabeled)` (`source(audio='#d,video='#e,midi='#f)`)
 
-#### filter.fir
+### filter.fir
 ```
 (?id:string,beta:float,?coeffs:int,frequency:float,
  source(audio='#a,video='#b,midi='#c))->
@@ -1470,7 +1470,7 @@ Low-pass FIR filter.
 * `frequency` (`float`): Corner frequency in Hz (frequency at which the response is 0.5, that is -6 dB).
 * `(unlabeled)` (`source(audio='#a,video='#b,midi='#c)`)
 
-#### filter.iir.butterworth.bandpass
+### filter.iir.butterworth.bandpass
 ```
 (?id:string,frequency1:float,frequency2:float,?order:int,
  source(audio='#a,video='#b,midi='#c))->
@@ -1484,7 +1484,7 @@ IIR filter
 * `order` (`int` -- defaults to `4`): Filter order
 * `(unlabeled)` (`source(audio='#a,video='#b,midi='#c)`)
 
-#### filter.iir.butterworth.bandstop
+### filter.iir.butterworth.bandstop
 ```
 (?id:string,frequency1:float,frequency2:float,?order:int,
  source(audio='#a,video='#b,midi='#c))->
@@ -1498,7 +1498,7 @@ IIR filter
 * `order` (`int` -- defaults to `4`): Filter order
 * `(unlabeled)` (`source(audio='#a,video='#b,midi='#c)`)
 
-#### filter.iir.butterworth.high
+### filter.iir.butterworth.high
 ```
 (?id:string,frequency:float,?order:int,
  source(audio='#a,video='#b,midi='#c))->
@@ -1511,7 +1511,7 @@ IIR filter
 * `order` (`int` -- defaults to `4`): Filter order
 * `(unlabeled)` (`source(audio='#a,video='#b,midi='#c)`)
 
-#### filter.iir.butterworth.low
+### filter.iir.butterworth.low
 ```
 (?id:string,frequency:float,?order:int,
  source(audio='#a,video='#b,midi='#c))->
@@ -1524,7 +1524,7 @@ IIR filter
 * `order` (`int` -- defaults to `4`): Filter order
 * `(unlabeled)` (`source(audio='#a,video='#b,midi='#c)`)
 
-#### filter.iir.eq.allpass
+### filter.iir.eq.allpass
 ```
 (?id:string,?bandwidth:float,frequency:float,
  source(audio='#a,video='#b,midi='#c))->
@@ -1537,7 +1537,7 @@ All pass biquad filter.
 * `frequency` (`float`): Center frequency
 * `(unlabeled)` (`source(audio='#a,video='#b,midi='#c)`)
 
-#### filter.iir.eq.bandpass
+### filter.iir.eq.bandpass
 ```
 (?id:string,frequency:float,?q:float,
  source(audio='#a,video='#b,midi='#c))->
@@ -1550,7 +1550,7 @@ Band pass biquad filter.
 * `q` (`float` -- defaults to `1.0`): Q
 * `(unlabeled)` (`source(audio='#a,video='#b,midi='#c)`)
 
-#### filter.iir.eq.high
+### filter.iir.eq.high
 ```
 (?id:string,frequency:float,?q:float,
  source(audio='#a,video='#b,midi='#c))->
@@ -1563,7 +1563,7 @@ High pass biquad filter.
 * `q` (`float` -- defaults to `1.0`): Q
 * `(unlabeled)` (`source(audio='#a,video='#b,midi='#c)`)
 
-#### filter.iir.eq.highshelf
+### filter.iir.eq.highshelf
 ```
 (?id:string,frequency:float,?slope:float,
  source(audio='#a,video='#b,midi='#c))->
@@ -1576,7 +1576,7 @@ High shelf biquad filter.
 * `slope` (`float` -- defaults to `1.0`): Shelf slope (in dB/octave)
 * `(unlabeled)` (`source(audio='#a,video='#b,midi='#c)`)
 
-#### filter.iir.eq.low
+### filter.iir.eq.low
 ```
 (?id:string,frequency:float,?q:float,
  source(audio='#a,video='#b,midi='#c))->
@@ -1589,7 +1589,7 @@ Low pass biquad filter.
 * `q` (`float` -- defaults to `1.0`): Q
 * `(unlabeled)` (`source(audio='#a,video='#b,midi='#c)`)
 
-#### filter.iir.eq.lowshelf
+### filter.iir.eq.lowshelf
 ```
 (?id:string,frequency:float,?slope:float,
  source(audio='#a,video='#b,midi='#c))->
@@ -1602,7 +1602,7 @@ Low shelf biquad filter.
 * `slope` (`float` -- defaults to `1.0`): Shelf slope (dB/octave)
 * `(unlabeled)` (`source(audio='#a,video='#b,midi='#c)`)
 
-#### filter.iir.eq.notch
+### filter.iir.eq.notch
 ```
 (?id:string,frequency:float,?q:float,
  source(audio='#a,video='#b,midi='#c))->
@@ -1615,7 +1615,7 @@ Band pass biquad filter.
 * `q` (`float` -- defaults to `1.0`): Q
 * `(unlabeled)` (`source(audio='#a,video='#b,midi='#c)`)
 
-#### filter.iir.eq.peak
+### filter.iir.eq.peak
 ```
 (?id:string,frequency:float,?gain:float,?q:float,
  source(audio='#a,video='#b,midi='#c))->
@@ -1629,7 +1629,7 @@ Peak EQ biquad filter.
 * `q` (`float` -- defaults to `1.0`): Q
 * `(unlabeled)` (`source(audio='#a,video='#b,midi='#c)`)
 
-#### filter.iir.resonator.allpass
+### filter.iir.resonator.allpass
 ```
 (?id:string,frequency:float,?q:float,
  source(audio='#a,video='#b,midi='#c))->
@@ -1642,7 +1642,7 @@ IIR filter
 * `q` (`float` -- defaults to `60.0`): Quality factor
 * `(unlabeled)` (`source(audio='#a,video='#b,midi='#c)`)
 
-#### filter.iir.resonator.bandpass
+### filter.iir.resonator.bandpass
 ```
 (?id:string,frequency:float,?q:float,
  source(audio='#a,video='#b,midi='#c))->
@@ -1655,7 +1655,7 @@ IIR filter
 * `q` (`float` -- defaults to `60.0`): Quality factor
 * `(unlabeled)` (`source(audio='#a,video='#b,midi='#c)`)
 
-#### filter.iir.resonator.bandstop
+### filter.iir.resonator.bandstop
 ```
 (?id:string,frequency:float,?q:float,
  source(audio='#a,video='#b,midi='#c))->
@@ -1668,7 +1668,7 @@ IIR filter
 * `q` (`float` -- defaults to `60.0`): Quality factor
 * `(unlabeled)` (`source(audio='#a,video='#b,midi='#c)`)
 
-#### filter.rc
+### filter.rc
 ```
 (?id:string,mode:string,rc:'a,?wetness:'b,
  source(audio='#c,video='#d,midi='#e))->
@@ -1687,7 +1687,7 @@ anything that is either float or ()->float```
  -- defaults to `1.0`): How much of the original signal should be added (1. means only filtered and 0. means only original signal).
 * `(unlabeled)` (`source(audio='#c,video='#d,midi='#e)`)
 
-#### flanger
+### flanger
 ```
 (?id:string,?delay:float,?feedback:'a,?freq:'b,?phase:'c,
  source(audio='#d,video='#e,midi='#f))->
@@ -1709,7 +1709,7 @@ anything that is either float or ()->float```
  -- defaults to `1.0`): Phase difference between channels in radians.
 * `(unlabeled)` (`source(audio='#d,video='#e,midi='#f)`)
 
-#### ladspa.alias
+### ladspa.alias
 ```
 (?id:string,?aliasing_level:'a,
  source(audio='#b,video='#c,midi='#d))->
@@ -1724,7 +1724,7 @@ anything that is either float or ()->float```
  -- defaults to `0.0`): Aliasing level (0 <= `aliasing_level` <= 1).
 * `(unlabeled)` (`source(audio='#b,video='#c,midi='#d)`)
 
-#### ladspa.allpass_c
+### ladspa.allpass_c
 ```
 (?id:string,decay_time:'a,delay_time:'b,max_delay:'c,
  source(audio='#d,video='#e,midi='#f))->
@@ -1745,7 +1745,7 @@ anything that is either float or ()->float```
 ): Max Delay (s) (0 <= `max_delay`).
 * `(unlabeled)` (`source(audio='#d,video='#e,midi='#f)`)
 
-#### ladspa.allpass_l
+### ladspa.allpass_l
 ```
 (?id:string,decay_time:'a,delay_time:'b,max_delay:'c,
  source(audio='#d,video='#e,midi='#f))->
@@ -1766,7 +1766,7 @@ anything that is either float or ()->float```
 ): Max Delay (s) (0 <= `max_delay`).
 * `(unlabeled)` (`source(audio='#d,video='#e,midi='#f)`)
 
-#### ladspa.allpass_n
+### ladspa.allpass_n
 ```
 (?id:string,decay_time:'a,delay_time:'b,max_delay:'c,
  source(audio='#d,video='#e,midi='#f))->
@@ -1787,7 +1787,7 @@ anything that is either float or ()->float```
 ): Max Delay (s) (0 <= `max_delay`).
 * `(unlabeled)` (`source(audio='#d,video='#e,midi='#f)`)
 
-#### ladspa.amp
+### ladspa.amp
 ```
 (?id:string,?amps_gain:'a,
  source(audio='#b,video='#c,midi='#d))->
@@ -1802,7 +1802,7 @@ anything that is either float or ()->float```
  -- defaults to `0.0`): Amps gain (dB) (-70 <= `amps_gain` <= 70).
 * `(unlabeled)` (`source(audio='#b,video='#c,midi='#d)`)
 
-#### ladspa.ampitchshift
+### ladspa.ampitchshift
 ```
 (?id:string,?buffer_size:'a,?pitch_shift:'b,
  source(audio='#c,video='#d,midi='#e))->
@@ -1819,7 +1819,7 @@ anything that is either float or ()->float```
  -- defaults to `1.0`): Pitch shift (0.25 <= `pitch_shift` <= 4).
 * `(unlabeled)` (`source(audio='#c,video='#d,midi='#e)`)
 
-#### ladspa.analogueosc
+### ladspa.analogueosc
 ```
 (?id:string,?frequency:'a,?instability:'b,?warmth:'c,
  ?waveform:'d)->source(audio=1,video=0,midi=0)
@@ -1840,7 +1840,7 @@ anything that is either float or ()->float```
  -- defaults to `0.0`): Warmth (0 <= `warmth` <= 1).
 * `waveform` (`anything that is either int or ()->int` -- defaults to `1`): Waveform (1=sin, 2=tri, 3=squ, 4=saw) (1 <= `waveform` <= 4).
 
-#### ladspa.artificiallatency
+### ladspa.artificiallatency
 ```
 (?id:string,?delay:'a,
  source(audio='#b,video='#c,midi='#d))->
@@ -1855,7 +1855,7 @@ anything that is either float or ()->float```
  -- defaults to `2500.0`): Delay (ms) (0 <= `delay` <= 10000).
 * `(unlabeled)` (`source(audio='#b,video='#c,midi='#d)`)
 
-#### ladspa.autophaser
+### ladspa.autophaser
 ```
 (?id:string,?attack_time:'a,?decay_time:'b,?feedback:'c,
  ?modulation_depth:'d,?spread:'e,
@@ -1883,7 +1883,7 @@ anything that is either float or ()->float```
  -- defaults to `1.0`): Spread (octaves) (0 <= `spread` <= 2).
 * `(unlabeled)` (`source(audio='#f,video='#g,midi='#h)`)
 
-#### ladspa.bandpass_a_iir
+### ladspa.bandpass_a_iir
 ```
 (?id:string,?bandwidth:'a,?center_frequency:'b,
  source(audio='#c,video='#d,midi='#e))->
@@ -1901,7 +1901,7 @@ anything that is either float or ()->float```
  -- defaults to `36.1194992065`): Center Frequency (Hz) (4.41 <= `center_frequency` <= 19845).
 * `(unlabeled)` (`source(audio='#c,video='#d,midi='#e)`)
 
-#### ladspa.bandpass_iir
+### ladspa.bandpass_iir
 ```
 (?id:string,?bandwidth:'a,?center_frequency:'b,
  ?stages:'c,source(audio='#d,video='#e,midi='#f))->
@@ -1921,7 +1921,7 @@ anything that is either float or ()->float```
 * `stages` (`anything that is either int or ()->int` -- defaults to `1`): Stages(2 poles per stage) (1 <= `stages` <= 10).
 * `(unlabeled)` (`source(audio='#d,video='#e,midi='#f)`)
 
-#### ladspa.bodeshifter
+### ladspa.bodeshifter
 ```
 (?id:string,?frequency_shift:'a,
  source(audio=1,video=0,midi=0))->
@@ -1936,7 +1936,7 @@ anything that is either float or ()->float```
  -- defaults to `0.0`): Frequency shift (0 <= `frequency_shift` <= 5000).
 * `(unlabeled)` (`source(audio=1,video=0,midi=0)`)
 
-#### ladspa.bodeshiftercv
+### ladspa.bodeshiftercv
 ```
 (?id:string,?base_shift:'a,?cv_attenuation:'b,?mix:'c,
  source(audio=2,video=0,midi=0))->
@@ -1957,7 +1957,7 @@ anything that is either float or ()->float```
  -- defaults to `0.0`): Mix (-1=down, +1=up) (-1 <= `mix` <= 1).
 * `(unlabeled)` (`source(audio=2,video=0,midi=0)`)
 
-#### ladspa.butthigh_iir
+### ladspa.butthigh_iir
 ```
 (?id:string,?cutoff_frequency:'a,?resonance:'b,
  source(audio='#c,video='#d,midi='#e))->
@@ -1975,7 +1975,7 @@ anything that is either float or ()->float```
  -- defaults to `0.754999995232`): Resonance (0.1 <= `resonance` <= 1.41).
 * `(unlabeled)` (`source(audio='#c,video='#d,midi='#e)`)
 
-#### ladspa.buttlow_iir
+### ladspa.buttlow_iir
 ```
 (?id:string,?cutoff_frequency:'a,?resonance:'b,
  source(audio='#c,video='#d,midi='#e))->
@@ -1993,7 +1993,7 @@ anything that is either float or ()->float```
  -- defaults to `0.754999995232`): Resonance (0.1 <= `resonance` <= 1.41).
 * `(unlabeled)` (`source(audio='#c,video='#d,midi='#e)`)
 
-#### ladspa.bwxover_iir
+### ladspa.bwxover_iir
 ```
 (?id:string,?cutoff_frequency:'a,?resonance:'b,
  source(audio=1,video=0,midi=0))->
@@ -2011,7 +2011,7 @@ anything that is either float or ()->float```
  -- defaults to `0.754999995232`): Resonance (0.1 <= `resonance` <= 1.41).
 * `(unlabeled)` (`source(audio=1,video=0,midi=0)`)
 
-#### ladspa.chebstortion
+### ladspa.chebstortion
 ```
 (?id:string,?distortion:'a,
  source(audio='#b,video='#c,midi='#d))->
@@ -2026,7 +2026,7 @@ anything that is either float or ()->float```
  -- defaults to `0.0`): Distortion (0 <= `distortion` <= 3).
 * `(unlabeled)` (`source(audio='#b,video='#c,midi='#d)`)
 
-#### ladspa.comb
+### ladspa.comb
 ```
 (?id:string,?band_separation:'a,?feedback:'b,
  source(audio='#c,video='#d,midi='#e))->
@@ -2044,7 +2044,7 @@ anything that is either float or ()->float```
  -- defaults to `0.0`): Feedback (-0.99 <= `feedback` <= 0.99).
 * `(unlabeled)` (`source(audio='#c,video='#d,midi='#e)`)
 
-#### ladspa.comb_c
+### ladspa.comb_c
 ```
 (?id:string,decay_time:'a,delay_time:'b,max_delay:'c,
  source(audio='#d,video='#e,midi='#f))->
@@ -2065,7 +2065,7 @@ anything that is either float or ()->float```
 ): Max Delay (s) (0 <= `max_delay`).
 * `(unlabeled)` (`source(audio='#d,video='#e,midi='#f)`)
 
-#### ladspa.comb_l
+### ladspa.comb_l
 ```
 (?id:string,decay_time:'a,delay_time:'b,max_delay:'c,
  source(audio='#d,video='#e,midi='#f))->
@@ -2086,7 +2086,7 @@ anything that is either float or ()->float```
 ): Max Delay (s) (0 <= `max_delay`).
 * `(unlabeled)` (`source(audio='#d,video='#e,midi='#f)`)
 
-#### ladspa.comb_n
+### ladspa.comb_n
 ```
 (?id:string,decay_time:'a,delay_time:'b,max_delay:'c,
  source(audio='#d,video='#e,midi='#f))->
@@ -2107,7 +2107,7 @@ anything that is either float or ()->float```
 ): Max Delay (s) (0 <= `max_delay`).
 * `(unlabeled)` (`source(audio='#d,video='#e,midi='#f)`)
 
-#### ladspa.combsplitter
+### ladspa.combsplitter
 ```
 (?id:string,?band_separation:'a,
  source(audio=1,video=0,midi=0))->
@@ -2122,7 +2122,7 @@ anything that is either float or ()->float```
  -- defaults to `172.0`): Band separation (Hz) (16 <= `band_separation` <= 640).
 * `(unlabeled)` (`source(audio=1,video=0,midi=0)`)
 
-#### ladspa.const
+### ladspa.const
 ```
 (?id:string,?signal_amplitude:'a,
  source(audio='#b,video='#c,midi='#d))->
@@ -2137,7 +2137,7 @@ anything that is either float or ()->float```
  -- defaults to `0.0`): Signal amplitude (-1 <= `signal_amplitude` <= 1.1).
 * `(unlabeled)` (`source(audio='#b,video='#c,midi='#d)`)
 
-#### ladspa.crossoverdist
+### ladspa.crossoverdist
 ```
 (?id:string,?crossover_amplitude:'a,?smoothing:'b,
  source(audio='#c,video='#d,midi='#e))->
@@ -2155,7 +2155,7 @@ anything that is either float or ()->float```
  -- defaults to `1.0`): Smoothing (0 <= `smoothing` <= 1).
 * `(unlabeled)` (`source(audio='#c,video='#d,midi='#e)`)
 
-#### ladspa.dcremove
+### ladspa.dcremove
 ```
 (?id:string,source(audio='#a,video='#b,midi='#c))->
 source(audio='#a,video='#b,midi='#c)```
@@ -2165,7 +2165,7 @@ DC Offset Remover by Steve Harris <steve(at)plugin.org.uk>.
 * `id` (`string` -- defaults to `""`): Force the value of the source ID.
 * `(unlabeled)` (`source(audio='#a,video='#b,midi='#c)`)
 
-#### ladspa.decay
+### ladspa.decay
 ```
 (?id:string,decay_time:'a,
  source(audio='#b,video='#c,midi='#d))->
@@ -2180,7 +2180,7 @@ anything that is either float or ()->float```
 ): Decay Time (s) (0 <= `decay_time`).
 * `(unlabeled)` (`source(audio='#b,video='#c,midi='#d)`)
 
-#### ladspa.decimator
+### ladspa.decimator
 ```
 (?id:string,?bit_depth:'a,?sample_rate:'b,
  source(audio='#c,video='#d,midi='#e))->
@@ -2198,7 +2198,7 @@ anything that is either float or ()->float```
  -- defaults to `44100.0`): Sample rate (Hz) (44.1 <= `sample_rate` <= 44100).
 * `(unlabeled)` (`source(audio='#c,video='#d,midi='#e)`)
 
-#### ladspa.declip
+### ladspa.declip
 ```
 (?id:string,source(audio='#a,video='#b,midi='#c))->
 source(audio='#a,video='#b,midi='#c)```
@@ -2208,7 +2208,7 @@ Declipper by Steve Harris <steve(at)plugin.org.uk>.
 * `id` (`string` -- defaults to `""`): Force the value of the source ID.
 * `(unlabeled)` (`source(audio='#a,video='#b,midi='#c)`)
 
-#### ladspa.delay_c
+### ladspa.delay_c
 ```
 (?id:string,delay_time:'a,max_delay:'b,
  source(audio='#c,video='#d,midi='#e))->
@@ -2226,7 +2226,7 @@ anything that is either float or ()->float```
 ): Max Delay (s) (0 <= `max_delay`).
 * `(unlabeled)` (`source(audio='#c,video='#d,midi='#e)`)
 
-#### ladspa.delay_l
+### ladspa.delay_l
 ```
 (?id:string,delay_time:'a,max_delay:'b,
  source(audio='#c,video='#d,midi='#e))->
@@ -2244,7 +2244,7 @@ anything that is either float or ()->float```
 ): Max Delay (s) (0 <= `max_delay`).
 * `(unlabeled)` (`source(audio='#c,video='#d,midi='#e)`)
 
-#### ladspa.delay_n
+### ladspa.delay_n
 ```
 (?id:string,delay_time:'a,max_delay:'b,
  source(audio='#c,video='#d,midi='#e))->
@@ -2262,7 +2262,7 @@ anything that is either float or ()->float```
 ): Max Delay (s) (0 <= `max_delay`).
 * `(unlabeled)` (`source(audio='#c,video='#d,midi='#e)`)
 
-#### ladspa.delayorama
+### ladspa.delayorama
 ```
 (?id:string,?amplitude_change:'a,?amplitude_random:'b,
  ?delay_change:'c,?delay_random:'d,?delay_range:'e,
@@ -2308,7 +2308,7 @@ anything that is either float or ()->float```
 * `random_seed` (`anything that is either int or ()->int` -- defaults to `0`): Random seed (0 <= `random_seed` <= 1000).
 * `(unlabeled)` (`source(audio='#l,video='#m,midi='#n)`)
 
-#### ladspa.diode
+### ladspa.diode
 ```
 (?id:string,?mode:'a,
  source(audio='#b,video='#c,midi='#d))->
@@ -2323,7 +2323,7 @@ anything that is either float or ()->float```
  -- defaults to `0.0`): Mode (0 for none, 1 for half wave, 2 for full wave) (0 <= `mode` <= 3).
 * `(unlabeled)` (`source(audio='#b,video='#c,midi='#d)`)
 
-#### ladspa.divider
+### ladspa.divider
 ```
 (?id:string,?denominator:'a,
  source(audio='#b,video='#c,midi='#d))->
@@ -2336,7 +2336,7 @@ Audio Divider (Suboctave Generator) by Steve Harris <steve(at)plugin.org.uk>.
 * `denominator` (`anything that is either int or ()->int` -- defaults to `1`): Denominator (1 <= `denominator` <= 8).
 * `(unlabeled)` (`source(audio='#b,video='#c,midi='#d)`)
 
-#### ladspa.dj_eq
+### ladspa.dj_eq
 ```
 (?id:string,?hi_gain:'a,?lo_gain:'b,?mid_gain:'c,
  source(audio=2,video=0,midi=0))->
@@ -2357,7 +2357,7 @@ anything that is either float or ()->float```
  -- defaults to `0.0`): Mid gain (dB) (-70 <= `mid_gain` <= 6).
 * `(unlabeled)` (`source(audio=2,video=0,midi=0)`)
 
-#### ladspa.dj_eq_mono
+### ladspa.dj_eq_mono
 ```
 (?id:string,?hi_gain:'a,?lo_gain:'b,?mid_gain:'c,
  source(audio='#d,video='#e,midi='#f))->
@@ -2378,7 +2378,7 @@ anything that is either float or ()->float```
  -- defaults to `0.0`): Mid gain (dB) (-70 <= `mid_gain` <= 6).
 * `(unlabeled)` (`source(audio='#d,video='#e,midi='#f)`)
 
-#### ladspa.djflanger
+### ladspa.djflanger
 ```
 (?id:string,?feedback:'a,?lfo_depth:'b,?lfo_period:'c,
  lfo_sync:'d,source(audio='#e,video='#f,midi='#g))->
@@ -2402,7 +2402,7 @@ anything that is either float or ()->float```
 ): LFO sync.
 * `(unlabeled)` (`source(audio='#e,video='#f,midi='#g)`)
 
-#### ladspa.dysoncompress
+### ladspa.dysoncompress
 ```
 (?id:string,?compression_ratio:'a,
  ?fast_compression_ratio:'b,?peak_limit:'c,
@@ -2427,7 +2427,7 @@ anything that is either float or ()->float```
  -- defaults to `0.25`): Release time (s) (0 <= `release_time` <= 1).
 * `(unlabeled)` (`source(audio='#e,video='#f,midi='#g)`)
 
-#### ladspa.faddelay
+### ladspa.faddelay
 ```
 (?id:string,?delay:'a,?feedback:'b,
  source(audio='#c,video='#d,midi='#e))->
@@ -2445,7 +2445,7 @@ anything that is either float or ()->float```
  -- defaults to `0.0`): Feedback (dB) (-70 <= `feedback` <= 0).
 * `(unlabeled)` (`source(audio='#c,video='#d,midi='#e)`)
 
-#### ladspa.fastlookaheadlimiter
+### ladspa.fastlookaheadlimiter
 ```
 (?id:string,?input_gain:'a,?limit:'b,?release_time:'c,
  source(audio=2,video=0,midi=0))->
@@ -2466,7 +2466,7 @@ anything that is either float or ()->float```
  -- defaults to `0.507499992847`): Release time (s) (0.01 <= `release_time` <= 2).
 * `(unlabeled)` (`source(audio=2,video=0,midi=0)`)
 
-#### ladspa.flanger
+### ladspa.flanger
 ```
 (?id:string,?delay_base:'a,?feedback:'b,
  ?lfo_frequency:'c,?max_slowdown:'d,
@@ -2491,7 +2491,7 @@ anything that is either float or ()->float```
  -- defaults to `2.5`): Max slowdown (ms) (0 <= `max_slowdown` <= 10).
 * `(unlabeled)` (`source(audio='#e,video='#f,midi='#g)`)
 
-#### ladspa.fmosc
+### ladspa.fmosc
 ```
 (?id:string,?waveform:'a,
  source(audio='#b,video='#c,midi='#d))->
@@ -2504,7 +2504,7 @@ FM Oscillator by Steve Harris <steve(at)plugin.org.uk>.
 * `waveform` (`anything that is either int or ()->int` -- defaults to `1`): Waveform (1=sin, 2=tri, 3=squ, 4=saw) (1 <= `waveform` <= 4).
 * `(unlabeled)` (`source(audio='#b,video='#c,midi='#d)`)
 
-#### ladspa.foldover
+### ladspa.foldover
 ```
 (?id:string,?drive:'a,?skew:'b,
  source(audio='#c,video='#d,midi='#e))->
@@ -2522,7 +2522,7 @@ anything that is either float or ()->float```
  -- defaults to `0.0`): Skew (0 <= `skew` <= 1).
 * `(unlabeled)` (`source(audio='#c,video='#d,midi='#e)`)
 
-#### ladspa.fourbyfourpole
+### ladspa.fourbyfourpole
 ```
 (?id:string,?feedback_1:'a,?feedback_2:'b,?feedback_3:'c,
  ?feedback_4:'d,?frequency_1:'e,?frequency_2:'f,
@@ -2561,7 +2561,7 @@ anything that is either float or ()->float```
  -- defaults to `20000.0`): Frequency 4 (1 <= `frequency_4` <= 20000).
 * `(unlabeled)` (`source(audio='#i,video='#j,midi='#k)`)
 
-#### ladspa.foverdrive
+### ladspa.foverdrive
 ```
 (?id:string,?drive_level:'a,
  source(audio='#b,video='#c,midi='#d))->
@@ -2576,7 +2576,7 @@ anything that is either float or ()->float```
  -- defaults to `1.0`): Drive level (1 <= `drive_level` <= 3).
 * `(unlabeled)` (`source(audio='#b,video='#c,midi='#d)`)
 
-#### ladspa.freqtracker
+### ladspa.freqtracker
 ```
 (?id:string,?tracking_speed:'a,
  source(audio='#b,video='#c,midi='#d))->
@@ -2591,7 +2591,7 @@ anything that is either float or ()->float```
  -- defaults to `0.5`): Tracking speed (0 <= `tracking_speed` <= 1).
 * `(unlabeled)` (`source(audio='#b,video='#c,midi='#d)`)
 
-#### ladspa.gate
+### ladspa.gate
 ```
 (?id:string,?attack:'a,?decay:'b,?hf_key_filter:'c,
  ?hold:'d,?lf_key_filter:'e,?output_select:'f,?range:'g,
@@ -2628,7 +2628,7 @@ anything that is either float or ()->float```
  -- defaults to `-70.0`): Threshold (dB) (-70 <= `threshold` <= 20).
 * `(unlabeled)` (`source(audio='#i,video='#j,midi='#k)`)
 
-#### ladspa.giantflange
+### ladspa.giantflange
 ```
 (?id:string,?delay_1_range:'a,?delay_2_range:'b,
  double_delay:'c,?dry_wet_level:'d,?feedback:'e,
@@ -2664,7 +2664,7 @@ anything that is either float or ()->float```
  -- defaults to `1.0`): LFO frequency 2 (Hz) (0 <= `lfo_frequency_2` <= 30).
 * `(unlabeled)` (`source(audio='#h,video='#i,midi='#j)`)
 
-#### ladspa.gong
+### ladspa.gong
 ```
 (?id:string,?inner_damping:'a,?inner_size_1:'b,
  ?inner_size_2:'c,?inner_size_3:'d,?inner_size_4:'e,
@@ -2769,7 +2769,7 @@ anything that is either float or ()->float```
  -- defaults to `0.5`): Outer stiffness 4 - (0 <= `outer_stiffness_4__` <= 1).
 * `(unlabeled)` (`source(audio='#ab,video='#ac,midi='#ad)`)
 
-#### ladspa.gongbeater
+### ladspa.gongbeater
 ```
 (?id:string,?impulse_gain:'a,?strike_duration:'b,
  ?strike_gain:'c,source(audio='#d,video='#e,midi='#f))->
@@ -2790,7 +2790,7 @@ anything that is either float or ()->float```
  -- defaults to `0.0`): Strike gain (dB) (-70 <= `strike_gain` <= 0).
 * `(unlabeled)` (`source(audio='#d,video='#e,midi='#f)`)
 
-#### ladspa.gsm
+### ladspa.gsm
 ```
 (?id:string,?dry_wet_mix:'a,?error_rate:'b,
  ?number_of_passes:'c,
@@ -2811,7 +2811,7 @@ anything that is either float or ()->float```
 * `number_of_passes` (`anything that is either int or ()->int` -- defaults to `1`): Number of passes (0 <= `number_of_passes` <= 10).
 * `(unlabeled)` (`source(audio='#d,video='#e,midi='#f)`)
 
-#### ladspa.gverb
+### ladspa.gverb
 ```
 (?id:string,?damping:'a,?dry_signal_level:'b,
  ?early_reflection_level:'c,?input_bandwidth:'d,
@@ -2847,7 +2847,7 @@ anything that is either float or ()->float```
  -- defaults to `-17.5`): Tail level (dB) (-70 <= `tail_level` <= 0).
 * `(unlabeled)` (`source(audio=1,video=0,midi=0)`)
 
-#### ladspa.hardlimiter
+### ladspa.hardlimiter
 ```
 (?id:string,?db_limit:'a,?residue_level:'b,?wet_level:'c,
  source(audio='#d,video='#e,midi='#f))->
@@ -2868,7 +2868,7 @@ anything that is either float or ()->float```
  -- defaults to `1.0`): Wet level (0 <= `wet_level` <= 1).
 * `(unlabeled)` (`source(audio='#d,video='#e,midi='#f)`)
 
-#### ladspa.harmonicgen
+### ladspa.harmonicgen
 ```
 (?id:string,?_10th_harmonic_magnitude:'a,
  ?_2nd_harmonic_magnitude:'b,?_3rd_harmonic_magnitude:'c,
@@ -2916,7 +2916,7 @@ anything that is either float or ()->float```
  -- defaults to `1.0`): Fundamental magnitude (-1 <= `fundamental_magnitude` <= 1).
 * `(unlabeled)` (`source(audio='#k,video='#l,midi='#m)`)
 
-#### ladspa.hermesfilter
+### ladspa.hermesfilter
 ```
 (?id:string,?band_1_gain:'a,?band_2_gain:'b,
  ?band_3_gain:'c,?delay1_feedback:'d,?delay1_length:'e,
@@ -3091,7 +3091,7 @@ anything that is either float or ()->float```
  -- defaults to `7750.0`): Xover upper freq (1000 <= `xover_upper_freq` <= 10000).
 * `(unlabeled)` (`source(audio='#ba,video='#bb,midi='#bc)`)
 
-#### ladspa.highpass_iir
+### ladspa.highpass_iir
 ```
 (?id:string,?cutoff_frequency:'a,?stages:'b,
  source(audio='#c,video='#d,midi='#e))->
@@ -3108,7 +3108,7 @@ anything that is either float or ()->float```
 * `stages` (`anything that is either int or ()->int` -- defaults to `1`): Stages(2 poles per stage) (1 <= `stages` <= 10).
 * `(unlabeled)` (`source(audio='#c,video='#d,midi='#e)`)
 
-#### ladspa.hilbert
+### ladspa.hilbert
 ```
 (?id:string,source(audio=1,video=0,midi=0))->
 source(audio=2,video=0,midi=0)```
@@ -3118,7 +3118,7 @@ Hilbert transformer by Steve Harris <steve(at)plugin.org.uk>.
 * `id` (`string` -- defaults to `""`): Force the value of the source ID.
 * `(unlabeled)` (`source(audio=1,video=0,midi=0)`)
 
-#### ladspa.imp
+### ladspa.imp
 ```
 (?id:string,?gain:'a,?high_latency_mode:'b,
  ?impulse_id:'c,source(audio='#d,video='#e,midi='#f))->
@@ -3136,7 +3136,7 @@ anything that is either float or ()->float```
 * `impulse_id` (`anything that is either int or ()->int` -- defaults to `1`): Impulse ID (1 <= `impulse_id` <= 21).
 * `(unlabeled)` (`source(audio='#d,video='#e,midi='#f)`)
 
-#### ladspa.impulse_fc
+### ladspa.impulse_fc
 ```
 (?id:string,frequency:'a)->source(audio=1,video=0,midi=0)
 where 'a is either float or ()->float```
@@ -3148,7 +3148,7 @@ Nonbandlimited single-sample impulses (Frequency: Control) by Andy Wingo <wingo 
 anything that is either float or ()->float```
 ): Frequency (Hz) (0 <= `frequency`).
 
-#### ladspa.inv
+### ladspa.inv
 ```
 (?id:string,source(audio='#a,video='#b,midi='#c))->
 source(audio='#a,video='#b,midi='#c)```
@@ -3158,7 +3158,7 @@ Inverter by Steve Harris <steve(at)plugin.org.uk>.
 * `id` (`string` -- defaults to `""`): Force the value of the source ID.
 * `(unlabeled)` (`source(audio='#a,video='#b,midi='#c)`)
 
-#### ladspa.karaoke
+### ladspa.karaoke
 ```
 (?id:string,?vocal_volume:'a,
  source(audio=2,video=0,midi=0))->
@@ -3173,7 +3173,7 @@ anything that is either float or ()->float```
  -- defaults to `0.0`): Vocal volume (dB) (-70 <= `vocal_volume` <= 0).
 * `(unlabeled)` (`source(audio=2,video=0,midi=0)`)
 
-#### ladspa.lcrdelay
+### ladspa.lcrdelay
 ```
 (?id:string,?c_delay:'a,?c_level:'b,?dry_wet_level:'c,
  ?feedback:'d,?high_damp:'e,?l_delay:'f,?l_level:'g,
@@ -3221,7 +3221,7 @@ anything that is either float or ()->float```
  -- defaults to `25.0`): Spread (0 <= `spread` <= 50).
 * `(unlabeled)` (`source(audio=2,video=0,midi=0)`)
 
-#### ladspa.lfophaser
+### ladspa.lfophaser
 ```
 (?id:string,?feedback:'a,?lfo_depth:'b,?lfo_rate:'c,
  ?spread:'d,source(audio='#e,video='#f,midi='#g))->
@@ -3245,7 +3245,7 @@ anything that is either float or ()->float```
  -- defaults to `1.0`): Spread (octaves) (0 <= `spread` <= 2).
 * `(unlabeled)` (`source(audio='#e,video='#f,midi='#g)`)
 
-#### ladspa.lowpass_iir
+### ladspa.lowpass_iir
 ```
 (?id:string,?cutoff_frequency:'a,?stages:'b,
  source(audio='#c,video='#d,midi='#e))->
@@ -3262,7 +3262,7 @@ anything that is either float or ()->float```
 * `stages` (`anything that is either int or ()->int` -- defaults to `1`): Stages(2 poles per stage) (1 <= `stages` <= 10).
 * `(unlabeled)` (`source(audio='#c,video='#d,midi='#e)`)
 
-#### ladspa.lsfilter
+### ladspa.lsfilter
 ```
 (?id:string,?cutoff_frequency:'a,?filter_type:'b,
  ?resonance:'c,source(audio='#d,video='#e,midi='#f))->
@@ -3282,7 +3282,7 @@ anything that is either float or ()->float```
  -- defaults to `0.0`): Resonance (0 <= `resonance` <= 1).
 * `(unlabeled)` (`source(audio='#d,video='#e,midi='#f)`)
 
-#### ladspa.matrixmsst
+### ladspa.matrixmsst
 ```
 (?id:string,?width:'a,source(audio=2,video=0,midi=0))->
 source(audio=2,video=0,midi=0)
@@ -3296,7 +3296,7 @@ anything that is either float or ()->float```
  -- defaults to `1.0`): Width (0 <= `width` <= 2).
 * `(unlabeled)` (`source(audio=2,video=0,midi=0)`)
 
-#### ladspa.matrixspatialiser
+### ladspa.matrixspatialiser
 ```
 (?id:string,?width:'a,source(audio=2,video=0,midi=0))->
 source(audio=2,video=0,midi=0)
@@ -3308,7 +3308,7 @@ Matrix Spatialiser by Joern Nettingsmeier <nettings(at)folkwang-hochschule.de>.
 * `width` (`anything that is either int or ()->int` -- defaults to `0`): Width (-512 <= `width` <= 512).
 * `(unlabeled)` (`source(audio=2,video=0,midi=0)`)
 
-#### ladspa.matrixstms
+### ladspa.matrixstms
 ```
 (?id:string,source(audio=2,video=0,midi=0))->
 source(audio=2,video=0,midi=0)```
@@ -3318,7 +3318,7 @@ Matrix: Stereo to MS by Steve Harris <steve(at)plugin.org.uk>.
 * `id` (`string` -- defaults to `""`): Force the value of the source ID.
 * `(unlabeled)` (`source(audio=2,video=0,midi=0)`)
 
-#### ladspa.mbeq
+### ladspa.mbeq
 ```
 (?id:string,?_10000hz_gain:'a,?_100hz_gain:'b,
  ?_1250hz_gain:'c,?_156hz_gain:'d,?_1750hz_gain:'e,
@@ -3380,7 +3380,7 @@ anything that is either float or ()->float```
  -- defaults to `0.0`): 880Hz gain (-70 <= `_880hz_gain` <= 30).
 * `(unlabeled)` (`source(audio='#p,video='#q,midi='#r)`)
 
-#### ladspa.moddelay
+### ladspa.moddelay
 ```
 (?id:string,?base_delay:'a,
  source(audio=2,video=0,midi=0))->
@@ -3395,7 +3395,7 @@ anything that is either float or ()->float```
  -- defaults to `1.0`): Base delay (s) (0 <= `base_delay` <= 1).
 * `(unlabeled)` (`source(audio=2,video=0,midi=0)`)
 
-#### ladspa.multivoicechorus
+### ladspa.multivoicechorus
 ```
 (?id:string,?delay_base:'a,?detune:'b,?lfo_frequency:'c,
  ?number_of_voices:'d,?output_attenuation:'e,
@@ -3426,7 +3426,7 @@ anything that is either float or ()->float```
  -- defaults to `0.5`): Voice separation (ms) (0 <= `voice_separation` <= 2).
 * `(unlabeled)` (`source(audio='#g,video='#h,midi='#i)`)
 
-#### ladspa.notch_iir
+### ladspa.notch_iir
 ```
 (?id:string,?bandwidth:'a,?center_frequency:'b,
  ?stages:'c,source(audio='#d,video='#e,midi='#f))->
@@ -3446,7 +3446,7 @@ anything that is either float or ()->float```
 * `stages` (`anything that is either int or ()->int` -- defaults to `1`): Stages(2 poles per stage) (1 <= `stages` <= 10).
 * `(unlabeled)` (`source(audio='#d,video='#e,midi='#f)`)
 
-#### ladspa.pitchscale
+### ladspa.pitchscale
 ```
 (?id:string,?pitch_co_efficient:'a,
  source(audio='#b,video='#c,midi='#d))->
@@ -3461,7 +3461,7 @@ anything that is either float or ()->float```
  -- defaults to `1.0`): Pitch co-efficient (0.5 <= `pitch_co_efficient` <= 2).
 * `(unlabeled)` (`source(audio='#b,video='#c,midi='#d)`)
 
-#### ladspa.pitchscalehq
+### ladspa.pitchscalehq
 ```
 (?id:string,?pitch_co_efficient:'a,
  source(audio='#b,video='#c,midi='#d))->
@@ -3476,7 +3476,7 @@ anything that is either float or ()->float```
  -- defaults to `1.0`): Pitch co-efficient (0.5 <= `pitch_co_efficient` <= 2).
 * `(unlabeled)` (`source(audio='#b,video='#c,midi='#d)`)
 
-#### ladspa.plate
+### ladspa.plate
 ```
 (?id:string,?damping:'a,?dry_wet_mix:'b,?reverb_time:'c,
  source(audio=1,video=0,midi=0))->
@@ -3497,7 +3497,7 @@ anything that is either float or ()->float```
  -- defaults to `4.25500011444`): Reverb time (0.01 <= `reverb_time` <= 8.5).
 * `(unlabeled)` (`source(audio=1,video=0,midi=0)`)
 
-#### ladspa.pointercastdistortion
+### ladspa.pointercastdistortion
 ```
 (?id:string,?dry_wet_mix:'a,?effect_cutoff_freq:'b,
  source(audio='#c,video='#d,midi='#e))->
@@ -3515,7 +3515,7 @@ anything that is either float or ()->float```
  -- defaults to `32.6376495361`): Effect cutoff freq (Hz) (4.41 <= `effect_cutoff_freq` <= 13230).
 * `(unlabeled)` (`source(audio='#c,video='#d,midi='#e)`)
 
-#### ladspa.rateshifter
+### ladspa.rateshifter
 ```
 (?id:string,?rate:'a,
  source(audio='#b,video='#c,midi='#d))->
@@ -3530,7 +3530,7 @@ anything that is either float or ()->float```
  -- defaults to `1.0`): Rate (-4 <= `rate` <= 4).
 * `(unlabeled)` (`source(audio='#b,video='#c,midi='#d)`)
 
-#### ladspa.retroflange
+### ladspa.retroflange
 ```
 (?id:string,?average_stall:'a,?flange_frequency:'b,
  source(audio='#c,video='#d,midi='#e))->
@@ -3548,7 +3548,7 @@ anything that is either float or ()->float```
  -- defaults to `1.0`): Flange frequency (Hz) (0.5 <= `flange_frequency` <= 8).
 * `(unlabeled)` (`source(audio='#c,video='#d,midi='#e)`)
 
-#### ladspa.revdelay
+### ladspa.revdelay
 ```
 (?id:string,?crossfade_samples:'a,?delay_time:'b,
  ?dry_level:'c,?feedback:'d,?wet_level:'e,
@@ -3575,7 +3575,7 @@ anything that is either float or ()->float```
  -- defaults to `0.0`): Wet Level (dB) (-70 <= `wet_level` <= 0).
 * `(unlabeled)` (`source(audio='#f,video='#g,midi='#h)`)
 
-#### ladspa.ringmod_1i1o1l
+### ladspa.ringmod_1i1o1l
 ```
 (?id:string,?frequency:'a,?modulation_depth:'b,
  ?sawtooth_level:'c,?sine_level:'d,?square_level:'e,
@@ -3606,7 +3606,7 @@ anything that is either float or ()->float```
  -- defaults to `0.0`): Triangle level (-1 <= `triangle_level` <= 1).
 * `(unlabeled)` (`source(audio='#g,video='#h,midi='#i)`)
 
-#### ladspa.ringmod_2i1o
+### ladspa.ringmod_2i1o
 ```
 (?id:string,?modulation_depth:'a,
  source(audio=2,video=0,midi=0))->
@@ -3621,7 +3621,7 @@ anything that is either float or ()->float```
  -- defaults to `0.0`): Modulation depth (0=none, 1=AM, 2=RM) (0 <= `modulation_depth` <= 2).
 * `(unlabeled)` (`source(audio=2,video=0,midi=0)`)
 
-#### ladspa.satanmaximiser
+### ladspa.satanmaximiser
 ```
 (?id:string,?decay_time:'a,?knee_point:'b,
  source(audio='#c,video='#d,midi='#e))->
@@ -3639,7 +3639,7 @@ anything that is either float or ()->float```
  -- defaults to `0.0`): Knee point (dB) (-90 <= `knee_point` <= 0).
 * `(unlabeled)` (`source(audio='#c,video='#d,midi='#e)`)
 
-#### ladspa.sc1
+### ladspa.sc1
 ```
 (?id:string,?attack_time:'a,?knee_radius:'b,
  ?makeup_gain:'c,?ratio:'d,?release_time:'e,
@@ -3671,7 +3671,7 @@ anything that is either float or ()->float```
  -- defaults to `0.0`): Threshold level (dB) (-30 <= `threshold_level` <= 0).
 * `(unlabeled)` (`source(audio='#g,video='#h,midi='#i)`)
 
-#### ladspa.sc2
+### ladspa.sc2
 ```
 (?id:string,?attack_time:'a,?knee_radius:'b,
  ?makeup_gain:'c,?ratio:'d,?release_time:'e,
@@ -3702,7 +3702,7 @@ anything that is either float or ()->float```
  -- defaults to `0.0`): Threshold level (dB) (-30 <= `threshold_level` <= 0).
 * `(unlabeled)` (`source(audio=2,video=0,midi=0)`)
 
-#### ladspa.sc3
+### ladspa.sc3
 ```
 (?id:string,?attack_time:'a,?chain_balance:'b,
  ?knee_radius:'c,?makeup_gain:'d,?ratio:'e,
@@ -3738,7 +3738,7 @@ anything that is either float or ()->float```
  -- defaults to `0.0`): Threshold level (dB) (-30 <= `threshold_level` <= 0).
 * `(unlabeled)` (`source(audio=3,video=0,midi=0)`)
 
-#### ladspa.sc4
+### ladspa.sc4
 ```
 (?id:string,?attack_time:'a,?knee_radius:'b,
  ?makeup_gain:'c,?ratio:'d,?release_time:'e,?rms_peak:'f,
@@ -3773,7 +3773,7 @@ anything that is either float or ()->float```
  -- defaults to `0.0`): Threshold level (dB) (-30 <= `threshold_level` <= 0).
 * `(unlabeled)` (`source(audio=2,video=0,midi=0)`)
 
-#### ladspa.sc4m
+### ladspa.sc4m
 ```
 (?id:string,?attack_time:'a,?knee_radius:'b,
  ?makeup_gain:'c,?ratio:'d,?release_time:'e,?rms_peak:'f,
@@ -3809,7 +3809,7 @@ anything that is either float or ()->float```
  -- defaults to `0.0`): Threshold level (dB) (-30 <= `threshold_level` <= 0).
 * `(unlabeled)` (`source(audio='#h,video='#i,midi='#j)`)
 
-#### ladspa.se4
+### ladspa.se4
 ```
 (?id:string,?attack_time:'a,?attenuation:'b,
  ?knee_radius:'c,?ratio:'d,?release_time:'e,?rms_peak:'f,
@@ -3844,7 +3844,7 @@ anything that is either float or ()->float```
  -- defaults to `0.0`): Threshold level (dB) (-30 <= `threshold_level` <= 0).
 * `(unlabeled)` (`source(audio=2,video=0,midi=0)`)
 
-#### ladspa.shaper
+### ladspa.shaper
 ```
 (?id:string,?waveshape:'a,
  source(audio='#b,video='#c,midi='#d))->
@@ -3859,7 +3859,7 @@ anything that is either float or ()->float```
  -- defaults to `0.0`): Waveshape (-10 <= `waveshape` <= 10).
 * `(unlabeled)` (`source(audio='#b,video='#c,midi='#d)`)
 
-#### ladspa.sifter
+### ladspa.sifter
 ```
 (?id:string,?sift_size:'a,
  source(audio='#b,video='#c,midi='#d))->
@@ -3874,7 +3874,7 @@ anything that is either float or ()->float```
  -- defaults to `1.0`): Sift size (1 <= `sift_size` <= 1000).
 * `(unlabeled)` (`source(audio='#b,video='#c,midi='#d)`)
 
-#### ladspa.sincos
+### ladspa.sincos
 ```
 (?id:string,?base_frequency:'a,?pitch_offset:'b)->
 source(audio=2,video=0,midi=0)
@@ -3890,7 +3890,7 @@ anything that is either float or ()->float```
 anything that is either float or ()->float```
  -- defaults to `0.0`): Pitch offset (0 <= `pitch_offset` <= 8).
 
-#### ladspa.singlepara
+### ladspa.singlepara
 ```
 (?id:string,?bandwidth:'a,?frequency:'b,?gain:'c,
  source(audio='#d,video='#e,midi='#f))->
@@ -3911,7 +3911,7 @@ anything that is either float or ()->float```
  -- defaults to `0.0`): Gain (dB) (-70 <= `gain` <= 30).
 * `(unlabeled)` (`source(audio='#d,video='#e,midi='#f)`)
 
-#### ladspa.sinuswavewrapper
+### ladspa.sinuswavewrapper
 ```
 (?id:string,?wrap_degree:'a,
  source(audio='#b,video='#c,midi='#d))->
@@ -3926,7 +3926,7 @@ anything that is either float or ()->float```
  -- defaults to `0.0`): Wrap degree (0 <= `wrap_degree` <= 10).
 * `(unlabeled)` (`source(audio='#b,video='#c,midi='#d)`)
 
-#### ladspa.smoothdecimate
+### ladspa.smoothdecimate
 ```
 (?id:string,?resample_rate:'a,?smoothing:'b,
  source(audio='#c,video='#d,midi='#e))->
@@ -3944,7 +3944,7 @@ anything that is either float or ()->float```
  -- defaults to `1.0`): Smoothing (0 <= `smoothing` <= 1).
 * `(unlabeled)` (`source(audio='#c,video='#d,midi='#e)`)
 
-#### ladspa.split
+### ladspa.split
 ```
 (?id:string,source(audio=1,video=0,midi=0))->
 source(audio=2,video=0,midi=0)```
@@ -3954,7 +3954,7 @@ Mono to Stereo splitter by Frank Neumann <franky(at)users.sourceforge.net>.
 * `id` (`string` -- defaults to `""`): Force the value of the source ID.
 * `(unlabeled)` (`source(audio=1,video=0,midi=0)`)
 
-#### ladspa.stepmuxer
+### ladspa.stepmuxer
 ```
 (?id:string,?crossfade_time:'a,
  source(audio=9,video=0,midi=0))->
@@ -3969,7 +3969,7 @@ anything that is either float or ()->float```
  -- defaults to `50.0`): Crossfade time (in ms) (0 <= `crossfade_time` <= 100).
 * `(unlabeled)` (`source(audio=9,video=0,midi=0)`)
 
-#### ladspa.surroundencoder
+### ladspa.surroundencoder
 ```
 (?id:string,source(audio=4,video=0,midi=0))->
 source(audio=2,video=0,midi=0)```
@@ -3979,7 +3979,7 @@ Surround matrix encoder by Steve Harris <steve(at)plugin.org.uk>.
 * `id` (`string` -- defaults to `""`): Force the value of the source ID.
 * `(unlabeled)` (`source(audio=4,video=0,midi=0)`)
 
-#### ladspa.svf
+### ladspa.svf
 ```
 (?id:string,?filter_freq:'a,?filter_q:'b,
  ?filter_resonance:'c,?filter_type:'d,
@@ -4003,7 +4003,7 @@ anything that is either float or ()->float```
 * `filter_type` (`anything that is either int or ()->int` -- defaults to `0`): Filter type (0=none, 1=LP, 2=HP, 3=BP, 4=BR, 5=AP) (0 <= `filter_type` <= 5).
 * `(unlabeled)` (`source(audio='#e,video='#f,midi='#g)`)
 
-#### ladspa.tapedelay
+### ladspa.tapedelay
 ```
 (?id:string,?dry_level:'a,?tap_1_distance:'b,
  ?tap_1_level:'c,?tap_2_distance:'d,?tap_2_level:'e,
@@ -4049,7 +4049,7 @@ anything that is either float or ()->float```
  -- defaults to `1.0`): Tape speed (inches/sec, 1=normal) (0 <= `tape_speed` <= 10).
 * `(unlabeled)` (`source(audio='#k,video='#l,midi='#m)`)
 
-#### ladspa.transient
+### ladspa.transient
 ```
 (?id:string,?attack_speed:'a,?sustain_time:'b,
  source(audio='#c,video='#d,midi='#e))->
@@ -4067,7 +4067,7 @@ anything that is either float or ()->float```
  -- defaults to `0.0`): Sustain time (-1 <= `sustain_time` <= 1).
 * `(unlabeled)` (`source(audio='#c,video='#d,midi='#e)`)
 
-#### ladspa.triplepara
+### ladspa.triplepara
 ```
 (?id:string,?band_1_bandwidth:'a,?band_1_frequency:'b,
  ?band_1_gain:'c,?band_2_bandwidth:'d,
@@ -4132,7 +4132,7 @@ anything that is either float or ()->float```
  -- defaults to `0.5`): Low-shelving slope (0 <= `low_shelving_slope` <= 1).
 * `(unlabeled)` (`source(audio='#p,video='#q,midi='#r)`)
 
-#### ladspa.valve
+### ladspa.valve
 ```
 (?id:string,?distortion_character:'a,
  ?distortion_level:'b,
@@ -4151,7 +4151,7 @@ anything that is either float or ()->float```
  -- defaults to `0.0`): Distortion level (0 <= `distortion_level` <= 1).
 * `(unlabeled)` (`source(audio='#c,video='#d,midi='#e)`)
 
-#### ladspa.valverect
+### ladspa.valverect
 ```
 (?id:string,?distortion:'a,?sag_level:'b,
  source(audio='#c,video='#d,midi='#e))->
@@ -4169,7 +4169,7 @@ anything that is either float or ()->float```
  -- defaults to `0.0`): Sag level (0 <= `sag_level` <= 1).
 * `(unlabeled)` (`source(audio='#c,video='#d,midi='#e)`)
 
-#### ladspa.vocoder
+### ladspa.vocoder
 ```
 (?id:string,band_10_level:'a,band_11_level:'b,
  band_12_level:'c,band_13_level:'d,band_14_level:'e,
@@ -4238,7 +4238,7 @@ anything that is either float or ()->float```
 * `number_of_bands` (`anything that is either int or ()->int`): Number of bands (1 <= `number_of_bands` <= 16).
 * `(unlabeled)` (`source(audio=2,video=0,midi=0)`)
 
-#### ladspa.vynil
+### ladspa.vynil
 ```
 (?id:string,?crackle:'a,?rpm:'b,?surface_warping:'c,
  ?wear:'d,?year:'e,source(audio=2,video=0,midi=0))->
@@ -4265,7 +4265,7 @@ anything that is either float or ()->float```
  -- defaults to `1990.0`): Year (1900 <= `year` <= 1990).
 * `(unlabeled)` (`source(audio=2,video=0,midi=0)`)
 
-#### ladspa.waveterrain
+### ladspa.waveterrain
 ```
 (?id:string,source(audio=2,video=0,midi=0))->
 source(audio=1,video=0,midi=0)```
@@ -4275,7 +4275,7 @@ Wave Terrain Oscillator by Steve Harris <steve(at)plugin.org.uk>.
 * `id` (`string` -- defaults to `""`): Force the value of the source ID.
 * `(unlabeled)` (`source(audio=2,video=0,midi=0)`)
 
-#### ladspa.xfade
+### ladspa.xfade
 ```
 (?id:string,?crossfade:'a,source(audio=4,video=0,midi=0))->
 source(audio=2,video=0,midi=0)
@@ -4289,7 +4289,7 @@ anything that is either float or ()->float```
  -- defaults to `0.0`): Crossfade (-1 <= `crossfade` <= 1).
 * `(unlabeled)` (`source(audio=4,video=0,midi=0)`)
 
-#### ladspa.xfade4
+### ladspa.xfade4
 ```
 (?id:string,?crossfade:'a,source(audio=4,video=0,midi=0))->
 source(audio=4,video=0,midi=0)
@@ -4303,7 +4303,7 @@ anything that is either float or ()->float```
  -- defaults to `0.0`): Crossfade (-1 <= `crossfade` <= 1).
 * `(unlabeled)` (`source(audio=4,video=0,midi=0)`)
 
-#### ladspa.zm1
+### ladspa.zm1
 ```
 (?id:string,source(audio='#a,video='#b,midi='#c))->
 source(audio='#a,video='#b,midi='#c)```
@@ -4313,7 +4313,7 @@ z-1 by Steve Harris <steve(at)plugin.org.uk>.
 * `id` (`string` -- defaults to `""`): Force the value of the source ID.
 * `(unlabeled)` (`source(audio='#a,video='#b,midi='#c)`)
 
-#### limit
+### limit
 ```
 (?id:string,?attack:'a,?gain:'b,?knee:'c,?ratio:float,
  ?release:'d,?rms_window:float,?threshold:'e,
@@ -4343,7 +4343,7 @@ anything that is either float or ()->float```
  -- defaults to `-10.0`): Threshold level (dB).
 * `(unlabeled)` (`source(audio='#f,video='#g,midi='#h)`)
 
-#### mic_filter
+### mic_filter
 ```
 (source(audio='#a,video='#b,midi='#c))->
 source(audio='#a,video='#b,midi='#c)```
@@ -4352,7 +4352,7 @@ Remove low frequencies often produced by microphones.
 
 * `(unlabeled)` (`source(audio='#a,video='#b,midi='#c)`): The input source.
 
-#### mix
+### mix
 ```
 (?id:string,[source(audio='#a,video='#b,midi='#c)])->
 source(audio='#a,video='#b,midi='#c)```
@@ -4362,7 +4362,7 @@ Mixing table controllable via the telnet interface.
 * `id` (`string` -- defaults to `""`): Force the value of the source ID.
 * `(unlabeled)` (`[source(audio='#a,video='#b,midi='#c)]`)
 
-#### normalize
+### normalize
 ```
 (?id:string,?gain_max:'a,?gain_min:'b,?k_down:'c,
  ?k_up:'d,?target:'e,?threshold:'f,?window:float,
@@ -4394,7 +4394,7 @@ anything that is either float or ()->float```
 * `window` (`float` -- defaults to `0.1`): Duration of the window used to compute the current RMS power (second).
 * `(unlabeled)` (`source(audio='#g,video='#h,midi='#i)`)
 
-#### nrj
+### nrj
 ```
 (source(audio='#a,video='#b,midi='#c))->
 source(audio='#a,video='#b,midi='#c)```
@@ -4403,7 +4403,7 @@ Compress and normalize, producing a more uniform and ``full'' sound.
 
 * `(unlabeled)` (`source(audio='#a,video='#b,midi='#c)`): The input source.
 
-#### pipe
+### pipe
 ```
 (?id:string,?buffer:float,?max:float,process:string,
  ?restart:bool,?restart_on_error:bool,
@@ -4420,7 +4420,7 @@ Process audio signal through a given process stdin/stdout.
 * `restart_on_error` (`bool` -- defaults to `false`): Restart process when exited with error.
 * `(unlabeled)` (`source(audio='#a+1,video=0,midi=0)`)
 
-#### sky
+### sky
 ```
 (source(audio='#a,video='#b,midi=0))->
 source(audio='#a,video='#b,midi=0)```
@@ -4429,7 +4429,7 @@ Multiband-compression.
 
 * `(unlabeled)` (`source(audio='#a,video='#b,midi=0)`): The input source.
 
-#### smart_cross
+### smart_cross
 ```
 (?id:string,?active:bool,?conservative:bool,
  ?duration:float,?inhibit:float,?minimum:float,
@@ -4458,7 +4458,7 @@ source(audio='#a+1,video=0,midi=0)```
 ): Transition function, composing from the end of a track and the next track. It also takes the power of the signal before and after the transition, and the metadata.
 * `(unlabeled)` (`source(audio='#a+1,video=0,midi=0)`)
 
-#### stereo.ms.decode
+### stereo.ms.decode
 ```
 (?id:string,?width:float,source(audio=2,video=0,midi=0))->
 source(audio=2,video=0,midi=0)```
@@ -4469,7 +4469,7 @@ Decode mid+side stereo (M/S) to left+right stereo.
 * `width` (`float` -- defaults to `1.0`): Width of the stereo field.
 * `(unlabeled)` (`source(audio=2,video=0,midi=0)`)
 
-#### stereo.ms.encode
+### stereo.ms.encode
 ```
 (?id:string,source(audio=2,video=0,midi=0))->
 source(audio=2,video=0,midi=0)```
@@ -4479,7 +4479,7 @@ Encode left+right stereo to mid+side stereo (M/S).
 * `id` (`string` -- defaults to `""`): Force the value of the source ID.
 * `(unlabeled)` (`source(audio=2,video=0,midi=0)`)
 
-#### stereo.pan
+### stereo.pan
 ```
 (?id:string,?field:'a,?pan:'b,
  source(audio=2,video=0,midi=0))->
@@ -4497,7 +4497,7 @@ anything that is either float or ()->float```
  -- defaults to `0.0`): Pan ranges between -1 and 1.
 * `(unlabeled)` (`source(audio=2,video=0,midi=0)`)
 
-#### stretch
+### stretch
 ```
 (?id:string,?active:bool,ratio:'a,
  source(audio='#b+1,video=0,midi=0))->
@@ -4515,7 +4515,7 @@ anything that is either float or ()->float```
 
 Source / Sound Synthesis
 ------------------------
-#### synth.all.saw
+### synth.all.saw
 ```
 (?id:string,?attack:float,?decay:float,?envelope:bool,
  ?release:float,?sustain:float,
@@ -4534,7 +4534,7 @@ Saw synthesizer. It creates one synthesizer for each channel.
 source(audio='#a+1,video='#b,midi='#c+16)```
 )
 
-#### synth.all.sine
+### synth.all.sine
 ```
 (?id:string,?attack:float,?decay:float,?envelope:bool,
  ?release:float,?sustain:float,
@@ -4553,7 +4553,7 @@ Sine synthesizer. It creates one synthesizer for each channel.
 source(audio='#a+1,video='#b,midi='#c+16)```
 )
 
-#### synth.all.square
+### synth.all.square
 ```
 (?id:string,?attack:float,?decay:float,?envelope:bool,
  ?release:float,?sustain:float,
@@ -4572,7 +4572,7 @@ Square synthesizer. It creates one synthesizer for each channel.
 source(audio='#a+1,video='#b,midi='#c+16)```
 )
 
-#### synth.saw
+### synth.saw
 ```
 (?id:string,?attack:float,?channel:int,?decay:float,
  ?envelope:bool,?release:float,?sustain:float,
@@ -4593,7 +4593,7 @@ Saw synthesizer.
 source(audio='#a+1,video='#b,midi='#c+1)```
 )
 
-#### synth.sine
+### synth.sine
 ```
 (?id:string,?attack:float,?channel:int,?decay:float,
  ?envelope:bool,?release:float,?sustain:float,
@@ -4614,7 +4614,7 @@ Sine synthesizer.
 source(audio='#a+1,video='#b,midi='#c+1)```
 )
 
-#### synth.square
+### synth.square
 ```
 (?id:string,?attack:float,?channel:int,?decay:float,
  ?envelope:bool,?release:float,?sustain:float,
@@ -4637,7 +4637,7 @@ source(audio='#a+1,video='#b,midi='#c+1)```
 
 Source / Track Processing
 -------------------------
-#### append
+### append
 ```
 (?id:string,?insert_missing:bool,?merge:bool,source('a),
  (([(string*string)])->source('a)))->source('a)```
@@ -4650,7 +4650,7 @@ Append an extra track to every track. Set the metadata 'liq_append' to 'false' t
 * `(unlabeled)` (`source('a)`)
 * `(unlabeled)` (`([(string*string)])->source('a)`): Given the metadata, build the source producing the track to append. This source is allowed to fail (produce nothing) if no relevant track is to be appended.
 
-#### at
+### at
 ```
 ((()->bool),source('a))->source('a)```
 
@@ -4659,7 +4659,7 @@ Restrict a source to play only when a predicate is true.
 * `(unlabeled)` (`()->bool`): The predicate, typically a time interval such as `{10h-10h30}`.
 * `(unlabeled)` (`source('a)`)
 
-#### crossfade
+### crossfade
 ```
 (?id:string,?conservative:bool,?start_next:float,
  ?fade_in:float,?fade_out:float,
@@ -4675,7 +4675,7 @@ Simple crossfade.
 * `fade_out` (`float` -- defaults to `3.0`): Duration of the fade out for previous track.
 * `(unlabeled)` (`source(audio='#a,video='#b,midi=0)`): The source to use.
 
-#### cue_cut
+### cue_cut
 ```
 (?id:string,?cue_in_metadata:string,
  ?cue_out_metadata:string,
@@ -4689,7 +4689,7 @@ Start track after a cue in point and stop it at cue out point. The cue points ar
 * `cue_out_metadata` (`string` -- defaults to `"liq_cue_out"`): Metadata for cue out points.
 * `(unlabeled)` (`source(audio='#a,video='#b,midi='#c)`)
 
-#### delay
+### delay
 ```
 (?id:string,?initial:bool,float,source('a))->source('a)```
 
@@ -4700,7 +4700,7 @@ Prevents the child from being ready again too fast after a end of track
 * `(unlabeled)` (`float`): The source won't be ready less than this amount of seconds after any end of track
 * `(unlabeled)` (`source('a)`)
 
-#### drop_metadata
+### drop_metadata
 ```
 (source('a))->source('a)```
 
@@ -4708,7 +4708,7 @@ Removes all metadata coming from a source.
 
 * `(unlabeled)` (`source('a)`)
 
-#### eat_blank
+### eat_blank
 ```
 (?id:string,?at_beginning:bool,?max_blank:float,
  ?min_noise:float,?start_blank:bool,?threshold:float,
@@ -4727,7 +4727,7 @@ Eat blanks, i.e., drop the contents of the stream until it is not blank anymore.
 * `track_sensitive` (`bool` -- defaults to `true`): Reset blank counter at each track.
 * `(unlabeled)` (`source(audio='#a,video='#b,midi='#c)`)
 
-#### fallback
+### fallback
 ```
 (?id:string,?replay_metadata:bool,?track_sensitive:'a,
  ?transitions:[(source('b),source('b))->source('b)],
@@ -4744,7 +4744,7 @@ anything that is either bool or ()->bool```
 * `transitions` (`[(source('b),source('b))->source('b)]` -- defaults to `[]`): Transition functions, padded with `fun (x,y) -> y` functions.
 * `(unlabeled)` (`[source('b)]`): Select the first ready source in this list.
 
-#### fallback.skip
+### fallback.skip
 ```
 (input:source('a),source('a))->source('a)```
 
@@ -4753,7 +4753,7 @@ Special track insensitive fallback that always skips current song before switchi
 * `input` (`source('a)`): The input source
 * `(unlabeled)` (`source('a)`): The fallback source
 
-#### insert_metadata
+### insert_metadata
 ```
 (?id:string,source('a))->
 ((([(string*string)])->unit)*source('a))```
@@ -4763,7 +4763,7 @@ Dynamically insert metadata in a stream. Returns a pair (f,s) where s is a new s
 * `id` (`string` -- defaults to `""`): Force the value of the source ID.
 * `(unlabeled)` (`source('a)`)
 
-#### map_metadata
+### map_metadata
 ```
 (?id:string,?insert_missing:bool,?strip:bool,
  ?update:bool,(([(string*string)])->[(string*string)]),
@@ -4778,7 +4778,7 @@ Rewrite metadata on the fly using a function.
 * `(unlabeled)` (`([(string*string)])->[(string*string)]`): A function that returns new metadata.
 * `(unlabeled)` (`source('a)`)
 
-#### merge_tracks
+### merge_tracks
 ```
 (?id:string,source('a))->source('a)```
 
@@ -4787,7 +4787,7 @@ Merge consecutive tracks from the input source.
 * `id` (`string` -- defaults to `""`): Force the value of the source ID.
 * `(unlabeled)` (`source('a)`)
 
-#### mksafe
+### mksafe
 ```
 (?id:string,source('a))->source('a)```
 
@@ -4796,7 +4796,7 @@ Turn a source into an infaillible source by adding blank when the source is not 
 * `id` (`string` -- defaults to `"mksafe"`)
 * `(unlabeled)` (`source('a)`): the source to turn infaillible
 
-#### notify_metadata
+### notify_metadata
 ```
 (?urgency:string,?icon:string,?time:int,
  ?display:(([(string*string)])->string),?title:string,
@@ -4811,7 +4811,7 @@ Use notify to display metadata info.
 * `title` (`string` -- defaults to `"Liquidsoap: new track"`): Title of the notification message.
 * `(unlabeled)` (`source('a)`)
 
-#### on_blank
+### on_blank
 ```
 (?id:string,?max_blank:float,?min_noise:float,
  ?on_noise:(()->unit),?start_blank:bool,?threshold:float,
@@ -4831,7 +4831,7 @@ Calls a given handler when detecting a blank.
 * `(unlabeled)` (`()->unit`): Handler called when blank is detected.
 * `(unlabeled)` (`source(audio='#a,video='#b,midi='#c)`)
 
-#### on_end
+### on_end
 ```
 (?id:string,?delay:float,
  ((float,[(string*string)])->unit),source('a))->
@@ -4844,7 +4844,7 @@ Call a given handler when there is less than a given amount of time remaining be
 * `(unlabeled)` (`(float,[(string*string)])->unit`): Function to execute. First argument is the remaining time, second is the latest metadata. That function should be fast because it is executed in the main streaming thread.
 * `(unlabeled)` (`source('a)`)
 
-#### on_metadata
+### on_metadata
 ```
 (?id:string,(([(string*string)])->unit),source('a))->
 source('a)```
@@ -4855,7 +4855,7 @@ Call a given handler on metadata packets.
 * `(unlabeled)` (`([(string*string)])->unit`): Function called on every metadata packet in the stream. It should be fast because it is executed in the main streaming thread.
 * `(unlabeled)` (`source('a)`)
 
-#### on_offset
+### on_offset
 ```
 (?id:string,?force:bool,?offset:float,?override:string,
  ((float,[(string*string)])->unit),source('a))->
@@ -4870,7 +4870,7 @@ Call a given handler when position in track is equal or more than a given amount
 * `(unlabeled)` (`(float,[(string*string)])->unit`): Function to execute. First argument is the actual position within the current track, second is the latest metadata. That function should be fast because it is executed in the main streaming thread.
 * `(unlabeled)` (`source('a)`)
 
-#### on_track
+### on_track
 ```
 (?id:string,(([(string*string)])->unit),source('a))->
 source('a)```
@@ -4881,7 +4881,7 @@ Call a given handler on new tracks.
 * `(unlabeled)` (`([(string*string)])->unit`): Function called on every beginning of track in the stream, with the corresponding metadata as argument. If there is no metadata at the beginning of track, the empty list is passed. That function should be fast because it is executed in the main streaming thread.
 * `(unlabeled)` (`source('a)`)
 
-#### once
+### once
 ```
 (source('a))->source('a)```
 
@@ -4889,7 +4889,7 @@ Creates a source that plays only one track of the input source.
 
 * `(unlabeled)` (`source('a)`): The input source.
 
-#### osd_metadata
+### osd_metadata
 ```
 (?color:string,?position:string,?font:string,
  ?display:(([(string*string)])->string),source('a))->
@@ -4903,7 +4903,7 @@ Use X On Screen Display to display metadata info.
 * `display` (`([(string*string)])->string` -- defaults to <code><fun></code>): Function used to display a metadata packet.
 * `(unlabeled)` (`source('a)`)
 
-#### overlap_sources
+### overlap_sources
 ```
 (?id:string,?normalize:bool,?start_next:string,
  ?weights:[int],[source(audio='#a,video='#b,midi=0)])->
@@ -4917,7 +4917,7 @@ Rotate between overlapping sources. Next track starts according to 'liq_start_ne
 * `weights` (`[int]` -- defaults to `[]`): Relative weight of the sources in the sum. The empty list stands for the homogeneous distribution.
 * `(unlabeled)` (`[source(audio='#a,video='#b,midi=0)]`): Sources to toggle from
 
-#### playlist.merge
+### playlist.merge
 ```
 (?id:string,?random:bool,string)->source('a)```
 
@@ -4927,7 +4927,7 @@ Play the whole playlist as one track.
 * `random` (`bool` -- defaults to `false`): Randomize playlist content
 * `(unlabeled)` (`string`): Playlist URI.
 
-#### prepend
+### prepend
 ```
 (?id:string,?merge:bool,
  source(audio='#a,video='#b,midi='#c),
@@ -4944,7 +4944,7 @@ Prepend an extra track before every track. Set the metadata 'liq_prepend' to 'fa
 ([(string*string)])->source(audio='#a,video='#b,midi='#c)```
 ): Given the metadata, build the source producing the track to prepend. This source is allowed to fail (produce nothing) if no relevant track is to be appended. However, success must be immediate or it will not be taken into account.
 
-#### random
+### random
 ```
 (?id:string,?replay_metadata:bool,?track_sensitive:'a,
  ?transitions:[(source('b),source('b))->source('b)],
@@ -4962,7 +4962,7 @@ anything that is either bool or ()->bool```
 * `weights` (`[int]` -- defaults to `[]`): Weights of the children (padded with 1), defining for each child the probability that it is selected.
 * `(unlabeled)` (`[source('b)]`)
 
-#### rewrite_metadata
+### rewrite_metadata
 ```
 ([(string*string)],?insert_missing:bool,?update:bool,
  ?strip:bool,source('a))->source('a)```
@@ -4975,7 +4975,7 @@ Rewrite metadata on the fly using a list of (target,rules).
 * `strip` (`bool` -- defaults to `false`): Completly remove empty metadata. Operates on both empty values and empty metadata chunk.
 * `(unlabeled)` (`source('a)`)
 
-#### rotate
+### rotate
 ```
 (?id:string,?replay_metadata:bool,?track_sensitive:'a,
  ?transitions:[(source('b),source('b))->source('b)],
@@ -4993,7 +4993,7 @@ anything that is either bool or ()->bool```
 * `weights` (`[int]` -- defaults to `[]`): Weights of the children (padded with 1), defining for each child how many tracks are played from it per round, if that many are actually available.
 * `(unlabeled)` (`[source('b)]`)
 
-#### rotate.merge
+### rotate.merge
 ```
 (?id:string,?track_sensitive:bool,
  ?transitions:[(source('a),source('a))->source('a)],
@@ -5008,7 +5008,7 @@ For instance, `rotate.merge([intro,main,outro])` creates a source that plays a s
 * `weights` (`[int]` -- defaults to `[]`): Weights of the children (padded with 1), defining for each child how many tracks are played from it per round, if that many are actually available.
 * `(unlabeled)` (`[source('a)]`): Sequence of sources to be merged
 
-#### say_metadata
+### say_metadata
 ```
 (source(?A),?pattern:string)->source(?A)```
 
@@ -5019,7 +5019,7 @@ Append speech-synthesized tracks reading the metadata.
 "say:$(if $(artist),\"It was $(artist)$(if $(title),\\\", $(title)\\\").\")"```
 ): Pattern to use
 
-#### sequence
+### sequence
 ```
 (?id:string,?merge:bool,[source('a)])->source('a)```
 
@@ -5029,7 +5029,7 @@ Play only one track of every successive source, except for the last one which is
 * `merge` (`bool` -- defaults to `false`): Merge tracks when advancing from one source to the next one. This will NOT merge consecutive tracks from the last source; see merge_tracks() if you need that too.
 * `(unlabeled)` (`[source('a)]`)
 
-#### server.insert_metadata
+### server.insert_metadata
 ```
 (?id:string,source('a))->source('a)```
 
@@ -5038,7 +5038,7 @@ Register a server/telnet command to update a source's metadata. Returns a new so
 * `id` (`string` -- defaults to `""`): Force the value of the source ID.
 * `(unlabeled)` (`source('a)`)
 
-#### skip_blank
+### skip_blank
 ```
 (?id:string,?threshold:float,?max_blank:float,
  ?min_noise:float,?track_sensitive:bool,
@@ -5054,7 +5054,7 @@ Skip track when detecting a blank.
 * `track_sensitive` (`bool` -- defaults to `true`): Reset blank counter at each track.
 * `(unlabeled)` (`source(audio='#a,video='#b,midi='#c)`)
 
-#### smart_crossfade
+### smart_crossfade
 ```
 (?start_next:float,?fade_in:float,?fade_out:float,
  ?default:((source(audio='#a+1,video=0,midi=0),
@@ -5081,7 +5081,7 @@ source(audio='#a+1,video=0,midi=0)```
 * `conservative` (`bool` -- defaults to `true`): Always prepare for a premature end-of-track.
 * `(unlabeled)` (`source(audio='#a+1,video=0,midi=0)`): The input source.
 
-#### smooth_add
+### smooth_add
 ```
 (?delay:float,?p:float,
  normal:source(audio='#a,video='#b,midi=0),
@@ -5095,7 +5095,7 @@ Mixes two streams, with faded transitions between the state when only the normal
 * `normal` (`source(audio='#a,video='#b,midi=0)`): The normal source, which could be called the carrier too.
 * `special` (`source(audio='#a,video='#b,midi=0)`): The special source.
 
-#### source.dynamic
+### source.dynamic
 ```
 (?id:string,(()->[source('a)]))->source('a)```
 
@@ -5106,7 +5106,7 @@ Dynamically change the underlying source.
 * `id` (`string` -- defaults to `""`): Force the value of the source ID.
 * `(unlabeled)` (`()->[source('a)]`)
 
-#### store_metadata
+### store_metadata
 ```
 (?id:string,?size:int,source('a))->source('a)```
 
@@ -5116,7 +5116,7 @@ Keep track of the last N metadata packets in the stream, and make the history av
 * `size` (`int` -- defaults to `10`): Size of the history
 * `(unlabeled)` (`source('a)`)
 
-#### strip_blank
+### strip_blank
 ```
 (?id:string,?max_blank:float,?min_noise:float,
  ?start_blank:bool,?threshold:float,
@@ -5134,7 +5134,7 @@ Make the source unavailable when it is streaming blank.
 * `track_sensitive` (`bool` -- defaults to `true`): Reset blank counter at each track.
 * `(unlabeled)` (`source(audio='#a,video='#b,midi='#c)`)
 
-#### switch
+### switch
 ```
 (?id:string,?replay_metadata:bool,?single:[bool],
  ?track_sensitive:'a,
@@ -5155,7 +5155,7 @@ anything that is either bool or ()->bool```
 
 Source / Video Processing
 -------------------------
-#### video.add_image
+### video.add_image
 ```
 (?id:string,?width:int,?height:int,?x:int,?y:int,file:'a,
  source(audio='#b,video='#c,midi=0))->
@@ -5171,7 +5171,7 @@ Add a static image on the first video channel.
 * `file` (`'a`): Path to the image file.
 * `(unlabeled)` (`source(audio='#b,video='#c,midi=0)`)
 
-#### video.add_text.gstreamer
+### video.add_text.gstreamer
 ```
 (?id:string,?color:int,?cycle:bool,?font:string,
  ?metadata:string,?size:int,?speed:int,?x:int,?y:int,'a,
@@ -5195,7 +5195,7 @@ anything that is either string or ()->string```
 ): Text to display.
 * `(unlabeled)` (`source(audio='#b,video='#c+1,midi='#d)`)
 
-#### video.fade.final
+### video.fade.final
 ```
 (?id:string,?duration:float,?transition:string,
  ?type:string,source(audio='#a,video='#b+1,midi='#c))->
@@ -5209,7 +5209,7 @@ Fade a stream to black.
 * `type` (`string` -- defaults to `"lin"`): Fader shape (lin|sin|log|exp): linear, sinusoidal, logarithmic or exponential.
 * `(unlabeled)` (`source(audio='#a,video='#b+1,midi='#c)`)
 
-#### video.fade.in
+### video.fade.in
 ```
 (?id:string,?duration:float,?override:string,
  ?transition:string,?type:string,
@@ -5225,7 +5225,7 @@ Fade the beginning of tracks. Metadata 'liq_video_fade_in' can be used to set th
 * `type` (`string` -- defaults to `"lin"`): Fader shape (lin|sin|log|exp): linear, sinusoidal, logarithmic or exponential.
 * `(unlabeled)` (`source(audio='#a,video='#b+1,midi='#c)`)
 
-#### video.fade.initial
+### video.fade.initial
 ```
 (?id:string,?duration:float,?transition:string,
  ?type:string,source(audio='#a,video='#b+1,midi='#c))->
@@ -5239,7 +5239,7 @@ Fade the beginning of a stream.
 * `type` (`string` -- defaults to `"lin"`): Fader shape (lin|sin|log|exp): linear, sinusoidal, logarithmic or exponential.
 * `(unlabeled)` (`source(audio='#a,video='#b+1,midi='#c)`)
 
-#### video.fade.out
+### video.fade.out
 ```
 (?id:string,?duration:float,?override:string,
  ?transition:string,?type:string,
@@ -5255,7 +5255,7 @@ Fade the end of tracks. Metadata 'liq_video_fade_out' can be used to set the dur
 * `type` (`string` -- defaults to `"lin"`): Fader shape (lin|sin|log|exp): linear, sinusoidal, logarithmic or exponential.
 * `(unlabeled)` (`source(audio='#a,video='#b+1,midi='#c)`)
 
-#### video.fill
+### video.fill
 ```
 (?id:string,?color:int,
  source(audio='#a,video='#b+1,midi='#c))->
@@ -5267,7 +5267,7 @@ Fill frame with a color.
 * `color` (`int` -- defaults to `0`): Color to fill the image with.
 * `(unlabeled)` (`source(audio='#a,video='#b+1,midi='#c)`)
 
-#### video.frei0r._3_point_color_balance
+### video.frei0r._3_point_color_balance
 ```
 (?id:string,?black_color:int,?gray_color:int,
  ?source_image_on_left_side:bool,?split_preview:bool,
@@ -5284,7 +5284,7 @@ Adjust color balance with 3 color points (by Maksim Golovkin).
 * `white_color` (`int` -- defaults to `16777215`): White color.
 * `(unlabeled)` (`source(audio='#a,video='#b+1,midi='#c)`)
 
-#### video.frei0r._3dflippo
+### video.frei0r._3dflippo
 ```
 (?id:string,?center_position:'a,?center_position:'b,
  ?don't_blank_mask:bool,?fill_with_image_or_black:bool,
@@ -5329,7 +5329,7 @@ anything that is either float or ()->float```
  -- defaults to `0.5`): Rotation rate on the Z axis.
 * `(unlabeled)` (`source(audio='#i,video='#j+1,midi='#k)`)
 
-#### video.frei0r.addition
+### video.frei0r.addition
 ```
 (?id:string,source(audio='#a,video='#b+1,midi='#c),
  source(audio='#a,video='#b+1,midi='#c))->
@@ -5341,7 +5341,7 @@ Perform an RGB[A] addition operation of the pixel sources (by Jean-Sebastien Sen
 * `(unlabeled)` (`source(audio='#a,video='#b+1,midi='#c)`)
 * `(unlabeled)` (`source(audio='#a,video='#b+1,midi='#c)`)
 
-#### video.frei0r.addition_alpha
+### video.frei0r.addition_alpha
 ```
 (?id:string,source(audio='#a,video='#b+1,midi='#c),
  source(audio='#a,video='#b+1,midi='#c))->
@@ -5353,7 +5353,7 @@ Perform an RGB[A] addition_alpha operation of the pixel sources (by Jean-Sebasti
 * `(unlabeled)` (`source(audio='#a,video='#b+1,midi='#c)`)
 * `(unlabeled)` (`source(audio='#a,video='#b+1,midi='#c)`)
 
-#### video.frei0r.alpha0ps
+### video.frei0r.alpha0ps
 ```
 (?id:string,?display:'a,?display_input_alpha:bool,
  ?invert:bool,?operation:'b,?shrink_grow_blur_amount:'c,
@@ -5380,7 +5380,7 @@ anything that is either float or ()->float```
  -- defaults to `0.5`): .
 * `(unlabeled)` (`source(audio='#e,video='#f+1,midi='#g)`)
 
-#### video.frei0r.alpha_injection
+### video.frei0r.alpha_injection
 ```
 (?id:string,source(audio='#a,video='#b+1,midi='#c),
  source(audio='#a,video='#b+1,midi='#c))->
@@ -5392,7 +5392,7 @@ Averages Input 1 and uses this as Alpha Channel on Input 2 (by Richard Spindler)
 * `(unlabeled)` (`source(audio='#a,video='#b+1,midi='#c)`)
 * `(unlabeled)` (`source(audio='#a,video='#b+1,midi='#c)`)
 
-#### video.frei0r.alphaatop
+### video.frei0r.alphaatop
 ```
 (?id:string,source(audio='#a,video='#b+1,midi='#c),
  source(audio='#a,video='#b+1,midi='#c))->
@@ -5404,7 +5404,7 @@ The alpha ATOP operation (by Jean-Sebastien Senecal).
 * `(unlabeled)` (`source(audio='#a,video='#b+1,midi='#c)`)
 * `(unlabeled)` (`source(audio='#a,video='#b+1,midi='#c)`)
 
-#### video.frei0r.alphagrad
+### video.frei0r.alphagrad
 ```
 (?id:string,?max:'a,?min:'b,?operation:'c,?position:'d,
  ?tilt:'e,?transition_width:'f,
@@ -5435,7 +5435,7 @@ anything that is either float or ()->float```
  -- defaults to `0.5`): .
 * `(unlabeled)` (`source(audio='#g,video='#h+1,midi='#i)`)
 
-#### video.frei0r.alphain
+### video.frei0r.alphain
 ```
 (?id:string,source(audio='#a,video='#b+1,midi='#c),
  source(audio='#a,video='#b+1,midi='#c))->
@@ -5447,7 +5447,7 @@ The alpha IN operation (by Jean-Sebastien Senecal).
 * `(unlabeled)` (`source(audio='#a,video='#b+1,midi='#c)`)
 * `(unlabeled)` (`source(audio='#a,video='#b+1,midi='#c)`)
 
-#### video.frei0r.alphaout
+### video.frei0r.alphaout
 ```
 (?id:string,source(audio='#a,video='#b+1,midi='#c),
  source(audio='#a,video='#b+1,midi='#c))->
@@ -5459,7 +5459,7 @@ The alpha OUT operation (by Jean-Sebastien Senecal).
 * `(unlabeled)` (`source(audio='#a,video='#b+1,midi='#c)`)
 * `(unlabeled)` (`source(audio='#a,video='#b+1,midi='#c)`)
 
-#### video.frei0r.alphaover
+### video.frei0r.alphaover
 ```
 (?id:string,source(audio='#a,video='#b+1,midi='#c),
  source(audio='#a,video='#b+1,midi='#c))->
@@ -5471,7 +5471,7 @@ The alpha OVER operation (by Jean-Sebastien Senecal).
 * `(unlabeled)` (`source(audio='#a,video='#b+1,midi='#c)`)
 * `(unlabeled)` (`source(audio='#a,video='#b+1,midi='#c)`)
 
-#### video.frei0r.alphaspot
+### video.frei0r.alphaspot
 ```
 (?id:string,?max:'a,?min:'b,?operation:'c,?position_x:'d,
  ?position_y:'e,?shape:'f,?size_x:'g,?size_y:'h,?tilt:'i,
@@ -5516,7 +5516,7 @@ anything that is either float or ()->float```
  -- defaults to `0.20000000298`): .
 * `(unlabeled)` (`source(audio='#k,video='#l+1,midi='#m)`)
 
-#### video.frei0r.alphaxor
+### video.frei0r.alphaxor
 ```
 (?id:string,source(audio='#a,video='#b+1,midi='#c),
  source(audio='#a,video='#b+1,midi='#c))->
@@ -5528,7 +5528,7 @@ The alpha XOR operation (by Jean-Sebastien Senecal).
 * `(unlabeled)` (`source(audio='#a,video='#b+1,midi='#c)`)
 * `(unlabeled)` (`source(audio='#a,video='#b+1,midi='#c)`)
 
-#### video.frei0r.b
+### video.frei0r.b
 ```
 (?id:string,source(audio='#a,video='#b+1,midi='#c))->
 source(audio='#a,video='#b+1,midi='#c)```
@@ -5538,7 +5538,7 @@ Extracts Blue from Image (by Richard Spindler).
 * `id` (`string` -- defaults to `""`): Force the value of the source ID.
 * `(unlabeled)` (`source(audio='#a,video='#b+1,midi='#c)`)
 
-#### video.frei0r.baltan
+### video.frei0r.baltan
 ```
 (?id:string,source(audio='#a,video='#b+1,midi='#c))->
 source(audio='#a,video='#b+1,midi='#c)```
@@ -5548,7 +5548,7 @@ Delayed alpha smoothed blit of time (by Kentaro, Jaromil).
 * `id` (`string` -- defaults to `""`): Force the value of the source ID.
 * `(unlabeled)` (`source(audio='#a,video='#b+1,midi='#c)`)
 
-#### video.frei0r.blend
+### video.frei0r.blend
 ```
 (?id:string,?blend:'a,
  source(audio='#b,video='#c+1,midi='#d),
@@ -5565,7 +5565,7 @@ anything that is either float or ()->float```
 * `(unlabeled)` (`source(audio='#b,video='#c+1,midi='#d)`)
 * `(unlabeled)` (`source(audio='#b,video='#c+1,midi='#d)`)
 
-#### video.frei0r.bluescreen0r
+### video.frei0r.bluescreen0r
 ```
 (?id:string,?color:int,?distance:'a,
  source(audio='#b,video='#c+1,midi='#d))->
@@ -5581,7 +5581,7 @@ anything that is either float or ()->float```
  -- defaults to `0.288`): Distance to Color (127 is good).
 * `(unlabeled)` (`source(audio='#b,video='#c+1,midi='#d)`)
 
-#### video.frei0r.brightness
+### video.frei0r.brightness
 ```
 (?id:string,?brightness:'a,
  source(audio='#b,video='#c+1,midi='#d))->
@@ -5596,7 +5596,7 @@ anything that is either float or ()->float```
  -- defaults to `0.5`): The brightness value.
 * `(unlabeled)` (`source(audio='#b,video='#c+1,midi='#d)`)
 
-#### video.frei0r.burn
+### video.frei0r.burn
 ```
 (?id:string,source(audio='#a,video='#b+1,midi='#c),
  source(audio='#a,video='#b+1,midi='#c))->
@@ -5609,7 +5609,7 @@ D = saturation of 255 or depletion of 0, of ((255 - A) * 256) / (B + 1) (by Jean
 * `(unlabeled)` (`source(audio='#a,video='#b+1,midi='#c)`)
 * `(unlabeled)` (`source(audio='#a,video='#b+1,midi='#c)`)
 
-#### video.frei0r.bw0r
+### video.frei0r.bw0r
 ```
 (?id:string,source(audio='#a,video='#b+1,midi='#c))->
 source(audio='#a,video='#b+1,midi='#c)```
@@ -5619,7 +5619,7 @@ Turns image black/white (by coma(at)gephex.org).
 * `id` (`string` -- defaults to `""`): Force the value of the source ID.
 * `(unlabeled)` (`source(audio='#a,video='#b+1,midi='#c)`)
 
-#### video.frei0r.c0rners
+### video.frei0r.c0rners
 ```
 (?id:string,?alpha_operation:'a,?corner_1_x:'b,
  ?corner_1_y:'c,?corner_2_x:'d,?corner_2_y:'e,
@@ -5678,7 +5678,7 @@ anything that is either float or ()->float```
 * `transparent_background` (`bool` -- defaults to `false`): Makes background transparent.
 * `(unlabeled)` (`source(audio='#n,video='#o+1,midi='#p)`)
 
-#### video.frei0r.cartoon
+### video.frei0r.cartoon
 ```
 (?id:string,?diffspace:'a,?triplevel:'b,
  source(audio='#c,video='#d+1,midi='#e))->
@@ -5696,7 +5696,7 @@ anything that is either float or ()->float```
  -- defaults to `1.0`): level of trip: mapped to [0,1] asymptotical.
 * `(unlabeled)` (`source(audio='#c,video='#d+1,midi='#e)`)
 
-#### video.frei0r.color_distance
+### video.frei0r.color_distance
 ```
 (?id:string,?color:int,
  source(audio='#a,video='#b+1,midi='#c))->
@@ -5708,7 +5708,7 @@ Calculates the distance between the selected color and the current pixel and use
 * `color` (`int` -- defaults to `8355711`): The Source Color.
 * `(unlabeled)` (`source(audio='#a,video='#b+1,midi='#c)`)
 
-#### video.frei0r.color_only
+### video.frei0r.color_only
 ```
 (?id:string,source(audio='#a,video='#b+1,midi='#c),
  source(audio='#a,video='#b+1,midi='#c))->
@@ -5720,7 +5720,7 @@ Perform a conversion to color only of the source input1 using the hue and satura
 * `(unlabeled)` (`source(audio='#a,video='#b+1,midi='#c)`)
 * `(unlabeled)` (`source(audio='#a,video='#b+1,midi='#c)`)
 
-#### video.frei0r.coloradj_rgb
+### video.frei0r.coloradj_rgb
 ```
 (?id:string,?action:'a,?alpha_controlled:bool,?b:'b,
  ?g:'c,?keep_luma:bool,?luma_formula:'d,?r:'e,
@@ -5750,7 +5750,7 @@ anything that is either float or ()->float```
  -- defaults to `0.5`): Amount of red.
 * `(unlabeled)` (`source(audio='#f,video='#g+1,midi='#h)`)
 
-#### video.frei0r.colorhalftone
+### video.frei0r.colorhalftone
 ```
 (?id:string,?cyan_angle:'a,?dot_radius:'b,
  ?magenta_angle:'c,?yellow_angle:'d,
@@ -5775,7 +5775,7 @@ anything that is either float or ()->float```
  -- defaults to `0.25`): Yellow dots angle.
 * `(unlabeled)` (`source(audio='#e,video='#f+1,midi='#g)`)
 
-#### video.frei0r.colorize
+### video.frei0r.colorize
 ```
 (?id:string,?hue:'a,?lightness:'b,?saturation:'c,
  source(audio='#d,video='#e+1,midi='#f))->
@@ -5796,7 +5796,7 @@ anything that is either float or ()->float```
  -- defaults to `0.5`): Amount of color in the colorized image.
 * `(unlabeled)` (`source(audio='#d,video='#e+1,midi='#f)`)
 
-#### video.frei0r.colortap
+### video.frei0r.colortap
 ```
 (?id:string,?table:string,
  source(audio='#a,video='#b+1,midi='#c))->
@@ -5808,7 +5808,7 @@ Applies a pre-made color effect to image (by Janne Liljeblad).
 * `table` (`string` -- defaults to `"\128\192\241\229\233\127"`): Lookup table used to filter colors. One of: xpro, sepia, heat, red_green, old_photo, xray, esses, yellow_blue.
 * `(unlabeled)` (`source(audio='#a,video='#b+1,midi='#c)`)
 
-#### video.frei0r.composition
+### video.frei0r.composition
 ```
 (?id:string,source(audio='#a,video='#b+1,midi='#c),
  source(audio='#a,video='#b+1,midi='#c))->
@@ -5820,7 +5820,7 @@ Composites Image 2 onto Image 1 according to its Alpha Channel (by Richard Spind
 * `(unlabeled)` (`source(audio='#a,video='#b+1,midi='#c)`)
 * `(unlabeled)` (`source(audio='#a,video='#b+1,midi='#c)`)
 
-#### video.frei0r.contrast0r
+### video.frei0r.contrast0r
 ```
 (?id:string,?contrast:'a,
  source(audio='#b,video='#c+1,midi='#d))->
@@ -5835,7 +5835,7 @@ anything that is either float or ()->float```
  -- defaults to `0.5`): The contrast value.
 * `(unlabeled)` (`source(audio='#b,video='#c+1,midi='#d)`)
 
-#### video.frei0r.darken
+### video.frei0r.darken
 ```
 (?id:string,source(audio='#a,video='#b+1,midi='#c),
  source(audio='#a,video='#b+1,midi='#c))->
@@ -5847,7 +5847,7 @@ Perform a darken operation between two sources (minimum value of both sources) (
 * `(unlabeled)` (`source(audio='#a,video='#b+1,midi='#c)`)
 * `(unlabeled)` (`source(audio='#a,video='#b+1,midi='#c)`)
 
-#### video.frei0r.defish0r
+### video.frei0r.defish0r
 ```
 (?id:string,?amount:'a,?aspect_type:'b,?defish:bool,
  ?interpolator:'c,?manual_aspect:'d,?manual_scale:'e,
@@ -5884,7 +5884,7 @@ anything that is either float or ()->float```
  -- defaults to `0.666666686535`): Mapping function.
 * `(unlabeled)` (`source(audio='#h,video='#i+1,midi='#j)`)
 
-#### video.frei0r.delay0r
+### video.frei0r.delay0r
 ```
 (?id:string,?delaytime:'a,
  source(audio='#b,video='#c+1,midi='#d))->
@@ -5899,7 +5899,7 @@ anything that is either float or ()->float```
  -- defaults to `0.0`): the delay time.
 * `(unlabeled)` (`source(audio='#b,video='#c+1,midi='#d)`)
 
-#### video.frei0r.delaygrab
+### video.frei0r.delaygrab
 ```
 (?id:string,source(audio='#a,video='#b+1,midi='#c))->
 source(audio='#a,video='#b+1,midi='#c)```
@@ -5909,7 +5909,7 @@ Delayed frame blitting mapped on a time bitmap (by Bill Spinhover, Andreas Schif
 * `id` (`string` -- defaults to `""`): Force the value of the source ID.
 * `(unlabeled)` (`source(audio='#a,video='#b+1,midi='#c)`)
 
-#### video.frei0r.difference
+### video.frei0r.difference
 ```
 (?id:string,source(audio='#a,video='#b+1,midi='#c),
  source(audio='#a,video='#b+1,midi='#c))->
@@ -5921,7 +5921,7 @@ Perform an RGB[A] difference operation between the pixel sources (by Jean-Sebast
 * `(unlabeled)` (`source(audio='#a,video='#b+1,midi='#c)`)
 * `(unlabeled)` (`source(audio='#a,video='#b+1,midi='#c)`)
 
-#### video.frei0r.distort0r
+### video.frei0r.distort0r
 ```
 (?id:string,?amplitude:'a,?frequency:'b,
  source(audio='#c,video='#d+1,midi='#e))->
@@ -5939,7 +5939,7 @@ anything that is either float or ()->float```
  -- defaults to `0.005`): The frequency of the plasma signal.
 * `(unlabeled)` (`source(audio='#c,video='#d+1,midi='#e)`)
 
-#### video.frei0r.dither
+### video.frei0r.dither
 ```
 (?id:string,?levels:'a,?matrixid:'b,
  source(audio='#c,video='#d+1,midi='#e))->
@@ -5957,7 +5957,7 @@ anything that is either float or ()->float```
  -- defaults to `1.0`): Id of matrix used for dithering.
 * `(unlabeled)` (`source(audio='#c,video='#d+1,midi='#e)`)
 
-#### video.frei0r.divide
+### video.frei0r.divide
 ```
 (?id:string,source(audio='#a,video='#b+1,midi='#c),
  source(audio='#a,video='#b+1,midi='#c))->
@@ -5969,7 +5969,7 @@ Perform an RGB[A] divide operation between the pixel sources: input1 is the nume
 * `(unlabeled)` (`source(audio='#a,video='#b+1,midi='#c)`)
 * `(unlabeled)` (`source(audio='#a,video='#b+1,midi='#c)`)
 
-#### video.frei0r.dodge
+### video.frei0r.dodge
 ```
 (?id:string,source(audio='#a,video='#b+1,midi='#c),
  source(audio='#a,video='#b+1,midi='#c))->
@@ -5982,7 +5982,7 @@ D = saturation of 255 or (A * 256) / (256 - B) (by Jean-Sebastien Senecal).
 * `(unlabeled)` (`source(audio='#a,video='#b+1,midi='#c)`)
 * `(unlabeled)` (`source(audio='#a,video='#b+1,midi='#c)`)
 
-#### video.frei0r.edgeglow
+### video.frei0r.edgeglow
 ```
 (?id:string,?lredscale:'a,?lthresh:'b,?lupscale:'c,
  source(audio='#d,video='#e+1,midi='#f))->
@@ -6003,7 +6003,7 @@ anything that is either float or ()->float```
  -- defaults to `0.0`): multiplier for upscaling edge brightness.
 * `(unlabeled)` (`source(audio='#d,video='#e+1,midi='#f)`)
 
-#### video.frei0r.emboss
+### video.frei0r.emboss
 ```
 (?id:string,?azimuth:'a,?elevation:'b,?width45:'c,
  source(audio='#d,video='#e+1,midi='#f))->
@@ -6024,7 +6024,7 @@ anything that is either float or ()->float```
  -- defaults to `0.25`): Bump height.
 * `(unlabeled)` (`source(audio='#d,video='#e+1,midi='#f)`)
 
-#### video.frei0r.equaliz0r
+### video.frei0r.equaliz0r
 ```
 (?id:string,source(audio='#a,video='#b+1,midi='#c))->
 source(audio='#a,video='#b+1,midi='#c)```
@@ -6034,7 +6034,7 @@ Equalizes the intensity histograms (by Jean-Sebastien Senecal (Drone)).
 * `id` (`string` -- defaults to `""`): Force the value of the source ID.
 * `(unlabeled)` (`source(audio='#a,video='#b+1,midi='#c)`)
 
-#### video.frei0r.flippo
+### video.frei0r.flippo
 ```
 (?id:string,?x_axis:bool,?y_axis:bool,
  source(audio='#a,video='#b+1,midi='#c))->
@@ -6047,7 +6047,7 @@ Flipping in x and y axis (by Carlo Emilio, Jean-Sebastien Senecal).
 * `y_axis` (`bool` -- defaults to `false`): Flipping on the vertical axis.
 * `(unlabeled)` (`source(audio='#a,video='#b+1,midi='#c)`)
 
-#### video.frei0r.g
+### video.frei0r.g
 ```
 (?id:string,source(audio='#a,video='#b+1,midi='#c))->
 source(audio='#a,video='#b+1,midi='#c)```
@@ -6057,7 +6057,7 @@ Extracts Green from Image (by Richard Spindler).
 * `id` (`string` -- defaults to `""`): Force the value of the source ID.
 * `(unlabeled)` (`source(audio='#a,video='#b+1,midi='#c)`)
 
-#### video.frei0r.gamma
+### video.frei0r.gamma
 ```
 (?id:string,?gamma:'a,
  source(audio='#b,video='#c+1,midi='#d))->
@@ -6072,7 +6072,7 @@ anything that is either float or ()->float```
  -- defaults to `3.52371672488e-294`): The gamma value.
 * `(unlabeled)` (`source(audio='#b,video='#c+1,midi='#d)`)
 
-#### video.frei0r.glow
+### video.frei0r.glow
 ```
 (?id:string,?blur:'a,
  source(audio='#b,video='#c+1,midi='#d))->
@@ -6087,7 +6087,7 @@ anything that is either float or ()->float```
  -- defaults to `0.0`): Blur of the glow.
 * `(unlabeled)` (`source(audio='#b,video='#c+1,midi='#d)`)
 
-#### video.frei0r.grain_extract
+### video.frei0r.grain_extract
 ```
 (?id:string,source(audio='#a,video='#b+1,midi='#c),
  source(audio='#a,video='#b+1,midi='#c))->
@@ -6099,7 +6099,7 @@ Perform an RGB[A] grain-extract operation between the pixel sources (by Jean-Seb
 * `(unlabeled)` (`source(audio='#a,video='#b+1,midi='#c)`)
 * `(unlabeled)` (`source(audio='#a,video='#b+1,midi='#c)`)
 
-#### video.frei0r.grain_merge
+### video.frei0r.grain_merge
 ```
 (?id:string,source(audio='#a,video='#b+1,midi='#c),
  source(audio='#a,video='#b+1,midi='#c))->
@@ -6111,7 +6111,7 @@ Perform an RGB[A] grain-merge operation between the pixel sources (by Jean-Sebas
 * `(unlabeled)` (`source(audio='#a,video='#b+1,midi='#c)`)
 * `(unlabeled)` (`source(audio='#a,video='#b+1,midi='#c)`)
 
-#### video.frei0r.hardlight
+### video.frei0r.hardlight
 ```
 (?id:string,source(audio='#a,video='#b+1,midi='#c),
  source(audio='#a,video='#b+1,midi='#c))->
@@ -6123,7 +6123,7 @@ Perform an RGB[A] hardlight operation between the pixel sources (by Jean-Sebasti
 * `(unlabeled)` (`source(audio='#a,video='#b+1,midi='#c)`)
 * `(unlabeled)` (`source(audio='#a,video='#b+1,midi='#c)`)
 
-#### video.frei0r.hqdn3d
+### video.frei0r.hqdn3d
 ```
 (?id:string,?spatial:'a,?temporal:'b,
  source(audio='#c,video='#d+1,midi='#e))->
@@ -6141,7 +6141,7 @@ anything that is either float or ()->float```
  -- defaults to `0.0599999986589`): Amount of temporal filtering.
 * `(unlabeled)` (`source(audio='#c,video='#d+1,midi='#e)`)
 
-#### video.frei0r.hue
+### video.frei0r.hue
 ```
 (?id:string,source(audio='#a,video='#b+1,midi='#c),
  source(audio='#a,video='#b+1,midi='#c))->
@@ -6153,7 +6153,7 @@ Perform a conversion to hue only of the source input1 using the hue of input2 (b
 * `(unlabeled)` (`source(audio='#a,video='#b+1,midi='#c)`)
 * `(unlabeled)` (`source(audio='#a,video='#b+1,midi='#c)`)
 
-#### video.frei0r.hueshift0r
+### video.frei0r.hueshift0r
 ```
 (?id:string,?hue:'a,
  source(audio='#b,video='#c+1,midi='#d))->
@@ -6168,7 +6168,7 @@ anything that is either float or ()->float```
  -- defaults to `0.0`): The shift value.
 * `(unlabeled)` (`source(audio='#b,video='#c+1,midi='#d)`)
 
-#### video.frei0r.iir_blur
+### video.frei0r.iir_blur
 ```
 (?id:string,?amount:'a,?edge:bool,?type:'b,
  source(audio='#c,video='#d+1,midi='#e))->
@@ -6187,7 +6187,7 @@ anything that is either float or ()->float```
  -- defaults to `0.333344429731`): Blur type.
 * `(unlabeled)` (`source(audio='#c,video='#d+1,midi='#e)`)
 
-#### video.frei0r.invert0r
+### video.frei0r.invert0r
 ```
 (?id:string,source(audio='#a,video='#b+1,midi='#c))->
 source(audio='#a,video='#b+1,midi='#c)```
@@ -6197,7 +6197,7 @@ Inverts all colors of a source image (by Gephex crew).
 * `id` (`string` -- defaults to `""`): Force the value of the source ID.
 * `(unlabeled)` (`source(audio='#a,video='#b+1,midi='#c)`)
 
-#### video.frei0r.ising0r
+### video.frei0r.ising0r
 ```
 (?id:string,?border_growth:'a,?spontaneous_growth:'b,
  ?temperature:'c)->source(audio=0,video=1,midi=0)
@@ -6216,7 +6216,7 @@ anything that is either float or ()->float```
 anything that is either float or ()->float```
  -- defaults to `0.0`): Noise Temperature.
 
-#### video.frei0r.k_means_clustering
+### video.frei0r.k_means_clustering
 ```
 (?id:string,?dist_weight:'a,?num:'b,
  source(audio='#c,video='#d+1,midi='#e))->
@@ -6234,7 +6234,7 @@ anything that is either float or ()->float```
  -- defaults to `0.5`): The number of clusters.
 * `(unlabeled)` (`source(audio='#c,video='#d+1,midi='#e)`)
 
-#### video.frei0r.lens_correction
+### video.frei0r.lens_correction
 ```
 (?id:string,?brightness:'a,?correctionnearcenter:'b,
  ?correctionnearedges:'c,?xcenter:'d,?ycenter:'e,
@@ -6262,7 +6262,7 @@ anything that is either float or ()->float```
  -- defaults to `0.5`): .
 * `(unlabeled)` (`source(audio='#f,video='#g+1,midi='#h)`)
 
-#### video.frei0r.letterb0xed
+### video.frei0r.letterb0xed
 ```
 (?id:string,?border_width:'a,?transparency:bool,
  source(audio='#b,video='#c+1,midi='#d))->
@@ -6278,7 +6278,7 @@ anything that is either float or ()->float```
 * `transparency` (`bool` -- defaults to `false`): .
 * `(unlabeled)` (`source(audio='#b,video='#c+1,midi='#d)`)
 
-#### video.frei0r.levels
+### video.frei0r.levels
 ```
 (?id:string,?black_output:'a,?channel:'b,?gamma:'c,
  ?histogram_position:'d,?input_black_level:'e,
@@ -6315,7 +6315,7 @@ anything that is either float or ()->float```
  -- defaults to `1.0`): White output.
 * `(unlabeled)` (`source(audio='#h,video='#i+1,midi='#j)`)
 
-#### video.frei0r.light_graffiti
+### video.frei0r.light_graffiti
 ```
 (?id:string,?backgroundweight:'a,?blackreference:'b,
  ?dim:'c,?longalpha:'d,?loweroverexposure:'e,
@@ -6382,7 +6382,7 @@ anything that is either float or ()->float```
  -- defaults to `0.0`): Make the background transparent.
 * `(unlabeled)` (`source(audio='#q,video='#r+1,midi='#s)`)
 
-#### video.frei0r.lighten
+### video.frei0r.lighten
 ```
 (?id:string,source(audio='#a,video='#b+1,midi='#c),
  source(audio='#a,video='#b+1,midi='#c))->
@@ -6394,7 +6394,7 @@ Perform a lighten operation between two sources (maximum value of both sources) 
 * `(unlabeled)` (`source(audio='#a,video='#b+1,midi='#c)`)
 * `(unlabeled)` (`source(audio='#a,video='#b+1,midi='#c)`)
 
-#### video.frei0r.lissajous0r
+### video.frei0r.lissajous0r
 ```
 (?id:string,?ratiox:'a,?ratioy:'b)->
 source(audio=0,video=1,midi=0)
@@ -6410,7 +6410,7 @@ anything that is either float or ()->float```
 anything that is either float or ()->float```
  -- defaults to `0.0`): y-ratio.
 
-#### video.frei0r.luminance
+### video.frei0r.luminance
 ```
 (?id:string,source(audio='#a,video='#b+1,midi='#c))->
 source(audio='#a,video='#b+1,midi='#c)```
@@ -6420,7 +6420,7 @@ Creates a luminance map of the image (by Richard Spindler).
 * `id` (`string` -- defaults to `""`): Force the value of the source ID.
 * `(unlabeled)` (`source(audio='#a,video='#b+1,midi='#c)`)
 
-#### video.frei0r.mask0mate
+### video.frei0r.mask0mate
 ```
 (?id:string,?blur:'a,?bottom:'b,?invert:bool,?left:'c,
  ?right:'d,?top:'e,
@@ -6449,7 +6449,7 @@ anything that is either float or ()->float```
  -- defaults to `0.2`): .
 * `(unlabeled)` (`source(audio='#f,video='#g+1,midi='#h)`)
 
-#### video.frei0r.medians
+### video.frei0r.medians
 ```
 (?id:string,?size:'a,?type:string,
  source(audio='#b,video='#c+1,midi='#d))->
@@ -6465,7 +6465,7 @@ anything that is either float or ()->float```
 * `type` (`string` -- defaults to `"\192\188\224\229\233\127"`): Choose type of median: Cross5, Square3x3, Bilevel, Diamond3x3, Square5x5, Temp3, Temp5, ArceBI, ML3D, ML3dEX, VarSize.
 * `(unlabeled)` (`source(audio='#b,video='#c+1,midi='#d)`)
 
-#### video.frei0r.multiply
+### video.frei0r.multiply
 ```
 (?id:string,source(audio='#a,video='#b+1,midi='#c),
  source(audio='#a,video='#b+1,midi='#c))->
@@ -6477,7 +6477,7 @@ Perform an RGB[A] multiply operation between the pixel sources (by Jean-Sebastie
 * `(unlabeled)` (`source(audio='#a,video='#b+1,midi='#c)`)
 * `(unlabeled)` (`source(audio='#a,video='#b+1,midi='#c)`)
 
-#### video.frei0r.nervous
+### video.frei0r.nervous
 ```
 (?id:string,source(audio='#a,video='#b+1,midi='#c))->
 source(audio='#a,video='#b+1,midi='#c)```
@@ -6487,7 +6487,7 @@ Flushes frames in time in a nervous way (by Tannenbaum, Kentaro, Jaromil).
 * `id` (`string` -- defaults to `""`): Force the value of the source ID.
 * `(unlabeled)` (`source(audio='#a,video='#b+1,midi='#c)`)
 
-#### video.frei0r.nikon_d90_stairstepping_fix
+### video.frei0r.nikon_d90_stairstepping_fix
 ```
 (?id:string,source(audio='#a,video='#b+1,midi='#c))->
 source(audio='#a,video='#b+1,midi='#c)```
@@ -6497,7 +6497,7 @@ Removes the Stairstepping from Nikon D90 videos (720p only) by interpolation (by
 * `id` (`string` -- defaults to `""`): Force the value of the source ID.
 * `(unlabeled)` (`source(audio='#a,video='#b+1,midi='#c)`)
 
-#### video.frei0r.nois0r
+### video.frei0r.nois0r
 ```
 (?id:string)->source(audio=0,video=1,midi=0)```
 
@@ -6505,7 +6505,7 @@ Generates white noise images (by Martin Bayer).
 
 * `id` (`string` -- defaults to `""`): Force the value of the source ID.
 
-#### video.frei0r.nosync0r
+### video.frei0r.nosync0r
 ```
 (?id:string,?hsync:'a,
  source(audio='#b,video='#c+1,midi='#d))->
@@ -6520,7 +6520,7 @@ anything that is either float or ()->float```
  -- defaults to `0.0`): the hsync offset.
 * `(unlabeled)` (`source(audio='#b,video='#c+1,midi='#d)`)
 
-#### video.frei0r.onecol0r
+### video.frei0r.onecol0r
 ```
 (?id:string,?color:int)->source(audio=0,video=1,midi=0)```
 
@@ -6529,7 +6529,7 @@ Image with just one color (by Martin Bayer).
 * `id` (`string` -- defaults to `""`): Force the value of the source ID.
 * `color` (`int` -- defaults to `0`): the color of the image.
 
-#### video.frei0r.overlay
+### video.frei0r.overlay
 ```
 (?id:string,source(audio='#a,video='#b+1,midi='#c),
  source(audio='#a,video='#b+1,midi='#c))->
@@ -6542,7 +6542,7 @@ D = A * (B + (2 * B) * (255 - A)) (by Jean-Sebastien Senecal).
 * `(unlabeled)` (`source(audio='#a,video='#b+1,midi='#c)`)
 * `(unlabeled)` (`source(audio='#a,video='#b+1,midi='#c)`)
 
-#### video.frei0r.partik0l
+### video.frei0r.partik0l
 ```
 (?id:string,?down:'a,?up:'b)->
 source(audio=0,video=1,midi=0)
@@ -6558,7 +6558,7 @@ anything that is either float or ()->float```
 anything that is either float or ()->float```
  -- defaults to `0.0`): blossom on a higher prime number.
 
-#### video.frei0r.perspective
+### video.frei0r.perspective
 ```
 (?id:string,?bottom_left:(float*float),
  ?bottom_right:(float*float),?top_left:(float*float),
@@ -6575,7 +6575,7 @@ Distorts the image for a pseudo perspective (by Richard Spindler).
 * `top_right` (`(float*float)` -- defaults to `(1.0,0.0)`): .
 * `(unlabeled)` (`source(audio='#a,video='#b+1,midi='#c)`)
 
-#### video.frei0r.pixeliz0r
+### video.frei0r.pixeliz0r
 ```
 (?id:string,?blocksizex:'a,?blocksizey:'b,
  source(audio='#c,video='#d+1,midi='#e))->
@@ -6593,7 +6593,7 @@ anything that is either float or ()->float```
  -- defaults to `inf`): Vertical size of one ``pixel''.
 * `(unlabeled)` (`source(audio='#c,video='#d+1,midi='#e)`)
 
-#### video.frei0r.plasma
+### video.frei0r.plasma
 ```
 (?id:string,?_1_move:'a,?_1_speed:'b,?_2_move:'c,
  ?_2_speed:'d,?_3_speed:'e,?_4_speed:'f)->
@@ -6622,7 +6622,7 @@ anything that is either float or ()->float```
 anything that is either float or ()->float```
  -- defaults to `1.0`): .
 
-#### video.frei0r.posterize
+### video.frei0r.posterize
 ```
 (?id:string,?levels:'a,
  source(audio='#b,video='#c+1,midi='#d))->
@@ -6637,7 +6637,7 @@ anything that is either float or ()->float```
  -- defaults to `0.104166666667`): Number of values per channel.
 * `(unlabeled)` (`source(audio='#b,video='#c+1,midi='#d)`)
 
-#### video.frei0r.pr0be
+### video.frei0r.pr0be
 ```
 (?id:string,?_256_scale:bool,?big_window:bool,
  ?measurement:'a,?show_alpha:bool,?x:'b,?x_size:'c,?y:'d,
@@ -6668,7 +6668,7 @@ anything that is either float or ()->float```
  -- defaults to `0.25`): Y size of probe.
 * `(unlabeled)` (`source(audio='#f,video='#g+1,midi='#h)`)
 
-#### video.frei0r.pr0file
+### video.frei0r.pr0file
 ```
 (?id:string,?_256_scale:bool,?alpha_trace:bool,
  ?b_trace:bool,?channel:'a,?color:'b,?crosshair_color:'c,
@@ -6725,7 +6725,7 @@ anything that is either float or ()->float```
 * `y_trace` (`bool` -- defaults to `false`): Show Y' trace on scope.
 * `(unlabeled)` (`source(audio='#j,video='#k+1,midi='#l)`)
 
-#### video.frei0r.primaries
+### video.frei0r.primaries
 ```
 (?id:string,?factor:'a,
  source(audio='#b,video='#c+1,midi='#d))->
@@ -6740,7 +6740,7 @@ anything that is either float or ()->float```
  -- defaults to `1.0`): influence of mean px value. > 32 = 0.
 * `(unlabeled)` (`source(audio='#b,video='#c+1,midi='#d)`)
 
-#### video.frei0r.r
+### video.frei0r.r
 ```
 (?id:string,source(audio='#a,video='#b+1,midi='#c))->
 source(audio='#a,video='#b+1,midi='#c)```
@@ -6750,7 +6750,7 @@ Extracts Red from Image (by Richard Spindler).
 * `id` (`string` -- defaults to `""`): Force the value of the source ID.
 * `(unlabeled)` (`source(audio='#a,video='#b+1,midi='#c)`)
 
-#### video.frei0r.rgbnoise
+### video.frei0r.rgbnoise
 ```
 (?id:string,?noise:'a,
  source(audio='#b,video='#c+1,midi='#d))->
@@ -6765,7 +6765,7 @@ anything that is either float or ()->float```
  -- defaults to `0.2`): Amount of noise added.
 * `(unlabeled)` (`source(audio='#b,video='#c+1,midi='#d)`)
 
-#### video.frei0r.saturat0r
+### video.frei0r.saturat0r
 ```
 (?id:string,?saturation:'a,
  source(audio='#b,video='#c+1,midi='#d))->
@@ -6780,7 +6780,7 @@ anything that is either float or ()->float```
  -- defaults to `0.125`): The saturation value.
 * `(unlabeled)` (`source(audio='#b,video='#c+1,midi='#d)`)
 
-#### video.frei0r.saturation
+### video.frei0r.saturation
 ```
 (?id:string,source(audio='#a,video='#b+1,midi='#c),
  source(audio='#a,video='#b+1,midi='#c))->
@@ -6792,7 +6792,7 @@ Perform a conversion to saturation only of the source input1 using the saturatio
 * `(unlabeled)` (`source(audio='#a,video='#b+1,midi='#c)`)
 * `(unlabeled)` (`source(audio='#a,video='#b+1,midi='#c)`)
 
-#### video.frei0r.scanline0r
+### video.frei0r.scanline0r
 ```
 (?id:string,source(audio='#a,video='#b+1,midi='#c))->
 source(audio='#a,video='#b+1,midi='#c)```
@@ -6802,7 +6802,7 @@ Interlaced blak lines (by Martin Bayer).
 * `id` (`string` -- defaults to `""`): Force the value of the source ID.
 * `(unlabeled)` (`source(audio='#a,video='#b+1,midi='#c)`)
 
-#### video.frei0r.screen
+### video.frei0r.screen
 ```
 (?id:string,source(audio='#a,video='#b+1,midi='#c),
  source(audio='#a,video='#b+1,midi='#c))->
@@ -6815,7 +6815,7 @@ D = 255 - (255 - A) * (255 - B) (by Jean-Sebastien Senecal).
 * `(unlabeled)` (`source(audio='#a,video='#b+1,midi='#c)`)
 * `(unlabeled)` (`source(audio='#a,video='#b+1,midi='#c)`)
 
-#### video.frei0r.select0r
+### video.frei0r.select0r
 ```
 (?id:string,?color_to_select:int,?delta_b___i___i:'a,
  ?delta_g___b___chroma:'b,?delta_r___a___hue:'c,
@@ -6857,7 +6857,7 @@ anything that is either float or ()->float```
  -- defaults to `0.0`): .
 * `(unlabeled)` (`source(audio='#i,video='#j+1,midi='#k)`)
 
-#### video.frei0r.sharpness
+### video.frei0r.sharpness
 ```
 (?id:string,?amount:'a,?size:'b,
  source(audio='#c,video='#d+1,midi='#e))->
@@ -6875,7 +6875,7 @@ anything that is either float or ()->float```
  -- defaults to `0.0`): .
 * `(unlabeled)` (`source(audio='#c,video='#d+1,midi='#e)`)
 
-#### video.frei0r.sigmoidaltransfer
+### video.frei0r.sigmoidaltransfer
 ```
 (?id:string,?brightness:'a,?sharpness:'b,
  source(audio='#c,video='#d+1,midi='#e))->
@@ -6893,7 +6893,7 @@ anything that is either float or ()->float```
  -- defaults to `0.85`): Sharpness of transfer.
 * `(unlabeled)` (`source(audio='#c,video='#d+1,midi='#e)`)
 
-#### video.frei0r.sobel
+### video.frei0r.sobel
 ```
 (?id:string,source(audio='#a,video='#b+1,midi='#c))->
 source(audio='#a,video='#b+1,midi='#c)```
@@ -6903,7 +6903,7 @@ Sobel filter (by Jean-Sebastien Senecal (Drone)).
 * `id` (`string` -- defaults to `""`): Force the value of the source ID.
 * `(unlabeled)` (`source(audio='#a,video='#b+1,midi='#c)`)
 
-#### video.frei0r.softglow
+### video.frei0r.softglow
 ```
 (?id:string,?blur:'a,?blurblend:'b,?brightness:'c,
  ?sharpness:'d,source(audio='#e,video='#f+1,midi='#g))->
@@ -6927,7 +6927,7 @@ anything that is either float or ()->float```
  -- defaults to `0.85`): Sharpness of highlight areas.
 * `(unlabeled)` (`source(audio='#e,video='#f+1,midi='#g)`)
 
-#### video.frei0r.softlight
+### video.frei0r.softlight
 ```
 (?id:string,source(audio='#a,video='#b+1,midi='#c),
  source(audio='#a,video='#b+1,midi='#c))->
@@ -6939,7 +6939,7 @@ Perform an RGB[A] softlight operation between the pixel sources (by Jean-Sebasti
 * `(unlabeled)` (`source(audio='#a,video='#b+1,midi='#c)`)
 * `(unlabeled)` (`source(audio='#a,video='#b+1,midi='#c)`)
 
-#### video.frei0r.sop_sat
+### video.frei0r.sop_sat
 ```
 (?id:string,?aoffset:'a,?apower:'b,?aslope:'c,
  ?boffset:'d,?bpower:'e,?bslope:'f,?goffset:'g,
@@ -6993,7 +6993,7 @@ anything that is either float or ()->float```
  -- defaults to `0.1`): Overall saturation.
 * `(unlabeled)` (`source(audio='#n,video='#o+1,midi='#p)`)
 
-#### video.frei0r.spillsupress
+### video.frei0r.spillsupress
 ```
 (?id:string,?supresstype:'a,
  source(audio='#b,video='#c+1,midi='#d))->
@@ -7008,7 +7008,7 @@ anything that is either float or ()->float```
  -- defaults to `0.0`): Defines if green or blue screen spill supress is applied.
 * `(unlabeled)` (`source(audio='#b,video='#c+1,midi='#d)`)
 
-#### video.frei0r.squareblur
+### video.frei0r.squareblur
 ```
 (?id:string,?kernel_size:'a,
  source(audio='#b,video='#c+1,midi='#d))->
@@ -7023,7 +7023,7 @@ anything that is either float or ()->float```
  -- defaults to `0.0`): The size of the kernel, as a proportion to its coverage of the image.
 * `(unlabeled)` (`source(audio='#b,video='#c+1,midi='#d)`)
 
-#### video.frei0r.subtract
+### video.frei0r.subtract
 ```
 (?id:string,source(audio='#a,video='#b+1,midi='#c),
  source(audio='#a,video='#b+1,midi='#c))->
@@ -7035,7 +7035,7 @@ Perform an RGB[A] subtract operation of the pixel source input2 from input1 (by 
 * `(unlabeled)` (`source(audio='#a,video='#b+1,midi='#c)`)
 * `(unlabeled)` (`source(audio='#a,video='#b+1,midi='#c)`)
 
-#### video.frei0r.tehroxx0r
+### video.frei0r.tehroxx0r
 ```
 (?id:string,?interval:'a,
  source(audio='#b,video='#c+1,midi='#d))->
@@ -7050,7 +7050,7 @@ anything that is either float or ()->float```
  -- defaults to `0.01`): Changing speed of small blocks.
 * `(unlabeled)` (`source(audio='#b,video='#c+1,midi='#d)`)
 
-#### video.frei0r.test_pat_b
+### video.frei0r.test_pat_b
 ```
 (?id:string,?aspect_type:'a,?manual_aspect:'b,?type:'c)->
 source(audio=0,video=1,midi=0)
@@ -7069,7 +7069,7 @@ anything that is either float or ()->float```
 anything that is either float or ()->float```
  -- defaults to `0.0`): 8 choices, select test pattern.
 
-#### video.frei0r.test_pat_c
+### video.frei0r.test_pat_c
 ```
 (?id:string,?color_space:'a,?cross_section:'b,
  ?fullscreen:bool,?third_axis_value:'c)->
@@ -7090,7 +7090,7 @@ anything that is either float or ()->float```
 anything that is either float or ()->float```
  -- defaults to `0.5`): .
 
-#### video.frei0r.test_pat_g
+### video.frei0r.test_pat_g
 ```
 (?id:string,?aspect_type:'a,?manual_aspect:'b,
  ?negative:bool,?size_1:'c,?size_2:'d,?type:'e)->
@@ -7117,7 +7117,7 @@ anything that is either float or ()->float```
 anything that is either float or ()->float```
  -- defaults to `0.0`): Type of test pattern.
 
-#### video.frei0r.test_pat_i
+### video.frei0r.test_pat_i
 ```
 (?id:string,?amplitude:'a,?channel:'b,?negative:bool,
  ?tilt:'c,?type:'d,?width:'e)->
@@ -7144,7 +7144,7 @@ anything that is either float or ()->float```
 anything that is either float or ()->float```
  -- defaults to `0.0404040403664`): Width of impulse.
 
-#### video.frei0r.test_pat_l
+### video.frei0r.test_pat_l
 ```
 (?id:string,?channel:'a,?type:'b)->
 source(audio=0,video=1,midi=0)
@@ -7160,7 +7160,7 @@ anything that is either float or ()->float```
 anything that is either float or ()->float```
  -- defaults to `0.0`): Type of test pattern.
 
-#### video.frei0r.test_pat_r
+### video.frei0r.test_pat_r
 ```
 (?id:string,?amplitude:'a,?aspect_type:'b,?channel:'c,
  ?freq_1:'d,?freq_2:'e,?lin_p_swp:bool,?manual_aspect:'f,
@@ -7194,7 +7194,7 @@ anything that is either float or ()->float```
 anything that is either float or ()->float```
  -- defaults to `0.0`): Type of test pattern.
 
-#### video.frei0r.threelay0r
+### video.frei0r.threelay0r
 ```
 (?id:string,source(audio='#a,video='#b+1,midi='#c))->
 source(audio='#a,video='#b+1,midi='#c)```
@@ -7204,7 +7204,7 @@ Dynamic 3 level thresholding (by Hedde Bosman).
 * `id` (`string` -- defaults to `""`): Force the value of the source ID.
 * `(unlabeled)` (`source(audio='#a,video='#b+1,midi='#c)`)
 
-#### video.frei0r.threshold0r
+### video.frei0r.threshold0r
 ```
 (?id:string,?threshold:'a,
  source(audio='#b,video='#c+1,midi='#d))->
@@ -7219,7 +7219,7 @@ anything that is either float or ()->float```
  -- defaults to `0.0`): The threshold.
 * `(unlabeled)` (`source(audio='#b,video='#c+1,midi='#d)`)
 
-#### video.frei0r.timeout_indicator
+### video.frei0r.timeout_indicator
 ```
 (?id:string,?color:int,?time:'a,?transparency:'b,
  source(audio='#c,video='#d+1,midi='#e))->
@@ -7238,7 +7238,7 @@ anything that is either float or ()->float```
  -- defaults to `nan`): Indicator transparency.
 * `(unlabeled)` (`source(audio='#c,video='#d+1,midi='#e)`)
 
-#### video.frei0r.tint0r
+### video.frei0r.tint0r
 ```
 (?id:string,?map_black_to:int,?map_white_to:int,
  ?tint_amount:'a,source(audio='#b,video='#c+1,midi='#d))->
@@ -7255,7 +7255,7 @@ anything that is either float or ()->float```
  -- defaults to `0.25`): Amount of color.
 * `(unlabeled)` (`source(audio='#b,video='#c+1,midi='#d)`)
 
-#### video.frei0r.transparency
+### video.frei0r.transparency
 ```
 (?id:string,?transparency:'a,
  source(audio='#b,video='#c+1,midi='#d))->
@@ -7270,7 +7270,7 @@ anything that is either float or ()->float```
  -- defaults to `0.0`): The transparency value.
 * `(unlabeled)` (`source(audio='#b,video='#c+1,midi='#d)`)
 
-#### video.frei0r.twolay0r
+### video.frei0r.twolay0r
 ```
 (?id:string,source(audio='#a,video='#b+1,midi='#c))->
 source(audio='#a,video='#b+1,midi='#c)```
@@ -7280,7 +7280,7 @@ Dynamic thresholding (by Martin Bayer).
 * `id` (`string` -- defaults to `""`): Force the value of the source ID.
 * `(unlabeled)` (`source(audio='#a,video='#b+1,midi='#c)`)
 
-#### video.frei0r.uv_map
+### video.frei0r.uv_map
 ```
 (?id:string,source(audio='#a,video='#b+1,midi='#c),
  source(audio='#a,video='#b+1,midi='#c))->
@@ -7292,7 +7292,7 @@ Uses Input 1 as UV Map to distort Input 2 (by Richard Spindler).
 * `(unlabeled)` (`source(audio='#a,video='#b+1,midi='#c)`)
 * `(unlabeled)` (`source(audio='#a,video='#b+1,midi='#c)`)
 
-#### video.frei0r.value
+### video.frei0r.value
 ```
 (?id:string,source(audio='#a,video='#b+1,midi='#c),
  source(audio='#a,video='#b+1,midi='#c))->
@@ -7304,7 +7304,7 @@ Perform a conversion to value only of the source input1 using the value of input
 * `(unlabeled)` (`source(audio='#a,video='#b+1,midi='#c)`)
 * `(unlabeled)` (`source(audio='#a,video='#b+1,midi='#c)`)
 
-#### video.frei0r.vertigo
+### video.frei0r.vertigo
 ```
 (?id:string,?phaseincrement:'a,?zoomrate:'b,
  source(audio='#c,video='#d+1,midi='#e))->
@@ -7322,7 +7322,7 @@ anything that is either float or ()->float```
  -- defaults to `0.202`): Zoomrate.
 * `(unlabeled)` (`source(audio='#c,video='#d+1,midi='#e)`)
 
-#### video.frei0r.vignette
+### video.frei0r.vignette
 ```
 (?id:string,?aspect:'a,?clearcenter:'b,?soft:'c,
  source(audio='#d,video='#e+1,midi='#f))->
@@ -7343,7 +7343,7 @@ anything that is either float or ()->float```
  -- defaults to `0.6`): Softness.
 * `(unlabeled)` (`source(audio='#d,video='#e+1,midi='#f)`)
 
-#### video.frei0r.white_balance
+### video.frei0r.white_balance
 ```
 (?id:string,?color_temperature:'a,?neutral_color:int,
  source(audio='#b,video='#c+1,midi='#d))->
@@ -7359,7 +7359,7 @@ anything that is either float or ()->float```
 * `neutral_color` (`int` -- defaults to `8355711`): Choose a color from the source image that should be white..
 * `(unlabeled)` (`source(audio='#b,video='#c+1,midi='#d)`)
 
-#### video.frei0r.xfade0r
+### video.frei0r.xfade0r
 ```
 (?id:string,?fader:'a,
  source(audio='#b,video='#c+1,midi='#d),
@@ -7376,7 +7376,7 @@ anything that is either float or ()->float```
 * `(unlabeled)` (`source(audio='#b,video='#c+1,midi='#d)`)
 * `(unlabeled)` (`source(audio='#b,video='#c+1,midi='#d)`)
 
-#### video.greyscale
+### video.greyscale
 ```
 (?id:string,source(audio='#a,video='#b+1,midi='#c))->
 source(audio='#a,video='#b+1,midi='#c)```
@@ -7386,7 +7386,7 @@ Convert video to greyscale.
 * `id` (`string` -- defaults to `""`): Force the value of the source ID.
 * `(unlabeled)` (`source(audio='#a,video='#b+1,midi='#c)`)
 
-#### video.invert
+### video.invert
 ```
 (?id:string,source(audio='#a,video='#b+1,midi='#c))->
 source(audio='#a,video='#b+1,midi='#c)```
@@ -7396,7 +7396,7 @@ Invert video.
 * `id` (`string` -- defaults to `""`): Force the value of the source ID.
 * `(unlabeled)` (`source(audio='#a,video='#b+1,midi='#c)`)
 
-#### video.lomo
+### video.lomo
 ```
 (?id:string,source(audio='#a,video='#b+1,midi='#c))->
 source(audio='#a,video='#b+1,midi='#c)```
@@ -7406,7 +7406,7 @@ Emulate the ``Lomo effect''.
 * `id` (`string` -- defaults to `""`): Force the value of the source ID.
 * `(unlabeled)` (`source(audio='#a,video='#b+1,midi='#c)`)
 
-#### video.opacity
+### video.opacity
 ```
 (?id:string,float,source(audio='#a,video='#b+1,midi='#c))->
 source(audio='#a,video='#b+1,midi='#c)```
@@ -7417,7 +7417,7 @@ Scale opacity of video.
 * `(unlabeled)` (`float`): Coefficient to scale opacity with.
 * `(unlabeled)` (`source(audio='#a,video='#b+1,midi='#c)`)
 
-#### video.opacity.blur
+### video.opacity.blur
 ```
 (?id:string,source(audio='#a,video='#b+1,midi='#c))->
 source(audio='#a,video='#b+1,midi='#c)```
@@ -7427,7 +7427,7 @@ Blur opacity of video.
 * `id` (`string` -- defaults to `""`): Force the value of the source ID.
 * `(unlabeled)` (`source(audio='#a,video='#b+1,midi='#c)`)
 
-#### video.rotate
+### video.rotate
 ```
 (?id:string,?angle:'a,?speed:'b,
  source(audio='#c,video='#d+1,midi='#e))->
@@ -7445,7 +7445,7 @@ anything that is either float or ()->float```
  -- defaults to `3.14159265359`): Rotation speed in radians per sec.
 * `(unlabeled)` (`source(audio='#c,video='#d+1,midi='#e)`)
 
-#### video.scale
+### video.scale
 ```
 (?id:string,?scale:float,?x:int,?xscale:float,?y:int,
  ?yscale:float,source(audio='#a,video='#b+1,midi='#c))->
@@ -7461,7 +7461,7 @@ Scale and translate video.
 * `yscale` (`float` -- defaults to `1.0`): y scaling.
 * `(unlabeled)` (`source(audio='#a,video='#b+1,midi='#c)`)
 
-#### video.sepia
+### video.sepia
 ```
 (?id:string,source(audio='#a,video='#b+1,midi='#c))->
 source(audio='#a,video='#b+1,midi='#c)```
@@ -7471,7 +7471,7 @@ Convert video to sepia.
 * `id` (`string` -- defaults to `""`): Force the value of the source ID.
 * `(unlabeled)` (`source(audio='#a,video='#b+1,midi='#c)`)
 
-#### video.tile
+### video.tile
 ```
 (?id:string,?normalize:bool,?proportional:bool,
  ?weights:[int],[source(audio='#a,video='#b+1,midi='#c)])->
@@ -7487,7 +7487,7 @@ Tile sources (same as add but produces tiles of videos).
 [source(audio='#a,video='#b+1,midi='#c)]```
 )
 
-#### video.transparent
+### video.transparent
 ```
 (?id:string,?color:int,?precision:float,
  source(audio='#a,video='#b+1,midi='#c))->
@@ -7502,7 +7502,7 @@ Set a color to be transparent.
 
 Source / Visualization
 ----------------------
-#### peak
+### peak
 ```
 (?id:string,?duration:'a,
  source(audio='#b,video='#c,midi='#d))->
@@ -7517,7 +7517,7 @@ anything that is either float or ()->float```
  -- defaults to `0.5`): Duration of the window (in seconds). A value <= 0, means that computation should not be performed.
 * `(unlabeled)` (`source(audio='#b,video='#c,midi='#d)`)
 
-#### peak.stereo
+### peak.stereo
 ```
 (?id:string,?duration:'a,
  source(audio='#b+2,video='#c,midi='#d))->
@@ -7533,7 +7533,7 @@ anything that is either float or ()->float```
  -- defaults to `0.5`): Duration of the window (in seconds). A value <= 0, means that computation should not be performed.
 * `(unlabeled)` (`source(audio='#b+2,video='#c,midi='#d)`)
 
-#### rms
+### rms
 ```
 (?id:string,?duration:'a,
  source(audio='#b,video='#c,midi='#d))->
@@ -7548,7 +7548,7 @@ anything that is either float or ()->float```
  -- defaults to `0.5`): Duration of the window (in seconds). A value <= 0, means that computation should not be performed.
 * `(unlabeled)` (`source(audio='#b,video='#c,midi='#d)`)
 
-#### rms.stereo
+### rms.stereo
 ```
 (?id:string,?duration:'a,
  source(audio='#b+2,video='#c,midi='#d))->
@@ -7564,7 +7564,7 @@ anything that is either float or ()->float```
  -- defaults to `0.5`): Duration of the window (in seconds). A value <= 0, means that computation should not be performed.
 * `(unlabeled)` (`source(audio='#b+2,video='#c,midi='#d)`)
 
-#### server.rms
+### server.rms
 ```
 (?id:string,source(audio='#a,video='#b,midi='#c))->
 source(audio='#a,video='#b,midi='#c)```
@@ -7574,7 +7574,7 @@ Register a command that outputs the RMS of the returned source.
 * `id` (`string` -- defaults to `""`): Force the value of the source ID.
 * `(unlabeled)` (`source(audio='#a,video='#b,midi='#c)`)
 
-#### video.volume
+### video.volume
 ```
 (?id:string,source(audio='#a+1,video=0,midi=0))->
 source(audio='#a+1,video=1,midi=0)```
@@ -7584,7 +7584,7 @@ Graphical visualization of the sound.
 * `id` (`string` -- defaults to `""`): Force the value of the source ID.
 * `(unlabeled)` (`source(audio='#a+1,video=0,midi=0)`)
 
-#### vumeter
+### vumeter
 ```
 (?id:string,?scroll:bool,
  source(audio='#a+1,video='#b,midi='#c))->
@@ -7598,7 +7598,7 @@ VU meter (display the audio volume).
 
 Bool
 ----
-#### !=
+### !=
 ```
 ('a,'a)->bool where 'a is an orderable type```
 
@@ -7607,7 +7607,7 @@ Comparison of comparable values.
 * `(unlabeled)` (`anything that is an orderable type`)
 * `(unlabeled)` (`anything that is an orderable type`)
 
-#### <
+### <
 ```
 ('a,'a)->bool where 'a is an orderable type```
 
@@ -7616,7 +7616,7 @@ Comparison of comparable values.
 * `(unlabeled)` (`anything that is an orderable type`)
 * `(unlabeled)` (`anything that is an orderable type`)
 
-#### <=
+### <=
 ```
 ('a,'a)->bool where 'a is an orderable type```
 
@@ -7625,7 +7625,7 @@ Comparison of comparable values.
 * `(unlabeled)` (`anything that is an orderable type`)
 * `(unlabeled)` (`anything that is an orderable type`)
 
-#### ==
+### ==
 ```
 ('a,'a)->bool where 'a is an orderable type```
 
@@ -7634,7 +7634,7 @@ Comparison of comparable values.
 * `(unlabeled)` (`anything that is an orderable type`)
 * `(unlabeled)` (`anything that is an orderable type`)
 
-#### >
+### >
 ```
 ('a,'a)->bool where 'a is an orderable type```
 
@@ -7643,7 +7643,7 @@ Comparison of comparable values.
 * `(unlabeled)` (`anything that is an orderable type`)
 * `(unlabeled)` (`anything that is an orderable type`)
 
-#### >=
+### >=
 ```
 ('a,'a)->bool where 'a is an orderable type```
 
@@ -7652,7 +7652,7 @@ Comparison of comparable values.
 * `(unlabeled)` (`anything that is an orderable type`)
 * `(unlabeled)` (`anything that is an orderable type`)
 
-#### and
+### and
 ```
 (bool,bool)->bool```
 
@@ -7661,7 +7661,7 @@ Return the conjunction of its arguments
 * `(unlabeled)` (`bool`)
 * `(unlabeled)` (`bool`)
 
-#### not
+### not
 ```
 (bool)->bool```
 
@@ -7669,7 +7669,7 @@ Returns the negation of its argument.
 
 * `(unlabeled)` (`bool`)
 
-#### or
+### or
 ```
 (bool,bool)->bool```
 
@@ -7678,7 +7678,7 @@ Return the disjunction of its arguments
 * `(unlabeled)` (`bool`)
 * `(unlabeled)` (`bool`)
 
-#### random.bool
+### random.bool
 ```
 ()->bool```
 
@@ -7686,7 +7686,7 @@ Generate a random value.
 
 Control
 -------
-#### add_timeout
+### add_timeout
 ```
 (?fast:bool,float,(()->float))->unit```
 
@@ -7696,7 +7696,7 @@ Call a function in N seconds. If the result of the function is positive or null,
 * `(unlabeled)` (`float`)
 * `(unlabeled)` (`()->float`)
 
-#### ignore
+### ignore
 ```
 ('a)->unit```
 
@@ -7706,7 +7706,7 @@ Convert anything to unit, preventing warnings.
 
 Interaction
 -----------
-#### add_skip_command
+### add_skip_command
 ```
 (source('a))->unit```
 
@@ -7714,7 +7714,7 @@ Add a skip function to a source when it does not have one by default.
 
 * `(unlabeled)` (`source('a)`): The source to attach the command to.
 
-#### http.delete
+### http.delete
 ```
 (?headers:[(string*string)],?timeout:float,string)->
 ((((string*int)*string)*[(string*string)])*string)```
@@ -7725,7 +7725,7 @@ Perform a full Http DELETE request and return (status,headers),data.
 * `timeout` (`float` -- defaults to `10.0`): Timeout for network operations.
 * `(unlabeled)` (`string`): Requested URL, e.g. ``http://www.google.com:80/index.html''.
 
-#### http.get
+### http.get
 ```
 (?headers:[(string*string)],?timeout:float,string)->
 ((((string*int)*string)*[(string*string)])*string)```
@@ -7736,7 +7736,7 @@ Perform a full Http GET request and return (status,headers),data.
 * `timeout` (`float` -- defaults to `10.0`): Timeout for network operations.
 * `(unlabeled)` (`string`): Requested URL, e.g. ``http://www.google.com:80/index.html''.
 
-#### http.head
+### http.head
 ```
 (?headers:[(string*string)],?timeout:float,string)->
 ((((string*int)*string)*[(string*string)])*string)```
@@ -7747,7 +7747,7 @@ Perform a full Http HEAD request and return (status,headers),data.
 * `timeout` (`float` -- defaults to `10.0`): Timeout for network operations.
 * `(unlabeled)` (`string`): Requested URL, e.g. ``http://www.google.com:80/index.html''.
 
-#### http.post
+### http.post
 ```
 (?data:string,?headers:[(string*string)],?timeout:float,
  string)->
@@ -7760,7 +7760,7 @@ Perform a full Http POST request and return (status,headers),data.
 * `timeout` (`float` -- defaults to `10.0`): Timeout for network operations.
 * `(unlabeled)` (`string`): Requested URL, e.g. ``http://www.google.com:80/index.html''.
 
-#### http.put
+### http.put
 ```
 (?data:string,?headers:[(string*string)],?timeout:float,
  string)->
@@ -7773,13 +7773,13 @@ Perform a full Http PUT request and return (status,headers),data.
 * `timeout` (`float` -- defaults to `10.0`): Timeout for network operations.
 * `(unlabeled)` (`string`): Requested URL, e.g. ``http://www.google.com:80/index.html''.
 
-#### http_codes
+### http_codes
 ```
 [(string*string)]```
 
 List of HTTP response codes and statuses.
 
-#### http_response
+### http_response
 ```
 (?protocol:string,?code:int,?headers:[(string*string)],
  ?data:string)->string```
@@ -7791,7 +7791,7 @@ Create a HTTP response string
 * `headers` (`[(string*string)]` -- defaults to `[]`): Response headers.
 * `data` (`string` -- defaults to `""`): Response data
 
-#### https.delete
+### https.delete
 ```
 (?headers:[(string*string)],?timeout:float,string)->
 ((((string*int)*string)*[(string*string)])*string)```
@@ -7802,7 +7802,7 @@ Perform a full https DELETE request and return (status,headers),data.
 * `timeout` (`float` -- defaults to `10.0`): Timeout for network operations.
 * `(unlabeled)` (`string`): Requested URL, e.g. ``http://www.google.com:80/index.html''.
 
-#### https.get
+### https.get
 ```
 (?headers:[(string*string)],?timeout:float,string)->
 ((((string*int)*string)*[(string*string)])*string)```
@@ -7813,7 +7813,7 @@ Perform a full https GET request and return (status,headers),data.
 * `timeout` (`float` -- defaults to `10.0`): Timeout for network operations.
 * `(unlabeled)` (`string`): Requested URL, e.g. ``http://www.google.com:80/index.html''.
 
-#### https.head
+### https.head
 ```
 (?headers:[(string*string)],?timeout:float,string)->
 ((((string*int)*string)*[(string*string)])*string)```
@@ -7824,7 +7824,7 @@ Perform a full https HEAD request and return (status,headers),data.
 * `timeout` (`float` -- defaults to `10.0`): Timeout for network operations.
 * `(unlabeled)` (`string`): Requested URL, e.g. ``http://www.google.com:80/index.html''.
 
-#### https.post
+### https.post
 ```
 (?data:string,?headers:[(string*string)],?timeout:float,
  string)->
@@ -7837,7 +7837,7 @@ Perform a full https POST request and return (status,headers),data.
 * `timeout` (`float` -- defaults to `10.0`): Timeout for network operations.
 * `(unlabeled)` (`string`): Requested URL, e.g. ``http://www.google.com:80/index.html''.
 
-#### https.put
+### https.put
 ```
 (?data:string,?headers:[(string*string)],?timeout:float,
  string)->
@@ -7850,7 +7850,7 @@ Perform a full https PUT request and return (status,headers),data.
 * `timeout` (`float` -- defaults to `10.0`): Timeout for network operations.
 * `(unlabeled)` (`string`): Requested URL, e.g. ``http://www.google.com:80/index.html''.
 
-#### icy.update_metadata
+### icy.update_metadata
 ```
 (?host:string,?port:int,?user:string,?password:string,
  ?mount:string,?icy_id:int,?protocol:string,
@@ -7872,7 +7872,7 @@ Update metata on an icecast mountpoint using the ICY protocol.
 ): Additional headers.
 * `(unlabeled)` (`[(string*string)]`)
 
-#### interactive.bool
+### interactive.bool
 ```
 (string,bool)->()->bool```
 
@@ -7881,7 +7881,7 @@ Read a boolean from an interactive input.
 * `(unlabeled)` (`string`)
 * `(unlabeled)` (`bool`)
 
-#### interactive.float
+### interactive.float
 ```
 (string,float)->()->float```
 
@@ -7890,7 +7890,7 @@ Read a float from an interactive input.
 * `(unlabeled)` (`string`)
 * `(unlabeled)` (`float`)
 
-#### interactive.string
+### interactive.string
 ```
 (string,string)->()->string```
 
@@ -7899,7 +7899,7 @@ Read a string from an interactive input.
 * `(unlabeled)` (`string`)
 * `(unlabeled)` (`string`)
 
-#### print
+### print
 ```
 (?newline:bool,'a)->unit```
 
@@ -7908,7 +7908,7 @@ Print on standard output.
 * `newline` (`bool` -- defaults to `true`): If true, a newline is added after displaying the value.
 * `(unlabeled)` (`'a`)
 
-#### server.register
+### server.register
 ```
 (?namespace:string,?description:string,?usage:string,
  string,((string)->string))->unit```
@@ -7923,7 +7923,7 @@ Register a command. You can then execute this function through the server, eithe
 
 Liquidsoap
 ----------
-#### add_decoder
+### add_decoder
 ```
 (name:string,description:string,?mimes:[string],
  test:((string)->int),string)->unit```
@@ -7936,7 +7936,7 @@ Register an external decoder. The encoder should output in WAV format to his sta
 * `test` (`(string)->int`): Function used to determine if a file should be decoded by the decoder. Returned values are: 0: no decodable audio, -1: decodable audio but number of audio channels unknown, x: fixed number of decodable audio channels.
 * `(unlabeled)` (`string`): Process to start.
 
-#### add_metadata_resolver
+### add_metadata_resolver
 ```
 (string,((string)->[(string*string)]))->unit```
 
@@ -7945,7 +7945,7 @@ Register an external file metadata decoder.
 * `(unlabeled)` (`string`): Format/resolver's name.
 * `(unlabeled)` (`(string)->[(string*string)]`): Process to start. The function takes the format and filename as argument and returns a list of (name,value) fields.
 
-#### add_oblivious_decoder
+### add_oblivious_decoder
 ```
 (name:string,description:string,test:((string)->int),
  ?buffer:float,((string)->string))->unit```
@@ -7958,7 +7958,7 @@ Register an external file decoder. The encoder should output in WAV format to hi
 * `buffer` (`float` -- defaults to `5.0`)
 * `(unlabeled)` (`(string)->string`): Process to start. The function takes the filename as argument and returns the process to start.
 
-#### add_playlist_parser
+### add_playlist_parser
 ```
 (format:string,strict:bool,
  ((?pwd:string,string)->[([(string*string)]*string)]))->
@@ -7972,7 +7972,7 @@ Register a new playlist parser.
 (?pwd:string,string)->[([(string*string)]*string)]```
 ): Playlist parser
 
-#### add_protocol
+### add_protocol
 ```
 (?temporary:bool,?static:bool,?syntax:string,?doc:string,
  string,
@@ -7990,7 +7990,7 @@ Register a new protocol.
 (rlog:((string)->unit),maxtime:float,string)->[string]```
 ): Protocol resolver. Receives a function to log protocol resolution, the `<arg>` in `<protocol name>:<arg>` and the max delay that resolution should take.
 
-#### clock
+### clock
 ```
 (?sync:bool,?id:string,source('a))->source('a)```
 
@@ -8000,7 +8000,7 @@ Assign a new clock to the given source (and to other time-dependent sources) and
 * `id` (`string` -- defaults to `""`)
 * `(unlabeled)` (`source('a)`)
 
-#### clock.assign_new
+### clock.assign_new
 ```
 (?id:string,?sync:bool,[source('a)])->unit```
 
@@ -8010,7 +8010,7 @@ Create a new clock and assign it to a list of sources.
 * `sync` (`bool` -- defaults to `true`): Do not synchronize the clock on regular wallclock time, but try to run as fast as possible (CPU burning mode).
 * `(unlabeled)` (`[source('a)]`): List of sources to which the new clock will be assigned
 
-#### clock.unify
+### clock.unify
 ```
 ([source('a)])->unit```
 
@@ -8018,51 +8018,51 @@ Enforce that a list of sources all belong to the same clock.
 
 * `(unlabeled)` (`[source('a)]`)
 
-#### configure.default_font
+### configure.default_font
 ```
 string```
 
 Liquidsoap's default font file.
 
-#### configure.libdir
+### configure.libdir
 ```
 string```
 
 Liquidsoap's library directory.
 
-#### configure.logdir
+### configure.logdir
 ```
 string```
 
 Liquidsoap's logging directory.
 
-#### configure.rundir
+### configure.rundir
 ```
 string```
 
 Liquidsoap's PID file directory.
 
-#### enable_external_faad_decoder
+### enable_external_faad_decoder
 ```
 ()->unit```
 
 Enable or disable external FAAD (AAC/AAC+/M4A) decoders. Requires faad binary in the path for audio decoding and metaflac binary for metadata. Does not work on Win32.
 Please note that built-in support for faad is available in liquidsoap if compiled and should be preferred over the external decoder.
 
-#### enable_external_flac_decoder
+### enable_external_flac_decoder
 ```
 ()->unit```
 
 Enable external FLAC decoders. Requires flac binary in the path for audio decoding and metaflac binary for metadata. Default: disabled.
 Please note that built-in support for FLAC is available in liquidsoap if compiled and should be preferred over the external decoder.
 
-#### enable_external_mpc_decoder
+### enable_external_mpc_decoder
 ```
 ()->unit```
 
 Enable external Musepack decoder. Requires the mpcdec binary in the path.
 
-#### enable_replaygain_metadata
+### enable_replaygain_metadata
 ```
 (?extract_replaygain:string)->unit```
 
@@ -8072,7 +8072,7 @@ Enable replay gain metadata resolver. This resolver will process any file decode
 "/usr/local/lib/liquidsoap/scm/extract-replaygain"```
 ): The extraction program
 
-#### file.duration
+### file.duration
 ```
 (string)->float```
 
@@ -8080,13 +8080,13 @@ Compute the duration in seconds of audio data contained in a file. The computati
 
 * `(unlabeled)` (`string`)
 
-#### garbage_collect
+### garbage_collect
 ```
 ()->unit```
 
 Trigger full major garbage collection.
 
-#### get
+### get
 ```
 (default:'a,string)->'a
 where 'a is unit, bool, int, float, string or [string]```
@@ -8098,13 +8098,13 @@ anything that is unit, bool, int, float, string or [string]```
 )
 * `(unlabeled)` (`string`)
 
-#### get_clock_status
+### get_clock_status
 ```
 ()->[(string*int)]```
 
 Get the current time for all allocated clocks.
 
-#### harbor.http.register
+### harbor.http.register
 ```
 (port:int,method:string,string,
  ((protocol:string,data:string,headers:[(string*string)],
@@ -8120,7 +8120,7 @@ Register a HTTP handler on the harbor. The given function receives as argument t
  string)->string```
 ): Function to execute. method argument is ``PUT'' or ``GET'', protocol argument is ``HTTP/1.1'' or ``HTTP/1.0'' etc., data argument contains data passed in case of a PUT request, and ``'' otherwise. headers argument contains the HTTP headers. Unlabeled argument contains the requested URI.
 
-#### harbor.http.remove
+### harbor.http.remove
 ```
 (method:string,port:int,string)->unit```
 
@@ -8130,7 +8130,7 @@ Remove a registered HTTP handler on the harbor.
 * `port` (`int`): Port to server.
 * `(unlabeled)` (`string`): URI served.
 
-#### harbor.https.register
+### harbor.https.register
 ```
 (port:int,method:string,string,
  ((protocol:string,data:string,headers:[(string*string)],
@@ -8146,7 +8146,7 @@ Register a HTTPS handler on the harbor. The given function receives as argument 
  string)->string```
 ): Function to execute. method argument is ``PUT'' or ``GET'', protocol argument is ``HTTP/1.1'' or ``HTTP/1.0'' etc., data argument contains data passed in case of a PUT request, and ``'' otherwise. headers argument contains the HTTP headers. Unlabeled argument contains the requested URI.
 
-#### harbor.https.remove
+### harbor.https.remove
 ```
 (method:string,port:int,string)->unit```
 
@@ -8156,13 +8156,13 @@ Remove a registered HTTPS handler on the harbor.
 * `port` (`int`): Port to server.
 * `(unlabeled)` (`string`): URI served.
 
-#### liquidsoap.version
+### liquidsoap.version
 ```
 string```
 
 Liquidsoap version string.
 
-#### log
+### log
 ```
 (?label:string,?level:int,string)->unit```
 
@@ -8172,7 +8172,7 @@ Log a message.
 * `level` (`int` -- defaults to `3`)
 * `(unlabeled)` (`string`)
 
-#### log_clocks
+### log_clocks
 ```
 (?delay:float,?interval:float,string)->unit```
 
@@ -8182,7 +8182,7 @@ Create a log of clock times for all the clocks initially present. The log is in 
 * `interval` (`float` -- defaults to `1.0`): Polling interval.
 * `(unlabeled)` (`string`): Path of the log file.
 
-#### metadata.export
+### metadata.export
 ```
 ([(string*string)])->[(string*string)]```
 
@@ -8190,7 +8190,7 @@ Filter-out internal metadata.
 
 * `(unlabeled)` (`[(string*string)]`)
 
-#### mutexify
+### mutexify
 ```
 ('a)->'a```
 
@@ -8198,7 +8198,7 @@ Protect functions with a mutex to avoid concurrent calls, return original value 
 
 * `(unlabeled)` (`'a`)
 
-#### playlist.parse
+### playlist.parse
 ```
 (string)->[([(string*string)]*string)]```
 
@@ -8206,7 +8206,7 @@ Try to parse a local playlist. Return a list of (metadata,URI) items, where meta
 
 * `(unlabeled)` (`string`)
 
-#### process_uri
+### process_uri
 ```
 (extname:'a,?uri:string,string)->string```
 
@@ -8216,7 +8216,7 @@ Create a process: uri, replacing `:` with `$(colon)`
 * `uri` (`string` -- defaults to `""`): Input uri
 * `(unlabeled)` (`string`): Command line to execute
 
-#### register
+### register
 ```
 (name:string,?descr:string,string,'a)->unit
 where 'a is unit, bool, int, float, string or [string]```
@@ -8230,7 +8230,7 @@ Register a new setting.
 anything that is unit, bool, int, float, string or [string]```
 ): Setting initial value
 
-#### register_flow
+### register_flow
 ```
 (?server:string,?user:string,?password:string,
  ?email:string,radio:string,website:string,
@@ -8250,7 +8250,7 @@ Register a radio on Liquidsoap Flows.
 * `streams` (`[(string*string)]`): List of streams for the radio described by a pair of strings consisting of the format of the stream and the url of the stream. The format should be of the form ``ogg/128k'' consisting of the codec and the bitrate, separated by ``/''.
 * `(unlabeled)` (`source('a)`)
 
-#### request.create
+### request.create
 ```
 (?indicators:[string],?persistent:bool,string)->
 request('a)```
@@ -8261,7 +8261,7 @@ Create a request. Creation may fail if there is no available RID, which cannot b
 * `persistent` (`bool` -- defaults to `false`)
 * `(unlabeled)` (`string`)
 
-#### request.create.raw
+### request.create.raw
 ```
 (?indicators:[string],?persistent:bool,string)->
 request(audio=0,video=0,midi=0)```
@@ -8272,7 +8272,7 @@ Create a raw request, i.e. for files that should not be decoded for streaming. C
 * `persistent` (`bool` -- defaults to `false`)
 * `(unlabeled)` (`string`)
 
-#### request.destroy
+### request.destroy
 ```
 (?force:bool,request('a))->unit```
 
@@ -8281,7 +8281,7 @@ Destroying a request causes any temporary associated file to be deleted, and rel
 * `force` (`bool` -- defaults to `false`): Destroy the request even if it is persistent.
 * `(unlabeled)` (`request('a)`)
 
-#### request.filename
+### request.filename
 ```
 (request('a))->string```
 
@@ -8289,7 +8289,7 @@ Return a valid local filename if the request is ready, and the empty string othe
 
 * `(unlabeled)` (`request('a)`)
 
-#### request.log
+### request.log
 ```
 (request('a))->string```
 
@@ -8297,7 +8297,7 @@ Get log data associated to a request.
 
 * `(unlabeled)` (`request('a)`)
 
-#### request.metadata
+### request.metadata
 ```
 (request('a))->[(string*string)]```
 
@@ -8305,7 +8305,7 @@ Get the metadata associated to a request.
 
 * `(unlabeled)` (`request('a)`)
 
-#### request.ready
+### request.ready
 ```
 (request('a))->bool```
 
@@ -8313,7 +8313,7 @@ Check if a request is ready, i.e. is associated to a valid local file. Unless th
 
 * `(unlabeled)` (`request('a)`)
 
-#### request.resolve
+### request.resolve
 ```
 (?timeout:float,request('a))->bool```
 
@@ -8322,7 +8322,7 @@ Resolve a request, i.e. attempt to get a valid local file. The operation can tak
 * `timeout` (`float` -- defaults to `30.0`): Limit in seconds to the duration of the resolving.
 * `(unlabeled)` (`request('a)`)
 
-#### server.execute
+### server.execute
 ```
 (string,?string)->[string]```
 
@@ -8331,7 +8331,7 @@ Execute a liquidsoap server command.
 * `(unlabeled)` (`string`)
 * `(unlabeled)` (`string` -- defaults to `""`)
 
-#### set
+### set
 ```
 (string,'a)->unit
 where 'a is unit, bool, int, float, string or [string]```
@@ -8343,7 +8343,7 @@ Change some setting. Use `liquidsoap --conf-descr` and `liquidsoap --conf-descr-
 anything that is unit, bool, int, float, string or [string]```
 )
 
-#### source.fallible
+### source.fallible
 ```
 (source('a))->bool```
 
@@ -8351,7 +8351,7 @@ Indicate if a source may fail, i.e. may not be ready to stream.
 
 * `(unlabeled)` (`source('a)`)
 
-#### source.id
+### source.id
 ```
 (source('a))->string```
 
@@ -8359,7 +8359,7 @@ Get one source's identifier.
 
 * `(unlabeled)` (`source('a)`)
 
-#### source.init
+### source.init
 ```
 ([source(audio=*,video=*,midi=*)])->
 [source(audio=*,video=*,midi=*)]```
@@ -8368,7 +8368,7 @@ Simultaneously initialize sources, return the sublist of sources that failed to 
 
 * `(unlabeled)` (`[source(audio=*,video=*,midi=*)]`)
 
-#### source.is_ready
+### source.is_ready
 ```
 (source('a))->bool```
 
@@ -8376,7 +8376,7 @@ Indicate if a source is ready to stream, or currently streaming.
 
 * `(unlabeled)` (`source('a)`)
 
-#### source.remaining
+### source.remaining
 ```
 (source('a))->float```
 
@@ -8384,7 +8384,7 @@ Estimation of remaining time in the current track.
 
 * `(unlabeled)` (`source('a)`)
 
-#### source.seek
+### source.seek
 ```
 (source('a),float)->float```
 
@@ -8393,7 +8393,7 @@ Seek forward, in seconds. Returns the amount of time effectively seeked.
 * `(unlabeled)` (`source('a)`)
 * `(unlabeled)` (`float`)
 
-#### source.shutdown
+### source.shutdown
 ```
 (source('a))->unit```
 
@@ -8401,7 +8401,7 @@ Desactivate a source.
 
 * `(unlabeled)` (`source('a)`)
 
-#### source.skip
+### source.skip
 ```
 (source('a))->unit```
 
@@ -8411,7 +8411,7 @@ Skip to the next track.
 
 List
 ----
-#### _[_]
+### _[_]
 ```
 (string,[(string*string)])->string```
 
@@ -8420,7 +8420,7 @@ l[k] returns the first v such that (k,v) is in the list l (or ``'' if no such v 
 * `(unlabeled)` (`string`)
 * `(unlabeled)` (`[(string*string)]`)
 
-#### list.add
+### list.add
 ```
 ('a,['a])->['a]```
 
@@ -8429,7 +8429,7 @@ Add an element at the top of a list.
 * `(unlabeled)` (`'a`)
 * `(unlabeled)` (`['a]`)
 
-#### list.append
+### list.append
 ```
 (['a],['a])->['a]```
 
@@ -8438,7 +8438,7 @@ Catenate two lists.
 * `(unlabeled)` (`['a]`)
 * `(unlabeled)` (`['a]`)
 
-#### list.assoc
+### list.assoc
 ```
 (default:'a,'b,[('b*'a)])->'a```
 
@@ -8448,7 +8448,7 @@ Generalized l[k] with default value.
 * `(unlabeled)` (`'b`)
 * `(unlabeled)` (`[('b*'a)]`)
 
-#### list.filter
+### list.filter
 ```
 ((('a)->bool),['a])->['a]```
 
@@ -8457,7 +8457,7 @@ Filter a list according to a filtering function.
 * `(unlabeled)` (`('a)->bool`)
 * `(unlabeled)` (`['a]`)
 
-#### list.filter_assoc
+### list.filter_assoc
 ```
 ('a,[('a*'b)])->[('a*'b)] where 'a is an orderable type```
 
@@ -8466,7 +8466,7 @@ list.filter_assoc(key,l) returns all the elements of the form (key, value) from 
 * `(unlabeled)` (`anything that is an orderable type`): Key to look for
 * `(unlabeled)` (`[('a*'b)] where 'a is an orderable type`): List of pairs (key,value)
 
-#### list.fold
+### list.fold
 ```
 ((('a,'b)->'a),'a,['b])->'a```
 
@@ -8476,7 +8476,7 @@ Fold a function on every element of a list: list.fold(f,x1,[e1,..,en]) is f(...f
 * `(unlabeled)` (`'a`): Initial value x1, to be updated by successive calls of f(x,e).
 * `(unlabeled)` (`['b]`)
 
-#### list.hd
+### list.hd
 ```
 (default:'a,['a])->'a```
 
@@ -8485,7 +8485,7 @@ Return the head (first element) of a list, or 'default' if the list is empty.
 * `default` (`'a`): Default value if key does not exist
 * `(unlabeled)` (`['a]`)
 
-#### list.iter
+### list.iter
 ```
 ((('a)->unit),['a])->unit```
 
@@ -8494,7 +8494,7 @@ Call a function on every element of a list.
 * `(unlabeled)` (`('a)->unit`)
 * `(unlabeled)` (`['a]`)
 
-#### list.length
+### list.length
 ```
 (['a])->int```
 
@@ -8502,7 +8502,7 @@ Get the length of a list, i.e. its number of elements.
 
 * `(unlabeled)` (`['a]`)
 
-#### list.map
+### list.map
 ```
 ((('a)->'b),['a])->['b]```
 
@@ -8511,7 +8511,7 @@ Map a function on every element of a list.
 * `(unlabeled)` (`('a)->'b`)
 * `(unlabeled)` (`['a]`)
 
-#### list.mapi
+### list.mapi
 ```
 (((int,'a)->'b),['a])->['b]```
 
@@ -8520,7 +8520,7 @@ Map a function on every element of a list, along with its index.
 * `(unlabeled)` (`(int,'a)->'b`)
 * `(unlabeled)` (`['a]`)
 
-#### list.mem
+### list.mem
 ```
 ('a,['a])->bool where 'a is an orderable type```
 
@@ -8529,7 +8529,7 @@ Check if an element belongs to a list.
 * `(unlabeled)` (`anything that is an orderable type`)
 * `(unlabeled)` (`['a] where 'a is an orderable type`)
 
-#### list.mem_assoc
+### list.mem_assoc
 ```
 ('a,[('a*'b)])->bool where 'a is an orderable type```
 
@@ -8538,7 +8538,7 @@ list.mem_assoc(key,l) returns true if l contains a pair (key,value)
 * `(unlabeled)` (`anything that is an orderable type`): Key to look for
 * `(unlabeled)` (`[('a*'b)] where 'a is an orderable type`): List of pairs (key,value)
 
-#### list.nth
+### list.nth
 ```
 (default:'a,['a],int)->'a```
 
@@ -8548,7 +8548,7 @@ Get the n-th element of a list (the first element is at position 0), or'default'
 * `(unlabeled)` (`['a]`)
 * `(unlabeled)` (`int`)
 
-#### list.randomize
+### list.randomize
 ```
 (['a])->['a]```
 
@@ -8556,7 +8556,7 @@ Shuffle the content of a list.
 
 * `(unlabeled)` (`['a]`)
 
-#### list.remove
+### list.remove
 ```
 ('a,['a])->['a]```
 
@@ -8565,7 +8565,7 @@ Remove a value from a list.
 * `(unlabeled)` (`'a`)
 * `(unlabeled)` (`['a]`)
 
-#### list.remove_assoc
+### list.remove_assoc
 ```
 ('a,[('a*'c)])->[('a*'c)]```
 
@@ -8574,7 +8574,7 @@ Remove the first pair from an associative list.
 * `(unlabeled)` (`'a`): Key of pair to be removed
 * `(unlabeled)` (`[('a*'c)]`): List of pairs (key,value)
 
-#### list.rev
+### list.rev
 ```
 (['a])->['a]```
 
@@ -8582,7 +8582,7 @@ Revert list order.
 
 * `(unlabeled)` (`['a]`)
 
-#### list.sort
+### list.sort
 ```
 ((('a,'a)->int),['a])->['a]```
 
@@ -8591,7 +8591,7 @@ Sort a list according to a comparison function.
 * `(unlabeled)` (`('a,'a)->int`)
 * `(unlabeled)` (`['a]`)
 
-#### list.tl
+### list.tl
 ```
 (['a])->['a]```
 
@@ -8601,7 +8601,7 @@ Return the list without its first element.
 
 Math
 ----
-#### *
+### *
 ```
 ('a,'a)->'a where 'a is a number type```
 
@@ -8610,7 +8610,7 @@ Multiplication of numbers.
 * `(unlabeled)` (`anything that is a number type`)
 * `(unlabeled)` (`anything that is a number type`)
 
-#### +
+### +
 ```
 ('a,'a)->'a where 'a is a number type```
 
@@ -8619,7 +8619,7 @@ Addition of numbers.
 * `(unlabeled)` (`anything that is a number type`)
 * `(unlabeled)` (`anything that is a number type`)
 
-#### -
+### -
 ```
 ('a,'a)->'a where 'a is a number type```
 
@@ -8628,7 +8628,7 @@ Substraction of numbers.
 * `(unlabeled)` (`anything that is a number type`)
 * `(unlabeled)` (`anything that is a number type`)
 
-#### /
+### /
 ```
 ('a,'a)->'a where 'a is a number type```
 
@@ -8637,7 +8637,7 @@ Division of numbers.
 * `(unlabeled)` (`anything that is a number type`)
 * `(unlabeled)` (`anything that is a number type`)
 
-#### abs
+### abs
 ```
 ('a)->'a where 'a is a number type```
 
@@ -8645,7 +8645,7 @@ Absolute value.
 
 * `(unlabeled)` (`anything that is a number type`)
 
-#### bool_of_float
+### bool_of_float
 ```
 (float)->bool```
 
@@ -8653,7 +8653,7 @@ Convert a float to a bool.
 
 * `(unlabeled)` (`float`)
 
-#### bool_of_int
+### bool_of_int
 ```
 (int)->bool```
 
@@ -8661,7 +8661,7 @@ Convert an int to a bool.
 
 * `(unlabeled)` (`int`)
 
-#### dB_of_lin
+### dB_of_lin
 ```
 (float)->float```
 
@@ -8669,7 +8669,7 @@ Convert linear scale into decibels.
 
 * `(unlabeled)` (`float`)
 
-#### float_of_int
+### float_of_int
 ```
 (int)->float```
 
@@ -8677,7 +8677,7 @@ Convert an int to a float.
 
 * `(unlabeled)` (`int`)
 
-#### int_of_float
+### int_of_float
 ```
 (float)->int```
 
@@ -8685,7 +8685,7 @@ Convert a float to a int.
 
 * `(unlabeled)` (`float`)
 
-#### lin_of_dB
+### lin_of_dB
 ```
 (float)->float```
 
@@ -8693,7 +8693,7 @@ Convert decibels into linear scale.
 
 * `(unlabeled)` (`float`)
 
-#### mod
+### mod
 ```
 (int,int)->int```
 
@@ -8702,7 +8702,7 @@ Integer remainder. If y is not zero, x == (x / y) * y + x mod y, and abs(x mod y
 * `(unlabeled)` (`int`)
 * `(unlabeled)` (`int`)
 
-#### pow
+### pow
 ```
 ('a,'a)->'a where 'a is a number type```
 
@@ -8711,7 +8711,7 @@ Exponentiation of numbers.
 * `(unlabeled)` (`anything that is a number type`)
 * `(unlabeled)` (`anything that is a number type`)
 
-#### random.float
+### random.float
 ```
 (?min:float,?max:float)->float```
 
@@ -8720,7 +8720,7 @@ Generate a random value.
 * `min` (`float` -- defaults to `-1000000.0`)
 * `max` (`float` -- defaults to `1000000.0`)
 
-#### random.int
+### random.int
 ```
 (?min:float,?max:float)->int```
 
@@ -8729,7 +8729,7 @@ Generate a random value.
 * `min` (`float` -- defaults to `-4611686018427387904`)
 * `max` (`float` -- defaults to `4611686018427387903`)
 
-#### ~-
+### ~-
 ```
 ('a)->'a where 'a is a number type```
 
@@ -8739,7 +8739,7 @@ Returns the opposite of its argument.
 
 Pair
 ----
-#### fst
+### fst
 ```
 (('a*'b))->'a```
 
@@ -8747,7 +8747,7 @@ Get the first component of a pair.
 
 * `(unlabeled)` (`('a*'b)`)
 
-#### snd
+### snd
 ```
 (('a*'b))->'b```
 
@@ -8757,7 +8757,7 @@ Get the second component of a pair.
 
 String
 ------
-#### %
+### %
 ```
 (string,[(string*string)])->string```
 
@@ -8768,7 +8768,7 @@ String
 * `(unlabeled)` (`string`)
 * `(unlabeled)` (`[(string*string)]`)
 
-#### ^
+### ^
 ```
 (string,string)->string```
 
@@ -8777,7 +8777,7 @@ Concatenate strings.
 * `(unlabeled)` (`string`)
 * `(unlabeled)` (`string`)
 
-#### base64.decode
+### base64.decode
 ```
 (string)->string```
 
@@ -8785,7 +8785,7 @@ Decode a Base64 encoded string.
 
 * `(unlabeled)` (`string`)
 
-#### base64.encode
+### base64.encode
 ```
 (string)->string```
 
@@ -8793,7 +8793,7 @@ Encode a string in Base64.
 
 * `(unlabeled)` (`string`)
 
-#### bool_of_string
+### bool_of_string
 ```
 (?default:bool,string)->bool```
 
@@ -8802,7 +8802,7 @@ Convert a string to a bool.
 * `default` (`bool` -- defaults to `false`)
 * `(unlabeled)` (`string`)
 
-#### float_of_string
+### float_of_string
 ```
 (?default:float,string)->float```
 
@@ -8811,7 +8811,7 @@ Convert a string to a float.
 * `default` (`float` -- defaults to `0.0`)
 * `(unlabeled)` (`string`)
 
-#### int_of_string
+### int_of_string
 ```
 (?default:int,string)->int```
 
@@ -8820,7 +8820,7 @@ Convert a string to a int.
 * `default` (`int` -- defaults to `0`)
 * `(unlabeled)` (`string`)
 
-#### json_of
+### json_of
 ```
 (?compact:bool,'a)->string```
 
@@ -8829,7 +8829,7 @@ Convert a value to a json string.
 * `compact` (`bool` -- defaults to `false`): Output compact text.
 * `(unlabeled)` (`'a`)
 
-#### of_json
+### of_json
 ```
 (default:'a,string)->'a```
 
@@ -8838,7 +8838,7 @@ Parse a json string into a liquidsoap value.
 * `default` (`'a`): Default value if string cannot be parsed.
 * `(unlabeled)` (`string`)
 
-#### quote
+### quote
 ```
 (string)->string```
 
@@ -8846,7 +8846,7 @@ Escape shell metacharacters.
 
 * `(unlabeled)` (`string`)
 
-#### string.capitalize
+### string.capitalize
 ```
 (?capitalize:bool,?space_sensitive:bool,string)->string```
 
@@ -8856,7 +8856,7 @@ Return a string with the first character set to upper case (capitalize), or to l
 * `space_sensitive` (`bool` -- defaults to `true`): Capitalize each space separated sub-string.
 * `(unlabeled)` (`string`)
 
-#### string.case
+### string.case
 ```
 (?lower:bool,string)->string```
 
@@ -8865,7 +8865,7 @@ Convert a string to lower or upper case.
 * `lower` (`bool` -- defaults to `true`): Convert to lower case if true and uppercase otherwise.
 * `(unlabeled)` (`string`)
 
-#### string.concat
+### string.concat
 ```
 (?separator:string,[string])->string```
 
@@ -8874,7 +8874,7 @@ Concatenate strings.
 * `separator` (`string` -- defaults to `""`)
 * `(unlabeled)` (`[string]`)
 
-#### string.escape
+### string.escape
 ```
 (?special_chars:[string],?escape_char:((string)->string),
  string)->string```
@@ -8887,7 +8887,7 @@ Escape special charaters in a string. String is parsed char by char. See `string
 * `escape_char` (`(string)->string` -- defaults to <code><fun></code>): Function used to escape a character.
 * `(unlabeled)` (`string`)
 
-#### string.extract
+### string.extract
 ```
 (pattern:string,string)->[(string*string)]```
 
@@ -8899,7 +8899,7 @@ If the list does not have a pair associated to some index, it means that the cor
 * `pattern` (`string`)
 * `(unlabeled)` (`string`)
 
-#### string.length
+### string.length
 ```
 (string)->int```
 
@@ -8907,7 +8907,7 @@ Get the length of a string.
 
 * `(unlabeled)` (`string`)
 
-#### string.match
+### string.match
 ```
 (pattern:string,string)->bool```
 
@@ -8917,7 +8917,7 @@ Perl compatible regular expressions are recognized. Hence, special characters sh
 * `pattern` (`string`)
 * `(unlabeled)` (`string`)
 
-#### string.recode
+### string.recode
 ```
 (?in_enc:string,?out_enc:string,string)->string```
 
@@ -8927,7 +8927,7 @@ Convert a string. Effective only if Camomile is enabled.
 * `out_enc` (`string` -- defaults to `"UTF-8"`): Output encoding.
 * `(unlabeled)` (`string`)
 
-#### string.replace
+### string.replace
 ```
 (pattern:string,((string)->string),string)->string```
 
@@ -8938,7 +8938,7 @@ Will replace all substrings matched in the pattern by the string returned by the
 * `(unlabeled)` (`(string)->string`)
 * `(unlabeled)` (`string`)
 
-#### string.split
+### string.split
 ```
 (separator:string,string)->[string]```
 
@@ -8948,7 +8948,7 @@ Perl compatible regular expressions are recognized. Hence, special characters sh
 * `separator` (`string`)
 * `(unlabeled)` (`string`)
 
-#### string.sub
+### string.sub
 ```
 (string,start:int,length:int)->string```
 
@@ -8958,7 +8958,7 @@ Get a substring of a string. Returns ``'' if no such substring exists.
 * `start` (`int`): Return a sub string starting at this position. First position is 0.
 * `length` (`int`): Return a sub string of `length` characters.
 
-#### string.trim
+### string.trim
 ```
 (string)->string```
 
@@ -8966,7 +8966,7 @@ Return a string without leading and trailing whitespace.
 
 * `(unlabeled)` (`string`)
 
-#### string.utf8.escape
+### string.utf8.escape
 ```
 (?special_chars:[string],?escape_char:((string)->string),
  string)->string```
@@ -8979,7 +8979,7 @@ Escape special charaters in an UTF8 string.
 * `escape_char` (`(string)->string` -- defaults to <code><fun></code>): Function used to escape a character.
 * `(unlabeled)` (`string`)
 
-#### string_of
+### string_of
 ```
 ('a)->string```
 
@@ -8987,7 +8987,7 @@ Return the representation of a value.
 
 * `(unlabeled)` (`'a`)
 
-#### string_of_metadata
+### string_of_metadata
 ```
 ([(string*string)])->string```
 
@@ -8996,7 +8996,7 @@ Shows artist and title, using ``Unknown'' when a field is empty.
 
 * `(unlabeled)` (`[(string*string)]`): Metadata packet to be displayed.
 
-#### url.decode
+### url.decode
 ```
 (?plus:bool,string)->string```
 
@@ -9005,7 +9005,7 @@ Decode an encoded url (e.g. ``%20'' becomes `` '').
 * `plus` (`bool` -- defaults to `true`)
 * `(unlabeled)` (`string`)
 
-#### url.encode
+### url.encode
 ```
 (?plus:bool,string)->string```
 
@@ -9014,7 +9014,7 @@ Encode an url (e.g. `` '' becomes ``%20'').
 * `plus` (`bool` -- defaults to `true`)
 * `(unlabeled)` (`string`)
 
-#### url.split
+### url.split
 ```
 (string)->(string*[(string*string)])```
 
@@ -9022,7 +9022,7 @@ Split an url of the form foo?arg=bar&arg2=bar2 into (``foo'',[(``arg'',``bar''),
 
 * `(unlabeled)` (`string`): Url to split
 
-#### url.split_args
+### url.split_args
 ```
 (string)->[(string*string)]```
 
@@ -9032,7 +9032,7 @@ Split the arguments of an url of the form arg=bar&arg2=bar2 into [(``arg'',``bar
 
 System
 ------
-#### argv
+### argv
 ```
 (?default:string,int)->string```
 
@@ -9041,7 +9041,7 @@ Get command-line parameters.
 * `default` (`string` -- defaults to `""`)
 * `(unlabeled)` (`int`)
 
-#### basename
+### basename
 ```
 (string)->string```
 
@@ -9049,7 +9049,7 @@ Get the base name of a path.
 
 * `(unlabeled)` (`string`)
 
-#### dirname
+### dirname
 ```
 (string)->string```
 
@@ -9057,19 +9057,19 @@ Get the directory name of a path.
 
 * `(unlabeled)` (`string`)
 
-#### environment
+### environment
 ```
 ()->[(string*string)]```
 
 Return the process environment.
 
-#### exe_ext
+### exe_ext
 ```
 string```
 
 Executable file extension.
 
-#### exec_at
+### exec_at
 ```
 (?freq:float,pred:(()->bool),(()->unit))->unit```
 
@@ -9079,7 +9079,7 @@ Execute a given action when a predicate is true. This will be run in background.
 * `pred` (`()->bool`): Predicate indicating when to execute the function, typically a time interval such as `{10h-10h30}`.
 * `(unlabeled)` (`()->unit`): Function to execute when the predicate is true.
 
-#### exit
+### exit
 ```
 (int)->unit```
 
@@ -9087,7 +9087,7 @@ Immediately stop the application. This should only be used in extreme cases or t
 
 * `(unlabeled)` (`int`): Exit value.
 
-#### file.contents
+### file.contents
 ```
 (string)->string```
 
@@ -9095,7 +9095,7 @@ Read the whole contents of a file.
 
 * `(unlabeled)` (`string`)
 
-#### file.exists
+### file.exists
 ```
 (string)->bool```
 
@@ -9103,7 +9103,7 @@ Returns true if the file or directory exists.
 
 * `(unlabeled)` (`string`)
 
-#### file.extension
+### file.extension
 ```
 (?dir_sep:string,string)->string```
 
@@ -9112,7 +9112,7 @@ Returns a file's extension.
 * `dir_sep` (`string` -- defaults to `"/"`): Directory separator.
 * `(unlabeled)` (`string`)
 
-#### file.is_directory
+### file.is_directory
 ```
 (string)->bool```
 
@@ -9120,7 +9120,7 @@ Returns true if the file exists and is a directory.
 
 * `(unlabeled)` (`string`)
 
-#### file.mime_default
+### file.mime_default
 ```
 ('a)->string```
 
@@ -9128,7 +9128,7 @@ Dummy implementation of file.mime
 
 * `(unlabeled)` (`'a`)
 
-#### file.temp
+### file.temp
 ```
 (string,string)->string```
 
@@ -9137,7 +9137,7 @@ Return a fresh temporary filename in the temporary directory.
 * `(unlabeled)` (`string`): File prefix
 * `(unlabeled)` (`string`): File suffix
 
-#### file.watch
+### file.watch
 ```
 (string,(()->unit))->()->unit```
 
@@ -9146,7 +9146,7 @@ Call a function when a file is modified. Returns unwatch function.
 * `(unlabeled)` (`string`): File to watch.
 * `(unlabeled)` (`()->unit`): Handler function.
 
-#### get_mime
+### get_mime
 ```
 (string)->string```
 
@@ -9154,7 +9154,7 @@ Generic mime test. First try to use file.mime if it exist. Otherwise try to get 
 
 * `(unlabeled)` (`string`): The file to test
 
-#### get_process_lines
+### get_process_lines
 ```
 (?timeout:float,?env:[(string*string)],?inherit_env:bool,
  string)->[string]```
@@ -9166,7 +9166,7 @@ Perform a shell call and return the list of its output lines.
 * `inherit_env` (`bool` -- defaults to `true`): Inherit calling process's environment when `env` parameter is empty.
 * `(unlabeled)` (`string`): Command to run
 
-#### get_process_output
+### get_process_output
 ```
 (?timeout:float,?env:[(string*string)],?inherit_env:bool,
  string)->string```
@@ -9178,7 +9178,7 @@ Perform a shell call and return its output.
 * `inherit_env` (`bool` -- defaults to `true`): Inherit calling process's environment when `env` parameter is empty.
 * `(unlabeled)` (`string`): Command to run
 
-#### getenv
+### getenv
 ```
 (string)->string```
 
@@ -9186,7 +9186,7 @@ Get the value associated to a variable in the process environment. Return ``'' i
 
 * `(unlabeled)` (`string`)
 
-#### getopt
+### getopt
 ```
 (?default:string,string)->string```
 
@@ -9199,19 +9199,19 @@ calls to `argv()` and `getopt()`.
 * `default` (`string` -- defaults to `""`)
 * `(unlabeled)` (`string`)
 
-#### getpid
+### getpid
 ```
 ()->int```
 
 Get the process' pid.
 
-#### gettimeofday
+### gettimeofday
 ```
 ()->float```
 
 Return the current time since 00:00:00 GMT, Jan. 1, 1970, in seconds.
 
-#### is_directory
+### is_directory
 ```
 (string)->bool```
 
@@ -9219,7 +9219,7 @@ Returns true if the directory exists.
 
 * `(unlabeled)` (`string`)
 
-#### on_shutdown
+### on_shutdown
 ```
 ((()->unit))->unit```
 
@@ -9227,13 +9227,13 @@ Register a function to be called when Liquidsoap shuts down.
 
 * `(unlabeled)` (`()->unit`)
 
-#### os.type
+### os.type
 ```
 string```
 
 Type of OS running liquidsoap.
 
-#### path.concat
+### path.concat
 ```
 (string,string)->string```
 
@@ -9242,7 +9242,7 @@ Concatenate two paths, using the appropriate directory separator.
 * `(unlabeled)` (`string`)
 * `(unlabeled)` (`string`)
 
-#### read
+### read
 ```
 (?hide:bool)->string```
 
@@ -9250,7 +9250,7 @@ Read some value from standard input (console).
 
 * `hide` (`bool` -- defaults to `false`): Hide typed characters (for passwords).
 
-#### reopen.stderr
+### reopen.stderr
 ```
 (string)->unit```
 
@@ -9258,7 +9258,7 @@ Reopen standard error on the given file
 
 * `(unlabeled)` (`string`)
 
-#### reopen.stdin
+### reopen.stdin
 ```
 (string)->unit```
 
@@ -9266,7 +9266,7 @@ Reopen standard input on the given file
 
 * `(unlabeled)` (`string`)
 
-#### reopen.stdout
+### reopen.stdout
 ```
 (string)->unit```
 
@@ -9274,13 +9274,13 @@ Reopen standard output on the given file
 
 * `(unlabeled)` (`string`)
 
-#### restart
+### restart
 ```
 ()->unit```
 
 Restart the application.
 
-#### run_process
+### run_process
 ```
 (?env:[(string*string)],?inherit_env:bool,?timeout:float,
  string)->((string*string)*(string*string))```
@@ -9310,13 +9310,13 @@ Set the value associated to a variable in the process environment.
 * `(unlabeled)` (`string`): Variable to be set.
 * `(unlabeled)` (`string`): Value to set.
 
-#### shutdown
+### shutdown
 ```
 ()->unit```
 
 Shutdown the application.
 
-#### source.is_up
+### source.is_up
 ```
 (source('a))->bool```
 
@@ -9324,7 +9324,7 @@ Check whether a source is up.
 
 * `(unlabeled)` (`source('a)`)
 
-#### source.on_shutdown
+### source.on_shutdown
 ```
 (source('a),(()->unit))->unit```
 
@@ -9333,7 +9333,7 @@ Register a function to be called when source shuts down.
 * `(unlabeled)` (`source('a)`)
 * `(unlabeled)` (`()->unit`)
 
-#### system
+### system
 ```
 (string)->unit```
 
@@ -9341,7 +9341,7 @@ Shell command call. Set verbose to true to log process' output and errors.
 
 * `(unlabeled)` (`string`)
 
-#### test_process
+### test_process
 ```
 (?timeout:float,?env:[(string*string)],?inherit_env:bool,
  string)->bool```
@@ -9353,7 +9353,7 @@ Return true if process exited with 0 code.
 * `inherit_env` (`bool` -- defaults to `true`): Inherit calling process's environment when `env` parameter is empty.
 * `(unlabeled)` (`string`): Command to test
 
-#### which
+### which
 ```
 (string)->string```
 
