@@ -55,7 +55,7 @@ download_latest:
 	@cd latest ; \
 	for i in $(PKGS) ; do \
           n=`echo $$i | sed -e 's#ocaml-##'` ; \
-          v=`cat $$i/$$n.opam | grep '^version' | cut -d'"' -f 2`; \
+          v=`cat ../$$i/$$n.opam | grep '^version' | cut -d'"' -f 2`; \
 	  if test ! -s $$i-$$v.tar.gz; then \
 	    echo wget $(HTTP)/$$i/releases/download/$$v/$$i-$$v.tar.gz -O $$i-$$v.tar.gz --tries=2; \
 	    wget $(HTTP)/$$i/releases/download/$$v/$$i-$$v.tar.gz -O $$i-$$v.tar.gz --tries=2 || rm -f $$i-$$v.tar.gz; \
