@@ -65,7 +65,7 @@ download_latest:
 full: bootstrap makefiles
 	@rm -rf $(FULL) ; mkdir $(FULL)
 	@cp bootstrap configure Makefile PACKAGES.default PACKAGES.minimal \
-	  README LICENSE INSTALL $(FULL)
+	  README.md LICENSE INSTALL $(FULL)
 	@echo Did you run \"make download_latest\" to get official tarballs?
 	@for i in $(PKGS) ; do \
 	  v=`grep AC_INIT $$i/configure.ac | $(SED) -e 's/AC_INIT([^,]\+,\s*\[\?\([0-9.a-z-]\+\).*/\1/'` ; \
