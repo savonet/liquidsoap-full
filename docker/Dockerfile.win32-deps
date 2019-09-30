@@ -7,4 +7,6 @@ RUN eval `opam config env` && opam repository remove windows --all && opam repos
 
 USER root
 
-RUN cd /usr/src/mxe/ && cat /home/opam/mxe-deps | xargs make
+RUN cd /usr/src/mxe/ && \
+    git checkout 01e2a64d00ebcdc2aa31332eb33f9776d6d62f99 -- src/fdk-aac.mk \
+    cat /home/opam/mxe-deps | xargs make
