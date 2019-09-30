@@ -36,7 +36,8 @@ install:
 # Display current version numbers of all components
 versions:
 	@for i in ocaml-* liquidsoap ; do \
-          v=`cat $$i/*.opam | grep '^version' | cut -d'"' -f 2`; \
+          n=`echo $$i | sed -e 's#ocaml-##'` ; \
+          v=`cat $$i/$$n.opam | grep '^version' | cut -d'"' -f 2`; \
 	  echo $$i-$$v ; \
 	done
 
@@ -53,7 +54,8 @@ download_latest:
 	mkdir -p latest
 	@cd latest ; \
 	for i in $(PKGS) ; do \
-          v=`cat $$i/*.opam | grep '^version' | cut -d'"' -f 2`; \
+          n=`echo $$i | sed -e 's#ocaml-##'` ; \
+          v=`cat $$i/$$n.opam | grep '^version' | cut -d'"' -f 2`; \
 	  if test ! -s $$i-$$v.tar.gz; then \
 	    echo wget $(HTTP)/$$i/releases/download/$$v/$$i-$$v.tar.gz -O $$i-$$v.tar.gz --tries=2; \
 	    wget $(HTTP)/$$i/releases/download/$$v/$$i-$$v.tar.gz -O $$i-$$v.tar.gz --tries=2 || rm -f $$i-$$v.tar.gz; \
@@ -66,7 +68,8 @@ full: bootstrap makefiles
 	  README.md LICENSE INSTALL $(FULL)
 	@echo Did you run \"make download_latest\" to get official tarballs?
 	@for i in $(PKGS) ; do \
-          v=`cat $$i/*.opam | grep '^version' | cut -d'"' -f 2`; \
+          n=`echo $$i | sed -e 's#ocaml-##'` ; \
+          v=`cat $$i/$$n.opam | grep '^version' | cut -d'"' -f 2`; \
 	  if [ -f latest/$$i-$$v.tar.gz ] ; then \
 	  	cp latest/$$i-$$v.tar.gz $(FULL) ; else \
 	  echo " *** Latest tarball not found for $$i-$$v: building it..." ; \
