@@ -36,10 +36,8 @@ install:
 # Display current version numbers of all components
 versions:
 	@for i in ocaml-* liquidsoap ; do \
-	  if [ -f $$i/configure.ac ] ; then \
-	  v=`grep AC_INIT $$i/configure.ac | $(SED) -e 's/AC_INIT([^,]\+,\s*\[\?\([0-9.a-z-]\+\).*/\1/'` ; \
+          v=`cat $$i/*.opam | grep '^version' | cut -d'"' -f 2`; \
 	  echo $$i-$$v ; \
-	  fi ; \
 	done
 
 PKGS:=$(shell grep '^\#\?\s*ocaml-[a-z0-9]\+$$' PACKAGES.default | $(SED) -e 's/\#//')
@@ -55,7 +53,7 @@ download_latest:
 	mkdir -p latest
 	@cd latest ; \
 	for i in $(PKGS) ; do \
-	  v=`grep AC_INIT ../$$i/configure.ac | $(SED) -e 's/AC_INIT([^,]\+,\s*\[\?\([0-9.a-z-]\+\).*/\1/'` ; \
+          v=`cat $$i/*.opam | grep '^version' | cut -d'"' -f 2`; \
 	  if test ! -s $$i-$$v.tar.gz; then \
 	    echo wget $(HTTP)/$$i/releases/download/$$v/$$i-$$v.tar.gz -O $$i-$$v.tar.gz --tries=2; \
 	    wget $(HTTP)/$$i/releases/download/$$v/$$i-$$v.tar.gz -O $$i-$$v.tar.gz --tries=2 || rm -f $$i-$$v.tar.gz; \
@@ -68,7 +66,7 @@ full: bootstrap makefiles
 	  README.md LICENSE INSTALL $(FULL)
 	@echo Did you run \"make download_latest\" to get official tarballs?
 	@for i in $(PKGS) ; do \
-	  v=`grep AC_INIT $$i/configure.ac | $(SED) -e 's/AC_INIT([^,]\+,\s*\[\?\([0-9.a-z-]\+\).*/\1/'` ; \
+          v=`cat $$i/*.opam | grep '^version' | cut -d'"' -f 2`; \
 	  if [ -f latest/$$i-$$v.tar.gz ] ; then \
 	  	cp latest/$$i-$$v.tar.gz $(FULL) ; else \
 	  echo " *** Latest tarball not found for $$i-$$v: building it..." ; \
