@@ -43,7 +43,7 @@ versions:
 	done
 
 PKGS:=$(shell grep '^\#\?\s*ocaml-[a-z0-9]\+$$' PACKAGES.default | $(SED) -e 's/\#//')
-VERSION:=`grep AC_INIT liquidsoap/configure.ac | $(SED) -e 's/AC_INIT([^,]\+,\s*\[\?\([0-9.a-z-]\+\).*/\1/'`
+VERSION:=`cat liquidsoap/VERSION | head -n 1`
 FULL:=liquidsoap-$(VERSION)-full
 
 # $i = package name
