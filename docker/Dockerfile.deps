@@ -9,7 +9,7 @@ ARG OS
 ARG DISTRIBUTION
 
 # Add back graphics when/if ported to 4.08.0
-ENV EXT_PACKAGES="camlimages gd inotify sdl-liquidsoap ssl yojson"
+ENV EXT_PACKAGES="camlimages gd inotify prometheus-app sdl-liquidsoap ssl yojson"
 
 USER root
 
