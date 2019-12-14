@@ -12,7 +12,6 @@ addons:
     - libpulse-dev
     - libgstreamer1.0-dev
     - libgstreamer-plugins-base1.0-dev
-    - libsrt-dev
     - libmad0-dev
     - libtag1-dev
     - libmp3lame-dev
@@ -40,7 +39,7 @@ addons:
     - liblo-dev
 
 script:
-  - cp PACKAGES.default PACKAGES
+  - cat PACKAGES.default | grep -v ocaml-srt > PACKAGES
   - ./bootstrap
   - ./configure
   - make
