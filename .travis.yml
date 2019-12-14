@@ -45,7 +45,7 @@ addons:
 before_install:
   - export OPAMYES=1
   - opam init
-  - opam switch 4.08.0
+  - opam switch create 4.08.0
   - opam install xmlm
   - eval `opam config env`
 
