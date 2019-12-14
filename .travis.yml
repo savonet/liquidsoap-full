@@ -1,5 +1,5 @@
 language: c
-dist: binoic
+sudo: false
 addons:
   apt:
     packages:
