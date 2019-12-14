@@ -40,7 +40,8 @@ addons:
 
 before_install:
   - export OPAMYES=1
-  - sh <(curl -sL https://raw.githubusercontent.com/ocaml/opam/master/shell/install.sh)
+  - curl -sL https://raw.githubusercontent.com/ocaml/opam/master/shell/install.sh -o /tmp/install.sh
+  - echo /usr/local/bin | sh /tmp/install.sh
   - opam init
   - opam switch create 4.08.0
   - opam install xmlm
