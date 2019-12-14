@@ -6,6 +6,7 @@ addons:
     - avsm
   apt:
     packages:
+    - ocaml-nox
     - opam
     - ocaml-findlib
     - ffmpeg
