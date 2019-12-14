@@ -1,5 +1,6 @@
 language: c
 sudo: false
+dist: bionic
 addons:
   apt:
     packages:
