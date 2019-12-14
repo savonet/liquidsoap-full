@@ -37,6 +37,7 @@ addons:
     - frei0r-plugins-dev
     - dssi-dev
     - liblo-dev
+    - pandoc
 
 before_install:
   - export OPAMYES=1
@@ -56,3 +57,4 @@ script:
   - ./configure
   - make
   - make -C liquidsoap test
+  - make -C liquidsoap doc
