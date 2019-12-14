@@ -1,8 +1,17 @@
-sudo: required
-
-services:
-  - docker
+language: c
+dist: binoic
+sudo: false
+addons:
+  apt:
+    packages:
+    - ocaml-nox
+    - ocaml-findlib
+    - ffmpeg
+    - libmp3lame-dev
 
 script:
-  - export TRAVIS_COMMIT_SHORT="$(git rev-parse --short ${TRAVIS_COMMIT})"
-  - cd docker && docker build -f Dockerfile.full -t savonet/liquidsoap-full . --tag liquidsoap-build --no-cache --build-arg DOCKER_TAG --build-arg TRAVIS_BRANCH --build-arg TRAVIS_COMMIT --build-arg TRAVIS_COMMIT_SHORT --build-arg TRAVIS_PULL_REQUEST --build-arg TRAVIS_PULL_REQUEST_BRANCH --build-arg TRAVIS_BUILD_NUMBER
+  - cp PACKAGES.minimal PACKAGES
+  - ./bootstrap
+  - ./configure
+  - make
+  - make -C liquidsoap test
