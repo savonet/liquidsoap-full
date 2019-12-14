@@ -38,8 +38,11 @@ addons:
     - dssi-dev
     - liblo-dev
 
+# srt: library not recent enough in travis
+# shine: we don't have dune
+# lilv: we don't have dune
 script:
-  - cat PACKAGES.default | grep -v ocaml-srt > PACKAGES
+  - cat PACKAGES.default | grep -v ocaml-srt | grep -v ocaml-shine | grep -v ocaml-lilv > PACKAGES
   - ./bootstrap
   - ./configure
   - make
