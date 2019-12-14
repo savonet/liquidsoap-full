@@ -2,9 +2,11 @@ language: c
 sudo: false
 dist: bionic
 addons:
+  sources:
+    - avsm
   apt:
     packages:
-    - ocaml-nox
+    - opam
     - ocaml-findlib
     - ffmpeg
     - libao-dev
@@ -38,6 +40,13 @@ addons:
     - frei0r-plugins-dev
     - dssi-dev
     - liblo-dev
+
+before_install:
+  - export OPAMYES=1
+  - opam init
+  - opam switch 4.08.0
+  - opam install xmlm
+  - eval `opam config env`
 
 # srt: library not recent enough in travis
 # shine: we don't have dune
