@@ -43,20 +43,22 @@ addons:
     - libmagic-dev
     - pandoc
 
+# tsdl: does not build with this version of SDL2
 before_install:
   - export OPAMYES=1
   - curl -sL https://raw.githubusercontent.com/ocaml/opam/master/shell/install.sh -o /tmp/install.sh
   - echo /usr/local/bin | sh /tmp/install.sh
   - opam init --disable-sandboxing --compiler=4.08.0
   - opam update
-  - opam install pcre xmlm sedlex menhir camomile magic tsdl yojson camlimages
+  - opam install pcre xmlm sedlex menhir camomile magic yojson camlimages dune
   - eval `opam config env`
 
 # srt: library not recent enough in travis
-# shine: we don't have dune
-# lilv: we don't have dune
 script:
-  - cat PACKAGES.default | grep -v ocaml-srt | grep -v ocaml-shine | grep -v ocaml-lilv > PACKAGES
+  - export OPAMYES=1
+  - opam pin add ocaml-shine
+  - opam pin add ocaml-lilv
+  - cat PACKAGES.default | grep -v ocaml-srt > PACKAGES
   - ./bootstrap
   - ./configure
   - make
