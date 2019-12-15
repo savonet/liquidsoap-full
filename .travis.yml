@@ -37,6 +37,10 @@ addons:
     - frei0r-plugins-dev
     - dssi-dev
     - liblo-dev
+    - libsdl2-dev
+    - libsdl2-image-dev
+    - libsdl2-ttf-dev
+    - libmagic-dev
     - pandoc
 
 before_install:
