@@ -42,6 +42,7 @@ addons:
     - libsdl2-ttf-dev
     - libmagic-dev
     - libssl-dev
+    - libgd-dev
     - pandoc
 
 # tsdl: does not build with this version of SDL2
