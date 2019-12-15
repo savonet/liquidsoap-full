@@ -41,6 +41,7 @@ addons:
     - libsdl2-image-dev
     - libsdl2-ttf-dev
     - libmagic-dev
+    - libssl-dev
     - pandoc
 
 # tsdl: does not build with this version of SDL2
@@ -50,7 +51,7 @@ before_install:
   - echo /usr/local/bin | sh /tmp/install.sh
   - opam init --disable-sandboxing --compiler=4.08.0
   - opam update
-  - opam install pcre xmlm sedlex menhir camomile magic yojson camlimages dune
+  - opam install pcre xmlm sedlex menhir camomile magic yojson camlimages inotify ssl
   - eval `opam config env`
 
 # srt: library not recent enough in travis
