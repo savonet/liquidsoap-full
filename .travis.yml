@@ -63,4 +63,3 @@ script:
   - ./configure
   - make
   - make -C liquidsoap test
-  - make -C liquidsoap doc
