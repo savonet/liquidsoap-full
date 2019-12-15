@@ -133,4 +133,4 @@
 	url = https://github.com/savonet/ocaml-srt.git
 [submodule "ocaml-lilv"]
 	path = ocaml-lilv
-	url = https://github.com/savonet/ocaml-lilv.git
+	url = git://github.com/savonet/ocaml-lilv.git
