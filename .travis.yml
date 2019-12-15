@@ -45,7 +45,7 @@ before_install:
   - echo /usr/local/bin | sh /tmp/install.sh
   - opam init --disable-sandboxing --compiler=4.08.0
   - opam update
-  - opam install pcre xmlm sedlex
+  - opam install pcre xmlm sedlex menhir
   - eval `opam config env`
 
 # srt: library not recent enough in travis
