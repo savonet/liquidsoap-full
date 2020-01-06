@@ -53,5 +53,7 @@ for p in `for i in $packages ; do ls -d $i* | head -1 ; done` ; do
       OPTS="$OPTS --with-$base-dir=${LIBPATH}/src"
       cd $p && ./configure $OPTS && cd ..
     fi
+
+    echo "current options: $OPTS"
   fi
 done
