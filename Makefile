@@ -11,7 +11,7 @@ all:
 	@for i in $(PRJ); do \
 	  echo "Building $$i.."; \
 	  if [ -f $$i/dune-project ]; then \
-            cd $$i && dune build && cd ..; \
+            cd $$i && dune build @install && cd ..; \
           else \
 	    $(MAKE) -C $$i || exit 1; \
 	  fi; \
