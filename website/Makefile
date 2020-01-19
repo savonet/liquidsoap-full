@@ -52,7 +52,7 @@ $(PWD)/html/modules.md: $(PWD)/html $(PWD)/../PACKAGES.default
 	cat $(PWD)/../PACKAGES.default | grep '^ocaml' | sort | while read i; do \
 	  echo "* [$$i](modules/$$i/index.html)" >> $(@) ; \
           if [ -f "$(PWD)/../$$i/dune-project" ]; then \
-	    cd "$(PWD)/../$$i" && dune build @doc && cp -rf "$(PWD)/../$$i/_build/default/_doc/_html" "$(PWD)/html/modules/$$i"; \
+	    cd "$(PWD)/../$$i" && dune build @doc && mv "$(PWD)/../$$i/_build/default/_doc/_html" "$(PWD)/html/modules/$$i"; \
 	  else \
 	    mkdir -p $(PWD)/html/modules/$$i && $(OCAMLDOC) -html -stars -d $(PWD)/html/modules/$$i $(MODULES_INC:%=-I %) $(PWD)/../$$i/src/*.mli; \
 	  fi; \
