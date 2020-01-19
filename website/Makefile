@@ -59,7 +59,7 @@ $(PWD)/html/modules.md: $(PWD)/html $(PWD)/../PACKAGES.default
 	done
 
 $(PWD)/html/modules.html: $(PWD)/html/modules.md
-	$(PANDOC) --template modules.html --metadata pagetitle=Modules -i $< -o $@
+	$(PANDOC) --template modules.html --metadata version=$(version) --metadata versions="$(VERSIONS)" --metadata pagetitle=Modules -i $< -o $@
 
 $(PWD)/html/modules/liquidsoap: $(PWD)/html
 	@$(MAKE) -C $(LIQ_DIR) doc
