@@ -28,5 +28,5 @@ RUN eval $(opam config env) && export PKG_CONFIG_PATH=/usr/share/pkgconfig/pkgco
 
 WORKDIR /tmp/liquidsoap-full/website
 
-RUN eval $(opam config env) && make clean && make dist && make actual-upload
+RUN eval $(opam config env) && opam install -y odoc && make clean  && make dist && make actual-upload
 
