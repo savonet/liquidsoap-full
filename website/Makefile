@@ -8,7 +8,7 @@ PANDOC := pandoc --syntax-definition=liquidsoap.xml --highlight=pygments
 NODE := $(shell which node)
 
 # Versions for which documentation should be built and included
-VERSIONS := dev 1.3.0 1.3.1 1.3.2 1.3.3 1.3.4 1.3.5 1.3.6 1.3.7 1.4.0
+VERSIONS := dev 1.3.0 1.3.1 1.3.2 1.3.3 1.3.4 1.3.5 1.3.6 1.3.7 1.4.0 1.4.1
 DEFAULT_VERSION := 1.4.0
 # DEFAULT_VERSION := dev
 
@@ -52,7 +52,11 @@ $(PWD)/html/modules.md: $(PWD)/html $(PWD)/../PACKAGES.default
 	cat $(PWD)/../PACKAGES.default | grep '^ocaml' | sort | while read i; do \
 	  echo "* [$$i](modules/$$i/index.html)" >> $(@) ; \
 	  mkdir -p $(PWD)/html/modules/$$i; \
-	  $(OCAMLDOC) -html -stars -d $(PWD)/html/modules/$$i $(MODULES_INC:%=-I %) $(PWD)/../$$i/src/*.mli; \
+          if [ -f "$(PWD)/../$$i/dune-project" ]; then \
+	    cd "$(PWD)/../$$i" && dune build @doc && cp -rf _build/default/_doc/_html/ $(PWD)/html/modules/$$i; \
+	  else \
+	    $(OCAMLDOC) -html -stars -d $(PWD)/html/modules/$$i $(MODULES_INC:%=-I %) $(PWD)/../$$i/src/*.mli; \
+	  fi; \
 	done
 
 $(PWD)/html/modules.html: $(PWD)/html/modules.md
@@ -120,7 +124,7 @@ actual-upload: dist
 
 upload: Dockerfile
 	@echo "Make sure that you have comitted and pushed your changes!"
-	docker pull savonet/liquidsoap-full
+	docker pull savonet/liquidsoap-full:debian_testing
 	tar cvzf - Dockerfile -C $${HOME} .ssh .gitconfig | docker build -t savonet/website --no-cache -
 
 serve:
