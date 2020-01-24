@@ -24,4 +24,4 @@ jobs:
     - name: Build
       run: eval $(opam env) && make
     - name: Test
-      run: make -C liquidsoap test
+      run: eval $(opam env) && make -C liquidsoap test
