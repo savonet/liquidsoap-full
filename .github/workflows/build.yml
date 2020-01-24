@@ -12,7 +12,7 @@ jobs:
     - name: Fetch git
       run: make init && make update
     - name: Install packages
-      run: sudo apt-get install ocaml-nox ocaml-findlib ffmpeg libao-dev portaudio19-dev libasound2-dev libpulse-dev libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev libmad0-dev libtag1-dev libmp3lame-dev libshine-dev libogg-dev libvorbis-dev libspeex-dev libtheora-dev libopus-dev libfdk-aac-dev libfaad-dev libflac-dev ladspa-sdk liblilv-dev libsoundtouch-dev libsamplerate-dev libgavl-dev libavutil-dev libavformat-dev libavcodec-dev libswscale-dev libavdevice-dev frei0r-plugins-dev dssi-dev liblo-dev libsdl2-dev libsdl2-image-dev libsdl2-ttf-dev libmagic-dev libssl-dev libgd-dev pandoc
+      run: sudo apt-get install ocaml-nox dune ocaml-findlib ffmpeg libao-dev portaudio19-dev libasound2-dev libpulse-dev libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev libmad0-dev libtag1-dev libmp3lame-dev libshine-dev libogg-dev libvorbis-dev libspeex-dev libtheora-dev libopus-dev libfdk-aac-dev libfaad-dev libflac-dev ladspa-sdk liblilv-dev libsoundtouch-dev libsamplerate-dev libgavl-dev libavutil-dev libavformat-dev libavcodec-dev libswscale-dev libavdevice-dev frei0r-plugins-dev dssi-dev liblo-dev libsdl2-dev libsdl2-image-dev libsdl2-ttf-dev libmagic-dev libssl-dev libgd-dev pandoc
     - name: Install opam
       run: curl -sL https://raw.githubusercontent.com/ocaml/opam/master/shell/install.sh -o /tmp/install.sh && echo /usr/local/bin | sh /tmp/install.sh && opam init --disable-sandboxing --compiler=4.09.0 -y
     - name: Install opam packages
@@ -20,7 +20,7 @@ jobs:
     - name: Install our opam packages
       run: opam pin -y add ocaml-shine && opam pin -y add ocaml-lilv
     - name: Prepare build
-      run: cat PACKAGES.default | grep -v ocaml-srt > PACKAGES && ./bootstrap && ./configure
+      run: eval $(opam env) && cat PACKAGES.default | grep -v ocaml-srt > PACKAGES && ./bootstrap && ./configure
     - name: Build
       run: eval $(opam env) && make
     - name: Test
