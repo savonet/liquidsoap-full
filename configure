@@ -30,6 +30,8 @@ if [ ! -f $LIQDIR/configure ]; then
   ./bootstrap;
 fi;
 
+make clean
+
 packages=`grep -v '\#' PACKAGES`
 
 liqdir=`ls -d liquidsoap* | head -n 1`
