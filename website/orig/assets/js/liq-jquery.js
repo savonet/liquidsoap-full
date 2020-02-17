@@ -43,19 +43,5 @@ $(document).ready(function () {
     if (currentVersion === version) el.addClass("active");
     $("#liq-versions").prepend(el);
   });
-
-  // Replace all "liq" classes by ruby
-  $(".language-liq").removeClass("language-liq").addClass("language-ruby");
-  // Replace all "sh" classes by bash
-  $(".language-sh").removeClass("language-sh").addClass("language-bash");
-  // Render syntax, making sure that hidden ones remain hidden
-  $.syntax({theme: 'bright'},
-      function (options, html, container) {
-        html = $(html);
-        if (container.css("display") == "none")
-          html.hide();
-        return html;
-      }
-  );
 });
 
