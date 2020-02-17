@@ -88,18 +88,18 @@ $(LIQUIDSOAP):
 $(PWD)/content/doc-dev/reference.md: $(LIQUIDSOAP) $(PWD)/reference-header.md
 	@echo "Generating dev language reference..."
 	@echo "Did you enable all features ?"
-	cat $(PWD)/reference-header.md > $@
-	$(LIQUIDSOAP) --no-pervasives $(LIQ_DIR)/libs/pervasives.liq --list-functions-md >> $@
+	@cat $(PWD)/reference-header.md > $@
+	@PAGER=none $(LIQUIDSOAP) --no-pervasives $(LIQ_DIR)/libs/pervasives.liq --list-functions-md >> $@
 
 $(PWD)/content/doc-dev/settings.md: $(LIQUIDSOAP)
 	@echo "Generating dev language settings..."
 	@echo "Did you enable all features ?"
-	@$(LIQUIDSOAP) --no-pervasives $(LIQ_DIR)/libs/pervasives.liq --conf-descr-md | grep -v "# Liquidsoap configuration" > $@
+	@PAGER=none $(LIQUIDSOAP) --no-pervasives $(LIQ_DIR)/libs/pervasives.liq --conf-descr-md | grep -v "# Liquidsoap configuration" > $@
 
 $(PWD)/content/doc-dev/protocols.md: $(LIQUIDSOAP)
 	@echo "Generating dev protocols reference..."
 	@echo "Did you enable all features ?"
-	@$(LIQUIDSOAP) --no-pervasives $(LIQ_DIR)/libs/pervasives.liq --list-protocols-md > $@
+	@PAGER=none $(LIQUIDSOAP) --no-pervasives $(LIQ_DIR)/libs/pervasives.liq --list-protocols-md > $@
 
 define VERSIONED_RULES
 $(PWD)/html/doc-$(version)/%.html: $(PWD)/content/doc-$(version)/%.md $(PWD)/template-$(version).html
