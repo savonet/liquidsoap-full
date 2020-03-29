@@ -33,7 +33,9 @@ $(PWD)/html/assets/js/%.js: orig/assets/js/%.js
 #endif
 
 # Generated content
-GENERATED_FILES := $(PWD)/html/doc.html $(PWD)/html/doc-@@VERSION@@/reference.html \
+GENERATED_FILES := $(PWD)/html/doc.html \
+                   $(PWD)/html/doc-@@VERSION@@/reference.html \
+                   $(PWD)/html/doc-@@VERSION@@/reference-extras.html \
                    $(PWD)/html/doc-@@VERSION@@/protocols.html \
                    $(PWD)/html/doc-@@VERSION@@/settings.html
 generated_files_subst = $(subst @@VERSION@@,$(version),$(GENERATED_FILES))
@@ -90,6 +92,12 @@ $(PWD)/content/doc-dev/reference.md: $(LIQUIDSOAP) $(PWD)/reference-header.md
 	@echo "Did you enable all features ?"
 	@cat $(PWD)/reference-header.md > $@
 	@PAGER=none $(LIQUIDSOAP) --no-pervasives $(LIQ_DIR)/libs/pervasives.liq --list-functions-md >> $@
+
+$(PWD)/content/doc-dev/reference-extras.md: $(LIQUIDSOAP) $(PWD)/reference-header.md
+	@echo "Generating dev language reference..."
+	@echo "Did you enable all features ?"
+	@cat $(PWD)/reference-header.md > $@
+	@PAGER=none $(LIQUIDSOAP) --no-pervasives $(LIQ_DIR)/libs/pervasives.liq --list-extra-functions-md >> $@
 
 $(PWD)/content/doc-dev/settings.md: $(LIQUIDSOAP)
 	@echo "Generating dev language settings..."
