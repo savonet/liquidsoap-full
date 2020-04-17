@@ -11,6 +11,7 @@ ARG OCAML_VERSION=4.10.0
 
 # Add back graphics when/if ported to $OCAML_VERSION
 ENV EXT_PACKAGES="magic camlimages gd inotify prometheus-app sdl-liquidsoap ssl yojson tsdl-image tsdl-ttf tsdl"
+ENV DEBIAN_FRONTEND=noninteractive
 
 USER root
 
