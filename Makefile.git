@@ -22,8 +22,8 @@ devel-module:
 	git branch --set-upstream-to=origin/master master
 
 update:
-	git checkout master && git pull
-	git submodule foreach 'git checkout master && git pull'
+	git reset --hard && git checkout master && git pull
+	git submodule foreach 'git reset --hard && git checkout master && git pull'
 
 reset-module:
 	git reset --hard origin/master
