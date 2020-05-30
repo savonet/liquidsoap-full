@@ -956,7 +956,7 @@ set("scheduler.fast_queues",0)
 ### Generic queues
 
 Number of event queues accepting any kind of task.
-There should at least be one. Having more can be useful to avoid that
+There should at least be one. Having more can be useful to make sure that
 trivial request resolutions (local files) are not delayed because of
 a stalled download. But N stalled download can block N queues anyway.
 ```liquidsoap
