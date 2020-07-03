@@ -70,10 +70,6 @@ $(PWD)/html/modules/liquidsoap: $(PWD)/html
 # Removes all unecessary stuff before upload
 dist: all
 	@find $(PWD)/html -name '*.md' | xargs rm -rf --
-	rm -rf savonet.github.io
-	git clone git@github.com:savonet/savonet.github.io.git
-	find savonet.github.io -mindepth 1 | grep -v 'savonet.github.io/.git' | xargs rm -rf
-	cp -rf html/* savonet.github.io
 
 $(PWD)/html: $(wildcard orig/*)
 	@mkdir -p $(PWD)/html/scripts
@@ -126,6 +122,10 @@ clean:
 	rm -rf savonet.github.io html
 
 actual-upload: dist
+	rm -rf savonet.github.io
+	git clone git@github.com:savonet/savonet.github.io.git
+	find savonet.github.io -mindepth 1 | grep -v 'savonet.github.io/.git' | xargs rm -rf
+	cp -rf html/* savonet.github.io
 	cd savonet.github.io && git add . && \
 	git commit -m"Update website." && git push
 
