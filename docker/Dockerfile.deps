@@ -64,7 +64,7 @@ RUN opam depext -y -l liquidsoap $EXT_PACKAGES `cat /tmp/packages | xargs echo` 
 USER root
 
 RUN \
-    cat /tmp/deps | xargs apt-get install -y --no-install-recommends libgnutls28-dev && \
+    cat /tmp/deps | xargs apt-get install -y --no-install-recommends && \
     apt-get -y autoclean && apt-get -y clean
 
 USER opam
