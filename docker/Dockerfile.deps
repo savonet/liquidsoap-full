@@ -72,4 +72,4 @@ USER opam
 RUN \
     eval $(opam config env) && \
     PACKAGES=`cat /tmp/packages | xargs echo` && \
-    opam install -y liquidsoap $PACKAGES && opam uninstall liquidsoap $PACKAGES $EXT_PACKAGES
+    opam install -y liquidsoap $PACKAGES && opam uninstall liquidsoap $PACKAGES
