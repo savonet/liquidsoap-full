@@ -11,7 +11,11 @@ WORKDIR /tmp/liquidsoap-full
 
 RUN make update
 
-RUN cp PACKAGES.default PACKAGES
+RUN rm -f PACKAGES
+
+RUN cat /tmp/packages | while read i; do echo "ocaml-$i"; done >> PACKAGES
+
+RUN echo liquidsoap >> PACKAGES
 
 RUN ./bootstrap
 

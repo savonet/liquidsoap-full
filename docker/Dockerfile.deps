@@ -8,6 +8,8 @@ MAINTAINER The Savonet Team <savonet-users@lists.sourceforge.net>
 ARG OS
 ARG DISTRIBUTION
 ARG OCAML_VERSION=4.10.0
+ARG ARCHITECTURE
+ARG EXCLUDED_PACKAGES
 
 # Add back graphics when/if ported to $OCAML_VERSION
 ENV EXT_PACKAGES="magic camlimages gd inotify prometheus-app sdl-liquidsoap ssl yojson posix-time2 tsdl-image tsdl-ttf tsdl"
@@ -23,20 +25,9 @@ RUN \
     apt-get install -y --no-install-recommends aspcud autoconf automake \
             build-essential ca-certificates curl debhelper devscripts \
             ffmpeg gstreamer1.0-libav gstreamer1.0-plugins-ugly gstreamer1.0-plugins-good gstreamer1.0-plugins-base gstreamer1.0-plugins-bad \
-            fakeroot git openssh-client unzip gnupg dirmngr apt-transport-https && \
+            pandoc fakeroot git openssh-client unzip gnupg dirmngr apt-transport-https && \
     apt-get -y autoclean && \
     apt-get -y clean
-
-# Add our own!
-RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 20D63CCDDD0F62C2 && \
-    echo deb http://deb.liquidsoap.info/$OS $DISTRIBUTION main >> /etc/apt/sources.list && \
-    touch cat /etc/apt/preferences && \
-    printf "Package: *\nPin: origin deb.liquidsoap.info\nPin-Priority: 900\n" >> cat /etc/apt/preferences && \
-    apt-get update
-
-RUN \
-    curl -sL https://github.com/jgm/pandoc/releases/download/2.7.3/pandoc-2.7.3-1-amd64.deb -o pandoc-2.7.3-1-amd64.deb && \
-    dpkg -i pandoc-2.7.3-1-amd64.deb
 
 RUN \
     curl -sL https://raw.githubusercontent.com/ocaml/opam/master/shell/install.sh -o /tmp/install.sh && \
@@ -46,42 +37,39 @@ RUN adduser opam
 
 USER opam
 
-WORKDIR /tmp
-
-RUN git clone https://github.com/savonet/liquidsoap-full.git
-
-WORKDIR /tmp/liquidsoap-full
-
-RUN make init && make update
-
 RUN \
     opam init -y --disable-sandboxing --compiler=$OCAML_VERSION && \
     opam update -y && \
     opam install -y depext && \
     opam clean
 
+WORKDIR /tmp
+
+RUN git clone     https://github.com/savonet/liquidsoap-full.git
+
+WORKDIR /tmp/liquidsoap-full
+
+RUN make init && make update
+
+RUN cat PACKAGES.default | grep '^ocaml' | cut -d'-' -f 2 | while read i; do ( echo "srt,ffmpeg" | grep -q $i ) || echo "$i"; done > /tmp/packages
+
 RUN \
-    cat PACKAGES.default | grep '^ocaml' | cut -d'-' -f 2 | while read package; do \
-      cd ocaml-$package && opam pin add -y --no-action . && cd ..; \
+    cat /tmp/packages | while read package; do \
+        cd ocaml-$package && opam pin add -y --no-action . && cd .. \
+      fi; \
     done && cd liquidsoap && opam pin add --no-action .
 
-RUN opam depext -y -l liquidsoap $EXT_PACKAGES `cat PACKAGES.default | grep '^ocaml' | cut -d'-' -f 2 | xargs echo` > /tmp/deps
+RUN opam depext -y -l liquidsoap $EXT_PACKAGES `cat /tmp/packages | xargs echo` > /tmp/deps
 
 USER root
 
 RUN \
-    cat /tmp/deps | xargs apt-get install -y --no-install-recommends && \
+    cat /tmp/deps | xargs apt-get install -y --no-install-recommends libgnutls28-dev && \
     apt-get -y autoclean && apt-get -y clean
 
 USER opam
 
 RUN \
     eval $(opam config env) && \
-    opam install -y $EXT_PACKAGES && \
-    opam clean
-
-RUN \
-    eval $(opam config env) && \
-    export PKG_CONFIG_PATH=/usr/share/pkgconfig/pkgconfig && \
-    PACKAGES=`cat PACKAGES.default | grep '^ocaml' | cut -d'-' -f 2 | xargs echo` && \
-    opam install -y liquidsoap $PACKAGES && opam uninstall liquidsoap $PACKAGES
+    PACKAGES=`cat /tmp/packages | xargs echo` && \
+    opam install -y liquidsoap $PACKAGES && opam uninstall liquidsoap $PACKAGES $EXT_PACKAGES
