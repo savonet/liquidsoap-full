@@ -51,7 +51,7 @@ WORKDIR /tmp/liquidsoap-full
 
 RUN make init && make update
 
-RUN cat PACKAGES.default | grep '^ocaml' | cut -d'-' -f 2 | while read i; do ( echo "srt,ffmpeg" | grep -q $i ) || echo "$i"; done > /tmp/packages
+RUN cat PACKAGES.default | grep '^ocaml' | cut -d'-' -f 2 | while read i; do ( echo $EXCLUDED_PACKAGES | grep -q $i ) || echo "$i"; done > /tmp/packages
 
 RUN \
     cat /tmp/packages | while read package; do \
