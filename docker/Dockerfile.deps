@@ -45,7 +45,7 @@ RUN \
 
 WORKDIR /tmp
 
-RUN git clone     https://github.com/savonet/liquidsoap-full.git
+RUN git clone https://github.com/savonet/liquidsoap-full.git
 
 WORKDIR /tmp/liquidsoap-full
 
@@ -72,4 +72,4 @@ USER opam
 RUN \
     eval $(opam config env) && \
     PACKAGES=`cat /tmp/packages | xargs echo` && \
-    opam install -y liquidsoap $PACKAGES && opam uninstall liquidsoap $PACKAGES
+    opam install -y liquidsoap $PACKAGES $EXT_PACKAGES && opam uninstall liquidsoap $PACKAGES
