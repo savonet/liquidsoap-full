@@ -1,4 +1,4 @@
-FROM savonet/liquidsoap-full:debian_testing
+FROM savonet/liquidsoap-full:debian_testing_amd64
 
 MAINTAINER The Savonet Team <savonet-users@lists.sourceforge.net>
 
