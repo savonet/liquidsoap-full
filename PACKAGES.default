@@ -47,10 +47,14 @@ ocaml-srt
 # Codecs
 # ============================================================================
 
+# FFMPEG is currently used to decode, encoder and convert from and to
+# many formats is highly recommended.
+ocaml-ffmpeg
+
 # MAD is for MP3 decoding.
 ocaml-mad
 
-# TAGLIB is for MP3 ID3 tag reading
+# TAGLIB is for reading tag in media files.
 ocaml-taglib
 
 # LAME is for MP3 encoding.
@@ -108,16 +112,6 @@ ocaml-samplerate
 # ============================================================================
 # Video processing
 # ============================================================================
-
-# GAVL converts from and to many formats,
-# is very efficient and has a quality setting for
-# tweaking load vs. quality of the conversion.
-# It is the recommended module to use with video
-ocaml-gavl
-
-# FFMPEG is currently only used to convert from
-# and to many formats.
-ocaml-ffmpeg
 
 # Frei0r is a minimalistic plugin API for video sources and filters.
 ocaml-frei0r

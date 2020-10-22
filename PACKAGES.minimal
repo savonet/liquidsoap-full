@@ -47,24 +47,28 @@ ocaml-ao
 # Codecs
 # ============================================================================
 
-# MAD is for MP3 decoding.
-ocaml-mad
+# FFMPEG is currently used to decode, encoder and convert from and to
+# many formats is highly recommended.
+ocaml-ffmpeg
 
-# TAGLIB is for MP3 ID3 tag reading
+# MAD is for MP3 decoding.
+#ocaml-mad
+
+# TAGLIB is for reading tag in media files.
 ocaml-taglib
 
 # LAME is for MP3 encoding.
-ocaml-lame
+#ocaml-lame
 
 # SHINE is for fixed-point MP3 encoding.
 #ocaml-shine
 
 # OGG is for ogg/vorbis and ogg/theora encoding and decoding
-ocaml-ogg
+#ocaml-ogg
 
 # VORBIS is for ogg/vorbis encoding and decoding.
 # you need ocaml-ogg to enable ocaml-vorbis.
-ocaml-vorbis
+#ocaml-vorbis
 
 # SPEEX is for ogg/speex encoding and decoding
 # you need ocaml-ogg to enable ocaml-speex
@@ -87,7 +91,7 @@ ocaml-vorbis
 
 # FLAC is for flac, native and/or ogg (if using ocaml-ogg)
 # format decoding and encoding.
-ocaml-flac
+#ocaml-flac
 
 # ============================================================================
 # Sound processing
@@ -108,16 +112,6 @@ ocaml-flac
 # ============================================================================
 # Video processing
 # ============================================================================
-
-# GAVL converts from and to many formats,
-# is very efficient and has a quality setting for
-# tweaking load vs. quality of the conversion.
-# It is the recommended module to use with video
-#ocaml-gavl
-
-# FFMPEG is currently only used to convert from
-# and to many formats.
-#ocaml-ffmpeg
 
 # Frei0r is a minimalistic plugin API for video sources and filters.
 #ocaml-frei0r
