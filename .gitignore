@@ -5,3 +5,4 @@ liquidsoap-*-full*
 docker/*.zip
 *~
 liquidsoap-book/
+_opam/
