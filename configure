@@ -47,11 +47,11 @@ for p in `for i in $packages ; do ls -d $i* | head -1 ; done` ; do
     LIBPATH=`cd $p && pwd`
 
     if [ -f $p/dune-project ]; then
-      OPTS="$OPTS `find $p | grep -v '_build' | grep '\.opam$' | while read i; do basename $i; done | cut -d'.' -f 1 | while read i; do echo --with-$i-dir=${LIBPATH}/_build/install/default/lib/$i; done | xargs echo`"
+      export OCAMLPATH="${LIBPATH}/_build/install/default/lib:$OCAMLPATH"
       cd $p && dune clean && dune build @install && cd ..
     else
       OPTS="$OPTS --with-$base-dir=${LIBPATH}/src"
-      cd $p && ./configure $OPTS && cd ..
+      cd $p && OCAMLPATH="$OCAMLPATH" ./configure $OPTS && cd ..
     fi
 
     echo "current options: $OPTS"
