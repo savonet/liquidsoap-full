@@ -12,6 +12,7 @@ all:
 	  echo "Building $$i.."; \
 	  if [ -f $$i/dune-project ]; then \
             cd $$i && dune build @install && cd ..; \
+            export OCAMLPATH="`cd $$p && pwd`/_build/install/default/lib:$$OCAMLPATH"; \
           else \
 	    $(MAKE) -C $$i || exit 1; \
 	  fi; \
