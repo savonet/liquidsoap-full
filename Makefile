@@ -5,10 +5,15 @@ LIQDIR:=$(shell ls -d liquidsoap* | head -1)
 
 SED:=$(shell which gsed || which sed)
 
+PWD:=$(shell pwd)
+SPACE := $(subst ,, )
+OCAMLPATH=$(subst $(SPACE),:,$(PRJ:%=$(PWD)/%/_build/install/default/lib))
+
 default: all
 
 all:
-	@for i in $(PRJ); do \
+	@export OCAMLPATH="$(OCAMLPATH)"; \
+	for i in $(PRJ); do \
 	  echo "Building $$i.."; \
 	  if [ -f $$i/dune-project ]; then \
             cd $$i && dune build @install && cd ..; \
