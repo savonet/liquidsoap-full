@@ -23,7 +23,7 @@ devel-module:
 
 update:
 	git reset --hard && git checkout master && git pull
-	git submodule foreach 'git reset --hard && (git checkout master || git checkout main) && git pull'
+	git submodule foreach 'git reset --hard && (git checkout main || git checkout master) && git pull'
 
 reset-module:
 	git reset --hard origin/master
