@@ -3,7 +3,6 @@
 PWD := $(shell pwd)
 LIQ_DIR := $(PWD)/../liquidsoap
 LIQUIDSOAP := $(LIQ_DIR)/src/liquidsoap
-OCAMLDOC := ocamldoc
 PANDOC := pandoc --syntax-definition=liquidsoap.xml --highlight=pygments
 NODE := $(shell which node)
 
@@ -39,7 +38,7 @@ GENERATED_FILES := $(PWD)/html/doc.html \
                    $(PWD)/html/doc-@@VERSION@@/protocols.html \
                    $(PWD)/html/doc-@@VERSION@@/settings.html
 generated_files_subst = $(subst @@VERSION@@,$(version),$(GENERATED_FILES))
-generated_files := $(foreach version,$(VERSIONS),$(generated_files_subst)) $(PWD)/html/modules.html $(PWD)/html/modules/liquidsoap
+generated_files := $(foreach version,$(VERSIONS),$(generated_files_subst))
 
 all: language.dtd $(PWD)/html $(HTML) $(JS) $(generated_files)
 	@find html -name '.git' | xargs rm -rf --
@@ -48,24 +47,6 @@ MODULES_INC := $(wildcard $(PWD)/../ocaml-*/src)
 
 $(PWD)/html/doc.html: $(PWD)/doc.html
 	sed -e "s#@version@#$(DEFAULT_VERSION)#" < $(<) > $(@) 
-
-$(PWD)/html/modules.md: $(PWD)/html $(PWD)/../PACKAGES.default
-	echo "## Savonet modules documentation\n" > $(@)
-	cat $(PWD)/../PACKAGES.default | grep '^ocaml' | sort | while read i; do \
-	  echo "* [$$i](modules/$$i/index.html)" >> $(@) ; \
-          if [ -f "$(PWD)/../$$i/dune-project" ]; then \
-	    cd "$(PWD)/../$$i" && dune build @doc && mv "$(PWD)/../$$i/_build/default/_doc/_html" "$(PWD)/html/modules/$$i"; \
-	  else \
-	    mkdir -p $(PWD)/html/modules/$$i && $(OCAMLDOC) -html -stars -d $(PWD)/html/modules/$$i $(MODULES_INC:%=-I %) $(PWD)/../$$i/src/*.mli; \
-	  fi; \
-	done
-
-$(PWD)/html/modules.html: $(PWD)/html/modules.md
-	$(PANDOC) --template modules.html --metadata version=$(version) --metadata versions="$(VERSIONS)" --metadata pagetitle=Modules -i $< -o $@
-
-$(PWD)/html/modules/liquidsoap: $(PWD)/html
-	@$(MAKE) -C $(LIQ_DIR) doc
-	cp -r $(LIQ_DIR)/autodoc/liquidsoap $(PWD)/html/modules/
 
 # Removes all unecessary stuff before upload
 dist: all
