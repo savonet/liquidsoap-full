@@ -39,8 +39,12 @@ for p in `for i in $packages ; do ls -d $i* | head -1 ; done` ; do
   echo "****** Configuring $p"
   echo
   if test "$p" = "$liqdir" ; then
-    echo ./configure $OPTS $* > $liqdir/configure-with-options
-    cd $p && ./configure $OPTS $* && cd ..
+    if [ -f $p/dune-project ]; then
+      cd $p && dune clean && dune build @install && cd ..
+    else
+      echo ./configure $OPTS $* > $liqdir/configure-with-options
+      cd $p && ./configure $OPTS $* && cd ..
+    fi
   else
     base=`echo $p | sed -e 's/ocaml-//' | sed -e 's/-.*//'`
 
