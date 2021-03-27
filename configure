@@ -62,3 +62,5 @@ for p in `for i in $packages ; do ls -d $i* | head -1 ; done` ; do
     echo "current options: $OPTS"
   fi
 done
+
+echo "${OCAMLPATH}" > .ocamlpath
