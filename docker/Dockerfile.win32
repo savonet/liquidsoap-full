@@ -11,7 +11,7 @@ USER opam
 
 ENV CC ""
 
-RUN eval `opam config env` && opam update && opam reinstall -y `echo $OPAM_DEPS | sed -e 's#,# #g'`
+RUN eval `opam config env` && opam update && opam reinstall -y pandoc `echo $OPAM_DEPS | sed -e 's#,# #g'`
 
 RUN git clone --recursive https://github.com/savonet/liquidsoap.git && \
     cd liquidsoap && git checkout $RELEASE && ./bootstrap
