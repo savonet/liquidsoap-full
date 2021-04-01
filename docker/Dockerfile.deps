@@ -72,4 +72,4 @@ USER opam
 RUN \
     eval $(opam config env) && \
     PACKAGES=`cat /tmp/packages | xargs echo` && \
-    opam install -y dune.2.8.4 liquidsoap $PACKAGES $EXT_PACKAGES && opam uninstall liquidsoap $PACKAGES ffmpeg-avutil
+    opam install -y dune.2.8.4 liquidsoap $PACKAGES $EXT_PACKAGES && opam uninstall -y liquidsoap $PACKAGES ffmpeg-avutil
