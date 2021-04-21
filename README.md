@@ -22,7 +22,7 @@ to initialize and update all submodules. The generate and run the configures:
 
 ```
 ./bootstrap
-`./configure
+./configure
 ```
 
 and finally build:
