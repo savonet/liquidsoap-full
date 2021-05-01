@@ -11,8 +11,8 @@ ARG OCAML_VERSION=4.10.0
 ARG ARCHITECTURE
 ARG EXCLUDED_PACKAGES
 
-# Add back graphics when/if ported to $OCAML_VERSION
-ENV EXT_PACKAGES="ocurl magic camlimages gd inotify prometheus-app sdl-liquidsoap ssl yojson posix-time2 tsdl-image tsdl-ttf tsdl"
+# Add back graphics when/if ported to $OCAML_VERSION, bring back posix-time2 after next release.
+ENV EXT_PACKAGES="ocurl magic camlimages gd inotify prometheus-app sdl-liquidsoap ssl yojson tsdl-image tsdl-ttf tsdl"
 ENV DEBIAN_FRONTEND=noninteractive
 
 USER root
