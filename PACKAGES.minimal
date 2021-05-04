@@ -16,10 +16,10 @@
 # ============================================================================
 
 # Cry is the lib for streaming to icecast and compatible servers.
-ocaml-cry
+#ocaml-cry
 
 # AO is portable and stable, but it does only output.
-ocaml-ao
+#ocaml-ao
 
 # Portaudio is a portable audio library with both input and output.
 #ocaml-portaudio
@@ -49,13 +49,13 @@ ocaml-ao
 
 # FFMPEG is currently used to decode, encoder and convert from and to
 # many formats is highly recommended.
-ocaml-ffmpeg
+#ocaml-ffmpeg
 
 # MAD is for MP3 decoding.
 #ocaml-mad
 
 # TAGLIB is for reading tag in media files.
-ocaml-taglib
+#ocaml-taglib
 
 # LAME is for MP3 encoding.
 #ocaml-lame
