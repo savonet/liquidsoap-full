@@ -24,7 +24,7 @@ RUN \
     apt-get update && \
     apt-get install -y --no-install-recommends aspcud autoconf automake \
             build-essential ca-certificates curl debhelper devscripts sudo \
-            ffmpeg gstreamer1.0-libav gstreamer1.0-plugins-ugly gstreamer1.0-plugins-good gstreamer1.0-plugins-base gstreamer1.0-plugins-bad \
+            ffmpeg gstreamer1.0-plugins-ugly gstreamer1.0-plugins-good gstreamer1.0-plugins-base gstreamer1.0-plugins-bad \
             pandoc fakeroot git openssh-client unzip gnupg dirmngr apt-transport-https && \
     apt-get -y autoclean && \
     apt-get -y clean
