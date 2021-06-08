@@ -107,6 +107,7 @@ actual-upload: dist
 	git clone git@github.com:savonet/savonet.github.io.git
 	find savonet.github.io -mindepth 1 | grep -v 'savonet.github.io/.git' | xargs rm -rf
 	cp -rf html/* savonet.github.io
+	cp content/doc-dev/reference.md savonet.github.io/reference.md
 	cd savonet.github.io && git add . && \
 	git commit -m"Update website." && git push
 
