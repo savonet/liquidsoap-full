@@ -68,23 +68,23 @@ $(PWD)/content/doc-dev/reference.md: $(LIQUIDSOAP) $(PWD)/reference-header.md
 	@echo "Generating dev language reference..."
 	@echo "Did you enable all features ?"
 	@cat $(PWD)/reference-header.md > $@
-	@PAGER=none $(LIQUIDSOAP) --no-pervasives $(LIQ_DIR)/libs/pervasives.liq --list-functions-md >> $@
+	@PAGER=none $(LIQUIDSOAP) --no-stdlib $(LIQ_DIR)/libs/stdlib.liq --list-functions-md >> $@
 
 $(PWD)/content/doc-dev/reference-extras.md: $(LIQUIDSOAP) $(PWD)/reference-header.md
 	@echo "Generating dev language reference..."
 	@echo "Did you enable all features ?"
 	@cat $(PWD)/reference-header.md > $@
-	@PAGER=none $(LIQUIDSOAP) --no-pervasives $(LIQ_DIR)/libs/pervasives.liq --list-extra-functions-md >> $@
+	@PAGER=none $(LIQUIDSOAP) --no-stdlib $(LIQ_DIR)/libs/stdlib.liq --list-extra-functions-md >> $@
 
 $(PWD)/content/doc-dev/settings.md: $(LIQUIDSOAP)
 	@echo "Generating dev language settings..."
 	@echo "Did you enable all features ?"
-	@PAGER=none $(LIQUIDSOAP) --no-pervasives $(LIQ_DIR)/libs/pervasives.liq --conf-descr-md | grep -v "# Liquidsoap configuration" > $@
+	@PAGER=none $(LIQUIDSOAP) --no-stdlib $(LIQ_DIR)/libs/stdlib.liq --conf-descr-md | grep -v "# Liquidsoap configuration" > $@
 
 $(PWD)/content/doc-dev/protocols.md: $(LIQUIDSOAP)
 	@echo "Generating dev protocols reference..."
 	@echo "Did you enable all features ?"
-	@PAGER=none $(LIQUIDSOAP) --no-pervasives $(LIQ_DIR)/libs/pervasives.liq --list-protocols-md > $@
+	@PAGER=none $(LIQUIDSOAP) --no-stdlib $(LIQ_DIR)/libs/stdlib.liq --list-protocols-md > $@
 
 define VERSIONED_RULES
 $(PWD)/html/doc-$(version)/%.html: $(PWD)/content/doc-$(version)/%.md $(PWD)/template-$(version).html
@@ -107,6 +107,7 @@ actual-upload: dist
 	git clone git@github.com:savonet/savonet.github.io.git
 	find savonet.github.io -mindepth 1 | grep -v 'savonet.github.io/.git' | xargs rm -rf
 	cp -rf html/* savonet.github.io
+	cp content/doc-dev/reference.md savonet.github.io/reference.md
 	cd savonet.github.io && git add . && \
 	git commit -m"Update website." && git push
 
