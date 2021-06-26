@@ -314,9 +314,9 @@ The switch-based operators (`switch`, `fallback` and `random`) support transitio
 # A simple (long) cross-fade
 def crossfade(a,b)
   add(normalize=false,
-	  [ sequence([ blank(duration=5.),
-	               fade.initial(duration=10.,b) ]),
-	    fade.final(duration=10.,a) ])
+      [ sequence([ blank(duration=5.),
+                   fade.initial(duration=10.,b) ]),
+        fade.final(duration=10.,a) ])
 end
 
 # Partially apply next to give it a jingle source.
@@ -324,11 +324,11 @@ end
 # At the same time it fades in the new source.
 def next(j,a,b)
   add(normalize=false,
-	  [ sequence(merge=true,
-	             [ blank(duration=3.),
-	               fade.initial(duration=6.,b) ]),
-	    sequence([fade.final(duration=9.,a),
-	              j,fallback([])]) ])
+      [ sequence(merge=true,
+                 [ blank(duration=3.),
+                   fade.initial(duration=6.,b) ]),
+        sequence([fade.final(duration=9.,a),
+                  j,fallback([])]) ])
 end
 
 # A similar transition,
@@ -336,10 +336,10 @@ end
 # and adds a jingle
 def transition(j,a,b)
   add(normalize=false,
-	  [ fade.initial(b),
-	    sequence(merge=true,
-	            [blank(duration=1.),j,fallback([])]),
-	    fade.final(a) ])
+      [ fade.initial(b),
+        sequence(merge=true,
+                [blank(duration=1.),j,fallback([])]),
+        fade.final(a) ])
 end
 ```
 
@@ -347,9 +347,9 @@ Finally, we build a source which plays a playlist, and switches to the live show
 
 ```
 fallback(track_sensitive=false,
-	     transitions=[ crossfade, transition(jingle) ],
-	     [ input.http("http://localhost:8000/live.ogg"),
-	       playlist("playlist.pls") ])
+         transitions=[ crossfade, transition(jingle) ],
+         [ input.http("http://localhost:8000/live.ogg"),
+           playlist("playlist.pls") ])
 ```
 
 ### Cross-based transitions

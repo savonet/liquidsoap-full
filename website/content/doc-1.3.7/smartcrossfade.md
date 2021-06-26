@@ -34,7 +34,7 @@ Liquidsoap also includes a ready-to-use operator defined using `smart_cross`, it
 # @param s             The input source.
 def smart_crossfade (~start_next=5.,~fade_in=3.,
                      ~fade_out=3., ~width=2.,
-		     ~conservative=false,s)
+             ~conservative=false,s)
   high   = -20.
   medium = -32.
   margin = 4.
