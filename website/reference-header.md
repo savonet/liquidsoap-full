@@ -25,6 +25,7 @@ information that liquidsoap puts in streams: track limits and metadata.
 * [Source / Track Processing](#source-track-processing)
 * [Source / Video Processing](#source-video-processing)
 * [Source / Visualization](#source-visualization)
+* [FFmpeg Filter](#ffmpeg-filter)
 * [Bool](#bool)
 * [Control](#control)
 * [Interaction](#interaction)
