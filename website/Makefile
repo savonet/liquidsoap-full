@@ -79,7 +79,7 @@ $(PWD)/content/doc-dev/reference-extras.md: $(LIQUIDSOAP) $(PWD)/reference-heade
 $(PWD)/content/doc-dev/settings.md: $(LIQUIDSOAP)
 	@echo "Generating dev language settings..."
 	@echo "Did you enable all features ?"
-	@PAGER=none $(LIQUIDSOAP) --no-stdlib $(LIQ_DIR)/libs/stdlib.liq --conf-descr-md | grep -v "# Liquidsoap configuration" > $@
+	@PAGER=none $(LIQUIDSOAP) --no-stdlib $(LIQ_DIR)/libs/stdlib.liq --list-settings | grep -v "# Liquidsoap configuration" > $@
 
 $(PWD)/content/doc-dev/protocols.md: $(LIQUIDSOAP)
 	@echo "Generating dev protocols reference..."
