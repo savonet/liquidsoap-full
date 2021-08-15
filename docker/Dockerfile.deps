@@ -7,7 +7,7 @@ MAINTAINER The Savonet Team <savonet-users@lists.sourceforge.net>
 
 ARG OS
 ARG DISTRIBUTION
-ARG OCAML_VERSION=4.10.0
+ARG OCAML_VERSION=4.12.0
 ARG ARCHITECTURE
 ARG EXCLUDED_PACKAGES
 
@@ -25,13 +25,9 @@ RUN \
     apt-get install -y --no-install-recommends aspcud autoconf automake \
             build-essential ca-certificates curl debhelper devscripts sudo \
             ffmpeg gstreamer1.0-plugins-ugly gstreamer1.0-plugins-good gstreamer1.0-plugins-base gstreamer1.0-plugins-bad \
-            pandoc fakeroot git openssh-client unzip gnupg dirmngr apt-transport-https && \
+            pandoc fakeroot git openssh-client unzip gnupg dirmngr apt-transport-https opam && \
     apt-get -y autoclean && \
     apt-get -y clean
-
-RUN \
-    curl -sL https://raw.githubusercontent.com/ocaml/opam/master/shell/install.sh -o /tmp/install.sh && \
-    echo /usr/local/bin | sh /tmp/install.sh
 
 RUN adduser opam
 
