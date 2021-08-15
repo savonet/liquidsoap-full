@@ -14,12 +14,8 @@ EXPORTED_IMAGE=savonet/liquidsoap-deps:${TAG}
 export OS=`echo ${BASE_IMAGE} | cut -d':' -f 1`
 export DISTRIBUTION=`echo ${BASE_IMAGE} | cut -d':' -f 2`
 
-if [ "$BASE_IMAGE" != "debian:testing" -a "$BASE_IMAGE" != "ubuntu:focal" ]; then
+if [ "$BASE_IMAGE" = "ubuntu:groovy" ]; then
   export EXCLUDED_PACKAGES=srt
-fi
-
-if [ "$BASE_IMAGE" = "ubuntu:eoan" ]; then
-  export EXCLUDED_PACKAGES=$EXCLUDED_PACKAGES,frei0r
 fi
 
 docker build -t ${BUILD_IMAGE} --build-arg EXCLUDED_PACKAGES --build-arg BASE_IMAGE --build-arg OS --build-arg ARCHITECTURE --build-arg DISTRIBUTION -f Dockerfile.deps .
