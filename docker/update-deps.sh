@@ -8,7 +8,7 @@ fi
 
 if [ "${BASE_IMAGE}" = "arm32v7/debian:bullseye" ]; then
   ARCHITECTURE=armhf
-  DOCKER_PLATFORM=--platform linux/arm/v7
+  DOCKER_PLATFORM="--platform linux/arm/v7"
 else
   ARCHITECTURE=`dpkg --print-architecture`
   DOCKER_PLATFORM=
