@@ -1,7 +1,12 @@
 #!/bin/sh -e
 
 export BASE_IMAGE=$1
-export ARCHITECTURE=`dpkg --print-architecture`
+
+if [ "${BASE_IMAGE}" = "arm32v7/debian:bullseye" ]; then
+  ARCHITECTURE=armhf
+else
+  ARCHITECTURE=`dpkg --print-architecture`
+fi
 
 if test -z "${BASE_IMAGE}"; then
   BASE_IMAGE=debian:testing
