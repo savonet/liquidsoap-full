@@ -1,10 +1,17 @@
 #!/bin/sh -e
 
 BASE_IMAGE=$1
-ARCHITECTURE=`dpkg --print-architecture`
 
 if test -z "${BASE_IMAGE}"; then
   BASE_IMAGE=debian:testing
+fi
+
+if [ "${BASE_IMAGE}" = "arm32v7/debian:bullseye" ]; then
+  ARCHITECTURE=armhf
+  DOCKER_PLATFORM=--platform linux/arm/v7
+else
+  ARCHITECTURE=`dpkg --print-architecture`
+  DOCKER_PLATFORM=
 fi
 
 TAG=`echo ${BASE_IMAGE} | sed -e 's#/#_#g' | sed -e 's#:#_#g'`_$ARCHITECTURE
