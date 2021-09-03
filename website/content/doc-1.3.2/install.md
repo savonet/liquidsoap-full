@@ -29,8 +29,8 @@ dependencies.
 A typical installation with MP3 and Vorbis encoding/decoding and icecast support is done by executing:
 
 ```
-opam depext taglib mad lame vorbis cry samplerate liquidsoap
-opam install taglib mad lame vorbis cry samplerate liquidsoap
+opam depext taglib mad lame vorbis cry samplerate liquidsoap.1.3.2
+opam install taglib mad lame vorbis cry samplerate liquidsoap.1.3.2
 ```
 
 * `opam depext ...` takes care of installing the required external dependencies. In some cases external dependencies might be missing for your system. If that is the case, please report it to us!
