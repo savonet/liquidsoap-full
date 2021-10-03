@@ -134,9 +134,3 @@
 [submodule "ocaml-lilv"]
 	path = ocaml-lilv
 	url = git://github.com/savonet/ocaml-lilv.git
-[submodule "website"]
-	path = website
-	url = git://github.com/savonet/liquidsoap.info.git
-[submodule "docker"]
-	path = docker
-	url = git://github.com/savonet/dockerfiles.git

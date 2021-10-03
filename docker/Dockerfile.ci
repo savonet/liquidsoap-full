@@ -1,0 +1,23 @@
+ARG TAG
+FROM savonet/liquidsoap-deps:$TAG
+
+ENTRYPOINT bash
+
+MAINTAINER The Savonet Team <savonet-users@lists.sourceforge.net>
+
+USER opam
+
+WORKDIR /tmp/liquidsoap-full
+
+RUN make update
+
+RUN rm -f PACKAGES
+
+RUN cat /tmp/packages | while read i; do echo "ocaml-$i"; done >> PACKAGES
+
+RUN echo liquidsoap >> PACKAGES
+
+RUN ./bootstrap
+
+RUN eval $(opam config env) && export PKG_CONFIG_PATH=/usr/share/pkgconfig/pkgconfig && ./configure && make clean && make
+

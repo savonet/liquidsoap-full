@@ -1,0 +1,71 @@
+ARG BASE_IMAGE
+FROM $BASE_IMAGE
+
+ENTRYPOINT bash
+
+MAINTAINER The Savonet Team <savonet-users@lists.sourceforge.net>
+
+ARG OS
+ARG DISTRIBUTION
+ARG OCAML_VERSION=4.12.0
+ARG ARCHITECTURE
+ARG EXCLUDED_PACKAGES
+
+# Add back graphics when/if ported to $OCAML_VERSION, bring back posix-time2 after next release.
+ENV EXT_PACKAGES="ocurl magic camlimages gd inotify prometheus-app sdl-liquidsoap ssl yojson tsdl-image tsdl-ttf tsdl"
+ENV DEBIAN_FRONTEND=noninteractive
+
+USER root
+
+# For libfdk-aac-dev
+RUN sed -e 's#main#main contrib non-free#' -i /etc/apt/sources.list
+
+RUN \
+    apt-get update && \
+    apt-get install -y --no-install-recommends aspcud autoconf automake \
+            build-essential ca-certificates curl debhelper devscripts sudo \
+            ffmpeg gstreamer1.0-plugins-ugly gstreamer1.0-plugins-good gstreamer1.0-plugins-base gstreamer1.0-plugins-bad \
+            pandoc fakeroot git openssh-client unzip gnupg dirmngr apt-transport-https opam && \
+    apt-get -y autoclean && \
+    apt-get -y clean
+
+RUN adduser opam
+
+USER opam
+
+RUN \
+    opam init -y --disable-sandboxing --compiler=$OCAML_VERSION && \
+    opam update -y && \
+    opam install -y depext && \
+    opam clean
+
+WORKDIR /tmp
+
+RUN git clone https://github.com/savonet/liquidsoap-full.git
+
+WORKDIR /tmp/liquidsoap-full
+
+RUN make init && make update
+
+RUN cat PACKAGES.default | grep '^ocaml' | cut -d'-' -f 2 | while read i; do ( echo $EXCLUDED_PACKAGES | grep -q $i ) || echo "$i"; done > /tmp/packages
+
+RUN \
+    cat /tmp/packages | while read package; do \
+        cd ocaml-$package && opam pin add -y --no-action . && cd .. \
+      fi; \
+    done && cd liquidsoap && opam pin add --no-action .
+
+RUN opam depext -y -l liquidsoap $EXT_PACKAGES `cat /tmp/packages | xargs echo` > /tmp/deps
+
+USER root
+
+RUN \
+    cat /tmp/deps | xargs apt-get install -y --no-install-recommends && \
+    apt-get -y autoclean && apt-get -y clean
+
+USER opam
+
+RUN \
+    eval $(opam config env) && \
+    PACKAGES=`cat /tmp/packages | xargs echo` && \
+    opam install -y dune.2.8.4 liquidsoap $PACKAGES $EXT_PACKAGES && opam uninstall -y liquidsoap $PACKAGES ffmpeg-avutil

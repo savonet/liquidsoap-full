@@ -1,0 +1,29 @@
+ARG IMAGE
+FROM $IMAGE
+
+ENV OPAM_DEPS=ao-windows,camomile-windows,cry-windows,dtools-windows,duppy-windows,ffmpeg-windows,menhir,menhir-windows,mm-windows,ocurl-windows,pcre-windows,portaudio-windows,samplerate-windows,sedlex-windows,ssl-windows,srt-windows,taglib-windows,winsvc-windows,yojson-windows
+
+RUN git config --global user.email "toots@rastageeks.org" && git config --global user.name "Romain Beauxis"
+
+RUN eval `opam config env` && opam repository remove windows --all && \
+  cd /home/opam/ && rm -rf opam-cross-windows && \
+  git clone https://github.com/ocaml-cross/opam-cross-windows.git && \
+  cd /home/opam/opam-cross-windows/ && \
+  opam repository add windows . && \
+  opam list --short --recursive --external --vars os-distribution=mxe,os-family=mingw --required-by=$OPAM_DEPS > /home/opam/mxe-deps
+
+USER root
+
+# This is until https://github.com/mxe/mxe/pull/2583 is merged
+RUN cd /usr/src/mxe/ && git config --global user.email "toots@rastageeks.org" && git config --global user.name "Romain Beauxis" && git remote add savonet https://github.com/savonet/mxe.git && git fetch savonet && git cherry-pick dd9b0136af920aae0d1f6de1eec11ff589a6e58b
+
+RUN cd /usr/src/mxe/ && \
+    cat /home/opam/mxe-deps | xargs make curl
+
+USER opam
+
+ENV CC ""
+
+ENV PKG_CONFIG_PATH /usr/src/mxe/usr/x86_64-w64-mingw32.static/lib/pkgconfig
+
+RUN export OPAMSOLVERTIMEOUT=320 && eval `opam config env` && opam update && opam reinstall -y --verbose pandoc `echo $OPAM_DEPS | sed -e 's#,# #g'`

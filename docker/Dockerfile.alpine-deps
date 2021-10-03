@@ -1,0 +1,58 @@
+FROM alpine:edge
+
+ENTRYPOINT bash
+
+MAINTAINER The Savonet Team <savonet-users@lists.sourceforge.net>
+
+ARG OCAML_VERSION=4.10.0
+ARG EXCLUDED_PACKAGES
+
+# Add back graphics when/if ported to $OCAML_VERSION, bring back posix-time2 after next release.
+ENV EXT_PACKAGES="ocurl magic camlimages gd inotify prometheus-app ssl tsdl tsdl-image tsdl-ttf"
+
+USER root
+
+RUN apk update && \
+    apk add --no-cache -X http://dl-cdn.alpinelinux.org/alpine/edge/testing \
+          aspcud autoconf automake bash build-base curl sudo opam ffmpeg git \
+          openssh-client unzip gnupg libsrt-dev shine liblo-dev sdl2-dev sdl2_ttf-dev \
+          sdl2_image-dev musl-dbg
+
+RUN adduser -D opam
+
+USER opam
+
+RUN \
+    opam init -y --disable-sandboxing --compiler=$OCAML_VERSION && \
+    opam update -y && \
+    opam install -y depext && \
+    opam clean
+
+WORKDIR /tmp
+
+RUN git clone https://github.com/savonet/liquidsoap-full.git
+
+WORKDIR /tmp/liquidsoap-full
+
+RUN make init && make update
+
+RUN cat PACKAGES.default | grep '^ocaml' | cut -d'-' -f 2 | while read i; do ( echo $EXCLUDED_PACKAGES | grep -q $i ) || echo "$i"; done > /tmp/packages
+
+RUN \
+    cat /tmp/packages | while read package; do \
+        cd ocaml-$package && opam pin add -y --no-action . && cd .. \
+      fi; \
+    done && cd liquidsoap && opam pin add --no-action .
+
+RUN opam depext -y -l liquidsoap $EXT_PACKAGES `cat /tmp/packages | xargs echo` > /tmp/deps
+
+USER root
+
+RUN cat /tmp/deps | grep -v libressl | xargs apk add --no-cache -X http://dl-cdn.alpinelinux.org/alpine/edge/testing
+
+USER opam
+
+RUN \
+    eval $(opam config env) && \
+    PACKAGES=`cat /tmp/packages | xargs echo` && \
+    opam install -y dune.2.8.4 liquidsoap $PACKAGES $EXT_PACKAGES && opam uninstall -y liquidsoap $PACKAGES ffmpeg-avutil
