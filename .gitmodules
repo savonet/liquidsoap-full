@@ -136,7 +136,7 @@
 	url = git://github.com/savonet/ocaml-lilv.git
 [submodule "website"]
 	path = website
-	url = git@github.com:savonet/liquidsoap.info.git
+	url = git://github.com/savonet/liquidsoap.info.git
 [submodule "docker"]
 	path = docker
-	url = git@github.com:savonet/dockerfiles.git
+	url = git://github.com/savonet/dockerfiles.git
