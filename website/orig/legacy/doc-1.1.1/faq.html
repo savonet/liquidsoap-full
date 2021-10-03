@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+  <title>Savonet / Liquidsoap 1.1.1 :: Multimedia Stream Generation</title>
+  <link href="../css/new.css" type="text/css" rel="stylesheet" />
+  <link href="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.17/themes/base/jquery-ui.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="//www.google.com/jsapi"></script>
+  <link rel="shortcut icon" href="../favicon.ico" />
+  <script>
+    google.load("jquery", "1.6.1");
+    google.load("jqueryui", "1.8.14");
+  </script>
+  <script type="text/javascript" src="../js/jQuery.syntax/jquery.syntax.min.js"></script>
+  <script type="text/javascript" src="../js/liq-jquery.js"></script>
+</head>
+<body>
+  <div class="menu">
+    <ul>
+      <li id="menu-developers">
+        <a href="https://github.com/savonet/liquidsoap/issues" target="_blank">developers</a></li>
+      <li id="menu-flows"><a href="https://flows.liquidsoap.info/">Flows!</a></li>
+      <li id="menu-doc-api-www">
+        <a href="reference.html">API</a></li>
+      <li id="menu-support">
+        <a href="documentation.html">documentation</a></li>
+      <li id="menu-download">
+        <a href="../download.html">download</a></li>
+      <li id="menu-about">
+        <a href="../index.html">about</a></li>
+    </ul>
+  </div>
+  <div class="section" id="main">
+    <h1>Liquidsoap 1.1.1 : Frequently Asked Questions and Troubleshouting</h1>
+    <div class="content">
+      <h3>Frequently Asked Questions</h3>
+<h4>What does this message means?</h4>
+<h5>Type error</h5>
+<p>
+Liquidsoap might also reject a script with a series of errors of the form <code>this value has type ... but it should be a subtype of ...</code>. Usually the last error tells you what the problem is, but the previous errors might provide a better information as to where the error comes from.
+</p>
+<p>
+For example, the error might indicate that a value of type <code>int</code> has been passed where a float was expected, in which case you should use a conversion, or more likely change an integer value such as <code>13</code> into a float <code>13.</code>.
+</p>
+<p>
+A type error can also show that you're trying to use a source of a certain content type (e.g., audio) in a place where another content type (e.g., pure video) is required. In that case the last error in the list is not the most useful one, but you will read something like this above:
+</p>
+<pre class="syntax ">
+At ...:
+  this value has type
+    source(audio=?A+1,video=0,midi=0)
+    where ?A is a fixed arity type
+  but it should be a subtype of
+    source(audio=0,video=1,midi=0)
+</pre>
+<p>
+Sometimes, the type error actually indicates a mistake in the order or labels of arguments. For example, given <code>output.icecast(mount="foo.ogg",source)</code> liquidsoap will complain that the second argument is a source (<code>source(?A)</code>) but should be a format (<code>format(?A)</code>): indeed, the first unlabelled argument is expected to be the encoding format, e.g., <code>%vorbis</code>, and the source comes only second.
+</p>
+<p>
+Finally, a type error can indicate that you have forgotten to pass a mandatory parameter to some function. For example, on the code <code>fallback([crossfade(x),...])</code>, liquidsoap will complain as follows:
+</p>
+<pre class="syntax ">
+At line ...:
+  this value has type
+    (?id:string, ~start_next:float, ~fade_in:float,
+     ~fade_out:float)-&gt;source(audio=?A,video=?B,midi=0)
+    where ?B, ?A is a fixed arity type
+  but it should be a subtype of
+    source(audio=?A,video=?B,midi=0)
+    where ?B, ?A is a fixed arity type
+</pre>
+<p>
+Indeed, <code>fallback</code> expects a source, but <code>crossfade(x)</code> is still a function expecting the parameters <code>start_next</code>, <code>fade_in</code> and <code>fade_out</code>.
+</p>
+<h5>That source is fallible!</h5>
+<p>
+See the <a href="quick_start.html">quickstart</a>, or read more about 
+<a href="sources.html">sources</a>.
+</p>
+<h5>Clock error</h5>
+<p>
+Read about <a href="clocks.html">clocks</a> for the errors
+<code>a source cannot belong to two clocks</code>
+and
+<code>cannot unify two nested clocks</code>.
+</p>
+<h5>We must catchup x.xx!</h5>
+<p>
+This error means that a clock is getting late in liquidsoap. This can
+be caused by an overloaded CPU, if your script is doing too much encoding
+or processing: in that case, you should reduce the load on your machine
+or simplify your liquidsoap script. The latency may also be caused by
+some lag, for example a network lag will cause the icecast output to
+hang, making the clock late.
+</p>
+<p>
+The first kind of latency is problematic because it tends to accumulate,
+eventually leading to the restarting of outputs: <code>Too much latency!
+Resetting active source...</code>
+</p>
+<p>
+The second kind of latency can often be ignored: if you are streaming to
+an icecast server, there are several buffers between you and your
+listeners which make this problem invisible to them. But in more realtime
+applications, even small lags will result in glitches.
+</p>
+<p>
+In some situations, it is possible to isolate some parts of a script
+from the latency caused by other parts. For example, it is possible to
+produce a clean script and back it up into a file, independently of
+its output to icecast (which again is sensitive to network lags).
+For more details on those techniques, read about <a href="clocks.html">clocks</a>.
+</p>
+<h5>Unable to decode “file” as {audio=2;video=0;midi=0}!</h5>
+<p>
+This log message informs you that liquidsoap failed to decode a file, not 
+necessarily because it cannot handle the file, but also possibly because
+the file does not contain the expected media type. For example, if video
+is expected, an audio file will be rejected.
+</p>
+<p>
+The case of mono files is often surprising. Since liquidsoap does not
+implicitly convert between media formats, input files must be stereo
+if the output expects stereo data. As a result, people often get this
+error message on files which they expected to play correctly. The
+simple way to fix this is to use the <code>audio_to_stereo()</code> operator
+to allow any kind of audio on its input, and produce stereo as expected
+on its output.
+</p>
+<h5>Exceptions</h5>
+<p>
+Liquidsoap dies with messages such as these by the end of the log:
+</p>
+<pre class="syntax ">
+... [threads:1] Thread "XXX" aborts with exception YYY!
+... [stderr:3] Thread 2 killed on uncaught exception YYY.
+... [stderr:3] Raised at file ..., line ..., etc.
+</pre>
+<p>
+Those internal errors can be of two sorts:
+</p>
+<ul>
+<li>
+<b>Bug</b>: Normally, this means that you've found a bug, which you should report on the mailing list or bug tracker.</li>
+<li>
+<b>User error</b>: In some cases, we let an exception go on user errors, instead of nicely reporting and handling it. By looking at the surrounding log messages, you might realize that liquidsoap crashed for a good reason, that you are responsible for fixing. You can still report a bug: you should not have seen an exception and its backtrace.</li>
+</ul>
+<p>
+In any case, once that kind of error happens, there is no way for the
+user to prevent liquidsoap from crashing. Those exceptions cannot be
+caught or handled in any way at the level of liquidsoap scripts.
+</p>
+<h4>Troubleshooting</h4>
+<h5>Pulseaudio</h5>
+<p>
+When using ALSA input or output or, more generaly any audio input or output 
+that is not using pulseaudio, you should disable pulseaudio, which is often installed
+by default. Pulseaudio emulates ALSA but this also generates bugs, 
+in particular errors of this form:
+</p>
+<pre class="syntax ">Alsa.Unknown_error(1073697252)!
+</pre>
+<p>
+There are two things you may do:
+</p>
+<ul>
+<li>
+Make sure your alsa input/output does not use pulseaudio</li>
+<li>
+Disable pulseaudio on your system</li>
+</ul>
+<p>
+In the first case, you should first find out which sound card you want to use,
+with the command <code>aplay -l</code>. An example of its output is:
+</p>
+<pre class="syntax ">**** List of PLAYBACK Hardware Devices ****
+card 0: Intel [HDA Intel], device 0: STAC92xx Analog [STAC92xx Analog]
+  Subdevices: 1/1
+  Subdevice #0: subdevice #0
+</pre>
+<p>
+In this case, the card we want to use is: device <code>0</code>, subdevice <code>0</code>, thus:
+<code>hw:0,0</code>. We now create a file <code>/etc/asound.conf</code> (or <code>~/.asoundrc</code> for single-user
+configuration) that contains the following:
+</p>
+<pre class="syntax ">pcm.liquidsoap {
+        type plug
+        slave { pcm "hw:0,0" }
+}
+</pre>
+<p>
+This creates a new alsa device that you can use with liquidsoap. The <code>plug</code> operator
+in ALSA is used to work-around any hardward limitations in your device (mixing multiple
+outputs, resampling etc.). In some cases you may need to read more about ALSA and define
+your own PCM device.
+</p>
+<p>
+Once you have created this device, you can use it in liquidsoap as follows:
+</p>
+<pre class="syntax ">input.alsa(device="pcm.liquidsoap", ...)
+</pre>
+<p>
+In the second case &ndash; disabling pulseaudio, you can edit the file <code>/etc/pulse/client.conf</code> and
+change or add this line:
+</p>
+<pre class="syntax ">autospawn = no
+</pre>
+<p>
+And kill any running pulseaudio process:
+</p>
+<pre class="syntax ">killall pulseaudio
+</pre>
+<p>
+Otherwise you may simply remove pulseaudio's packages, if you use Debian or Ubuntu:
+</p>
+<pre class="syntax ">apt-get remove pulseaudio libasound2-plugins
+</pre>
+<h5>Listeners are disconnected at the end of every track</h5>
+<p>
+Several media players, including renowned ones, do not properly support
+Ogg/Vorbis streams: they treat the end of a track as an end of file,
+resulting in the disconnection.
+</p>
+<p>
+Players that are affected by this problem include VLC.
+Players that are not affected include ogg123, liquidsoap.
+</p>
+<p>
+One way to work around this problem is to not use Ogg/Vorbis (which we
+do not recommend) or to not produce tracks within a Vorbis stream.
+This is done by merging liquidsoap tracks (for example using
+<code>add(normalize=false,[blank(),source])</code>)
+and also not passing any metadata
+(which is also a result of the previous snippet).
+</p>
+<h5>Encoding blank</h5>
+<p>
+Encoding pure silence is often too effective for streaming: data is so
+compressed that there is nothing to send to listeners, whose clients
+eventually disconnect. Therefore, it is a good idea to use a non-silent
+jingle instead of <code>blank()</code> to fill in the blank. You can
+also achieve various effects using synthesis sources such as
+<code>noise()</code>, <code>sine()</code>, etc.
+</p>
+<h5>Temporary files</h5>
+<p>
+Liquidsoap relies on OCaml's <code>Filename.tmp_dir_name</code> variable to store temporary 
+files. It is documented as follows:
+</p>
+<p>
+The name of the temporary directory: Under Unix, the value of the <code>TMPDIR</code> environment 
+variable, or <code>"/tmp"</code> if the variable is not set. Under Windows, the value of the <code>TEMP</code> 
+environment variable, or <code>"."</code> if the variable is not set.
+</p>
+      <div id="footer"> 2003-2017 Savonet team</div>
+    </div>
+  </div>
+  <script type="text/javascript" src="//www.google.com/cse/brand?form=cse-search-box&amp;lang=en"></script>
+  <script type="text/javascript" src="../js/search.js"></script>
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-927362-1']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+</body>
+</html>

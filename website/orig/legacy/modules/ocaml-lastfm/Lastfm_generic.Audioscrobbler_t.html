@@ -1,0 +1,407 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link rel="previous" href="Lastfm_generic.Http_t.html">
+<link rel="next" href="Lastfm_generic.Radio_t.html">
+<link rel="Up" href="Lastfm_generic.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Lastfm" rel="Chapter" href="Lastfm.html">
+<link title="Lastfm_generic" rel="Chapter" href="Lastfm_generic.html"><link title="Types" rel="Section" href="#2_Types">
+<link title="Common API" rel="Section" href="#2_CommonAPI">
+<link title="Basic API" rel="Section" href="#2_BasicAPI">
+<link title="Advanced API" rel="Section" href="#2_AdvancedAPI">
+<title>Lastfm_generic.Audioscrobbler_t</title>
+</head>
+<body>
+<div class="navbar"><a class="pre" href="Lastfm_generic.Http_t.html" title="Lastfm_generic.Http_t">Previous</a>
+&nbsp;<a class="up" href="Lastfm_generic.html" title="Lastfm_generic">Up</a>
+&nbsp;<a class="post" href="Lastfm_generic.Radio_t.html" title="Lastfm_generic.Radio_t">Next</a>
+</div>
+<h1>Module type <a href="type_Lastfm_generic.Audioscrobbler_t.html">Lastfm_generic.Audioscrobbler_t</a></h1>
+
+<pre><span id="MODULETYPEAudioscrobbler_t"><span class="keyword">module type</span> Audioscrobbler_t</span> = <code class="code">sig</code> <a href="Lastfm_generic.Audioscrobbler_t.html">..</a> <code class="code">end</code></pre><div class="info modtype top">
+<div class="info-desc">
+<p>This is the type of the Audioscrobbler API.</p>
+</div>
+</div>
+<hr width="100%">
+<p>Audioscrobbler is the submission protocol as described at</p>
+
+<p><a href="http://www.audioscrobbler.net/development/protocol/">http://www.audioscrobbler.net/development/protocol/</a></p>
+<h3 id="2_Types">Types</h3>
+<pre><code><span id="TYPEsource"><span class="keyword">type</span> <code class="type"></code>source</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTsource.User"><span class="constructor">User</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTsource.Broadcast"><span class="constructor">Broadcast</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTsource.Recommendation"><span class="constructor">Recommendation</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTsource.Lastfm"><span class="constructor">Lastfm</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTsource.Unknown"><span class="constructor">Unknown</span></span></code></td>
+
+</tr></table>
+
+<div class="info ">
+<div class="info-desc">
+<p>source of the track</p>
+</div>
+</div>
+
+
+<pre><code><span id="TYPErating"><span class="keyword">type</span> <code class="type"></code>rating</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTrating.Love"><span class="constructor">Love</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTrating.Ban"><span class="constructor">Ban</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTrating.Skip"><span class="constructor">Skip</span></span></code></td>
+
+</tr></table>
+
+<div class="info ">
+<div class="info-desc">
+<p>possible rating for the track</p>
+</div>
+</div>
+
+
+<pre><code><span id="TYPEaction"><span class="keyword">type</span> <code class="type"></code>action</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTaction.NowPlaying"><span class="constructor">NowPlaying</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTaction.Submit"><span class="constructor">Submit</span></span></code></td>
+
+</tr></table>
+
+<div class="info ">
+<div class="info-desc">
+<p>type of action</p>
+</div>
+</div>
+
+
+<pre><code><span id="TYPEsong"><span class="keyword">type</span> <code class="type"></code>song</span> = {</code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTsong.artist">artist</span>&nbsp;: <code class="type">string</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTsong.track">track</span>&nbsp;: <code class="type">string</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTsong.time">time</span>&nbsp;: <code class="type">float option</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTsong.source">source</span>&nbsp;: <code class="type"><a href="Lastfm_generic.Audioscrobbler_t.html#TYPEsource">source</a> option</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTsong.rating">rating</span>&nbsp;: <code class="type"><a href="Lastfm_generic.Audioscrobbler_t.html#TYPErating">rating</a> option</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTsong.length">length</span>&nbsp;: <code class="type">float option</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTsong.album">album</span>&nbsp;: <code class="type">string option</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTsong.trackauth">trackauth</span>&nbsp;: <code class="type">string option</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTsong.tracknumber">tracknumber</span>&nbsp;: <code class="type">int option</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTsong.musicbrainzid">musicbrainzid</span>&nbsp;: <code class="type">string option</code>;</code></td>
+
+</tr></table>
+}
+
+<div class="info ">
+<div class="info-desc">
+<p>song submission type</p>
+</div>
+</div>
+
+
+<pre><code><span id="TYPEerror"><span class="keyword">type</span> <code class="type"></code>error</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTerror.Http"><span class="constructor">Http</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTerror.Banned"><span class="constructor">Banned</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTerror.Badauth"><span class="constructor">Badauth</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTerror.Badtime"><span class="constructor">Badtime</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTerror.Failed"><span class="constructor">Failed</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTerror.UnknownError"><span class="constructor">UnknownError</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTerror.Success"><span class="constructor">Success</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTerror.Internal"><span class="constructor">Internal</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTerror.BadData"><span class="constructor">BadData</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
+
+</tr></table>
+
+<div class="info ">
+<div class="info-desc">
+<p>various errors</p>
+</div>
+</div>
+
+
+<pre><span id="EXCEPTIONError"><span class="keyword">exception</span> Error</span> <span class="keyword">of</span> <code class="type"><a href="Lastfm_generic.Audioscrobbler_t.html#TYPEerror">error</a></code></pre>
+
+<pre><span id="VALstring_of_error"><span class="keyword">val</span> string_of_error</span> : <code class="type"><a href="Lastfm_generic.Audioscrobbler_t.html#TYPEerror">error</a> -> string</code></pre><div class="info ">
+<div class="info-desc">
+<p>Get meaning of Error e</p>
+</div>
+</div>
+
+<pre><span id="VALbase_port"><span class="keyword">val</span> base_port</span> : <code class="type">int Stdlib.ref</code></pre><div class="info ">
+<div class="info-desc">
+<p>Base port. Default: 80</p>
+</div>
+</div>
+
+<pre><span id="VALbase_host"><span class="keyword">val</span> base_host</span> : <code class="type">string Stdlib.ref</code></pre><div class="info ">
+<div class="info-desc">
+<p>Base host. Default: "post.audioscrobbler.com"</p>
+</div>
+</div>
+<h3 id="2_CommonAPI">Common API</h3>
+<p>Functions common to both basic and advanced APIs</p>
+
+<pre><span id="VALget_song"><span class="keyword">val</span> get_song</span> : <code class="type">?time:float -><br>       ?source:<a href="Lastfm_generic.Audioscrobbler_t.html#TYPEsource">source</a> -><br>       ?rating:<a href="Lastfm_generic.Audioscrobbler_t.html#TYPErating">rating</a> -><br>       ?length:float -><br>       ?album:string -><br>       ?tracknumber:int -><br>       ?musicbrainzid:string -><br>       ?trackauth:string -><br>       artist:string -> track:string -> unit -> <a href="Lastfm_generic.Audioscrobbler_t.html#TYPEsong">song</a></code></pre><div class="info ">
+<div class="info-desc">
+<p><code class="code">get_song</code> 
+        create a song record based on given values.</p>
+
+<p>Optional records can be ommited there.</p>
+</div>
+</div>
+
+<pre><span id="VALcheck_song"><span class="keyword">val</span> check_song</span> : <code class="type"><a href="Lastfm_generic.Audioscrobbler_t.html#TYPEsong">song</a> -><br>       <a href="Lastfm_generic.Audioscrobbler_t.html#TYPEaction">action</a> -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p>Check wether required song informations
+        are supplied for given action.</p>
+
+<p>Raises <code class="code">Error (BadData reason)</code> if invalid data is given.</p>
+
+<p>See protocol details there:</p>
+
+<p><a href="http://www.audioscrobbler.net/development/protocol/">http://www.audioscrobbler.net/development/protocol/</a></p>
+</div>
+</div>
+<h3 id="2_BasicAPI">Basic API</h3>
+<p>Using this API, all requests are done in one single step</p>
+
+<pre><span id="VALdo_np"><span class="keyword">val</span> do_np</span> : <code class="type">?timeout:float -><br>       ?host:string * int -><br>       <a href="Lastfm_generic.html#TYPEclient">Lastfm_generic.client</a> -><br>       <a href="Lastfm_generic.html#TYPElogin">Lastfm_generic.login</a> -> <a href="Lastfm_generic.Audioscrobbler_t.html#TYPEsong">song</a> -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p><code class="code">do_np client login song</code>
+     execute a nowplaying request 
+     with authentification</p>
+
+<p>Optional host parameter is a pair
+     "host",port to override the global
+     values.</p>
+</div>
+</div>
+
+<pre><span id="VALdo_submit"><span class="keyword">val</span> do_submit</span> : <code class="type">?timeout:float -><br>       ?host:string * int -><br>       <a href="Lastfm_generic.html#TYPEclient">Lastfm_generic.client</a> -><br>       <a href="Lastfm_generic.html#TYPElogin">Lastfm_generic.login</a> -><br>       <a href="Lastfm_generic.Audioscrobbler_t.html#TYPEsong">song</a> list -><br>       (<a href="Lastfm_generic.Audioscrobbler_t.html#TYPEerror">error</a> * <a href="Lastfm_generic.Audioscrobbler_t.html#TYPEsong">song</a>)<br>       list</code></pre><div class="info ">
+<div class="info-desc">
+<p><code class="code">do_submit client login songs</code>
+      execute a nowplaying request 
+      with authentification.</p>
+
+<p>This functions returns a list
+     songs for which supplied informations
+     were incomplete, with corresponding exception 
+     (see <code class="code">check_song</code> source)</p>
+</div>
+</div>
+<h3 id="2_AdvancedAPI">Advanced API</h3>
+<p>This API is for advanced usages.</p>
+
+<p>You may use it this way:</p>
+<OL>
+<li>handshake : initiate session </li>
+<li>np/submit: execute request </li>
+</OL>
+
+<p>The module will cache session informations and avoid redundant
+    requests, so you might always call handshake.</p>
+
+<p>However, if a np or submit fails, it can be because
+    the session has expired on server side, but the module cache
+    still refered to it. So you might clear this session id, and
+    try another handshake+submit/np.</p>
+
+<p>Check do_no and do_submit for examples.</p>
+
+<pre><span id="VALhandshake"><span class="keyword">val</span> handshake</span> : <code class="type">?timeout:float -><br>       ?host:string * int -> <a href="Lastfm_generic.html#TYPEclient">Lastfm_generic.client</a> -> <a href="Lastfm_generic.html#TYPElogin">Lastfm_generic.login</a> -> string</code></pre><div class="info ">
+<div class="info-desc">
+<p><code class="code">handshake client login</code> 
+     open session, returns session ID</p>
+
+<p>Optional host parameter is a pair 
+     "host",port to override the global
+     values.</p>
+</div>
+</div>
+
+<pre><span id="VALnp"><span class="keyword">val</span> np</span> : <code class="type">?timeout:float -> string -> <a href="Lastfm_generic.Audioscrobbler_t.html#TYPEsong">song</a> -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p><code class="code">np sessionID track</code>
+     execute a nowplaying request</p>
+</div>
+</div>
+
+<pre><span id="VALsubmit"><span class="keyword">val</span> submit</span> : <code class="type">?timeout:float -><br>       string -><br>       <a href="Lastfm_generic.Audioscrobbler_t.html#TYPEsong">song</a> list -><br>       (<a href="Lastfm_generic.Audioscrobbler_t.html#TYPEerror">error</a> * <a href="Lastfm_generic.Audioscrobbler_t.html#TYPEsong">song</a>)<br>       list</code></pre><div class="info ">
+<div class="info-desc">
+<p><code class="code">submit sessionID tracks</code>
+     execute a submit request</p>
+
+<p>This functions returns a list
+     songs for which supplied informations
+     were incomplete, with corresponding exception 
+    (see check_song)</p>
+</div>
+</div>
+</body></html>

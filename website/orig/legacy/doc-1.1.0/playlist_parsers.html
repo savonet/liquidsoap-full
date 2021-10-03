@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+  <title>Savonet / Liquidsoap 1.1.0 :: Multimedia Stream Generation</title>
+  <link href="../css/new.css" type="text/css" rel="stylesheet" />
+  <link href="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.17/themes/base/jquery-ui.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="//www.google.com/jsapi"></script>
+  <link rel="shortcut icon" href="../favicon.ico" />
+  <script>
+    google.load("jquery", "1.6.1");
+    google.load("jqueryui", "1.8.14");
+  </script>
+  <script type="text/javascript" src="../js/jQuery.syntax/jquery.syntax.min.js"></script>
+  <script type="text/javascript" src="../js/liq-jquery.js"></script>
+</head>
+<body>
+  <div class="menu">
+    <ul>
+      <li id="menu-developers">
+        <a href="https://github.com/savonet/liquidsoap/issues" target="_blank">developers</a></li>
+      <li id="menu-flows"><a href="https://flows.liquidsoap.info/">Flows!</a></li>
+      <li id="menu-doc-api-www">
+        <a href="reference.html">API</a></li>
+      <li id="menu-support">
+        <a href="documentation.html">documentation</a></li>
+      <li id="menu-download">
+        <a href="../download.html">download</a></li>
+      <li id="menu-about">
+        <a href="../index.html">about</a></li>
+    </ul>
+  </div>
+  <div class="section" id="main">
+    <h1>Liquidsoap 1.1.0 : Playlist parsers</h1>
+    <div class="content">
+      <p>
+Liquidsoap supports various playlists formats. Those formats can be used
+for <code>playlist</code> sources, <code>input.http</code> streams and manually using <code>request.create</code>.
+</p>
+<h3>Supported formats</h3>
+<p>
+Most supported playlists format are <em>strict</em>, which means that the decoder can be sure
+that is has found a correct playlist for that format. Some other format, such as <code>m3u</code>,
+however, may cause <em>false positive</em> detections.
+</p>
+<p>
+All formats are identified by their <em>mime-type</em> or <em>content-type</em>. Supported formats are the following:
+</p>
+<ul>
+<li>
+Text formats:<ul>
+<li>
+<code>audio/x-scpls</code>: <a href="http://en.wikipedia.org/wiki/PLS_%28file_format%29" target="_blank">PLS format</a>, <b>strict</b></li>
+<li>
+<code>application/x-cue</code>: <a href="http://en.wikipedia.org/wiki/.cue" target="_blank">CUE format</a>, <b>strict</b>. This format's usage is described below.</li>
+<li>
+<code>audio/x-mpegurl</code>, <code>audio/mpegurl</code>: <a href="http://en.wikipedia.org/wiki/M3u" target="_blank">M3U</a>, <b>non strict</b></li>
+</ul>
+</li>
+<li>
+Xml formats:<ul>
+<li>
+<code>video/x-ms-asf</code>, <code>audio/x-ms-asx</code>: <a href="http://en.wikipedia.org/wiki/Advanced_Stream_Redirector" target="_blank">ASX</a>, <b>strict</b></li>
+<li>
+<code>application/smil</code>, <code>application/smil+xml</code>, <a href="http://en.wikipedia.org/wiki/Synchronized_Multimedia_Integration_Language" target="_blank">SMIL</a>, <b>strict</b></li>
+<li>
+<code>application/xspf+xml</code>, <a href="http://en.wikipedia.org/wiki/Xspf" target="_blank">XSPF</a>, <b>strict</b></li>
+<li>
+<code>application/rss+xml</code>, <a href="http://en.wikipedia.org/wiki/Podcast" target="_blank">Podcast</a>, <b>strict</b></li>
+</ul>
+</li>
+</ul>
+<h3>Usage</h3>
+<p>
+Playlist files are parsed automatically when used in a <code>playlist</code> or <code>input.http</code> operator. Each of 
+these two operators has specific options to specify how to pick up a track from the playlist, <em>e.g.</em>
+pick a random track, the first one etc.
+</p>
+<p>
+Additionally, you can also manually parse and process a playlist using <code>request.create</code> and <code>request.resolve</code>
+and some programming magic. You can check the code source for <code>playlist.reloadable</code> in our standard library 
+for a detailed example.
+</p>
+<h3>Special case: CUE format</h3>
+<p>
+The CUE format originates from CD burning programs. They describe the set of tracks of a whole CD and
+are accompanied by a single file containing audio data for the whole CD.
+</p>
+<p>
+This playlist format can be used in liquidsoap, using a <code>cue_cut</code> operator. By default, the CUE playlist
+parser will add metadata from cue-in and cue-out points for each track described in the playlist, which
+you can then pass to <code>cue_cut</code> to play each track of the playlist. Something like:
+</p>
+<pre class="syntax ">cue_cut(playlist("/path/to/file.cue"))
+</pre>
+<p>
+You can find an example of using <code>cue_cut</code> with cue sheets <a href="split-cue.html">here</a> and a throughout
+explanation of how seeking in liquidsoap works <a href="seek.html">there</a>.
+</p>
+<p>
+The metadata added for cue-in and cue-out positions can be customized using the following
+configuration keys:
+</p>
+<pre class="syntax ">set("playlists.cue_in_metadata","liq_cue_in")
+set("playlists.cue_out_metadata","liq_cue_out")
+</pre>
+      <div id="footer"> 2003-2017 Savonet team</div>
+    </div>
+  </div>
+  <script type="text/javascript" src="//www.google.com/cse/brand?form=cse-search-box&amp;lang=en"></script>
+  <script type="text/javascript" src="../js/search.js"></script>
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-927362-1']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+</body>
+</html>

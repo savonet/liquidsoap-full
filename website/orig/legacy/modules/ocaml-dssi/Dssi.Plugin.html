@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link rel="next" href="Dssi.Descriptor.html">
+<link rel="Up" href="Dssi.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Dssi" rel="Chapter" href="Dssi.html"><title>Dssi.Plugin</title>
+</head>
+<body>
+<div class="navbar">&nbsp;<a class="up" href="Dssi.html" title="Dssi">Up</a>
+&nbsp;<a class="post" href="Dssi.Descriptor.html" title="Dssi.Descriptor">Next</a>
+</div>
+<h1>Module <a href="type_Dssi.Plugin.html">Dssi.Plugin</a></h1>
+
+<pre><span id="MODULEPlugin"><span class="keyword">module</span> Plugin</span>: <code class="code">sig</code> <a href="Dssi.Plugin.html">..</a> <code class="code">end</code></pre><div class="info module top">
+<div class="info-desc">
+<p>Operations on plugins.</p>
+</div>
+</div>
+<hr width="100%">
+
+<pre><span id="TYPEt"><span class="keyword">type</span> <code class="type"></code>t</span> </pre>
+<div class="info ">
+<div class="info-desc">
+<p>A plugin.</p>
+</div>
+</div>
+
+
+<pre><span id="EXCEPTIONNot_a_plugin"><span class="keyword">exception</span> Not_a_plugin</span></pre>
+<div class="info ">
+<div class="info-desc">
+<p>Error while loading a plugin.</p>
+</div>
+</div>
+
+<pre><span id="VALload"><span class="keyword">val</span> load</span> : <code class="type">string -> <a href="Dssi.Plugin.html#TYPEt">t</a></code></pre><div class="info ">
+<div class="info-desc">
+<p>Load a plugin.</p>
+</div>
+</div>
+
+<pre><span id="VALunload"><span class="keyword">val</span> unload</span> : <code class="type"><a href="Dssi.Plugin.html#TYPEt">t</a> -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p>Unload a plugin.</p>
+</div>
+</div>
+</body></html>

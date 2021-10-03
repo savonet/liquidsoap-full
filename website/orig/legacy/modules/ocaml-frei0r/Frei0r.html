@@ -1,0 +1,253 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link rel="Up" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Frei0r" rel="Chapter" href="Frei0r.html"><title>Frei0r</title>
+</head>
+<body>
+<div class="navbar">&nbsp;<a class="up" href="index.html" title="Index">Up</a>
+&nbsp;</div>
+<h1>Module <a href="type_Frei0r.html">Frei0r</a></h1>
+
+<pre><span id="MODULEFrei0r"><span class="keyword">module</span> Frei0r</span>: <code class="code">sig</code> <a href="Frei0r.html">..</a> <code class="code">end</code></pre><hr width="100%">
+
+<pre><span id="EXCEPTIONNot_a_plugin"><span class="keyword">exception</span> Not_a_plugin</span></pre>
+
+<pre><span id="EXCEPTIONFailure"><span class="keyword">exception</span> Failure</span></pre>
+
+<pre><span id="VALversion"><span class="keyword">val</span> version</span> : <code class="type">unit -> int * int</code></pre>
+<pre><span id="TYPEplugin"><span class="keyword">type</span> <code class="type"></code>plugin</span> </pre>
+
+
+<pre><span id="VALdefault_paths"><span class="keyword">val</span> default_paths</span> : <code class="type">string list</code></pre>
+<pre><span id="VALload"><span class="keyword">val</span> load</span> : <code class="type">string -> <a href="Frei0r.html#TYPEplugin">plugin</a></code></pre>
+<pre><code><span id="TYPEplugin_type"><span class="keyword">type</span> <code class="type"></code>plugin_type</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTplugin_type.Filter"><span class="constructor">Filter</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTplugin_type.Source"><span class="constructor">Source</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTplugin_type.Mixer2"><span class="constructor">Mixer2</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTplugin_type.Mixer3"><span class="constructor">Mixer3</span></span></code></td>
+
+</tr></table>
+
+
+
+<pre><span id="VALstring_of_plugin_type"><span class="keyword">val</span> string_of_plugin_type</span> : <code class="type"><a href="Frei0r.html#TYPEplugin_type">plugin_type</a> -> string</code></pre>
+<pre><code><span id="TYPEcolor_model"><span class="keyword">type</span> <code class="type"></code>color_model</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTcolor_model.BGRA8888"><span class="constructor">BGRA8888</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTcolor_model.RGBA8888"><span class="constructor">RGBA8888</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTcolor_model.Packed32"><span class="constructor">Packed32</span></span></code></td>
+
+</tr></table>
+
+
+
+<pre><span id="VALstring_of_color_model"><span class="keyword">val</span> string_of_color_model</span> : <code class="type"><a href="Frei0r.html#TYPEcolor_model">color_model</a> -> string</code></pre>
+<pre><code><span id="TYPEinfo"><span class="keyword">type</span> <code class="type"></code>info</span> = {</code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTinfo.name">name</span>&nbsp;: <code class="type">string</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTinfo.author">author</span>&nbsp;: <code class="type">string</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTinfo.plugin_type">plugin_type</span>&nbsp;: <code class="type"><a href="Frei0r.html#TYPEplugin_type">plugin_type</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTinfo.color_model">color_model</span>&nbsp;: <code class="type"><a href="Frei0r.html#TYPEcolor_model">color_model</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTinfo.frei0r_version">frei0r_version</span>&nbsp;: <code class="type">int</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTinfo.major_version">major_version</span>&nbsp;: <code class="type">int</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTinfo.minor_version">minor_version</span>&nbsp;: <code class="type">int</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTinfo.num_params">num_params</span>&nbsp;: <code class="type">int</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTinfo.explanation">explanation</span>&nbsp;: <code class="type">string</code>;</code></td>
+
+</tr></table>
+}
+
+
+
+<pre><span id="VALinfo"><span class="keyword">val</span> info</span> : <code class="type"><a href="Frei0r.html#TYPEplugin">plugin</a> -> <a href="Frei0r.html#TYPEinfo">info</a></code></pre>
+<pre><code><span id="TYPEparam_type"><span class="keyword">type</span> <code class="type"></code>param_type</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTparam_type.Bool"><span class="constructor">Bool</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTparam_type.Double"><span class="constructor">Double</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTparam_type.Color"><span class="constructor">Color</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTparam_type.Position"><span class="constructor">Position</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTparam_type.String"><span class="constructor">String</span></span></code></td>
+
+</tr></table>
+
+
+
+<pre><span id="VALstring_of_param_type"><span class="keyword">val</span> string_of_param_type</span> : <code class="type"><a href="Frei0r.html#TYPEparam_type">param_type</a> -> string</code></pre>
+<pre><code><span id="TYPEparam_info"><span class="keyword">type</span> <code class="type"></code>param_info</span> = {</code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTparam_info.param_name">param_name</span>&nbsp;: <code class="type">string</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTparam_info.param_type">param_type</span>&nbsp;: <code class="type"><a href="Frei0r.html#TYPEparam_type">param_type</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTparam_info.param_explanation">param_explanation</span>&nbsp;: <code class="type">string</code>;</code></td>
+
+</tr></table>
+}
+
+
+
+<pre><span id="VALparam_info"><span class="keyword">val</span> param_info</span> : <code class="type"><a href="Frei0r.html#TYPEplugin">plugin</a> -> int -> <a href="Frei0r.html#TYPEparam_info">param_info</a></code></pre>
+<pre><span id="TYPEt"><span class="keyword">type</span> <code class="type"></code>t</span> </pre>
+
+
+<pre><span id="VALcreate"><span class="keyword">val</span> create</span> : <code class="type"><a href="Frei0r.html#TYPEplugin">plugin</a> -> int -> int -> <a href="Frei0r.html#TYPEt">t</a></code></pre>
+<pre><span id="TYPEcolor"><span class="keyword">type</span> <code class="type"></code>color</span> = <code class="type">float * float * float</code> </pre>
+
+
+<pre><span id="TYPEposition"><span class="keyword">type</span> <code class="type"></code>position</span> = <code class="type">float * float</code> </pre>
+
+
+<pre><span id="VALget_param_bool"><span class="keyword">val</span> get_param_bool</span> : <code class="type"><a href="Frei0r.html#TYPEt">t</a> -> int -> bool</code></pre>
+<pre><span id="VALget_param_float"><span class="keyword">val</span> get_param_float</span> : <code class="type"><a href="Frei0r.html#TYPEt">t</a> -> int -> float</code></pre>
+<pre><span id="VALget_param_color"><span class="keyword">val</span> get_param_color</span> : <code class="type"><a href="Frei0r.html#TYPEt">t</a> -> int -> <a href="Frei0r.html#TYPEcolor">color</a></code></pre>
+<pre><span id="VALget_param_position"><span class="keyword">val</span> get_param_position</span> : <code class="type"><a href="Frei0r.html#TYPEt">t</a> -> int -> <a href="Frei0r.html#TYPEposition">position</a></code></pre>
+<pre><span id="VALget_param_string"><span class="keyword">val</span> get_param_string</span> : <code class="type"><a href="Frei0r.html#TYPEt">t</a> -> int -> string</code></pre>
+<pre><span id="VALset_param_bool"><span class="keyword">val</span> set_param_bool</span> : <code class="type"><a href="Frei0r.html#TYPEt">t</a> -> int -> bool -> unit</code></pre>
+<pre><span id="VALset_param_float"><span class="keyword">val</span> set_param_float</span> : <code class="type"><a href="Frei0r.html#TYPEt">t</a> -> int -> float -> unit</code></pre>
+<pre><span id="VALset_param_color"><span class="keyword">val</span> set_param_color</span> : <code class="type"><a href="Frei0r.html#TYPEt">t</a> -> int -> <a href="Frei0r.html#TYPEcolor">color</a> -> unit</code></pre>
+<pre><span id="VALset_param_position"><span class="keyword">val</span> set_param_position</span> : <code class="type"><a href="Frei0r.html#TYPEt">t</a> -> int -> <a href="Frei0r.html#TYPEposition">position</a> -> unit</code></pre>
+<pre><span id="VALset_param_string"><span class="keyword">val</span> set_param_string</span> : <code class="type"><a href="Frei0r.html#TYPEt">t</a> -> int -> string -> unit</code></pre>
+<pre><span id="TYPEdata"><span class="keyword">type</span> <code class="type"></code>data</span> = <code class="type">(int, Bigarray.int8_unsigned_elt, Bigarray.c_layout) Bigarray.Array1.t</code> </pre>
+
+
+<pre><span id="VALupdate0"><span class="keyword">val</span> update0</span> : <code class="type"><a href="Frei0r.html#TYPEt">t</a> -> float -> <a href="Frei0r.html#TYPEdata">data</a> -> unit</code></pre>
+<pre><span id="VALupdate1"><span class="keyword">val</span> update1</span> : <code class="type"><a href="Frei0r.html#TYPEt">t</a> -> float -> <a href="Frei0r.html#TYPEdata">data</a> -> <a href="Frei0r.html#TYPEdata">data</a> -> unit</code></pre>
+<pre><span id="VALupdate2"><span class="keyword">val</span> update2</span> : <code class="type"><a href="Frei0r.html#TYPEt">t</a> -> float -> <a href="Frei0r.html#TYPEdata">data</a> -> <a href="Frei0r.html#TYPEdata">data</a> -> <a href="Frei0r.html#TYPEdata">data</a> -> unit</code></pre>
+<pre><span id="VALupdate3"><span class="keyword">val</span> update3</span> : <code class="type"><a href="Frei0r.html#TYPEt">t</a> -><br>       float -> <a href="Frei0r.html#TYPEdata">data</a> -> <a href="Frei0r.html#TYPEdata">data</a> -> <a href="Frei0r.html#TYPEdata">data</a> -> <a href="Frei0r.html#TYPEdata">data</a> -> unit</code></pre></body></html>

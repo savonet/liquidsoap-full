@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+  <title>Savonet / Liquidsoap 1.3.2 :: Multimedia Stream Generation</title>
+  <link href="../css/new.css" type="text/css" rel="stylesheet" />
+  <link href="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.17/themes/base/jquery-ui.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="//www.google.com/jsapi"></script>
+  <link rel="shortcut icon" href="../favicon.ico" />
+  <script>
+    google.load("jquery", "1.6.1");
+    google.load("jqueryui", "1.8.14");
+  </script>
+  <script type="text/javascript" src="../js/jQuery.syntax/jquery.syntax.min.js"></script>
+  <script type="text/javascript" src="../js/liq-jquery.js"></script>
+</head>
+<body>
+  <div class="menu">
+    <ul>
+      <li id="menu-developers">
+        <a href="https://github.com/savonet/liquidsoap/issues" target="_blank">developers</a></li>
+      <li id="menu-flows"><a href="https://flows.liquidsoap.info/">Flows!</a></li>
+      <li id="menu-doc-api-www">
+        <a href="reference.html">API</a></li>
+      <li id="menu-support">
+        <a href="documentation.html">documentation</a></li>
+      <li id="menu-download">
+        <a href="../download.html">download</a></li>
+      <li id="menu-about">
+        <a href="../index.html">about</a></li>
+    </ul>
+  </div>
+  <div class="section" id="main">
+    <h1>Liquidsoap 1.3.2 : Encoding formats</h1>
+    <div class="content">
+      <h3>Presentation</h3>
+<p>
+Encoders are used to define formats into which raw sources should be encoded by 
+an output. Syntax for encoder is: <code>%encoder(parameters...)</code> or, if you use
+default parameters, <code>%encoder</code>.
+</p>
+<h4>Formats determine the stream content</h4>
+<p>
+In most liquidsoap scripts, the encoding format determines what
+kind of data is streamed.
+</p>
+<p>
+The type of an encoding format depends on its parameter.
+For example, <code>%mp3</code> has type <code>format(audio=2,video=0,midi=0)</code>
+but <code>%mp3(mono)</code> has type <code>format(audio=1,video=0,midi=0)</code>.
+</p>
+<p>
+The type of an output like <code>output.icecast</code>
+or <code>output.file</code> is something like
+<code>(...,format('a),...,source('a))-&gt;source('a)</code>.
+This means that your source will have to have the same type as your format.
+</p>
+<p>
+For example if you write
+<code>output.file(%mp3,"/tmp/foo.mp3",playlist("~/audio"))</code>
+then the playlist source will have to stream stereo audio.
+Thus it will reject mono and video files.
+</p>
+<p>
+Liquidsoap provides operators that can be used to convert sources 
+into a format acceptable for a given encoder. For instance, the <code>mean</code>
+operator transforms any audio source into a mono source and the <code>audio_to_stereo</code>
+operator transforms any audio source into a stereo source.
+</p>
+<h4>Format variables (or lack of, rather..)</h4>
+<p>
+You can store an atomic format in a variable, it is a value like another:
+<code>fmt = %mp3</code>. However, an atomic format is an atomic constant despite its
+appearance. You cannot use a variable for one of its parameters: for
+example
+</p>
+<pre class="syntax ">x = 44100
+%vorbis(samplerate=x)
+</pre>
+<p>
+is not allowed,
+you must write <code>%vorbis(samplerate=44100)</code>.
+</p>
+<p>
+If you really need to use variables in encoder, for instance if bitrate is given by 
+a user's configuration, you may alleviate that by generating a pre-defined list of possible
+encoders and include it on top of your script using the <code>%include</code> directive.
+</p>
+<h3>List of formats and their syntax</h3>
+<p>
+All parameters are optional, and the parenthesis are not needed
+when no parameter is passed. In the following default values
+are shown.
+As a special case, the keywords <code>mono</code> and <code>stereo</code> can be used to indicate
+the number of channels (whether is is passed as an integer or a boolean).
+</p>
+<h4>MP3</h4>
+<p>
+Mp3 encoder comes in 3 flavors:
+</p>
+<ul>
+<li>
+<code>%mp3</code> or <code>%mp3.cbr</code>: Constant bitrate encoding</li>
+<li>
+<code>%mp3.vbr</code>: Variable bitrate, quality-based encoding.</li>
+<li>
+<code>%mp3.abr</code>: Average bitrate based encoding.</li>
+</ul>
+<p>
+Parameters common to each flavor are:
+</p>
+<ul>
+<li>
+<code>stereo=true/false</code>, <code>mono=true/false</code>: Encode stereo or mono data (default: <code>stereo</code>).</li>
+<li>
+<code>stereo_mode</code>: One of: <code>"stereo"</code>, <code>"joint_stereo"</code> or <code>"default"</code> (default: <code>"default"</code>)</li>
+<li>
+<code>samplerate=44100</code>: Encoded data samplerate (default: <code>44100</code>)</li>
+<li>
+<code>internal_quality=2</code>: Lame algorithms internal quality. A value between <code>0</code> and <code>9</code>, <code>0</code> being highest quality and <code>9</code> the worst (default: <code>2</code>).</li>
+<li>
+<code>id3v2=true</code>: Add an <code>id3v2</code> tag to encoded data (default: <code>false</code>). This option is only valid if liquidsoap has been compiled with taglib support. </li>
+</ul>
+<p>
+Parameters for <code>%mp3</code> are:
+</p>
+<ul>
+<li>
+<code>bitrate</code>: Encoded data fixed bitrate</li>
+</ul>
+<p>
+Parameters for <code>%mp3.vbr</code> are:
+</p>
+<ul>
+<li>
+<code>quality</code>: Quality of encoded data; ranges from <code>0</code> (highest quality) to <code>9</code> (worst quality).</li>
+</ul>
+<p>
+Parameters for <code>%mp3.abr</code> are:
+</p>
+<ul>
+<li>
+<code>bitrate</code>: Average bitrate</li>
+<li>
+<code>min_bitrate</code>: Minimun bitrate</li>
+<li>
+<code>max_bitrate</code>: Maximun bitrate</li>
+<li>
+<code>hard_min</code>: Enforce minimal bitrate</li>
+</ul>
+<p>
+Examples:
+</p>
+<ul>
+<li>
+Contstant <code>128</code> kbps bitrate encoding: <code>%mp3(bitrate=128)</code></li>
+<li>
+Variable bitrate with quality <code>6</code> and samplerate of <code>22050</code> Hz: <code>%mp3.vbr(quality=7,samplerate=22050)</code></li>
+<li>
+Average bitrate with mean of <code>128</code> kbps, maximun bitrate <code>192</code> kbps and <code>id3v2</code> tags: <code>%mp3.abr(bitrate=128,max_bitrate=192,id3v2=true)</code></li>
+</ul>
+<p>
+Optionally, liquidsoap can insert a message within mp3 data. You can set its value using the <code>msg</code> parameter.
+Setting it to <code>""</code> disables this feature. This is its default value.
+</p>
+<h4>Shine</h4>
+<p>
+Shine is the fixed-point mp3 encoder. It is useful on architectures without a FPU, such as ARM. 
+It is named <code>%shine</code> or <code>%mp3.fxp</code> and its parameters are:
+</p>
+<pre class="syntax liq">%shine(channels=2,samplerate=44100,bitrate=128)
+</pre>
+<div align="right">
+<a href="scripts/shine_enc.liq">
+<img class="grab" src="../images/grab.png" alt="Grab the code!">
+</a>
+</div></p>
+<h4>WAV</h4>
+<pre class="syntax liq">%wav(stereo=true, channels=2, samplesize=16, header=true, duration=10.)
+</pre>
+<div align="right">
+<a href="scripts/wav_enc.liq">
+<img class="grab" src="../images/grab.png" alt="Grab the code!">
+</a>
+</div></p>
+<p>
+If <code>header</code> is <code>false</code>, the encoder outputs raw PCM. <code>duration</code> is optional
+and is used to set the WAV length header.
+</p>
+<p>
+Because Liquidsoap encodes a possibly infinite stream, there
+is no way to know in advance the duration of encoded data. Since WAV header
+has to be written first, by default its length is set to the maximun possible 
+value. If you know the expected duration of the encoded data and you actually 
+care about the WAV length header then you should use this parameter.
+</p>
+<h4>Ogg</h4>
+<p>
+The following formats can be put together in an Ogg container.
+The syntax for doing so is <code>%ogg(x,y,z)</code> but it is also
+possible to just write <code>%vorbis(...)</code>, for example, instead
+of <code>%ogg(%vorbis(...))</code>.
+</p>
+<p>
+All ogg encoders have a <code>bytes_per_page</code> parameter, which can be used to
+try to limit ogg logical pages size. For instance:
+</p>
+<pre class="syntax liq"># Try to limit vorbis pages size to 1024 bytes
+%vorbis(bytes_per_page=1024)
+</pre>
+<div align="right">
+<a href="scripts/ogg_enc.liq">
+<img class="grab" src="../images/grab.png" alt="Grab the code!">
+</a>
+</div></p>
+<h5>Vorbis</h5>
+<pre class="syntax liq"># Variable bitrate
+%vorbis(samplerate=44100, channels=2, quality=0.3)
+% Average bitrate
+%vorbis.abr(samplerate=44100, channels=2, bitrate=128, max_bitrate=192, min_bitrate=64)
+# Constant bitrate
+%vorbis.cbr(samplerate=44100, channels=2, bitrate=128)
+</pre>
+<div align="right">
+<a href="scripts/vorbis_enc.liq">
+<img class="grab" src="../images/grab.png" alt="Grab the code!">
+</a>
+</div></p>
+<p>
+Quality ranges from -0.2 to 1,
+but quality -0.2 is only available with the aotuv implementation of libvorbis.
+</p>
+<h5>Opus</h5>
+<p>
+Opus is a lossy audio compression made especially suitable for interactive real-time applications 
+over the Internet. Liquidsoap supports Opus data encapsulated into Ogg streams.
+</p>
+<p>
+The encoder is named <code>%opus</code> and its parameters are as follows. Please refer
+to the <a href="http://www.opus-codec.org/docs/" target="_blank">Opus documentation</a> for information about
+their meanings and values.
+</p>
+<ul>
+<li>
+<code>vbr</code>: one of <code>"none"</code>, <code>"constrained"</code> or <code>"unconstrained"</code></li>
+<li>
+<code>application</code>: One of <code>"audio"</code>, <code>"voip"</code> or <code>"restricted_lowdelay"</code></li>
+<li>
+<code>complexity</code>: Integer value between <code>0</code> and <code>10</code>.</li>
+<li>
+<code>max_bandwidth</code>: One of <code>"narrow_band"</code>, <code>"medium_band"</code>, <code>"wide_band"</code>, <code>"super_wide_band"</code> or <code>"full_band"</code></li>
+<li>
+<code>samplerate</code>: input samplerate. Must be one of: <code>8000</code>, <code>12000</code>, <code>16000</code>, <code>24000</code> or <code>48000</code></li>
+<li>
+<code>frame_size</code>: encoding frame size, in milliseconds. Must be one of: <code>2.5</code>, <code>5.</code>, <code>10.</code>, <code>20.</code>, <code>40.</code> or <code>60.</code>. </li>
+<li>
+<code>bitrate</code>: encoding bitrate, in <code>kbps</code>. Must be a value between <code>5</code> and <code>512</code>. You can also set it to <code>"auto"</code>.</li>
+<li>
+<code>channels</code>: currently, only <code>1</code> or <code>2</code> channels are allowed.</li>
+<li>
+<code>mono</code>, <code>stereo</code>: equivalent to <code>channels=1</code> and <code>channels=2</code>.</li>
+<li>
+<code>signal</code>: one of <code>"voice"</code> or <code>"music"</code></li>
+</ul>
+<h5>Theora</h5>
+<pre class="syntax liq">%theora(quality=40,width=640,height=480,
+        picture_width=255,picture_height=255,
+        picture_x=0, picture_y=0,
+        aspect_numerator=1, aspect_denominator=1,
+        keyframe_frequency=64, vp3_compatible=false,
+        soft_target=false, buffer_delay=5,
+        speed=0)
+</pre>
+<div align="right">
+<a href="scripts/theora_enc.liq">
+<img class="grab" src="../images/grab.png" alt="Grab the code!">
+</a>
+</div></p>
+<p>
+You can also pass <code>bitrate=x</code> explicitly instead of a quality.
+The default dimensions are liquidsoap's default,
+from the settings <code>frame.video.height/width</code>.
+</p>
+<h5>Speex</h5>
+<pre class="syntax liq">%speex(stereo=false, samplerate=44100, quality=7,
+       mode=wideband, # One of: wideband|narrowband|ultra-wideband
+       frames_per_packet=1,
+       complexity=5)
+</pre>
+<div align="right">
+<a href="scripts/speex_enc.liq">
+<img class="grab" src="../images/grab.png" alt="Grab the code!">
+</a>
+</div></p>
+<p>
+You can also control quality using <code>abr=x</code> or <code>vbr=y</code>.
+</p>
+<h5>Flac</h5>
+<p>
+The flac encoding format comes in two flavors:
+</p>
+<ul>
+<li>
+<code>%flac</code> is the native flac format, useful for file output but not for streaming purpose</li>
+<li>
+<code>%ogg(%flac,...)</code> is the ogg/flac format, which can be used to broadcast data with icecast</li>
+</ul>
+<p>
+The parameters are:
+</p>
+<pre class="syntax liq">%flac(samplerate=44100, 
+      channels=2, 
+      compression=5, 
+      bits_per_sample=16)
+</pre>
+<div align="right">
+<a href="scripts/flac_enc.liq">
+<img class="grab" src="../images/grab.png" alt="Grab the code!">
+</a>
+</div></p>
+<p>
+<code>compression</code> ranges from 0 to 8 and <code>bits_per_sample</code> should be one of: <code>8</code>, <code>16</code> or <code>32</code>.
+</p>
+<h4>FDK-AAC</h4>
+<p>
+This encoder can do both AAC and AAC+.
+</p>
+<p>
+Its syntax is:
+</p>
+<pre class="syntax liq">%fdkaac(channels=2, samplerate=44100, bitrate=64, afterburner=false, aot="mpeg2_he_aac_v2", transmux="adts", sbr_mode=false)
+</pre>
+<div align="right">
+<a href="scripts/fdkaac_enc.liq">
+<img class="grab" src="../images/grab.png" alt="Grab the code!">
+</a>
+</div></p>
+<p>
+Where <code>aot</code> is one of: <code>"mpeg4_aac_lc"</code>, <code>"mpeg4_he_aac"</code>, <code>"mpeg4_he_aac_v2"</code>,
+<code>"mpeg4_aac_ld"</code>, <code>"mpeg4_aac_eld"</code>, <code>"mpeg2_aac_lc"</code>, <code>"mpeg2_he_aac"</code> or
+<code>"mpeg2_he_aac_v2"</code>
+</p>
+<p>
+<code>transmux</code> is one of: <code>"raw"</code>, <code>"adif"</code>, <code>"adts"</code>, <code>"latm"</code>, <code>"latm_out_of_band"</code> or
+<code>"loas"</code>.
+</p>
+<p>
+Bitrate can be either constant by passing: <code>bitrate=64</code> or variable: <code>vbr=&lt;1-5&gt;</code>
+</p>
+<p>
+You can consult the <a href="http://wiki.hydrogenaud.io/index.php?title=Fraunhofer_FDK_AAC" target="_blank">Hydrogenaudio knowledge base</a> for more details
+on configuration values and meanings.
+</p>
+<h4>Gstreamer</h4>
+<p>
+The <code>%gstreamer</code> encoder can be used to encode streams using the <code>gstreamer</code> multimedia framework.
+This encoder extends liquidsoap with all available GStreamer formats which includes most, if not all,
+formats available to your operating system.
+</p>
+<p>
+The encoder's parameters are as follows:
+</p>
+<pre class="syntax liq">%gstreamer(channels=2,
+           audio="lamemp3enc",
+           has_video=true,
+           video="x264enc",
+           muxer="mpegtsmux",
+           metadata="metadata",
+           log=5,
+           pipeline="")
+</pre>
+<div align="right">
+<a href="scripts/gstreamer_enc.liq">
+<img class="grab" src="../images/grab.png" alt="Grab the code!">
+</a>
+</div></p>
+<p>
+Please refer to the <a href="gstreamer_encoder.html">Gstreamer encoder</a> page for a detailed explanation
+of this encoder.
+</p>
+<h4>External encoders</h4>
+<p>
+For a detailed presentation of external encoders, see <a href="external_encoders.html">this page</a>.
+</p>
+<pre class="syntax liq">%external(channels=2,samplerate=44100,header=true,
+          restart_on_crash=false,
+          restart_on_metadata,
+          restart_after_delay=30,
+          process="progname")
+</pre>
+<div align="right">
+<a href="scripts/external_enc.liq">
+<img class="grab" src="../images/grab.png" alt="Grab the code!">
+</a>
+</div></p>
+<p>
+Only one of <code>restart_on_metadata</code> and <code>restart_after_delay</code> should
+be passed. The delay is specified in seconds.
+The encoding process is mandatory, and can also be passed directly
+as a string, without <code>process=</code>.
+</p>
+      <div id="footer"> 2003-2017 Savonet team</div>
+    </div>
+  </div>
+  <script type="text/javascript" src="//www.google.com/cse/brand?form=cse-search-box&amp;lang=en"></script>
+  <script type="text/javascript" src="../js/search.js"></script>
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-927362-1']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+</body>
+</html>

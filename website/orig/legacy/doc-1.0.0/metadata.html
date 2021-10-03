@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+  <title>Savonet / Liquidsoap 1.0.0 :: Multimedia Stream Generation</title>
+  <link href="../css/new.css" type="text/css" rel="stylesheet" />
+  <link href="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.17/themes/base/jquery-ui.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="//www.google.com/jsapi"></script>
+  <link rel="shortcut icon" href="../favicon.ico" />
+  <script>
+    google.load("jquery", "1.6.1");
+    google.load("jqueryui", "1.8.14");
+  </script>
+  <script type="text/javascript" src="../js/jQuery.syntax/jquery.syntax.min.js"></script>
+  <script type="text/javascript" src="../js/liq-jquery.js"></script>
+</head>
+<body>
+  <div class="menu">
+    <ul>
+      <li id="menu-developers">
+        <a href="https://github.com/savonet/liquidsoap/issues" target="_blank">developers</a></li>
+      <li id="menu-flows"><a href="https://flows.liquidsoap.info/">Flows!</a></li>
+      <li id="menu-doc-api-www">
+        <a href="reference.html">API</a></li>
+      <li id="menu-support">
+        <a href="documentation.html">documentation</a></li>
+      <li id="menu-download">
+        <a href="../download.html">download</a></li>
+      <li id="menu-about">
+        <a href="../index.html">about</a></li>
+    </ul>
+  </div>
+  <div class="section" id="main">
+    <h1>Liquidsoap 1.0.0 : Customize metadata</h1>
+    <div class="content">
+      <h3>Customize metadata using liquidsoap</h3>
+<p>
+Liquidsoap has several mechanism for manipulating the metadata attached to your stream. In this page we quickly detail and compare the different operators, see the <a href="reference.html">language reference</a> for full details about them.
+</p>
+<p>
+<b>Warning</b>. The protocol used by Shoutcast and Icecast before version 2 does not support many fields. It mainly support one: <code>song</code>. So, if you need to customize the metadata displayed by these servers, you should customize only the <code>song</code> metadata.
+</p>
+<h4>Rewrite metadata</h4>
+<p>
+<code>rewrite_metadata</code> rewrites metadata using a list of (target,rules). The semantic for the replacement rules is that of the <code>%</code> function. Namely, <code>(pattern % [...,(k,v),...])</code> changes in <code>pattern</code> occurences of:
+</p>
+<ul>
+<li>
+<code>'$(k)'</code> into <code>"v"</code>;</li>
+<li>
+<code>'$(if $(k2),"a","b")'</code> into <code>"a"</code> if <code>k2</code> is found in the list, <code>"b"</code> otherwise.</li>
+</ul>
+<p>
+A sample code using this operator can be:
+</p>
+<pre class="syntax liq"># The 'display_artist' field is passed using annotate.
+pattern = 
+  '$(if $(display_artist),"$(display_artist)","$(artist)")'
+rewrite_metadata([("artist",pattern)],source)
+</pre>
+<div align="right">
+<a href="scripts/rewrite_metadata.liq">
+<img class="grab" src="../images/grab.png" alt="Grab the code!">
+</a>
+</div></p>
+<h4>Map_metadata </h4>
+<p>
+The <code>map_metadata</code> operator applies a specified function to transform each metadata chunk of a stream. It can be used to add or decorate metadata, but is also useful in more complex cases.
+</p>
+<p>
+A simple example using it is:
+</p>
+<pre class="syntax liq"># A function applied to each metadata chunk
+def append_title(m) =
+  # Grab the current title
+  title = m["title"]
+
+  # Return a new title metadata
+  [("title","#{title} - www.station.com")]
+end
+
+# Apply map_metadata to s using append_title
+s = map_metadata(append_title, s)
+</pre>
+<div align="right">
+<a href="scripts/append_title.liq">
+<img class="grab" src="../images/grab.png" alt="Grab the code!">
+</a>
+</div></p>
+<p>
+The effect of <code>map_metadata</code> by default is to update the metadata with the returned values. 
+Hence in the function <code>append_title</code> defined in the code above returns a new metadata for the 
+label <code>title</code> and the other metadata remain untouched. You can change this by using the 
+<code>update</code> option, and you can also remove any metadata (even empty one) using the <code>strip</code> option.
+</p>
+<p>
+See the documentation on <code>map_metadata</code> for more details.
+</p>
+<p>
+A more complex example is the <code>rewrite_metadata</code> operator, which is implemented using <code>map_metadata</code> as follows:
+</p>
+<pre class="syntax liq"># Rewrite metadata on the fly using a list of (target,rule).
+# @category Source / Track Processing
+# @param l  List of (target,value) rewriting rules
+# @param ~insert_missing \
+#           Treat track beginnings without metadata \
+#           as having empty ones.
+def rewrite_metadata(l,~insert_missing=true,s)
+  def map(m)
+    def apply(x)
+      label = fst(x)
+      meta = snd(x)
+      if list.mem_assoc(label,l) then
+        pattern = l[label]
+        (label,pattern % m)
+      else
+        (label,meta)
+      end
+    end
+    m = list.map(apply,m)
+    def add(m,x)
+      label = fst(x)
+      pattern = snd(x)
+      # If m does not have (label,_), then it was
+      # not processed previously, we have to
+      # add it now..
+      if not list.mem_assoc(label,m) then
+        list.append(m,[(label,pattern % m)])
+      else
+        m
+      end
+    end
+    list.fold(add,m,l)
+  end
+  map_metadata(map,insert_missing=insert_missing,s)
+end
+</pre>
+<div align="right">
+<a href="scripts/lang_rewrite.liq">
+<img class="grab" src="../images/grab.png" alt="Grab the code!">
+</a>
+</div></p>
+<h4>Insert_medatata</h4>
+<p>
+This operator is used for inserting metadata using a server command. If you have an <code>insert_metadata</code> node named <code>ID</code> in your configuration, you can connect to the server (either telnet or socket) and execute commands like: 
+</p>
+<pre class="syntax ">ID.insert key1="val1",key2="val2",...</pre>
+      <div id="footer"> 2003-2017 Savonet team</div>
+    </div>
+  </div>
+  <script type="text/javascript" src="//www.google.com/cse/brand?form=cse-search-box&amp;lang=en"></script>
+  <script type="text/javascript" src="../js/search.js"></script>
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-927362-1']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+</body>
+</html>

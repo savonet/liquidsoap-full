@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+  <title>Savonet / Liquidsoap dev :: Multimedia Stream Generation</title>
+  <link href="../css/new.css" type="text/css" rel="stylesheet" />
+  <link href="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.17/themes/base/jquery-ui.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="//www.google.com/jsapi"></script>
+  <link rel="shortcut icon" href="../favicon.ico" />
+  <script>
+    google.load("jquery", "1.6.1");
+    google.load("jqueryui", "1.8.14");
+  </script>
+  <script type="text/javascript" src="../js/jQuery.syntax/jquery.syntax.min.js"></script>
+  <script type="text/javascript" src="../js/liq-jquery.js"></script>
+</head>
+<body>
+  <div class="menu">
+    <ul>
+      <li id="menu-developers">
+        <a href="https://github.com/savonet/liquidsoap/issues" target="_blank">developers</a></li>
+      <li id="menu-flows"><a href="https://flows.liquidsoap.info/">Flows!</a></li>
+      <li id="menu-doc-api-www">
+        <a href="reference.html">API</a></li>
+      <li id="menu-support">
+        <a href="documentation.html">documentation</a></li>
+      <li id="menu-download">
+        <a href="../download.html">download</a></li>
+      <li id="menu-about">
+        <a href="../index.html">about</a></li>
+    </ul>
+  </div>
+  <div class="section" id="main">
+    <h1>Liquidsoap dev : Get help</h1>
+    <div class="content">
+      <h3>Get help</h3>
+<p>
+Liquidsoap is a self-documented application,
+which means that it can provide help about several of its aspects.
+You will learn here how to get help by yourself, by asking liquidsoap.
+If you do not succeed in asking the tool, you can of course get help from 
+humans, preferably on the mailing list <code>savonet-users@lists.sf.net</code>.
+</p>
+<h4>Scripting API</h4>
+<p>
+When scripting in liquidsoap, one uses functions that are either <em>builtin</em>
+(<em>e.g.</em> <code>fallback</code> or <code>output.icecast</code>)
+or defined in the <a href="script_loading.html">script library</a> (<em>e.g</em> <code>out</code>).
+All these functions come with a documentation, that you can access by
+executing <code>liquidsoap -h FUNCTION</code> on the command-line. For example:
+</p>
+<pre class="syntax ">$ liquidsoap -h sine
+*** One entry in scripting values:
+Generate a sine wave.
+Category: Source / Input
+Type: (?id:string, ?duration:float, ?float)-&gt;source
+Parameters:
+* id :: string (default "")
+    Force the value of the source ID.
+* duration :: float (default 0.)
+* (unlabeled) :: float (default 440.)
+    Frequency of the sine.
+</pre>
+<p>
+Of course if you do not know what function you need, you'd better go 
+through the <a href="reference.html">API reference</a>.
+</p>
+<h4><a name="server">Server commands</a></h4>
+<p>
+The server (<em>cf.</em> the <a href="server.html">server</a> tutorial)
+offers some help about its commands.
+Once connected (either via a TCP or UNIX socket) the <code>help</code> command
+gives you a list of available commands together with a short usage line.
+You can then get more detailed information about a specific command
+by typing <code>help COMMAND</code>:
+</p>
+<pre class="syntax ">$ telnet localhost 1234
+Trying 127.0.0.1...
+Connected to localhost.localdomain.
+Escape character is '^]'.
+help
+Available commands:
+[...]
+| queue.ignore &lt;rid&gt;
+| queue.push &lt;uri&gt;
+| queue.queue
+[...]
+Type "help &lt;command&gt;" for more information.
+END
+help queue.push
+
+Help for command queue.push.
+
+Usage: queue.push &lt;uri&gt;
+  Push a new request in the queue.
+END
+</pre>
+<h4><a name="settings">Settings</a></h4>
+<p>
+Liquidsoap scripts contain expression like <code>set("log.stdout",true)</code>.
+These are <em>settings</em>, global variables affecting the behaviour of the 
+application.
+Here, the first parameter identifies a setting its path,
+and the second one specifies its new value.
+</p>
+<p>
+You can have a list of available settings, with their documentation,
+by running <code>liquidsoap --conf-descr</code>.
+If you are interested in a particular settings section,
+for example server-related stuff, use <code>liquidsoap --conf-descr-key server</code>.
+</p>
+<p>
+The output of these commands is a valid liquidsoap script,
+which you can edit to set the values that you want,
+and load it (<a href="script_loading.html">implicitly</a> or not) before you other scripts.
+</p>
+<p>
+You can browse online the <a href="settings.html">list of available settings</a>.
+</p>
+<h4><a name="plugins">All plugins</a></h4>
+<p>
+Several aspects of liquidsoap work with a notion of plugin: builtin scripting 
+functions, audio decoders for files and streams, metadata decoders, protocols, 
+etc. The list of plugins can be used to check that your build of 
+liquidsoap has such or such feature, or simply to browse available functions 
+&ndash; actually, the <a href="reference.html">reference</a> is built from that output.
+</p>
+<p>
+You can get the pretty hairy list of all available plugins from the 
+command <code>liquidsoap --list-plugins</code>, or <code>liquidsoap --list-plugins-xml</code> for a 
+more parsable XML output.
+</p>
+      <div id="footer"> 2003-2017 Savonet team</div>
+    </div>
+  </div>
+  <script type="text/javascript" src="//www.google.com/cse/brand?form=cse-search-box&amp;lang=en"></script>
+  <script type="text/javascript" src="../js/search.js"></script>
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-927362-1']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+</body>
+</html>

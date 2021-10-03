@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+  <title>Savonet / Liquidsoap 1.1.0 :: Multimedia Stream Generation</title>
+  <link href="../css/new.css" type="text/css" rel="stylesheet" />
+  <link href="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.17/themes/base/jquery-ui.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="//www.google.com/jsapi"></script>
+  <link rel="shortcut icon" href="../favicon.ico" />
+  <script>
+    google.load("jquery", "1.6.1");
+    google.load("jqueryui", "1.8.14");
+  </script>
+  <script type="text/javascript" src="../js/jQuery.syntax/jquery.syntax.min.js"></script>
+  <script type="text/javascript" src="../js/liq-jquery.js"></script>
+</head>
+<body>
+  <div class="menu">
+    <ul>
+      <li id="menu-developers">
+        <a href="https://github.com/savonet/liquidsoap/issues" target="_blank">developers</a></li>
+      <li id="menu-flows"><a href="https://flows.liquidsoap.info/">Flows!</a></li>
+      <li id="menu-doc-api-www">
+        <a href="reference.html">API</a></li>
+      <li id="menu-support">
+        <a href="documentation.html">documentation</a></li>
+      <li id="menu-download">
+        <a href="../download.html">download</a></li>
+      <li id="menu-about">
+        <a href="../index.html">about</a></li>
+    </ul>
+  </div>
+  <div class="section" id="main">
+    <h1>Liquidsoap 1.1.0 : Liquidsoap</h1>
+    <div class="content">
+      <h3>Liquidsoap</h3>
+<p>
+Liquidsoap is a powerful tool for building complex audio and video stream generators,
+typically targetting internet radios and webtvs. It consists of a simple script language,
+which has a first-class notion of source (basically a <em>stream</em>) and
+provides elementary source constructors and source compositions
+from which you can build the stream generator you want.
+This design makes liquidsoap flexible and easily extensible.
+</p>
+<p>
+We believe that liquidsoap is easy to use. For basic purposes, the scripts 
+consist of the definition of a tree of sources.
+You will quickly <a href="quick_start.html">learn</a>
+how natural it is to use liquidsoap in such cases. The good thing is that
+when you will want to make your stream more complex,
+you will be able to stay in the same framework and keep a maintainable 
+configuration.
+Of course, using some complex features might require a deeper
+understanding of the concepts of <a href="sources.html">source</a> and
+<a href="requests.html">request</a> and of our <a href="language.html">scripting language</a>.
+</p>
+<p>
+We discuss below what liquidsoap is and what it is not.
+If you already know that and want to get started with liquidsoap,
+just jump to the <a href="documentation.html">documentation index</a>.
+It guides you through these pages,
+starting with the <a href="quick_start.html">quickstart tour</a>.
+</p>
+<p>
+Liquidsoap is an open-source sofware
+from the <a href="http://liquidsoap.info" target="_blank">Savonet</a> project.
+</p>
+<h3>Features</h3>
+<p>
+Here are a few things you can easily achieve using Liquidsoap:
+</p>
+<ul>
+<li>
+Playing from files, playlists, directories or script playlists (plays the file chosen by an external program).</li>
+<li>
+Transparent remote file access; easy addition of file resolution protocols.</li>
+<li>
+Scheduling of many sources, depending on time, priorities, quotas, etc.</li>
+<li>
+Mixing sources on top others.</li>
+<li>
+Queuing of user requests; editable queues.</li>
+<li>
+Sound processing: compression, normalization, echo, soundtouch, etc.</li>
+<li>
+Speech and sound synthesis.</li>
+<li>
+<a href="metadata.html">Metadata</a> rewriting and insertion.</li>
+<li>
+Arbitrary transitions: cross-fade, jingle insertion, custom, etc. The behaviour of the transition can be programmed to depend on metadata and average volume.</li>
+<li>
+<a href="http_input.html">Input of other streams</a>: useful for switching to a live show. Liquidsoap can relay an HTTP stream but also host it.</li>
+<li>
+<a href="blank.html">Blank detection</a>.</li>
+<li>
+Definable event handlers on new tracks, new metadata and excessive blank.</li>
+<li>
+<a href="cookbook.html#lastfm">Last.fm</a> support: play files, streams, audioscrobbling.</li>
+<li>
+Multiple outputs in the same instance: you can have several quality settings, use several media or even broadcast several contents from the same instance.</li>
+<li>
+Output to Icecast/Peercast/Shoutcast (MP3/Ogg) or a local file (WAV/MP3/Ogg/AAC).</li>
+<li>
+Input/output via Jack, ALSA, OSS and PortAudio. Output via <code>libao</code>.</li>
+<li>
+<a href="advanced.html">Interactive control</a> of many operators via Telnet or UNIX domain socket, and indirectly using scripts, graphical/web/IRC interfaces.</li>
+<li>
+<a href="video.html">Video streams</a> generation.</li>
+</ul>
+<p>
+If you need something else, it's highly possible that you can have it &ndash; at least by programming new sources/operators. Send us a mail, we'll be happy to discuss these questions.
+</p>
+<h3>Non-Features</h3>
+<p>
+Liquidsoap is a flexible tool for processing audio and video streams, that's all. We have used it for several internet radio projects, and we know that this flexibility is useful. However, an internet radio usually requires more than just an audio stream, and the other components cannot easily be built from basic primitives as we do in liquidsoap for streams. We don't have any magic solution for these, although we sometimes have some nice tools which could be adapted to various uses.
+</p>
+<p>
+Liquidsoap itself doesn't have a nice GUI or any graphical programming 
+environment. You'll have to write the script by hand, and the only possible 
+interaction with a running liquidsoap is the telnet server. However, we have 
+modules for various languages (OCaml, Ruby, Python, Perl) providing high-level 
+communication with liquidsoap. And there are at least two graphical 
+applications using the Python module for controlling a running liquidsoap:
+<code>liguidsoap</code> (distributed with liquidsoap) and <code>soapbox</code> (another project of 
+Savonet).
+</p>
+<p>
+Liquidsoap doesn't do any database or website stuff. It won't index your audio files, it won't allow your users to score songs on the web, etc. However, liquidsoap makes the interfacing with other tools easy, since it can call an external application (reading from the database) to get audio tracks, another one (updating last-played information) to notify that some file has been successfully played. The simplest example of this is <a href="bubble.html">bubble</a>, RadioPi also has a more complex system of its own along these lines.
+</p>
+      <div id="footer"> 2003-2017 Savonet team</div>
+    </div>
+  </div>
+  <script type="text/javascript" src="//www.google.com/cse/brand?form=cse-search-box&amp;lang=en"></script>
+  <script type="text/javascript" src="../js/search.js"></script>
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-927362-1']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+</body>
+</html>

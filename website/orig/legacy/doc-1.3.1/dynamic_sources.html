@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+  <title>Savonet / Liquidsoap 1.3.1 :: Multimedia Stream Generation</title>
+  <link href="../css/new.css" type="text/css" rel="stylesheet" />
+  <link href="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.17/themes/base/jquery-ui.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="//www.google.com/jsapi"></script>
+  <link rel="shortcut icon" href="../favicon.ico" />
+  <script>
+    google.load("jquery", "1.6.1");
+    google.load("jqueryui", "1.8.14");
+  </script>
+  <script type="text/javascript" src="../js/jQuery.syntax/jquery.syntax.min.js"></script>
+  <script type="text/javascript" src="../js/liq-jquery.js"></script>
+</head>
+<body>
+  <div class="menu">
+    <ul>
+      <li id="menu-developers">
+        <a href="https://github.com/savonet/liquidsoap/issues" target="_blank">developers</a></li>
+      <li id="menu-flows"><a href="https://flows.liquidsoap.info/">Flows!</a></li>
+      <li id="menu-doc-api-www">
+        <a href="reference.html">API</a></li>
+      <li id="menu-support">
+        <a href="documentation.html">documentation</a></li>
+      <li id="menu-download">
+        <a href="../download.html">download</a></li>
+      <li id="menu-about">
+        <a href="../index.html">about</a></li>
+    </ul>
+  </div>
+  <div class="section" id="main">
+    <h1>Liquidsoap 1.3.1 : Dynamic source creation</h1>
+    <div class="content">
+      <p>
+Liquidsoap supports dynamic creation and destruction of sources 
+during the execution of a script. The following gives an example
+of this.
+</p>
+<p>
+First some outlines:
+</p>
+<ul>
+<li>
+This example is meant to create a new source and outputs. It is not easy currently to change a source being streamed</li>
+<li>
+The idea is to create a new output using a telnet/server command.</li>
+</ul>
+<p>
+In this example, we will register a command that creates a playlist source using an uri passed
+as argument and outputs it to a fixed icecast output.
+</p>
+<p>
+With more work on parsing the argument passed to the telnet command,
+you may write more evolved options, such as the possibility to change
+the output parameters etc..
+</p>
+<p>
+Due to some limitations of the language, we have used some
+intricate (but classic) functional programming tricks. They are
+commented in order to help reading the code..
+</p>
+<p>
+New here's the code:
+</p>
+<pre class="syntax liq"># First, we create a list referencing the dynamic sources:
+dyn_sources = ref []
+
+# This is our icecast output.
+# It is a partial application: the source needs to be given!
+out = output.icecast(%mp3,
+                     host="test",
+                     password="hackme",
+                     fallible=true)
+
+# Now we write a function to create 
+# a playlist source and output it.
+def create_playlist(uri) =
+  # The playlist source 
+  s = playlist(uri)
+
+  # The output
+  output = out(s)
+
+  # We register both source and output 
+  # in the list of sources
+  dyn_sources := 
+      list.append( [(uri,s),(uri,output)],
+                    !dyn_sources )
+  "Done!"
+end
+
+# And a function to destroy a dynamic source
+def destroy_playlist(uri) = 
+  # We need to find the source in the list,
+  # remove it and destroy it. Currently, the language
+  # lacks some nice operators for that so we do it
+  # the functional way
+
+  # This function is executed on every item in the list
+  # of dynamic sources
+  def parse_list(ret, current_element) = 
+    # ret is of the form: (matching_sources, remaining_sources)
+    # We extract those two:
+    matching_sources = fst(ret)
+    remaining_sources = snd(ret)
+
+    # current_element is of the form: ("uri", source) so 
+    # we check the first element
+    current_uri = fst(current_element)
+    if current_uri == uri then
+      # In this case, we add the source to the list of
+      # matched sources
+      (list.append( [snd(current_element)], 
+                     matching_sources),
+       remaining_sources)
+    else
+      # In this case, we put the element in the list of remaining
+      # sources
+      (matching_sources,
+       list.append([current_element], 
+                    remaining_sources))
+    end
+  end
+    
+  # Now we execute the function:
+  result = list.fold(parse_list, ([], []), !dyn_sources)
+  matching_sources = fst(result)
+  remaining_sources = snd(result)
+
+  # We store the remaining sources in dyn_sources
+  dyn_sources := remaining_sources
+
+  # If no source matched, we return an error
+  if list.length(matching_sources) == 0 then
+    "Error: no matching sources!"
+  else
+    # We stop all sources
+    list.iter(source.shutdown, matching_sources)
+    # And return
+    "Done!"
+  end
+end
+
+
+# Now we register the telnet commands:
+server.register(namespace="dynamic_playlist",
+                description="Start a new dynamic playlist.",
+                usage="start &lt;uri&gt;",
+                "start",
+                create_playlist)
+server.register(namespace="dynamic_playlist",
+                description="Stop a dynamic playlist.",
+                usage="stop &lt;uri&gt;",
+                "stop",
+                destroy_playlist)
+</pre>
+<div align="right">
+<a href="scripts/dynamic_playlist.liq">
+<img class="grab" src="../images/grab.png" alt="Grab the code!">
+</a>
+</div></p>
+<p>
+If you execute this code (add a <code>output.dummy(blank())</code> if you have
+no other output..), you have two new telnet commands:
+</p>
+<ul>
+<li>
+<code>dynamic_playlist.start &lt;uri&gt;</code></li>
+<li>
+<code>dynamic_playlist.stop &lt;uri&gt;</code></li>
+</ul>
+<p>
+which you can use to create/destroy dynamically your sources.
+</p>
+<p>
+With more tweaking, you should be able to adapt these ideas to your
+precise needs.
+</p>
+<p>
+If you want to plug those sources into an existing output, you may
+want to use an <code>input.harbor</code> in the main output and change the
+<code>output.icecast</code> in the dynamic source creation to send everything to
+this <code>input.harbor</code>. You can use the <code>%wav</code> format in this case to avoid
+compressing/decompressing the data..
+</p>
+      <div id="footer"> 2003-2017 Savonet team</div>
+    </div>
+  </div>
+  <script type="text/javascript" src="//www.google.com/cse/brand?form=cse-search-box&amp;lang=en"></script>
+  <script type="text/javascript" src="../js/search.js"></script>
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-927362-1']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+</body>
+</html>

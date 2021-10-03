@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link rel="Up" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Dssi" rel="Chapter" href="Dssi.html"><title>Dssi</title>
+</head>
+<body>
+<div class="navbar">&nbsp;<a class="up" href="index.html" title="Index">Up</a>
+&nbsp;</div>
+<h1>Module <a href="type_Dssi.html">Dssi</a></h1>
+
+<pre><span id="MODULEDssi"><span class="keyword">module</span> Dssi</span>: <code class="code">sig</code> <a href="Dssi.html">..</a> <code class="code">end</code></pre><div class="info module top">
+<div class="info-desc">
+<p>Binding to DSSI SDK.</p>
+</div>
+<ul class="info-attributes">
+<li><b>Author(s):</b> Samuel Mimram</li>
+</ul>
+</div>
+<hr width="100%">
+
+<pre><span id="VALinit"><span class="keyword">val</span> init</span> : <code class="type">unit -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p>Initialize the library. This should be called before any other function.</p>
+</div>
+</div>
+
+<pre><code><span id="TYPEevent"><span class="keyword">type</span> <code class="type"></code>event</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTevent.Event_system"><span class="constructor">Event_system</span></span> <span class="keyword">of</span> <code class="type">int * int</code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTevent.Event_result"><span class="constructor">Event_result</span></span> <span class="keyword">of</span> <code class="type">int * int</code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTevent.Event_note_on"><span class="constructor">Event_note_on</span></span> <span class="keyword">of</span> <code class="type">int * int * int</code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTevent.Event_note_off"><span class="constructor">Event_note_off</span></span> <span class="keyword">of</span> <code class="type">int * int * int</code></code></td>
+
+</tr></table>
+
+
+
+<pre><span id="MODULEPlugin"><span class="keyword">module</span> <a href="Dssi.Plugin.html">Plugin</a></span>: <code class="code">sig</code> <a href="Dssi.Plugin.html">..</a> <code class="code">end</code></pre><div class="info">
+<p>Operations on plugins.</p>
+
+</div>
+
+<pre><span id="MODULEDescriptor"><span class="keyword">module</span> <a href="Dssi.Descriptor.html">Descriptor</a></span>: <code class="code">sig</code> <a href="Dssi.Descriptor.html">..</a> <code class="code">end</code></pre><div class="info">
+<p>Operations on descriptors.</p>
+
+</div>
+</body></html>

@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+  <title>Savonet / Liquidsoap 1.0.0 :: Multimedia Stream Generation</title>
+  <link href="../css/new.css" type="text/css" rel="stylesheet" />
+  <link href="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.17/themes/base/jquery-ui.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="//www.google.com/jsapi"></script>
+  <link rel="shortcut icon" href="../favicon.ico" />
+  <script>
+    google.load("jquery", "1.6.1");
+    google.load("jqueryui", "1.8.14");
+  </script>
+  <script type="text/javascript" src="../js/jQuery.syntax/jquery.syntax.min.js"></script>
+  <script type="text/javascript" src="../js/liq-jquery.js"></script>
+</head>
+<body>
+  <div class="menu">
+    <ul>
+      <li id="menu-developers">
+        <a href="https://github.com/savonet/liquidsoap/issues" target="_blank">developers</a></li>
+      <li id="menu-flows"><a href="https://flows.liquidsoap.info/">Flows!</a></li>
+      <li id="menu-doc-api-www">
+        <a href="reference.html">API</a></li>
+      <li id="menu-support">
+        <a href="documentation.html">documentation</a></li>
+      <li id="menu-download">
+        <a href="../download.html">download</a></li>
+      <li id="menu-about">
+        <a href="../index.html">about</a></li>
+    </ul>
+  </div>
+  <div class="section" id="main">
+    <h1>Liquidsoap 1.0.0 : Advanced techniques</h1>
+    <div class="content">
+      <h3>Advanced techniques</h3>
+<p>
+We shall now see two things that are essential
+to using liquidsoap fully: the server which allows you
+to control a running instance of liquidsoap,
+and the usage of the <code>init.d/liquidsoap</code> service script
+for running your radios in production in a clean and convenient way.
+</p>
+<h4>Interaction with the server</h4>
+<p>
+Liquidsoap starts with one or several scripts as its configuration,
+and then streams forever if everything goes well.
+Once started, you can still interact with it by means of the <em>server</em>.
+The server allows you to run commands. Some are general and always available,
+some belong to a specific operator. For example the <code>request.queue()</code> instances register commands to enqueue new requests, the outputs register commands
+to start or stop the outputting, display the last ten metadata chunks, etc.
+</p>
+<p>
+The protocol of the server is a simple human-readable one.
+Currently it does not have any kind of authentication and permissions.
+It is currently available via two media: TCP and Unix sockets.
+The TCP socket provides a simple telnet-like interface, available only on
+the local host by default.
+The Unix socket interface (<em>cf.</em> the <code>server.socket</code> setting)
+is through some sort of virtual file.
+This is more constraining, which allows one to restrict the use of the socket
+to some priviledged users.
+</p>
+<p>
+You can find more details on how to configure the server in the
+<a href="help.html#settings">documentation</a> of the settings key <code>server</code>,
+in particular <code>server.telnet</code> for the TCP interface and <code>server.socket</code>
+for the Unix interface.
+Liquidsoap also embeds some <a href="help.html#server">documentation</a>
+about the available server commands.
+</p>
+<p>
+Now, we shall simply enable the Telnet interface to the server,
+by setting <code>set("server.telnet",true)</code> or simply passing the <code>-t</code> option on
+the command-line.
+In a <a href="complete_case.html">complete case analysis</a> we set up a <code>request.queue()</code>
+instance to play user requests. It had the identifier <code>"queue"</code>.
+We are now going to interact via the server to push requests into that queue:
+</p>
+<pre class="syntax ">dbaelde@selassie:~$ telnet localhost 1234
+Trying 127.0.0.1...
+Connected to localhost.localdomain.
+Escape character is '^]'.
+request.push /path/to/some/file.ogg
+5
+END
+metadata 5
+[...]
+END
+request.push http://remote/audio.ogg
+6
+END
+trace 6
+[...see if the download started/succeeded...]
+END
+exit
+</pre>
+<p>
+Of course, the server isn't very user-friendly.
+But it is easy to write scripts to interact with Liquidsoap in that way,
+to implement a website or an IRC interface to your radio.
+However, this sort of tool is often bound to a specific usage, so we have
+not released any of ours. Feel free to
+<a href="mailto:savonet-users@lists.sf.net">ask the community</a> about code that you could re-use.
+</p>
+<h4>Using in production</h4>
+<p>
+The full installation of liquidsoap will typically install
+<code>/etc/liquidsoap</code>, <code>/etc/init.d/liquidsoap</code> and <code>/var/log/liquidsoap</code>.
+All these are meant for a particular usage of liquidsoap
+when running a stable radio.
+</p>
+<p>
+Your production <code>.liq</code> files should go in <code>/etc/liquidsoap</code>.
+You'll then start/stop them using the init script, <em>e.g.</em>
+<code>/etc/init.d/liquidsoap start</code>.
+Your scripts don't need to have the <code>#!</code> line,
+and liquidsoap will automatically be ran on daemon mode (<code>-d</code> option) for them.
+</p>
+<p>
+You should not override the <code>log.file.path</code> setting because a
+logrotate configuration is also installed so that log files
+in the standard directory are truncated and compressed if they grow too big.
+</p>
+<p>
+It is not very convenient to detect errors when using the init script.
+We advise users to check their scripts after modification (use
+<code>liquidsoap --check /etc/liquidsoap/script.liq</code>)
+before effectively restarting the daemon.
+</p>
+      <div id="footer"> 2003-2017 Savonet team</div>
+    </div>
+  </div>
+  <script type="text/javascript" src="//www.google.com/cse/brand?form=cse-search-box&amp;lang=en"></script>
+  <script type="text/javascript" src="../js/search.js"></script>
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-927362-1']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+</body>
+</html>

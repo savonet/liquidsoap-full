@@ -1,0 +1,95 @@
+<?xml version="1.0"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+  <title>Savonet / Liquidsoap  :: Multimedia Stream Generation</title>
+  <link href="css/new.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="http://www.google.com/jsapi"></script>
+  <link rel="shortcut icon" href="favicon.ico" />
+  <script>
+    google.load("jquery", "1.6.1");
+    google.load("jqueryui", "1.8.14");
+  </script>
+  <script type="text/javascript" src="js/jQuery.syntax/jquery.syntax.min.js"></script>
+  <script type="text/javascript" src="js/liq-jquery.js"></script>
+</head>
+<body>
+  <div class="menu">
+    <ul id="menu">
+      <li id="menu-developers">
+	<a href="https://github.com/savonet/liquidsoap/issues" target="_blank">developers</a></li>
+      <li id="menu-flows"><a href="http://flows.liquidsoap.info/">Flows!</a></li>
+      <li id="menu-support">
+	<a href="documentation.html">documentation</a></li>
+      <li id="menu-download">
+	<a href="download.html">download</a></li>
+      <li id="menu-about">
+	<a href="index.html">about</a></li>
+    </ul>
+  </div>
+  <div class="section" id="main">
+    <h1>Savonet : Daily Debian/Ubuntu Packages</h1>
+    <div class="content">
+      <p>
+<b>Disclaimer: Daily packages are currently outdated.. We are looking for contributors to help us bringing them back!</b>
+</p>
+<h2>How to install?</h2>
+<p>
+Liquidsoap's Debian packages (also compatible with Ubuntu) are built every night
+for the i386 and amd64 architectures. They can be useful to test the latest
+code quickly.
+</p>
+<p>
+To get them, you can add this repository to your <code>/etc/apt/sources.list</code>:
+</p>
+<pre class="syntax ">
+deb ftp://savonet.rastageeks.org/ ./
+</pre>
+<h2>Installing on Ubuntu</h2>
+<p>
+In order to have support for mp3 encoding and other features, you might need to
+use Medibuntu which provides the necessary libraries. Details about installation
+are provided <a href="https://help.ubuntu.com/community/Medibuntu">on Ubuntu's website</a> .
+</p>
+<h2>Installing on Debian</h2>
+<h3>Debian multimedia packages</h3>
+<p>
+You also need <a href="http://www.debian-multimedia.org/" target="_blank">Debian multimedia</a> packages for
+mp3 support (same reasons as above). The line to add in your
+<code>/etc/apt/sources.list</code> is
+</p>
+<pre class="syntax ">
+deb http://www.debian-multimedia.org lenny main
+</pre>
+<h3>Backports packages</h3>
+<p>
+If you use the stable version of Debian, you might also need the backports
+packages. The line to add in your <code>/etc/apt/sources.list</code> is
+</p>
+<pre class="syntax ">
+deb http://backports.debian.org/debian-backports lenny-backports main
+</pre>
+<p>
+You can then install Liquidsoap by typing
+</p>
+<pre class="syntax ">
+apt-get install liquidsoap -t lenny-backports
+</pre>
+      <div id="footer">2003-2017 Savonet team</div>
+    </div>
+  </div>
+  <script type="text/javascript" src="http://www.google.com/cse/brand?form=cse-search-box&amp;lang=en"></script>
+  <script type="text/javascript" src="js/search.js"></script>
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-927362-1']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+</body>
+</html>

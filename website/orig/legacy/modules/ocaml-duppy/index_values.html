@@ -1,0 +1,269 @@
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Duppy" rel="Chapter" href="Duppy.html">
+<link title="Pa_duppy" rel="Chapter" href="Pa_duppy.html"><title>Index of values</title>
+</head>
+<body>
+<div class="navbar">&nbsp;<a class="up" href="index.html" title="Index">Up</a>
+&nbsp;</div>
+<h1>Index of values</h1>
+<table>
+<tr><td align="left"><div></div></td></tr>
+<tr><td><a href="Duppy.Monad.html#VAL(=<<)">(=&lt;&lt;)</a> [<a href="Duppy.Monad.html">Duppy.Monad</a>]</td>
+<td><div class="info">
+<p><code class="code">=&lt;&lt;</code> is an alternative notation for catch.</p>
+
+</div>
+</td></tr>
+<tr><td><a href="Duppy.Monad.html#VAL(>>=)">(&gt;&gt;=)</a> [<a href="Duppy.Monad.html">Duppy.Monad</a>]</td>
+<td><div class="info">
+<p><code class="code">&gt;&gt;=</code> is an alternative notation
+ for <code class="code">bind</code></p>
+
+</div>
+</td></tr>
+<tr><td align="left"><div>A</div></td></tr>
+<tr><td><a href="Duppy.Async.html#VALadd">add</a> [<a href="Duppy.Async.html">Duppy.Async</a>]</td>
+<td><div class="info">
+<p><code class="code">add ~priority s f</code> creates an asynchronous task in <code class="code">s</code> with
+ priority <code class="code">priority</code>.</p>
+
+</div>
+</td></tr>
+<tr><td><a href="Duppy.Task.html#VALadd">add</a> [<a href="Duppy.Task.html">Duppy.Task</a>]</td>
+<td><div class="info">
+<p>Schedule a task.</p>
+
+</div>
+</td></tr>
+<tr><td align="left"><div>B</div></td></tr>
+<tr><td><a href="Duppy.Transport_t.html#VALba_write">ba_write</a> [<a href="Duppy.Transport_t.html">Duppy.Transport_t</a>]</td>
+<td></td></tr>
+<tr><td><a href="Duppy.Monad.html#VALbind">bind</a> [<a href="Duppy.Monad.html">Duppy.Monad</a>]</td>
+<td><div class="info">
+<p>Compose two computations.</p>
+
+</div>
+</td></tr>
+<tr><td><a href="Duppy.Monad.Condition.Factory.html#VALbroadcast">broadcast</a> [<a href="Duppy.Monad.Condition.Factory.html">Duppy.Monad.Condition.Factory</a>]</td>
+<td><div class="info">
+<p><code class="code">broadcast c</code> is a computation that 
+ resumes all computations waiting on <code class="code">c</code>.</p>
+
+</div>
+</td></tr>
+<tr><td align="left"><div>C</div></td></tr>
+<tr><td><a href="Duppy.Monad.html#VALcatch">catch</a> [<a href="Duppy.Monad.html">Duppy.Monad</a>]</td>
+<td><div class="info">
+<p><code class="code">catch f g</code> redirects values <code class="code">x</code> raised during
+ <code class="code">f</code>'s execution to <code class="code">g</code>.</p>
+
+</div>
+</td></tr>
+<tr><td><a href="Duppy.Monad.Condition.Factory.html#VALcreate">create</a> [<a href="Duppy.Monad.Condition.Factory.html">Duppy.Monad.Condition.Factory</a>]</td>
+<td><div class="info">
+<p>Create a condition.</p>
+
+</div>
+</td></tr>
+<tr><td><a href="Duppy.Monad.Mutex.Mutex_t.html#VALcreate">create</a> [<a href="Duppy.Monad.Mutex.Mutex_t.html">Duppy.Monad.Mutex.Mutex_t</a>]</td>
+<td><div class="info">
+<p><code class="code">create ()</code> creates a mutex.</p>
+
+</div>
+</td></tr>
+<tr><td><a href="Duppy.html#VALcreate">create</a> [<a href="Duppy.html">Duppy</a>]</td>
+<td><div class="info">
+<p>Initiate a new scheduler</p>
+
+</div>
+</td></tr>
+<tr><td align="left"><div>D</div></td></tr>
+<tr><td><a href="Duppy.Monad.Monad_io_t.html#VALdelay">delay</a> [<a href="Duppy.Monad.Monad_io_t.html">Duppy.Monad.Monad_io_t</a>]</td>
+<td><div class="info">
+<p><code class="code">delay ~priority h d</code> creates a computation that returns
+ <code class="code">unit</code> after delay <code class="code">d</code> in seconds.</p>
+
+</div>
+</td></tr>
+<tr><td align="left"><div>E</div></td></tr>
+<tr><td><a href="Duppy.Monad.Monad_io_t.html#VALexec">exec</a> [<a href="Duppy.Monad.Monad_io_t.html">Duppy.Monad.Monad_io_t</a>]</td>
+<td><div class="info">
+<p><code class="code">exec ?delay ~priority h f</code> redirects computation
+ <code class="code">f</code> into a new queue with priority <code class="code">priority</code> and
+ delay <code class="code">delay</code> (<code class="code">0.</code> by default).</p>
+
+</div>
+</td></tr>
+<tr><td align="left"><div>F</div></td></tr>
+<tr><td><a href="Duppy.Monad.html#VALfold_left">fold_left</a> [<a href="Duppy.Monad.html">Duppy.Monad</a>]</td>
+<td><div class="info">
+<p><code class="code">fold_left f a [b1; b2; ..]</code> returns computation 
+ <code class="code"> (f a b1) &gt;&gt;= (fun a -&gt; f a b2) &gt;&gt;= ...</code></p>
+
+</div>
+</td></tr>
+<tr><td align="left"><div>I</div></td></tr>
+<tr><td><a href="Duppy.Monad.html#VALiter">iter</a> [<a href="Duppy.Monad.html">Duppy.Monad</a>]</td>
+<td><div class="info">
+<p><code class="code">iter f [x1; x2; ..]</code> returns computation
+ <code class="code">f x1 &gt;&gt;= (fun () -&gt; f x2) &gt;&gt;= ...</code></p>
+
+</div>
+</td></tr>
+<tr><td align="left"><div>L</div></td></tr>
+<tr><td><a href="Duppy.Monad.Mutex.Mutex_t.html#VALlock">lock</a> [<a href="Duppy.Monad.Mutex.Mutex_t.html">Duppy.Monad.Mutex.Mutex_t</a>]</td>
+<td><div class="info">
+<p>A computation that locks a mutex
+ and returns <code class="code">unit</code> afterwards.</p>
+
+</div>
+</td></tr>
+<tr><td align="left"><div>P</div></td></tr>
+<tr><td><a href="Duppy.Monad.Mutex.Mutex_control.html#VALpriority">priority</a> [<a href="Duppy.Monad.Mutex.Mutex_control.html">Duppy.Monad.Mutex.Mutex_control</a>]</td>
+<td></td></tr>
+<tr><td align="left"><div>Q</div></td></tr>
+<tr><td><a href="Duppy.html#VALqueue">queue</a> [<a href="Duppy.html">Duppy</a>]</td>
+<td><div class="info">
+<p><code class="code">queue ~log ~priorities s name</code> 
+ starts a queue, on the scheduler <code class="code">s</code> only processing priorities <code class="code">p</code>
+ for which <code class="code">priorities p</code> returns <code class="code">true</code>.</p>
+
+</div>
+</td></tr>
+<tr><td align="left"><div>R</div></td></tr>
+<tr><td><a href="Duppy.Monad.html#VALraise">raise</a> [<a href="Duppy.Monad.html">Duppy.Monad</a>]</td>
+<td><div class="info">
+<p><code class="code">raise x</code> create a computation that raises
+ value <code class="code">x</code>.</p>
+
+</div>
+</td></tr>
+<tr><td><a href="Duppy.Transport_t.html#VALread">read</a> [<a href="Duppy.Transport_t.html">Duppy.Transport_t</a>]</td>
+<td></td></tr>
+<tr><td><a href="Duppy.Monad.Monad_io_t.html#VALread">read</a> [<a href="Duppy.Monad.Monad_io_t.html">Duppy.Monad.Monad_io_t</a>]</td>
+<td><div class="info">
+<p><code class="code">read ?timeout ~priority ~marker h</code> creates a 
+ computation that reads from <code class="code">h.socket</code>
+ and returns the first string split 
+ according to <code class="code">marker</code>.</p>
+
+</div>
+</td></tr>
+<tr><td><a href="Duppy.Io_t.html#VALread">read</a> [<a href="Duppy.Io_t.html">Duppy.Io_t</a>]</td>
+<td><div class="info">
+<p>Wrapper to perform a read on a socket and trigger a function when
+ a marker has been detected, or enough data has been read.</p>
+
+</div>
+</td></tr>
+<tr><td><a href="Duppy.Monad.Monad_io_t.html#VALread_all">read_all</a> [<a href="Duppy.Monad.Monad_io_t.html">Duppy.Monad.Monad_io_t</a>]</td>
+<td><div class="info">
+<p><code class="code">read_all ?timeout ~priority s sock</code> creates a 
+ computation that reads all data from <code class="code">sock</code>
+ and returns it.</p>
+
+</div>
+</td></tr>
+<tr><td><a href="Duppy.Monad.html#VALreturn">return</a> [<a href="Duppy.Monad.html">Duppy.Monad</a>]</td>
+<td><div class="info">
+<p><code class="code">return x</code> create a computation that 
+ returns value <code class="code">x</code>.</p>
+
+</div>
+</td></tr>
+<tr><td><a href="Duppy.Monad.html#VALrun">run</a> [<a href="Duppy.Monad.html">Duppy.Monad</a>]</td>
+<td><div class="info">
+<p><code class="code">run f ~return ~raise ()</code> executes <code class="code">f</code> and process 
+ returned values with <code class="code">return</code> or raised values 
+ with <code class="code">raise</code>.</p>
+
+</div>
+</td></tr>
+<tr><td align="left"><div>S</div></td></tr>
+<tr><td><a href="Duppy.Monad.Mutex.Mutex_control.html#VALscheduler">scheduler</a> [<a href="Duppy.Monad.Mutex.Mutex_control.html">Duppy.Monad.Mutex.Mutex_control</a>]</td>
+<td></td></tr>
+<tr><td><a href="Duppy.Monad.Condition.Factory.html#VALsignal">signal</a> [<a href="Duppy.Monad.Condition.Factory.html">Duppy.Monad.Condition.Factory</a>]</td>
+<td><div class="info">
+<p><code class="code">signal c</code> is a computation that resumes one 
+ computation waiting on <code class="code">c</code>.</p>
+
+</div>
+</td></tr>
+<tr><td><a href="Duppy.Transport_t.html#VALsock">sock</a> [<a href="Duppy.Transport_t.html">Duppy.Transport_t</a>]</td>
+<td></td></tr>
+<tr><td><a href="Duppy.Async.html#VALstop">stop</a> [<a href="Duppy.Async.html">Duppy.Async</a>]</td>
+<td><div class="info">
+<p>Stop and remove the asynchronous task.</p>
+
+</div>
+</td></tr>
+<tr><td><a href="Duppy.html#VALstop">stop</a> [<a href="Duppy.html">Duppy</a>]</td>
+<td><div class="info">
+<p>Stop all queues running on that scheduler, causing them to return.</p>
+
+</div>
+</td></tr>
+<tr><td align="left"><div>T</div></td></tr>
+<tr><td><a href="Duppy.Monad.Mutex.Mutex_t.html#VALtry_lock">try_lock</a> [<a href="Duppy.Monad.Mutex.Mutex_t.html">Duppy.Monad.Mutex.Mutex_t</a>]</td>
+<td><div class="info">
+<p>A computation that tries to lock a mutex.</p>
+
+</div>
+</td></tr>
+<tr><td align="left"><div>U</div></td></tr>
+<tr><td><a href="Duppy.Monad.Mutex.Mutex_t.html#VALunlock">unlock</a> [<a href="Duppy.Monad.Mutex.Mutex_t.html">Duppy.Monad.Mutex.Mutex_t</a>]</td>
+<td><div class="info">
+<p>A computation that unlocks a mutex.</p>
+
+</div>
+</td></tr>
+<tr><td align="left"><div>W</div></td></tr>
+<tr><td><a href="Duppy.Monad.Condition.Factory.html#VALwait">wait</a> [<a href="Duppy.Monad.Condition.Factory.html">Duppy.Monad.Condition.Factory</a>]</td>
+<td><div class="info">
+<p><code class="code">wait h m</code> is a computation that:
+  Unlock mutex <code class="code">m</code>, Wait until <code class="code">Condition.signal c</code> or <code class="code">Condition.broadcast c</code> 
+             has been called, Locks mutex <code class="code">m</code>, Returns <code class="code">unit</code></p>
+
+</div>
+</td></tr>
+<tr><td><a href="Duppy.Async.html#VALwake_up">wake_up</a> [<a href="Duppy.Async.html">Duppy.Async</a>]</td>
+<td><div class="info">
+<p>Wake up an asynchronous task.</p>
+
+</div>
+</td></tr>
+<tr><td><a href="Duppy.Transport_t.html#VALwrite">write</a> [<a href="Duppy.Transport_t.html">Duppy.Transport_t</a>]</td>
+<td></td></tr>
+<tr><td><a href="Duppy.Monad.Monad_io_t.html#VALwrite">write</a> [<a href="Duppy.Monad.Monad_io_t.html">Duppy.Monad.Monad_io_t</a>]</td>
+<td><div class="info">
+<p><code class="code">write ?timeout ~priority h s</code> creates a computation
+ that writes string <code class="code">s</code> to <code class="code">h.socket</code>.</p>
+
+</div>
+</td></tr>
+<tr><td><a href="Duppy.Io_t.html#VALwrite">write</a> [<a href="Duppy.Io_t.html">Duppy.Io_t</a>]</td>
+<td><div class="info">
+<p>Similar to <code class="code">read</code> but less complex.</p>
+
+</div>
+</td></tr>
+<tr><td><a href="Duppy.Monad.Monad_io_t.html#VALwrite_bigarray">write_bigarray</a> [<a href="Duppy.Monad.Monad_io_t.html">Duppy.Monad.Monad_io_t</a>]</td>
+<td><div class="info">
+<p><code class="code">write_bigarray ?timeout ~priority h ba</code> creates a computation
+ that writes data from <code class="code">ba</code> to <code class="code">h.socket</code>.</p>
+
+</div>
+</td></tr>
+</table>
+</body>
+</html>

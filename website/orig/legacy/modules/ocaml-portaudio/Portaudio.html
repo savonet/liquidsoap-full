@@ -1,0 +1,426 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link rel="Up" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Portaudio" rel="Chapter" href="Portaudio.html"><link title="Exceptions" rel="Section" href="#2_Exceptions">
+<link title="General" rel="Section" href="#2_General">
+<link title="Host API" rel="Section" href="#2_HostAPI">
+<link title="Streams" rel="Section" href="#2_Streams">
+<title>Portaudio</title>
+</head>
+<body>
+<div class="navbar">&nbsp;<a class="up" href="index.html" title="Index">Up</a>
+&nbsp;</div>
+<h1>Module <a href="type_Portaudio.html">Portaudio</a></h1>
+
+<pre><span id="MODULEPortaudio"><span class="keyword">module</span> Portaudio</span>: <code class="code">sig</code> <a href="Portaudio.html">..</a> <code class="code">end</code></pre><div class="info module top">
+<div class="info-desc">
+<p>Bindings for the portaudio portable audio library.</p>
+
+</div>
+<ul class="info-attributes">
+<li><b>Author(s):</b> Samuel Mimram, Niki Yoshiuchi</li>
+</ul>
+</div>
+<hr width="100%">
+<h3 id="2_Exceptions">Exceptions</h3>
+<pre><span id="EXCEPTIONError"><span class="keyword">exception</span> Error</span> <span class="keyword">of</span> <code class="type">int</code></pre>
+<div class="info ">
+<div class="info-desc">
+<p>An error occured. In the future, this exception should be replaced by more
+ specific exceptions. Use <code class="code">string_of_error</code> to get a description of the
+ error.</p>
+</div>
+</div>
+
+<pre><span id="EXCEPTIONUnanticipated_host_error"><span class="keyword">exception</span> Unanticipated_host_error</span></pre>
+<div class="info ">
+<div class="info-desc">
+<p>An unanticipaced</p>
+</div>
+</div>
+
+<pre><span id="VALstring_of_error"><span class="keyword">val</span> string_of_error</span> : <code class="type">int -> string</code></pre><div class="info ">
+<div class="info-desc">
+<p>Get a description of an error.</p>
+</div>
+</div>
+
+<pre><span id="VALget_last_host_error"><span class="keyword">val</span> get_last_host_error</span> : <code class="type">unit -> int * string</code></pre><div class="info ">
+<div class="info-desc">
+<p>Get the last errror which occured together with its description.</p>
+</div>
+</div>
+<h3 id="2_General">General</h3>
+<pre><span id="VALget_version"><span class="keyword">val</span> get_version</span> : <code class="type">unit -> int</code></pre><div class="info ">
+<div class="info-desc">
+<p>Version of portaudio.</p>
+</div>
+</div>
+
+<pre><span id="VALget_version_string"><span class="keyword">val</span> get_version_string</span> : <code class="type">unit -> string</code></pre><div class="info ">
+<div class="info-desc">
+<p>Version of portaudio.</p>
+</div>
+</div>
+
+<pre><span id="VALinit"><span class="keyword">val</span> init</span> : <code class="type">unit -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p>Initialize the portaudio library. Should be called before calling any other
+ function.</p>
+</div>
+</div>
+
+<pre><span id="VALterminate"><span class="keyword">val</span> terminate</span> : <code class="type">unit -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p>Stop using the library. This function should be called before ending the
+ program and no other portaudio function should be called after.</p>
+</div>
+</div>
+<h3 id="2_HostAPI">Host API</h3>
+<pre><code><span id="TYPEhost_api_info"><span class="keyword">type</span> <code class="type"></code>host_api_info</span> = {</code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELThost_api_info.h_struct_version">h_struct_version</span>&nbsp;: <code class="type">int</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELThost_api_info.h_host_api_type">h_host_api_type</span>&nbsp;: <code class="type">int</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELThost_api_info.h_name">h_name</span>&nbsp;: <code class="type">string</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELThost_api_info.h_device_count">h_device_count</span>&nbsp;: <code class="type">int</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELThost_api_info.h_default_input_device">h_default_input_device</span>&nbsp;: <code class="type">int</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELThost_api_info.h_default_output_device">h_default_output_device</span>&nbsp;: <code class="type">int</code>;</code></td>
+
+</tr></table>
+}
+
+<div class="info ">
+<div class="info-desc">
+<p>Host API Information</p>
+</div>
+</div>
+
+
+<pre><span id="VALget_host_api_count"><span class="keyword">val</span> get_host_api_count</span> : <code class="type">unit -> int</code></pre><div class="info ">
+<div class="info-desc">
+<p>Number of available host API.</p>
+</div>
+</div>
+
+<pre><span id="VALget_default_host_api"><span class="keyword">val</span> get_default_host_api</span> : <code class="type">unit -> int</code></pre><div class="info ">
+<div class="info-desc">
+<p>Index of the default host API.</p>
+</div>
+</div>
+
+<pre><span id="VALget_host_api_info"><span class="keyword">val</span> get_host_api_info</span> : <code class="type">int -> <a href="Portaudio.html#TYPEhost_api_info">host_api_info</a></code></pre><div class="info ">
+<div class="info-desc">
+<p>Information on a host API</p>
+</div>
+</div>
+
+<pre><code><span id="TYPEdevice_info"><span class="keyword">type</span> <code class="type"></code>device_info</span> = {</code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTdevice_info.d_struct_version">d_struct_version</span>&nbsp;: <code class="type">int</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTdevice_info.d_name">d_name</span>&nbsp;: <code class="type">string</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTdevice_info.d_host_api">d_host_api</span>&nbsp;: <code class="type">int</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTdevice_info.d_max_input_channels">d_max_input_channels</span>&nbsp;: <code class="type">int</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTdevice_info.d_max_output_channels">d_max_output_channels</span>&nbsp;: <code class="type">int</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTdevice_info.d_default_low_input_latency">d_default_low_input_latency</span>&nbsp;: <code class="type">float</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTdevice_info.d_default_low_output_latency">d_default_low_output_latency</span>&nbsp;: <code class="type">float</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTdevice_info.d_default_high_input_latency">d_default_high_input_latency</span>&nbsp;: <code class="type">float</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTdevice_info.d_default_high_output_latency">d_default_high_output_latency</span>&nbsp;: <code class="type">float</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTdevice_info.d_default_sample_rate">d_default_sample_rate</span>&nbsp;: <code class="type">float</code>;</code></td>
+
+</tr></table>
+}
+
+<div class="info ">
+<div class="info-desc">
+<p>Device Information</p>
+</div>
+</div>
+
+
+<pre><span id="VALget_default_input_device"><span class="keyword">val</span> get_default_input_device</span> : <code class="type">unit -> int</code></pre><div class="info ">
+<div class="info-desc">
+<p>Default input device.</p>
+</div>
+</div>
+
+<pre><span id="VALget_default_output_device"><span class="keyword">val</span> get_default_output_device</span> : <code class="type">unit -> int</code></pre><div class="info ">
+<div class="info-desc">
+<p>Default output device.</p>
+</div>
+</div>
+
+<pre><span id="VALget_device_count"><span class="keyword">val</span> get_device_count</span> : <code class="type">unit -> int</code></pre><div class="info ">
+<div class="info-desc">
+<p>Number of available devices.</p>
+</div>
+</div>
+
+<pre><span id="VALget_device_info"><span class="keyword">val</span> get_device_info</span> : <code class="type">int -> <a href="Portaudio.html#TYPEdevice_info">device_info</a></code></pre><div class="info ">
+<div class="info-desc">
+<p>Information on device</p>
+</div>
+</div>
+<h3 id="2_Streams">Streams</h3>
+<pre><span id="TYPEsample_format"><span class="keyword">type</span> <code class="type">('a, 'b)</code> sample_format</span> </pre>
+<div class="info ">
+<div class="info-desc">
+<p>The abstract type <code class="code">('a, 'b) sample_format</code> describes the OCaml type <code class="code">'a</code>
+ and the underlying C type <code class="code">'a</code> used to represent the data being written to or
+ read from a stream.  This type is compatible with <code class="code">('a, 'b) Bigarray.kind</code>.</p>
+</div>
+</div>
+
+
+<pre><span id="VALformat_int8"><span class="keyword">val</span> format_int8</span> : <code class="type">(int, Bigarray.int8_signed_elt) <a href="Portaudio.html#TYPEsample_format">sample_format</a></code></pre><div class="info ">
+<div class="info-desc">
+<p>See <a href="Portaudio.html#VALformat_float32"><code class="code">Portaudio.format_float32</code></a>.</p>
+</div>
+</div>
+
+<pre><span id="VALformat_int16"><span class="keyword">val</span> format_int16</span> : <code class="type">(int, Bigarray.int16_signed_elt) <a href="Portaudio.html#TYPEsample_format">sample_format</a></code></pre><div class="info ">
+<div class="info-desc">
+<p>See <a href="Portaudio.html#VALformat_float32"><code class="code">Portaudio.format_float32</code></a>.</p>
+</div>
+</div>
+
+<pre><span id="VALformat_int24"><span class="keyword">val</span> format_int24</span> : <code class="type">(int32, Bigarray.int32_elt) <a href="Portaudio.html#TYPEsample_format">sample_format</a></code></pre><div class="info ">
+<div class="info-desc">
+<p>See <a href="Portaudio.html#VALformat_float32"><code class="code">Portaudio.format_float32</code></a>.</p>
+</div>
+</div>
+
+<pre><span id="VALformat_int32"><span class="keyword">val</span> format_int32</span> : <code class="type">(int32, Bigarray.int32_elt) <a href="Portaudio.html#TYPEsample_format">sample_format</a></code></pre><div class="info ">
+<div class="info-desc">
+<p>See <a href="Portaudio.html#VALformat_float32"><code class="code">Portaudio.format_float32</code></a>.</p>
+</div>
+</div>
+
+<pre><span id="VALformat_float32"><span class="keyword">val</span> format_float32</span> : <code class="type">(float, Bigarray.float32_elt) <a href="Portaudio.html#TYPEsample_format">sample_format</a></code></pre><div class="info ">
+<div class="info-desc">
+<p>The stream uses floats in the range of <code class="code">-1.,1.</code> to represent audio data.
+ The underlying type is a 32 bit float.</p>
+</div>
+</div>
+
+<pre><code><span id="TYPEstream_parameters"><span class="keyword">type</span> <code class="type">('a, 'b)</code> stream_parameters</span> = {</code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTstream_parameters.channels">channels</span>&nbsp;: <code class="type">int</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTstream_parameters.device">device</span>&nbsp;: <code class="type">int</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTstream_parameters.sample_format">sample_format</span>&nbsp;: <code class="type">('a, 'b) <a href="Portaudio.html#TYPEsample_format">sample_format</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTstream_parameters.latency">latency</span>&nbsp;: <code class="type">float</code>;</code></td>
+
+</tr></table>
+}
+
+
+
+<pre><span id="TYPEstream_flag"><span class="keyword">type</span> <code class="type"></code>stream_flag</span> </pre>
+
+
+<pre><span id="TYPEstream"><span class="keyword">type</span> <code class="type">('a, 'b, 'c, 'd)</code> stream</span> </pre>
+
+
+<pre><span id="TYPEcallback"><span class="keyword">type</span> <code class="type">('a, 'b, 'c, 'd)</code> callback</span> = <code class="type">('a, 'b, Bigarray.c_layout) Bigarray.Genarray.t -><br>       ('c, 'd, Bigarray.c_layout) Bigarray.Genarray.t -> int -> int</code> </pre>
+<div class="info ">
+<div class="info-desc">
+<p>The function signature of a callback.  Callbacks only work with interleaved
+ streams.</p>
+</div>
+</div>
+
+
+<pre><span id="VALopen_stream"><span class="keyword">val</span> open_stream</span> : <code class="type">('a, 'b) <a href="Portaudio.html#TYPEstream_parameters">stream_parameters</a> option -><br>       ('c, 'd) <a href="Portaudio.html#TYPEstream_parameters">stream_parameters</a> option -><br>       ?interleaved:bool -><br>       float -><br>       int -><br>       ?callback:('a, 'b, 'c, 'd) <a href="Portaudio.html#TYPEcallback">callback</a> -><br>       <a href="Portaudio.html#TYPEstream_flag">stream_flag</a> list -> ('a, 'b, 'c, 'd) <a href="Portaudio.html#TYPEstream">stream</a></code></pre><div class="info ">
+<div class="info-desc">
+<p><code class="code">open_stream inparam outparam interleaved rate bufframes callback flags</code> opens a new
+ stream with input stream of format <code class="code">inparam</code>, output stream of format
+ <code class="code">outparam</code> using interleaved or non-interleaved <code class="code">interleaved</code> buffers
+ at <code class="code">rate</code> samples per second, with <code class="code">bufframes</code> frames per buffer
+ passed the callback function <code class="code">callback</code> (0 means leave this choice to
+ portaudio).</p>
+</div>
+</div>
+
+<pre><span id="VALopen_default_stream"><span class="keyword">val</span> open_default_stream</span> : <code class="type">?callback:('a, 'b, 'a, 'b) <a href="Portaudio.html#TYPEcallback">callback</a> -><br>       ?format:('a, 'b) <a href="Portaudio.html#TYPEsample_format">sample_format</a> -><br>       ?interleaved:bool -><br>       int -> int -> int -> int -> ('a, 'b, 'a, 'b) <a href="Portaudio.html#TYPEstream">stream</a></code></pre><div class="info ">
+<div class="info-desc">
+<p><code class="code">open_default_stream callback format interleaved inchans outchans rate bufframes</code>
+ opens default stream with <code class="code">callback</code> as callback function, handling samples in
+ <code class="code">format</code> format using interleaved or non-interleaved buffers <code class="code">interleaved</code> with
+ <code class="code">inchans</code> input channels and <code class="code">outchans</code> output channels
+ at <code class="code">rate</code> samples per seconds with handling buffers of size <code class="code">bufframes</code>.</p>
+</div>
+</div>
+
+<pre><span id="VALclose_stream"><span class="keyword">val</span> close_stream</span> : <code class="type">('a, 'b, 'c, 'd) <a href="Portaudio.html#TYPEstream">stream</a> -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p>Close a stream.</p>
+</div>
+</div>
+
+<pre><span id="VALstart_stream"><span class="keyword">val</span> start_stream</span> : <code class="type">('a, 'b, 'c, 'd) <a href="Portaudio.html#TYPEstream">stream</a> -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p>Start a stream.</p>
+</div>
+</div>
+
+<pre><span id="VALstop_stream"><span class="keyword">val</span> stop_stream</span> : <code class="type">('a, 'b, 'c, 'd) <a href="Portaudio.html#TYPEstream">stream</a> -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p>Stop a stream.</p>
+</div>
+</div>
+
+<pre><span id="VALabort_stream"><span class="keyword">val</span> abort_stream</span> : <code class="type">('a, 'b, 'c, 'd) <a href="Portaudio.html#TYPEstream">stream</a> -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p>Abort a stream.</p>
+</div>
+</div>
+
+<pre><span id="VALsleep"><span class="keyword">val</span> sleep</span> : <code class="type">int -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p>Sleep.</p>
+</div>
+</div>
+
+<pre><span id="VALwrite_stream"><span class="keyword">val</span> write_stream</span> : <code class="type">('a, 'b, 'c, 'd) <a href="Portaudio.html#TYPEstream">stream</a> -> 'c array array -> int -> int -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p>Write to a stream.</p>
+</div>
+</div>
+
+<pre><span id="VALread_stream"><span class="keyword">val</span> read_stream</span> : <code class="type">('a, 'b, 'c, 'd) <a href="Portaudio.html#TYPEstream">stream</a> -> 'a array array -> int -> int -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p>Read from a stream.</p>
+</div>
+</div>
+
+<pre><span id="VALwrite_stream_ba"><span class="keyword">val</span> write_stream_ba</span> : <code class="type">('a, 'b, 'c, 'd) <a href="Portaudio.html#TYPEstream">stream</a> -><br>       ('c, 'd, Bigarray.c_layout) Bigarray.Genarray.t -> int -> int -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p>Write to a stream using a bigarray.</p>
+</div>
+</div>
+
+<pre><span id="VALread_stream_ba"><span class="keyword">val</span> read_stream_ba</span> : <code class="type">('a, 'b, 'c, 'd) <a href="Portaudio.html#TYPEstream">stream</a> -><br>       ('a, 'b, Bigarray.c_layout) Bigarray.Genarray.t -> int -> int -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p>Read from a stream using a bigarray.</p>
+</div>
+</div>
+</body></html>

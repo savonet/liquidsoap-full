@@ -1,0 +1,516 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link rel="previous" href="Ogg_demuxer_theora_decoder.html">
+<link rel="Up" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Ogg_demuxer_theora_decoder" rel="Chapter" href="Ogg_demuxer_theora_decoder.html">
+<link title="Theora" rel="Chapter" href="Theora.html"><link title="Exceptions" rel="Section" href="#2_Exceptions">
+<link title="General functions" rel="Section" href="#2_Generalfunctions">
+<link title="Types and datastructures" rel="Section" href="#2_Typesanddatastructures">
+<link title="Encoding" rel="Section" href="#2_Encoding">
+<title>Theora</title>
+</head>
+<body>
+<div class="navbar"><a class="pre" href="Ogg_demuxer_theora_decoder.html" title="Ogg_demuxer_theora_decoder">Previous</a>
+&nbsp;<a class="up" href="index.html" title="Index">Up</a>
+&nbsp;</div>
+<h1>Module <a href="type_Theora.html">Theora</a></h1>
+
+<pre><span id="MODULETheora"><span class="keyword">module</span> Theora</span>: <code class="code">sig</code> <a href="Theora.html">..</a> <code class="code">end</code></pre><div class="info module top">
+<div class="info-desc">
+<p>Functions for encoding theora files using libtheora.</p>
+
+</div>
+<ul class="info-attributes">
+<li><b>Author(s):</b> Samuel Mimram, Romain Beauxis</li>
+</ul>
+</div>
+<hr width="100%">
+<h3 id="2_Exceptions">Exceptions</h3>
+<pre><span id="EXCEPTIONInternal_error"><span class="keyword">exception</span> Internal_error</span></pre>
+<div class="info ">
+<div class="info-desc">
+<p>General failure.</p>
+
+<p>Library encountered invalid internal data.</p>
+</div>
+</div>
+
+<pre><span id="EXCEPTIONInvalid_data"><span class="keyword">exception</span> Invalid_data</span></pre>
+<div class="info ">
+<div class="info-desc">
+<p>An unhandled error happened.</p>
+</div>
+</div>
+
+<pre><span id="EXCEPTIONUnknown_error"><span class="keyword">exception</span> Unknown_error</span> <span class="keyword">of</span> <code class="type">int</code></pre>
+<div class="info ">
+<div class="info-desc">
+<p>The decoded packet represented a dropped frame.
+ The player can continue to display the current frame, 
+ as the contents of the decoded frame buffer have not 
+ changed.</p>
+</div>
+</div>
+
+<pre><span id="EXCEPTIONDuplicate_frame"><span class="keyword">exception</span> Duplicate_frame</span></pre>
+
+<pre><span id="EXCEPTIONDone"><span class="keyword">exception</span> Done</span></pre>
+<div class="info ">
+<div class="info-desc">
+<p>Exceptions used by the decoding module.</p>
+</div>
+</div>
+
+<pre><span id="EXCEPTIONNot_initialized"><span class="keyword">exception</span> Not_initialized</span></pre>
+<h3 id="2_Generalfunctions">General functions</h3>
+<pre><span id="VALversion_string"><span class="keyword">val</span> version_string</span> : <code class="type">string</code></pre><div class="info ">
+<div class="info-desc">
+<p>Human-readable string to identify the encoder vendor and version.</p>
+</div>
+</div>
+
+<pre><span id="VALversion_number"><span class="keyword">val</span> version_number</span> : <code class="type">int * int * int</code></pre><div class="info ">
+<div class="info-desc">
+<p>major, minor and sub version numbers of the encoder.</p>
+</div>
+</div>
+
+<pre><span id="VALis_keyframe"><span class="keyword">val</span> is_keyframe</span> : <code class="type">Ogg.Stream.packet -> bool</code></pre><div class="info ">
+<div class="info-desc">
+<p>Determines whether a theora packet is a key frame or not.</p>
+
+<p>raises <code class="code">Invalid_data</code> if The packet is not a video data 
+ packet.</p>
+</div>
+</div>
+<h3 id="2_Typesanddatastructures">Types and datastructures</h3>
+<pre><code><span id="TYPEcolorspace"><span class="keyword">type</span> <code class="type"></code>colorspace</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTcolorspace.CS_unspecified"><span class="constructor">CS_unspecified</span></span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<div class="info-desc">
+<p>The colorspace is unknown or unspecified</p>
+</div>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTcolorspace.CS_ITU_REC_470M"><span class="constructor">CS_ITU_REC_470M</span></span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<div class="info-desc">
+<p>This is the best option for 'NTSC' content</p>
+</div>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTcolorspace.CS_ITU_REC_470BG"><span class="constructor">CS_ITU_REC_470BG</span></span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<div class="info-desc">
+<p>This is the best option for 'PAL' content</p>
+</div>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTcolorspace.CS_NSPACES"><span class="constructor">CS_NSPACES</span></span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<div class="info-desc">
+<p>This marks the end of the defined colorspaces</p>
+</div>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr></table>
+
+<div class="info ">
+<div class="info-desc">
+<p>A Colorspace.</p>
+</div>
+</div>
+
+
+<pre><code><span id="TYPEpixelformat"><span class="keyword">type</span> <code class="type"></code>pixelformat</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTpixelformat.PF_420"><span class="constructor">PF_420</span></span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<div class="info-desc">
+<p>Chroma subsampling by 2 in each direction (4:2:0)</p>
+</div>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTpixelformat.PF_reserved"><span class="constructor">PF_reserved</span></span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<div class="info-desc">
+<p>Reserved value</p>
+</div>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTpixelformat.PF_422"><span class="constructor">PF_422</span></span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<div class="info-desc">
+<p>Horizonatal chroma subsampling by 2 (4:2:2)</p>
+</div>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTpixelformat.PF_444"><span class="constructor">PF_444</span></span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<div class="info-desc">
+<p>No chroma subsampling at all (4:4:4)</p>
+</div>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr></table>
+
+<div class="info ">
+<div class="info-desc">
+<p>A Chroma subsampling</p>
+
+<p>These enumerate the available chroma subsampling options supported
+ by the theora format. See Section 4.4 of the specification for
+ exact definitions.</p>
+</div>
+</div>
+
+
+<pre><code><span id="TYPEinfo"><span class="keyword">type</span> <code class="type"></code>info</span> = {</code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTinfo.frame_width">frame_width</span>&nbsp;: <code class="type">int</code>;</code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<div class="info-desc">
+<p>The encoded frame width.</p>
+</div>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTinfo.frame_height">frame_height</span>&nbsp;: <code class="type">int</code>;</code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<div class="info-desc">
+<p>The encoded frame height.</p>
+</div>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTinfo.picture_width">picture_width</span>&nbsp;: <code class="type">int</code>;</code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<div class="info-desc">
+<p>The displayed picture width.</p>
+</div>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTinfo.picture_height">picture_height</span>&nbsp;: <code class="type">int</code>;</code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<div class="info-desc">
+<p>The displayed picture height.</p>
+</div>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTinfo.picture_x">picture_x</span>&nbsp;: <code class="type">int</code>;</code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<div class="info-desc">
+<p>The X offset of the displayed picture.</p>
+</div>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTinfo.picture_y">picture_y</span>&nbsp;: <code class="type">int</code>;</code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<div class="info-desc">
+<p>The Y offset of the displayed picture.</p>
+</div>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTinfo.colorspace">colorspace</span>&nbsp;: <code class="type"><a href="Theora.html#TYPEcolorspace">colorspace</a></code>;</code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<div class="info-desc">
+<p>The color space.</p>
+</div>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTinfo.pixel_fmt">pixel_fmt</span>&nbsp;: <code class="type"><a href="Theora.html#TYPEpixelformat">pixelformat</a></code>;</code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<div class="info-desc">
+<p>The pixel format.</p>
+</div>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTinfo.target_bitrate">target_bitrate</span>&nbsp;: <code class="type">int</code>;</code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<div class="info-desc">
+<p>The target bit-rate in bits per second.</p>
+</div>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTinfo.quality">quality</span>&nbsp;: <code class="type">int</code>;</code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<div class="info-desc">
+<p>The target quality level.</p>
+</div>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTinfo.keyframe_granule_shift">keyframe_granule_shift</span>&nbsp;: <code class="type">int</code>;</code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<div class="info-desc">
+<p>The amount to shift to extract the last keyframe number from the granule position.</p>
+</div>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTinfo.version_major">version_major</span>&nbsp;: <code class="type">int</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTinfo.version_minor">version_minor</span>&nbsp;: <code class="type">int</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTinfo.version_subminor">version_subminor</span>&nbsp;: <code class="type">int</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTinfo.fps_numerator">fps_numerator</span>&nbsp;: <code class="type">int</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTinfo.fps_denominator">fps_denominator</span>&nbsp;: <code class="type">int</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTinfo.aspect_numerator">aspect_numerator</span>&nbsp;: <code class="type">int</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTinfo.aspect_denominator">aspect_denominator</span>&nbsp;: <code class="type">int</code>;</code></td>
+
+</tr></table>
+}
+
+<div class="info ">
+<div class="info-desc">
+<p>Theora bitstream info.</p>
+</div>
+</div>
+
+
+<pre><span id="VALdefault_granule_shift"><span class="keyword">val</span> default_granule_shift</span> : <code class="type">int</code></pre>
+<pre><span id="TYPEdata_buffer"><span class="keyword">type</span> <code class="type"></code>data_buffer</span> = <code class="type">(int, Bigarray.int8_unsigned_elt, Bigarray.c_layout) Bigarray.Array1.t</code> </pre>
+
+
+<pre><code><span id="TYPEyuv_buffer"><span class="keyword">type</span> <code class="type"></code>yuv_buffer</span> = {</code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTyuv_buffer.y_width">y_width</span>&nbsp;: <code class="type">int</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTyuv_buffer.y_height">y_height</span>&nbsp;: <code class="type">int</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTyuv_buffer.y_stride">y_stride</span>&nbsp;: <code class="type">int</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTyuv_buffer.y">y</span>&nbsp;: <code class="type"><a href="Theora.html#TYPEdata_buffer">data_buffer</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTyuv_buffer.u_width">u_width</span>&nbsp;: <code class="type">int</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTyuv_buffer.u_height">u_height</span>&nbsp;: <code class="type">int</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTyuv_buffer.u_stride">u_stride</span>&nbsp;: <code class="type">int</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTyuv_buffer.u">u</span>&nbsp;: <code class="type"><a href="Theora.html#TYPEdata_buffer">data_buffer</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTyuv_buffer.v_width">v_width</span>&nbsp;: <code class="type">int</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTyuv_buffer.v_height">v_height</span>&nbsp;: <code class="type">int</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTyuv_buffer.v_stride">v_stride</span>&nbsp;: <code class="type">int</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTyuv_buffer.v">v</span>&nbsp;: <code class="type"><a href="Theora.html#TYPEdata_buffer">data_buffer</a></code>;</code></td>
+
+</tr></table>
+}
+
+<div class="info ">
+<div class="info-desc">
+<p>A YUV buffer for passing uncompressed frames to and from the codec.
+ This holds a Y'CbCr frame in planar format. The CbCr planes can be
+ subsampled and have their own separate dimensions and row stride
+ offsets. Note that the strides may be negative in some
+ configurations. For theora the width and height of the largest plane
+ must be a multiple of 16. The actual meaningful picture size and
+ offset are stored in the <code class="code">info</code> structure; frames returned by
+ the decoder may need to be cropped for display.</p>
+
+<p>All samples are 8 bits. Within each plane samples are ordered by
+ row from the top of the frame to the bottom. Within each row samples
+ are ordered from left to right.</p>
+</div>
+</div>
+
+<h3 id="2_Encoding">Encoding</h3>
+<pre><span id="MODULEEncoder"><span class="keyword">module</span> <a href="Theora.Encoder.html">Encoder</a></span>: <code class="code">sig</code> <a href="Theora.Encoder.html">..</a> <code class="code">end</code></pre>
+<pre><span id="MODULEDecoder"><span class="keyword">module</span> <a href="Theora.Decoder.html">Decoder</a></span>: <code class="code">sig</code> <a href="Theora.Decoder.html">..</a> <code class="code">end</code></pre>
+<pre><span id="MODULESkeleton"><span class="keyword">module</span> <a href="Theora.Skeleton.html">Skeleton</a></span>: <code class="code">sig</code> <a href="Theora.Skeleton.html">..</a> <code class="code">end</code></pre></body></html>

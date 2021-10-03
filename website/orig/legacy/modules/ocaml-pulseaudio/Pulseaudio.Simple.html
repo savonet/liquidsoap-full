@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link rel="Up" href="Pulseaudio.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Pulseaudio" rel="Chapter" href="Pulseaudio.html"><title>Pulseaudio.Simple</title>
+</head>
+<body>
+<div class="navbar">&nbsp;<a class="up" href="Pulseaudio.html" title="Pulseaudio">Up</a>
+&nbsp;</div>
+<h1>Module <a href="type_Pulseaudio.Simple.html">Pulseaudio.Simple</a></h1>
+
+<pre><span id="MODULESimple"><span class="keyword">module</span> Simple</span>: <code class="code">sig</code> <a href="Pulseaudio.Simple.html">..</a> <code class="code">end</code></pre><div class="info module top">
+<div class="info-desc">
+<p>Simple pulseaudio interface.</p>
+</div>
+</div>
+<hr width="100%">
+
+<pre><span id="TYPEt"><span class="keyword">type</span> <code class="type"></code>t</span> </pre>
+<div class="info ">
+<div class="info-desc">
+<p>Connections to a server.</p>
+</div>
+</div>
+
+
+<pre><span id="VALcreate"><span class="keyword">val</span> create</span> : <code class="type">?server:string -><br>       client_name:string -><br>       dir:<a href="Pulseaudio.html#TYPEdir">Pulseaudio.dir</a> -><br>       ?dev:string -><br>       stream_name:string -><br>       sample:<a href="Pulseaudio.html#TYPEsample">Pulseaudio.sample</a> -><br>       ?map:<a href="Pulseaudio.html#TYPEmap">Pulseaudio.map</a> -><br>       ?attr:<a href="Pulseaudio.html#TYPEbuffer_attr">Pulseaudio.buffer_attr</a> -> unit -> <a href="Pulseaudio.Simple.html#TYPEt">t</a></code></pre>
+<pre><span id="VALfree"><span class="keyword">val</span> free</span> : <code class="type"><a href="Pulseaudio.Simple.html#TYPEt">t</a> -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p>Close and free a connection to a server.</p>
+</div>
+</div>
+
+<pre><span id="VALread"><span class="keyword">val</span> read</span> : <code class="type"><a href="Pulseaudio.Simple.html#TYPEt">t</a> -> float array array -> int -> int -> unit</code></pre>
+<pre><span id="VALwrite"><span class="keyword">val</span> write</span> : <code class="type"><a href="Pulseaudio.Simple.html#TYPEt">t</a> -> float array array -> int -> int -> unit</code></pre>
+<pre><span id="VALdrain"><span class="keyword">val</span> drain</span> : <code class="type"><a href="Pulseaudio.Simple.html#TYPEt">t</a> -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p>Wait until all data already written is played by the daemon.</p>
+</div>
+</div>
+
+<pre><span id="VALflush"><span class="keyword">val</span> flush</span> : <code class="type"><a href="Pulseaudio.Simple.html#TYPEt">t</a> -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p>Flush the playback buffer.</p>
+</div>
+</div>
+
+<pre><span id="VALlatency"><span class="keyword">val</span> latency</span> : <code class="type"><a href="Pulseaudio.Simple.html#TYPEt">t</a> -> int</code></pre><div class="info ">
+<div class="info-desc">
+<p>Return the playback latency.</p>
+</div>
+</div>
+</body></html>

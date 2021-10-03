@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+  <title>Savonet / Liquidsoap 1.2.0 :: Multimedia Stream Generation</title>
+  <link href="../css/new.css" type="text/css" rel="stylesheet" />
+  <link href="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.17/themes/base/jquery-ui.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="//www.google.com/jsapi"></script>
+  <link rel="shortcut icon" href="../favicon.ico" />
+  <script>
+    google.load("jquery", "1.6.1");
+    google.load("jqueryui", "1.8.14");
+  </script>
+  <script type="text/javascript" src="../js/jQuery.syntax/jquery.syntax.min.js"></script>
+  <script type="text/javascript" src="../js/liq-jquery.js"></script>
+</head>
+<body>
+  <div class="menu">
+    <ul>
+      <li id="menu-developers">
+        <a href="https://github.com/savonet/liquidsoap/issues" target="_blank">developers</a></li>
+      <li id="menu-flows"><a href="https://flows.liquidsoap.info/">Flows!</a></li>
+      <li id="menu-doc-api-www">
+        <a href="reference.html">API</a></li>
+      <li id="menu-support">
+        <a href="documentation.html">documentation</a></li>
+      <li id="menu-download">
+        <a href="../download.html">download</a></li>
+      <li id="menu-about">
+        <a href="../index.html">about</a></li>
+    </ul>
+  </div>
+  <div class="section" id="main">
+    <h1>Liquidsoap 1.2.0 : Liquidsoap Workshop, part III</h1>
+    <div class="content">
+      <p>
+This part is pretty open. We describe below a few advanced features of 
+liquidsoap, including video and midi. We provide some examples
+or simply propose things to do, to give you an idea of what's in
+the near future of liquidsoap and hopefully draw you into
+contributing to shaping that future,
+if only through discussions.
+</p>
+<h2>Visualization</h2>
+<p>
+A liquidsoap script is like any other program: you can in principle
+predict what it does, but there's always a point where you miss something.
+In such cases, you need to debug it: control all the relevant parameters
+until you spot what's wrong.
+</p>
+<p>
+In liquidsoap, the most important parameter is probably the availability
+of a source. You'll end up creating devices dealing with various sources
+going on and off. To test them you can create sources whose availability
+is controlled by you, and you should also be able to monitor their
+availability.
+</p>
+<p>
+As an exercise, you can try to write a simple logging function that
+periodically displays <code>source.is_ready(s)</code> for some source <code>s</code>.
+The <code>mix</code> operator can be useful too: it is a mixing table for
+liquidsoap, allowing you to monitor and cancel the availability
+of its inputs; the best way to use it is through liGuidsoap.
+</p>
+<h3>Audio volume</h3>
+<p>
+You can visualize the audio volume on screen using <code>visu.volume</code>:
+</p>
+<pre class="syntax ">d = 1.
+t = "lin"
+s = fade.in(duration=d,type=t,
+      fade.out(duration=d,type=t,sine(duration=3.*d)))
+output.ao(visu.volume(s))
+</pre>
+<h2>Video streams</h2>
+<p>
+Video may be used very simply in liquidsoap: common operators
+such as <code>single</code> and <code>playlist</code> will attempt to decode their files
+as video if their content type is appropriate, which is dictated by
+the output operator.
+For example you can do <code>output.sdl(single("video.ogg"))</code>
+to display the video part of an audio+video stream;
+to hear the audio part, insert your favorite audio output operator
+together with <code>drop_audio</code> and <code>drop_video</code> at the right places
+(most outputs do not silently drop irrelevant data).
+</p>
+<h3>Slideshow</h3>
+<p>
+The following script displays a slideshow of images,
+while playing a playlist of audio files.
+Pass it the images playlist/directory as the first argument on the command
+line (after <code>--</code>) and (optionally) the audio playlist/directory as the
+second argument.
+</p>
+<pre class="syntax ">def images
+  video.fade.in(duration=1.,video.fade.out(duration=1.,
+    video.add_text(metadata="filename","&lt;no filename&gt;",
+                   size=12,
+                   playlist(prefix="annotate:duration=3:",argv(1)))))
+end
+
+def sound
+  playlist(argv(2))
+end
+
+output.ao(fallible=true,sound)
+clock(id="video", output.sdl(fallible=true,images))
+
+# You can also combine the two in a Theora file.
+# Play the result in VLC rather than mplayer (or even liquidsoap)
+# as it is a sequentialized ogg stream.
+# output.file(%ogg(%vorbis,%theora),"slideshow.ogg",
+#   mksafe(mux_video(video=images,sound)))
+</pre>
+<p>
+If you experience transparency problems... it's a known bug
+(see notably <a href="http://savonet.rastageeks.org/ticket/393" target="_blank">#393</a>).
+You may also experience segfaults... it does not seem to happen
+with a selected list avoiding too large sizes or too exotic formats.
+</p>
+<h3>Audio volume</h3>
+<p>
+You can render the audio volume visualization as a video stream,
+that you can then process as any other video stream:
+</p>
+<pre class="syntax ">d = 1.
+t = "lin"
+s = fade.in(duration=d,type=t,
+      fade.out(duration=d,type=t,sine(duration=3.*d)))
+output.sdl(drop_audio(video.volume(s)))
+</pre>
+<h3>Static image over audio track</h3>
+<p>
+TODO: the youtube encoder
+</p>
+<h3>Transitions</h3>
+<p>
+Playing a video file <code>video.ogv</code> is simply achieved by
+</p>
+<pre class="syntax ">s = single("video.ogv")
+output.sdl(s)
+</pre>
+<p>
+There are many useful (or not) effects in Liquidsoap which can be used to modify
+the video. These should be inserted between the first and the second line of
+the script above. For example, the image can be converted to sepia by adding
+</p>
+<pre class="syntax ">s = video.sepia(s)
+</pre>
+<p>
+Common operations include adding a logo (stored in a PPM image file 
+<code>image.ppm</code>):
+</p>
+<pre class="syntax ">s = video.add_image(width=30, height=30, x=10, y=10, file="image.ppm", s)
+</pre>
+<p>
+and displaying a scrolling text:
+</p>
+<pre class="syntax ">s = video.add_text("Hello people!", s)
+</pre>
+<p>
+Try modifying the scrolling text example so that you can modify the contents of
+the text over the telnet interface.
+</p>
+<p>
+Very similarly to audio transitions (fade in, fade out, etc.) there are some
+video transitions implemented. For example fading in the video is simply done using
+</p>
+<pre class="syntax ">s = video.fade.in(s)
+</pre>
+<p>
+The kind of transition that should be used is controlled by the <code>transition</code>
+parameter of <code>video.fade.in</code>. Try <code>disc</code> for example, as well as the others
+that you can find in the documentation.
+</p>
+<p>
+Of course, the <code>add</code> operator of liquidsoap also works on video streams. So, in
+order to add a rotating image on a video you could use
+</p>
+<pre class="syntax ">s = add([s,
+         video.rotate(
+           video.add_image(
+             width=50, height=50, x=150, y=150,
+             file="image.ppm",
+             blank()))])
+</pre>
+<h3>Overloaded demo</h3>
+<pre class="syntax ">file = single("bus.ogg")
+
+istring = interactive.string
+
+v = add([file,
+         # video.text("Hello world..."),
+         # video.text("Mip mip!",color=0xff0000,y=-1,speed=300),
+         video.text(istring("a",""),color=0xff0000,font=mono,size=30,y=-01),
+         video.text(istring("b",""),color=0xff0000,font=mono,size=30,y=-31),
+         video.text(istring("c",""),color=0xff0000,font=mono,size=30,y=-61),
+])
+
+output.alsa(drop_video(file))
+
+# output.file.theora("out.ogv",
+output.sdl(add([video.fade.in(video.fade.in(transition="disc",v)),
+                # video.rotate(video.scale(coef=0.3,offset_x=20,offset_y=20,v)),
+               video.image("chameau.pnm",width=50,height=50,
+                           x=-10,y=10,alpha=0xffffff),
+]))
+
+text = fun (v,s) -&gt; ignore(server.execute('var.set #{v} = "#{s}"'))
+
+def pingouin()
+  text("c","(o_ ")
+  text("b","//\\ ")
+  text("a","v_/_")
+end
+
+def pan()
+  text("c","(X_ ")
+end
+
+server.register("pingouin", fun (_) -&gt; begin pingouin() "Oui seigneur..." end)
+server.register("pan", fun (_) -&gt; begin pan() "Zog zog!" end)
+
+server.register("anim", fun (s) -&gt; begin
+  s = if s=="t" then begin
+    pan()
+    "f"
+  else
+    pingouin()
+    "t"
+  end
+  add_timeout(1.,{ ignore(server.execute("anim #{s}")) (-1.) })
+  "Done."
+end)
+</pre>
+<h2>Manipulating MIDI data</h2>
+<h3>Playing with the keyboard</h3>
+<p>
+MIDI is a format for describing steams of notes, scores, etc. Liquidsoap has
+a basic support for such streams.
+</p>
+<p>
+In order to generate a MIDI stream, the <code>input.keyboard.sdl</code> operator can be
+used. It will convert typing onto the keyboard of your operator into notes. In
+order to be able to hear the notes of a stream, you have to <em>synthesize</em> them,
+which means to convert them to wave sound. Various operators can be used for
+this, each corresponding to a different instrument. For example, a synthesizer
+with sawtooth waves is provided by the operator <code>synth.saw</code>. A mini-keyboard
+synthesizer can thus be programmed using the following script
+</p>
+<pre class="syntax ">s = input.keyboard.sdl()
+s = synth.saw(s)
+out(s)
+</pre>
+<p>
+You can also test <code>synth.sine</code> or <code>synth.square</code> for other kinds of simple
+sounds.
+</p>
+<p>
+In order to check the MIDI data contained in streams, the <code>midimeter</code> operator
+is very convenient: it prints on the standard output the notes currently being
+played.
+</p>
+<h3>Playing MIDI files</h3>
+<p>
+Liquidsoap comes with built-in support for MIDI files: when such a file is
+played it is detected as such and decoded as a MIDI stream. Usually, MIDI files
+contain multiple channels of notes (typically one for each instrument). In order
+to use the sawtooth synthesizer on all channels, the <code>synth.all.saw</code> operator
+should be used (with the <code>synth.saw</code> operator, only the first channel will be
+synthesized).
+</p>
+<p>
+So, a MIDI file named <code>file.mid</code> can be played using the following script
+</p>
+<pre class="syntax ">s = single("file.mid")
+s = midi.remove([9],s)
+s = mux_audio(audio=blank(),s)
+s = synth.all.saw(s)
+s = drop_midi(s)
+out(s)
+</pre>
+<p>
+The second line removes all the notes from the channel 9 which is usually used
+for drums (and would thus sound bad with our basic synthesizer). The third line
+adds an audio channel to the stream <code>s</code>, in which the sound will be synthesized.
+</p>
+<h3>Playing chords</h3>
+<p>
+The implementation of MIDI-related operators in Liquidsoap is still in early
+stage and their implementation gives us the possibility to simply test new
+ideas... we would be glad hear yours too!
+</p>
+<p>
+For example, we thought it would be nice to be able to play chords in
+Liquidsoap. This is actually pretty simple using metadata. First, describe your
+sequence of chords in a file named <code>chords.txt</code> with the following contents:
+</p>
+<pre class="syntax ">1 "chord" "C"
+2 "chord" "Am"
+3 "chord" "F"
+4 "chord" "G"
+</pre>
+<p>
+This file just contains a list of metadata: on each line, the first number
+indicate when (in seconds) the metadata should occur, the string in second
+indicates the name of the metadata (<code>chord</code> here) and the string in third
+position indicates the value of the metadata (the chord to be played here). This
+file format for metadata is supported natively by Liquidsoap. Now, the metadata
+containing the chord names can be converted to MIDI notes by using the <code>chord</code>
+operator. The sequence of chords above can thus be heard using the following
+script:
+</p>
+<pre class="syntax ">s = single("chord.txt")
+s = midi.chord(s)
+s = mux_audio(audio=blank(),s)
+s = synth.saw(s)
+s = drop_midi(s)
+out(s)
+</pre>
+<h2>Open problems</h2>
+<p>
+If you feel like hacking seriously, here are some tasks
+from the Savonet community.
+</p>
+<h3>Listener-sensitive radio</h3>
+<p>
+Write a script that checks whether an icecast mount point is being listened
+to, and use it to switch a radio to some dummy source when nobody is
+listening, and switch back to normal when listeners come back.
+This can be useful to avoid using the hard drive when unnecessary
+&ndash; it is noisy, calorific, and simply not so long-lived.
+</p>
+<h3>Liquidsoap script generator</h3>
+<p>
+Write a script (even better, a web page)
+that generates a simple liquidsoap script with a few options:
+input from playlist, live relay, output to icecast and/or soundcard.
+</p>
+<h3>Re-usable tools for radios</h3>
+<p>
+The open-source radio community needs re-usable tools that can be interfaced
+with existing streamers: indexer, database generator, scheduler,
+crossfading editor, etc.
+</p>
+      <div id="footer"> 2003-2017 Savonet team</div>
+    </div>
+  </div>
+  <script type="text/javascript" src="//www.google.com/cse/brand?form=cse-search-box&amp;lang=en"></script>
+  <script type="text/javascript" src="../js/search.js"></script>
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-927362-1']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+</body>
+</html>

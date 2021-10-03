@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+  <title>Savonet / Liquidsoap 1.3.0 :: Multimedia Stream Generation</title>
+  <link href="../css/new.css" type="text/css" rel="stylesheet" />
+  <link href="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.17/themes/base/jquery-ui.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="//www.google.com/jsapi"></script>
+  <link rel="shortcut icon" href="../favicon.ico" />
+  <script>
+    google.load("jquery", "1.6.1");
+    google.load("jqueryui", "1.8.14");
+  </script>
+  <script type="text/javascript" src="../js/jQuery.syntax/jquery.syntax.min.js"></script>
+  <script type="text/javascript" src="../js/liq-jquery.js"></script>
+</head>
+<body>
+  <div class="menu">
+    <ul>
+      <li id="menu-developers">
+        <a href="https://github.com/savonet/liquidsoap/issues" target="_blank">developers</a></li>
+      <li id="menu-flows"><a href="https://flows.liquidsoap.info/">Flows!</a></li>
+      <li id="menu-doc-api-www">
+        <a href="reference.html">API</a></li>
+      <li id="menu-support">
+        <a href="documentation.html">documentation</a></li>
+      <li id="menu-download">
+        <a href="../download.html">download</a></li>
+      <li id="menu-about">
+        <a href="../index.html">about</a></li>
+    </ul>
+  </div>
+  <div class="section" id="main">
+    <h1>Liquidsoap 1.3.0 : Harbor input</h1>
+    <div class="content">
+      <h3>Harbor input</h3>
+<p>
+Liquidsoap is also able to receive a source using icecast or shoutcast source protocol with 
+the <code>input.harbor</code> operator. Using this operator, the running liquidsoap will open 
+a network socket and wait for an incoming connection.
+</p>
+<p>
+This operator is very useful to seamlessly add live streams
+into your final streams:
+you configure the live source client to connect directly to liquidsoap,
+and manage the switch to and from the live inside your script.
+</p>
+<p>
+Additionally, liquidsoap can handle many simulataneous harbor sources on different ports, 
+with finer-grained authentication schemes that can be particularly useful when used with
+source clients designed for the shoutcast servers.
+</p>
+<p>
+If liquidsoap was compiled with SSL support enabled, it should also be able to
+use harbor over secure SSL connections.
+</p>
+<h4>Parameters</h4>
+<p>
+The global parameters for harbor can be retreived using
+<code>liquidsoap --conf-descr-key harbor</code>. They are:
+</p>
+<ul>
+<li>
+<code>harbor.bind_addr</code>: IP address on which the HTTP stream receiver should listen. The default is <code>"0.0.0.0"</code>. You can use this parameter to restrict connections only to your LAN.</li>
+<li>
+<code>harbor.timeout</code>: Timeout for source connection, in seconds. Defaults to <code>30.</code>.</li>
+<li>
+<code>harbor.verbose</code>: Print password used by source clients in logs, for debugging purposes. Defaults to: <code>false</code></li>
+<li>
+<code>harbor.reverse_dns</code>: Perform reverse DNS lookup to get the client's hostname from its IP. Defaults to: <code>true</code></li>
+<li>
+<code>harbor.icy_formats</code>: Content-type (mime) of formats which allow shout (ICY) metadata update. Defaults to: <code>["audio/mpeg"; "audio/aacp"; "audio/aac"; "audio/x-aac"; "audio/wav"; "audio/wave"]</code></li>
+</ul>
+<p>
+Optionally, if SSL support was enabled:
+</p>
+<ul>
+<li>
+<code>harbor.ssl.certificate</code>: Path to the SSL certificate.</li>
+<li>
+<code>harbor.ssl.private_key</code>: Path to the SSL private key (openssl only).</li>
+<li>
+<code>harbor.ssl.password</code>: Optional password to unlock the private key.</li>
+</ul>
+<p>
+Obtaining a proper SSL certificate can be tricky. You may want to start with a self-signed certificate first.
+You can obtain a free, valid certificate at: <a href="https://letsencrypt.org/">https://letsencrypt.org/</a>
+</p>
+<p>
+To create a self-signed certificate for local testing you can use the following one-liner:
+</p>
+<pre class="syntax sh">openssl req -x509 -newkey rsa:4096 -sha256 -nodes -keyout server.key -out server.crt -subj "/CN=localhost" -days 3650
+</pre>
+<div align="right">
+<a href="scripts/self_signed.sh">
+<img class="grab" src="../images/grab.png" alt="Grab the code!">
+</a>
+</div></p>
+<p>
+SSL can be enabled using of of the following <code>opam</code> packages: <code>ssl</code>, <code>osx-secure-transport</code>.
+</p>
+<p>
+You also have per-source parameters. You can retreive them using the command 
+<code>liquidsoap -h input.harbor</code>. The most important one are:
+</p>
+<ul>
+<li>
+<code>user</code>, <code>password</code>: set a permanent login and password for this harbor source.</li>
+<li>
+<code>auth</code>: Authenticate the user according to a specific function.</li>
+<li>
+<code>port</code>: Use a custom port for this input.</li>
+<li>
+<code>icy</code>: Enable ICY (shoutcast) source connections.</li>
+<li>
+<code>id</code>: The mountpoint registered for the source is also the id of the source.</li>
+</ul>
+<p>
+When using different ports with different harbor inputs, mountpoints are attributed
+per-port. Hence, there can be a harbor input with mountpoint <code>"foo"</code> on port <code>1356</code>
+and a harbor input with mountpoint <code>"foo"</code> on port <code>3567</code>. Additionaly, if an harbor 
+source uses custom port <code>n</code> with shoutcast (ICY) source protocol enabled, shoutcast
+source clients should set their connection port to <code>n+1</code>.
+</p>
+<p>
+The <code>auth</code> function is a function, that takes a pair <code>(user,password)</code> and returns a boolean representing whether the user 
+should be granted access or not. Typical example can be:
+</p>
+<pre class="syntax liq">def auth(user,password) = 
+  # Call an external process to check 
+  # the credentials:
+  # The script will return the string 
+  # "true" of "false"
+  #
+  # First call the script
+  ret = get_process_lines("/path/to/script \
+         --user=#{user} --password=#{password}")
+  # Then get the first line of its output
+  ret = list.hd(ret)
+  # Finally returns the boolean represented 
+  # by the output (bool_of_string can also 
+  # be used)
+  if ret == "true" then
+    true
+  else
+    false
+  end
+end
+</pre>
+<div align="right">
+<a href="scripts/harbor_auth.liq">
+<img class="grab" src="../images/grab.png" alt="Grab the code!">
+</a>
+</div></p>
+<p>
+In the case of the <code>ICY</code> (shoutcast) source protocol, there is no <code>user</code> parameter 
+for the source connection. Thus, the user used will be the <code>user</code> parameter passed 
+to the <code>input.harbor</code> source.
+</p>
+<p>
+When using a custom authentication function, in case of a <code>ICY</code> (shoutcast) connection, 
+the function will receive this value for the username.
+</p>
+<h4>Usage</h4>
+<p>
+When using harbor inputs, you first set the required settings, as described above. Then, you define each source using <code>input.harbor("mountpoint")</code>. This source is faillible and will become available when a source client is connected. 
+</p>
+<p>
+The unlabeled parameter is the mount point that the source client may connect
+to. It should be <code>"/"</code> for shoutcast source clients.
+</p>
+<p>
+The source client may use any of the recognized audio input codec. Hence, when using shoucast source clients, you need to have compiled liquidsoap with mp3 decoding support (<code>ocaml-mad</code>)
+</p>
+<p>
+A sample code can be:
+</p>
+<pre class="syntax liq">set("harbor.bind_addr","0.0.0.0")
+
+# Some code...
+
+# This defines a source waiting on mount point 
+# /test-harbor
+live = input.harbor("test-harbor",port=8080,password="xxx")
+
+# This is the final stream.
+# Uses the live source as soon as available,
+# and don't wait for an end of track, since 
+# we don't want to cut the beginning of the live
+# stream.
+#
+# You may insert a jingle transition here...
+radio = fallback(track_sensitive=false,
+                 [live,files])
+</pre>
+<div align="right">
+<a href="scripts/harbor_source.liq">
+<img class="grab" src="../images/grab.png" alt="Grab the code!">
+</a>
+</div></p>
+      <div id="footer"> 2003-2017 Savonet team</div>
+    </div>
+  </div>
+  <script type="text/javascript" src="//www.google.com/cse/brand?form=cse-search-box&amp;lang=en"></script>
+  <script type="text/javascript" src="../js/search.js"></script>
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-927362-1']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+</body>
+</html>

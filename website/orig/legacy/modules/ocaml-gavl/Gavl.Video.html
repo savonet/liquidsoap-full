@@ -1,0 +1,961 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link rel="Up" href="Gavl.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Gavl" rel="Chapter" href="Gavl.html"><title>Gavl.Video</title>
+</head>
+<body>
+<div class="navbar">&nbsp;<a class="up" href="Gavl.html" title="Gavl">Up</a>
+&nbsp;</div>
+<h1>Module <a href="type_Gavl.Video.html">Gavl.Video</a></h1>
+
+<pre><span id="MODULEVideo"><span class="keyword">module</span> Video</span>: <code class="code">sig</code> <a href="Gavl.Video.html">..</a> <code class="code">end</code></pre><hr width="100%">
+
+<pre><span id="EXCEPTIONInvalid_frame"><span class="keyword">exception</span> Invalid_frame</span></pre>
+
+<pre><span id="EXCEPTIONInvalid_conversion"><span class="keyword">exception</span> Invalid_conversion</span></pre>
+
+<pre><span id="EXCEPTIONNot_implemented"><span class="keyword">exception</span> Not_implemented</span></pre>
+<div class="info ">
+<div class="info-desc">
+<p>Raised when a feature is not yet implemented,
+ in particular pixel format with data other than
+ unsigned 8 bit integers.</p>
+</div>
+</div>
+
+<pre><code><span id="TYPEinterlace_mode"><span class="keyword">type</span> <code class="type"></code>interlace_mode</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTinterlace_mode.No_interlace"><span class="constructor">No_interlace</span></span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<div class="info-desc">
+<p>Progressive</p>
+</div>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTinterlace_mode.Top_first"><span class="constructor">Top_first</span></span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<div class="info-desc">
+<p>Top field first</p>
+</div>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTinterlace_mode.Bottom_first"><span class="constructor">Bottom_first</span></span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<div class="info-desc">
+<p>Bottom field first</p>
+</div>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTinterlace_mode.Mixed"><span class="constructor">Mixed</span></span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<div class="info-desc">
+<p>Use interlace_mode of the frames</p>
+</div>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr></table>
+
+<div class="info ">
+<div class="info-desc">
+<p>Interlace mode type</p>
+</div>
+</div>
+
+
+<pre><code><span id="TYPEpixel_format"><span class="keyword">type</span> <code class="type"></code>pixel_format</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTpixel_format.Gray_8"><span class="constructor">Gray_8</span></span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<div class="info-desc">
+<p>8 bit gray, scaled 0x00..0xff</p>
+</div>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTpixel_format.Gray_16"><span class="constructor">Gray_16</span></span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<div class="info-desc">
+<p>16 bit gray, scaled 0x0000..0xffff</p>
+</div>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTpixel_format.Gray_float"><span class="constructor">Gray_float</span></span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<div class="info-desc">
+<p>floating point gray, scaled 0.0..1.0</p>
+</div>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTpixel_format.Graya_16"><span class="constructor">Graya_16</span></span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<div class="info-desc">
+<p>8 bit gray + alpha, scaled 0x00..0xff</p>
+</div>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTpixel_format.Graya_32"><span class="constructor">Graya_32</span></span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<div class="info-desc">
+<p>16 bit gray + alpha, scaled 0x0000..0xffff</p>
+</div>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTpixel_format.Graya_float"><span class="constructor">Graya_float</span></span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<div class="info-desc">
+<p>floating point gray + alpha, scaled 0.0..1.0</p>
+</div>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTpixel_format.Rgb_15"><span class="constructor">Rgb_15</span></span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<div class="info-desc">
+<p>15 bit RGB. Each pixel is a uint16_t in native byte order. 
+ Color masks are: for red: 0x7C00, for green: 0x03e0, for blue: 0x001f</p>
+</div>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTpixel_format.Bgr_15"><span class="constructor">Bgr_15</span></span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<div class="info-desc">
+<p>15 bit BGR. Each pixel is a uint16_t in native byte order. 
+ Color masks are: for red: 0x001f, for green: 0x03e0, for blue: 0x7C00</p>
+</div>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTpixel_format.Rgb_16"><span class="constructor">Rgb_16</span></span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<div class="info-desc">
+<p>16 bit RGB. Each pixel is a uint16_t in native byte order. 
+ Color masks are: for red: 0xf800, for green: 0x07e0, for blue: 0x001f</p>
+</div>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTpixel_format.Bgr_16"><span class="constructor">Bgr_16</span></span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<div class="info-desc">
+<p>16 bit BGR. Each pixel is a uint16_t in native byte order. 
+ Color masks are: for red: 0x001f, for green: 0x07e0, for blue: 0xf800</p>
+</div>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTpixel_format.Rgb_24"><span class="constructor">Rgb_24</span></span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<div class="info-desc">
+<p>24 bit RGB. Each color is an uint8_t. Color order is RGBRGB</p>
+</div>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTpixel_format.Bgr_24"><span class="constructor">Bgr_24</span></span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<div class="info-desc">
+<p>24 bit BGR. Each color is an uint8_t. Color order is BGRBGR</p>
+</div>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTpixel_format.Rgb_32"><span class="constructor">Rgb_32</span></span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<div class="info-desc">
+<p>32 bit RGB. Each color is an uint8_t. Color order is RGBXRGBX, where X is unused</p>
+</div>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTpixel_format.Bgr_32"><span class="constructor">Bgr_32</span></span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<div class="info-desc">
+<p>32 bit BGR. Each color is an uint8_t. Color order is BGRXBGRX, where X is unused</p>
+</div>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTpixel_format.Rgba_32"><span class="constructor">Rgba_32</span></span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<div class="info-desc">
+<p>32 bit RGBA. Each color is an uint8_t. Color order is RGBARGBA</p>
+</div>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTpixel_format.Rgb_48"><span class="constructor">Rgb_48</span></span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<div class="info-desc">
+<p>48 bit RGB. Each color is an uint16_t in native byte order. Color order is RGBRGB</p>
+</div>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTpixel_format.Rgba_64"><span class="constructor">Rgba_64</span></span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<div class="info-desc">
+<p>64 bit RGBA. Each color is an uint16_t in native byte order. Color order is RGBARGBA</p>
+</div>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTpixel_format.Rgb_float"><span class="constructor">Rgb_float</span></span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<div class="info-desc">
+<p>float RGB. Each color is a float (0.0 .. 1.0) in native byte order. Color order is RGBRGB</p>
+</div>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTpixel_format.Rgba_float"><span class="constructor">Rgba_float</span></span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<div class="info-desc">
+<p>float RGBA. Each color is a float (0.0 .. 1.0) in native byte order. Color order is RGBARGBA</p>
+</div>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTpixel_format.Yuy2"><span class="constructor">Yuy2</span></span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<div class="info-desc">
+<p>Packed YCbCr 4:2:2. Each component is an uint8_t. Component order is Y1 U1 Y2 V1</p>
+</div>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTpixel_format.Yuvy"><span class="constructor">Yuvy</span></span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<div class="info-desc">
+<p>Packed YCbCr 4:2:2. Each component is an uint8_t. Component order is U1 Y1 V1 Y2</p>
+</div>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTpixel_format.Yuva_32"><span class="constructor">Yuva_32</span></span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<div class="info-desc">
+<p>Packed YCbCrA 4:4:4:4. Each component is an uint8_t. 
+ Component order is YUVA. Luma and chroma are video scaled, alpha is 0..255.</p>
+</div>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTpixel_format.Yuva_64"><span class="constructor">Yuva_64</span></span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<div class="info-desc">
+<p>Packed YCbCrA 4:4:4:4. Each component is an uint16_t. 
+ Component order is YUVA. Luma and chroma are video scaled, alpha is 0..65535.</p>
+</div>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTpixel_format.Yuv_float"><span class="constructor">Yuv_float</span></span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<div class="info-desc">
+<p>Packed YCbCr 4:4:4. Each component is a float. Luma is scaled 0.0..1.0, chroma is -0.5..0.5</p>
+</div>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTpixel_format.Yuva_float"><span class="constructor">Yuva_float</span></span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<div class="info-desc">
+<p>Packed YCbCrA 4:4:4:4. Each component is a float. Luma is scaled 0.0..1.0, chroma is -0.5..0.5</p>
+</div>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTpixel_format.Yuv_420_p"><span class="constructor">Yuv_420_p</span></span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<div class="info-desc">
+<p>Packed YCbCrA 4:4:4:4. Each component is an uint16_t. 
+ Component order is YUVA. Luma and chroma are video scaled, alpha is 0..65535.</p>
+</div>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTpixel_format.Yuv_422_p"><span class="constructor">Yuv_422_p</span></span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<div class="info-desc">
+<p>Planar YCbCr 4:2:2. Each component is an uint8_t</p>
+</div>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTpixel_format.Yuv_444_p"><span class="constructor">Yuv_444_p</span></span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<div class="info-desc">
+<p>Planar YCbCr 4:4:4. Each component is an uint8_t</p>
+</div>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTpixel_format.Yuv_411_p"><span class="constructor">Yuv_411_p</span></span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<div class="info-desc">
+<p>Planar YCbCr 4:1:1. Each component is an uint8_t</p>
+</div>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTpixel_format.Yuv_410_p"><span class="constructor">Yuv_410_p</span></span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<div class="info-desc">
+<p>Planar YCbCr 4:1:0. Each component is an uint8_t</p>
+</div>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTpixel_format.Yuvj_420_p"><span class="constructor">Yuvj_420_p</span></span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<div class="info-desc">
+<p>Planar YCbCr 4:2:0. Each component is an uint8_t, 
+ luma and chroma values are full range (0x00 .. 0xff)</p>
+</div>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTpixel_format.Yuvj_422_p"><span class="constructor">Yuvj_422_p</span></span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<div class="info-desc">
+<p>Planar YCbCr 4:2:2. Each component is an uint8_t, 
+ luma and chroma values are full range (0x00 .. 0xff)</p>
+</div>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTpixel_format.Yuvj_444_p"><span class="constructor">Yuvj_444_p</span></span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<div class="info-desc">
+<p>Planar YCbCr 4:4:4. Each component is an uint8_t, 
+ luma and chroma values are full range (0x00 .. 0xff)</p>
+</div>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTpixel_format.Yuv_444_p_16"><span class="constructor">Yuv_444_p_16</span></span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<div class="info-desc">
+<p>16 bit Planar YCbCr 4:4:4. Each component is an uint16_t in native byte order.</p>
+</div>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTpixel_format.Yuv_422_p_16"><span class="constructor">Yuv_422_p_16</span></span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<div class="info-desc">
+<p>16 bit Planar YCbCr 4:2:2. Each component is an uint16_t in native byte order.</p>
+</div>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr></table>
+
+<div class="info ">
+<div class="info-desc">
+<p>Pixel formats. Only formats using 8 bit unsigned integers are supported for now.</p>
+</div>
+</div>
+
+
+<pre><code><span id="TYPEframerate_mode"><span class="keyword">type</span> <code class="type"></code>framerate_mode</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTframerate_mode.Constant"><span class="constructor">Constant</span></span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<div class="info-desc">
+<p>Constant framerate</p>
+</div>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTframerate_mode.Variable"><span class="constructor">Variable</span></span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<div class="info-desc">
+<p>Variable framerate</p>
+</div>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTframerate_mode.Still"><span class="constructor">Still</span></span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<div class="info-desc">
+<p>Still image</p>
+</div>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr></table>
+
+<div class="info ">
+<div class="info-desc">
+<p>Framerate mode</p>
+</div>
+</div>
+
+
+<pre><code><span id="TYPEchroma_placement"><span class="keyword">type</span> <code class="type"></code>chroma_placement</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTchroma_placement.Default"><span class="constructor">Default</span></span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<div class="info-desc">
+<p>MPEG-1/JPEG</p>
+</div>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTchroma_placement.Mpeg2"><span class="constructor">Mpeg2</span></span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<div class="info-desc">
+<p>MPEG-2</p>
+</div>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTchroma_placement.Dvpal"><span class="constructor">Dvpal</span></span></code></td>
+<td class="typefieldcomment" align="left" valign="top" ><code>(*</code></td><td class="typefieldcomment" align="left" valign="top" ><div class="info ">
+<div class="info-desc">
+<p>DV PAL</p>
+</div>
+</div>
+</td><td class="typefieldcomment" align="left" valign="bottom" ><code>*)</code></td>
+</tr></table>
+
+<div class="info ">
+<div class="info-desc">
+<p>Chroma placement.</p>
+</div>
+</div>
+
+
+<pre><code><span id="TYPEformat"><span class="keyword">type</span> <code class="type"></code>format</span> = {</code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTformat.frame_width">frame_width</span>&nbsp;: <code class="type">int</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTformat.frame_height">frame_height</span>&nbsp;: <code class="type">int</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTformat.image_width">image_width</span>&nbsp;: <code class="type">int</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTformat.image_height">image_height</span>&nbsp;: <code class="type">int</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTformat.pixel_width">pixel_width</span>&nbsp;: <code class="type">int</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTformat.pixel_height">pixel_height</span>&nbsp;: <code class="type">int</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTformat.pixelformat">pixelformat</span>&nbsp;: <code class="type"><a href="Gavl.Video.html#TYPEpixel_format">pixel_format</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTformat.frame_duration">frame_duration</span>&nbsp;: <code class="type">int</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTformat.timescale">timescale</span>&nbsp;: <code class="type">int</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTformat.framerate_mode">framerate_mode</span>&nbsp;: <code class="type"><a href="Gavl.Video.html#TYPEframerate_mode">framerate_mode</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTformat.chroma_placement">chroma_placement</span>&nbsp;: <code class="type"><a href="Gavl.Video.html#TYPEchroma_placement">chroma_placement</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTformat.interlace_mode">interlace_mode</span>&nbsp;: <code class="type"><a href="Gavl.Video.html#TYPEinterlace_mode">interlace_mode</a></code>;</code></td>
+
+</tr></table>
+}
+
+<div class="info ">
+<div class="info-desc">
+<p>Video format.</p>
+</div>
+</div>
+
+
+<pre><span id="TYPEplane"><span class="keyword">type</span> <code class="type"></code>plane</span> = <code class="type">(int, Bigarray.int8_unsigned_elt, Bigarray.c_layout) Bigarray.Array1.t</code> </pre>
+<div class="info ">
+<div class="info-desc">
+<p>Plane data, represented as a big array of unsigned 8 bits ints.</p>
+</div>
+</div>
+
+
+<pre><code><span id="TYPEframe"><span class="keyword">type</span> <code class="type"></code>frame</span> = {</code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTframe.planes">planes</span>&nbsp;: <code class="type">(<a href="Gavl.Video.html#TYPEplane">plane</a> * int) array</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTframe.timestamp">timestamp</span>&nbsp;: <code class="type">Stdlib.Int64.t</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTframe.duration">duration</span>&nbsp;: <code class="type">Stdlib.Int64.t</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTframe.frame_interlace_mode">frame_interlace_mode</span>&nbsp;: <code class="type"><a href="Gavl.Video.html#TYPEinterlace_mode">interlace_mode</a></code>;</code></td>
+
+</tr></table>
+}
+
+<div class="info ">
+<div class="info-desc">
+<p>Frame type.</p>
+</div>
+</div>
+
+
+<pre><span id="VALnew_frame"><span class="keyword">val</span> new_frame</span> : <code class="type"><a href="Gavl.Video.html#TYPEformat">format</a> -> <a href="Gavl.Video.html#TYPEframe">frame</a></code></pre><div class="info ">
+<div class="info-desc">
+<p>Create a new frame.</p>
+</div>
+</div>
+
+<pre><span id="VALclear_frame"><span class="keyword">val</span> clear_frame</span> : <code class="type"><a href="Gavl.Video.html#TYPEformat">format</a> -> <a href="Gavl.Video.html#TYPEframe">frame</a> -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p>Clear a frame.</p>
+</div>
+</div>
+
+<pre><span id="TYPEt"><span class="keyword">type</span> <code class="type"></code>t</span> </pre>
+<div class="info ">
+<div class="info-desc">
+<p>Opaque type for a converter.</p>
+</div>
+</div>
+
+
+<pre><span id="VALcreate_converter"><span class="keyword">val</span> create_converter</span> : <code class="type"><a href="Gavl.Video.html#TYPEformat">format</a> -> <a href="Gavl.Video.html#TYPEformat">format</a> -> <a href="Gavl.Video.html#TYPEt">t</a></code></pre><div class="info ">
+<div class="info-desc">
+<p><code class="code">in_format out_format</code> creates a converter 
+ converting from <code class="code">in_format</code> to <code class="code">out_format</code>.</p>
+
+<p>Raises <code class="code">Not_implemented</code> if input or output format
+ do not use unsigned 8 bit integers.</p>
+</div>
+</div>
+
+<pre><span id="VALinit"><span class="keyword">val</span> init</span> : <code class="type"><a href="Gavl.Video.html#TYPEt">t</a> -> <a href="Gavl.Video.html#TYPEformat">format</a> -> <a href="Gavl.Video.html#TYPEformat">format</a> -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p><code class="code">init conv in_format out_format</code>: initializes a converter with 
+ new input and output formats.</p>
+
+<p>Raises <code class="code">Not_implemented</code> if input or output format
+ do not use unsigned 8 bit integers.</p>
+</div>
+</div>
+
+<pre><span id="VALget_formats"><span class="keyword">val</span> get_formats</span> : <code class="type"><a href="Gavl.Video.html#TYPEt">t</a> -> <a href="Gavl.Video.html#TYPEformat">format</a> * <a href="Gavl.Video.html#TYPEformat">format</a></code></pre><div class="info ">
+<div class="info-desc">
+<p><code class="code">get_formats conv</code> returns a pair <code class="code">(in_format,out_format)</code>.</p>
+</div>
+</div>
+
+<pre><span id="VALget_quality"><span class="keyword">val</span> get_quality</span> : <code class="type"><a href="Gavl.Video.html#TYPEt">t</a> -> int</code></pre><div class="info ">
+<div class="info-desc">
+<p>Get quality setting.</p>
+</div>
+</div>
+
+<pre><span id="VALset_quality"><span class="keyword">val</span> set_quality</span> : <code class="type"><a href="Gavl.Video.html#TYPEt">t</a> -> int -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p>Set quality setting.</p>
+</div>
+</div>
+
+<pre><span id="TYPEint_rect"><span class="keyword">type</span> <code class="type"></code>int_rect</span> = <code class="type">int * int * int * int</code> </pre>
+<div class="info ">
+<div class="info-desc">
+<p>Type for integer rectangles: x/y offset and width/height.</p>
+</div>
+</div>
+
+
+<pre><span id="TYPEfloat_rect"><span class="keyword">type</span> <code class="type"></code>float_rect</span> = <code class="type">float * float * float * float</code> </pre>
+<div class="info ">
+<div class="info-desc">
+<p>Type for float rectangles: x/y offset and width/height.</p>
+</div>
+</div>
+
+
+<pre><span id="VALget_rect"><span class="keyword">val</span> get_rect</span> : <code class="type"><a href="Gavl.Video.html#TYPEt">t</a> -> <a href="Gavl.Video.html#TYPEfloat_rect">float_rect</a> * <a href="Gavl.Video.html#TYPEint_rect">int_rect</a></code></pre><div class="info ">
+<div class="info-desc">
+<p><code class="code">get_rect conv</code> returns a pair <code class="code">(in_rect,out_rect)</code>.</p>
+</div>
+</div>
+
+<pre><span id="VALset_rect"><span class="keyword">val</span> set_rect</span> : <code class="type"><a href="Gavl.Video.html#TYPEt">t</a> -> <a href="Gavl.Video.html#TYPEfloat_rect">float_rect</a> -> <a href="Gavl.Video.html#TYPEint_rect">int_rect</a> -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p><code class="code">set_rect conv in_rec out_rec</code> sets input and output rectangles.</p>
+</div>
+</div>
+
+<pre><span id="TYPEconversion_flags"><span class="keyword">type</span> <code class="type"></code>conversion_flags</span> = <code class="type">[ `Convolve_chroma<br>       | `Convolve_normalize<br>       | `Force_deinterlace<br>       | `Resample_chroma ]</code> </pre>
+<div class="info ">
+<div class="info-desc">
+<p>Type for conversion flags.</p>
+</div>
+</div>
+
+
+<pre><span id="VALset_flags"><span class="keyword">val</span> set_flags</span> : <code class="type"><a href="Gavl.Video.html#TYPEt">t</a> -> <a href="Gavl.Video.html#TYPEconversion_flags">conversion_flags</a> list -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p>Set conversion flags.</p>
+</div>
+</div>
+
+<pre><span id="VALget_flags"><span class="keyword">val</span> get_flags</span> : <code class="type"><a href="Gavl.Video.html#TYPEt">t</a> -> <a href="Gavl.Video.html#TYPEconversion_flags">conversion_flags</a> list</code></pre><div class="info ">
+<div class="info-desc">
+<p>Get conversion flags.</p>
+</div>
+</div>
+
+<pre><code><span id="TYPEscale_mode"><span class="keyword">type</span> <code class="type"></code>scale_mode</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTscale_mode.Auto"><span class="constructor">Auto</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTscale_mode.Nearest"><span class="constructor">Nearest</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTscale_mode.Bilinear"><span class="constructor">Bilinear</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTscale_mode.Quadratic"><span class="constructor">Quadratic</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTscale_mode.Cubic_bspline"><span class="constructor">Cubic_bspline</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTscale_mode.Cubic_mitchell"><span class="constructor">Cubic_mitchell</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTscale_mode.Cubic_catmull"><span class="constructor">Cubic_catmull</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTscale_mode.Scale_sinc_lanczos"><span class="constructor">Scale_sinc_lanczos</span></span></code></td>
+
+</tr></table>
+
+<div class="info ">
+<div class="info-desc">
+<p>Type for scale mode.</p>
+</div>
+</div>
+
+
+<pre><span id="VALset_scale_mode"><span class="keyword">val</span> set_scale_mode</span> : <code class="type"><a href="Gavl.Video.html#TYPEt">t</a> -> <a href="Gavl.Video.html#TYPEscale_mode">scale_mode</a> -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p>Set scale mode.</p>
+</div>
+</div>
+
+<pre><span id="VALget_scale_mode"><span class="keyword">val</span> get_scale_mode</span> : <code class="type"><a href="Gavl.Video.html#TYPEt">t</a> -> <a href="Gavl.Video.html#TYPEscale_mode">scale_mode</a></code></pre><div class="info ">
+<div class="info-desc">
+<p>Get scale mode.</p>
+</div>
+</div>
+
+<pre><span id="VALreinit"><span class="keyword">val</span> reinit</span> : <code class="type"><a href="Gavl.Video.html#TYPEt">t</a> -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p>Reinitialize a converter. Should be called when a setting has changed.</p>
+</div>
+</div>
+
+<pre><span id="VALconvert"><span class="keyword">val</span> convert</span> : <code class="type"><a href="Gavl.Video.html#TYPEt">t</a> -> <a href="Gavl.Video.html#TYPEframe">frame</a> -> <a href="Gavl.Video.html#TYPEframe">frame</a> -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p>Perform frame conversion.</p>
+
+<p>Raises <code class="code">Invalid_frame</code> if input or output frame doesn't match 
+ corresponding format.</p>
+
+<p>Raises <code class="code">Not_implemented</code> if input or output format
+ do not use unsigned 8 bit integers.</p>
+</div>
+</div>
+</body></html>

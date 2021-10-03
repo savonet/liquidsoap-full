@@ -1,0 +1,73 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Bjack" rel="Chapter" href="Bjack.html"><title>Bjack</title>
+</head>
+<body>
+<code class="code"><span class="keyword">sig</span><br>
+&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;t<br>
+&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;converter&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Best_quality</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Medium_quality</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Fastest</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Zero_order_hold</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Linear</span><br>
+&nbsp;&nbsp;<span class="keyword">exception</span>&nbsp;<span class="constructor">Open</span><br>
+&nbsp;&nbsp;<span class="keyword">exception</span>&nbsp;<span class="constructor">Bytes_per_output_frame_invalid</span><br>
+&nbsp;&nbsp;<span class="keyword">exception</span>&nbsp;<span class="constructor">Bytes_per_input_frame_invalid</span><br>
+&nbsp;&nbsp;<span class="keyword">exception</span>&nbsp;<span class="constructor">Too_many_output_channels</span><br>
+&nbsp;&nbsp;<span class="keyword">exception</span>&nbsp;<span class="constructor">Port_name_output_channel_mismatch</span><br>
+&nbsp;&nbsp;<span class="keyword">exception</span>&nbsp;<span class="constructor">Port_not_found</span><br>
+&nbsp;&nbsp;<span class="keyword">exception</span>&nbsp;<span class="constructor">Too_many_input_channels</span><br>
+&nbsp;&nbsp;<span class="keyword">exception</span>&nbsp;<span class="constructor">Port_name_input_channel_mismatch</span><br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;set_conversion_function&nbsp;:&nbsp;<span class="constructor">Bjack</span>.converter&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit<br>
+&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;port_flag&nbsp;=&nbsp;<span class="constructor">Input</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Output</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Physical</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Monitor</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Terminal</span><br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;open_t&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;?ringbuffer_size:int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;?server_name:string&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;rate:int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;bits_per_sample:int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;input_channels:int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;output_channels:int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;flags:<span class="constructor">Bjack</span>.port_flag&nbsp;list&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;client_name:string&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Bjack</span>.t<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;close&nbsp;:&nbsp;<span class="constructor">Bjack</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;write&nbsp;:&nbsp;<span class="constructor">Bjack</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;read&nbsp;:&nbsp;<span class="constructor">Bjack</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;reset&nbsp;:&nbsp;<span class="constructor">Bjack</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit<br>
+&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;position_unit&nbsp;=&nbsp;<span class="constructor">Bytes</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Milliseconds</span><br>
+&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;position_type&nbsp;=&nbsp;<span class="constructor">Played</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Written_to_jack</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Written</span><br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;get_position&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;position_unit:<span class="constructor">Bjack</span>.position_unit&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;position_type:<span class="constructor">Bjack</span>.position_type&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Bjack</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;set_position&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;position_unit:<span class="constructor">Bjack</span>.position_unit&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Bjack</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;get_output_latency&nbsp;:&nbsp;<span class="constructor">Bjack</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;get_input_latency&nbsp;:&nbsp;<span class="constructor">Bjack</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int<br>
+&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;playing_state&nbsp;=&nbsp;<span class="constructor">Playing</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Paused</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Stopped</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Closed</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Reset</span><br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;set_state&nbsp;:&nbsp;<span class="constructor">Bjack</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Bjack</span>.playing_state&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;get_state&nbsp;:&nbsp;<span class="constructor">Bjack</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Bjack</span>.playing_state<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;get_max_output_buffered_bytes&nbsp;:&nbsp;<span class="constructor">Bjack</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;get_max_input_buffered_bytes&nbsp;:&nbsp;<span class="constructor">Bjack</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;get_jack_buffered_bytes&nbsp;:&nbsp;<span class="constructor">Bjack</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int<br>
+&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;volume&nbsp;=&nbsp;<span class="constructor">Linear</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Decibel</span><br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;set_volume_effect_type&nbsp;:&nbsp;<span class="constructor">Bjack</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Bjack</span>.volume&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Bjack</span>.volume<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;set_all_volume&nbsp;:&nbsp;<span class="constructor">Bjack</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;set_channel_volume&nbsp;:&nbsp;channel:int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;device:<span class="constructor">Bjack</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;get_channel_volume&nbsp;:&nbsp;<span class="constructor">Bjack</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;get_output_bytes_per_second&nbsp;:&nbsp;<span class="constructor">Bjack</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;get_input_bytes_per_second&nbsp;:&nbsp;<span class="constructor">Bjack</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;get_bytes_stored&nbsp;:&nbsp;<span class="constructor">Bjack</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;get_bytes_free_space&nbsp;:&nbsp;<span class="constructor">Bjack</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;get_bytes_used_space&nbsp;:&nbsp;<span class="constructor">Bjack</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;get_bytes_per_output_frame&nbsp;:&nbsp;<span class="constructor">Bjack</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;get_bytes_per_input_frame&nbsp;:&nbsp;<span class="constructor">Bjack</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;get_num_output_channels&nbsp;:&nbsp;<span class="constructor">Bjack</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;get_num_input_channels&nbsp;:&nbsp;<span class="constructor">Bjack</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;get_sample_rate&nbsp;:&nbsp;<span class="constructor">Bjack</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;int<br>
+<span class="keyword">end</span></code></body></html>

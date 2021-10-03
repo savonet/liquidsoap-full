@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link rel="Up" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Shine" rel="Chapter" href="Shine.html"><title>Shine</title>
+</head>
+<body>
+<div class="navbar">&nbsp;<a class="up" href="index.html" title="Index">Up</a>
+&nbsp;</div>
+<h1>Module <a href="type_Shine.html">Shine</a></h1>
+
+<pre><span id="MODULEShine"><span class="keyword">module</span> Shine</span>: <code class="code">sig</code> <a href="Shine.html">..</a> <code class="code">end</code></pre><div class="info module top">
+<div class="info-desc">
+<p>OCaml bindings for the libshine.</p>
+</div>
+</div>
+<hr width="100%">
+
+<pre><span id="TYPEt"><span class="keyword">type</span> <code class="type"></code>t</span> </pre>
+
+
+<pre><code><span id="TYPEparameters"><span class="keyword">type</span> <code class="type"></code>parameters</span> = {</code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTparameters.samplerate">samplerate</span>&nbsp;: <code class="type">int</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTparameters.channels">channels</span>&nbsp;: <code class="type">int</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTparameters.bitrate">bitrate</span>&nbsp;: <code class="type">int</code>;</code></td>
+
+</tr></table>
+}
+
+
+
+<pre><span id="EXCEPTIONInvalid_buffer_size"><span class="keyword">exception</span> Invalid_buffer_size</span></pre>
+
+<pre><span id="EXCEPTIONInvalid_configuration"><span class="keyword">exception</span> Invalid_configuration</span></pre>
+<div class="info ">
+<div class="info-desc">
+<p>Raised when samplerate and/or bitrate
+ is invalid.</p>
+</div>
+</div>
+
+<pre><span id="EXCEPTIONInvalid_channels"><span class="keyword">exception</span> Invalid_channels</span></pre>
+
+<pre><span id="VALcreate"><span class="keyword">val</span> create</span> : <code class="type"><a href="Shine.html#TYPEparameters">parameters</a> -> <a href="Shine.html#TYPEt">t</a></code></pre>
+<pre><span id="VALsamples_per_pass"><span class="keyword">val</span> samples_per_pass</span> : <code class="type"><a href="Shine.html#TYPEt">t</a> -> int</code></pre>
+<pre><span id="VALencode_buffer"><span class="keyword">val</span> encode_buffer</span> : <code class="type"><a href="Shine.html#TYPEt">t</a> -> float array array -> string</code></pre>
+<pre><span id="VALencode_s16le"><span class="keyword">val</span> encode_s16le</span> : <code class="type"><a href="Shine.html#TYPEt">t</a> -> string -> int -> string</code></pre>
+<pre><span id="VALflush"><span class="keyword">val</span> flush</span> : <code class="type"><a href="Shine.html#TYPEt">t</a> -> string</code></pre></body></html>

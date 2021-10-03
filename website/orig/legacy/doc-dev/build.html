@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+  <title>Savonet / Liquidsoap dev :: Multimedia Stream Generation</title>
+  <link href="../css/new.css" type="text/css" rel="stylesheet" />
+  <link href="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.17/themes/base/jquery-ui.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="//www.google.com/jsapi"></script>
+  <link rel="shortcut icon" href="../favicon.ico" />
+  <script>
+    google.load("jquery", "1.6.1");
+    google.load("jqueryui", "1.8.14");
+  </script>
+  <script type="text/javascript" src="../js/jQuery.syntax/jquery.syntax.min.js"></script>
+  <script type="text/javascript" src="../js/liq-jquery.js"></script>
+</head>
+<body>
+  <div class="menu">
+    <ul>
+      <li id="menu-developers">
+        <a href="https://github.com/savonet/liquidsoap/issues" target="_blank">developers</a></li>
+      <li id="menu-flows"><a href="https://flows.liquidsoap.info/">Flows!</a></li>
+      <li id="menu-doc-api-www">
+        <a href="reference.html">API</a></li>
+      <li id="menu-support">
+        <a href="documentation.html">documentation</a></li>
+      <li id="menu-download">
+        <a href="../download.html">download</a></li>
+      <li id="menu-about">
+        <a href="../index.html">about</a></li>
+    </ul>
+  </div>
+  <div class="section" id="main">
+    <h1>Liquidsoap dev : Build liquidsoap from source</h1>
+    <div class="content">
+      <h3>Building liquidsoap from source</h3>
+<p>
+From every sub-project's directory (ocaml-vorbis, ocaml-dtools, liquidsoap, 
+etc.) you can build using <code>./bootstrap</code>, <code>./configure</code>, 
+<code>make</code> and optionally install using <code>make install</code>.
+</p>
+<p>
+If you are using the <code>liquidsoap-full</code> tarball,
+or the latest source code from our
+<a href="https://github.com/savonet/liquidsoap-full">github repository</a>,
+there is also a fast procedure for building liquidsoap
+that doesn't require installing the libraries provided by Savonet.
+The steps to follow are simple.
+</p>
+<p>
+If you are using the git sources, you need to initialize all submodules
+by invoking <code>make init</code>, <code>make update</code> and finally <code>./bootstrap</code>.
+</p>
+<p>
+You should now choose which features you want to enable when building liquidsoap.
+Each shipped feature can be enabled/disabled by editing the
+<code>PACKAGE</code> file.
+Depending on your version you might have to first copy 
+<code>PACKAGES.default</code> to <code>PACKAGES</code>.
+</p>
+<p>
+Then run the usual commands:
+</p>
+<pre class="syntax "># Configure all libraries and packages.
+# You may pass extra options such as --enable-debugging,
+# --prefix, --sysconfdir, --localstatedir, etc.
+./configure
+
+# Now, build all libraries and liquidsoap
+make
+
+# To install liquidsoap,
+# you usually need to type the following as root
+make install
+</pre>
+<h4>Dependencies</h4>
+<p>
+Here are liquidsoap's dependencies.
+All OCaml libraries are distributed by Savonet, except when linked.
+You may refer to the liquidsoap INSTALL file for required versions of the 
+libraries:
+</p>
+<ul>
+<li>
+<a href="http://www.ocaml-programming.de/programming/findlib.html" target="_blank">ocamlfind</a></li>
+<li>
+ocaml-dtools (&gt;= 0.3.4)</li>
+<li>
+ocaml-duppy (&gt;= 0.4.2)</li>
+<li>
+ocaml-mm (&gt;= 0.4.0)</li>
+<li>
+<a href="https://github.com/mmottl/pcre-ocaml">ocaml-pcre</a></li>
+</ul>
+<p>
+And also optional dependencies. For most of these, you also need
+the associated C/C++ library, which is usually provided by your distribution's
+packaging system. You may as well need additional dependencies, such as <code>g++</code>, used
+for building bindings built on top of C++ libraries, as marked below and possibly
+also <code>libtool</code>.
+</p>
+<ul>
+<li>
+ocaml-ogg for ogg audio and video formats</li>
+<li>
+ocaml-vorbis for ogg/vorbis audio encoding and decoding</li>
+<li>
+ocaml-cry for Icecast/Shoutcast streaming</li>
+<li>
+ocaml-mad for mp3 decoding</li>
+<li>
+ocaml-lame for mp3 encoding</li>
+<li>
+ocaml-shine for fixed-point mp3 encoding</li>
+<li>
+ocaml-faac for AAC encoding</li>
+<li>
+ocaml-fdkaac for AAC(+) encoding. Replacement candidate for both voaac and aacplus</li>
+<li>
+ocaml-flac for native flac and ogg/flac encoding/decoding</li>
+<li>
+ocaml-theora for ogg/theora encoding/decoding</li>
+<li>
+ocaml-gavl for video conversion</li>
+<li>
+ocaml-samplerate for audio samplerate conversion</li>
+<li>
+ocaml-taglib for MP3 audio tag reading (needs <code>g++</code>)</li>
+<li>
+ocaml-magic for file type detection. This library is very useful for reading mp3 files. If not enabled, liquidsoap may accept as mp3 files that do not contains mp3 data, such as jpeg pictures.</li>
+<li>
+ocaml-xmlplaylist for XML-based playlist formats</li>
+<li>
+ocaml-soundtouch for soundtouch audio effects (need <code>g++</code>)</li>
+<li>
+ocaml-lastfm and ocaml-xmllight for lastfm protocol support</li>
+<li>
+<a href="http://camomile.sourceforge.net/" target="_blank">camomile</a> for detecting metadata encoding and re-encoding them to utf8</li>
+<li>
+ocaml-alsa for ALSA input/output</li>
+<li>
+ocaml-ao for AO I/O</li>
+<li>
+ocaml-portaudio for Portaudio I/O</li>
+<li>
+ocaml-bjack for Jack output/input</li>
+<li>
+ocaml-ladspa for LADSPA plugins</li>
+<li>
+<a href="http://erratique.ch/software/xmlm" target="_blank">xmlm</a></li>
+<li>
+<a href="http://pauillac.inria.fr/camlimages/" target="_blank">camlimages</a> for image decoding</li>
+<li>
+<a href="http://ocamlsdl.sourceforge.net/home.html" target="_blank">ocaml-sdl</a> for display, font &amp; image support</li>
+<li>
+<a href="http://projects.snarc.org/ocaml-inotify" target="_blank">ocaml-inotify</a> to monitor file changes, in particular with playlists.</li>
+</ul>
+<p>
+Runtime dependencies include:
+</p>
+<ul>
+<li>
+<a href="https://curl.haxx.se/">curl</a> for downloading remote files (http, https, ftp)</li>
+<li>
+<a href="http://www.cstr.ed.ac.uk/projects/festival/" target="_blank">festival</a> for speech synthesis (say)</li>
+</ul>
+<p>
+And other that you'll find on the project page, or in liquidsoap-full tarball.
+</p>
+      <div id="footer"> 2003-2017 Savonet team</div>
+    </div>
+  </div>
+  <script type="text/javascript" src="//www.google.com/cse/brand?form=cse-search-box&amp;lang=en"></script>
+  <script type="text/javascript" src="../js/search.js"></script>
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-927362-1']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+</body>
+</html>

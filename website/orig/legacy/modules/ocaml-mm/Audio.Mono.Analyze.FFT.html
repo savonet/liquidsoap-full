@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link rel="Up" href="Audio.Mono.Analyze.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of class methods" rel=Appendix href="index_methods.html">
+<link title="Index of classes" rel=Appendix href="index_classes.html">
+<link title="Index of class types" rel=Appendix href="index_class_types.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="MIDI" rel="Chapter" href="MIDI.html">
+<link title="Audio" rel="Chapter" href="Audio.html">
+<link title="Image" rel="Chapter" href="Image.html">
+<link title="Ringbuffer" rel="Chapter" href="Ringbuffer.html">
+<link title="Synth" rel="Chapter" href="Synth.html">
+<link title="Video" rel="Chapter" href="Video.html"><title>Audio.Mono.Analyze.FFT</title>
+</head>
+<body>
+<div class="navbar">&nbsp;<a class="up" href="Audio.Mono.Analyze.html" title="Audio.Mono.Analyze">Up</a>
+&nbsp;</div>
+<h1>Module <a href="type_Audio.Mono.Analyze.FFT.html">Audio.Mono.Analyze.FFT</a></h1>
+
+<pre><span id="MODULEFFT"><span class="keyword">module</span> FFT</span>: <code class="code">sig</code> <a href="Audio.Mono.Analyze.FFT.html">..</a> <code class="code">end</code></pre><div class="info module top">
+<div class="info-desc">
+<p>Simple implementation of the FFT algorithm. For fastest implementations
+	optimized libraries such as fftw are recommended.</p>
+</div>
+</div>
+<hr width="100%">
+
+<pre><span id="TYPEt"><span class="keyword">type</span> <code class="type"></code>t</span> </pre>
+<div class="info ">
+<div class="info-desc">
+<p>Internal data for computing FFT.</p>
+</div>
+</div>
+
+
+<pre><span id="VALinit"><span class="keyword">val</span> init</span> : <code class="type">int -> <a href="Audio.Mono.Analyze.FFT.html#TYPEt">t</a></code></pre><div class="info ">
+<div class="info-desc">
+<p>Initialize FFT for an analysis of <code class="code">2^n</code> samples.</p>
+</div>
+</div>
+
+<pre><span id="VALduration"><span class="keyword">val</span> duration</span> : <code class="type"><a href="Audio.Mono.Analyze.FFT.html#TYPEt">t</a> -> int</code></pre><div class="info ">
+<div class="info-desc">
+<p>Duration of the FFT buffer analysis in samples.</p>
+</div>
+</div>
+
+<pre><span id="VALcomplex_create"><span class="keyword">val</span> complex_create</span> : <code class="type"><a href="Audio.Mono.html#TYPEbuffer">Audio.Mono.buffer</a> -> int -> int -> Stdlib.Complex.t array</code></pre><div class="info ">
+<div class="info-desc">
+<p><code class="code">complex_create buf ofs len</code> create a array of complex numbers of size
+	  <code class="code">len</code> by copying data from <code class="code">buf</code> from ofset <code class="code">ofs</code> (the imaginary part
+	  is null).</p>
+</div>
+</div>
+
+<pre><span id="VALfft"><span class="keyword">val</span> fft</span> : <code class="type"><a href="Audio.Mono.Analyze.FFT.html#TYPEt">t</a> -> Stdlib.Complex.t array -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p>Perform an FFT analysis.</p>
+</div>
+</div>
+
+<pre><span id="VALband_freq"><span class="keyword">val</span> band_freq</span> : <code class="type">int -> <a href="Audio.Mono.Analyze.FFT.html#TYPEt">t</a> -> int -> float</code></pre><div class="info ">
+<div class="info-desc">
+<p>Frequency associated to the <code class="code">k</code>-th coefficient of an FFT.</p>
+</div>
+</div>
+
+<pre><span id="MODULEWindow"><span class="keyword">module</span> <a href="Audio.Mono.Analyze.FFT.Window.html">Window</a></span>: <code class="code">sig</code> <a href="Audio.Mono.Analyze.FFT.Window.html">..</a> <code class="code">end</code></pre><div class="info">
+<p>Windowing functions.</p>
+
+</div>
+
+<pre><span id="VALnotes"><span class="keyword">val</span> notes</span> : <code class="type">int -><br>       <a href="Audio.Mono.Analyze.FFT.html#TYPEt">t</a> -><br>       ?window:(Stdlib.Complex.t array -> unit) -><br>       ?note_min:int -><br>       ?note_max:int -><br>       ?volume_min:float -><br>       ?filter_harmonics:bool -><br>       float array -> int -> int -> (<a href="Audio.Note.html#TYPEt">Audio.Note.t</a> * float) list</code></pre>
+<pre><span id="VALloudest_note"><span class="keyword">val</span> loudest_note</span> : <code class="type">(<a href="Audio.Note.html#TYPEt">Audio.Note.t</a> * float) list -> (<a href="Audio.Note.html#TYPEt">Audio.Note.t</a> * float) option</code></pre></body></html>

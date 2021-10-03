@@ -1,0 +1,86 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Lastfm" rel="Chapter" href="Lastfm.html">
+<link title="Lastfm_generic" rel="Chapter" href="Lastfm_generic.html"><title>Lastfm_generic.Audioscrobbler_t</title>
+</head>
+<body>
+<code class="code"><span class="keyword">sig</span><br>
+&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;source&nbsp;=&nbsp;<span class="constructor">User</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Broadcast</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Recommendation</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Lastfm</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Unknown</span><br>
+&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;rating&nbsp;=&nbsp;<span class="constructor">Love</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Ban</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Skip</span><br>
+&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;action&nbsp;=&nbsp;<span class="constructor">NowPlaying</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Submit</span><br>
+&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;song&nbsp;=&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;artist&nbsp;:&nbsp;string;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;track&nbsp;:&nbsp;string;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;time&nbsp;:&nbsp;float&nbsp;option;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;source&nbsp;:&nbsp;<span class="constructor">Lastfm_generic</span>.<span class="constructor">Audioscrobbler_t</span>.source&nbsp;option;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;rating&nbsp;:&nbsp;<span class="constructor">Lastfm_generic</span>.<span class="constructor">Audioscrobbler_t</span>.rating&nbsp;option;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;length&nbsp;:&nbsp;float&nbsp;option;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;album&nbsp;:&nbsp;string&nbsp;option;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;trackauth&nbsp;:&nbsp;string&nbsp;option;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;tracknumber&nbsp;:&nbsp;int&nbsp;option;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;musicbrainzid&nbsp;:&nbsp;string&nbsp;option;<br>
+&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;error&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Http</span>&nbsp;<span class="keyword">of</span>&nbsp;string<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Banned</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Badauth</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Badtime</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Failed</span>&nbsp;<span class="keyword">of</span>&nbsp;string<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">UnknownError</span>&nbsp;<span class="keyword">of</span>&nbsp;string<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Success</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">Internal</span>&nbsp;<span class="keyword">of</span>&nbsp;string<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="constructor">BadData</span>&nbsp;<span class="keyword">of</span>&nbsp;string<br>
+&nbsp;&nbsp;<span class="keyword">exception</span>&nbsp;<span class="constructor">Error</span>&nbsp;<span class="keyword">of</span>&nbsp;<span class="constructor">Lastfm_generic</span>.<span class="constructor">Audioscrobbler_t</span>.error<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;string_of_error&nbsp;:&nbsp;<span class="constructor">Lastfm_generic</span>.<span class="constructor">Audioscrobbler_t</span>.error&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;base_port&nbsp;:&nbsp;int&nbsp;<span class="constructor">Stdlib</span>.ref<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;base_host&nbsp;:&nbsp;string&nbsp;<span class="constructor">Stdlib</span>.ref<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;get_song&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;?time:float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;?source:<span class="constructor">Lastfm_generic</span>.<span class="constructor">Audioscrobbler_t</span>.source&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;?rating:<span class="constructor">Lastfm_generic</span>.<span class="constructor">Audioscrobbler_t</span>.rating&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;?length:float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;?album:string&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;?tracknumber:int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;?musicbrainzid:string&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;?trackauth:string&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;artist:string&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;track:string&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Lastfm_generic</span>.<span class="constructor">Audioscrobbler_t</span>.song<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;check_song&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Lastfm_generic</span>.<span class="constructor">Audioscrobbler_t</span>.song&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Lastfm_generic</span>.<span class="constructor">Audioscrobbler_t</span>.action&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;do_np&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;?timeout:float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;?host:string&nbsp;*&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Lastfm_generic</span>.client&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Lastfm_generic</span>.login&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Lastfm_generic</span>.<span class="constructor">Audioscrobbler_t</span>.song&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;do_submit&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;?timeout:float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;?host:string&nbsp;*&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Lastfm_generic</span>.client&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Lastfm_generic</span>.login&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Lastfm_generic</span>.<span class="constructor">Audioscrobbler_t</span>.song&nbsp;list&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Lastfm_generic</span>.<span class="constructor">Audioscrobbler_t</span>.error&nbsp;*<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Lastfm_generic</span>.<span class="constructor">Audioscrobbler_t</span>.song)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;list<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;handshake&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;?timeout:float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;?host:string&nbsp;*&nbsp;int&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Lastfm_generic</span>.client&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Lastfm_generic</span>.login&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;np&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;?timeout:float&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Lastfm_generic</span>.<span class="constructor">Audioscrobbler_t</span>.song&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;unit<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;submit&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;?timeout:float&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;string&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Lastfm_generic</span>.<span class="constructor">Audioscrobbler_t</span>.song&nbsp;list&nbsp;<span class="keywordsign">-&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">Lastfm_generic</span>.<span class="constructor">Audioscrobbler_t</span>.error&nbsp;*<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Lastfm_generic</span>.<span class="constructor">Audioscrobbler_t</span>.song)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;list<br>
+<span class="keyword">end</span></code></body></html>

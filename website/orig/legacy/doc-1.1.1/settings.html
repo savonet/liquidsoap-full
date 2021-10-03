@@ -1,0 +1,804 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+  <title>Savonet / Liquidsoap 1.1.1 :: Multimedia Stream Generation</title>
+  <link href="../css/new.css" type="text/css" rel="stylesheet" />
+  <link href="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.17/themes/base/jquery-ui.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="//www.google.com/jsapi"></script>
+  <link rel="shortcut icon" href="../favicon.ico" />
+  <script>
+    google.load("jquery", "1.6.1");
+    google.load("jqueryui", "1.8.14");
+  </script>
+  <script type="text/javascript" src="../js/jQuery.syntax/jquery.syntax.min.js"></script>
+  <script type="text/javascript" src="../js/liq-jquery.js"></script>
+</head>
+<body>
+  <div class="menu">
+    <ul>
+      <li id="menu-developers">
+        <a href="https://github.com/savonet/liquidsoap/issues" target="_blank">developers</a></li>
+      <li id="menu-flows"><a href="https://flows.liquidsoap.info/">Flows!</a></li>
+      <li id="menu-doc-api-www">
+        <a href="reference.html">API</a></li>
+      <li id="menu-support">
+        <a href="documentation.html">documentation</a></li>
+      <li id="menu-download">
+        <a href="../download.html">download</a></li>
+      <li id="menu-about">
+        <a href="../index.html">about</a></li>
+    </ul>
+  </div>
+  <div class="section" id="main">
+    <h1>Liquidsoap 1.1.1 : </h1>
+    <div class="content">
+      <h2>Liquidsoap configuration</h2>
+<h3>ALSA configuration</h3>
+<h4>Alsa internal buffer size</h4>
+<p>
+Default: <code>0</code>
+</p>
+<pre class="syntax ">set("alsa.alsa_buffer",0)
+</pre>
+<p>
+This setting is only used in buffered alsa I/O, and affects latency.
+Set to 0 to disable this setting and use ALSA's default.
+</p>
+<h4>Buffer size, in frames</h4>
+<p>
+Default: <code>1</code>
+</p>
+<pre class="syntax ">set("alsa.buffer_length",1)
+</pre>
+<p>
+This is only used for buffered ALSA I/O, and affects latency.
+</p>
+<h4>Number of periods</h4>
+<p>
+Default: <code>0</code>
+</p>
+<pre class="syntax ">set("alsa.periods",0)
+</pre>
+<p>
+Set to 0 to disable this setting and use ALSA's default.
+</p>
+<h3>Audio settings</h3>
+<h4>Conversion settings</h4>
+<h5>Samplerate conversion settings</h5>
+<h6>Libsamplerate conversion settings</h6>
+<h7>Resampling quality</h7>
+<p>
+Default: <code>"fast"</code>
+</p>
+<pre class="syntax ">set("audio.converter.samplerate.libsamplerate.quality","fast")
+</pre>
+<p>
+Resampling quality, one of: “best”, “medium”, “fast”, “zero_order”, “linear”. Refer to ocaml-samplerate for details.
+</p>
+<h6>Preferred samplerate converter</h6>
+<p>
+Default: <code>"libsamplerate"</code>
+</p>
+<pre class="syntax ">set("audio.converter.samplerate.preferred","libsamplerate")
+</pre>
+<p>
+Preferred samplerate converter.
+</p>
+<h3>Audioscrobbler configuration.</h3>
+<h3>Clock settings</h3>
+<h4>Handling of streaming errors</h4>
+<p>
+Default: <code>false</code>
+</p>
+<pre class="syntax ">set("clock.allow_streaming_errors",false)
+</pre>
+<p>
+Control the behaviour of clocks when an error occurs during streaming.
+This has no effect on errors occurring during source initializations.
+By default, any error will cause liquidsoap to shutdown. If errors
+are allowed, faulty sources are simply removed and clocks keep running.
+Allowing errors can result in complex surprising situations;
+use at your own risk!
+</p>
+<h3>Decoder settings</h3>
+<h4>Maximum debugging information (dev only)</h4>
+<p>
+Default: <code>false</code>
+</p>
+<pre class="syntax ">set("decoder.debug",false)
+</pre>
+<p>
+WARNING: Do not enable unless a developer instructed you to do so!
+The debugging mode makes it easier to understand why decoding fails,
+but as a side effect it will crash liquidsoap at the end of every
+track.
+</p>
+<h4>Decoders and order used to decode files.</h4>
+<p>
+Default: <code>["META","WAV","MIDI","IMAGE","FLAC","AAC","MP4","OGG","MAD","GSTREAMER"]</code>
+</p>
+<pre class="syntax ">set("decoder.file_decoders",["META","WAV","MIDI","IMAGE","FLAC","AAC","MP4","OGG","MAD","GSTREAMER"])
+</pre>
+<h4>File extensions used for guessing audio formats</h4>
+<h5>File extensions used for guessing AAC format</h5>
+<p>
+Default: <code>["aac"]</code>
+</p>
+<pre class="syntax ">set("decoder.file_extensions.aac",["aac"])
+</pre>
+<h5>File extensions used for guessing FLAC format</h5>
+<p>
+Default: <code>["flac"]</code>
+</p>
+<pre class="syntax ">set("decoder.file_extensions.flac",["flac"])
+</pre>
+<h5>File extensions used for guessing format handled by GStreamer</h5>
+<p>
+Default: <code>["wmv","avi","mp4","3gp","webm","mkv"]</code>
+</p>
+<pre class="syntax ">set("decoder.file_extensions.gstreamer",["wmv","avi","mp4","3gp","webm","mkv"])
+</pre>
+<h5>File extensions used for guessing mpeg audio format</h5>
+<p>
+Default: <code>["mp3","mp2","mp1"]</code>
+</p>
+<pre class="syntax ">set("decoder.file_extensions.mad",["mp3","mp2","mp1"])
+</pre>
+<h5>File extensions used for guessing MP3 format (DEPRECATED, use *.mad configuration keys!)</h5>
+<p>
+Default: <code>["mp3","mp2","mp1"]</code>
+</p>
+<pre class="syntax ">set("decoder.file_extensions.mp3",["mp3","mp2","mp1"])
+</pre>
+<h5>File extensions used for guessing MP4 format</h5>
+<p>
+Default: <code>["m4a","m4b","m4p","m4v","m4r","3gp","mp4"]</code>
+</p>
+<pre class="syntax ">set("decoder.file_extensions.mp4",["m4a","m4b","m4p","m4v","m4r","3gp","mp4"])
+</pre>
+<h5>File extensions used for guessing OGG format</h5>
+<p>
+Default: <code>["ogv","oga","ogx","ogg","opus"]</code>
+</p>
+<pre class="syntax ">set("decoder.file_extensions.ogg",["ogv","oga","ogx","ogg","opus"])
+</pre>
+<h5>File extensions used for decoding metadata using TAGLIB</h5>
+<p>
+Default: <code>["mp3"]</code>
+</p>
+<pre class="syntax ">set("decoder.file_extensions.taglib",["mp3"])
+</pre>
+<h5>File extensions used for guessing WAV format</h5>
+<p>
+Default: <code>["wav"]</code>
+</p>
+<pre class="syntax ">set("decoder.file_extensions.wav",["wav"])
+</pre>
+<h4>Decoders and order used to decode image files.</h4>
+<p>
+Default: <code>["PPM","CAMLIMAGES","SDL/IMAGE"]</code>
+</p>
+<pre class="syntax ">set("decoder.image_file_decoders",["PPM","CAMLIMAGES","SDL/IMAGE"])
+</pre>
+<h4>Mime-types used for guessing audio formats</h4>
+<h5>Mime-types used for guessing AAC format</h5>
+<p>
+Default: <code>["audio/aac","audio/aacp","audio/x-hx-aac-adts"]</code>
+</p>
+<pre class="syntax ">set("decoder.mime_types.aac",["audio/aac","audio/aacp","audio/x-hx-aac-adts"])
+</pre>
+<h5>Mime-types used for guessing PCM/BASIC format</h5>
+<p>
+Default: <code>["audio/basic"]</code>
+</p>
+<pre class="syntax ">set("decoder.mime_types.basic",["audio/basic"])
+</pre>
+<h5>Mime-types used for guessing FLAC format</h5>
+<p>
+Default: <code>["audio/x-flac"]</code>
+</p>
+<pre class="syntax ">set("decoder.mime_types.flac",["audio/x-flac"])
+</pre>
+<h5>Mime-types used for guessing format handled by GStreamer</h5>
+<p>
+Default: <code>["video/x-ms-asf","video/x-msvideo","video/mp4","video/3gpp","video/webm","video/x-matroska","video/mp2t","video/MP2T"]</code>
+</p>
+<pre class="syntax ">set("decoder.mime_types.gstreamer",["video/x-ms-asf","video/x-msvideo","video/mp4","video/3gpp","video/webm","video/x-matroska","video/mp2t","video/MP2T"])
+</pre>
+<h5>Mime-types used for guessing mpeg audio format</h5>
+<p>
+Default: <code>["audio/mpeg","audio/MPA"]</code>
+</p>
+<pre class="syntax ">set("decoder.mime_types.mad",["audio/mpeg","audio/MPA"])
+</pre>
+<h5>Mime-types used for guessing MP3 format (DEPRECATED, use *.mad configuration keys!)</h5>
+<p>
+Default: <code>["audio/mpeg","audio/MPA"]</code>
+</p>
+<pre class="syntax ">set("decoder.mime_types.mp3",["audio/mpeg","audio/MPA"])
+</pre>
+<h5>Mime-types used for guessing MP4 format</h5>
+<p>
+Default: <code>["audio/mp4","application/mp4"]</code>
+</p>
+<pre class="syntax ">set("decoder.mime_types.mp4",["audio/mp4","application/mp4"])
+</pre>
+<h5>Mime-types used for guessing OGG format.</h5>
+<p>
+Default: <code>["application/ogg","application/x-ogg","audio/x-ogg","audio/ogg","video/ogg"]</code>
+</p>
+<pre class="syntax ">set("decoder.mime_types.ogg",["application/ogg","application/x-ogg","audio/x-ogg","audio/ogg","video/ogg"])
+</pre>
+<h5>Mime-types used for decoding metadata using TAGLIB</h5>
+<p>
+Default: <code>["audio/mpeg"]</code>
+</p>
+<pre class="syntax ">set("decoder.mime_types.taglib",["audio/mpeg"])
+</pre>
+<h5>Mime-types used for guessing WAV format</h5>
+<p>
+Default: <code>["audio/vnd.wave","audio/wav","audio/wave","audio/x-wav"]</code>
+</p>
+<pre class="syntax ">set("decoder.mime_types.wav",["audio/vnd.wave","audio/wav","audio/wave","audio/x-wav"])
+</pre>
+<h4>Decoders and order used to decode streams.</h4>
+<p>
+Default: <code>["WAV","PCM/BASIC","FLAC","AAC","OGG","MAD","GSTREAMER"]</code>
+</p>
+<pre class="syntax ">set("decoder.stream_decoders",["WAV","PCM/BASIC","FLAC","AAC","OGG","MAD","GSTREAMER"])
+</pre>
+<h4>Taglib settings</h4>
+<h5>By default, taglib will only attempt reading metadata from files that it detects as valid. This may fail, for example if the reported mime type isn't “audio/mpeg”. If you set this configuration key to true, then all files successfully recognized by liquidsoap will be considered as MPEG by taglib. In this case, taglib configuration keys for file extensions and mime types (“decoder.file_extensions.taglib” and “decoder.mime_types.taglib”) are not used, and file detection is only done based on the corresponding settings from the MAD MPEG decoder.</h5>
+<p>
+Default: <code>false</code>
+</p>
+<pre class="syntax ">set("decoder.taglib.force_mpeg",false)
+</pre>
+<h3>Encoder settings</h3>
+<h4>Metadata settings</h4>
+<h5>Exported metdata</h5>
+<p>
+Default: <code>["artist","title","album","genre","date","tracknumber","comment","track","year"]</code>
+</p>
+<pre class="syntax ">set("encoder.encoder.export",["artist","title","album","genre","date","tracknumber","comment","track","year"])
+</pre>
+<p>
+The list of labels of exported metadata.
+</p>
+<h3>Frame format</h3>
+<h4>Audio (PCM) format</h4>
+<h5>Default number of channels</h5>
+<p>
+Default: <code>2</code>
+</p>
+<pre class="syntax ">set("frame.audio.channels",2)
+</pre>
+<h5>Samplerate</h5>
+<p>
+Default: <code>44100</code>
+</p>
+<pre class="syntax ">set("frame.audio.samplerate",44100)
+</pre>
+<h4>Tentative frame duration in seconds</h4>
+<p>
+Default: <code>0.04</code>
+</p>
+<pre class="syntax ">set("frame.duration",0.04)
+</pre>
+<p>
+Audio and video samplerates constrain the possible frame durations.
+This setting is used as a hint for the duration, when 'frame.audio.size'
+is not provided.
+Tweaking frame duration is tricky but needed when dealing with latency
+or getting soundcard I/O correctly synchronized with liquidsoap.
+</p>
+<h4>MIDI parameters</h4>
+<h5>Default number of channels</h5>
+<p>
+Default: <code>0</code>
+</p>
+<pre class="syntax ">set("frame.midi.channels",0)
+</pre>
+<h4>Video format</h4>
+<h5>Default number of channels</h5>
+<p>
+Default: <code>0</code>
+</p>
+<pre class="syntax ">set("frame.video.channels",0)
+</pre>
+<h5>Image height</h5>
+<p>
+Default: <code>240</code>
+</p>
+<pre class="syntax ">set("frame.video.height",240)
+</pre>
+<h5>Samplerate</h5>
+<p>
+Default: <code>25</code>
+</p>
+<pre class="syntax ">set("frame.video.samplerate",25)
+</pre>
+<h5>Image width</h5>
+<p>
+Default: <code>320</code>
+</p>
+<pre class="syntax ">set("frame.video.width",320)
+</pre>
+<h3>Media decoding/endcoding through gstreamer.</h3>
+<h4>Add borders in order to keep video aspect ratio.</h4>
+<p>
+Default: <code>true</code>
+</p>
+<pre class="syntax ">set("gstreamer.add_borders",true)
+</pre>
+<h4>Debug level (bewteen 0 and 5).</h4>
+<p>
+Default: <code>0</code>
+</p>
+<pre class="syntax ">set("gstreamer.debug_level",0)
+</pre>
+<h4>Maximal number of buffers.</h4>
+<p>
+Default: <code>10</code>
+</p>
+<pre class="syntax ">set("gstreamer.max_buffers",10)
+</pre>
+<h3>Harbor settings (Icecast/shoutcast stream receiver).</h3>
+<h4>IP address on which the harbor should listen.</h4>
+<p>
+Default: <code>"0.0.0.0"</code>
+</p>
+<pre class="syntax ">set("harbor.bind_addr","0.0.0.0")
+</pre>
+<h4>Content-type (mime) of formats which allow shout metadata update.</h4>
+<p>
+Default: <code>["audio/mpeg","audio/aacp","audio/aac","audio/x-aac","audio/wav","audio/wave","audio/x-flac"]</code>
+</p>
+<pre class="syntax ">set("harbor.icy_formats",["audio/mpeg","audio/aacp","audio/aac","audio/x-aac","audio/wav","audio/wave","audio/x-flac"])
+</pre>
+<h4>Maximun of pending source requests per port.</h4>
+<p>
+Default: <code>2</code>
+</p>
+<pre class="syntax ">set("harbor.max_connections",2)
+</pre>
+<h4>Perform reverse DNS lookup to get the client's hostname from its IP.</h4>
+<p>
+Default: <code>true</code>
+</p>
+<pre class="syntax ">set("harbor.reverse_dns",true)
+</pre>
+<h4>Timeout for network operations.</h4>
+<p>
+Default: <code>300.</code>
+</p>
+<pre class="syntax ">set("harbor.timeout",300.)
+</pre>
+<h4>Display passwords, for debugging.</h4>
+<p>
+Default: <code>false</code>
+</p>
+<pre class="syntax ">set("harbor.verbose",false)
+</pre>
+<h3>initialization configuration</h3>
+<h4>catch exceptions, use false to backtrace exceptions</h4>
+<p>
+Default: <code>true</code>
+</p>
+<pre class="syntax ">set("init.catch_exn",true)
+</pre>
+<h4>run initialization using concurrent threads</h4>
+<p>
+Default: <code>false</code>
+</p>
+<pre class="syntax ">set("init.concurrent",false)
+</pre>
+<h4>run in daemon mode</h4>
+<p>
+Default: <code>false</code>
+</p>
+<pre class="syntax ">set("init.daemon",false)
+</pre>
+<h5>Changes the effective user (drops privileges).</h5>
+<p>
+Default: <code>false</code>
+</p>
+<pre class="syntax ">set("init.daemon.change_user",false)
+</pre>
+<h6>Group used to run the daemon.</h6>
+<p>
+Default: <code>"daemon"</code>
+</p>
+<pre class="syntax ">set("init.daemon.change_user.group","daemon")
+</pre>
+<h6>User used to run the daemon.</h6>
+<p>
+Default: <code>"daemon"</code>
+</p>
+<pre class="syntax ">set("init.daemon.change_user.user","daemon")
+</pre>
+<h5>support for pidfile generation</h5>
+<p>
+Default: <code>true</code>
+</p>
+<pre class="syntax ">set("init.daemon.pidfile",true)
+</pre>
+<h6>path to pidfile</h6>
+<p>
+Default: <code>"&lt;sysrundir&gt;/&lt;script&gt;.pid"</code>
+</p>
+<pre class="syntax ">set("init.daemon.pidfile.path","&lt;sysrundir&gt;/&lt;script&gt;.pid")
+</pre>
+<h4>Start liquidsoap even without any active source</h4>
+<p>
+Default: <code>false</code>
+</p>
+<pre class="syntax ">set("init.force_start",false)
+</pre>
+<p>
+This should be reserved for advanced dynamic uses of liquidsoap.
+</p>
+<h4>dump an initialization trace</h4>
+<p>
+Default: <code>false</code>
+</p>
+<pre class="syntax ">set("init.trace",false)
+</pre>
+<h3>log configuration</h3>
+<h4>log to file</h4>
+<p>
+Default: <code>true</code>
+</p>
+<pre class="syntax ">set("log.file",true)
+</pre>
+<h5>append log to the file</h5>
+<p>
+Default: <code>true</code>
+</p>
+<pre class="syntax ">set("log.file.append",true)
+</pre>
+<h5>path to log file</h5>
+<p>
+Default: <code>"&lt;syslogdir&gt;/&lt;script&gt;.log"</code>
+</p>
+<pre class="syntax ">set("log.file.path","&lt;syslogdir&gt;/&lt;script&gt;.log")
+</pre>
+<h5>log file permissions</h5>
+<p>
+Default: <code>384</code>
+</p>
+<pre class="syntax ">set("log.file.perms",384)
+</pre>
+<h4>general log level</h4>
+<p>
+Default: <code>3</code>
+</p>
+<pre class="syntax ">set("log.level",3)
+</pre>
+<h4>log to stdout</h4>
+<p>
+Default: <code>false</code>
+</p>
+<pre class="syntax ">set("log.stdout",false)
+</pre>
+<h4>Enable syslog logging.</h4>
+<p>
+Default: <code>false</code>
+</p>
+<pre class="syntax ">set("log.syslog",false)
+</pre>
+<h5>Logging facility.</h5>
+<p>
+Default: <code>"DAEMON"</code>
+</p>
+<pre class="syntax ">set("log.syslog.facility","DAEMON")
+</pre>
+<h5>Name of the program.</h5>
+<p>
+Default: <code>"liquidsoap"</code>
+</p>
+<pre class="syntax ">set("log.syslog.program","liquidsoap")
+</pre>
+<h4>display unix timestamps (subsecond accuracy, timezone independant)</h4>
+<p>
+Default: <code>false</code>
+</p>
+<pre class="syntax ">set("log.unix_timestamps",false)
+</pre>
+<h3>Parameters for the mpd protocol.</h3>
+<h4>MPD host.</h4>
+<p>
+Default: <code>"127.0.0.1"</code>
+</p>
+<pre class="syntax ">set("mpd.host","127.0.0.1")
+</pre>
+<h4>Directory where MPD's music is located.</h4>
+<p>
+Default: <code>"/var/lib/mpd/music"</code>
+</p>
+<pre class="syntax ">set("mpd.path","/var/lib/mpd/music")
+</pre>
+<h4>MPD port.</h4>
+<p>
+Default: <code>6600</code>
+</p>
+<pre class="syntax ">set("mpd.port",6600)
+</pre>
+<h4>Randomize order of MPD's results.</h4>
+<p>
+Default: <code>true</code>
+</p>
+<pre class="syntax ">set("mpd.randomize",true)
+</pre>
+<h3>Interactions through the OSC protocol.</h3>
+<h4>Port for OSC server.</h4>
+<p>
+Default: <code>7777</code>
+</p>
+<pre class="syntax ">set("osc.port",7777)
+</pre>
+<h3>Playlist formats</h3>
+<h4>Cue in metadata for playlists with track index.</h4>
+<p>
+Default: <code>"liq_cue_in"</code>
+</p>
+<pre class="syntax ">set("playlists.cue_in_metadata","liq_cue_in")
+</pre>
+<p>
+Some playlists format, such as CUE files specify index points to start
+tracks playback. In this case, tracks are resolved to a annotate: request with
+a cue-in metadata containing the index. If you want to make use of this index,
+you should specify here what label you want for this metadata and use the cue_cut
+operator on the resulting source
+</p>
+<h4>Cue out metadata for playlists with track index.</h4>
+<p>
+Default: <code>"liq_cue_out"</code>
+</p>
+<pre class="syntax ">set("playlists.cue_out_metadata","liq_cue_out")
+</pre>
+<p>
+Some playlists format, such as CUE files specify index points to start
+tracks playback. In this case, tracks are resolved to a annotate: request with
+a cue-in metadata containing the index. If you want to make use of this index,
+you should specify here what label you want for this metadata and use the cue_cut
+operator on the resulting source
+</p>
+<h4>Mime-types used for guessing playlist formats.</h4>
+<h5>Mime types associated to XML-based playlist formats</h5>
+<p>
+Default: <code>["video/x-ms-asf","audio/x-ms-asx","text/xml","application/xml","application/smil","application/smil+xml","application/xspf+xml","application/rss+xml"]</code>
+</p>
+<pre class="syntax ">set("playlists.mime_types.xml",["video/x-ms-asf","audio/x-ms-asx","text/xml","application/xml","application/smil","application/smil+xml","application/xspf+xml","application/rss+xml"])
+</pre>
+<h3>requests configuration</h3>
+<h4>Time (in seconds) after which a destroyed request cannot be accessed anymore.</h4>
+<p>
+Default: <code>600.</code>
+</p>
+<pre class="syntax ">set("request.grace_time",600.)
+</pre>
+<h4>Decoders and order used to decode files' metadata.</h4>
+<p>
+Default: <code>["FLAC","MP4","OGG","TAGLIB","GSTREAMER"]</code>
+</p>
+<pre class="syntax ">set("request.metadata_decoders",["FLAC","MP4","OGG","TAGLIB","GSTREAMER"])
+</pre>
+<h5>Compute duration in the “duration” metadata, if the metadata is not already present. This can take a long time and the use of this option is not recommended: the proper way is to have a script precompute the “duration” metadata.</h5>
+<p>
+Default: <code>false</code>
+</p>
+<pre class="syntax ">set("request.metadata_decoders.duration",false)
+</pre>
+<h5>Allow metadata resolvers to override metadata already set through annotate: or playlist resolution for instance.</h5>
+<p>
+Default: <code>false</code>
+</p>
+<pre class="syntax ">set("request.metadata_decoders.override",false)
+</pre>
+<h3>Streaming clock settings</h3>
+<h4>Maximum latency in seconds</h4>
+<p>
+Default: <code>60.</code>
+</p>
+<pre class="syntax ">set("root.max_latency",60.)
+</pre>
+<p>
+If the latency gets higher than this value, the outputs will be reset,
+instead of trying to catch it up second by second.
+The reset is typically only useful to reconnect icecast mounts.
+</p>
+<h3>Parameters for the say protocol.</h3>
+<h4>Program for syntesizing voices (takes as argument the text, the file to synthesize to, and optionnaly the voice to use).</h4>
+<p>
+Default: <code>"/usr/local/lib/liquidsoap/1.1.1/liquidtts"</code>
+</p>
+<pre class="syntax ">set("say.program","/usr/local/lib/liquidsoap/1.1.1/liquidtts")
+</pre>
+<h3>Internal scheduler</h3>
+<h4>Fast queues</h4>
+<p>
+Default: <code>0</code>
+</p>
+<pre class="syntax ">set("scheduler.fast_queues",0)
+</pre>
+<p>
+Number of queues that are dedicated to fast tasks.
+It might be useful to create some if your request resolutions,
+or some user defined tasks (cf. <code>add_timeout()</code>), are
+delayed too much because of slow tasks blocking the generic queues,
+such as last.fm submissions or slow <code>add_timeout</code> handlers.
+</p>
+<h4>Generic queues</h4>
+<p>
+Default: <code>2</code>
+</p>
+<pre class="syntax ">set("scheduler.generic_queues",2)
+</pre>
+<p>
+Number of event queues accepting any kind of task.
+There should at least be one. Having more can be useful to make sure that
+trivial request resolutions (local files) are not delayed because of
+a stalled download. But N stalled download can block N queues anyway.
+</p>
+<h4>Log scheduler messages</h4>
+<p>
+Default: <code>false</code>
+</p>
+<pre class="syntax ">set("scheduler.log",false)
+</pre>
+<h4>Non-blocking queues</h4>
+<p>
+Default: <code>2</code>
+</p>
+<pre class="syntax ">set("scheduler.non_blocking_queues",2)
+</pre>
+<p>
+Number of queues dedicated to internal non-blocking tasks.
+These are only started if such tasks are needed.
+There should be at least one.
+</p>
+<h3>Server configuration</h3>
+<h4>Support for communication via a UNIX domain socket interface</h4>
+<p>
+Default: <code>false</code>
+</p>
+<pre class="syntax ">set("server.socket",false)
+</pre>
+<p>
+The main advantage of this method is that you can set very precisely
+the access permissions for the socket, just like for any other file.
+A useful command to use this interface is: “socat stdin unix:&lt;path&gt;”.
+</p>
+<h5>Path of the UNIX domain socket</h5>
+<p>
+Default: <code>"&lt;sysrundir&gt;/&lt;script&gt;.sock"</code>
+</p>
+<pre class="syntax ">set("server.socket.path","&lt;sysrundir&gt;/&lt;script&gt;.sock")
+</pre>
+<p>
+In this filename, &lt;pid&gt;, &lt;script&gt; and &lt;sysrundir&gt; are replaced by 
+their respective values: PID of the instance of liquidsoap,
+base name of the .liq script (if any), default runtime data directory.
+</p>
+<h5>Socket permissions, up to umask</h5>
+<p>
+Default: <code>384</code>
+</p>
+<pre class="syntax ">set("server.socket.permissions",384)
+</pre>
+<p>
+This parameter is better written in octal notation. Although you can 
+write octal numbers like 0o660, they are not displayed back in octal. 
+For example, the default value 384 is the decimal for 0o600.
+</p>
+<h4>Support for communication via a telnet interface</h4>
+<p>
+Default: <code>false</code>
+</p>
+<pre class="syntax ">set("server.telnet",false)
+</pre>
+<p>
+This allows you to communicate with the server via a telnet interface,
+i.e., a simple text-based communication over TCP.
+The standard “telnet” command will allow you to communicate through
+that interface, as well as the telnet libraries available in most
+script languages.
+Since there is currently no authentication, you should be careful
+about who can access this interface: either restrict it to connections
+from localhost (using the bind_addr param) or set up a firewall.
+</p>
+<h5>Network mask from which the telnet server should accept connections</h5>
+<p>
+Default: <code>"127.0.0.1"</code>
+</p>
+<pre class="syntax ">set("server.telnet.bind_addr","127.0.0.1")
+</pre>
+<h5>Port on which the telnet server should listen</h5>
+<p>
+Default: <code>1234</code>
+</p>
+<pre class="syntax ">set("server.telnet.port",1234)
+</pre>
+<h5>Perform reverse DNS lookup to get the client's hostname from its IP.</h5>
+<p>
+Default: <code>true</code>
+</p>
+<pre class="syntax ">set("server.telnet.reverse_dns",true)
+</pre>
+<h4>Timeout for read/write operations.</h4>
+<p>
+Default: <code>30.</code>
+</p>
+<pre class="syntax ">set("server.timeout",30.)
+</pre>
+<p>
+A negative value disables timeout.
+</p>
+<h3>Settings related to metadata tags</h3>
+<h4>List of encodings to try for automatic encoding detection</h4>
+<p>
+Default: <code>["UTF-8","ISO-8859-1"]</code>
+</p>
+<pre class="syntax ">set("tag.encodings",["UTF-8","ISO-8859-1"])
+</pre>
+<h3>Video settings</h3>
+<h4>Video conversion</h4>
+<h5>Gavl converter</h5>
+<h6>Conversion quality</h6>
+<p>
+Default: <code>2</code>
+</p>
+<pre class="syntax ">set("video.converter.gavl.quality",2)
+</pre>
+<p>
+Quality setting for gavl video conversion. Range from 1 to 5
+</p>
+<h6>Scale mode</h6>
+<p>
+Default: <code>"auto"</code>
+</p>
+<pre class="syntax ">set("video.converter.gavl.scale_mode","auto")
+</pre>
+<p>
+Scale mode. Values must be one of: 
+“auto”
+“nearest”
+“bilinear”
+“quadratic”
+“cubic_bspline”
+“cubic_mitchell”
+“cubic_catmull”
+“scale_sinc_lanczos”
+</p>
+<h5>Preferred video converter</h5>
+<p>
+Default: <code>"gavl"</code>
+</p>
+<pre class="syntax ">set("video.converter.preferred","gavl")
+</pre>
+<h5>Preferred proportional scale.</h5>
+<p>
+Default: <code>true</code>
+</p>
+<pre class="syntax ">set("video.converter.proportional_scale",true)
+</pre>
+      <div id="footer"> 2003-2017 Savonet team</div>
+    </div>
+  </div>
+  <script type="text/javascript" src="//www.google.com/cse/brand?form=cse-search-box&amp;lang=en"></script>
+  <script type="text/javascript" src="../js/search.js"></script>
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-927362-1']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+</body>
+</html>

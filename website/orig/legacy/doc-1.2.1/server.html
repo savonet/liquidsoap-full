@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+  <title>Savonet / Liquidsoap 1.2.1 :: Multimedia Stream Generation</title>
+  <link href="../css/new.css" type="text/css" rel="stylesheet" />
+  <link href="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.17/themes/base/jquery-ui.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="//www.google.com/jsapi"></script>
+  <link rel="shortcut icon" href="../favicon.ico" />
+  <script>
+    google.load("jquery", "1.6.1");
+    google.load("jqueryui", "1.8.14");
+  </script>
+  <script type="text/javascript" src="../js/jQuery.syntax/jquery.syntax.min.js"></script>
+  <script type="text/javascript" src="../js/liq-jquery.js"></script>
+</head>
+<body>
+  <div class="menu">
+    <ul>
+      <li id="menu-developers">
+        <a href="https://github.com/savonet/liquidsoap/issues" target="_blank">developers</a></li>
+      <li id="menu-flows"><a href="https://flows.liquidsoap.info/">Flows!</a></li>
+      <li id="menu-doc-api-www">
+        <a href="reference.html">API</a></li>
+      <li id="menu-support">
+        <a href="documentation.html">documentation</a></li>
+      <li id="menu-download">
+        <a href="../download.html">download</a></li>
+      <li id="menu-about">
+        <a href="../index.html">about</a></li>
+    </ul>
+  </div>
+  <div class="section" id="main">
+    <h1>Liquidsoap 1.2.1 : Interaction with the server</h1>
+    <div class="content">
+      <h3>Interaction with the server</h3>
+<p>
+Liquidsoap starts with one or several scripts as its configuration, and then
+streams forever if everything goes well. Once started, you can still interact
+with it by means of the <em>server</em>. The server allows you to run commands. Some
+are general and always available, some belong to a specific operator. For
+example the <code>request.queue()</code> instances register commands to enqueue new
+requests, the outputs register commands to start or stop the outputting, display
+the last ten metadata chunks, etc.
+</p>
+<p>
+The protocol of the server is a simple human-readable one. Currently it does not
+have any kind of authentication and permissions. It is currently available via
+two media: TCP and Unix sockets. The TCP socket provides a simple telnet-like
+interface, available only on the local host by default. The Unix socket
+interface (<em>cf.</em> the <code>server.socket</code> setting) is through some sort of virtual
+file. This is more constraining, which allows one to restrict the use of the
+socket to some priviledged users.
+</p>
+<p>
+You can find more details on how to configure the server in the
+<a href="help.html#settings">documentation</a> of the settings key <code>server</code>, in particular
+<code>server.telnet</code> for the TCP interface and <code>server.socket</code> for the Unix
+interface. Liquidsoap also embeds some <a href="help.html#server">documentation</a> about
+the available server commands.
+</p>
+<p>
+Now, we shall simply enable the Telnet interface to the server, by setting
+<code>set("server.telnet",true)</code> or simply passing the <code>-t</code> option on the
+command-line. In a <a href="complete_case.html">complete case analysis</a> we set up a
+<code>request.queue()</code> instance to play user requests. It had the identifier
+<code>"queue"</code>. We are now going to interact via the server to push requests into
+that queue:
+</p>
+<pre class="syntax ">dbaelde@selassie:~$ telnet localhost 1234
+Trying 127.0.0.1...
+Connected to localhost.localdomain.
+Escape character is '^]'.
+queue.push /path/to/some/file.ogg
+5
+END
+request.metadata 5
+[...]
+END
+queue.push http://remote/audio.ogg
+6
+END
+request.trace 6
+[...see if the download started/succeeded...]
+END
+exit
+</pre>
+<p>
+Of course, the server isn't very user-friendly. But it is easy to write scripts
+to interact with Liquidsoap in that way, to implement a website or an IRC
+interface to your radio. However, this sort of tool is often bound to a specific
+usage, so we have not released any of ours. Feel free to <a href="mailto:savonet-users@lists.sf.net">ask the
+community</a> about code that you could re-use.
+</p>
+<h4>Interactive variables</h4>
+<p>
+Sometimes it is useful to control a variable using telnet. A simple way to
+achive this is to use the <code>interactive.float</code> function. For instance, in order
+to dynamically the volume of a source:
+</p>
+<pre class="syntax "># Register a telnet variable named volume with 1 as initial value
+v = interactive.float("volume", 1.)
+
+# Change the volume accordingly
+source = amplify(v, source)
+</pre>
+<p>
+The first line registers the variable volume on the telnet. Its value can be
+changed using the telnet command
+</p>
+<pre class="syntax ">var.set volume = 0.5
+</pre>
+<p>
+and it can be retrieved using
+</p>
+<pre class="syntax ">var.get volume
+</pre>
+<p>
+Similarly, we can switch between two tracks using <code>interactive.bool</code> and
+<code>switch</code> as follows:
+</p>
+<pre class="syntax liq"># Activate the telnet server
+set("server.telnet",true)
+
+# The two sources
+s1 = playlist("~/Music")
+s2 = sine()
+
+# Create an interactive boolean
+b = interactive.bool("button", true)
+
+# Switch between the tracks depending on the boolean
+s = switch(track_sensitive=false,[(b,s1), ({true},s2)])
+
+# Output the result
+output.pulseaudio(s)
+</pre>
+<div align="right">
+<a href="scripts/interactive_bool.liq">
+<img class="grab" src="../images/grab.png" alt="Grab the code!">
+</a>
+</div></p>
+<p>
+By default the source s1 is played. To switch to s2, you can connect on
+the telnet server and type <code>var.set button = false</code>.
+</p>
+<h4>Securing the server</h4>
+<p>
+The command server provided by liquidsoap is very convenient for manipulating a
+running instance of Liquidsoap. However, no authentication mechanism is
+provided. The telnet server has no authentication and listens by default on the
+localhost (<code>127.0.0.1</code>) network interface, which means that it is accessible to
+any logged user on the machine.
+</p>
+<p>
+Many users have expressed interest into setting up a secured access to the
+command server, using for instance user and password information. While we
+understand and share this need, we do not believe this is a task that lies into
+Liquidsoap's scope. An authentication mechanism is not something that should be
+implemented naively. Being SSH, HTTP login or any other mechanism, all these
+methods have been, at some point, exposed to security issues. Thus, implementing
+our own secure access would require a constant care about possible security
+issues.
+</p>
+<p>
+Rather than doing our own home-made secure acces, we believe that our users
+should be able to define their own secure access to the command server, taking
+advantage of a mainstream authentication mechanism, for instance HTTP or SSH
+login. In order to give an example of this approach, we show here how to create
+a SSH access to the command server: we create a SSH user that, when logging
+through SSH, has only access to the command server.
+</p>
+<p>
+First, we enable the unix socket for the command server in Liquidsoap:
+</p>
+<pre class="syntax ">set("server.socket",true)
+set("server.socket.path","/path/to/socket")
+</pre>
+<p>
+When started, liquidsoap will create a socket file <code>/path/to/socket</code>
+that can be used to interact with the command server. For instance,
+if your user has read and write rights on the socket file, you can do
+</p>
+<pre class="syntax ">socat /path/to/socket -
+</pre>
+<p>
+The interface is then exactly the same has for the telnet server.
+</p>
+<p>
+We define now a new “shell”. This shell is in fact the invokation of the socat
+command. Thus, we create a <code>/usr/local/bin/liq_shell</code> file with the following
+content:
+</p>
+<pre class="syntax ">#!/bin/sh
+# We test if the file is a socket, readable and writable.
+if [ -S /path/to/socket ] && [ -w /path/to/socket ] && \
+   [ -r /path/to/socket ]; then
+  socat /path/to/socket -
+else
+# If not, we exit..
+  exit 1
+fi
+</pre>
+<p>
+We set this file as executable, and we add it in the list of shells in <code>/etc/shells</code>.
+</p>
+<p>
+Now, we create a user with the <code>liq_shell</code> as its shell:
+</p>
+<pre class="syntax ">adduser --shell /usr/local/bin/liq_shell liq-user
+</pre>
+<p>
+You also need to make sure that <code>liq-user</code> has read and write rights
+on the socket file.
+</p>
+<p>
+Finally, when logging through ssh with <code>liq-user</code>, we get:
+</p>
+<pre class="syntax ">11:27 toots@leonard % ssh liq-user@localhost
+liq-user@localhost's password:
+Linux leonard 2.6.32-4-amd64 #1 SMP Mon Apr 5 21:14:10 UTC 2010 x86_64
+
+The programs included with the Debian GNU/Linux system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+Last login: Tue Oct  5 11:26:52 2010 from localhost
+help
+Available commands:
+(...)
+| exit
+| help [&lt;command&gt;]
+| list
+| quit
+| request.alive
+| request.all
+| request.metadata &lt;rid&gt;
+| request.on_air
+| request.resolving
+| request.trace &lt;rid&gt;
+| uptime
+| var.get &lt;variable&gt;
+| var.list
+| var.set &lt;variable&gt; = &lt;value&gt;
+| version
+
+Type "help &lt;command&gt;" for more information.
+END
+exit
+Bye!
+END
+Connection to localhost closed.
+</pre>
+<p>
+This is an example of how you can use an existing secure access to 
+secure the access to liquidsoap's command server. This way, you make sure
+that you are using a mainstream secure application, here SSH.
+</p>
+<p>
+This example may be adapted similarly to use an online HTTP login 
+mechanism, which is probably the most comment type of mechanism
+intented for the command line server.
+</p>
+      <div id="footer"> 2003-2017 Savonet team</div>
+    </div>
+  </div>
+  <script type="text/javascript" src="//www.google.com/cse/brand?form=cse-search-box&amp;lang=en"></script>
+  <script type="text/javascript" src="../js/search.js"></script>
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-927362-1']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+  <title>Savonet / Liquidsoap 1.3.3 :: Multimedia Stream Generation</title>
+  <link href="../css/new.css" type="text/css" rel="stylesheet" />
+  <link href="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.17/themes/base/jquery-ui.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="//www.google.com/jsapi"></script>
+  <link rel="shortcut icon" href="../favicon.ico" />
+  <script>
+    google.load("jquery", "1.6.1");
+    google.load("jqueryui", "1.8.14");
+  </script>
+  <script type="text/javascript" src="../js/jQuery.syntax/jquery.syntax.min.js"></script>
+  <script type="text/javascript" src="../js/liq-jquery.js"></script>
+</head>
+<body>
+  <div class="menu">
+    <ul>
+      <li id="menu-developers">
+        <a href="https://github.com/savonet/liquidsoap/issues" target="_blank">developers</a></li>
+      <li id="menu-flows"><a href="https://flows.liquidsoap.info/">Flows!</a></li>
+      <li id="menu-doc-api-www">
+        <a href="reference.html">API</a></li>
+      <li id="menu-support">
+        <a href="documentation.html">documentation</a></li>
+      <li id="menu-download">
+        <a href="../download.html">download</a></li>
+      <li id="menu-about">
+        <a href="../index.html">about</a></li>
+    </ul>
+  </div>
+  <div class="section" id="main">
+    <h1>Liquidsoap 1.3.3 : JSON export</h1>
+    <div class="content">
+      <h3>Exporting values using JSON.</h3>
+<p>
+Liquidsoap can export any language value in JSON using <code>json_of</code>.
+</p>
+<p>
+The format is the following :
+</p>
+<ul>
+<li>
+<code>() : unit</code> -&gt; <code>null</code></li>
+<li>
+<code>true: bool</code> -&gt; <code>true</code></li>
+<li>
+<code>"abc" : string</code> -&gt; <code>"abc"</code></li>
+<li>
+<code>23 : int</code> -&gt; <code>23</code></li>
+<li>
+<code>2.0 : float</code> -&gt; <code>2.0</code></li>
+<li>
+<code>[2,3,4] : [int]</code> -&gt; <code>[2,3,4]</code></li>
+<li>
+<code>[("f",1),("b",4)] : [(string*int)]</code> -&gt; <code>{ "f": 1, "b": 4 }</code></li>
+<li>
+<code>("foo",123) : string*int</code> -&gt; <code>[ "foo", 123 ]</code></li>
+<li>
+<code>s : source</code> -&gt; <code>"&lt;source&gt;"</code></li>
+<li>
+<code>r : ref(int)</code> -&gt; <code>{ "reference":4 }</code></li>
+<li>
+<code>%mp3 : format(...)</code> -&gt; <code>"%mp3(stereo,bitrate=128,samplerate=44100)"</code></li>
+<li>
+<code>r : request(...)</code> -&gt; <code>"&lt;request&gt;"</code></li>
+<li>
+<code>f : (...)-&gt;_</code> -&gt; <code>"&lt;fun&gt;"</code></li>
+</ul>
+<p>
+The two particular cases are:
+</p>
+<ul>
+<li>
+Products are exported as lists.</li>
+<li>
+Lists of type <code>[(string*'a)]</code> are exported as objects of the form <code>{"key": value}</code>.</li>
+</ul>
+<p>
+Output format is pretty printed by default. A compact output can
+be obtained by using the optional argument: <code>compact=true</code>.
+</p>
+<h3>Importing values using JSON.</h3>
+<p>
+If compiled with <code>yojson</code> support, Liquidsoap can also
+parse JSON data into values. using <code>of_json</code>.
+</p>
+<p>
+The format is a subset of the format of exported values with the notable
+difference that only ground types (<code>int</code>, <code>floats</code>, <code>string</code>, ...)
+are supported and not variable references, sources, formats,
+requests and functions:
+</p>
+<ul>
+<li>
+<code>null</code> -&gt; <code>() : unit</code></li>
+<li>
+<code>true/false</code> -&gt; <code>true/false : bool</code></li>
+<li>
+<code>"abc"</code> -&gt; <code>"abc" : string</code></li>
+<li>
+<code>23</code> -&gt; <code>23 : int</code></li>
+<li>
+<code>2.0</code> -&gt; <code>2.0 : float</code></li>
+<li>
+<code>[2,3,4]</code> -&gt; <code>[2,3,4] : int</code></li>
+<li>
+<code>{"f": 1, "b": 4}</code> -&gt; <code>[("f",1),("b",4)] : [(string*int)]</code></li>
+<li>
+<code>[ "foo", 123 ]</code> -&gt; <code>("foo",123) : string*int</code></li>
+</ul>
+<p>
+The JSON standards specify that a proper JSON payload can only be an array or an
+object. However, simple integers, floats, strings and null values are
+also accepted by Liquidsoap.
+</p>
+<p>
+The function <code>of_json</code> has the following type:
+</p>
+<pre class="syntax ">  (default:'a,string)-&gt;'a
+</pre>
+<p>
+The default parameter is very important in order to assure 
+type inference of the parsed value. Its value constrains
+the parser to only recognize JSON data of the the default value's 
+type and is returned in case parsing fails.
+</p>
+<p>
+Suppose that we want to receive a list of metadata, encoded as an object:
+</p>
+<pre class="syntax ">{ "title": "foo",
+ "artist": "bar" }
+</pre>
+<p>
+Then, you would use of_json with default value <code>[("error","fail")]</code> and do:
+</p>
+<pre class="syntax liq"># Parse metadata from json
+m = of_json(default= [("error","fail")], json_string)
+</pre>
+<div align="right">
+<a href="scripts/json_parse.liq">
+<img class="grab" src="../images/grab.png" alt="Grab the code!">
+</a>
+</div></p>
+<p>
+The type of the default value constrains the parser. For instance, in the 
+above example, a JSON string <code>"[1,2,3,4]"</code> will not be accepted and the 
+function will return the values passed as default.
+</p>
+<p>
+You can use the default value in two different ways:
+</p>
+<ul>
+<li>
+To detect that the received json string was invalid/could not be parsed to the expected type. In the example above, if <code>of_json</code> return a metadata value of <code>[("error","fail")]</code> (the default) then you can detect in your code that parsing has failed.</li>
+<li>
+As a default value for the rest of the script, if you do not want to care about parsing errors.. This can be useful for instance for JSON-RPC notifications, which should not send any response to the client anyway.</li>
+</ul>
+<p>
+If your JSON object is of mixed type, like this one:
+</p>
+<pre class="syntax ">{ "uri": "https://...",
+  "metadata": { "title": "foo", "artist": "bar" } }
+</pre>
+<p>
+You can parse it in multiple steps. For instance:
+</p>
+<pre class="syntax liq"># First parse key,value list:
+hint = [("key","value")]
+data = of_json(default=hint,payload)
+print(data["uri"]) # "https://..."
+
+# Then key -&gt; (key,value) list
+hint = [("list",[("key","value")])]
+data = of_json(default=hint,payload)
+m    = list.assoc(default=[],"metadata",data)
+print(m["title"]) # "foo"
+</pre>
+<div align="right">
+<a href="scripts/json_multiple_parse.liq">
+<img class="grab" src="../images/grab.png" alt="Grab the code!">
+</a>
+</div></p>
+      <div id="footer"> 2003-2017 Savonet team</div>
+    </div>
+  </div>
+  <script type="text/javascript" src="//www.google.com/cse/brand?form=cse-search-box&amp;lang=en"></script>
+  <script type="text/javascript" src="../js/search.js"></script>
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-927362-1']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+</body>
+</html>

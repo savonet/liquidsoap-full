@@ -1,0 +1,591 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link rel="Up" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Cry" rel="Chapter" href="Cry.html"><link title="Description" rel="Section" href="#2_Description">
+<link title="Types and errors" rel="Section" href="#2_Typesanderrors">
+<link title="API" rel="Section" href="#2_API">
+<title>Cry</title>
+</head>
+<body>
+<div class="navbar">&nbsp;<a class="up" href="index.html" title="Index">Up</a>
+&nbsp;</div>
+<h1>Module <a href="type_Cry.html">Cry</a></h1>
+
+<pre><span id="MODULECry"><span class="keyword">module</span> Cry</span>: <code class="code">sig</code> <a href="Cry.html">..</a> <code class="code">end</code></pre><div class="info module top">
+<div class="info-desc">
+<p>Native implementation of the shout source protocols
+ for icecast and shoutcast.</p>
+</div>
+</div>
+<hr width="100%">
+<h3 id="2_Description">Description</h3>
+<p><code class="code">Cry</code> implements the protocols used to connect and send source data to 
+ icecast2 and shoutcast servers.</p>
+
+<p>It is a low-level implementation that minimally manages source
+ connections. In particular, it does not handle synchronisation, unlike
+ the main implementation libshout. Hence, the task of sending audio data
+ to the streaming server at real time rate is left to the application.</p>
+<h3 id="2_Typesanderrors">Types and errors</h3>
+<pre><span id="TYPEoperation"><span class="keyword">type</span> <code class="type"></code>operation</span> = <code class="type">[ `Both | `Read | `Write ]</code> </pre>
+
+
+<pre><code><span id="TYPEtransport"><span class="keyword">type</span> <code class="type"></code>transport</span> = {</code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTtransport.write">write</span>&nbsp;: <code class="type">Stdlib.Bytes.t -> int -> int -> int</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTtransport.read">read</span>&nbsp;: <code class="type">Stdlib.Bytes.t -> int -> int -> int</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTtransport.wait_for">wait_for</span>&nbsp;: <code class="type"><a href="Cry.html#TYPEoperation">operation</a> -> float -> bool</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTtransport.close">close</span>&nbsp;: <code class="type">unit -> unit</code>;</code></td>
+
+</tr></table>
+}
+
+
+<p>Optional ssl module</p>
+
+<pre><span id="VALregister_ssl"><span class="keyword">val</span> register_ssl</span> : <code class="type">(?bind:string -> host:string -> Unix.sockaddr -> <a href="Cry.html#TYPEtransport">transport</a>) -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p>Register a transport module to be used for SSL connections.</p>
+</div>
+</div>
+
+<pre><code><span id="TYPEerror"><span class="keyword">type</span> <code class="type"></code>error</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTerror.Create"><span class="constructor">Create</span></span> <span class="keyword">of</span> <code class="type">exn</code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTerror.Connect"><span class="constructor">Connect</span></span> <span class="keyword">of</span> <code class="type">exn</code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTerror.Close"><span class="constructor">Close</span></span> <span class="keyword">of</span> <code class="type">exn</code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTerror.Write"><span class="constructor">Write</span></span> <span class="keyword">of</span> <code class="type">exn</code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTerror.Read"><span class="constructor">Read</span></span> <span class="keyword">of</span> <code class="type">exn</code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTerror.Busy"><span class="constructor">Busy</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTerror.Ssl_unavailable"><span class="constructor">Ssl_unavailable</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTerror.Not_connected"><span class="constructor">Not_connected</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTerror.Invalid_usage"><span class="constructor">Invalid_usage</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTerror.Unknown_host"><span class="constructor">Unknown_host</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTerror.Bad_answer"><span class="constructor">Bad_answer</span></span> <span class="keyword">of</span> <code class="type">string option</code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTerror.Http_answer"><span class="constructor">Http_answer</span></span> <span class="keyword">of</span> <code class="type">int * string * string</code></code></td>
+
+</tr></table>
+
+<div class="info ">
+<div class="info-desc">
+<p>Possible errors.</p>
+</div>
+</div>
+
+
+<pre><span id="EXCEPTIONError"><span class="keyword">exception</span> Error</span> <span class="keyword">of</span> <code class="type"><a href="Cry.html#TYPEerror">error</a></code></pre>
+
+<pre><span id="VALstring_of_error"><span class="keyword">val</span> string_of_error</span> : <code class="type">exn -> string</code></pre><div class="info ">
+<div class="info-desc">
+<p>Get a string explaining an error.</p>
+</div>
+</div>
+
+<pre><code><span id="TYPEverb"><span class="keyword">type</span> <code class="type"></code>verb</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTverb.Put"><span class="constructor">Put</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTverb.Post"><span class="constructor">Post</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTverb.Source"><span class="constructor">Source</span></span></code></td>
+
+</tr></table>
+
+<div class="info ">
+<div class="info-desc">
+<p>Possible verbs for HTTP streaming. Default: <code class="code">Source</code></p>
+</div>
+</div>
+
+
+<pre><code><span id="TYPEprotocol"><span class="keyword">type</span> <code class="type"></code>protocol</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTprotocol.Icy"><span class="constructor">Icy</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTprotocol.Http"><span class="constructor">Http</span></span> <span class="keyword">of</span> <code class="type"><a href="Cry.html#TYPEverb">verb</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTprotocol.Https"><span class="constructor">Https</span></span> <span class="keyword">of</span> <code class="type"><a href="Cry.html#TYPEverb">verb</a></code></code></td>
+
+</tr></table>
+
+<div class="info ">
+<div class="info-desc">
+<p>Possible protocols. <code class="code">Icy</code> is the (undocumented) shoutcast source protocol.
+ <code class="code">Http</code> is the icecast2 source protocol. 
+ <code class="code">Https</code> is the icecast2 source protocol with TLS connection.</p>
+
+<p>Ogg streaming is only possible with <code class="code">Http</code>. Any headerless format,
+ (e.g. mpeg containers), should work with both protocols,
+ provided you set the correct content-type (mime) for the source.</p>
+</div>
+</div>
+
+
+<pre><span id="VALstring_of_protocol"><span class="keyword">val</span> string_of_protocol</span> : <code class="type"><a href="Cry.html#TYPEprotocol">protocol</a> -> string</code></pre><div class="info ">
+<div class="info-desc">
+<p>Return a string representation of a protocol.</p>
+</div>
+</div>
+
+<pre><span id="TYPEcontent_type"><span class="keyword">type</span> <code class="type"></code>content_type</span> </pre>
+<div class="info ">
+<div class="info-desc">
+<p>Special type for content-type (mime) data.</p>
+</div>
+</div>
+
+
+<pre><span id="VALogg_application"><span class="keyword">val</span> ogg_application</span> : <code class="type"><a href="Cry.html#TYPEcontent_type">content_type</a></code></pre><div class="info ">
+<div class="info-desc">
+<p>General mime type for ogg data.</p>
+</div>
+</div>
+
+<pre><span id="VALogg_audio"><span class="keyword">val</span> ogg_audio</span> : <code class="type"><a href="Cry.html#TYPEcontent_type">content_type</a></code></pre><div class="info ">
+<div class="info-desc">
+<p>Mime type for audio data encapsulated using ogg.</p>
+</div>
+</div>
+
+<pre><span id="VALogg_video"><span class="keyword">val</span> ogg_video</span> : <code class="type"><a href="Cry.html#TYPEcontent_type">content_type</a></code></pre><div class="info ">
+<div class="info-desc">
+<p>Mime type for video data encapsulated using ogg.</p>
+</div>
+</div>
+
+<pre><span id="VALmpeg"><span class="keyword">val</span> mpeg</span> : <code class="type"><a href="Cry.html#TYPEcontent_type">content_type</a></code></pre><div class="info ">
+<div class="info-desc">
+<p>Mime type for mpeg audio data (mp3).</p>
+</div>
+</div>
+
+<pre><span id="VALcontent_type_of_string"><span class="keyword">val</span> content_type_of_string</span> : <code class="type">string -> <a href="Cry.html#TYPEcontent_type">content_type</a></code></pre><div class="info ">
+<div class="info-desc">
+<p>Create a mime type from a string (e.g. "audio/aacp")</p>
+</div>
+</div>
+
+<pre><span id="VALstring_of_content_type"><span class="keyword">val</span> string_of_content_type</span> : <code class="type"><a href="Cry.html#TYPEcontent_type">content_type</a> -> string</code></pre><div class="info ">
+<div class="info-desc">
+<p>Get the string representation of a mime type.</p>
+</div>
+</div>
+
+<pre><code><span id="TYPEmount"><span class="keyword">type</span> <code class="type"></code>mount</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTmount.Icy_id"><span class="constructor">Icy_id</span></span> <span class="keyword">of</span> <code class="type">int</code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTmount.Icecast_mount"><span class="constructor">Icecast_mount</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
+
+</tr></table>
+
+<div class="info ">
+<div class="info-desc">
+<p>Type for a mount point. <code class="code">Icy_id</code> are for Shoutcast v2
+ sid. For Shoutcast v1, use <code class="code">Icy_id 1</code>.</p>
+</div>
+</div>
+
+
+<pre><code><span id="TYPEconnection"><span class="keyword">type</span> <code class="type"></code>connection</span> = {</code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTconnection.mount">mount</span>&nbsp;: <code class="type"><a href="Cry.html#TYPEmount">mount</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTconnection.user">user</span>&nbsp;: <code class="type">string</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTconnection.password">password</span>&nbsp;: <code class="type">string</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTconnection.host">host</span>&nbsp;: <code class="type">string</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTconnection.port">port</span>&nbsp;: <code class="type">int</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTconnection.chunked">chunked</span>&nbsp;: <code class="type">bool</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTconnection.content_type">content_type</span>&nbsp;: <code class="type"><a href="Cry.html#TYPEcontent_type">content_type</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTconnection.protocol">protocol</span>&nbsp;: <code class="type"><a href="Cry.html#TYPEprotocol">protocol</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTconnection.headers">headers</span>&nbsp;: <code class="type">(string, string) Stdlib.Hashtbl.t</code>;</code></td>
+
+</tr></table>
+}
+
+<div class="info ">
+<div class="info-desc">
+<p>Type for a source connection.</p>
+
+<p><code class="code">headers</code> is a hash table containing the headers.
+ See <code class="code">connection</code> function for more details.</p>
+</div>
+</div>
+
+
+<pre><span id="VALstring_of_connection"><span class="keyword">val</span> string_of_connection</span> : <code class="type"><a href="Cry.html#TYPEconnection">connection</a> -> string</code></pre><div class="info ">
+<div class="info-desc">
+<p>Returns a JSON string representation of a connection.</p>
+</div>
+</div>
+
+<pre><span id="TYPEaudio_info"><span class="keyword">type</span> <code class="type"></code>audio_info</span> = <code class="type">(string, string) Stdlib.Hashtbl.t</code> </pre>
+<div class="info ">
+<div class="info-desc">
+<p>Type for audio informations. Used for connection headers.
+ See <code class="code">audio_info</code> function for more details.</p>
+</div>
+</div>
+
+
+<pre><span id="TYPEmetadata"><span class="keyword">type</span> <code class="type"></code>metadata</span> = <code class="type">(string, string) Stdlib.Hashtbl.t</code> </pre>
+<div class="info ">
+<div class="info-desc">
+<p>Type for metadata values.</p>
+</div>
+</div>
+
+
+<pre><code><span id="TYPEconnection_data"><span class="keyword">type</span> <code class="type"></code>connection_data</span> = {</code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTconnection_data.connection">connection</span>&nbsp;: <code class="type"><a href="Cry.html#TYPEconnection">connection</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTconnection_data.transport">transport</span>&nbsp;: <code class="type"><a href="Cry.html#TYPEtransport">transport</a></code>;</code></td>
+
+</tr></table>
+}
+
+
+
+<pre><code><span id="TYPEstatus"><span class="keyword">type</span> <code class="type"></code>status</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTstatus.Connected"><span class="constructor">Connected</span></span> <span class="keyword">of</span> <code class="type"><a href="Cry.html#TYPEconnection_data">connection_data</a></code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTstatus.Disconnected"><span class="constructor">Disconnected</span></span></code></td>
+
+</tr></table>
+
+<div class="info ">
+<div class="info-desc">
+<p>Type for the status of a handler.</p>
+</div>
+</div>
+
+
+<pre><span id="TYPEt"><span class="keyword">type</span> <code class="type"></code>t</span> </pre>
+<div class="info ">
+<div class="info-desc">
+<p>Type for the main handler.</p>
+</div>
+</div>
+
+<h3 id="2_API">API</h3>
+<pre><span id="VALcreate"><span class="keyword">val</span> create</span> : <code class="type">?bind:string -> ?connection_timeout:float -> ?timeout:float -> unit -> <a href="Cry.html#TYPEt">t</a></code></pre><div class="info ">
+<div class="info-desc">
+<p>Create a new handler.</p>
+
+<p><code class="code">bind</code> is not used by default (system default). 
+ <code class="code">timeout</code> is <code class="code">30.</code> by default.</p>
+</div>
+</div>
+
+<pre><span id="VALget_status"><span class="keyword">val</span> get_status</span> : <code class="type"><a href="Cry.html#TYPEt">t</a> -> <a href="Cry.html#TYPEstatus">status</a></code></pre><div class="info ">
+<div class="info-desc">
+<p>Get a handler's status</p>
+</div>
+</div>
+
+<pre><span id="VALget_icy_cap"><span class="keyword">val</span> get_icy_cap</span> : <code class="type"><a href="Cry.html#TYPEt">t</a> -> bool</code></pre><div class="info ">
+<div class="info-desc">
+<p>Get a handler's ICY capabilities.
+ For the <code class="code">Http</code> protocol, this is always true.
+ For the <code class="code">Icy</code> protocol, this is detected upon connecting.</p>
+</div>
+</div>
+
+<pre><span id="VALget_connection_data"><span class="keyword">val</span> get_connection_data</span> : <code class="type"><a href="Cry.html#TYPEt">t</a> -> <a href="Cry.html#TYPEconnection_data">connection_data</a></code></pre><div class="info ">
+<div class="info-desc">
+<p>Get data associated with a connection. Use it only if you know
+ what you are doing.</p>
+
+<p>Raises: <code class="code">Error Not_connected</code> if not connected.</p>
+</div>
+</div>
+
+<pre><span id="VALaudio_info"><span class="keyword">val</span> audio_info</span> : <code class="type">?samplerate:int -><br>       ?channels:int -> ?quality:float -> ?bitrate:int -> unit -> <a href="Cry.html#TYPEaudio_info">audio_info</a></code></pre><div class="info ">
+<div class="info-desc">
+<p>Create a new <code class="code">audio_info</code> value,
+ filed with given values.</p>
+</div>
+</div>
+
+<pre><span id="VALconnection"><span class="keyword">val</span> connection</span> : <code class="type">?user_agent:string -><br>       ?name:string -><br>       ?genre:string -><br>       ?url:string -><br>       ?public:bool -><br>       ?audio_info:<a href="Cry.html#TYPEaudio_info">audio_info</a> -><br>       ?description:string -><br>       ?host:string -><br>       ?port:int -><br>       ?chunked:bool -><br>       ?password:string -><br>       ?protocol:<a href="Cry.html#TYPEprotocol">protocol</a> -><br>       ?user:string -><br>       mount:<a href="Cry.html#TYPEmount">mount</a> -> content_type:<a href="Cry.html#TYPEcontent_type">content_type</a> -> unit -> <a href="Cry.html#TYPEconnection">connection</a></code></pre><div class="info ">
+<div class="info-desc">
+<p>Create a new <code class="code">connection</code> value
+ with default values.</p>
+
+<p><code class="code">mount</code> is mandatory when using the <code class="code">Http</code> protocol.
+ <code class="code">icy_id</code> is mandatory to support multiple shoutcast sources
+ on shoutcast v2.</p>
+
+<p><code class="code">host</code> is <code class="code">"localhost"</code> by default.
+ <code class="code">password</code> is <code class="code">"hackme"</code> by default.
+ <code class="code">user</code> is <code class="code">"source"</code> by default. Change <code class="code">user</code> only if you know
+ what your are doing.
+ <code class="code">protocol</code> is <code class="code">Http</code> by default.
+ <code class="code">port</code> is <code class="code">8000</code> by default.
+ <code class="code">chunked</code> is <code class="code">false</code> by default and only works with HTTP/1.1-capable
+ servers.</p>
+
+<p>The list of preset headers for <code class="code">Http</code> connections is:
+ <code class="code">"User-Agent"</code>, <code class="code">"ice-name"</code>, <code class="code">"ice-genre"</code>,
+ <code class="code">"ice-url"</code>, <code class="code">"ice-public"</code>, <code class="code">"ice-audio-info"</code>,
+ <code class="code">"ice-description"</code>.</p>
+
+<p>The list of preset headers for <code class="code">Icy</code> connections is:
+ <code class="code">"User-Agent"</code>, <code class="code">"icy-name"</code>, <code class="code">"icy-url"</code>, <code class="code">"icy-pub"</code>, 
+ <code class="code">"icy-genre"</code>, <code class="code">"icy-br"</code>.</p>
+
+<p>Additionally, you can also add:
+ <code class="code">"icy-irc"</code>, <code class="code">"icy-icq"</code> and <code class="code">"icy-aim"</code> but these are not added
+ by this function.</p>
+</div>
+</div>
+
+<pre><span id="VALconnect"><span class="keyword">val</span> connect</span> : <code class="type"><a href="Cry.html#TYPEt">t</a> -> <a href="Cry.html#TYPEconnection">connection</a> -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p>Connect a handler.</p>
+</div>
+</div>
+
+<pre><span id="VALupdate_metadata"><span class="keyword">val</span> update_metadata</span> : <code class="type">?charset:string -> <a href="Cry.html#TYPEt">t</a> -> <a href="Cry.html#TYPEmetadata">metadata</a> -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p>Update metadata on a handler. Useful only for non-ogg data format,
+ and if <code class="code">icy_cap</code> is <code class="code">true</code> for <code class="code">Icy</code> connections.</p>
+
+<p>For <code class="code">Icy</code> protocol, the relevant metadata are only <code class="code">"song"</code>
+ and <code class="code">"url"</code>.</p>
+
+<p>Raises: <code class="code">Error Not_connected</code>
+ if not connected.</p>
+</div>
+</div>
+
+<pre><span id="VALmanual_update_metadata"><span class="keyword">val</span> manual_update_metadata</span> : <code class="type">host:string -><br>       port:int -><br>       protocol:<a href="Cry.html#TYPEprotocol">protocol</a> -><br>       user:string -><br>       password:string -><br>       mount:<a href="Cry.html#TYPEmount">mount</a> -><br>       ?connection_timeout:float -><br>       ?timeout:float -><br>       ?headers:(string, string) Stdlib.Hashtbl.t -><br>       ?bind:string -> ?charset:string -> <a href="Cry.html#TYPEmetadata">metadata</a> -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p>Manually update metadata on any source without necessarily
+ being connected to it for streaming.</p>
+
+<p>Optional <code class="code">timeout</code> is <code class="code">30.</code> by default.</p>
+
+<p>Use it only if you know what you are doing !</p>
+</div>
+</div>
+
+<pre><span id="VALsend"><span class="keyword">val</span> send</span> : <code class="type"><a href="Cry.html#TYPEt">t</a> -> string -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p>Send data to a source connection.</p>
+
+<p>Raises: <code class="code">Error Not_connected</code>
+ if not connected.</p>
+</div>
+</div>
+
+<pre><span id="VALclose"><span class="keyword">val</span> close</span> : <code class="type"><a href="Cry.html#TYPEt">t</a> -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p>Close a source connection.</p>
+
+<p>Raises: <code class="code">Error Not_connected</code>
+ if not connected.</p>
+</div>
+</div>
+</body></html>

@@ -1,0 +1,162 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link rel="next" href="Speex.Encoder.html">
+<link rel="Up" href="Speex.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Ogg_demuxer_speex_decoder" rel="Chapter" href="Ogg_demuxer_speex_decoder.html">
+<link title="Speex" rel="Chapter" href="Speex.html"><title>Speex.Header</title>
+</head>
+<body>
+<div class="navbar">&nbsp;<a class="up" href="Speex.html" title="Speex">Up</a>
+&nbsp;<a class="post" href="Speex.Encoder.html" title="Speex.Encoder">Next</a>
+</div>
+<h1>Module <a href="type_Speex.Header.html">Speex.Header</a></h1>
+
+<pre><span id="MODULEHeader"><span class="keyword">module</span> Header</span>: <code class="code">sig</code> <a href="Speex.Header.html">..</a> <code class="code">end</code></pre><hr width="100%">
+
+<pre><code><span id="TYPEt"><span class="keyword">type</span> <code class="type"></code>t</span> = {</code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt.id">id</span>&nbsp;: <code class="type">string</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt.version">version</span>&nbsp;: <code class="type">string</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt.version_id">version_id</span>&nbsp;: <code class="type">int</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt.header_size">header_size</span>&nbsp;: <code class="type">int</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt.rate">rate</span>&nbsp;: <code class="type">int</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt.mode">mode</span>&nbsp;: <code class="type"><a href="Speex.html#TYPEmode">Speex.mode</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt.mode_bitstream_version">mode_bitstream_version</span>&nbsp;: <code class="type">int</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt.nb_channels">nb_channels</span>&nbsp;: <code class="type">int</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt.bitrate">bitrate</span>&nbsp;: <code class="type">int</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt.frame_size">frame_size</span>&nbsp;: <code class="type">int</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt.vbr">vbr</span>&nbsp;: <code class="type">bool</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt.frames_per_packet">frames_per_packet</span>&nbsp;: <code class="type">int</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt.extra_headers">extra_headers</span>&nbsp;: <code class="type">int</code>;</code></td>
+
+</tr></table>
+}
+
+<div class="info ">
+<div class="info-desc">
+<p>Type for speex header.</p>
+</div>
+</div>
+
+
+<pre><span id="VALheader_string_length"><span class="keyword">val</span> header_string_length</span> : <code class="type">int</code></pre>
+<pre><span id="VALheader_version_length"><span class="keyword">val</span> header_version_length</span> : <code class="type">int</code></pre>
+<pre><span id="VALinit"><span class="keyword">val</span> init</span> : <code class="type">?frames_per_packet:int -><br>       ?mode:<a href="Speex.html#TYPEmode">Speex.mode</a> -><br>       ?vbr:bool -> nb_channels:int -> rate:int -> unit -> <a href="Speex.Header.html#TYPEt">t</a></code></pre><div class="info ">
+<div class="info-desc">
+<p>Initiate a new speex header.</p>
+</div>
+</div>
+
+<pre><span id="VALencode_header_packetout"><span class="keyword">val</span> encode_header_packetout</span> : <code class="type"><a href="Speex.Header.html#TYPEt">t</a> -><br>       (string * string) list -> Ogg.Stream.packet * Ogg.Stream.packet</code></pre><div class="info ">
+<div class="info-desc">
+<p><code class="code">encode_header_packetout header metadata</code>: output ogg packets containing the header. 
+ First packet contains speex audio codec settings, second the metadata.</p>
+</div>
+</div>
+
+<pre><span id="VALencode_header"><span class="keyword">val</span> encode_header</span> : <code class="type"><a href="Speex.Header.html#TYPEt">t</a> -> (string * string) list -> Ogg.Stream.stream -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p>Output ogg packets containing the header and put them into the given stream.</p>
+</div>
+</div>
+
+<pre><span id="VALheader_of_packet"><span class="keyword">val</span> header_of_packet</span> : <code class="type">Ogg.Stream.packet -> <a href="Speex.Header.html#TYPEt">t</a></code></pre><div class="info ">
+<div class="info-desc">
+<p>Decode the speex header contained in the given packet.</p>
+
+<p>Raises <code class="code">Invalid_argument</code> if the packet does not contain speex audio codec data.</p>
+</div>
+</div>
+
+<pre><span id="VALcomments_of_packet"><span class="keyword">val</span> comments_of_packet</span> : <code class="type">Ogg.Stream.packet -> string * (string * string) list</code></pre><div class="info ">
+<div class="info-desc">
+<p>Decode the metadata contained in the given packet.</p>
+
+<p>Raises <code class="code">Invalid_argument</code> if the packet does not contain speex metadata.</p>
+</div>
+</div>
+</body></html>

@@ -1,0 +1,110 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link rel="previous" href="Dtools.Init.html">
+<link rel="Up" href="Dtools.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Dtools" rel="Chapter" href="Dtools.html"><title>Dtools.Log</title>
+</head>
+<body>
+<div class="navbar"><a class="pre" href="Dtools.Init.html" title="Dtools.Init">Previous</a>
+&nbsp;<a class="up" href="Dtools.html" title="Dtools">Up</a>
+&nbsp;</div>
+<h1>Module <a href="type_Dtools.Log.html">Dtools.Log</a></h1>
+
+<pre><span id="MODULELog"><span class="keyword">module</span> Log</span>: <code class="code">sig</code> <a href="Dtools.Log.html">..</a> <code class="code">end</code></pre><hr width="100%">
+
+<pre><span id="TYPEt"><span class="keyword">type</span> <code class="type"></code>t</span> = &lt;</pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt.active">active</span>&nbsp;: <code class="type">int -> bool</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTt.f">f</span>&nbsp;: <code class="type">'a. int -> ('a, unit, string, unit) Stdlib.format4 -> 'a</code>;</code></td>
+
+</tr></table>
+>
+ </pre>
+<div class="info ">
+<div class="info-desc">
+<p>Type for loggers.</p>
+</div>
+</div>
+
+
+<pre><code><span id="TYPEcustom_log"><span class="keyword">type</span> <code class="type"></code>custom_log</span> = {</code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTcustom_log.timestamp">timestamp</span>&nbsp;: <code class="type">bool</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTcustom_log.exec">exec</span>&nbsp;: <code class="type">string -> unit</code>;</code></td>
+
+</tr></table>
+}
+
+
+
+<pre><span id="VALadd_custom_log"><span class="keyword">val</span> add_custom_log</span> : <code class="type">string -> <a href="Dtools.Log.html#TYPEcustom_log">custom_log</a> -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p>Add a custom logging functions.</p>
+</div>
+</div>
+
+<pre><span id="VALrm_custom_log"><span class="keyword">val</span> rm_custom_log</span> : <code class="type">string -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p>Remove a custom logging functions.</p>
+</div>
+</div>
+
+<pre><span id="VALmake"><span class="keyword">val</span> make</span> : <code class="type"><a href="Dtools.Conf.html#TYPEpath">Dtools.Conf.path</a> -> <a href="Dtools.Log.html#TYPEt">t</a></code></pre><div class="info ">
+<div class="info-desc">
+<p>Make a logger labeled according to the given path.</p>
+</div>
+</div>
+
+<pre><span id="VALstart"><span class="keyword">val</span> start</span> : <code class="type"><a href="Dtools.Init.html#TYPEt">Dtools.Init.t</a></code></pre><div class="info ">
+<div class="info-desc">
+<p>An atom that starts the logging.</p>
+</div>
+</div>
+
+<pre><span id="VALstop"><span class="keyword">val</span> stop</span> : <code class="type"><a href="Dtools.Init.html#TYPEt">Dtools.Init.t</a></code></pre><div class="info ">
+<div class="info-desc">
+<p>An atom that stops the logging.</p>
+</div>
+</div>
+
+<pre><span id="VALconf"><span class="keyword">val</span> conf</span> : <code class="type"><a href="Dtools.Conf.html#TYPEut">Dtools.Conf.ut</a></code></pre>
+<pre><span id="VALconf_level"><span class="keyword">val</span> conf_level</span> : <code class="type">int <a href="Dtools.Conf.html#TYPEt">Dtools.Conf.t</a></code></pre>
+<pre><span id="VALconf_unix_timestamps"><span class="keyword">val</span> conf_unix_timestamps</span> : <code class="type">bool <a href="Dtools.Conf.html#TYPEt">Dtools.Conf.t</a></code></pre>
+<pre><span id="VALconf_stdout"><span class="keyword">val</span> conf_stdout</span> : <code class="type">bool <a href="Dtools.Conf.html#TYPEt">Dtools.Conf.t</a></code></pre>
+<pre><span id="VALconf_file"><span class="keyword">val</span> conf_file</span> : <code class="type">bool <a href="Dtools.Conf.html#TYPEt">Dtools.Conf.t</a></code></pre>
+<pre><span id="VALconf_file_path"><span class="keyword">val</span> conf_file_path</span> : <code class="type">string <a href="Dtools.Conf.html#TYPEt">Dtools.Conf.t</a></code></pre>
+<pre><span id="VALconf_file_append"><span class="keyword">val</span> conf_file_append</span> : <code class="type">bool <a href="Dtools.Conf.html#TYPEt">Dtools.Conf.t</a></code></pre>
+<pre><span id="VALconf_file_perms"><span class="keyword">val</span> conf_file_perms</span> : <code class="type">int <a href="Dtools.Conf.html#TYPEt">Dtools.Conf.t</a></code></pre>
+<pre><span id="VALargs"><span class="keyword">val</span> args</span> : <code class="type">(string list * Stdlib.Arg.spec * string) list</code></pre><div class="info ">
+<div class="info-desc">
+<p>A set of command line options to be used with the Arg module.</p>
+</div>
+</div>
+</body></html>

@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+  <title>Savonet / Liquidsoap 1.3.1 :: Multimedia Stream Generation</title>
+  <link href="../css/new.css" type="text/css" rel="stylesheet" />
+  <link href="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.17/themes/base/jquery-ui.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="//www.google.com/jsapi"></script>
+  <link rel="shortcut icon" href="../favicon.ico" />
+  <script>
+    google.load("jquery", "1.6.1");
+    google.load("jqueryui", "1.8.14");
+  </script>
+  <script type="text/javascript" src="../js/jQuery.syntax/jquery.syntax.min.js"></script>
+  <script type="text/javascript" src="../js/liq-jquery.js"></script>
+</head>
+<body>
+  <div class="menu">
+    <ul>
+      <li id="menu-developers">
+        <a href="https://github.com/savonet/liquidsoap/issues" target="_blank">developers</a></li>
+      <li id="menu-flows"><a href="https://flows.liquidsoap.info/">Flows!</a></li>
+      <li id="menu-doc-api-www">
+        <a href="reference.html">API</a></li>
+      <li id="menu-support">
+        <a href="documentation.html">documentation</a></li>
+      <li id="menu-download">
+        <a href="../download.html">download</a></li>
+      <li id="menu-about">
+        <a href="../index.html">about</a></li>
+    </ul>
+  </div>
+  <div class="section" id="main">
+    <h1>Liquidsoap 1.3.1 : External encoders</h1>
+    <div class="content">
+      <h3>Introduction</h3>
+<p>
+You can use any external program that accepts wav or raw PCM data to encode audio data and use the resulting compressed 
+stream as an output, either to a file, a pipe, or even icecast.
+</p>
+<p>
+When using an external encoding process, uncompressed PCM data will be sent to the process through its standard input (<code>stdin</code>), and encoded data will be read through its standard output (<code>stdout</code>). When using a process that does only file input or output, <code>/dev/stdin</code> and <code>/dev/stdout</code> can be used, though this may generate issues if the encoding process expects to be able to go backward/forward in the file.
+</p>
+<h3>External encoders</h3>
+<p>
+The main operators that can be used with external encoders are:
+</p>
+<ul>
+<li>
+<code>output.file</code></li>
+<li>
+<code>output.icecast</code></li>
+</ul>
+<p>
+In order to use external encoders with these operators, you have to use the 
+<code>%external</code> <a href="encoding_formats.html">encoding format</a>.
+Its syntax is:
+</p>
+<pre class="syntax liq">%external(channels=2,samplerate=44100,header=true,
+          restart_on_crash=false,
+          restart_on_metadata,
+          restart_after_delay=30,
+          process="progname")
+</pre>
+<div align="right">
+<a href="scripts/external_encoder_introduction.liq">
+<img class="grab" src="../images/grab.png" alt="Grab the code!">
+</a>
+</div></p>
+<p>
+The available options are:
+</p>
+<ul>
+<li>
+<code>process</code>: this parameter is a function that takes the current metadata and return the process to start.</li>
+<li>
+<code>header</code>: if set to <code>false</code> then no WAV header will be added to the data fed to the encoding process, thus the encoding process shall operate on RAW data.</li>
+<li>
+<code>restart_on_crash</code>: wether to restart the encoding process if it crashed. Useful when the external process fails to encode properly data after some time.</li>
+<li>
+<code>restart_on_metadata</code>: restart encoding process on each new metadata:. Useful in conjonction with the <code>process</code> parameter for audio formats that need a new header, possibly with metadatas, for each new track. This is the case for the ogg container.</li>
+<li>
+<code>restart_encoder_delay</code>: Restart the encoder after some delay. This can be useful for encoders that cannot operate on infinite streams, or are buggy after some time, like the <code>lame</code> binary. The default for <code>lame</code> and <code>accplusenc</code>-based encoders is to restart the encoder every hour.</li>
+</ul>
+<p>
+Only one of <code>restart_encoder_delay</code> or <code>restart_on_new_track</code> should be used.
+</p>
+<p>
+The restart mechanism strongly relies on the good behaviour of the encoding process. The restart operation will 
+close the standard input of the encoding process. The encoding process is then expected to finish its own operations and
+close its standard output. If it does not close its standard output, the encoding task will not finish. 
+</p>
+<p>
+If your encoding process has this issue, you should turn the <code>restart_on_crash</code> option to <code>true</code> and kill the encoding
+process yourself.
+</p>
+<p>
+If you use an external encoder with the <code>output.icecast</code> operator,
+you should also use the following options of <code>output.icecast</code>:
+</p>
+<ul>
+<li>
+<code>icy_metadata</code>: send new metadata as ICY update. This is the case for headerless formats, such as MP3 or AAC, and it appears to work also for ogg/vorbis streams.</li>
+<li>
+<code>format</code>: Content-type (mime) of the data sent to icecast. For instance, for ogg data, it is one of “application/ogg”, “audio/ogg” or “video/ogg” and for mp3 data it is “audio/mpeg”.</li>
+</ul>
+<h3>Video support</h3>
+<p>
+Videos can also be encoded by programs able to read files in avi format from
+standard input. To use it, the flag <code>video=true</code> of <code>%external</code> should be
+used. For instance, a compresed avi file can be generated with <code>ffmpeg</code> using
+</p>
+<pre class="syntax liq">output.file(
+  %external(process="ffmpeg -i pipe:0 -f avi pipe:1",video=true),
+  "/tmp/test.avi", s)
+</pre>
+<div align="right">
+<a href="scripts/external_output_file.liq">
+<img class="grab" src="../images/grab.png" alt="Grab the code!">
+</a>
+</div></p>
+      <div id="footer"> 2003-2017 Savonet team</div>
+    </div>
+  </div>
+  <script type="text/javascript" src="//www.google.com/cse/brand?form=cse-search-box&amp;lang=en"></script>
+  <script type="text/javascript" src="../js/search.js"></script>
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-927362-1']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+</body>
+</html>

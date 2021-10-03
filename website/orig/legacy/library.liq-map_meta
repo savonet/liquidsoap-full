@@ -1,0 +1,35 @@
+
+# This function is called when
+# a new metadata block is passed in
+# the stream.
+def apply_metadata(m) =
+  title = m["title"]
+  artist = m["artist"]
+  print("Now playing: #{title} by #{artist}")
+end
+
+# Our custom request function
+def get_request() = 
+  # Get the URI
+  uri = list.hd(get_process_lines("cat /tmp/request"))
+  # Create a request
+  request.create(uri)
+end
+
+# This function updates the title metadata with
+# the content of "/tmp/metadata"
+def update_title(m) = 
+  # The title metadata
+  title = m["title"]
+  # Our addition
+  content = list.hd(get_process_lines("cat /tmp/metadata"))
+  
+  # If title is empty
+  if title == "" then
+    [("title",content)]
+  # Otherwise
+  else
+    [("title","#{title} on #{content}")]
+  end
+end
+

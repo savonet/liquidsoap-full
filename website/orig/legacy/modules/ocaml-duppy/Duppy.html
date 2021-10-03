@@ -1,0 +1,133 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link rel="next" href="Pa_duppy.html">
+<link rel="Up" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Duppy" rel="Chapter" href="Duppy.html">
+<link title="Pa_duppy" rel="Chapter" href="Pa_duppy.html"><link title="Duppy task scheduler for OCaml." rel="Section" href="#2_DuppytaskschedulerforOCaml">
+<link title="Some culture.." rel="Section" href="#2_Someculture">
+<title>Duppy</title>
+</head>
+<body>
+<div class="navbar">&nbsp;<a class="up" href="index.html" title="Index">Up</a>
+&nbsp;<a class="post" href="Pa_duppy.html" title="Pa_duppy">Next</a>
+</div>
+<h1>Module <a href="type_Duppy.html">Duppy</a></h1>
+
+<pre><span id="MODULEDuppy"><span class="keyword">module</span> Duppy</span>: <code class="code">sig</code> <a href="Duppy.html">..</a> <code class="code">end</code></pre><div class="info module top">
+<div class="info-desc">
+<p>Advanced scheduler and monad for server-oriented programming.</p>
+</div>
+</div>
+<hr width="100%">
+<div align=right><i><pre class="verbatim">
+        The bars could not hold me;
+        Force could not control me now.
+        They try to keep me down, yeah!
+        But Jah put I around.
+        (...)
+        Let me tell you this -
+        I'm a duppy conqueror !
+       </pre>  </i>  </div><div align=right><b>Lee "Scratch" Perry &amp; Bob Marley - Duppy conqueror </b></div>
+<h3 id="2_DuppytaskschedulerforOCaml">Duppy task scheduler for OCaml.</h3>
+<p><a href="Duppy.html"><code class="code">Duppy</code></a> is a task scheduler for ocaml. It implements a wrapper 
+ around <code class="code">Unix.select</code>.</p>
+
+<p>Using <a href="Duppy.Task.html"><code class="code">Duppy.Task</code></a>, the programmer can easily submit tasks that need to wait 
+ on a socket even, or for a given timeout (possibly zero).</p>
+
+<p>With <a href="Duppy.Async.html"><code class="code">Duppy.Async</code></a>, one can use a scheduler to submit asynchronous tasks.</p>
+
+<p><a href="Duppy.Io.html"><code class="code">Duppy.Io</code></a> implements recursive easy reading and writing to a <code class="code">Unix.file_descr</code></p>
+
+<p>Finally, <a href="Duppy.Monad.html"><code class="code">Duppy.Monad</code></a> and <a href="Duppy.Monad.Io.html"><code class="code">Duppy.Monad.Io</code></a> provide a monadic interface to
+ program server code that with an implicit return/reply execution flow.</p>
+
+<p>The scheduler can use several queues running concurently, each queue 
+ processing ready tasks. Of course, a queue should run in its own thread.</p>
+
+<pre><span id="TYPEscheduler"><span class="keyword">type</span> <code class="type">'a</code> scheduler</span> </pre>
+<div class="info ">
+<div class="info-desc">
+<p>A scheduler is a device for processing tasks. Several queues might run in
+ different threads, processing one scheduler's tasks.</p>
+
+<p><code class="code">'a</code> is the type of objects used for priorities.</p>
+</div>
+</div>
+
+
+<pre><span id="VALcreate"><span class="keyword">val</span> create</span> : <code class="type">?compare:('a -> 'a -> int) -> unit -> 'a <a href="Duppy.html#TYPEscheduler">scheduler</a></code></pre><div class="info ">
+<div class="info-desc">
+<p>Initiate a new scheduler</p>
+</div>
+</div>
+<div class="param_info"><code class="code">compare</code> : the comparison function used to sort tasks according to priorities. 
+ Works as in <code class="code">List.sort</code></div>
+
+<pre><span id="VALqueue"><span class="keyword">val</span> queue</span> : <code class="type">?log:(string -> unit) -><br>       ?priorities:('a -> bool) -> 'a <a href="Duppy.html#TYPEscheduler">scheduler</a> -> string -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p><code class="code">queue ~log ~priorities s name</code> 
+ starts a queue, on the scheduler <code class="code">s</code> only processing priorities <code class="code">p</code>
+ for which <code class="code">priorities p</code> returns <code class="code">true</code>.</p>
+
+<p>Several queues can be run concurrently against <code class="code">s</code>.</p>
+</div>
+</div>
+<div class="param_info"><code class="code">log</code> : Logging function. Default: <code class="code">Printf.printf "queue %s: %s\n" name</code></div>
+<div class="param_info"><code class="code">priorities</code> : Predicate specifying which priority to process. Default: <code class="code">fun _ -&gt; _ -&gt; true</code>
+
+ An exception is raised from this call when duppy's event loops has
+ crashed. This exception should be considered a MAJOR FAILURE. All current 
+ non-ready tasks registered for the calling scheduler are dropped. You may
+ restart Duppy's queues after it is raised but it should only be used to terminate
+ the process diligently!!</div>
+
+<pre><span id="VALstop"><span class="keyword">val</span> stop</span> : <code class="type">'a <a href="Duppy.html#TYPEscheduler">scheduler</a> -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p>Stop all queues running on that scheduler, causing them to return.</p>
+</div>
+</div>
+
+<pre><span id="MODULETask"><span class="keyword">module</span> <a href="Duppy.Task.html">Task</a></span>: <code class="code">sig</code> <a href="Duppy.Task.html">..</a> <code class="code">end</code></pre><div class="info">
+<p>Core task registration.</p>
+
+</div>
+
+<pre><span id="MODULEAsync"><span class="keyword">module</span> <a href="Duppy.Async.html">Async</a></span>: <code class="code">sig</code> <a href="Duppy.Async.html">..</a> <code class="code">end</code></pre><div class="info">
+<p>Asynchronous task module</p>
+
+</div>
+
+<pre><span id="MODULETYPETransport_t"><span class="keyword">module type</span> <a href="Duppy.Transport_t.html">Transport_t</a></span> = <code class="code">sig</code> <a href="Duppy.Transport_t.html">..</a> <code class="code">end</code></pre><div class="info">
+<p>Module type for Io functor.</p>
+
+</div>
+
+<pre><span id="MODULETYPEIo_t"><span class="keyword">module type</span> <a href="Duppy.Io_t.html">Io_t</a></span> = <code class="code">sig</code> <a href="Duppy.Io_t.html">..</a> <code class="code">end</code></pre><div class="info">
+<p>Easy parsing of <code class="code">Unix.file_descr</code>.</p>
+
+</div>
+
+<pre><span id="MODULEMakeIo"><span class="keyword">module</span> <a href="Duppy.MakeIo.html">MakeIo</a></span>: <div class="sig_block"><code class="code">functor (</code><code class="code">Transport</code><code class="code"> : </code><code class="type"><a href="Duppy.Transport_t.html">Transport_t</a></code><code class="code">) -&gt; </code><code class="type"><a href="Duppy.Io_t.html">Io_t</a></code><code class="type">  with type socket = Transport.t</code></div></pre>
+<pre><span id="MODULEIo"><span class="keyword">module</span> <a href="Duppy.Io.html">Io</a></span>: <code class="type"><a href="Duppy.Io_t.html">Io_t</a></code><code class="type">  with type socket = Unix.file_descr</code></pre>
+<pre><span id="MODULEMonad"><span class="keyword">module</span> <a href="Duppy.Monad.html">Monad</a></span>: <code class="code">sig</code> <a href="Duppy.Monad.html">..</a> <code class="code">end</code></pre><div class="info">
+<p>Monadic interface to <a href="Duppy.Io.html"><code class="code">Duppy.Io</code></a>.</p>
+
+</div>
+<h3 id="2_Someculture">Some culture..</h3><p><em>Duppy is a Caribbean patois word of West African origin meaning ghost or spirit.
+ Much of Caribbean folklore revolves around duppies. 
+ Duppies are generally regarded as malevolent spirits. 
+ They are said to come out and haunt people at night mostly, 
+ and people from the islands claim to have seen them. 
+ The 'Rolling Calf', 'Three footed horse' or 'Old Higue' are examples of the more malicious spirits. </em></p>
+<div align=right><a href="http://en.wikipedia.org/wiki/Duppy"> http://en.wikipedia.org/wiki/Duppy</a></div></body></html>

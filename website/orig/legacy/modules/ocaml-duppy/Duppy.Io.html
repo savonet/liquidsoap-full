@@ -1,0 +1,156 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="Start" href="index.html">
+<link rel="previous" href="Duppy.MakeIo.html">
+<link rel="next" href="Duppy.Monad.html">
+<link rel="Up" href="Duppy.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of exceptions" rel=Appendix href="index_exceptions.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Index of module types" rel=Appendix href="index_module_types.html">
+<link title="Duppy" rel="Chapter" href="Duppy.html">
+<link title="Pa_duppy" rel="Chapter" href="Pa_duppy.html"><title>Duppy.Io</title>
+</head>
+<body>
+<div class="navbar"><a class="pre" href="Duppy.MakeIo.html" title="Duppy.MakeIo">Previous</a>
+&nbsp;<a class="up" href="Duppy.html" title="Duppy">Up</a>
+&nbsp;<a class="post" href="Duppy.Monad.html" title="Duppy.Monad">Next</a>
+</div>
+<h1>Module <a href="type_Duppy.Io.html">Duppy.Io</a></h1>
+
+<pre><span id="MODULEIo"><span class="keyword">module</span> Io</span>: <code class="type"><a href="Duppy.Io_t.html">Io_t</a></code><code class="type">  with type socket = Unix.file_descr</code></pre><hr width="100%">
+
+<pre><span id="TYPEsocket"><span class="keyword">type</span> <code class="type"></code>socket</span> </pre>
+
+
+<pre><code><span id="TYPEmarker"><span class="keyword">type</span> <code class="type"></code>marker</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTmarker.Length"><span class="constructor">Length</span></span> <span class="keyword">of</span> <code class="type">int</code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTmarker.Split"><span class="constructor">Split</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
+
+</tr></table>
+
+<div class="info ">
+<div class="info-desc">
+<p>Type for markers.</p>
+
+<p><code class="code">Split s</code> recognizes all regexp allowed by the 
+ <code class="code">Pcre</code> module.</p>
+</div>
+</div>
+
+
+<pre><span id="TYPEbigarray"><span class="keyword">type</span> <code class="type"></code>bigarray</span> = <code class="type">(char, Bigarray.int8_unsigned_elt, Bigarray.c_layout) Bigarray.Array1.t</code> </pre>
+<div class="info ">
+<div class="info-desc">
+<p>Type of <code class="code">Bigarray</code> used here.</p>
+</div>
+</div>
+
+
+<pre><code><span id="TYPEfailure"><span class="keyword">type</span> <code class="type"></code>failure</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTfailure.Io_error"><span class="constructor">Io_error</span></span></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTfailure.Unix"><span class="constructor">Unix</span></span> <span class="keyword">of</span> <code class="type">Unix.error * string * string</code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTfailure.Unknown"><span class="constructor">Unknown</span></span> <span class="keyword">of</span> <code class="type">exn</code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTfailure.Timeout"><span class="constructor">Timeout</span></span></code></td>
+
+</tr></table>
+
+<div class="info ">
+<div class="info-desc">
+<p>Different types of failure.</p>
+
+<p><code class="code">Io_error</code> is raised when reading or writing
+ returned 0. This usually means that the socket
+ was closed.</p>
+</div>
+</div>
+
+
+<pre><span id="VALread"><span class="keyword">val</span> read</span> : <code class="type">?recursive:bool -><br>       ?init:string -><br>       ?on_error:(string * <a href="Duppy.Io_t.html#TYPEfailure">failure</a> -> unit) -><br>       ?timeout:float -><br>       priority:'a -><br>       'a <a href="Duppy.html#TYPEscheduler">Duppy.scheduler</a> -><br>       <a href="Duppy.Io_t.html#TYPEsocket">socket</a> -><br>       <a href="Duppy.Io_t.html#TYPEmarker">marker</a> -> (string * string option -> unit) -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p>Wrapper to perform a read on a socket and trigger a function when
+ a marker has been detected, or enough data has been read.
+ It reads recursively on a socket, splitting into strings seperated
+ by the marker (if any) and calls the given function on the list of strings.</p>
+
+<p>Can be used recursively or not, depending on the way you process strings. 
+ Because of Unix's semantic, it is not possible to stop reading
+ at first marker, so there can be a remaining string. If not used
+ recursively, the second optional argument may contain a remaining
+ string. You should then initiate the next read with this value.</p>
+
+<p>The <code class="code">on_error</code> function is used when reading failed on the socket.
+ Depending on your usage, it can be a hard failure, or simply a lost client.
+ The string passed to <code class="code">on_error</code> contains data read before error 
+ occured.</p>
+</div>
+</div>
+<div class="param_info"><code class="code">recursive</code> : recursively read and process, default: <code class="code">true</code></div>
+<div class="param_info"><code class="code">init</code> : initial string for reading, default: <code class="code">""</code></div>
+<div class="param_info"><code class="code">on_error</code> : function used when read failed, default: <code class="code">fun _ -&gt; ()</code></div>
+<div class="param_info"><code class="code">timeout</code> : Terminate with <code class="code">Timeout</code> failure if nothing has been read
+                after the given amout of time in seconds. More precisely,
+                the exception is raised when no character have been read
+                and the socket was not close while waiting. Default: wait
+                forever.</div>
+
+<pre><span id="VALwrite"><span class="keyword">val</span> write</span> : <code class="type">?exec:(unit -> unit) -><br>       ?on_error:(<a href="Duppy.Io_t.html#TYPEfailure">failure</a> -> unit) -><br>       ?bigarray:<a href="Duppy.Io_t.html#TYPEbigarray">bigarray</a> -><br>       ?string:Stdlib.Bytes.t -><br>       ?timeout:float -><br>       priority:'a -> 'a <a href="Duppy.html#TYPEscheduler">Duppy.scheduler</a> -> <a href="Duppy.Io_t.html#TYPEsocket">socket</a> -> unit</code></pre><div class="info ">
+<div class="info-desc">
+<p>Similar to <code class="code">read</code> but less complex.
+ <code class="code">write ?exec ?on_error ?string ?bigarray ~priority scheduler socket</code> 
+ write data from <code class="code">string</code>, or from <code class="code">bigarray</code> if no string is given, 
+ to <code class="code">socket</code>, and executes <code class="code">exec</code> or <code class="code">on_error</code> if errors occured.</p>
+
+<p>Caveat: on Win32, all file descriptors are expected to be in blocking
+ mode before being passed to this call due to limitations in the emulation
+ of the unix/posix API. See code comments for more details.</p>
+
+</div>
+</div>
+<div class="param_info"><code class="code">exec</code> : function to execute after writing, default: <code class="code">fun () -&gt; ()</code></div>
+<div class="param_info"><code class="code">on_error</code> : function to execute when an error occured, default: <code class="code">fun _ -&gt; ()</code></div>
+<div class="param_info"><code class="code">bigarray</code> : write data from this bigarray, if no <code class="code">string</code> is given</div>
+<div class="param_info"><code class="code">string</code> : write data from this string</div>
+<div class="param_info"><code class="code">timeout</code> : Terminate with <code class="code">Timeout</code> failure if nothing has been written
+                after the given amout of time in seconds. More precisely,
+                the exception is raised when no character have been written
+                and the socket was not close while waiting. Default: wait
+                forever.</div>
+</body></html>
