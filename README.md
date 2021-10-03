@@ -1,3 +1,13 @@
+⚠️ Deprecated ⚠️
+===============
+
+This repository was really needed before all the tooling around OCaml that exist nowadays, to make it easier to install
+all the dependencies required for liquidsoap.
+
+Since then, `opam` has filled most of these needs and is now our favorite ways of compiling liquidsoap from source. Checkout our [installation instructions](https://www.liquidsoap.info/doc-dev/install.html) on how to do so!
+
+Now, for the history nerds:
+
 Savonet - Audio Streaming Tools
 ===============================
 
