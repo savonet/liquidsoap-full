@@ -3956,12 +3956,6 @@ Type:
           comments : string,
           description : string
         },
-        sdlimage : (() -> int?)
-        .{
-          set : (int) -> unit,
-          comments : string,
-          description : string
-        },
         raw : (() -> int?)
         .{
           set : (int) -> unit,
@@ -18239,9 +18233,12 @@ Arguments:
 
 Methods:
 
+- `add` (of type `(request) -> bool`): Add a request ot the queue. Requests are resolved before being added. Returns `true` if the request was successfully added.
+- `current` (of type `() -> request?`): Get the request currently being played.
 - `duration` (of type `() -> float`): Estimation of the duration of the current track.
 - `elapsed` (of type `() -> float`): Elapsed time in the current track.
 - `fallible` (of type `bool`): Indicate if a source may fail, i.e. may not be ready to stream.
+- `fetch` (of type `() -> bool`): Try feeding the queue with a new request. Returns `true` if successful. This method can take long to return and should usually be run in a separate thread.
 - `id` (of type `() -> string`): Identifier of the source.
 - `is_active` (of type `() -> bool`): `true` if the source is active, i.e. it is continuously animated by its own clock whenever it is ready. Typically, `true` for outputs and sources such as `input.http`.
 - `is_ready` (of type `() -> bool`): Indicate if a source is ready to stream. This does not mean that the source is currently streaming, just that its resources are all properly initialized.
@@ -18253,9 +18250,11 @@ Methods:
 - `on_shutdown` (of type `((() -> unit)) -> unit`): Register a function to be called when source shuts down.
 - `on_track` (of type `((([string * string]) -> unit)) -> unit`): Call a given handler on new tracks.
 - `push` (of type `((request) -> unit).{uri : ((string) -> unit)}`): Push a request on the request queue.
+- `queue` (of type `() -> [request]`): Get the requests currently in the queue.
 - `remaining` (of type `() -> float`): Estimation of remaining time in the current track.
 - `seek` (of type `(float) -> float`): Seek forward, in seconds (returns the amount of time effectively seeked).
 - `self_sync` (of type `() -> bool`): Is the source currently controling its own real-time loop.
+- `set_queue` (of type `([request]) -> unit`): Set the queue of requests. Requests are resolved before being added to the queue. You are responsible for destroying the requests currently in the queue.
 - `shutdown` (of type `() -> unit`): Deactivate a source.
 - `skip` (of type `() -> unit`): Skip to the next track.
 - `time` (of type `() -> float`): Get a source's time, based on its assigned clock.

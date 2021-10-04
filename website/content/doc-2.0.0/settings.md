@@ -970,7 +970,7 @@ settings.decoder.priorities.aac.set(1)
 ### Decoders and order used to decode image files.
 
 ```liquidsoap
-settings.decoder.image_file_decoders.set(["PPM", "FFMPEG", "CAMLIMAGES", "SDL/IMAGE"])
+settings.decoder.image_file_decoders.set(["PPM", "FFMPEG", "CAMLIMAGES"])
 ```
 
 ### Native ID3v2 parser settings
