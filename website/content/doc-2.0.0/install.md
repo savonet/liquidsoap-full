@@ -30,12 +30,12 @@ how to use OPAM. In order to use it:
   opam switch create 4.08.0
   ```
 
-A typical installation with MP3 and Vorbis encoding/decoding and icecast support
+A typical installation with MP3 and Vorbis encoding/decoding, http queries and icecast support
 is done by executing:
 
 ```
-opam depext taglib mad lame vorbis cry samplerate liquidsoap
-opam install taglib mad lame vorbis cry samplerate liquidsoap
+opam depext taglib mad lame vorbis cry samplerate ocurl liquidsoap
+opam install taglib mad lame vorbis cry samplerate ocurl liquidsoap
 ```
 
 * `opam depext ...` takes care of installing the required external
