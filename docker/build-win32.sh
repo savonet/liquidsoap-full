@@ -14,7 +14,7 @@ if [ -z "${SYSTEM}" ]; then
 fi
 
 if [ -z "${OCAML_VERSION}" ]; then
-  OCAML_VERSION=4.11.1
+  OCAML_VERSION=4.12.0
 fi
 
 BASE_IMAGE="ocamlcross/windows-${SYSTEM}-base:${OCAML_VERSION}"
