@@ -15,7 +15,7 @@ RUN eval `opam config env` && opam repository remove windows --all && \
 USER root
 
 # This is until https://github.com/mxe/mxe/pull/2583 is merged
-RUN cd /usr/src/mxe/ && git config --global user.email "toots@rastageeks.org" && git config --global user.name "Romain Beauxis" && git remote add savonet https://github.com/savonet/mxe.git && git fetch savonet && git cherry-pick dd9b0136af920aae0d1f6de1eec11ff589a6e58b
+RUN cd /usr/src/mxe/ && git config --global user.email "toots@rastageeks.org" && git config --global user.name "Romain Beauxis" && git remote add savonet https://github.com/savonet/mxe.git && git fetch savonet && git cherry-pick 3a3e32835affae41bec06d2dff548078c67db0e2
 
 # This is until https://github.com/mxe/mxe/pull/2730 is merged
 RUN cd /usr/src/mxe/ && git cherry-pick f450d4977593ba33018a53bed2e29127f7153143
