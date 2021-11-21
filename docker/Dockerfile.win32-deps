@@ -20,6 +20,9 @@ RUN cd /usr/src/mxe/ && git config --global user.email "toots@rastageeks.org" &&
 # This is until https://github.com/mxe/mxe/pull/2730 is merged
 RUN cd /usr/src/mxe/ && git cherry-pick f450d4977593ba33018a53bed2e29127f7153143
 
+# Libcaca is failing to build. Also, we really don't need it..
+RUN cd /usr/src/mxe/ && git cherry-pick dbde1ab8252df222ded20e66126140c0c0de4ffb
+
 RUN cd /usr/src/mxe/ && \
     cat /home/opam/mxe-deps | xargs make curl
 
