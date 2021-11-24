@@ -1,7 +1,7 @@
 ARG IMAGE
 FROM $IMAGE
 
-ENV OPAM_DEPS=ao-windows,camomile-windows,cry-windows,dtools-windows,duppy-windows,ffmpeg-windows,menhir,menhir-windows,mm-windows,ocurl-windows,pcre-windows,portaudio-windows,samplerate-windows,sedlex-windows,ssl-windows,srt-windows,taglib-windows,winsvc-windows,yojson-windows
+ENV OPAM_DEPS=ao-windows,camomile-windows,cry-windows,dtools-windows,duppy-windows,ffmpeg-windows,menhir-windows,mm-windows,ocurl-windows,pcre-windows,portaudio-windows,samplerate-windows,sedlex-windows,ssl-windows,srt-windows,taglib-windows,winsvc-windows,yojson-windows
 
 RUN git config --global user.email "toots@rastageeks.org" && git config --global user.name "Romain Beauxis"
 
