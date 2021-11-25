@@ -1,14 +1,13 @@
-FROM alpine:edge
+FROM arm32v7/alpine:edge
 
 ENTRYPOINT bash
 
 MAINTAINER The Savonet Team <savonet-users@lists.sourceforge.net>
 
-ARG OCAML_VERSION=4.12.1
-ARG EXCLUDED_PACKAGES
+ARG EXCLUDED_PACKAGES="dssi"
 
 # Add back graphics when/if ported to $OCAML_VERSION
-ENV EXT_PACKAGES="ocurl magic camlimages gd inotify prometheus-app ssl posix-time2 tsdl tsdl-image tsdl-ttf"
+ENV EXT_PACKAGES="ocurl magic camlimages sdl-liquidsoap gd inotify ssl"
 
 USER root
 
@@ -16,14 +15,15 @@ RUN apk update && \
     apk add --no-cache -X http://dl-cdn.alpinelinux.org/alpine/edge/testing \
           aspcud autoconf automake bash build-base curl opam ffmpeg git \
           openssh-client unzip gnupg libsrt-dev shine liblo-dev sdl2-dev sdl2_ttf-dev \
-          sdl2_image-dev musl-dbg
+          sdl2_image-dev musl-dbg ocaml ocaml-compiler-libs ocaml-dev ocaml-ocamldoc
 
 RUN adduser -D opam
 
 USER opam
 
 RUN \
-    opam init -y --disable-sandboxing --compiler=$OCAML_VERSION && \
+    opam init -y --disable-sandboxing && \
+    opam config set-global arch arm32 && \
     opam update -y && \
     opam install -y depext && \
     opam clean
@@ -48,12 +48,11 @@ RUN opam depext -y -l liquidsoap $EXT_PACKAGES `cat /tmp/packages | xargs echo` 
 
 USER root
 
-RUN cat /tmp/deps | grep -v libressl | xargs apk add --no-cache -X http://dl-cdn.alpinelinux.org/alpine/edge/testing
+RUN cat /tmp/deps | grep -v ssl | xargs apk add --force-overwrite --no-cache -X http://dl-cdn.alpinelinux.org/alpine/edge/testing
 
 USER opam
 
-# See https://github.com/xapi-project/ocaml-unix-errno/pull/2 for unix-errno
 RUN \
     eval $(opam config env) && \
     PACKAGES=`cat /tmp/packages | xargs echo` && \
-    opam install -y unix-errno.0.5.2 liquidsoap $PACKAGES $EXT_PACKAGES && opam uninstall -y liquidsoap $PACKAGES ffmpeg-avutil
+    opam install -y liquidsoap $PACKAGES $EXT_PACKAGES && opam uninstall -y liquidsoap $PACKAGES ffmpeg-avutil

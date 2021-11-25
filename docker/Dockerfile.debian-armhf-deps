@@ -7,12 +7,11 @@ MAINTAINER The Savonet Team <savonet-users@lists.sourceforge.net>
 
 ARG OS
 ARG DISTRIBUTION
-ARG OCAML_VERSION=4.12.1
 ARG ARCHITECTURE
 ARG EXCLUDED_PACKAGES
 
 # Add back graphics when/if ported to $OCAML_VERSION
-ENV EXT_PACKAGES="ocurl magic camlimages gd inotify prometheus-liquidsoap sdl-liquidsoap ssl yojson posix-time2"
+ENV EXT_PACKAGES="ocurl magic camlimages gd inotify prometheus-liquidsoap sdl-liquidsoap ssl yojson"
 ENV DEBIAN_FRONTEND=noninteractive
 
 USER root
@@ -25,7 +24,7 @@ RUN \
     apt-get install -y --no-install-recommends aspcud autoconf automake \
             build-essential ca-certificates curl debhelper devscripts sudo \
             ffmpeg gstreamer1.0-plugins-ugly gstreamer1.0-plugins-good gstreamer1.0-plugins-base gstreamer1.0-plugins-bad \
-            pandoc fakeroot git openssh-client unzip gnupg dirmngr apt-transport-https opam && \
+            pandoc fakeroot git openssh-client unzip gnupg dirmngr apt-transport-https opam ocaml-nox && \
     apt-get -y autoclean && \
     apt-get -y clean
 
@@ -34,7 +33,7 @@ RUN adduser opam
 USER opam
 
 RUN \
-    opam init -y --disable-sandboxing --compiler=$OCAML_VERSION && \
+    opam init -y --disable-sandboxing && \
     opam update -y && \
     opam install -y depext && \
     opam clean
@@ -67,8 +66,9 @@ RUN \
 
 USER opam
 
-# See https://github.com/xapi-project/ocaml-unix-errno/pull/2 for unix-errno
+RUN cd liquidsoap && git pull && opam pin add --no-action .
+
 RUN \
     eval $(opam config env) && \
     PACKAGES=`cat /tmp/packages | xargs echo` && \
-    opam install -y unix-errno.0.5.2 liquidsoap $PACKAGES $EXT_PACKAGES && opam uninstall -y liquidsoap $PACKAGES ffmpeg-avutil
+    opam install -y liquidsoap $PACKAGES $EXT_PACKAGES && opam uninstall -y liquidsoap $PACKAGES ffmpeg-avutil
