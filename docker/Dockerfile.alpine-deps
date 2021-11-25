@@ -13,7 +13,6 @@ ENV EXT_PACKAGES="ocurl magic camlimages gd inotify prometheus-app ssl posix-tim
 USER root
 
 RUN apk update && \
-    apk add --no-cache -X http://dl-cdn.alpinelinux.org/alpine/edge/community sudo && \
     apk add --no-cache -X http://dl-cdn.alpinelinux.org/alpine/edge/testing \
           aspcud autoconf automake bash build-base curl opam ffmpeg git \
           openssh-client unzip gnupg libsrt-dev shine liblo-dev sdl2-dev sdl2_ttf-dev \
