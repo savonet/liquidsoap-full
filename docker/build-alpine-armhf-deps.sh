@@ -6,6 +6,6 @@ export DOCKER_PLATFORM=linux/arm/v7
 TAG=alpine_$ARCHITECTURE
 IMAGE=savonet/liquidsoap-deps:${TAG}
 
-docker buildx build --platform="${DOCKER_PLATFORM}" -f Dockerfile.alpine-armhf-deps --output=registry=${IMAGE} .
+docker buildx build --platform="${DOCKER_PLATFORM}" -f Dockerfile.alpine-armhf-deps -t ${IMAGE} .
 
-
+docker push ${IMAGE}
