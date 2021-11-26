@@ -3,8 +3,8 @@
 screen -dmS alpine /bin/sh -c "./build-alpine-deps.sh && ./update-ci.sh alpine"
 
 if uname -a | grep aarch64 >/dev/null; then
-  screen -dmS debian-armhf -c "./update-debian-armhf-deps.sh && ./update-ci.sh debian:bullseye armhf"
-  screen -dmS alpine-armhf -c "./build-alpine-armhf-deps.sh && ./update-ci.sh alpine armhf"
+  screen -dmS debian-armhf -c "./build-armhf-deps.sh debian && ./update-ci.sh debian:bullseye armhf"
+  screen -dmS alpine-armhf -c "./build-armhf-deps.sh alpine && ./update-ci.sh alpine armhf"
 fi
 
 for image in debian:bullseye debian:testing ubuntu:groovy ubuntu:focal; do
