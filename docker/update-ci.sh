@@ -1,7 +1,7 @@
 #!/bin/sh -e
 
 BASE_IMAGE=$1
-ARCHITECTURE=2
+ARCHITECTURE=$2
 
 if test -z "${BASE_IMAGE}"; then
   BASE_IMAGE=debian:testing
