@@ -19,5 +19,5 @@ fi
 
 TAG=`echo ${BASE_IMAGE} | sed -e 's#/#_#g' | sed -e 's#:#_#g'`_$ARCHITECTURE
 
-docker ${DOCKER_PLATFORM} --no-cache --build-arg TAG="${TAG}" -t savonet/liquidsoap-ci:${TAG} -f Dockerfile.ci .
+docker ${DOCKER_BUILD} --no-cache --build-arg TAG="${TAG}" -t savonet/liquidsoap-ci:${TAG} -f Dockerfile.ci .
 docker push savonet/liquidsoap-ci:${TAG}
