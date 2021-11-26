@@ -4,10 +4,7 @@ ENTRYPOINT bash
 
 MAINTAINER The Savonet Team <savonet-users@lists.sourceforge.net>
 
-ARG OS
-ARG DISTRIBUTION
-ARG ARCHITECTURE
-ARG EXCLUDED_PACKAGES
+ARG EXCLUDED_PACKAGES=""
 
 # Add back graphics when/if ported to $OCAML_VERSION
 ENV EXT_PACKAGES="ocurl magic camlimages gd inotify prometheus-liquidsoap sdl-liquidsoap ssl yojson"
