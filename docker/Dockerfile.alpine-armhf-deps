@@ -12,6 +12,7 @@ ENV EXT_PACKAGES="ocurl magic camlimages sdl-liquidsoap gd inotify ssl"
 USER root
 
 RUN apk update && \
+    apk upgrade  --no-cache --available && \
     apk add --no-cache -X http://dl-cdn.alpinelinux.org/alpine/edge/community sudo && \
     apk add --no-cache -X http://dl-cdn.alpinelinux.org/alpine/edge/testing \
           aspcud autoconf automake bash build-base curl opam ffmpeg git \
