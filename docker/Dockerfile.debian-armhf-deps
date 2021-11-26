@@ -1,5 +1,4 @@
-ARG BASE_IMAGE
-FROM $BASE_IMAGE
+FROM arm32v7/debian:bullseye
 
 ENTRYPOINT bash
 
