@@ -43,46 +43,46 @@ def crossfade (~start_next=5.,~fade_in=3.,
   add = fun (a,b) -> add(normalize=false,[b,a])
   log = log(label="crossfade")
 
-  def transition(a,b,ma,mb,sa,sb)
+  def transition(a,b)
 
     list.iter(fun(x)-> 
-       log(level=4,"Before: #{x}"),ma)
+       log(level=4,"Before: #{x}"), a.metadata)
     list.iter(fun(x)-> 
-       log(level=4,"After : #{x}"),mb)
+       log(level=4,"After : #{x}"), b.metadata)
 
     if
       # If A and B and not too loud and close, 
       # fully cross-fade them.
       a <= medium and 
       b <= medium and 
-      abs(a - b) <= margin
+      abs(a.db_level - b.db_level) <= margin
     then
       log("Transition: crossed, fade-in, fade-out.")
-      add(fade.out(sa),fade.in(sb))
+      add(fade.out(a.source), fade.in(b.source))
 
     elsif
       # If B is significantly louder than A, 
       # only fade-out A.
       # We don't want to fade almost silent things, 
       # ask for >medium.
-      b >= a + margin and a >= medium and b <= high
+      b.db_level >= a.db_level + margin and a.db_level >= medium and b.db_level <= high
     then
       log("Transition: crossed, fade-out.")
-      add(fade.out(sa),sb)
+      add(fade.out(a.source), b.source)
 
     elsif
       # Do not fade if it's already very low.
-      b >= a + margin and a <= medium and b <= high
+      b.db_level >= a.db_level + margin and a.db_level <= medium and b.db_level <= high
     then
       log("Transition: crossed, no fade-out.")
-      add(sa,sb)
+      add(a.source, b.source)
 
     elsif
       # Opposite as the previous one.
-      a >= b + margin and b >= medium and a <= high
+      a.db_level >= b.db_level + margin and b.db_level >= medium and a.db_level <= high
     then
       log("Transition: crossed, fade-in.")
-      add(sa,fade.in(sb))
+      add(a.source, fade.in(b.source))
 
     # What to do with a loud end and 
     # a quiet beginning ?
@@ -96,7 +96,7 @@ def crossfade (~start_next=5.,~fade_in=3.,
       # overlapping would completely mask one 
       # of them.
       log("No transition: just sequencing.")
-      sequence([sa, sb])
+      sequence([a.source, b.source])
     end
   end
 
