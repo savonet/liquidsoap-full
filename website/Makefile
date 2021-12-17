@@ -117,7 +117,7 @@ upload: Dockerfile
 	tar cvzf - Dockerfile -C $${HOME} .ssh .gitconfig | docker build -t savonet/website --no-cache -
 
 serve:
-	cd html && python -m SimpleHTTPServer
+	cd html && python3 -m http.server
 
 language.dtd:
 	curl https://raw.githubusercontent.com/jgm/highlighting-kate/master/xml/language.dtd -o $@
