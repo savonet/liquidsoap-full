@@ -1,4 +1,4 @@
-Installing Savonet/Liquidsoap
+Installing Liquidsoap
 =============================
 
 **Note** These instructions are from the documentation from liquidsoap `2.0.0`.
