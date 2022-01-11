@@ -10,16 +10,25 @@ init:
 
 devel:
 	git submodule foreach '$(MAKE) -f ../Makefile.git devel-module'
-	git remote rm origin
-	git remote add origin git@github.com:savonet/liquidsoap-full.git
+	git remote set-url origin git@github.com:savonet/liquidsoap-full.git
 	git fetch
 	git branch --set-upstream-to=origin/master master
 
 devel-module:
-	git remote rm origin
-	git remote add origin git@github.com:savonet/$(DIR).git
+	git remote set-url origin git@github.com:savonet/$(DIR).git
 	git fetch
-	git branch --set-upstream-to=origin/master master || git branch --set-upstream-to=origin/main main
+	git branch --set-upstream-to=origin/main main || git branch --set-upstream-to=origin/master master
+
+public:
+	git submodule foreach '$(MAKE) -f ../Makefile.git public-module'
+	git remote set-url origin https://github.com/savonet/liquidsoap-full.git
+	git fetch
+	git branch --set-upstream-to=origin/master master
+
+public-module:
+	git remote set-url origin https://github.com/savonet/$(DIR).git
+	git fetch
+	git branch --set-upstream-to=origin/main main || git branch --set-upstream-to=origin/master master
 
 update:
 	git fetch && git reset --hard && git checkout master && git pull
