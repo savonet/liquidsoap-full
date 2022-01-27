@@ -7,12 +7,12 @@ MAINTAINER The Savonet Team <savonet-users@lists.sourceforge.net>
 
 ARG OS
 ARG DISTRIBUTION
-ARG OCAML_VERSION=4.12.1
+ARG OCAML_VERSION=4.13.1
 ARG ARCHITECTURE
 ARG EXCLUDED_PACKAGES
 
 # Add back graphics when/if ported to $OCAML_VERSION
-ENV EXT_PACKAGES="ocurl magic camlimages gd inotify prometheus-liquidsoap sdl-liquidsoap ssl yojson posix-time2"
+ENV EXT_PACKAGES="ocurl magic camlimages gd inotify prometheus-liquidsoap sdl-liquidsoap memtrace ssl yojson posix-time2"
 ENV DEBIAN_FRONTEND=noninteractive
 
 USER root
