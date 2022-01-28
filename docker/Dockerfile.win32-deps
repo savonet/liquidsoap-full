@@ -14,11 +14,8 @@ RUN eval `opam config env` && opam repository remove windows --all && \
 
 USER root
 
-# This is how all cherry-picks below are removed.
+# This is until all cherry-picks below are removed.
 RUN cd /usr/src/mxe/ && git config --global user.email "toots@rastageeks.org" && git config --global user.name "Romain Beauxis" && git remote add savonet https://github.com/savonet/mxe.git && git fetch savonet
-
-# This is until https://github.com/mxe/mxe/pull/2730 is merged
-RUN cd /usr/src/mxe/ && git cherry-pick f450d4977593ba33018a53bed2e29127f7153143
 
 # We fail to build with those.
 RUN cd /usr/src/mxe/ && git cherry-pick 076849a53efda0710f69fe06bf601d99a4451e8b
@@ -32,4 +29,4 @@ ENV CC ""
 
 ENV PKG_CONFIG_PATH /usr/src/mxe/usr/x86_64-w64-mingw32.static/lib/pkgconfig
 
-RUN export OPAMSOLVERTIMEOUT=320 && eval `opam config env` && opam update && opam reinstall -y --verbose pandoc `echo $OPAM_DEPS | sed -e 's#,# #g'`
+RUN export OPAMSOLVERTIMEOUT=320 && eval `opam config env` && opam update && opam reinstall -y --verbose ppx_tools_versioned-windows.5.4.0 pandoc `echo $OPAM_DEPS | sed -e 's#,# #g'`
