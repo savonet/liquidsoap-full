@@ -138,6 +138,9 @@
 # such as faders
 #ocaml-lo
 
+# Get info about memory usage
+#ocaml-mem_usage
+
 # ============================================================================
 # Finally, the mandatory lib dtools, duppy and liquidsoap...
 # ============================================================================
