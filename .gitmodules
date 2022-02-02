@@ -134,3 +134,6 @@
 [submodule "ocaml-lilv"]
 	path = ocaml-lilv
 	url = git://github.com/savonet/ocaml-lilv.git
+[submodule "ocaml-mem_usage"]
+	path = ocaml-mem_usage
+	url = https://github.com/savonet/ocaml-mem_usage.git
