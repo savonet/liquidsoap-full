@@ -90,10 +90,6 @@
 	path = ocaml-samplerate
 	url = git://github.com/savonet/ocaml-samplerate.git
         ignore = dirty
-[submodule "ocaml-gavl"]
-	path = ocaml-gavl
-	url = git://github.com/savonet/ocaml-gavl.git
-        ignore = dirty
 [submodule "ocaml-dssi"]
 	path = ocaml-dssi
 	url = git://github.com/savonet/ocaml-dssi.git
