@@ -12,7 +12,7 @@ ARG ARCHITECTURE
 ARG EXCLUDED_PACKAGES
 
 # Add back graphics when/if ported to $OCAML_VERSION
-ENV EXT_PACKAGES="ocurl magic camlimages gd inotify prometheus-liquidsoap sdl-liquidsoap memtrace ssl yojson posix-time2"
+ENV EXT_PACKAGES="ocurl magic camlimages gd inotify prometheus-liquidsoap sdl-liquidsoap memtrace mem_usage ssl yojson posix-time2"
 ENV DEBIAN_FRONTEND=noninteractive
 
 USER root
@@ -24,8 +24,7 @@ RUN \
     apt-get update && \
     apt-get install -y --no-install-recommends aspcud autoconf automake \
             build-essential ca-certificates curl debhelper devscripts sudo \
-            ffmpeg gstreamer1.0-plugins-ugly gstreamer1.0-plugins-good gstreamer1.0-plugins-base gstreamer1.0-plugins-bad \
-            pandoc fakeroot git openssh-client unzip gnupg dirmngr apt-transport-https opam && \
+            ffmpeg pandoc fakeroot git openssh-client unzip gnupg dirmngr apt-transport-https opam && \
     apt-get -y autoclean && \
     apt-get -y clean
 

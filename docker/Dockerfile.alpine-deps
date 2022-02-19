@@ -8,7 +8,7 @@ ARG OCAML_VERSION=4.13.1
 ARG EXCLUDED_PACKAGES
 
 # Add back graphics when/if ported to $OCAML_VERSION
-ENV EXT_PACKAGES="ocurl magic camlimages gd inotify prometheus-app ssl memtrace posix-time2 tsdl tsdl-image tsdl-ttf"
+ENV EXT_PACKAGES="ocurl magic camlimages gd inotify prometheus-app ssl memtrace posix-time2 tsdl tsdl-image tsdl-ttf mem_usage"
 
 USER root
 

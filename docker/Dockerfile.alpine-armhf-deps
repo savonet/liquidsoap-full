@@ -7,7 +7,7 @@ MAINTAINER The Savonet Team <savonet-users@lists.sourceforge.net>
 ARG EXCLUDED_PACKAGES="dssi"
 
 # Add back graphics when/if ported to $OCAML_VERSION
-ENV EXT_PACKAGES="ocurl magic camlimages sdl-liquidsoap gd inotify ssl"
+ENV EXT_PACKAGES="ocurl magic camlimages sdl-liquidsoap gd inotify ssl mem_usage"
 
 USER root
 
