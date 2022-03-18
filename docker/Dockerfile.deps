@@ -56,12 +56,12 @@ RUN \
       fi; \
     done && cd liquidsoap && opam pin add --no-action .
 
-RUN opam depext -y -l liquidsoap $EXT_PACKAGES `cat /tmp/packages | xargs echo` > /tmp/deps
+RUN opam depext -y -l liquidsoap $EXT_PACKAGES `cat /tmp/packages | grep -v srt | xargs echo` > /tmp/deps
 
 USER root
 
 RUN \
-    cat /tmp/deps | xargs apt-get install -y --no-install-recommends && \
+    cat /tmp/deps | xargs apt-get install -y --no-install-recommends libsrt-gnutls-dev libgnutls28-dev && \
     apt-get -y autoclean && apt-get -y clean
 
 USER opam
