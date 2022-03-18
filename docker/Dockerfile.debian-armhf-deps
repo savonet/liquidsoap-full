@@ -41,7 +41,7 @@ WORKDIR /tmp/liquidsoap-full
 
 RUN make init && make update
 
-RUN cat PACKAGES.default | grep '^ocaml' | cut -d'-' -f 2 | while read i; do ( echo $EXCLUDED_PACKAGES | grep -q $i ) || echo "$i"; done > /tmp/packages
+RUN cat PACKAGES.default | grep '^ocaml' | cut -d'-' -f 2 | while read i; do ( echo $EXCLUDED_PACKAGES | grep -q $i  ) || echo "$i"; done > /tmp/packages
 
 RUN cd liquidsoap && git pull
 
@@ -51,7 +51,7 @@ RUN \
       fi; \
     done && cd liquidsoap && opam pin add --no-action .
 
-RUN opam depext -y -l liquidsoap $EXT_PACKAGES `cat /tmp/packages | xargs echo` > /tmp/deps
+RUN opam list --short --recursive --external --vars os-distribution=debian,os-family=debian --required-by="`cat /tmp/packages | xargs echo liquidsoap $EXT_PACKAGES | sed -e 's# #,#g'`" > /tmp/deps
 
 USER root
 

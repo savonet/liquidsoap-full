@@ -3,7 +3,7 @@
 OS=$1
 
 if [ "${OS}" = "debian" ]; then
-  IMAGE=savonet/liquidsoap-deps:debian_bullseye_armhf
+  IMAGE=savonet/liquidsoap-deps:debian_bookworm_armhf
 else
   IMAGE=savonet/liquidsoap-deps:alpine_armhf
 fi
