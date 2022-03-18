@@ -1,11 +1,10 @@
-FROM arm32v7/debian:bullseye
+FROM arm32v7/debian:bookworm
 
 ENTRYPOINT bash
 
 MAINTAINER The Savonet Team <savonet-users@lists.sourceforge.net>
 
 ARG EXCLUDED_PACKAGES=""
-ARG OCAML_VERSION=4.13.1
 
 # Add back graphics when/if ported to $OCAML_VERSION
 ENV EXT_PACKAGES="ocurl magic camlimages gd inotify prometheus-liquidsoap sdl-liquidsoap ssl yojson"
@@ -30,7 +29,7 @@ RUN adduser opam
 USER opam
 
 RUN \
-    opam init -y --disable-sandboxing --compiler=$OCAML_VERSION && \
+    opam init -y --disable-sandboxing && \
     opam update -y && \
     opam install -y depext && \
     opam clean
