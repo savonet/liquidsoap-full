@@ -31,7 +31,6 @@ USER opam
 RUN \
     opam init -y --disable-sandboxing && \
     opam update -y && \
-    opam install -y depext && \
     opam clean
 
 WORKDIR /tmp
