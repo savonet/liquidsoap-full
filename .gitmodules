@@ -1,135 +1,135 @@
 [submodule "liquidsoap"]
 	path = liquidsoap
-	url = git://github.com/savonet/liquidsoap.git
+	url = https://github.com/savonet/liquidsoap.git
         ignore = dirty
 [submodule "ocaml-cry"]
 	path = ocaml-cry
-	url = git://github.com/savonet/ocaml-cry.git
+	url = https://github.com/savonet/ocaml-cry.git
         ignore = dirty
 [submodule "ocaml-ao"]
 	path = ocaml-ao
-	url = git://github.com/savonet/ocaml-ao.git
+	url = https://github.com/savonet/ocaml-ao.git
         ignore = dirty
 [submodule "ocaml-portaudio"]
 	path = ocaml-portaudio
-	url = git://github.com/savonet/ocaml-portaudio.git
+	url = https://github.com/savonet/ocaml-portaudio.git
         ignore = dirty
 [submodule "ocaml-alsa"]
 	path = ocaml-alsa
-	url = git://github.com/savonet/ocaml-alsa.git
+	url = https://github.com/savonet/ocaml-alsa.git
         ignore = dirty
 [submodule "ocaml-fdkaac"]
 	path = ocaml-fdkaac
-	url = git://github.com/savonet/ocaml-fdkaac.git
+	url = https://github.com/savonet/ocaml-fdkaac.git
         ignore = dirty
 [submodule "ocaml-pulseaudio"]
 	path = ocaml-pulseaudio
-	url = git://github.com/savonet/ocaml-pulseaudio.git
+	url = https://github.com/savonet/ocaml-pulseaudio.git
         ignore = dirty
 [submodule "ocaml-bjack"]
 	path = ocaml-bjack
-	url = git://github.com/savonet/ocaml-bjack.git
+	url = https://github.com/savonet/ocaml-bjack.git
         ignore = dirty
 [submodule "ocaml-gstreamer"]
 	path = ocaml-gstreamer
-	url = git://github.com/savonet/ocaml-gstreamer.git
+	url = https://github.com/savonet/ocaml-gstreamer.git
         ignore = dirty
 [submodule "ocaml-mad"]
 	path = ocaml-mad
-	url = git://github.com/savonet/ocaml-mad.git
+	url = https://github.com/savonet/ocaml-mad.git
         ignore = dirty
 [submodule "ocaml-taglib"]
 	path = ocaml-taglib
-	url = git://github.com/savonet/ocaml-taglib.git
+	url = https://github.com/savonet/ocaml-taglib.git
         ignore = dirty
 [submodule "ocaml-lame"]
 	path = ocaml-lame
-	url = git://github.com/savonet/ocaml-lame.git
+	url = https://github.com/savonet/ocaml-lame.git
         ignore = dirty
 [submodule "ocaml-shine"]
 	path = ocaml-shine
-	url = git://github.com/savonet/ocaml-shine.git
+	url = https://github.com/savonet/ocaml-shine.git
         ignore = dirty
 [submodule "ocaml-ogg"]
 	path = ocaml-ogg
-	url = git://github.com/savonet/ocaml-ogg.git
+	url = https://github.com/savonet/ocaml-ogg.git
         ignore = dirty
 [submodule "ocaml-vorbis"]
 	path = ocaml-vorbis
-	url = git://github.com/savonet/ocaml-vorbis.git
+	url = https://github.com/savonet/ocaml-vorbis.git
         ignore = dirty
 [submodule "ocaml-speex"]
 	path = ocaml-speex
-	url = git://github.com/savonet/ocaml-speex.git
+	url = https://github.com/savonet/ocaml-speex.git
         ignore = dirty
 [submodule "ocaml-theora"]
 	path = ocaml-theora
-	url = git://github.com/savonet/ocaml-theora.git
+	url = https://github.com/savonet/ocaml-theora.git
         ignore = dirty
 [submodule "ocaml-opus"]
 	path = ocaml-opus
-	url = git://github.com/savonet/ocaml-opus.git
+	url = https://github.com/savonet/ocaml-opus.git
         ignore = dirty
 [submodule "ocaml-faad"]
 	path = ocaml-faad
-	url = git://github.com/savonet/ocaml-faad.git
+	url = https://github.com/savonet/ocaml-faad.git
         ignore = dirty
 [submodule "ocaml-flac"]
 	path = ocaml-flac
-	url = git://github.com/savonet/ocaml-flac.git
+	url = https://github.com/savonet/ocaml-flac.git
         ignore = dirty
 [submodule "ocaml-ladspa"]
 	path = ocaml-ladspa
-	url = git://github.com/savonet/ocaml-ladspa.git
+	url = https://github.com/savonet/ocaml-ladspa.git
         ignore = dirty
 [submodule "ocaml-soundtouch"]
 	path = ocaml-soundtouch
-	url = git://github.com/savonet/ocaml-soundtouch.git
+	url = https://github.com/savonet/ocaml-soundtouch.git
         ignore = dirty
 [submodule "ocaml-samplerate"]
 	path = ocaml-samplerate
-	url = git://github.com/savonet/ocaml-samplerate.git
+	url = https://github.com/savonet/ocaml-samplerate.git
         ignore = dirty
 [submodule "ocaml-dssi"]
 	path = ocaml-dssi
-	url = git://github.com/savonet/ocaml-dssi.git
+	url = https://github.com/savonet/ocaml-dssi.git
         ignore = dirty
 [submodule "ocaml-xmlplaylist"]
 	path = ocaml-xmlplaylist
-	url = git://github.com/savonet/ocaml-xmlplaylist.git
+	url = https://github.com/savonet/ocaml-xmlplaylist.git
         ignore = dirty
 [submodule "ocaml-lastfm"]
 	path = ocaml-lastfm
-	url = git://github.com/savonet/ocaml-lastfm.git
+	url = https://github.com/savonet/ocaml-lastfm.git
         ignore = dirty
 [submodule "ocaml-lo"]
 	path = ocaml-lo
-	url = git://github.com/savonet/ocaml-lo.git
+	url = https://github.com/savonet/ocaml-lo.git
         ignore = dirty
 [submodule "ocaml-dtools"]
 	path = ocaml-dtools
-	url = git://github.com/savonet/ocaml-dtools.git
+	url = https://github.com/savonet/ocaml-dtools.git
         ignore = dirty
 [submodule "ocaml-duppy"]
 	path = ocaml-duppy
-	url = git://github.com/savonet/ocaml-duppy.git
+	url = https://github.com/savonet/ocaml-duppy.git
         ignore = dirty
 [submodule "ocaml-mm"]
 	path = ocaml-mm
-	url = git://github.com/savonet/ocaml-mm.git
+	url = https://github.com/savonet/ocaml-mm.git
         ignore = dirty
 [submodule "ocaml-ffmpeg"]
 	path = ocaml-ffmpeg
-	url = git://github.com/savonet/ocaml-ffmpeg.git
+	url = https://github.com/savonet/ocaml-ffmpeg.git
 [submodule "ocaml-frei0r"]
 	path = ocaml-frei0r
-	url = git://github.com/savonet/ocaml-frei0r.git
+	url = https://github.com/savonet/ocaml-frei0r.git
 [submodule "ocaml-srt"]
 	path = ocaml-srt
 	url = https://github.com/savonet/ocaml-srt.git
 [submodule "ocaml-lilv"]
 	path = ocaml-lilv
-	url = git://github.com/savonet/ocaml-lilv.git
+	url = https://github.com/savonet/ocaml-lilv.git
 [submodule "ocaml-mem_usage"]
 	path = ocaml-mem_usage
 	url = https://github.com/savonet/ocaml-mem_usage.git
