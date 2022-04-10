@@ -373,7 +373,7 @@ Now that we have a controllable initial radio, we extend our initial
 scripts to add advanced features. The following graph illustrates what 
 we are going to add:
 
-![Advanced stream model](images/on2_part2_schema2.svg)* The `Replay gain` node normalizes all the songs using the [Replay Gain](http://replaygain.org) technology.
+![Advanced stream model](images/on2_part2_schema2.svg)* The `Replay gain` node normalizes all the songs using the [Replay Gain](https://en.wikipedia.org/wiki/ReplayGain) technology.
 * The `Smart crossfade` node adds crossfading between songs but not jingles.
 * The `Smooth_add` node adds the possibility to insert a jingle in the middle of a song, fading out and then back in the initial stream while the jingle is being played.
 
