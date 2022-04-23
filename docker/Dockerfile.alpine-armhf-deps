@@ -56,4 +56,4 @@ USER opam
 RUN \
     eval $(opam config env) && \
     PACKAGES=`cat /tmp/packages | xargs echo` && \
-    opam install --no-depexts -y liquidsoap $PACKAGES $EXT_PACKAGES && opam uninstall -y liquidsoap $PACKAGES ffmpeg-avutil
+    opam install --no-depexts -y liquidsoap $PACKAGES $EXT_PACKAGES && opam uninstall --no-depexts -y liquidsoap $PACKAGES ffmpeg-avutil
