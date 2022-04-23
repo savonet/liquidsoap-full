@@ -57,4 +57,4 @@ USER opam
 RUN \
     eval $(opam config env) && \
     PACKAGES=`cat /tmp/packages | xargs echo` && \
-    opam install -y unix-errno.0.5.2 liquidsoap $PACKAGES $EXT_PACKAGES && opam uninstall -y liquidsoap $PACKAGES ffmpeg-avutil
+    opam install --no-depexts -y unix-errno.0.5.2 liquidsoap $PACKAGES $EXT_PACKAGES && opam uninstall -y liquidsoap $PACKAGES ffmpeg-avutil

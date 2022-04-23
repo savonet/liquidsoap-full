@@ -27,7 +27,6 @@ RUN \
     opam init -y --disable-sandboxing && \
     opam config set-global arch arm32 && \
     opam update -y && \
-    opam install -y depext && \
     opam clean
 
 WORKDIR /tmp
@@ -38,7 +37,7 @@ WORKDIR /tmp/liquidsoap-full
 
 RUN make init && make update
 
-RUN cat PACKAGES.default | grep '^ocaml' | cut -d'-' -f 2 | while read i; do ( echo $EXCLUDED_PACKAGES | grep -q $i ) || echo "$i"; done > /tmp/packages
+RUN opam list --short --recursive --external --required-by="`echo $EXT_PACKAGES | sed -e 's# #,#g'`,`cat /tmp/packages | while read i; do printf "$i,"; done`,liquidsoap" > /tmp/deps
 
 RUN \
     cat /tmp/packages | while read package; do \
@@ -57,4 +56,4 @@ USER opam
 RUN \
     eval $(opam config env) && \
     PACKAGES=`cat /tmp/packages | xargs echo` && \
-    opam install -y liquidsoap $PACKAGES $EXT_PACKAGES && opam uninstall -y liquidsoap $PACKAGES ffmpeg-avutil
+    opam install --no-depexts -y liquidsoap $PACKAGES $EXT_PACKAGES && opam uninstall -y liquidsoap $PACKAGES ffmpeg-avutil
