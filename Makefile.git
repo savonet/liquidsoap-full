@@ -32,7 +32,7 @@ public-module:
 
 update:
 	git fetch && git reset --hard && git checkout master && git pull
-	git submodule foreach 'git reset --hard && git fetch && (git checkout main || git checkout master) && git pull'
+	git submodule foreach 'git reset --hard && git fetch origin && (git reset --hard origin/main || git reset --hard origin/master) && git pull'
 
 reset-module:
 	git reset --hard origin/master
