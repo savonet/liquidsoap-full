@@ -12,7 +12,7 @@ ARG ARCHITECTURE
 ARG EXCLUDED_PACKAGES
 
 # Add back graphics when/if ported to $OCAML_VERSION
-ENV EXT_PACKAGES="dune.3.2.0 ocurl magic camlimages gd inotify prometheus-liquidsoap sdl-liquidsoap memtrace mem_usage ssl yojson posix-time2"
+ENV EXT_PACKAGES="opam-depext ocurl magic camlimages gd inotify prometheus-liquidsoap sdl-liquidsoap memtrace mem_usage ssl yojson posix-time2"
 ENV DEBIAN_FRONTEND=noninteractive
 
 USER root
@@ -35,7 +35,6 @@ USER opam
 RUN \
     opam init -y --disable-sandboxing --compiler=$OCAML_VERSION && \
     opam update -y && \
-    opam install -y depext && \
     opam clean
 
 WORKDIR /tmp
@@ -54,7 +53,7 @@ RUN \
     cat /tmp/packages | while read package; do \
         cd ocaml-$package && opam pin add -y --no-action . && cd .. \
       fi; \
-    done && cd liquidsoap && opam pin add --no-action .
+    done && cd liquidsoap && opam pin add -y --no-action .
 
 RUN opam depext -y -l liquidsoap $EXT_PACKAGES `cat /tmp/packages | grep -v srt | xargs echo` > /tmp/deps
 

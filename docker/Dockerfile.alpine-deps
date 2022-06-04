@@ -8,7 +8,7 @@ ARG OCAML_VERSION=4.14.0
 ARG EXCLUDED_PACKAGES
 
 # Add back graphics when/if ported to $OCAML_VERSION
-ENV EXT_PACKAGES="dune.3.2.0 ocurl magic camlimages gd inotify prometheus-app ssl memtrace posix-time2 tsdl tsdl-image tsdl-ttf mem_usage"
+ENV EXT_PACKAGES="opam-depext ocurl magic camlimages gd inotify prometheus-app ssl memtrace posix-time2 tsdl tsdl-image tsdl-ttf mem_usage"
 
 USER root
 
@@ -43,7 +43,7 @@ RUN \
     cat /tmp/packages | while read package; do \
         cd ocaml-$package && opam pin add -y --no-action . && cd .. \
       fi; \
-    done && cd liquidsoap && opam pin add --no-action .
+    done && cd liquidsoap && opam pin add -y --no-action .
 
 RUN opam list --short --recursive --external --required-by="`echo $EXT_PACKAGES | sed -e 's# #,#g'`,`cat /tmp/packages | while read i; do printf "$i,"; done`,liquidsoap" > /tmp/deps
 
