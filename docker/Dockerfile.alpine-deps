@@ -45,7 +45,7 @@ RUN \
       fi; \
     done && cd liquidsoap && opam pin add -y --no-action .
 
-RUN opam list --short --recursive --external --required-by="`echo $EXT_PACKAGES | sed -e 's# #,#g'`,`cat /tmp/packages | while read i; do printf "$i,"; done`,liquidsoap" > /tmp/deps
+RUN eval $(opam env) && opam list --short --recursive --external --required-by="`echo $EXT_PACKAGES | sed -e 's# #,#g'`,`cat /tmp/packages | while read i; do printf "$i,"; done`,liquidsoap" > /tmp/deps
 
 USER root
 
