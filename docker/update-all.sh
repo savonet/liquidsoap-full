@@ -7,6 +7,6 @@ if uname -a | grep aarch64 >/dev/null; then
   screen -dmS alpine-armhf -c "./build-armhf-deps.sh alpine && ./update-ci.sh alpine armhf"
 fi
 
-for image in debian:bullseye debian:testing ubuntu:jammy ubuntu:focal; do
+for image in debian:bullseye debian:testing ubuntu:impish ubuntu:focal; do
   screen -dmS $image /bin/sh -c "./update-deps.sh $image && ./update-ci.sh $image"
 done;
