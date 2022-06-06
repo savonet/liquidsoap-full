@@ -65,6 +65,7 @@ $(PWD)/content/doc-dev/reference.md: $(LIQUIDSOAP) $(PWD)/reference-header.md
 	@echo "Did you enable all features ?"
 	@cat $(PWD)/reference-header.md > $@
 	@eval $(opam config env)
+	@export OCAMLPATH=`cat .ocamlpath
 	@PAGER=none $(LIQUIDSOAP) --no-stdlib $(LIQ_DIR)/libs/stdlib.liq --list-functions-md >> $@
 
 $(PWD)/content/doc-dev/reference-extras.md: $(LIQUIDSOAP) $(PWD)/reference-header.md
@@ -72,18 +73,21 @@ $(PWD)/content/doc-dev/reference-extras.md: $(LIQUIDSOAP) $(PWD)/reference-heade
 	@echo "Did you enable all features ?"
 	@cat $(PWD)/reference-header.md > $@
 	@eval $(opam config env)
+	@export OCAMLPATH=`cat .ocamlpath
 	@PAGER=none $(LIQUIDSOAP) --no-stdlib $(LIQ_DIR)/libs/stdlib.liq --list-extra-functions-md >> $@
 
 $(PWD)/content/doc-dev/settings.md: $(LIQUIDSOAP)
 	@echo "Generating dev language settings..."
 	@echo "Did you enable all features ?"
 	@eval $(opam config env)
+	@export OCAMLPATH=`cat .ocamlpath
 	@PAGER=none $(LIQUIDSOAP) --no-stdlib $(LIQ_DIR)/libs/stdlib.liq --list-settings | grep -v "# Liquidsoap configuration" > $@
 
 $(PWD)/content/doc-dev/protocols.md: $(LIQUIDSOAP)
 	@echo "Generating dev protocols reference..."
 	@echo "Did you enable all features ?"
 	@eval $(opam config env)
+	@export OCAMLPATH=`cat .ocamlpath
 	@PAGER=none $(LIQUIDSOAP) --no-stdlib $(LIQ_DIR)/libs/stdlib.liq --list-protocols-md > $@
 
 define VERSIONED_RULES
