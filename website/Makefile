@@ -1,8 +1,7 @@
 .PHONY: all serve clean upload actual-upload dist
 
 PWD := $(shell pwd)
-LIQ_DIR := $(PWD)/../liquidsoap
-LIQUIDSOAP := $(LIQ_DIR)/liquidsoap
+GENERATED_DOC_DIR := $(PWD)/../liquidsoap/_build/default/doc
 PANDOC := pandoc --syntax-definition=liquidsoap.xml --highlight=pygments
 NODE := $(shell which node)
 
@@ -60,35 +59,8 @@ $(PWD)/html: $(wildcard orig/*)
 
 # Auto-generated content files
 
-$(PWD)/content/doc-dev/reference.md: $(LIQUIDSOAP) $(PWD)/reference-header.md
-	@echo "Generating dev language reference..."
-	@echo "Did you enable all features ?"
-	@cat $(PWD)/reference-header.md > $@
-	@eval $(opam config env)
-	@export OCAMLPATH=`cat .ocamlpath
-	@PAGER=none $(LIQUIDSOAP) --list-functions-md >> $@
-
-$(PWD)/content/doc-dev/reference-extras.md: $(LIQUIDSOAP) $(PWD)/reference-header.md
-	@echo "Generating dev language reference..."
-	@echo "Did you enable all features ?"
-	@cat $(PWD)/reference-header.md > $@
-	@eval $(opam config env)
-	@export OCAMLPATH=`cat .ocamlpath
-	@PAGER=none $(LIQUIDSOAP) --list-extra-functions-md >> $@
-
-$(PWD)/content/doc-dev/settings.md: $(LIQUIDSOAP)
-	@echo "Generating dev language settings..."
-	@echo "Did you enable all features ?"
-	@eval $(opam config env)
-	@export OCAMLPATH=`cat .ocamlpath
-	@PAGER=none $(LIQUIDSOAP) --list-settings | grep -v "# Liquidsoap configuration" > $@
-
-$(PWD)/content/doc-dev/protocols.md: $(LIQUIDSOAP)
-	@echo "Generating dev protocols reference..."
-	@echo "Did you enable all features ?"
-	@eval $(opam config env)
-	@export OCAMLPATH=`cat .ocamlpath
-	@PAGER=none $(LIQUIDSOAP) --list-protocols-md > $@
+$(PWD)/content/doc-dev/reference.md $(PWD)/content/doc-dev/reference-extras.md $(PWD)/content/doc-dev/settings.md $(PWD)/content/doc-dev/protocols.md:
+	@cp $(GENERATED_DOC_DIR)/$(shell basename $@) $@ 
 
 define VERSIONED_RULES
 $(PWD)/html/doc-$(version)/%.html: $(PWD)/content/doc-$(version)/%.md $(PWD)/template-$(version).html
