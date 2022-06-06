@@ -2,7 +2,7 @@
 
 PWD := $(shell pwd)
 LIQ_DIR := $(PWD)/../liquidsoap
-LIQUIDSOAP := $(LIQ_DIR)/src/liquidsoap
+LIQUIDSOAP := $(LIQ_DIR)/_build/default/src/bin/liquidsoap.exe
 PANDOC := pandoc --syntax-definition=liquidsoap.xml --highlight=pygments
 NODE := $(shell which node)
 
