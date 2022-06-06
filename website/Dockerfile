@@ -16,6 +16,8 @@ USER opam
 
 WORKDIR /tmp/liquidsoap-full
 
+RUN opam install -y js_of_ocaml-ppx js_of_ocaml
+
 RUN rm -rf website/savonet.github.io
 
 RUN git checkout master && git reset --hard HEAD && git pull
@@ -27,6 +29,8 @@ RUN make update
 RUN cp PACKAGES.default PACKAGES
 
 RUN eval $(opam config env) && export PKG_CONFIG_PATH=/usr/share/pkgconfig/pkgconfig && ./bootstrap && ./configure --enable-graphics && make clean && make
+
+RUN eval $(opam config env) && cd liquidsoap && dune build --release src/js
 
 WORKDIR /tmp/liquidsoap-full/website
 

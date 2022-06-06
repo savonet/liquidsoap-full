@@ -2,6 +2,7 @@
 
 PWD := $(shell pwd)
 GENERATED_DOC_DIR := $(PWD)/../liquidsoap/_build/default/doc
+GENERATED_INTERPRETER_DIR := $(PWD)/../liquidsoap/_build/default/src/js
 PANDOC := pandoc --syntax-definition=liquidsoap.xml --highlight=pygments
 NODE := $(shell which node)
 
@@ -20,7 +21,7 @@ content_website := $(wildcard $(PWD)/content/*.md)
 CONTENT := $(content_website) $(content_expanded) $(images_expanded)
 
 JS := $(shell echo $(wildcard $(PWD)/orig/assets/js/*.js) | sed -e 's|/orig/|/html/|g')
-HTML := $(shell echo $(CONTENT:.md=.html) | sed -e 's|/content/|/html/|'g)
+HTML := $(shell echo $(CONTENT:.md=.html) | sed -e 's|/content/|/html/|'g) $(PWD)/html/try
 
 $(PWD)/html/assets/js/%.js: orig/assets/js/%.js
 # ifneq ($(NODE),)
@@ -61,6 +62,12 @@ $(PWD)/html: $(wildcard orig/*)
 
 $(PWD)/content/doc-dev/reference.md $(PWD)/content/doc-dev/reference-extras.md $(PWD)/content/doc-dev/settings.md $(PWD)/content/doc-dev/protocols.md:
 	@cp $(GENERATED_DOC_DIR)/$(shell basename $@) $@ 
+
+# JS interpreter
+$(PWD)/html/try: $(GENERATED_INTERPRETER_DIR) 
+	@mkdir -p $@
+	@cp -rf $(GENERATED_INTERPRETER_DIR)/liquidsoap_js.bc.js $@
+	@cp -rf $(GENERATED_INTERPRETER_DIR)/index.html $@
 
 define VERSIONED_RULES
 $(PWD)/html/doc-$(version)/%.html: $(PWD)/content/doc-$(version)/%.md $(PWD)/template-$(version).html
