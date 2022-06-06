@@ -2,7 +2,7 @@
 
 PWD := $(shell pwd)
 LIQ_DIR := $(PWD)/../liquidsoap
-LIQUIDSOAP := $(LIQ_DIR)/_build/default/src/bin/liquidsoap.exe
+LIQUIDSOAP := $(LIQ_DIR)/liquidsoap
 PANDOC := pandoc --syntax-definition=liquidsoap.xml --highlight=pygments
 NODE := $(shell which node)
 
@@ -58,32 +58,32 @@ $(PWD)/html: $(wildcard orig/*)
 	@cp -r $(PWD)/orig/CNAME $(PWD)/html
 	@rm -f $(PWD)/html/js/*.js
 
-$(LIQUIDSOAP):
-	@echo "Liquidsoap does not seem to be built..."
-	@exit 1
-
 # Auto-generated content files
 
 $(PWD)/content/doc-dev/reference.md: $(LIQUIDSOAP) $(PWD)/reference-header.md
 	@echo "Generating dev language reference..."
 	@echo "Did you enable all features ?"
 	@cat $(PWD)/reference-header.md > $@
+	@eval $(opam config env)
 	@PAGER=none $(LIQUIDSOAP) --no-stdlib $(LIQ_DIR)/libs/stdlib.liq --list-functions-md >> $@
 
 $(PWD)/content/doc-dev/reference-extras.md: $(LIQUIDSOAP) $(PWD)/reference-header.md
 	@echo "Generating dev language reference..."
 	@echo "Did you enable all features ?"
 	@cat $(PWD)/reference-header.md > $@
+	@eval $(opam config env)
 	@PAGER=none $(LIQUIDSOAP) --no-stdlib $(LIQ_DIR)/libs/stdlib.liq --list-extra-functions-md >> $@
 
 $(PWD)/content/doc-dev/settings.md: $(LIQUIDSOAP)
 	@echo "Generating dev language settings..."
 	@echo "Did you enable all features ?"
+	@eval $(opam config env)
 	@PAGER=none $(LIQUIDSOAP) --no-stdlib $(LIQ_DIR)/libs/stdlib.liq --list-settings | grep -v "# Liquidsoap configuration" > $@
 
 $(PWD)/content/doc-dev/protocols.md: $(LIQUIDSOAP)
 	@echo "Generating dev protocols reference..."
 	@echo "Did you enable all features ?"
+	@eval $(opam config env)
 	@PAGER=none $(LIQUIDSOAP) --no-stdlib $(LIQ_DIR)/libs/stdlib.liq --list-protocols-md > $@
 
 define VERSIONED_RULES
