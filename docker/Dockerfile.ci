@@ -19,5 +19,11 @@ RUN echo liquidsoap >> PACKAGES
 
 RUN ./bootstrap
 
-RUN eval $(opam config env) && export PKG_CONFIG_PATH=/usr/share/pkgconfig/pkgconfig && ./configure && make clean && make
+RUN eval $(opam config env) && \
+  export PKG_CONFIG_PATH=/usr/share/pkgconfig/pkgconfig && \
+  touch liquidsoap/configure && \
+  ./configure && \
+  make clean && \
+  make && \
+  rm liquidsoap/configure 
 
