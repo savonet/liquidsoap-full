@@ -1,7 +1,9 @@
 ARG IMAGE
 FROM $IMAGE
 
-ENV OPAM_DEPS=ao-windows,camomile-windows,cry-windows,dtools-windows,duppy-windows,ffmpeg-windows,menhir-windows,mm-windows,ocurl-windows,pcre-windows,portaudio-windows,samplerate-windows,sedlex-windows,ssl-windows,srt-windows,taglib-windows,winsvc-windows,yojson-windows
+ENV OPAM_MXE_DEPS=ao-windows,camomile-windows,cry-windows,dtools-windows,duppy-windows,ffmpeg-windows,menhir-windows,mm-windows,ocurl-windows,pcre-windows,portaudio-windows,samplerate-windows,sedlex-windows,ssl-windows,srt-windows,taglib-windows,winsvc-windows
+
+ENV OPAM_NATIVE_DEPS=pcre
 
 RUN git config --global user.email "toots@rastageeks.org" && git config --global user.name "Romain Beauxis"
 
@@ -10,7 +12,7 @@ RUN eval `opam config env` && opam repository remove windows --all && \
   git clone https://github.com/ocaml-cross/opam-cross-windows.git && \
   cd /home/opam/opam-cross-windows/ && \
   opam repository add windows . && \
-  opam list --short --recursive --external --vars os-distribution=mxe,os-family=mingw --required-by=$OPAM_DEPS > /home/opam/mxe-deps
+  opam list --short --recursive --external --vars os-distribution=mxe,os-family=mingw --required-by=$OPAM_MXE_DEPS > /home/opam/mxe-deps
 
 USER root
 
@@ -25,8 +27,10 @@ RUN cd /usr/src/mxe/ && \
 
 USER opam
 
+RUN opam reinstall -y $OPAM_NATIVE_DEPS
+
 ENV CC ""
 
 ENV PKG_CONFIG_PATH /usr/src/mxe/usr/x86_64-w64-mingw32.static/lib/pkgconfig
 
-RUN export OPAMSOLVERTIMEOUT=320 && eval `opam config env` && opam update && opam reinstall -y --verbose ppx_tools_versioned-windows.5.4.0 pandoc `echo $OPAM_DEPS | sed -e 's#,# #g'`
+RUN export OPAMSOLVERTIMEOUT=320 && eval `opam config env` && opam update && opam reinstall -y --verbose pandoc `echo $OPAM_MXE_DEPS | sed -e 's#,# #g'`
