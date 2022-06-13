@@ -6,7 +6,7 @@ SYSTEM=$3
 OCAML_VERSION=$4
 
 if [ -z "${RELEASE}" ]; then
-  RELEASE="master"
+  RELEASE="main"
 fi
 
 if [ -z "${SYSTEM}" ]; then
