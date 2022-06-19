@@ -9,7 +9,8 @@ ARG OS
 ARG DISTRIBUTION
 ARG OCAML_VERSION=4.14.0
 ARG ARCHITECTURE
-ARG EXCLUDED_PACKAGES
+ARG EXCLUDED_PACKAGES="gstreamer"
+ARG SRT_DEB=libsrt-gnutls-dev
 
 # Add back graphics when/if ported to $OCAML_VERSION
 ENV EXT_PACKAGES="ocurl magic camlimages gd inotify prometheus-liquidsoap tsdl tsdl-ttf tsdl-image memtrace mem_usage ssl yojson posix-time2"
@@ -55,12 +56,12 @@ RUN \
       fi; \
     done && cd liquidsoap && opam pin add -y --no-action .
 
-RUN eval $(opam env) && opam list --short --recursive --external --required-by="`echo $EXT_PACKAGES | sed -e 's# #,#g'`,`cat /tmp/packages | while read i; do printf "$i,"; done`,liquidsoap" > /tmp/deps
+RUN eval $(opam env) && opam list --short --recursive --external --required-by="`echo $EXT_PACKAGES | sed -e 's# #,#g'`,`cat /tmp/packages | while read i; do printf "$i,"; done`,liquidsoap" | grep -v srt | grep -v faad > /tmp/deps
 
 USER root
 
 RUN \
-    cat /tmp/deps | xargs apt-get install -y --no-install-recommends libsrt-gnutls-dev libgnutls28-dev && \
+    cat /tmp/deps | xargs apt-get install -y --no-install-recommends $SRT_DEB libfaad-dev && \
     apt-get -y autoclean && apt-get -y clean
 
 USER opam
@@ -69,4 +70,5 @@ USER opam
 RUN \
     eval $(opam config env) && \
     PACKAGES=`cat /tmp/packages | xargs echo` && \
+    cd /tmp/liquidsoap-full/ocaml-faad && git checkout v0.5.0 && opam pin -n . && \
     opam install -y unix-errno.0.5.2 liquidsoap $PACKAGES $EXT_PACKAGES && opam uninstall -y liquidsoap $PACKAGES ffmpeg-avutil
