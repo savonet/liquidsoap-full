@@ -8,7 +8,7 @@ NODE := $(shell which node)
 
 # Versions for which documentation should be built and included
 VERSIONS := dev 1.4.0 1.4.1 1.4.2 1.4.3 1.4.4 2.0.0 2.0.1 2.0.2 2.0.3 2.0.4 2.0.5 2.0.6
-DEFAULT_VERSION := 2.0.5
+DEFAULT_VERSION := 2.0.6
 # DEFAULT_VERSION := dev
 
 # Static content
