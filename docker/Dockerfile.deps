@@ -13,7 +13,7 @@ ARG EXCLUDED_PACKAGES="gstreamer"
 ARG SRT_DEB=libsrt-gnutls-dev
 
 # Add back graphics when/if ported to $OCAML_VERSION
-ENV EXT_PACKAGES="ocurl magic camlimages gd inotify prometheus-liquidsoap tsdl tsdl-ttf tsdl-image memtrace mem_usage ssl yojson posix-time2"
+ENV EXT_PACKAGES="ocurl irc-client-unix osc-unix magic camlimages gd inotify prometheus-liquidsoap tsdl tsdl-ttf tsdl-image memtrace mem_usage ssl yojson posix-time2"
 ENV DEBIAN_FRONTEND=noninteractive
 
 USER root
