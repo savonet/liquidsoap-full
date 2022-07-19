@@ -3756,6 +3756,25 @@ Methods:
 - `stack_size` (of type `int`)
 - `top_heap_words` (of type `int`)
 
+### `runtime.mem_usage.prettify_bytes`
+
+Returns a human-redable description of an amount of bytes.
+
+Type:
+
+```
+(?float_printer : ((float) -> string)?, ?signed : bool?,
+ ?bits : bool?, ?binary : bool?, int) -> string
+```
+
+Arguments:
+
+- `float_printer` (of type `((float) -> string)?`, which defaults to `null`)
+- `signed` (of type `bool?`, which defaults to `null`)
+- `bits` (of type `bool?`, which defaults to `null`)
+- `binary` (of type `bool?`, which defaults to `null`)
+- `(unlabeled)` (of type `int`)
+
 ### `runtime.memory`
 
 Returns information about the system and process' memory usage. Requires `mem_usage` for a full report.
@@ -3771,7 +3790,23 @@ Arguments:
 
 Methods:
 
+- `pretty` (of type `
+{
+  process_managed_memory : string,
+  process_physical_memory : string,
+  process_virtual_memory : string,
+  total_physical_memory : string,
+  total_used_physical_memory : string,
+  total_used_virtual_memory : string,
+  total_virtual_memory : string
+}`)
 - `process_managed_memory` (of type `int`)
+- `process_physical_memory` (of type `int`)
+- `process_virtual_memory` (of type `int`)
+- `total_physical_memory` (of type `int`)
+- `total_used_physical_memory` (of type `int`)
+- `total_used_virtual_memory` (of type `int`)
+- `total_virtual_memory` (of type `int`)
 
 ### `runtime.sys.word_size`
 
