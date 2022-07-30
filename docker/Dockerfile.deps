@@ -10,7 +10,7 @@ ARG DISTRIBUTION
 ARG OCAML_VERSION=4.14.0
 ARG ARCHITECTURE
 ARG EXCLUDED_PACKAGES="gstreamer"
-ARG SRT_DEB=libsrt-gnutls-dev
+ARG SRT_DEB="libsrt-gnutls-dev libgnutls28-dev"
 
 # Add back graphics when/if ported to $OCAML_VERSION
 ENV EXT_PACKAGES="ocurl irc-client-unix osc-unix magic camlimages gd inotify prometheus-liquidsoap tsdl tsdl-ttf tsdl-image memtrace mem_usage ssl yojson posix-time2"
@@ -71,4 +71,4 @@ RUN \
     eval $(opam config env) && \
     PACKAGES=`cat /tmp/packages | xargs echo` && \
     cd /tmp/liquidsoap-full/ocaml-faad && git checkout v0.5.0 && opam pin -n . && \
-    opam install -y unix-errno.0.5.2 liquidsoap $PACKAGES $EXT_PACKAGES && opam uninstall -y liquidsoap $PACKAGES ffmpeg-avutil
+    opam install --no-depexts -y unix-errno.0.5.2 liquidsoap $PACKAGES $EXT_PACKAGES && opam uninstall --no-depexts -y liquidsoap $PACKAGES ffmpeg-avutil
