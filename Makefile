@@ -112,7 +112,7 @@ check-init:
 .PHONY: bootstrap check-init
 
 PKGDIRS:=$(shell for p in $(PKGS) ; do ls -d $$p* | head -1 ; done)
-CONFIGURES:=$(shell for p in $(PKGDIRS); do if [ -f $$p/configure.ac ]; then echo $$p/configure; fi; done)
+CONFIGURES:=$(shell for p in $(PKGDIRS) liquidsoap; do if [ -f $$p/configure.ac ]; then echo $$p/configure; fi; done)
 
 bootstrap: check-init $(CONFIGURES)
 
