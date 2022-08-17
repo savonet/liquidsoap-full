@@ -114,7 +114,7 @@ check-init:
 PKGDIRS:=$(shell for p in $(PKGS) ; do ls -d $$p* | head -1 ; done)
 CONFIGURES:=$(shell for p in $(PKGDIRS); do if [ -f $$p/configure.ac ]; then echo $$p/configure; fi; done)
 
-bootstrap: check-init $(CONFIGURES) $(LIQDIR)/configure
+bootstrap: check-init $(CONFIGURES)
 
 %/configure: %/configure.ac
 	@echo "*** bootstrapping `dirname $@`"
