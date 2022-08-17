@@ -31,7 +31,7 @@ public-module:
 	git branch --set-upstream-to=origin/main main || git branch --set-upstream-to=origin/master master
 
 update:
-	git fetch && git reset --hard && git checkout master && git pull
+	git fetch && git reset --hard origin/master
 	git submodule foreach 'git reset --hard && git fetch && (git checkout main || git checkout master) && git pull'
 
 reset-module:
