@@ -133,3 +133,6 @@
 [submodule "ocaml-mem_usage"]
 	path = ocaml-mem_usage
 	url = https://github.com/savonet/ocaml-mem_usage.git
+[submodule "ocaml-metadata"]
+	path = ocaml-metadata
+	url = https://github.com/savonet/ocaml-metadata.git
