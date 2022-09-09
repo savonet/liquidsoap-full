@@ -15,9 +15,6 @@
 # Input/output
 # ============================================================================
 
-# Cry is the lib for streaming to icecast and compatible servers.
-#ocaml-cry
-
 # AO is portable and stable, but it does only output.
 #ocaml-ao
 
@@ -145,6 +142,8 @@
 # Finally, the mandatory lib dtools, duppy and liquidsoap...
 # ============================================================================
 
+# Cry is the lib for streaming to icecast and compatible servers.
+ocaml-cry
 ocaml-dtools
 ocaml-duppy
 ocaml-mm
