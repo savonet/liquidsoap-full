@@ -49,7 +49,7 @@ RUN \
     cat /tmp/packages | while read package; do \
         cd ocaml-$package && opam pin add -y --no-action . && cd .. \
       fi; \
-    done && cd liquidsoap && opam pin add --no-action .
+    done && cd liquidsoap && opam pin add -y --no-action .
 
 RUN opam list --short --recursive --external --vars os-distribution=debian,os-family=debian --required-by="`cat /tmp/packages | xargs echo liquidsoap $EXT_PACKAGES | sed -e 's# #,#g'`" > /tmp/deps
 
