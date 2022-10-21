@@ -30,10 +30,6 @@ if [ ! -f $LIQDIR/configure ]; then
   ./bootstrap;
 fi;
 
-if [ -z "$CPU_CORES" ]; then
-  DUNE_JOBS="-j $CPU_CORES"
-fi
-
 packages=`grep -v '\#' PACKAGES`
 
 liqdir=`ls -d liquidsoap* | head -n 1`
@@ -44,7 +40,7 @@ for p in `for i in $packages ; do ls -d $i* | head -1 ; done` ; do
   echo
   if test "$p" = "$liqdir" ; then
     if [ -f $p/dune-project ]; then
-      cd $p && dune build @install $DUNE_JOBS && cd ..
+      cd $p && dune build @install && cd ..
     else
       echo ./configure $OPTS $* > $liqdir/configure-with-options
       cd $p && ./configure $OPTS $* && cd ..
