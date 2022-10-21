@@ -23,7 +23,7 @@ RUN cd /usr/src/mxe/ && git config --global user.email "toots@rastageeks.org" &&
 RUN cd /usr/src/mxe/ && git cherry-pick 076849a53efda0710f69fe06bf601d99a4451e8b
 
 RUN cd /usr/src/mxe/ && \
-    cat /home/opam/mxe-deps | xargs make curl
+    cat /home/opam/mxe-deps | xargs make curl fdk-aac
 
 USER opam
 
