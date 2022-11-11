@@ -25,10 +25,7 @@ dependencies. You can read [here](https://opam.ocaml.org/doc/Usage.html) about
 how to use OPAM. In order to use it:
 
 - [you should have at least OPAM version 2.0](https://opam.ocaml.org/doc/Install.html),
-- you should have at least OCaml version   "ocaml" {>= "4.12.0" & < "5.0.0"}, which can be achieved by typing
-  ```
-  opam switch create   "ocaml" {>= "4.12.0" & < "5.0.0"}
-  ```
+- you should have at least OCaml version `4.12.0`
 
 A typical installation with most expected features is done by executing:
 
