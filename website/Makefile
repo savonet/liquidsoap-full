@@ -66,7 +66,7 @@ $(PWD)/content/doc-dev/reference.md $(PWD)/content/doc-dev/reference-extras.md $
 # JS interpreter
 $(PWD)/html/try: $(GENERATED_INTERPRETER_DIR) 
 	@mkdir -p $@
-	@cp -rf $(GENERATED_INTERPRETER_DIR)/liquidsoap_js.bc.js $@
+	@cp -rf $(GENERATED_INTERPRETER_DIR)/interactive_js.bc.js $@
 	@cp -rf $(GENERATED_INTERPRETER_DIR)/index.html $@
 
 define VERSIONED_RULES
