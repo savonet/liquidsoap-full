@@ -7,8 +7,8 @@ PANDOC := pandoc --syntax-definition=liquidsoap.xml --highlight=pygments
 NODE := $(shell which node)
 
 # Versions for which documentation should be built and included
-VERSIONS := dev 1.4.0 1.4.1 1.4.2 1.4.3 1.4.4 2.0.0 2.0.1 2.0.2 2.0.3 2.0.4 2.0.5 2.0.6 2.0.7 2.1.0 2.1.1 2.1.2
-DEFAULT_VERSION := 2.1.2
+VERSIONS := dev 1.4.0 1.4.1 1.4.2 1.4.3 1.4.4 2.0.0 2.0.1 2.0.2 2.0.3 2.0.4 2.0.5 2.0.6 2.0.7 2.1.0 2.1.1 2.1.2 2.1.3
+DEFAULT_VERSION := 2.1.3
 # DEFAULT_VERSION := dev
 
 # Static content
