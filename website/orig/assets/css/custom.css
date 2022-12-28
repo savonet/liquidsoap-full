@@ -1,0 +1,27 @@
+.anchor::before {
+  content: '🔗';
+  opacity: 0.15;
+  display: inline-block;
+  font-size: 20px;
+  padding-right: 12px;
+  margin-left: -12px
+}
+
+.anchor {
+  color: #3c4858; 
+  margin-left: -20px;
+}
+
+.anchor:hover {
+  text-decoration: none;
+  color: #3c4858;
+}
+
+h1:hover > .anchor::before,
+h2:hover > .anchor::before,
+h3:hover > .anchor::before,
+h4:hover > .anchor::before,
+h5:hover > .anchor::before,
+h6:hover > .anchor::before {
+  opacity: 1;
+}

@@ -3,7 +3,7 @@
 PWD := $(shell pwd)
 GENERATED_DOC_DIR := $(PWD)/../liquidsoap/_build/default/doc
 GENERATED_INTERPRETER_DIR := $(PWD)/../liquidsoap/_build/default/src/js
-PANDOC := pandoc --syntax-definition=liquidsoap.xml --highlight=pygments
+PANDOC := pandoc --syntax-definition=liquidsoap.xml --highlight=pygments --lua-filter=tools/option-anchors.lua
 NODE := $(shell which node)
 
 # Versions for which documentation should be built and included
