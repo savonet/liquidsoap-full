@@ -7,7 +7,7 @@ MAINTAINER The Savonet Team <savonet-users@lists.sourceforge.net>
 ARG EXCLUDED_PACKAGES=""
 
 # Add back graphics when/if ported to $OCAML_VERSION
-ENV EXT_PACKAGES="ocurl magic camlimages gd inotify prometheus-liquidsoap sdl-liquidsoap ssl yojson"
+ENV EXT_PACKAGES="ocurl magic camlimages gd inotify prometheus-liquidsoap ssl yojson"
 ENV DEBIAN_FRONTEND=noninteractive
 
 USER root
@@ -51,19 +51,20 @@ RUN \
       fi; \
     done && cd liquidsoap && opam pin add -y --no-action .
 
-RUN opam list --short --recursive --external --vars os-distribution=debian,os-family=debian --required-by="`cat /tmp/packages | xargs echo liquidsoap $EXT_PACKAGES | sed -e 's# #,#g'`" > /tmp/deps
+RUN opam list --short --recursive --external --vars os-distribution=debian,os-family=debian --required-by="`cat /tmp/packages | xargs echo liquidsoap $EXT_PACKAGES conf-srt.2 conf-srt-openssl | sed -e 's# #,#g' `" | grep -v gnutls > /tmp/deps
 
 USER root
 
 RUN \
-    cat /tmp/deps | xargs apt-get install -y --no-install-recommends && \
+    cat /tmp/deps | xargs apt-get install -y --no-install-recommends libcurl4-gnutls-dev && \
     apt-get -y autoclean && apt-get -y clean
 
 USER opam
 
-RUN cd liquidsoap && git pull && opam pin add --no-action .
+RUN cd liquidsoap && git  pull && opam pin add -y --no-action .
 
 RUN \
     eval $(opam config env) && \
     PACKAGES=`cat /tmp/packages | xargs echo` && \
+    EXT_PACKAGES=`echo $EXT_PACKAGES | grep -v sdl` && \
     opam install -y liquidsoap $PACKAGES $EXT_PACKAGES && opam uninstall -y liquidsoap $PACKAGES ffmpeg-avutil
