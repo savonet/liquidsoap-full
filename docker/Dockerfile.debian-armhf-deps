@@ -51,7 +51,7 @@ RUN \
       fi; \
     done && cd liquidsoap && opam pin add -y --no-action .
 
-RUN opam list --short --recursive --external --vars os-distribution=debian,os-family=debian --required-by="`cat /tmp/packages | xargs echo liquidsoap $EXT_PACKAGES conf-srt.2 conf-srt-openssl | sed -e 's# #,#g' `" | grep -v gnutls > /tmp/deps
+RUN opam list --short --external --vars os-distribution=debian,os-family=debian --resolve="`cat /tmp/packages | xargs echo liquidsoap $EXT_PACKAGES conf-srt.2 conf-srt-openssl | sed -e 's# #,#g' `" | grep -v gnutls > /tmp/deps
 
 USER root
 
