@@ -1,6 +1,6 @@
 FROM archlinux
 
-RUN yes | pacman -Sy opam make m4 gcc patch diffutils ffmpeg git automake autoconf pkg-config which 
+RUN pacman --noconfirm -Sy opam make m4 gcc patch diffutils ffmpeg git automake autoconf pkg-config which 
 
 RUN useradd liq && mkdir /home/liq && chown -R liq /home/liq
 
