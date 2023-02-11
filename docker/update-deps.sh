@@ -32,11 +32,3 @@ if [ "$BASE_IMAGE" = "ubuntu:groovy" ]; then
 fi
 
 docker build -t ${BUILD_IMAGE} ${DOCKER_PLATFORM} --build-arg EXTRA_PACKAGES --build-arg EXCLUDED_PACKAGES --build-arg BASE_IMAGE --build-arg OS --build-arg ARCHITECTURE --build-arg DISTRIBUTION -f Dockerfile.deps .
-
-id=$(docker create ${BUILD_IMAGE})
-
-docker export $id | docker import - ${EXPORTED_IMAGE}
-
-docker rm -v $id
-
-docker push ${EXPORTED_IMAGE}

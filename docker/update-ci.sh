@@ -19,5 +19,17 @@ fi
 
 TAG=`echo ${BASE_IMAGE} | sed -e 's#/#_#g' | sed -e 's#:#_#g'`_$ARCHITECTURE
 
-docker ${DOCKER_BUILD} --no-cache --build-arg TAG="${TAG}" -t savonet/liquidsoap-ci:${TAG} -f Dockerfile.ci .
+BUILD_IMAGE=savonet/liquidsoap-ci-with-history:${TAG}
+EXPORTED_IMAGE=savonet/liquidsoap-ci:${TAG}
+
+docker ${DOCKER_BUILD} --no-cache --build-arg TAG="${TAG}" -t ${BUILD_IMAGE} -f Dockerfile.ci .
+
+id=$(docker create ${BUILD_IMAGE})
+
+docker export $id | docker import - ${EXPORTED_IMAGE}
+
+docker rm -v $id
+
+docker push ${EXPORTED_IMAGE}
+
 docker push savonet/liquidsoap-ci:${TAG}
