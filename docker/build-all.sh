@@ -1,6 +1,6 @@
 #!/bin/sh -e
 
-screen -dmS alpine /bin/sh -c "./build-alpine-deps.sh && ./build-ci.sh alpine"
+screen -dmS alpine /bin/sh -c "./build-alpine-ci.sh"
 
 #if uname -a | grep aarch64 >/dev/null; then
 #  screen -dmS debian-armhf -c "./build-armhf-ci.sh debian"
