@@ -14,18 +14,18 @@ else
   DOCKER_PLATFORM=
 fi
 
-if [ "${DISTRIBUTION}" = "focal" ]; then
-  export EXTRA_PACKAGES="conf-srt.1"
-else
-  export EXTRA_PACKAGES="conf-srt-gnutls"
-fi
-
 TAG=`echo ${BASE_IMAGE} | sed -e 's#/#_#g' | sed -e 's#:#_#g'`_$ARCHITECTURE
 BUILD_IMAGE=savonet/liquidsoap-ci-with-history:${TAG}
 EXPORTED_IMAGE=savonet/liquidsoap-ci:${TAG}
 
 export OS=`echo ${BASE_IMAGE} | cut -d':' -f 1`
 export DISTRIBUTION=`echo ${BASE_IMAGE} | cut -d':' -f 2`
+
+if [ "${DISTRIBUTION}" = "focal" ]; then
+  export EXTRA_PACKAGES="conf-srt.1"
+else
+  export EXTRA_PACKAGES="conf-srt-gnutls"
+fi
 
 if [ "$BASE_IMAGE" = "ubuntu:groovy" ]; then
   export EXCLUDED_PACKAGES=srt
