@@ -1,17 +1,20 @@
 #!/bin/sh -e
 
 export BASE_IMAGE=$1
+IS_ARMHF_BUILD=$2
 
 if test -z "${BASE_IMAGE}"; then
   BASE_IMAGE=debian:testing
 fi
 
-if [ "${BASE_IMAGE}" = "arm32v7/debian:bullseye" ]; then
+if [ -n "${IS_ARMHF_BUILD}" ]; then
   ARCHITECTURE=armhf
   DOCKER_PLATFORM="--platform linux/arm/v7"
+  BUILDX=buildx
 else
   ARCHITECTURE=`dpkg --print-architecture`
   DOCKER_PLATFORM=
+  BUILDX=
 fi
 
 TAG=`echo ${BASE_IMAGE} | sed -e 's#/#_#g' | sed -e 's#:#_#g'`_$ARCHITECTURE
@@ -31,7 +34,7 @@ if [ "$BASE_IMAGE" = "ubuntu:groovy" ]; then
   export EXCLUDED_PACKAGES=srt
 fi
 
-docker build -t ${BUILD_IMAGE} ${DOCKER_PLATFORM} --build-arg EXTRA_PACKAGES --build-arg EXCLUDED_PACKAGES --build-arg BASE_IMAGE --build-arg OS --build-arg ARCHITECTURE --build-arg DISTRIBUTION -f Dockerfile.ci .
+docker ${BUILDX} build -t ${BUILD_IMAGE} ${DOCKER_PLATFORM} --build-arg EXTRA_PACKAGES --build-arg EXCLUDED_PACKAGES --build-arg BASE_IMAGE --build-arg OS --build-arg ARCHITECTURE --build-arg DISTRIBUTION -f Dockerfile.ci .
 
 id=$(docker create ${BUILD_IMAGE})
 

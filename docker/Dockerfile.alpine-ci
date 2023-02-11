@@ -65,5 +65,5 @@ RUN \
     opam clean
 
 RUN eval $(opam config env) && \
-  cp PACKAGES.default PACKAGES && \
+  cat PACKAGES.default | while read i; do ( echo $EXCLUDED_PACKAGES | grep -q $i ) || echo "$i"; done > PACKAGES && \
   make
