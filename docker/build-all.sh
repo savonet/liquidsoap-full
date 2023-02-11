@@ -3,8 +3,8 @@
 screen -dmS alpine /bin/sh -c "./build-alpine-deps.sh && ./build-ci.sh alpine"
 
 if uname -a | grep aarch64 >/dev/null; then
-  screen -dmS debian-armhf -c "./build-armhf-deps.sh debian && ./build-ci.sh debian:bookworm armhf"
-  screen -dmS alpine-armhf -c "./build-armhf-deps.sh alpine && ./build-ci.sh alpine armhf"
+  screen -dmS debian-armhf -c "./build-armhf-ci.sh debian"
+  screen -dmS alpine-armhf -c "./build-armhf-ci.sh alpine"
 fi
 
 for image in debian:bullseye debian:bookworm ubuntu:jammy ubuntu:focal; do
