@@ -61,10 +61,12 @@ RUN \
 
 USER opam
 
-RUN cd liquidsoap && git  pull && opam pin add -y --no-action .
+RUN cd liquidsoap && git pull && opam pin add -y --no-action .
 
 RUN \
     eval $(opam config env) && \
     PACKAGES=`cat /tmp/packages | xargs echo` && \
     EXT_PACKAGES=`echo $EXT_PACKAGES | grep -v sdl` && \
-    opam install -y liquidsoap $PACKAGES $EXT_PACKAGES && opam uninstall -y liquidsoap $PACKAGES ffmpeg-avutil
+    opam install -y liquidsoap $PACKAGES $EXT_PACKAGES && \
+    opam uninstall -y liquidsoap $PACKAGES ffmpeg-avutil && \
+    opam clean
