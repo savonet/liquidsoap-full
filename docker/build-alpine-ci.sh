@@ -2,10 +2,10 @@
 
 export ARCHITECTURE=`dpkg --print-architecture`
 TAG=alpine_$ARCHITECTURE
-BUILD_IMAGE=savonet/liquidsoap-deps-with-history:${TAG}
-EXPORTED_IMAGE=savonet/liquidsoap-deps:${TAG}
+BUILD_IMAGE=savonet/liquidsoap-ci-with-history:${TAG}
+EXPORTED_IMAGE=savonet/liquidsoap-ci:${TAG}
 
-docker build --build-arg EXCLUDED_PACKAGES="dssi" -f Dockerfile.alpine-deps . -t ${BUILD_IMAGE}
+docker build -f Dockerfile.alpine-ci . -t ${BUILD_IMAGE}
 
 id=$(docker create ${BUILD_IMAGE})
 

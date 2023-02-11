@@ -12,13 +12,14 @@ ENV EXT_PACKAGES="camomile ocurl irc-client-unix osc-unix magic camlimages gd in
 
 USER root
 
-RUN apk update && \
-    apk upgrade  --no-cache --available && \
-    apk add --no-cache -X http://dl-cdn.alpinelinux.org/alpine/edge/community sudo && \
-    apk add --no-cache -X http://dl-cdn.alpinelinux.org/alpine/edge/testing \
-          aspcud autoconf automake bash build-base curl opam ffmpeg git \
-          openssh-client unzip gnupg libsrt-dev shine liblo-dev sdl2-dev sdl2_ttf-dev \
-          sdl2_image-dev musl-dbg
+RUN echo "https://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories && \
+    echo "https://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories && \
+    apk update && \
+    apk add --no-cache \
+      aspcud autoconf automake bash build-base curl git \
+      openssh-client openssl unzip gnupg sudo musl-dbg
+
+RUN printf "\ny\n" |  bash -c "sh <(curl -fsSL https://raw.githubusercontent.com/ocaml/opam/master/shell/install.sh)"
 
 RUN adduser -D opam
 
@@ -49,9 +50,12 @@ RUN eval $(opam env) && opam list --short --recursive --external --required-by="
 
 USER root
 
-RUN cat /tmp/deps | grep -v libressl | xargs apk add --no-cache -X http://dl-cdn.alpinelinux.org/alpine/edge/testing
+RUN cat /tmp/deps | xargs apk add --no-cache
 
 USER opam
+
+# TODO: remove
+RUN cd /tmp && git clone https://github.com/savonet/ocaml-posix.git && cd ocaml-posix && opam pin -ny .
 
 RUN \
     eval $(opam config env) && \
