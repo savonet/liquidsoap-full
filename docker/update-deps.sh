@@ -14,6 +14,12 @@ else
   DOCKER_PLATFORM=
 fi
 
+if [ "${DISTRIBUTION}" = "focal" ]; then
+  export EXTRA_PACKAGES="conf-srt.1"
+else
+  export EXTRA_PACKAGES="conf-srt-gnutls"
+fi
+
 TAG=`echo ${BASE_IMAGE} | sed -e 's#/#_#g' | sed -e 's#:#_#g'`_$ARCHITECTURE
 BUILD_IMAGE=savonet/liquidsoap-deps-with-history:${TAG}
 EXPORTED_IMAGE=savonet/liquidsoap-deps:${TAG}
@@ -25,7 +31,7 @@ if [ "$BASE_IMAGE" = "ubuntu:groovy" ]; then
   export EXCLUDED_PACKAGES=srt
 fi
 
-docker build -t ${BUILD_IMAGE} ${DOCKER_PLATFORM} --build-arg EXCLUDED_PACKAGES --build-arg BASE_IMAGE --build-arg OS --build-arg ARCHITECTURE --build-arg DISTRIBUTION -f Dockerfile.deps .
+docker build -t ${BUILD_IMAGE} ${DOCKER_PLATFORM} --build-arg EXTRA_PACKAGES --build-arg EXCLUDED_PACKAGES --build-arg BASE_IMAGE --build-arg OS --build-arg ARCHITECTURE --build-arg DISTRIBUTION -f Dockerfile.deps .
 
 id=$(docker create ${BUILD_IMAGE})
 
