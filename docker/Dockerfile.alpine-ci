@@ -8,7 +8,7 @@ ARG OCAML_VERSION=4.14.0
 ARG EXCLUDED_PACKAGES
 
 # Add back graphics when/if ported to $OCAML_VERSION
-ENV EXT_PACKAGES="ocurl irc-client-unix osc-unix magic camlimages gd inotify prometheus-app ssl memtrace posix-time2 tsdl tsdl-image tsdl-ttf mem_usage"
+ENV EXT_PACKAGES="camomile ocurl irc-client-unix osc-unix magic camlimages gd inotify prometheus-liquidsoap tsdl tsdl-ttf tsdl-image memtrace mem_usage ssl yojson posix-time2 yaml osc-unix"
 
 USER root
 
@@ -53,8 +53,13 @@ RUN cat /tmp/deps | grep -v libressl | xargs apk add --no-cache -X http://dl-cdn
 
 USER opam
 
-# See https://github.com/xapi-project/ocaml-unix-errno/pull/2 for unix-errno
 RUN \
     eval $(opam config env) && \
     PACKAGES=`cat /tmp/packages | xargs echo` && \
-    opam install --no-depexts -y unix-errno.0.5.2 liquidsoap $PACKAGES $EXT_PACKAGES && opam uninstall --no-depexts -y liquidsoap $PACKAGES ffmpeg-avutil
+    opam install --no-depexts -y liquidsoap $PACKAGES $EXT_PACKAGES && \
+    opam uninstall --no-depexts -y liquidsoap-lang $PACKAGES ffmpeg-avutil && \
+    opam clean
+
+RUN eval $(opam config env) && \
+  cp PACKAGES.default PACKAGES && \
+  make
