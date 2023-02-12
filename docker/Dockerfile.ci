@@ -66,7 +66,7 @@ RUN eval $(opam env) && opam list --short --external --resolve="`echo $EXT_PACKA
 USER root
 
 RUN \
-    cat /tmp/deps | xargs apt-get install -y --no-install-recommends libfaad-dev && \
+    cat /tmp/deps | xargs apt-get install -y --no-install-recommends && \
     apt-get -y autoclean && apt-get -y clean
 
 USER opam
