@@ -35,6 +35,7 @@ $(PWD)/html/assets/js/%.js: orig/assets/js/%.js
 GENERATED_FILES := $(PWD)/html/doc.html \
                    $(PWD)/html/doc-@@VERSION@@/reference.html \
                    $(PWD)/html/doc-@@VERSION@@/reference-extras.html \
+                   $(PWD)/html/doc-@@VERSION@@/reference-deprecated.html \
                    $(PWD)/html/doc-@@VERSION@@/protocols.html \
                    $(PWD)/html/doc-@@VERSION@@/settings.html
 generated_files_subst = $(subst @@VERSION@@,$(version),$(GENERATED_FILES))
@@ -60,7 +61,7 @@ $(PWD)/html: $(wildcard orig/*)
 
 # Auto-generated content files
 
-$(PWD)/content/doc-dev/reference.md $(PWD)/content/doc-dev/reference-extras.md $(PWD)/content/doc-dev/settings.md $(PWD)/content/doc-dev/protocols.md:
+$(PWD)/content/doc-dev/reference.md $(PWD)/content/doc-dev/reference-extras.md $(PWD)/content/doc-dev/reference-deprecated.md $(PWD)/content/doc-dev/settings.md $(PWD)/content/doc-dev/protocols.md:
 	@cp $(GENERATED_DOC_DIR)/$(shell basename $@) $@ 
 
 # JS interpreter
