@@ -36,7 +36,7 @@ $(document).ready(function () {
   }
 
   // Add all versions to dropdown
-  var versions = $("#liq-version").data("versions").split(" ");
+  var versions = $("#liq-version").data("versions").trim().split(/\n+|\s+/);
   var currentVersion = $("#liq-version").data("version");
   jQuery.each(versions, function (idx, version) {
     var el = $("<a class='dropdown-item' href='/doc-" + version + "'>" + version + "</a>");
