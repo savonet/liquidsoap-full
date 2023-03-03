@@ -23621,7 +23621,7 @@ Arguments:
 
 ### `time.local`
 
-Convert a time in seconds into a date in the local time zone (current time is used if no argument is provided). Fields meaning same as POSIX's `tm struct`. In particular, "year" is: year - 1900, i.e. 117 for 2017!
+Convert a time in seconds into a date in the local time zone (current time is used if no argument is provided).
 
 Type:
 
