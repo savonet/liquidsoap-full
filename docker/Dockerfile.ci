@@ -7,13 +7,13 @@ MAINTAINER The Savonet Team <savonet-users@lists.sourceforge.net>
 
 ARG OS
 ARG DISTRIBUTION
-ARG OCAML_VERSION=4.14.0
+ARG OCAML_VERSION=4.14.1
 ARG ARCHITECTURE
 ARG EXCLUDED_PACKAGES="gstreamer"
 ARG EXTRA_PACKAGES
 
 # Add back graphics when/if ported to $OCAML_VERSION
-ENV EXT_PACKAGES="$EXTRA_PACKAGES camomile ocurl irc-client-unix osc-unix magic camlimages gd inotify prometheus-liquidsoap tsdl tsdl-ttf tsdl-image memtrace mem_usage ssl yojson posix-time2 yaml js_of_ocaml js_of_ocaml-ppx odoc ocaml-option-flambda"
+ENV EXT_PACKAGES="$EXTRA_PACKAGES camomile ocurl irc-client-unix osc-unix magic camlimages gd inotify prometheus-liquidsoap tsdl tsdl-ttf tsdl-image memtrace mem_usage ssl yojson posix-time2 yaml js_of_ocaml js_of_ocaml-ppx odoc"
 ENV DEBIAN_FRONTEND=noninteractive
 
 USER root
@@ -36,7 +36,7 @@ RUN adduser opam
 USER opam
 
 RUN \
-    opam init -y --disable-sandboxing --compiler=$OCAML_VERSION && \
+    opam init -y --disable-sandboxing --compiler=$OCAML_VERSION --packages=ocaml-variants.$OCAML_VERSION+options,ocaml-option-flambda && \
     opam update -y && \
     opam clean
 
@@ -74,7 +74,7 @@ USER opam
 RUN \
     eval $(opam config env) && \
     PACKAGES=`cat /tmp/packages | xargs echo` && \
-    opam install --no-depexts -y --update-invariant liquidsoap $PACKAGES $EXT_PACKAGES && \
+    opam install --no-depexts -y liquidsoap $PACKAGES $EXT_PACKAGES && \
     opam uninstall --no-depexts -y liquidsoap-lang $PACKAGES ffmpeg-avutil && \
     opam clean
 
