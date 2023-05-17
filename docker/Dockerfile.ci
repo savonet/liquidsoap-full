@@ -36,7 +36,7 @@ RUN adduser opam
 USER opam
 
 RUN \
-    opam init -y --disable-sandboxing --base && \
+    opam init -y --disable-sandboxing --bare && \
     opam switch create $OCAML_VERSION ocaml-variants.$OCAML_VERSION+options ocaml-option-flambda && \
     opam update -y && \
     opam clean
