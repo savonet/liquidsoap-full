@@ -75,7 +75,7 @@ USER opam
 RUN \
     eval $(opam config env) && \
     PACKAGES=`cat /tmp/packages | xargs echo` && \
-    opam pin -ny opam pin git+https://github.com/savonet/ocaml-unix-errno && \
+    opam pin -ny git+https://github.com/savonet/ocaml-unix-errno && \
     opam install --no-depexts -y liquidsoap $PACKAGES $EXT_PACKAGES && \
     opam uninstall --no-depexts -y liquidsoap-lang $PACKAGES ffmpeg-avutil && \
     opam clean

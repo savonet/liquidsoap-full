@@ -60,6 +60,7 @@ RUN cd /tmp && git clone https://github.com/savonet/ocaml-posix.git && cd ocaml-
 RUN \
     eval $(opam config env) && \
     PACKAGES=`cat /tmp/packages | xargs echo` && \
+    opam pin -ny git+https://github.com/savonet/ocaml-unix-errno && \
     opam install --no-depexts -y liquidsoap $PACKAGES $EXT_PACKAGES && \
     opam uninstall --no-depexts -y liquidsoap-lang $PACKAGES ffmpeg-avutil && \
     opam clean
