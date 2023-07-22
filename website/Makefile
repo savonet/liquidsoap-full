@@ -1,4 +1,4 @@
-.PHONY: all serve clean upload actual-upload dist
+.PHONY: all serve clean upload actual-upload dist generate_release_content
 
 PWD := $(shell pwd)
 GENERATED_DOC_DIR := $(PWD)/../liquidsoap/_build/default/doc
@@ -45,6 +45,27 @@ all: language.dtd $(PWD)/html $(HTML) $(JS) $(generated_files)
 	@find html -name '.git' | xargs rm -rf --
 
 MODULES_INC := $(wildcard $(PWD)/../ocaml-*/src)
+
+generate_release_content: $(PWD)/content/doc-$(DEFAULT_VERSION)/settings.md $(PWD)/content/doc-$(DEFAULT_VERSION)/protocols.md $(PWD)/content/doc-$(DEFAULT_VERSION)/reference-deprecated.md $(PWD)/content/doc-$(DEFAULT_VERSION)/reference.md $(PWD)/content/doc-$(DEFAULT_VERSION)/reference-extras.md
+
+$(PWD)/content/doc-$(DEFAULT_VERSION)/settings.md:
+	docker run -e PAGER=none savonet/liquidsoap:v$(DEFAULT_VERSION) liquidsoap --list-settings > $(@)
+
+$(PWD)/content/doc-$(DEFAULT_VERSION)/protocols.md:
+	docker run -e PAGER=none savonet/liquidsoap:v$(DEFAULT_VERSION) liquidsoap --list-protocols-md > $(@)
+
+$(PWD)/content/doc-$(DEFAULT_VERSION)/reference-deprecated.md:
+	docker run -e PAGER=none savonet/liquidsoap:v$(DEFAULT_VERSION) liquidsoap --list-deprecated-functions-md > $(@)
+
+$(PWD)/content/doc-$(DEFAULT_VERSION)/reference.md: $(PWD)/content/doc-$(DEFAULT_VERSION)/reference-header.md
+	cat $(PWD)/content/doc-$(DEFAULT_VERSION)/reference-header.md > $(@)
+	echo "" >> $(@)
+	docker run -e PAGER=none savonet/liquidsoap:v$(DEFAULT_VERSION) liquidsoap --list-functions-md >> $(@)
+
+$(PWD)/content/doc-$(DEFAULT_VERSION)/reference-extras.md: $(PWD)/content/doc-$(DEFAULT_VERSION)/reference-header.md
+	cat $(PWD)/content/doc-$(DEFAULT_VERSION)/reference-header.md > $(@)
+	echo "" >> $(@)
+	docker run -e PAGER=none savonet/liquidsoap:v$(DEFAULT_VERSION) liquidsoap --list-extra-functions-md >> $(@)
 
 $(PWD)/html/doc.html: $(PWD)/doc.html
 	sed -e "s#@version@#$(DEFAULT_VERSION)#" < $(<) > $(@) 
