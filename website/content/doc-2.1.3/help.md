@@ -6,8 +6,8 @@ You will learn here how to get help by yourself, by asking liquidsoap.
 If you do not succeed in asking the tool, you can of course get help from
 humans. We maintain the following communication channels:
 
-* Slack: [slack.liquidsoap.info](http://slack.liquidsoap.info/)
-* IRC: #savonet on [irc.libera.chat](https://libera.chat/) (through a slack bridge)
+* Discord: [chat.liquidsoap.info](http://chat.liquidsoap.info/)
+* IRC: #savonet on [irc.libera.chat](https://libera.chat/) (through a discord bridge)
 * Mailing list: [savonet-users@lists.sourceforge.net](mailto:savonet-users@lists.sourceforge.net)
 
 Scripting API
