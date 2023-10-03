@@ -1,4 +1,4 @@
-.PHONY: all serve clean upload actual-upload dist generate_release_content
+.PHONY: all serve clean upload actual-upload dist generate_release_content generate_release_doc
 
 PWD := $(shell pwd)
 GENERATED_DOC_DIR := $(PWD)/../liquidsoap/_build/default/doc
@@ -7,8 +7,8 @@ PANDOC := pandoc --syntax-definition=liquidsoap.xml --highlight=pygments --lua-f
 NODE := $(shell which node)
 
 # Versions for which documentation should be built and included
-VERSIONS := dev 1.4.4 2.0.7 2.1.0 2.1.1 2.1.2 2.1.3 2.1.4 2.2.0
-DEFAULT_VERSION := 2.2.0
+VERSIONS := dev 1.4.4 2.0.7 2.1.0 2.1.1 2.1.2 2.1.3 2.1.4 2.2.0 2.2.1
+DEFAULT_VERSION := 2.2.1
 # DEFAULT_VERSION := dev
 
 # Static content
@@ -45,6 +45,23 @@ all: language.dtd $(PWD)/html $(HTML) $(JS) $(generated_files)
 	@find html -name '.git' | xargs rm -rf --
 
 MODULES_INC := $(wildcard $(PWD)/../ocaml-*/src)
+
+generate_release_doc:
+	rm -rf content/doc-$(DEFAULT_VERSION)
+	rm -rf /tmp/liquidsoap-doc-$(DEFAULT_VERSION)
+	mkdir /tmp/liquidsoap-doc-$(DEFAULT_VERSION)
+	git clone --depth=1 -b v$(DEFAULT_VERSION) https://github.com/savonet/liquidsoap.git /tmp/liquidsoap-doc-$(DEFAULT_VERSION)
+	cp -rf /tmp/liquidsoap-doc-$(DEFAULT_VERSION)/doc/content content/doc-$(DEFAULT_VERSION)
+	rm -rf /tmp/liquidsoap-doc-$(DEFAULT_VERSION)
+	docker run -e PAGER=none savonet/liquidsoap:v$(DEFAULT_VERSION) --list-settings > content/doc-$(DEFAULT_VERSION)/settings.md
+	docker run -e PAGER=none savonet/liquidsoap:v$(DEFAULT_VERSION) --list-protocols-md > content/doc-$(DEFAULT_VERSION)/protocols.md
+	docker run -e PAGER=none savonet/liquidsoap:v$(DEFAULT_VERSION) --list-deprecated-functions-md > content/doc-$(DEFAULT_VERSION)/reference-deprecated.md
+	cat $(PWD)/content/doc-$(DEFAULT_VERSION)/reference-header.md > content/doc-$(DEFAULT_VERSION)/reference.md
+	docker run -e PAGER=none savonet/liquidsoap:v$(DEFAULT_VERSION) --list-functions-md >> content/doc-$(DEFAULT_VERSION)/reference.md
+	cat $(PWD)/content/doc-$(DEFAULT_VERSION)/reference-header.md > content/doc-$(DEFAULT_VERSION)/reference-extras.md
+	docker run -e PAGER=none savonet/liquidsoap:v$(DEFAULT_VERSION) --list-extra-functions-md >> content/doc-$(DEFAULT_VERSION)/reference-extras.md
+	docker run -e PAGER=none savonet/liquidsoap:v$(DEFAULT_VERSION) --list-deprecated-functions-md > content/doc-$(DEFAULT_VERSION)/eference-deprecated.md
+	cp -f template-dev.html template-$(DEFAULT_VERSION).html 
 
 generate_release_content: $(PWD)/content/doc-$(DEFAULT_VERSION)/settings.md $(PWD)/content/doc-$(DEFAULT_VERSION)/protocols.md $(PWD)/content/doc-$(DEFAULT_VERSION)/reference-deprecated.md $(PWD)/content/doc-$(DEFAULT_VERSION)/reference.md $(PWD)/content/doc-$(DEFAULT_VERSION)/reference-extras.md
 
