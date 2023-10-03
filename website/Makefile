@@ -54,6 +54,7 @@ content/doc-$(DEFAULT_VERSION):
 	git clone --depth=1 -b v$(DEFAULT_VERSION) https://github.com/savonet/liquidsoap.git /tmp/liquidsoap-doc-$(DEFAULT_VERSION)
 	cp -rf /tmp/liquidsoap-doc-$(DEFAULT_VERSION)/doc/content content/doc-$(DEFAULT_VERSION)
 	rm -rf /tmp/liquidsoap-doc-$(DEFAULT_VERSION)
+	rm -rf /tmp/liquidsoap-doc-$(DEFAULT_VERSION)/doc/content content/doc-$(DEFAULT_VERSION)/.gitignore
 
 $(PWD)/content/doc-$(DEFAULT_VERSION)/settings.md:
 	docker run -e PAGER=none savonet/liquidsoap:v$(DEFAULT_VERSION) liquidsoap --list-settings > $(@)
