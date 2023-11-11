@@ -16,7 +16,7 @@ USER opam
 
 WORKDIR /tmp/liquidsoap-full
 
-RUN opam install -y js_of_ocaml-ppx js_of_ocaml
+RUN opam install -y js_of_ocaml-ppx js_of_ocaml pandoc-include
 
 RUN rm -rf website/savonet.github.io
 
