@@ -13,7 +13,7 @@ ARG EXCLUDED_PACKAGES="gstreamer"
 ARG EXTRA_PACKAGES
 
 # Add back graphics when/if ported to $OCAML_VERSION
-ENV EXT_PACKAGES="$EXTRA_PACKAGES camomile ocurl irc-client-unix osc-unix magic camlimages gd inotify prometheus-liquidsoap tsdl sdl-liquidsoap tls-liquidsoap memtrace mem_usage ssl yojson posix-time2 yaml js_of_ocaml js_of_ocaml-ppx odoc jemalloc"
+ENV EXT_PACKAGES="$EXTRA_PACKAGES camomile ocurl irc-client-unix osc-unix magic camlimages gd inotify prometheus-liquidsoap tsdl sdl-liquidsoap tls-liquidsoap memtrace mem_usage ssl yojson posix-time2 yaml js_of_ocaml js_of_ocaml-ppx odoc jemalloc re pandoc-include"
 ENV DEBIAN_FRONTEND=noninteractive
 
 USER root
