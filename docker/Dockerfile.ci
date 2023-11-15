@@ -23,7 +23,7 @@ RUN echo "deb http://deb.$OS.org/$OS $DISTRIBUTION non-free" >> /etc/apt/sources
 
 RUN \
     apt-get update && \
-    apt-get install -y --no-install-recommends aspcud autoconf automake \
+    apt-get install -y --no-install-recommends aspcud autoconf automake rsync \
             build-essential ca-certificates curl debhelper devscripts sudo \
             ffmpeg pandoc fakeroot git openssh-client unzip gnupg dirmngr apt-transport-https && \
     apt-get -y autoclean && \
