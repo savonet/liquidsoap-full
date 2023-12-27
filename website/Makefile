@@ -64,12 +64,12 @@ $(PWD)/content/doc-$(DEFAULT_VERSION)/protocols.md:
 $(PWD)/content/doc-$(DEFAULT_VERSION)/reference-deprecated.md:
 	docker run -e PAGER=none savonet/liquidsoap:v$(DEFAULT_VERSION) liquidsoap --list-deprecated-functions-md > $(@)
 
-$(PWD)/content/doc-$(DEFAULT_VERSION)/reference.md: $(PWD)/content/doc-$(DEFAULT_VERSION)/reference-header.md
+$(PWD)/content/doc-$(DEFAULT_VERSION)/reference.md:
 	cat $(PWD)/content/doc-$(DEFAULT_VERSION)/reference-header.md > $(@)
 	echo "" >> $(@)
 	docker run -e PAGER=none savonet/liquidsoap:v$(DEFAULT_VERSION) liquidsoap --list-functions-md >> $(@)
 
-$(PWD)/content/doc-$(DEFAULT_VERSION)/reference-extras.md: $(PWD)/content/doc-$(DEFAULT_VERSION)/reference-header.md
+$(PWD)/content/doc-$(DEFAULT_VERSION)/reference-extras.md:
 	cat $(PWD)/content/doc-$(DEFAULT_VERSION)/reference-header.md > $(@)
 	echo "" >> $(@)
 	docker run -e PAGER=none savonet/liquidsoap:v$(DEFAULT_VERSION) liquidsoap --list-extra-functions-md >> $(@)
