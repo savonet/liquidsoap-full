@@ -31,21 +31,21 @@ $(PWD)/html/assets/js/%.js: orig/assets/js/%.js
 #endif
 
 # Generated content
-GENERATED_FILES := $(PWD)/html/doc.html \
-                   $(PWD)/html/doc-@@VERSION@@/reference.html \
+GENERATED_FILES := $(PWD)/html/doc-@@VERSION@@/reference.html \
                    $(PWD)/html/doc-@@VERSION@@/reference-extras.html \
                    $(PWD)/html/doc-@@VERSION@@/reference-deprecated.html \
                    $(PWD)/html/doc-@@VERSION@@/protocols.html \
                    $(PWD)/html/doc-@@VERSION@@/settings.html
 generated_files_subst = $(subst @@VERSION@@,$(version),$(GENERATED_FILES))
-generated_files := $(foreach version,$(VERSIONS),$(generated_files_subst))
+generated_files := $(PWD)/html/doc.html $(foreach version,$(VERSIONS),$(generated_files_subst))
 
 all: language.dtd $(PWD)/html $(HTML) $(JS) $(generated_files)
 	@find html -name '.git' | xargs rm -rf --
 
 MODULES_INC := $(wildcard $(PWD)/../ocaml-*/src)
 
-generate_release_content: content/doc-$(DEFAULT_VERSION) $(PWD)/content/doc-$(DEFAULT_VERSION)/settings.md $(PWD)/content/doc-$(DEFAULT_VERSION)/protocols.md $(PWD)/content/doc-$(DEFAULT_VERSION)/reference-deprecated.md $(PWD)/content/doc-$(DEFAULT_VERSION)/reference.md $(PWD)/content/doc-$(DEFAULT_VERSION)/reference-extras.md
+generated_release_files := $(subst @@VERSION@@,$(DEFAULT_VERSION),$(GENERATED_FILES))
+generate_release_content: $(patsubst %.html,%.md,$(release_generated_files))
 
 content/doc-$(DEFAULT_VERSION):
 	rm -rf /tmp/liquidsoap-doc-$(DEFAULT_VERSION)
