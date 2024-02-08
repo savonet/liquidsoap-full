@@ -1,4 +1,4 @@
-.PHONY: all serve clean upload actual-upload dist generate_release_content generate_release_doc
+.PHONY: all serve clean upload actual-upload dist generate_release_content 
 
 PWD := $(shell pwd)
 GENERATED_DOC_DIR := $(PWD)/../liquidsoap/_build/default/doc
@@ -6,8 +6,8 @@ GENERATED_INTERPRETER_DIR := $(PWD)/../liquidsoap/_build/default/src/js
 NODE := $(shell which node)
 
 # Versions for which documentation should be built and included
-VERSIONS := dev 1.4.4 2.0.7 2.1.0 2.1.1 2.1.2 2.1.3 2.1.4 2.2.0 2.2.1 2.2.2 2.2.3
-DEFAULT_VERSION := 2.2.3
+VERSIONS := dev 1.4.4 2.0.7 2.1.0 2.1.1 2.1.2 2.1.3 2.1.4 2.2.0 2.2.1 2.2.2 2.2.3 2.2.4
+DEFAULT_VERSION := 2.2.4
 # DEFAULT_VERSION := dev
 
 # Static content
@@ -31,21 +31,21 @@ $(PWD)/html/assets/js/%.js: orig/assets/js/%.js
 #endif
 
 # Generated content
-GENERATED_FILES := $(PWD)/html/doc-@@VERSION@@/reference.html \
+GENERATED_FILES := $(PWD)/html/doc.html \
+                   $(PWD)/html/doc-@@VERSION@@/reference.html \
                    $(PWD)/html/doc-@@VERSION@@/reference-extras.html \
                    $(PWD)/html/doc-@@VERSION@@/reference-deprecated.html \
                    $(PWD)/html/doc-@@VERSION@@/protocols.html \
                    $(PWD)/html/doc-@@VERSION@@/settings.html
 generated_files_subst = $(subst @@VERSION@@,$(version),$(GENERATED_FILES))
-generated_files := $(PWD)/html/doc.html $(foreach version,$(VERSIONS),$(generated_files_subst))
+generated_files := $(foreach version,$(VERSIONS),$(generated_files_subst))
 
 all: language.dtd $(PWD)/html $(HTML) $(JS) $(generated_files)
 	@find html -name '.git' | xargs rm -rf --
 
 MODULES_INC := $(wildcard $(PWD)/../ocaml-*/src)
 
-generated_release_files := $(subst @@VERSION@@,$(DEFAULT_VERSION),$(GENERATED_FILES))
-generate_release_content: $(patsubst %.html,%.md,$(release_generated_files))
+generate_release_content: content/doc-$(DEFAULT_VERSION) $(PWD)/content/doc-$(DEFAULT_VERSION)/settings.md $(PWD)/content/doc-$(DEFAULT_VERSION)/protocols.md $(PWD)/content/doc-$(DEFAULT_VERSION)/reference-deprecated.md $(PWD)/content/doc-$(DEFAULT_VERSION)/reference.md $(PWD)/content/doc-$(DEFAULT_VERSION)/reference-extras.md
 
 content/doc-$(DEFAULT_VERSION):
 	rm -rf /tmp/liquidsoap-doc-$(DEFAULT_VERSION)
