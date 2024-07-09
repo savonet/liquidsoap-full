@@ -19,7 +19,9 @@ ENV DEBIAN_FRONTEND=noninteractive
 USER root
 
 # For libfdk-aac-dev
-RUN echo "deb http://deb.$OS.org/$OS $DISTRIBUTION non-free" >> /etc/apt/sources.list
+RUN if [ "$OS" = "debian"]; then \
+      echo "deb http://deb.$OS.org/$OS $DISTRIBUTION non-free" >> /etc/apt/sources.list; \
+    fi
 
 RUN \
     apt-get update && \
