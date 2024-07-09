@@ -19,8 +19,16 @@ ENV DEBIAN_FRONTEND=noninteractive
 USER root
 
 # For libfdk-aac-dev
-RUN if [ "$OS" = "debian"]; then \
+RUN if [ "$OS" = "debian" ]; then \
       echo "deb http://deb.$OS.org/$OS $DISTRIBUTION non-free" >> /etc/apt/sources.list; \
+    fi
+
+# We need an up-to date ffmpeg on bookworm
+RUN if [ "$DISTRIBUTION" = "bookworm" ]; then \
+      apt-get update && apt install -y ca-certificates && \
+      echo "deb https://www.deb-multimedia.org bookworm main non-free" >> /etc/apt/sources.list && \
+      apt-get update -oAcquire::AllowInsecureRepositories=true && \
+      apt-get install -y --allow-unauthenticated deb-multimedia-keyring \
     fi
 
 RUN \
