@@ -27,8 +27,11 @@ else
   HOST="i686-w64-mingw32.static"
 fi
 
-docker build -f Dockerfile.win32-deps -t ${DEPS_IMAGE} \
+echo docker build -f Dockerfile.win32-deps -t ${DEPS_IMAGE} \
   --build-arg IMAGE=${BASE_IMAGE} .
+
+exit 0
+
 docker build -f Dockerfile.win32 -t ${IMAGE} --no-cache --build-arg RELEASE=${RELEASE} \
   --build-arg IMAGE=${DEPS_IMAGE} --build-arg HOST=${HOST} --build-arg BUILD=${BUILD} .
 id=$(docker create ${IMAGE})

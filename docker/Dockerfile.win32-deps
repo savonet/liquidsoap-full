@@ -1,11 +1,11 @@
 ARG IMAGE
-FROM $IMAGE
+FROM $IMAGE AS base
 
-ENV OPAM_MXE_DEPS=ao-windows,camomile-windows,cry-windows,dtools-windows,duppy-windows,ffmpeg-windows,menhir-windows,mm-windows,ocurl-windows,pcre-windows,portaudio-windows,samplerate-windows,sedlex-windows,ssl-windows,srt-windows,taglib-windows,winsvc-windows
+USER opam
 
-ENV OPAM_NATIVE_DEPS=pcre
+ENV OPAM_MXE_DEPS=ao-windows,camomile-windows,cry-windows,dtools-windows,duppy-windows,ffmpeg-windows,menhir-windows,mm-windows,ocurl-windows,re-windows,portaudio-windows,samplerate-windows,sedlex-windows,ssl-windows,srt-windows,taglib-windows,winsvc-windows
 
-RUN git config --global user.email "toots@rastageeks.org" && git config --global user.name "Romain Beauxis"
+RUN git config --global user.email "savonet@rastageeks.org" && git config --global user.name "Romain Beauxis"
 
 RUN eval `opam config env` && opam repository remove windows --all && \
   cd /home/opam/ && rm -rf opam-cross-windows && \
@@ -16,21 +16,31 @@ RUN eval `opam config env` && opam repository remove windows --all && \
 
 USER root
 
-# This is until all cherry-picks below are removed.
-RUN cd /usr/src/mxe/ && git config --global user.email "toots@rastageeks.org" && git config --global user.name "Romain Beauxis" && git remote add savonet https://github.com/savonet/mxe.git && git fetch savonet
+RUN apt-get -y update && apt-get -y install python3-mako
 
-# We fail to build with those.
-RUN cd /usr/src/mxe/ && git cherry-pick 076849a53efda0710f69fe06bf601d99a4451e8b
+# This is until all cherry-picks below are removed.
+RUN cd /usr/src/mxe/ && git config --global user.email "savonet@rastageeks.org" && git config --global user.name "Romain Beauxis" && git remote add savonet https://github.com/savonet/mxe.git && git fetch savonet
+
+RUN cd /usr/src/mxe/ && git reset --hard 5b255aa669ac479aebfd00377eb5ef95c1c6622f
 
 RUN cd /usr/src/mxe/ && \
     cat /home/opam/mxe-deps | xargs make curl fdk-aac
 
-USER opam
+FROM base AS build
 
-RUN opam reinstall -y $OPAM_NATIVE_DEPS
+USER root
+
+RUN apt-get install -y wine64
+
+USER opam
 
 ENV CC ""
 
 ENV PKG_CONFIG_PATH /usr/src/mxe/usr/x86_64-w64-mingw32.static/lib/pkgconfig
 
-RUN export OPAMSOLVERTIMEOUT=320 && eval `opam config env` && opam update && opam reinstall -y --verbose pandoc `echo $OPAM_MXE_DEPS | sed -e 's#,# #g'`
+ENV TOOLPREF64=/usr/src/mxe/usr/bin/x86_64-w64-mingw32.static-
+
+RUN export OPAMSOLVERTIMEOUT=320 && eval `opam config env` && opam update && opam reinstall -y --verbose pandoc `echo $OPAM_MXE_DEPS | sed -e 's#,# #g' | sed -e 's#ffmpeg-windows##' | sed -e 's#ocurl-windows##' | sed -e 's#src-windows##'`
+
+FROM $IMAGE
+COPY --from=build / /

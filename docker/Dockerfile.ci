@@ -1,5 +1,5 @@
 ARG BASE_IMAGE
-FROM $BASE_IMAGE
+FROM $BASE_IMAGE AS base
 
 ENTRYPOINT bash
 
@@ -24,9 +24,9 @@ RUN if [ "$OS" = "debian" ]; then \
     fi
 
 # We need an up-to date ffmpeg on bookworm
-RUN if [ "$DISTRIBUTION" = "bookworm" ]; then \
+RUN if [ "$DISTRIBUTION" = "bookworm" -o "$DISTRIBUTION" = "trixie" ]; then \
       apt-get update && apt install -y ca-certificates && \
-      echo "deb https://www.deb-multimedia.org bookworm main non-free" >> /etc/apt/sources.list && \
+      echo "deb https://www.deb-multimedia.org $DISTRIBUTION main non-free" >> /etc/apt/sources.list && \
       apt-get update -oAcquire::AllowInsecureRepositories=true && \
       apt-get install -y --allow-unauthenticated deb-multimedia-keyring; \
     fi
@@ -100,3 +100,6 @@ RUN eval $(opam config env) && \
   cd website && \
   git pull && \
   make dist
+
+FROM $BASE_IMAGE
+COPY --from=base / /

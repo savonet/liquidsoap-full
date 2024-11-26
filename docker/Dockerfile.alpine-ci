@@ -1,4 +1,4 @@
-FROM alpine:edge
+FROM alpine:edge AS base
 
 ENTRYPOINT bash
 
@@ -68,3 +68,6 @@ RUN \
 RUN eval $(opam config env) && \
   cat PACKAGES.default | while read i; do ( echo $EXCLUDED_PACKAGES | grep -q `echo $i | cut -d'-' -f 2` ) || echo "$i"; done > PACKAGES && \
   make
+
+FROM alpine:edge
+COPY --from=base / /
