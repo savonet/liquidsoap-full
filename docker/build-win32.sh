@@ -1,39 +1,17 @@
 #!/bin/sh
 
-BUILD=$1
-RELEASE=$2
-SYSTEM=$3
-OCAML_VERSION=$4
-
-if [ -z "${RELEASE}" ]; then
-  RELEASE="main"
-fi
-
-if [ -z "${SYSTEM}" ]; then
-  SYSTEM="x64"
-fi
-
-if [ -z "${OCAML_VERSION}" ]; then
-  OCAML_VERSION=4.12.0
-fi
-
+SYSTEM="x64"
+OCAML_VERSION=4.14.1
 BASE_IMAGE="ocamlcross/windows-${SYSTEM}-base:${OCAML_VERSION}"
-DEPS_IMAGE="savonet/liquidsoap-win32-deps-${SYSTEM}"
 IMAGE="savonet/liquidsoap-win32-${SYSTEM}"
+HOST="x86_64-w64-mingw32.static"
 
-if [ "${SYSTEM}" = "x64" ]; then
-  HOST="x86_64-w64-mingw32.static"
-else
-  HOST="i686-w64-mingw32.static"
-fi
-
-echo docker build -f Dockerfile.win32-deps -t ${DEPS_IMAGE} \
-  --build-arg IMAGE=${BASE_IMAGE} .
-
-exit 0
-
-docker build -f Dockerfile.win32 -t ${IMAGE} --no-cache --build-arg RELEASE=${RELEASE} \
-  --build-arg IMAGE=${DEPS_IMAGE} --build-arg HOST=${HOST} --build-arg BUILD=${BUILD} .
-id=$(docker create ${IMAGE})
-docker cp ${id}:/tmp/liquidsoap-${BUILD}.zip .
-docker rm -v ${id}
+depot build \
+  -f Dockerfile.win32 \
+  -t ${IMAGE} \
+  --platform linux/amd64 \
+  --build-arg RELEASE=${RELEASE} \
+  --build-arg IMAGE=${BASE_IMAGE} \
+  --build-arg HOST=${HOST} \
+  --build-arg BUILD=${BUILD} \
+  .

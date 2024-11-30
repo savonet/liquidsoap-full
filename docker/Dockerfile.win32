@@ -1,30 +1,35 @@
 ARG IMAGE
-FROM $IMAGE
-
-ARG RELEASE=master
-ARG BUILD
-ARG HOST
-
-WORKDIR /tmp
+FROM $IMAGE AS base
 
 USER opam
 
-ENV CC ""
+ENV OPAM_MXE_DEPS=ao-windows,ffmpeg-windows,portaudio-windows,samplerate-windows,ssl-windows,srt-windows,winsvc-windows
 
-RUN eval `opam config env` && opam update && opam reinstall -y pandoc `echo $OPAM_DEPS | sed -e 's#,# #g'`
+RUN eval `opam config env` && opam repository remove windows --all && \
+  cd /home/opam/ && rm -rf opam-cross-windows && \
+  git clone https://github.com/ocaml-cross/opam-cross-windows.git && \
+  cd /home/opam/opam-cross-windows/ && \
+  opam repository add windows . && \
+  opam list --short --recursive --external --vars os-distribution=mxe,os-family=mingw --required-by=$OPAM_MXE_DEPS > /home/opam/mxe-deps
 
-RUN git clone --recursive https://github.com/savonet/liquidsoap.git && \
-    cd liquidsoap && git checkout $RELEASE && ./bootstrap
+USER root
 
-RUN eval `opam config env` && cd /tmp/liquidsoap && \
-  ./configure --enable-custom-path --host=$HOST OCAMLFIND_TOOLCHAIN=windows && \
-  env OCAMLFIND_TOOLCHAIN=windows make
+# We had pick our own HEAD for mxe
+RUN cd /usr/src/mxe/ && \
+    git remote add savonet https://github.com/savonet/mxe.git && \
+    git fetch savonet && \
+    git reset --hard 5b255aa669ac479aebfd00377eb5ef95c1c6622f
 
-RUN mkdir /tmp/win32
+RUN cd /usr/src/mxe/ && \
+    cat /home/opam/mxe-deps | xargs make curl fdk-aac
 
-COPY --chown=opam:root win32 /tmp/win32
+FROM base AS build
 
-RUN eval `opam config env` && mv /tmp/win32 /tmp/liquidsoap-$BUILD && \
-  cd /tmp/liquidsoap-$BUILD && cp /tmp/liquidsoap/src/liquidsoap.exe . && cp /tmp/liquidsoap/libs/*.liq libs && \
-  cp -rf `ocamlfind -toolchain windows ocamlc -where`/../../share/camomile . && \
-  cd .. && zip -r liquidsoap-$BUILD.zip liquidsoap-$BUILD 
+USER opam
+
+ENV PKG_CONFIG_PATH /usr/src/mxe/usr/x86_64-w64-mingw32.static/lib/pkgconfig
+
+RUN export OPAMSOLVERTIMEOUT=320 && eval `opam config env` && opam update && opam reinstall -y --verbose pandoc `echo $OPAM_MXE_DEPS | sed -e 's#,# #g'`
+
+FROM $IMAGE
+COPY --from=build / /
