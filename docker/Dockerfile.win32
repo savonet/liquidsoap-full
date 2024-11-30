@@ -3,7 +3,7 @@ FROM $IMAGE AS base
 
 USER opam
 
-ENV OPAM_MXE_DEPS=ao-windows,ffmpeg-windows,portaudio-windows,samplerate-windows,ssl-windows,srt-windows,winsvc-windows
+ENV OPAM_MXE_DEPS=ao-windows,ffmpeg-windows,portaudio-windows,samplerate-windows,ssl-windows,srt-windows,winsvc-windows,ocurl-windows
 
 RUN eval `opam config env` && opam repository remove windows --all && \
   cd /home/opam/ && rm -rf opam-cross-windows && \
