@@ -63,35 +63,14 @@ ocaml-lame
 # SHINE is for fixed-point MP3 encoding.
 ocaml-shine
 
-# OGG is for ogg/vorbis and ogg/theora encoding and decoding
-ocaml-ogg
-
-# VORBIS is for ogg/vorbis encoding and decoding.
-# you need ocaml-ogg to enable ocaml-vorbis.
-ocaml-vorbis
-
-# SPEEX is for ogg/speex encoding and decoding
-# you need ocaml-ogg to enable ocaml-speex
-ocaml-speex
-
-# THEORA is for ogg/theora encoding and decoding
-# you need ocaml-ogg to enable ocaml-theora
-ocaml-theora
-
-# OPUS is s a lossy audio compression format made especially
-# suitable for interactive real-time applications over the Internet.
-# you need ocaml-ogg to enable ocaml-opus
-ocaml-opus
+# xiph is for all the ogg-related packages
+ocaml-xiph
 
 # FDK-AAC is for AAC and AAC+ encoding
 ocaml-fdkaac
 
 # FAAD for AAC decoding.
 ocaml-faad
-
-# FLAC is for flac, native and/or ogg (if using ocaml-ogg)
-# format decoding and encoding.
-ocaml-flac
 
 # ============================================================================
 # Sound processing

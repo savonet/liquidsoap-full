@@ -30,17 +30,9 @@
 	path = ocaml-bjack
 	url = https://github.com/savonet/ocaml-bjack.git
         ignore = dirty
-[submodule "ocaml-gstreamer"]
-	path = ocaml-gstreamer
-	url = https://github.com/savonet/ocaml-gstreamer.git
-        ignore = dirty
 [submodule "ocaml-mad"]
 	path = ocaml-mad
 	url = https://github.com/savonet/ocaml-mad.git
-        ignore = dirty
-[submodule "ocaml-taglib"]
-	path = ocaml-taglib
-	url = https://github.com/savonet/ocaml-taglib.git
         ignore = dirty
 [submodule "ocaml-lame"]
 	path = ocaml-lame
@@ -50,33 +42,9 @@
 	path = ocaml-shine
 	url = https://github.com/savonet/ocaml-shine.git
         ignore = dirty
-[submodule "ocaml-ogg"]
-	path = ocaml-ogg
-	url = https://github.com/savonet/ocaml-ogg.git
-        ignore = dirty
-[submodule "ocaml-vorbis"]
-	path = ocaml-vorbis
-	url = https://github.com/savonet/ocaml-vorbis.git
-        ignore = dirty
-[submodule "ocaml-speex"]
-	path = ocaml-speex
-	url = https://github.com/savonet/ocaml-speex.git
-        ignore = dirty
-[submodule "ocaml-theora"]
-	path = ocaml-theora
-	url = https://github.com/savonet/ocaml-theora.git
-        ignore = dirty
-[submodule "ocaml-opus"]
-	path = ocaml-opus
-	url = https://github.com/savonet/ocaml-opus.git
-        ignore = dirty
 [submodule "ocaml-faad"]
 	path = ocaml-faad
 	url = https://github.com/savonet/ocaml-faad.git
-        ignore = dirty
-[submodule "ocaml-flac"]
-	path = ocaml-flac
-	url = https://github.com/savonet/ocaml-flac.git
         ignore = dirty
 [submodule "ocaml-ladspa"]
 	path = ocaml-ladspa
@@ -136,3 +104,6 @@
 [submodule "ocaml-metadata"]
 	path = ocaml-metadata
 	url = https://github.com/savonet/ocaml-metadata.git
+[submodule "ocaml-xiph"]
+	path = ocaml-xiph
+	url = https://github.com/savonet/ocaml-xiph

@@ -3,7 +3,7 @@ FROM $IMAGE AS base
 
 USER opam
 
-ENV OPAM_MXE_DEPS=ao-windows,ffmpeg-windows,portaudio-windows,samplerate-windows,ssl-windows,srt-windows,winsvc-windows,ocurl-windows
+ENV OPAM_MXE_DEPS=ao-windows,ffmpeg-windows,portaudio-windows,samplerate-windows,ssl-windows,srt-windows,winsvc-windows,curl-windows
 
 RUN eval `opam config env` && opam repository remove windows --all && \
   cd /home/opam/ && rm -rf opam-cross-windows && \
@@ -18,10 +18,10 @@ USER root
 RUN cd /usr/src/mxe/ && \
     git remote add savonet https://github.com/savonet/mxe.git && \
     git fetch savonet && \
-    git reset --hard 5b255aa669ac479aebfd00377eb5ef95c1c6622f
+    git reset --hard dfe5f11ca6abd14387f83b6d0cfa8d729adda361
 
 RUN cd /usr/src/mxe/ && \
-    cat /home/opam/mxe-deps | xargs make curl fdk-aac
+    cat /home/opam/mxe-deps | xargs make fdk-aac
 
 FROM base AS build
 

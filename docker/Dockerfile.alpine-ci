@@ -54,9 +54,6 @@ RUN cat /tmp/deps | xargs apk add --no-cache
 
 USER opam
 
-# TODO: remove
-RUN cd /tmp && git clone https://github.com/savonet/ocaml-posix.git && cd ocaml-posix && opam pin -ny .
-
 RUN \
     eval $(opam config env) && \
     PACKAGES=`cat /tmp/packages | xargs echo` && \
