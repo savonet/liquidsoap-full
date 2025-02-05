@@ -35,11 +35,6 @@ ocaml-pulseaudio
 # and easy communication between audio applications.
 ocaml-bjack
 
-# Gstreamer is a library for constructing graphs of media-handling components.
-# It is currently used to provide audio and video encoding and decoding
-# as well as input and outputs such as V4l inputs.
-ocaml-gstreamer
-
 # Srt enabled input and output using the Secure, Reliable, Transport protocol library.
 ocaml-srt
 
@@ -53,9 +48,6 @@ ocaml-ffmpeg
 
 # MAD is for MP3 decoding.
 ocaml-mad
-
-# TAGLIB is for reading tag in media files.
-ocaml-taglib
 
 # LAME is for MP3 encoding.
 ocaml-lame

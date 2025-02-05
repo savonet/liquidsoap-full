@@ -9,11 +9,11 @@ ARG OS
 ARG DISTRIBUTION
 ARG OCAML_VERSION=4.14.2
 ARG ARCHITECTURE
-ARG EXCLUDED_PACKAGES="gstreamer"
+ARG EXCLUDED_PACKAGES="xiph"
 ARG EXTRA_PACKAGES
 
 # Add back graphics when/if ported to $OCAML_VERSION
-ENV EXT_PACKAGES="$EXTRA_PACKAGES camomile ocurl irc-client-unix osc-unix gd inotify prometheus-liquidsoap tsdl sdl-liquidsoap tls-liquidsoap memtrace mem_usage ssl yojson posix-time2 yaml js_of_ocaml js_of_ocaml-ppx odoc re sqlite3 pandoc-include"
+ENV EXT_PACKAGES="$EXTRA_PACKAGES camomile ocurl irc-client-unix osc-unix gd inotify prometheus-liquidsoap tsdl sdl-liquidsoap tls-liquidsoap memtrace mem_usage ssl yojson posix-time2 yaml js_of_ocaml js_of_ocaml-ppx odoc re sqlite3 pandoc-include odoc ocaml-pandoc"
 ENV DEBIAN_FRONTEND=noninteractive
 
 USER root
@@ -53,13 +53,17 @@ RUN \
 
 WORKDIR /tmp
 
+RUN git clone https://github.com/smimram/ocaml-pandoc.git ocaml-pandoc && \
+    opam pin -y add ocaml-pandoc
+
 RUN git clone https://github.com/savonet/liquidsoap-full.git
 
 WORKDIR /tmp/liquidsoap-full
 
 RUN make init && make update
 
-RUN cat PACKAGES.default | grep '^ocaml' | cut -d'-' -f 2 | while read i; do ( echo $EXCLUDED_PACKAGES | grep -q $i ) || echo "$i"; done > /tmp/packages
+RUN cat PACKAGES.default | grep '^ocaml' | cut -d'-' -f 2 | while read i; do ( echo $EXCLUDED_PACKAGES | grep -q $i ) || echo "$i"; done > /tmp/packages && \
+    find ocaml-xiph | grep '.opam$' | cut -d'/' -f 2 | cut -d'.' -f 1 >> /tmp/packages
 
 RUN cd liquidsoap && git pull
 
