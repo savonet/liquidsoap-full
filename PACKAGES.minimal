@@ -119,4 +119,5 @@ ocaml-dtools
 ocaml-duppy
 ocaml-mm
 ocaml-metadata
+ocaml-mem_usage
 liquidsoap
