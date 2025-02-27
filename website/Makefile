@@ -6,8 +6,8 @@ GENERATED_INTERPRETER_DIR := $(PWD)/../liquidsoap/_build/default/src/js
 NODE := $(shell which node)
 
 # Versions for which documentation should be built and included
-VERSIONS := dev 1.4.4 2.1.4 2.2.0 2.2.1 2.2.2 2.2.3 2.2.4 2.2.5 2.3.0
-DEFAULT_VERSION := 2.3.0
+VERSIONS := dev 1.4.4 2.1.4 2.2.0 2.2.1 2.2.2 2.2.3 2.2.4 2.2.5 2.3.0 2.3.1
+DEFAULT_VERSION := 2.3.1
 # DEFAULT_VERSION := dev
 
 # Static content
@@ -45,7 +45,7 @@ all: language.dtd $(PWD)/html $(HTML) $(JS) $(generated_files)
 
 MODULES_INC := $(wildcard $(PWD)/../ocaml-*/src)
 
-generate_release_content: content/doc-$(DEFAULT_VERSION) $(PWD)/content/doc-$(DEFAULT_VERSION)/settings.md $(PWD)/content/doc-$(DEFAULT_VERSION)/protocols.md $(PWD)/content/doc-$(DEFAULT_VERSION)/reference-deprecated.md $(PWD)/content/doc-$(DEFAULT_VERSION)/reference.md $(PWD)/content/doc-$(DEFAULT_VERSION)/reference-extras.md
+generate_release_content: template-$(DEFAULT_VERSION).html content/doc-$(DEFAULT_VERSION) $(PWD)/content/doc-$(DEFAULT_VERSION)/settings.md $(PWD)/content/doc-$(DEFAULT_VERSION)/protocols.md $(PWD)/content/doc-$(DEFAULT_VERSION)/reference-deprecated.md $(PWD)/content/doc-$(DEFAULT_VERSION)/reference.md $(PWD)/content/doc-$(DEFAULT_VERSION)/reference-extras.md
 
 content/doc-$(DEFAULT_VERSION):
 	rm -rf /tmp/liquidsoap-doc-$(DEFAULT_VERSION)
@@ -54,6 +54,9 @@ content/doc-$(DEFAULT_VERSION):
 	cp -rf /tmp/liquidsoap-doc-$(DEFAULT_VERSION)/doc/content content/doc-$(DEFAULT_VERSION)
 	rm -rf /tmp/liquidsoap-doc-$(DEFAULT_VERSION)
 	rm -rf /tmp/liquidsoap-doc-$(DEFAULT_VERSION)/doc/content content/doc-$(DEFAULT_VERSION)/.gitignore
+
+template-$(DEFAULT_VERSION).html:
+	cp template-dev.html template-$(DEFAULT_VERSION).html
 
 $(PWD)/content/doc-$(DEFAULT_VERSION)/settings.md:
 	docker run -e PAGER=none savonet/liquidsoap:v$(DEFAULT_VERSION) liquidsoap --list-settings > $(@)
