@@ -40,7 +40,7 @@ for p in `for i in $packages ; do ls -d $i* | head -1 ; done` ; do
   echo
   if test "$p" = "$liqdir" ; then
     if [ -f $p/dune-project ]; then
-      cd $p && dune subst && dune build @install && cd ..
+      cd $p && dune build @install && cd ..
     else
       echo ./configure $OPTS $* > $liqdir/configure-with-options
       cd $p && ./configure $OPTS $* && cd ..
