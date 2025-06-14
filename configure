@@ -25,11 +25,6 @@ if [ ! -f PACKAGES ]; then
   exit 1;
 fi;
 
-if [ ! -f $LIQDIR/configure ]; then
-  echo "You don't seem to have bootstraped yet. I'm doing it for you.";
-  ./bootstrap;
-fi;
-
 packages=`grep -v '\#' PACKAGES`
 
 liqdir=`ls -d liquidsoap* | head -n 1`
