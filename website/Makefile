@@ -105,7 +105,7 @@ define VERSIONED_RULES
 $(PWD)/html/doc-$(version)/%.html: $(PWD)/content/doc-$(version)/%.md $(PWD)/template-$(version).html
 	@echo Converting $$(<) to $$(@)...
 	@test -d $$(shell dirname $$(@)) || (mkdir -p $$(shell dirname $$(@)))
-	@pandoc $$< -t json | pandoc-include --directory $(PWD)/content/doc-$(version)/liq | pandoc -f json --syntax-definition=liquidsoap.xml --highlight=pygments --lua-filter=tools/option-anchors.lua --template template-$(version).html --metadata version=$(version) --metadata versions="$(VERSIONS)" --metadata pagetitle="$$(basename $$(notdir $$@))" -o $$@
+	@pandoc $$< -t json | opam exec pandoc-include -- --directory $(PWD)/content/doc-$(version)/liq | pandoc -f json --syntax-definition=liquidsoap.xml --highlight=pygments --lua-filter=tools/option-anchors.lua --template template-$(version).html --metadata version=$(version) --metadata versions="$(VERSIONS)" --metadata pagetitle="$$(basename $$(notdir $$@))" -o $$@
 
 $(PWD)/html/doc-$(version)/images/%: $(PWD)/content/doc-$(version)/images/%
 	@echo "$$(<) -> $$(@)"
