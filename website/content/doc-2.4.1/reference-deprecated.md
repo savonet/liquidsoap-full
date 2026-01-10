@@ -1,0 +1,2852 @@
+- [Liquidsoap](#liquidsoap)
+- [Uncategorized](#uncategorized)
+
+## Liquidsoap
+
+### `deprecated`
+
+Mark a function as deprecated.
+
+Type:
+
+```
+('a, string) -> unit
+```
+
+Arguments:
+
+- `(unlabeled)` (of type `'a`): Old function name.
+- `(unlabeled)` (of type `string`): New function name.
+
+### `register_flow`
+
+Deprecated: flow is no longer maintained Register a radio on Liquidsoap Flows.
+
+Type:
+
+```
+(?server : string, ?user : string, ?password : string, ?email : string,
+ radio : string, website : string, description : string, genre : string,
+ streams : [string * string], 'b
+ .{on_metadata : ((([string * string]) -> unit)) -> 'a}) -> 'a
+```
+
+Arguments:
+
+- `server` (of type `string`, which defaults to `""`)
+- `user` (of type `string`, which defaults to `"default"`)
+- `password` (of type `string`, which defaults to `"default"`)
+- `email` (of type `string`, which defaults to `""`)
+- `radio` (of type `string`): Name of the radio.
+- `website` (of type `string`): URL of the website of the radio.
+- `description` (of type `string`): Description of the radio.
+- `genre` (of type `string`): Genre of the radio (rock or rap or etc.).
+- `streams` (of type `[string * string]`): List of streams for the radio described by a pair of strings consisting of the format of the stream and the url of the stream. The format should be of the form "ogg/128k" consisting of the codec and the bitrate, separated by "/".
+- `(unlabeled)` (of type `'b.{on_metadata : ((([string * string]) -> unit)) -> 'a}`)
+
+## Uncategorized
+
+### `add_metadata_resolver`
+
+Deprecated: use `decoder.metadata.add`.
+
+Type:
+
+```
+(string, ((metadata : [string * string], string) -> [string * string])) ->
+unit
+```
+
+Arguments:
+
+- `(unlabeled)` (of type `string`)
+- `(unlabeled)` (of type `(metadata : [string * string], string) -> [string * string]`)
+
+### `add_playlist_parser`
+
+Deprecated: use `playlist.parse.register` instead
+
+Type:
+
+```
+(name : string, mimes : [string], strict : bool,
+ ((?pwd : string, string) -> [[string * string] * string])) -> unit
+```
+
+Arguments:
+
+- `name` (of type `string`)
+- `mimes` (of type `[string]`)
+- `strict` (of type `bool`)
+- `(unlabeled)` (of type `(?pwd : string, string) -> [[string * string] * string]`)
+
+### `add_protocol`
+
+Deprecated: use `protocol.add`.
+
+Type:
+
+```
+(?temporary : bool, ?static : ((string) -> bool), ?syntax : string,
+ ?doc : string, string,
+ ((rlog : ((string) -> unit), maxtime : float, string) -> string?)) -> unit
+```
+
+Arguments:
+
+- `temporary` (of type `bool`, which defaults to `false`)
+- `static` (of type `(string) -> bool`, which defaults to `fun (_) -> false`)
+- `syntax` (of type `string`, which defaults to `"Undocumented"`)
+- `doc` (of type `string`, which defaults to `"Undocumented"`)
+- `(unlabeled)` (of type `string`)
+- `(unlabeled)` (of type `(rlog : ((string) -> unit), maxtime : float, string) -> string?`)
+
+### `add_timeout`
+
+Deprecated: this function has been replaced by `thread.run.recurrent`.
+
+Type:
+
+```
+(?fast : bool, float, (() -> float)) -> unit
+```
+
+Arguments:
+
+- `fast` (of type `bool`, which defaults to `true`)
+- `(unlabeled)` (of type `float`)
+- `(unlabeled)` (of type `() -> float`)
+
+### `at`
+
+Deprecated: use `at` instead.
+
+Type:
+
+```
+({bool}, source('a)) -> source('a)
+```
+
+Arguments:
+
+- `(unlabeled)` (of type `{bool}`)
+- `(unlabeled)` (of type `source('a)`)
+
+Methods:
+
+- `buffered` (of type `() -> [string * float]`): Length of buffered data.
+- `clock` (of type `clock`): The source's clock
+- `duration` (of type `() -> float`): Estimation of the duration of the current track.
+- `elapsed` (of type `() -> float`): Elapsed time in the current track.
+- `fallible` (of type `bool`): Indicate if a source may fail, i.e. may not be ready to stream.
+- `generate_frame` (of type `() -> unit`): Generate a frame from the source without consuming it. This can be useful in advanced cases where generating a frame is required to trigger some side effect like calculating some metadata before making a decision. You should make sure that the source is available before calling this function and it should only be called inside synchronous streaming loop callback such as `on_frame`!
+- `id` (of type `() -> string`): Identifier of the source.
+- `insert_metadata` (of type `(?new_track : bool, [string * string]) -> unit`): Dynamically insert metadata in a stream. Inserts a new track with the given metadata if `new_track` is `true`.
+- `is_active` (of type `() -> bool`): `true` if the source is active, i.e. it is continuously animated by its own clock whenever it is ready. Typically, `true` for outputs and sources such as `input.http`.
+- `is_ready` (of type `() -> bool`): Indicate if a source is ready to stream. This does not mean that the source is currently streaming, just that its resources are all properly initialized.
+- `is_up` (of type `() -> bool`): Indicate that the source can be asked to produce some data at any time. This is `true` when the source is currently being used or if it could be used at any time, typically inside a `switch` or `fallback`.
+- `last_metadata` (of type `() -> [string * string]?`): Return the last metadata from the source.
+- `log` (of type `{level : (() -> int).{set : (int) -> unit}}`): Get or set the source's log level, from `1` to `5`.
+- `register_command` (of type `(?usage : string?, description : string, string, ((string) -> string)) ->
+unit`): Register a server command for this source. Command is registered under the source's id namespace when it gets up and de-registered when it gets down.
+- `remaining` (of type `() -> float`): Estimation of remaining time in the current track.
+- `reset_last_metadata_on_track` (of type `(() -> bool).{set : (bool) -> unit}`): If `true`, the source's `last_metadata` is reset on each new track. If a metadata is present along with the track mark, then it becomes the new `last_metadata`, otherwise, `last_metadata becomes `null`.
+- `seek` (of type `(float) -> float`): Seek forward, in seconds (returns the amount of time effectively seeked).
+- `self_sync` (of type `() -> bool`): Is the source currently controlling its own real-time loop.
+- `skip` (of type `() -> unit`): Skip to the next track.
+- `time` (of type `() -> float`): Get a source's time, based on its assigned clock.
+
+Callbacks:
+
+- `on_frame` (of type `(?before : bool, synchronous : bool, (() -> unit)) -> unit`): Call a given handler on frame. When `before` is `true`, callback is executed before computing the frame and after otherwise
+- `on_metadata` (of type `(synchronous : bool, (([string * string]) -> unit)) -> unit`): Call a given handler to execute on each metadata
+- `on_position` (of type `(position : {float}, ?remaining : bool, ?allow_partial : bool,
+ synchronous : bool, ((float, [string * string]) -> unit)) -> unit`): Call a given handler on track position. If `remaining` is `false`, callback is executed when position in track is more or equal to `position`. If `remaining` is `true`, callback is executed when remaining time in the current track is less or equal to `position`. Keep in mind that elapsed time is exact while remaining time is always estimated. Remaining time is usually more accurate for file-based sources. When `allow_partial` is `true`, if the current track ends before the `offset` position is reached, callback is still executed
+- `on_shutdown` (of type `(synchronous : bool, (() -> unit)) -> unit`): Call a given handler to be called when source shuts down
+- `on_track` (of type `(synchronous : bool, (([string * string]) -> unit)) -> unit`): Call a given handler on track marks
+- `on_wake_up` (of type `(synchronous : bool, (() -> unit)) -> unit`): Call a given handler to be called after the source is asked to get ready
+
+### `audio_to_stereo`
+
+Deprecated: use `source.stereo`
+
+Type:
+
+```
+(?id : string?, source(audio=pcm('a), 'b)) -> source(audio=pcm(stereo), 'b)
+where 'b is a set of tracks to be muxed into a source
+```
+
+Arguments:
+
+- `id` (of type `string?`, which defaults to `null`)
+- `(unlabeled)` (of type `source(audio=pcm('a), 'b)
+where 'b is a set of tracks to be muxed into a source`)
+
+Methods:
+
+- `buffered` (of type `() -> [string * float]`): Length of buffered data.
+- `clock` (of type `clock`): The source's clock
+- `duration` (of type `() -> float`): Estimation of the duration of the current track.
+- `elapsed` (of type `() -> float`): Elapsed time in the current track.
+- `fallible` (of type `bool`): Indicate if a source may fail, i.e. may not be ready to stream.
+- `generate_frame` (of type `() -> unit`): Generate a frame from the source without consuming it. This can be useful in advanced cases where generating a frame is required to trigger some side effect like calculating some metadata before making a decision. You should make sure that the source is available before calling this function and it should only be called inside synchronous streaming loop callback such as `on_frame`!
+- `id` (of type `() -> string`): Identifier of the source.
+- `insert_metadata` (of type `(?new_track : bool, [string * string]) -> unit`): Dynamically insert metadata in a stream. Inserts a new track with the given metadata if `new_track` is `true`.
+- `is_active` (of type `() -> bool`): `true` if the source is active, i.e. it is continuously animated by its own clock whenever it is ready. Typically, `true` for outputs and sources such as `input.http`.
+- `is_ready` (of type `() -> bool`): Indicate if a source is ready to stream. This does not mean that the source is currently streaming, just that its resources are all properly initialized.
+- `is_up` (of type `() -> bool`): Indicate that the source can be asked to produce some data at any time. This is `true` when the source is currently being used or if it could be used at any time, typically inside a `switch` or `fallback`.
+- `last_metadata` (of type `() -> [string * string]?`): Return the last metadata from the source.
+- `log` (of type `{level : (() -> int).{set : (int) -> unit}}`): Get or set the source's log level, from `1` to `5`.
+- `register_command` (of type `(?usage : string?, description : string, string, ((string) -> string)) ->
+unit`): Register a server command for this source. Command is registered under the source's id namespace when it gets up and de-registered when it gets down.
+- `remaining` (of type `() -> float`): Estimation of remaining time in the current track.
+- `reset_last_metadata_on_track` (of type `(() -> bool).{set : (bool) -> unit}`): If `true`, the source's `last_metadata` is reset on each new track. If a metadata is present along with the track mark, then it becomes the new `last_metadata`, otherwise, `last_metadata becomes `null`.
+- `seek` (of type `(float) -> float`): Seek forward, in seconds (returns the amount of time effectively seeked).
+- `self_sync` (of type `() -> bool`): Is the source currently controlling its own real-time loop.
+- `skip` (of type `() -> unit`): Skip to the next track.
+- `time` (of type `() -> float`): Get a source's time, based on its assigned clock.
+
+Callbacks:
+
+- `on_frame` (of type `(?before : bool, synchronous : bool, (() -> unit)) -> unit`): Call a given handler on frame. When `before` is `true`, callback is executed before computing the frame and after otherwise
+- `on_metadata` (of type `(synchronous : bool, (([string * string]) -> unit)) -> unit`): Call a given handler to execute on each metadata
+- `on_position` (of type `(position : {float}, ?remaining : bool, ?allow_partial : bool,
+ synchronous : bool, ((float, [string * string]) -> unit)) -> unit`): Call a given handler on track position. If `remaining` is `false`, callback is executed when position in track is more or equal to `position`. If `remaining` is `true`, callback is executed when remaining time in the current track is less or equal to `position`. Keep in mind that elapsed time is exact while remaining time is always estimated. Remaining time is usually more accurate for file-based sources. When `allow_partial` is `true`, if the current track ends before the `offset` position is reached, callback is still executed
+- `on_shutdown` (of type `(synchronous : bool, (() -> unit)) -> unit`): Call a given handler to be called when source shuts down
+- `on_track` (of type `(synchronous : bool, (([string * string]) -> unit)) -> unit`): Call a given handler on track marks
+- `on_wake_up` (of type `(synchronous : bool, (() -> unit)) -> unit`): Call a given handler to be called after the source is asked to get ready
+
+### `base64.decode`
+
+Deprecated: this function has been replaced by `string.base64.decode`.
+
+Type:
+
+```
+(string) -> string
+```
+
+Arguments:
+
+- `(unlabeled)` (of type `string`)
+
+### `base64.encode`
+
+Deprecated: this function has been replaced by `string.base64.encode`.
+
+Type:
+
+```
+(string) -> string
+```
+
+Arguments:
+
+- `(unlabeled)` (of type `string`)
+
+### `compress.old`
+
+Deprecated: use `compress`
+
+Type:
+
+```
+(?id : string?, source(audio=pcm('a), 'b)) -> source(audio=pcm('a)
+.{gain? : never, rms? : never}, 'b)
+where 'b is a set of tracks to be muxed into a source
+```
+
+Arguments:
+
+- `id` (of type `string?`, which defaults to `null`)
+- `(unlabeled)` (of type `source(audio=pcm('a), 'b)
+where 'b is a set of tracks to be muxed into a source`)
+
+Methods:
+
+- `buffered` (of type `() -> [string * float]`): Length of buffered data.
+- `clock` (of type `clock`): The source's clock
+- `duration` (of type `() -> float`): Estimation of the duration of the current track.
+- `elapsed` (of type `() -> float`): Elapsed time in the current track.
+- `fallible` (of type `bool`): Indicate if a source may fail, i.e. may not be ready to stream.
+- `gain` (of type `() -> float`): 
+- `generate_frame` (of type `() -> unit`): Generate a frame from the source without consuming it. This can be useful in advanced cases where generating a frame is required to trigger some side effect like calculating some metadata before making a decision. You should make sure that the source is available before calling this function and it should only be called inside synchronous streaming loop callback such as `on_frame`!
+- `id` (of type `() -> string`): Identifier of the source.
+- `insert_metadata` (of type `(?new_track : bool, [string * string]) -> unit`): Dynamically insert metadata in a stream. Inserts a new track with the given metadata if `new_track` is `true`.
+- `is_active` (of type `() -> bool`): `true` if the source is active, i.e. it is continuously animated by its own clock whenever it is ready. Typically, `true` for outputs and sources such as `input.http`.
+- `is_ready` (of type `() -> bool`): Indicate if a source is ready to stream. This does not mean that the source is currently streaming, just that its resources are all properly initialized.
+- `is_up` (of type `() -> bool`): Indicate that the source can be asked to produce some data at any time. This is `true` when the source is currently being used or if it could be used at any time, typically inside a `switch` or `fallback`.
+- `last_metadata` (of type `() -> [string * string]?`): Return the last metadata from the source.
+- `log` (of type `{level : (() -> int).{set : (int) -> unit}}`): Get or set the source's log level, from `1` to `5`.
+- `register_command` (of type `(?usage : string?, description : string, string, ((string) -> string)) ->
+unit`): Register a server command for this source. Command is registered under the source's id namespace when it gets up and de-registered when it gets down.
+- `remaining` (of type `() -> float`): Estimation of remaining time in the current track.
+- `reset_last_metadata_on_track` (of type `(() -> bool).{set : (bool) -> unit}`): If `true`, the source's `last_metadata` is reset on each new track. If a metadata is present along with the track mark, then it becomes the new `last_metadata`, otherwise, `last_metadata becomes `null`.
+- `rms` (of type `() -> float`): 
+- `seek` (of type `(float) -> float`): Seek forward, in seconds (returns the amount of time effectively seeked).
+- `self_sync` (of type `() -> bool`): Is the source currently controlling its own real-time loop.
+- `skip` (of type `() -> unit`): Skip to the next track.
+- `time` (of type `() -> float`): Get a source's time, based on its assigned clock.
+
+Callbacks:
+
+- `on_frame` (of type `(?before : bool, synchronous : bool, (() -> unit)) -> unit`): Call a given handler on frame. When `before` is `true`, callback is executed before computing the frame and after otherwise
+- `on_metadata` (of type `(synchronous : bool, (([string * string]) -> unit)) -> unit`): Call a given handler to execute on each metadata
+- `on_position` (of type `(position : {float}, ?remaining : bool, ?allow_partial : bool,
+ synchronous : bool, ((float, [string * string]) -> unit)) -> unit`): Call a given handler on track position. If `remaining` is `false`, callback is executed when position in track is more or equal to `position`. If `remaining` is `true`, callback is executed when remaining time in the current track is less or equal to `position`. Keep in mind that elapsed time is exact while remaining time is always estimated. Remaining time is usually more accurate for file-based sources. When `allow_partial` is `true`, if the current track ends before the `offset` position is reached, callback is still executed
+- `on_shutdown` (of type `(synchronous : bool, (() -> unit)) -> unit`): Call a given handler to be called when source shuts down
+- `on_track` (of type `(synchronous : bool, (([string * string]) -> unit)) -> unit`): Call a given handler on track marks
+- `on_wake_up` (of type `(synchronous : bool, (() -> unit)) -> unit`): Call a given handler to be called after the source is asked to get ready
+
+### `cue_cut`
+
+Deprecated: integrated into requests resolution.
+
+Type:
+
+```
+(?id : string?, ?cue_in_metadata : string, ?cue_out_metadata : string,
+ ?on_cue_in : (() -> unit), ?on_cue_out : (() -> unit), 'a) -> 'a
+```
+
+Arguments:
+
+- `id` (of type `string?`, which defaults to `""`)
+- `cue_in_metadata` (of type `string`, which defaults to `""`)
+- `cue_out_metadata` (of type `string`, which defaults to `""`)
+- `on_cue_in` (of type `() -> unit`, which defaults to `{()}`)
+- `on_cue_out` (of type `() -> unit`, which defaults to `{()}`)
+- `(unlabeled)` (of type `'a`)
+
+### `drop_audio`
+
+Deprecated: use `source.drop.audio`
+
+Type:
+
+```
+(?id : string?, source(audio='a, 'b)) -> source(audio='a, 'b)
+where 'b is a set of tracks to be muxed into a source
+```
+
+Arguments:
+
+- `id` (of type `string?`, which defaults to `null`)
+- `(unlabeled)` (of type `source(audio='a, 'b) where 'b is a set of tracks to be muxed into a source`)
+
+Methods:
+
+- `buffered` (of type `() -> [string * float]`): Length of buffered data.
+- `clock` (of type `clock`): The source's clock
+- `duration` (of type `() -> float`): Estimation of the duration of the current track.
+- `elapsed` (of type `() -> float`): Elapsed time in the current track.
+- `fallible` (of type `bool`): Indicate if a source may fail, i.e. may not be ready to stream.
+- `generate_frame` (of type `() -> unit`): Generate a frame from the source without consuming it. This can be useful in advanced cases where generating a frame is required to trigger some side effect like calculating some metadata before making a decision. You should make sure that the source is available before calling this function and it should only be called inside synchronous streaming loop callback such as `on_frame`!
+- `id` (of type `() -> string`): Identifier of the source.
+- `insert_metadata` (of type `(?new_track : bool, [string * string]) -> unit`): Dynamically insert metadata in a stream. Inserts a new track with the given metadata if `new_track` is `true`.
+- `is_active` (of type `() -> bool`): `true` if the source is active, i.e. it is continuously animated by its own clock whenever it is ready. Typically, `true` for outputs and sources such as `input.http`.
+- `is_ready` (of type `() -> bool`): Indicate if a source is ready to stream. This does not mean that the source is currently streaming, just that its resources are all properly initialized.
+- `is_up` (of type `() -> bool`): Indicate that the source can be asked to produce some data at any time. This is `true` when the source is currently being used or if it could be used at any time, typically inside a `switch` or `fallback`.
+- `last_metadata` (of type `() -> [string * string]?`): Return the last metadata from the source.
+- `log` (of type `{level : (() -> int).{set : (int) -> unit}}`): Get or set the source's log level, from `1` to `5`.
+- `register_command` (of type `(?usage : string?, description : string, string, ((string) -> string)) ->
+unit`): Register a server command for this source. Command is registered under the source's id namespace when it gets up and de-registered when it gets down.
+- `remaining` (of type `() -> float`): Estimation of remaining time in the current track.
+- `reset_last_metadata_on_track` (of type `(() -> bool).{set : (bool) -> unit}`): If `true`, the source's `last_metadata` is reset on each new track. If a metadata is present along with the track mark, then it becomes the new `last_metadata`, otherwise, `last_metadata becomes `null`.
+- `seek` (of type `(float) -> float`): Seek forward, in seconds (returns the amount of time effectively seeked).
+- `self_sync` (of type `() -> bool`): Is the source currently controlling its own real-time loop.
+- `skip` (of type `() -> unit`): Skip to the next track.
+- `time` (of type `() -> float`): Get a source's time, based on its assigned clock.
+
+Callbacks:
+
+- `on_frame` (of type `(?before : bool, synchronous : bool, (() -> unit)) -> unit`): Call a given handler on frame. When `before` is `true`, callback is executed before computing the frame and after otherwise
+- `on_metadata` (of type `(synchronous : bool, (([string * string]) -> unit)) -> unit`): Call a given handler to execute on each metadata
+- `on_position` (of type `(position : {float}, ?remaining : bool, ?allow_partial : bool,
+ synchronous : bool, ((float, [string * string]) -> unit)) -> unit`): Call a given handler on track position. If `remaining` is `false`, callback is executed when position in track is more or equal to `position`. If `remaining` is `true`, callback is executed when remaining time in the current track is less or equal to `position`. Keep in mind that elapsed time is exact while remaining time is always estimated. Remaining time is usually more accurate for file-based sources. When `allow_partial` is `true`, if the current track ends before the `offset` position is reached, callback is still executed
+- `on_shutdown` (of type `(synchronous : bool, (() -> unit)) -> unit`): Call a given handler to be called when source shuts down
+- `on_track` (of type `(synchronous : bool, (([string * string]) -> unit)) -> unit`): Call a given handler on track marks
+- `on_wake_up` (of type `(synchronous : bool, (() -> unit)) -> unit`): Call a given handler to be called after the source is asked to get ready
+
+### `drop_metadata`
+
+Deprecated: use `source.drop.metadata`
+
+Type:
+
+```
+(?id : string?, source('a)) -> source('a)
+where 'a is a set of tracks to be muxed into a source
+```
+
+Arguments:
+
+- `id` (of type `string?`, which defaults to `null`)
+- `(unlabeled)` (of type `source('a) where 'a is a set of tracks to be muxed into a source`)
+
+Methods:
+
+- `buffered` (of type `() -> [string * float]`): Length of buffered data.
+- `clock` (of type `clock`): The source's clock
+- `duration` (of type `() -> float`): Estimation of the duration of the current track.
+- `elapsed` (of type `() -> float`): Elapsed time in the current track.
+- `fallible` (of type `bool`): Indicate if a source may fail, i.e. may not be ready to stream.
+- `generate_frame` (of type `() -> unit`): Generate a frame from the source without consuming it. This can be useful in advanced cases where generating a frame is required to trigger some side effect like calculating some metadata before making a decision. You should make sure that the source is available before calling this function and it should only be called inside synchronous streaming loop callback such as `on_frame`!
+- `id` (of type `() -> string`): Identifier of the source.
+- `insert_metadata` (of type `(?new_track : bool, [string * string]) -> unit`): Dynamically insert metadata in a stream. Inserts a new track with the given metadata if `new_track` is `true`.
+- `is_active` (of type `() -> bool`): `true` if the source is active, i.e. it is continuously animated by its own clock whenever it is ready. Typically, `true` for outputs and sources such as `input.http`.
+- `is_ready` (of type `() -> bool`): Indicate if a source is ready to stream. This does not mean that the source is currently streaming, just that its resources are all properly initialized.
+- `is_up` (of type `() -> bool`): Indicate that the source can be asked to produce some data at any time. This is `true` when the source is currently being used or if it could be used at any time, typically inside a `switch` or `fallback`.
+- `last_metadata` (of type `() -> [string * string]?`): Return the last metadata from the source.
+- `log` (of type `{level : (() -> int).{set : (int) -> unit}}`): Get or set the source's log level, from `1` to `5`.
+- `register_command` (of type `(?usage : string?, description : string, string, ((string) -> string)) ->
+unit`): Register a server command for this source. Command is registered under the source's id namespace when it gets up and de-registered when it gets down.
+- `remaining` (of type `() -> float`): Estimation of remaining time in the current track.
+- `reset_last_metadata_on_track` (of type `(() -> bool).{set : (bool) -> unit}`): If `true`, the source's `last_metadata` is reset on each new track. If a metadata is present along with the track mark, then it becomes the new `last_metadata`, otherwise, `last_metadata becomes `null`.
+- `seek` (of type `(float) -> float`): Seek forward, in seconds (returns the amount of time effectively seeked).
+- `self_sync` (of type `() -> bool`): Is the source currently controlling its own real-time loop.
+- `skip` (of type `() -> unit`): Skip to the next track.
+- `time` (of type `() -> float`): Get a source's time, based on its assigned clock.
+
+Callbacks:
+
+- `on_frame` (of type `(?before : bool, synchronous : bool, (() -> unit)) -> unit`): Call a given handler on frame. When `before` is `true`, callback is executed before computing the frame and after otherwise
+- `on_metadata` (of type `(synchronous : bool, (([string * string]) -> unit)) -> unit`): Call a given handler to execute on each metadata
+- `on_position` (of type `(position : {float}, ?remaining : bool, ?allow_partial : bool,
+ synchronous : bool, ((float, [string * string]) -> unit)) -> unit`): Call a given handler on track position. If `remaining` is `false`, callback is executed when position in track is more or equal to `position`. If `remaining` is `true`, callback is executed when remaining time in the current track is less or equal to `position`. Keep in mind that elapsed time is exact while remaining time is always estimated. Remaining time is usually more accurate for file-based sources. When `allow_partial` is `true`, if the current track ends before the `offset` position is reached, callback is still executed
+- `on_shutdown` (of type `(synchronous : bool, (() -> unit)) -> unit`): Call a given handler to be called when source shuts down
+- `on_track` (of type `(synchronous : bool, (([string * string]) -> unit)) -> unit`): Call a given handler on track marks
+- `on_wake_up` (of type `(synchronous : bool, (() -> unit)) -> unit`): Call a given handler to be called after the source is asked to get ready
+
+### `drop_midi`
+
+Deprecated: use `source.drop.midi`
+
+Type:
+
+```
+(?id : string?, source(midi='a, 'b)) -> source(midi='a, 'b)
+where 'b is a set of tracks to be muxed into a source
+```
+
+Arguments:
+
+- `id` (of type `string?`, which defaults to `null`)
+- `(unlabeled)` (of type `source(midi='a, 'b) where 'b is a set of tracks to be muxed into a source`)
+
+Methods:
+
+- `buffered` (of type `() -> [string * float]`): Length of buffered data.
+- `clock` (of type `clock`): The source's clock
+- `duration` (of type `() -> float`): Estimation of the duration of the current track.
+- `elapsed` (of type `() -> float`): Elapsed time in the current track.
+- `fallible` (of type `bool`): Indicate if a source may fail, i.e. may not be ready to stream.
+- `generate_frame` (of type `() -> unit`): Generate a frame from the source without consuming it. This can be useful in advanced cases where generating a frame is required to trigger some side effect like calculating some metadata before making a decision. You should make sure that the source is available before calling this function and it should only be called inside synchronous streaming loop callback such as `on_frame`!
+- `id` (of type `() -> string`): Identifier of the source.
+- `insert_metadata` (of type `(?new_track : bool, [string * string]) -> unit`): Dynamically insert metadata in a stream. Inserts a new track with the given metadata if `new_track` is `true`.
+- `is_active` (of type `() -> bool`): `true` if the source is active, i.e. it is continuously animated by its own clock whenever it is ready. Typically, `true` for outputs and sources such as `input.http`.
+- `is_ready` (of type `() -> bool`): Indicate if a source is ready to stream. This does not mean that the source is currently streaming, just that its resources are all properly initialized.
+- `is_up` (of type `() -> bool`): Indicate that the source can be asked to produce some data at any time. This is `true` when the source is currently being used or if it could be used at any time, typically inside a `switch` or `fallback`.
+- `last_metadata` (of type `() -> [string * string]?`): Return the last metadata from the source.
+- `log` (of type `{level : (() -> int).{set : (int) -> unit}}`): Get or set the source's log level, from `1` to `5`.
+- `register_command` (of type `(?usage : string?, description : string, string, ((string) -> string)) ->
+unit`): Register a server command for this source. Command is registered under the source's id namespace when it gets up and de-registered when it gets down.
+- `remaining` (of type `() -> float`): Estimation of remaining time in the current track.
+- `reset_last_metadata_on_track` (of type `(() -> bool).{set : (bool) -> unit}`): If `true`, the source's `last_metadata` is reset on each new track. If a metadata is present along with the track mark, then it becomes the new `last_metadata`, otherwise, `last_metadata becomes `null`.
+- `seek` (of type `(float) -> float`): Seek forward, in seconds (returns the amount of time effectively seeked).
+- `self_sync` (of type `() -> bool`): Is the source currently controlling its own real-time loop.
+- `skip` (of type `() -> unit`): Skip to the next track.
+- `time` (of type `() -> float`): Get a source's time, based on its assigned clock.
+
+Callbacks:
+
+- `on_frame` (of type `(?before : bool, synchronous : bool, (() -> unit)) -> unit`): Call a given handler on frame. When `before` is `true`, callback is executed before computing the frame and after otherwise
+- `on_metadata` (of type `(synchronous : bool, (([string * string]) -> unit)) -> unit`): Call a given handler to execute on each metadata
+- `on_position` (of type `(position : {float}, ?remaining : bool, ?allow_partial : bool,
+ synchronous : bool, ((float, [string * string]) -> unit)) -> unit`): Call a given handler on track position. If `remaining` is `false`, callback is executed when position in track is more or equal to `position`. If `remaining` is `true`, callback is executed when remaining time in the current track is less or equal to `position`. Keep in mind that elapsed time is exact while remaining time is always estimated. Remaining time is usually more accurate for file-based sources. When `allow_partial` is `true`, if the current track ends before the `offset` position is reached, callback is still executed
+- `on_shutdown` (of type `(synchronous : bool, (() -> unit)) -> unit`): Call a given handler to be called when source shuts down
+- `on_track` (of type `(synchronous : bool, (([string * string]) -> unit)) -> unit`): Call a given handler on track marks
+- `on_wake_up` (of type `(synchronous : bool, (() -> unit)) -> unit`): Call a given handler to be called after the source is asked to get ready
+
+### `drop_video`
+
+Deprecated: use `source.drop.video`
+
+Type:
+
+```
+(?id : string?, source(video='a, 'b)) -> source(video='a, 'b)
+where 'b is a set of tracks to be muxed into a source
+```
+
+Arguments:
+
+- `id` (of type `string?`, which defaults to `null`)
+- `(unlabeled)` (of type `source(video='a, 'b) where 'b is a set of tracks to be muxed into a source`)
+
+Methods:
+
+- `buffered` (of type `() -> [string * float]`): Length of buffered data.
+- `clock` (of type `clock`): The source's clock
+- `duration` (of type `() -> float`): Estimation of the duration of the current track.
+- `elapsed` (of type `() -> float`): Elapsed time in the current track.
+- `fallible` (of type `bool`): Indicate if a source may fail, i.e. may not be ready to stream.
+- `generate_frame` (of type `() -> unit`): Generate a frame from the source without consuming it. This can be useful in advanced cases where generating a frame is required to trigger some side effect like calculating some metadata before making a decision. You should make sure that the source is available before calling this function and it should only be called inside synchronous streaming loop callback such as `on_frame`!
+- `id` (of type `() -> string`): Identifier of the source.
+- `insert_metadata` (of type `(?new_track : bool, [string * string]) -> unit`): Dynamically insert metadata in a stream. Inserts a new track with the given metadata if `new_track` is `true`.
+- `is_active` (of type `() -> bool`): `true` if the source is active, i.e. it is continuously animated by its own clock whenever it is ready. Typically, `true` for outputs and sources such as `input.http`.
+- `is_ready` (of type `() -> bool`): Indicate if a source is ready to stream. This does not mean that the source is currently streaming, just that its resources are all properly initialized.
+- `is_up` (of type `() -> bool`): Indicate that the source can be asked to produce some data at any time. This is `true` when the source is currently being used or if it could be used at any time, typically inside a `switch` or `fallback`.
+- `last_metadata` (of type `() -> [string * string]?`): Return the last metadata from the source.
+- `log` (of type `{level : (() -> int).{set : (int) -> unit}}`): Get or set the source's log level, from `1` to `5`.
+- `register_command` (of type `(?usage : string?, description : string, string, ((string) -> string)) ->
+unit`): Register a server command for this source. Command is registered under the source's id namespace when it gets up and de-registered when it gets down.
+- `remaining` (of type `() -> float`): Estimation of remaining time in the current track.
+- `reset_last_metadata_on_track` (of type `(() -> bool).{set : (bool) -> unit}`): If `true`, the source's `last_metadata` is reset on each new track. If a metadata is present along with the track mark, then it becomes the new `last_metadata`, otherwise, `last_metadata becomes `null`.
+- `seek` (of type `(float) -> float`): Seek forward, in seconds (returns the amount of time effectively seeked).
+- `self_sync` (of type `() -> bool`): Is the source currently controlling its own real-time loop.
+- `skip` (of type `() -> unit`): Skip to the next track.
+- `time` (of type `() -> float`): Get a source's time, based on its assigned clock.
+
+Callbacks:
+
+- `on_frame` (of type `(?before : bool, synchronous : bool, (() -> unit)) -> unit`): Call a given handler on frame. When `before` is `true`, callback is executed before computing the frame and after otherwise
+- `on_metadata` (of type `(synchronous : bool, (([string * string]) -> unit)) -> unit`): Call a given handler to execute on each metadata
+- `on_position` (of type `(position : {float}, ?remaining : bool, ?allow_partial : bool,
+ synchronous : bool, ((float, [string * string]) -> unit)) -> unit`): Call a given handler on track position. If `remaining` is `false`, callback is executed when position in track is more or equal to `position`. If `remaining` is `true`, callback is executed when remaining time in the current track is less or equal to `position`. Keep in mind that elapsed time is exact while remaining time is always estimated. Remaining time is usually more accurate for file-based sources. When `allow_partial` is `true`, if the current track ends before the `offset` position is reached, callback is still executed
+- `on_shutdown` (of type `(synchronous : bool, (() -> unit)) -> unit`): Call a given handler to be called when source shuts down
+- `on_track` (of type `(synchronous : bool, (([string * string]) -> unit)) -> unit`): Call a given handler on track marks
+- `on_wake_up` (of type `(synchronous : bool, (() -> unit)) -> unit`): Call a given handler to be called after the source is asked to get ready
+
+### `eat_blank`
+
+Deprecated: use `blank.eat` instead
+
+Type:
+
+```
+(?id : string?, ?at_beginning : bool, ?max_blank : {float},
+ ?min_noise : {float}, ?start_blank : bool, ?threshold : {float},
+ ?track_sensitive : {bool}, source(audio=pcm('a), 'b)) ->
+source(audio=pcm('a), 'b)
+```
+
+Arguments:
+
+- `id` (of type `string?`, which defaults to `null`)
+- `at_beginning` (of type `bool`, which defaults to `false`)
+- `max_blank` (of type `{float}`, which defaults to `20.0`)
+- `min_noise` (of type `{float}`, which defaults to `0.0`)
+- `start_blank` (of type `bool`, which defaults to `false`)
+- `threshold` (of type `{float}`, which defaults to `-40.0`)
+- `track_sensitive` (of type `{bool}`, which defaults to `true`)
+- `(unlabeled)` (of type `source(audio=pcm('a), 'b)`)
+
+Methods:
+
+- `buffered` (of type `() -> [string * float]`): Length of buffered data.
+- `clock` (of type `clock`): The source's clock
+- `dB_levels` (of type `() -> [float]?`): Return the detected dB level for each channel.
+- `duration` (of type `() -> float`): Estimation of the duration of the current track.
+- `elapsed` (of type `() -> float`): Elapsed time in the current track.
+- `fallible` (of type `bool`): Indicate if a source may fail, i.e. may not be ready to stream.
+- `generate_frame` (of type `() -> unit`): Generate a frame from the source without consuming it. This can be useful in advanced cases where generating a frame is required to trigger some side effect like calculating some metadata before making a decision. You should make sure that the source is available before calling this function and it should only be called inside synchronous streaming loop callback such as `on_frame`!
+- `id` (of type `() -> string`): Identifier of the source.
+- `insert_metadata` (of type `(?new_track : bool, [string * string]) -> unit`): Dynamically insert metadata in a stream. Inserts a new track with the given metadata if `new_track` is `true`.
+- `is_active` (of type `() -> bool`): `true` if the source is active, i.e. it is continuously animated by its own clock whenever it is ready. Typically, `true` for outputs and sources such as `input.http`.
+- `is_blank` (of type `() -> bool`): Indicate whether blank was detected.
+- `is_ready` (of type `() -> bool`): Indicate if a source is ready to stream. This does not mean that the source is currently streaming, just that its resources are all properly initialized.
+- `is_up` (of type `() -> bool`): Indicate that the source can be asked to produce some data at any time. This is `true` when the source is currently being used or if it could be used at any time, typically inside a `switch` or `fallback`.
+- `last_metadata` (of type `() -> [string * string]?`): Return the last metadata from the source.
+- `log` (of type `{level : (() -> int).{set : (int) -> unit}}`): Get or set the source's log level, from `1` to `5`.
+- `register_command` (of type `(?usage : string?, description : string, string, ((string) -> string)) ->
+unit`): Register a server command for this source. Command is registered under the source's id namespace when it gets up and de-registered when it gets down.
+- `remaining` (of type `() -> float`): Estimation of remaining time in the current track.
+- `reset_last_metadata_on_track` (of type `(() -> bool).{set : (bool) -> unit}`): If `true`, the source's `last_metadata` is reset on each new track. If a metadata is present along with the track mark, then it becomes the new `last_metadata`, otherwise, `last_metadata becomes `null`.
+- `seek` (of type `(float) -> float`): Seek forward, in seconds (returns the amount of time effectively seeked).
+- `self_sync` (of type `() -> bool`): Is the source currently controlling its own real-time loop.
+- `skip` (of type `() -> unit`): Skip to the next track.
+- `time` (of type `() -> float`): Get a source's time, based on its assigned clock.
+
+Callbacks:
+
+- `on_frame` (of type `(?before : bool, synchronous : bool, (() -> unit)) -> unit`): Call a given handler on frame. When `before` is `true`, callback is executed before computing the frame and after otherwise
+- `on_metadata` (of type `(synchronous : bool, (([string * string]) -> unit)) -> unit`): Call a given handler to execute on each metadata
+- `on_position` (of type `(position : {float}, ?remaining : bool, ?allow_partial : bool,
+ synchronous : bool, ((float, [string * string]) -> unit)) -> unit`): Call a given handler on track position. If `remaining` is `false`, callback is executed when position in track is more or equal to `position`. If `remaining` is `true`, callback is executed when remaining time in the current track is less or equal to `position`. Keep in mind that elapsed time is exact while remaining time is always estimated. Remaining time is usually more accurate for file-based sources. When `allow_partial` is `true`, if the current track ends before the `offset` position is reached, callback is still executed
+- `on_shutdown` (of type `(synchronous : bool, (() -> unit)) -> unit`): Call a given handler to be called when source shuts down
+- `on_track` (of type `(synchronous : bool, (([string * string]) -> unit)) -> unit`): Call a given handler on track marks
+- `on_wake_up` (of type `(synchronous : bool, (() -> unit)) -> unit`): Call a given handler to be called after the source is asked to get ready
+
+### `empty`
+
+Deprecated: this function has been replaced by `source.fail`.
+
+Type:
+
+```
+(?id : string?) -> source('a)
+```
+
+Arguments:
+
+- `id` (of type `string?`, which defaults to `null`)
+
+Methods:
+
+- `buffered` (of type `() -> [string * float]`): Length of buffered data.
+- `clock` (of type `clock`): The source's clock
+- `duration` (of type `() -> float`): Estimation of the duration of the current track.
+- `elapsed` (of type `() -> float`): Elapsed time in the current track.
+- `fallible` (of type `bool`): Indicate if a source may fail, i.e. may not be ready to stream.
+- `generate_frame` (of type `() -> unit`): Generate a frame from the source without consuming it. This can be useful in advanced cases where generating a frame is required to trigger some side effect like calculating some metadata before making a decision. You should make sure that the source is available before calling this function and it should only be called inside synchronous streaming loop callback such as `on_frame`!
+- `id` (of type `() -> string`): Identifier of the source.
+- `insert_metadata` (of type `(?new_track : bool, [string * string]) -> unit`): Dynamically insert metadata in a stream. Inserts a new track with the given metadata if `new_track` is `true`.
+- `is_active` (of type `() -> bool`): `true` if the source is active, i.e. it is continuously animated by its own clock whenever it is ready. Typically, `true` for outputs and sources such as `input.http`.
+- `is_ready` (of type `() -> bool`): Indicate if a source is ready to stream. This does not mean that the source is currently streaming, just that its resources are all properly initialized.
+- `is_up` (of type `() -> bool`): Indicate that the source can be asked to produce some data at any time. This is `true` when the source is currently being used or if it could be used at any time, typically inside a `switch` or `fallback`.
+- `last_metadata` (of type `() -> [string * string]?`): Return the last metadata from the source.
+- `log` (of type `{level : (() -> int).{set : (int) -> unit}}`): Get or set the source's log level, from `1` to `5`.
+- `register_command` (of type `(?usage : string?, description : string, string, ((string) -> string)) ->
+unit`): Register a server command for this source. Command is registered under the source's id namespace when it gets up and de-registered when it gets down.
+- `remaining` (of type `() -> float`): Estimation of remaining time in the current track.
+- `reset_last_metadata_on_track` (of type `(() -> bool).{set : (bool) -> unit}`): If `true`, the source's `last_metadata` is reset on each new track. If a metadata is present along with the track mark, then it becomes the new `last_metadata`, otherwise, `last_metadata becomes `null`.
+- `seek` (of type `(float) -> float`): Seek forward, in seconds (returns the amount of time effectively seeked).
+- `self_sync` (of type `() -> bool`): Is the source currently controlling its own real-time loop.
+- `skip` (of type `() -> unit`): Skip to the next track.
+- `time` (of type `() -> float`): Get a source's time, based on its assigned clock.
+
+Callbacks:
+
+- `on_frame` (of type `(?before : bool, synchronous : bool, (() -> unit)) -> unit`): Call a given handler on frame. When `before` is `true`, callback is executed before computing the frame and after otherwise
+- `on_metadata` (of type `(synchronous : bool, (([string * string]) -> unit)) -> unit`): Call a given handler to execute on each metadata
+- `on_position` (of type `(position : {float}, ?remaining : bool, ?allow_partial : bool,
+ synchronous : bool, ((float, [string * string]) -> unit)) -> unit`): Call a given handler on track position. If `remaining` is `false`, callback is executed when position in track is more or equal to `position`. If `remaining` is `true`, callback is executed when remaining time in the current track is less or equal to `position`. Keep in mind that elapsed time is exact while remaining time is always estimated. Remaining time is usually more accurate for file-based sources. When `allow_partial` is `true`, if the current track ends before the `offset` position is reached, callback is still executed
+- `on_shutdown` (of type `(synchronous : bool, (() -> unit)) -> unit`): Call a given handler to be called when source shuts down
+- `on_track` (of type `(synchronous : bool, (([string * string]) -> unit)) -> unit`): Call a given handler on track marks
+- `on_wake_up` (of type `(synchronous : bool, (() -> unit)) -> unit`): Call a given handler to be called after the source is asked to get ready
+
+### `exec_at`
+
+Deprecated: this function has been replaced by `thread.when`.
+
+Type:
+
+```
+(?freq : float, pred : (() -> bool), (() -> 'a)) -> unit
+```
+
+Arguments:
+
+- `freq` (of type `float`, which defaults to `1.0`)
+- `pred` (of type `() -> bool`)
+- `(unlabeled)` (of type `() -> 'a`)
+
+### `fade.final`
+
+Deprecated: was designed for transitions only and is not needed anymore. Use `file.out` instead.
+
+Type:
+
+```
+(?id : string, ?duration : float, ?type : string, source(audio=pcm('a), 'b)) ->
+source(audio=pcm('a), 'b)
+where 'b is a set of tracks to be muxed into a source
+```
+
+Arguments:
+
+- `id` (of type `string`, which defaults to `"fade.final"`)
+- `duration` (of type `float`, which defaults to `3.0`)
+- `type` (of type `string`, which defaults to `"lin"`)
+- `(unlabeled)` (of type `source(audio=pcm('a), 'b)
+where 'b is a set of tracks to be muxed into a source`)
+
+Methods:
+
+- `buffered` (of type `() -> [string * float]`): Length of buffered data.
+- `clock` (of type `clock`): The source's clock
+- `duration` (of type `() -> float`): Estimation of the duration of the current track.
+- `elapsed` (of type `() -> float`): Elapsed time in the current track.
+- `fallible` (of type `bool`): Indicate if a source may fail, i.e. may not be ready to stream.
+- `generate_frame` (of type `() -> unit`): Generate a frame from the source without consuming it. This can be useful in advanced cases where generating a frame is required to trigger some side effect like calculating some metadata before making a decision. You should make sure that the source is available before calling this function and it should only be called inside synchronous streaming loop callback such as `on_frame`!
+- `id` (of type `() -> string`): Identifier of the source.
+- `insert_metadata` (of type `(?new_track : bool, [string * string]) -> unit`): Dynamically insert metadata in a stream. Inserts a new track with the given metadata if `new_track` is `true`.
+- `is_active` (of type `() -> bool`): `true` if the source is active, i.e. it is continuously animated by its own clock whenever it is ready. Typically, `true` for outputs and sources such as `input.http`.
+- `is_ready` (of type `() -> bool`): Indicate if a source is ready to stream. This does not mean that the source is currently streaming, just that its resources are all properly initialized.
+- `is_up` (of type `() -> bool`): Indicate that the source can be asked to produce some data at any time. This is `true` when the source is currently being used or if it could be used at any time, typically inside a `switch` or `fallback`.
+- `last_metadata` (of type `() -> [string * string]?`): Return the last metadata from the source.
+- `log` (of type `{level : (() -> int).{set : (int) -> unit}}`): Get or set the source's log level, from `1` to `5`.
+- `register_command` (of type `(?usage : string?, description : string, string, ((string) -> string)) ->
+unit`): Register a server command for this source. Command is registered under the source's id namespace when it gets up and de-registered when it gets down.
+- `remaining` (of type `() -> float`): Estimation of remaining time in the current track.
+- `reset_last_metadata_on_track` (of type `(() -> bool).{set : (bool) -> unit}`): If `true`, the source's `last_metadata` is reset on each new track. If a metadata is present along with the track mark, then it becomes the new `last_metadata`, otherwise, `last_metadata becomes `null`.
+- `seek` (of type `(float) -> float`): Seek forward, in seconds (returns the amount of time effectively seeked).
+- `selected` (of type `() -> source(audio=pcm('B), 'A)?
+where 'A is a set of tracks to be muxed into a source`): Currently selected source.
+- `self_sync` (of type `() -> bool`): Is the source currently controlling its own real-time loop.
+- `skip` (of type `() -> unit`): Skip to the next track.
+- `time` (of type `() -> float`): Get a source's time, based on its assigned clock.
+
+Callbacks:
+
+- `on_frame` (of type `(?before : bool, synchronous : bool, (() -> unit)) -> unit`): Call a given handler on frame. When `before` is `true`, callback is executed before computing the frame and after otherwise
+- `on_metadata` (of type `(synchronous : bool, (([string * string]) -> unit)) -> unit`): Call a given handler to execute on each metadata
+- `on_position` (of type `(position : {float}, ?remaining : bool, ?allow_partial : bool,
+ synchronous : bool, ((float, [string * string]) -> unit)) -> unit`): Call a given handler on track position. If `remaining` is `false`, callback is executed when position in track is more or equal to `position`. If `remaining` is `true`, callback is executed when remaining time in the current track is less or equal to `position`. Keep in mind that elapsed time is exact while remaining time is always estimated. Remaining time is usually more accurate for file-based sources. When `allow_partial` is `true`, if the current track ends before the `offset` position is reached, callback is still executed
+- `on_shutdown` (of type `(synchronous : bool, (() -> unit)) -> unit`): Call a given handler to be called when source shuts down
+- `on_track` (of type `(synchronous : bool, (([string * string]) -> unit)) -> unit`): Call a given handler on track marks
+- `on_wake_up` (of type `(synchronous : bool, (() -> unit)) -> unit`): Call a given handler to be called after the source is asked to get ready
+
+### `fade.initial`
+
+Deprecated: was designed for transitions only and is not needed anymore. Use `fade.in` instead.
+
+Type:
+
+```
+(?id : string, ?duration : float, ?type : string, source(audio=pcm('a), 'b)) ->
+source(audio=pcm('a), 'b)
+where 'b is a set of tracks to be muxed into a source
+```
+
+Arguments:
+
+- `id` (of type `string`, which defaults to `"fade.initial"`)
+- `duration` (of type `float`, which defaults to `3.0`)
+- `type` (of type `string`, which defaults to `"lin"`)
+- `(unlabeled)` (of type `source(audio=pcm('a), 'b)
+where 'b is a set of tracks to be muxed into a source`)
+
+Methods:
+
+- `buffered` (of type `() -> [string * float]`): Length of buffered data.
+- `clock` (of type `clock`): The source's clock
+- `duration` (of type `() -> float`): Estimation of the duration of the current track.
+- `elapsed` (of type `() -> float`): Elapsed time in the current track.
+- `fallible` (of type `bool`): Indicate if a source may fail, i.e. may not be ready to stream.
+- `generate_frame` (of type `() -> unit`): Generate a frame from the source without consuming it. This can be useful in advanced cases where generating a frame is required to trigger some side effect like calculating some metadata before making a decision. You should make sure that the source is available before calling this function and it should only be called inside synchronous streaming loop callback such as `on_frame`!
+- `id` (of type `() -> string`): Identifier of the source.
+- `insert_metadata` (of type `(?new_track : bool, [string * string]) -> unit`): Dynamically insert metadata in a stream. Inserts a new track with the given metadata if `new_track` is `true`.
+- `is_active` (of type `() -> bool`): `true` if the source is active, i.e. it is continuously animated by its own clock whenever it is ready. Typically, `true` for outputs and sources such as `input.http`.
+- `is_ready` (of type `() -> bool`): Indicate if a source is ready to stream. This does not mean that the source is currently streaming, just that its resources are all properly initialized.
+- `is_up` (of type `() -> bool`): Indicate that the source can be asked to produce some data at any time. This is `true` when the source is currently being used or if it could be used at any time, typically inside a `switch` or `fallback`.
+- `last_metadata` (of type `() -> [string * string]?`): Return the last metadata from the source.
+- `log` (of type `{level : (() -> int).{set : (int) -> unit}}`): Get or set the source's log level, from `1` to `5`.
+- `register_command` (of type `(?usage : string?, description : string, string, ((string) -> string)) ->
+unit`): Register a server command for this source. Command is registered under the source's id namespace when it gets up and de-registered when it gets down.
+- `remaining` (of type `() -> float`): Estimation of remaining time in the current track.
+- `reset_last_metadata_on_track` (of type `(() -> bool).{set : (bool) -> unit}`): If `true`, the source's `last_metadata` is reset on each new track. If a metadata is present along with the track mark, then it becomes the new `last_metadata`, otherwise, `last_metadata becomes `null`.
+- `seek` (of type `(float) -> float`): Seek forward, in seconds (returns the amount of time effectively seeked).
+- `self_sync` (of type `() -> bool`): Is the source currently controlling its own real-time loop.
+- `skip` (of type `() -> unit`): Skip to the next track.
+- `time` (of type `() -> float`): Get a source's time, based on its assigned clock.
+
+Callbacks:
+
+- `on_frame` (of type `(?before : bool, synchronous : bool, (() -> unit)) -> unit`): Call a given handler on frame. When `before` is `true`, callback is executed before computing the frame and after otherwise
+- `on_metadata` (of type `(synchronous : bool, (([string * string]) -> unit)) -> unit`): Call a given handler to execute on each metadata
+- `on_position` (of type `(position : {float}, ?remaining : bool, ?allow_partial : bool,
+ synchronous : bool, ((float, [string * string]) -> unit)) -> unit`): Call a given handler on track position. If `remaining` is `false`, callback is executed when position in track is more or equal to `position`. If `remaining` is `true`, callback is executed when remaining time in the current track is less or equal to `position`. Keep in mind that elapsed time is exact while remaining time is always estimated. Remaining time is usually more accurate for file-based sources. When `allow_partial` is `true`, if the current track ends before the `offset` position is reached, callback is still executed
+- `on_shutdown` (of type `(synchronous : bool, (() -> unit)) -> unit`): Call a given handler to be called when source shuts down
+- `on_track` (of type `(synchronous : bool, (([string * string]) -> unit)) -> unit`): Call a given handler on track marks
+- `on_wake_up` (of type `(synchronous : bool, (() -> unit)) -> unit`): Call a given handler to be called after the source is asked to get ready
+
+### `file.unlink`
+
+Deprecated: use `file.remove` instead.
+
+Type:
+
+```
+(string) -> unit
+```
+
+Arguments:
+
+- `(unlabeled)` (of type `string`)
+
+### `garbage_collect`
+
+Deprecated: use `runtime.gc.full_major` instead
+
+Type:
+
+```
+() -> unit
+```
+
+### `get_mime`
+
+Deprecated: use `file.mime`
+
+Type:
+
+```
+(string) -> string
+```
+
+Arguments:
+
+- `(unlabeled)` (of type `string`)
+
+### `get_process_lines`
+
+Deprecated: use `process.read.lines` instead.
+
+Type:
+
+```
+(?timeout : float, ?env : [string * string], ?inherit_env : bool,
+ ?log_errors : bool, string) -> [string]
+```
+
+Arguments:
+
+- `timeout` (of type `float`, which defaults to `-1.0`)
+- `env` (of type `[string * string]`, which defaults to `[]`)
+- `inherit_env` (of type `bool`, which defaults to `true`)
+- `log_errors` (of type `bool`, which defaults to `true`)
+- `(unlabeled)` (of type `string`)
+
+### `get_process_output`
+
+Deprecated: use `process.read` instead.
+
+Type:
+
+```
+(?timeout : float, ?env : [string * string], ?inherit_env : bool,
+ ?log_errors : bool, string) -> string
+```
+
+Arguments:
+
+- `timeout` (of type `float`, which defaults to `-1.0`)
+- `env` (of type `[string * string]`, which defaults to `[]`)
+- `inherit_env` (of type `bool`, which defaults to `true`)
+- `log_errors` (of type `bool`, which defaults to `true`)
+- `(unlabeled)` (of type `string`)
+
+### `getenv`
+
+Deprecated: use `environment.get`
+
+Type:
+
+```
+(?string, string) -> string
+```
+
+Arguments:
+
+- `(unlabeled)` (of type `string`, which defaults to `""`)
+- `(unlabeled)` (of type `string`)
+
+### `getpid`
+
+Deprecated: use `getpid`
+
+Type:
+
+```
+() -> int
+```
+
+### `gettimeofday`
+
+Deprecated: use `time` instead
+
+Type:
+
+```
+() -> float
+```
+
+### `gmtime`
+
+Deprecated: use `time.utc` instead
+
+Type:
+
+```
+(float?) -> unit
+```
+
+Arguments:
+
+- `(unlabeled)` (of type `float?`)
+
+Methods:
+
+- `day` (of type `int`): Day of month.
+- `dst` (of type `bool`): Daylight time savings in effect.
+- `hour` (of type `int`): Hours.
+- `min` (of type `int`): Minutes.
+- `month` (of type `int`): Month of year.
+- `sec` (of type `int`): Seconds.
+- `week_day` (of type `int`): Day of week (Sunday is 0 or 7, Saturday is 6).
+- `year` (of type `int`): Year.
+- `year_day` (of type `int`): Day of year, between `1` and `366`.
+
+### `https.delete`
+
+Deprecated: use `http.delete` instead.
+
+Type:
+
+```
+(?headers : [string * string], ?http_version : string?, ?redirect : bool,
+ ?timeout : float?, ?normalize_url : bool?, string) -> unit
+```
+
+Arguments:
+
+- `headers` (of type `[string * string]`, which defaults to `[]`)
+- `http_version` (of type `string?`, which defaults to `null`)
+- `redirect` (of type `bool`, which defaults to `true`)
+- `timeout` (of type `float?`, which defaults to `10.0`)
+- `normalize_url` (of type `bool?`, which defaults to `null`)
+- `(unlabeled)` (of type `string`)
+
+Methods:
+
+- `headers` (of type `[string * string]`): HTTP headers.
+- `http_version` (of type `string`): Version of the HTTP protocol.
+- `status_code` (of type `int`): Status code.
+- `status_message` (of type `string`): Status message.
+
+### `https.get`
+
+Deprecated: use `http.get` instead.
+
+Type:
+
+```
+(?headers : [string * string], ?http_version : string?, ?redirect : bool,
+ ?timeout : float?, ?normalize_url : bool?, string) -> string
+```
+
+Arguments:
+
+- `headers` (of type `[string * string]`, which defaults to `[]`)
+- `http_version` (of type `string?`, which defaults to `null`)
+- `redirect` (of type `bool`, which defaults to `true`)
+- `timeout` (of type `float?`, which defaults to `10.0`)
+- `normalize_url` (of type `bool?`, which defaults to `null`)
+- `(unlabeled)` (of type `string`)
+
+Methods:
+
+- `headers` (of type `[string * string]`): HTTP headers.
+- `http_version` (of type `string`): Version of the HTTP protocol.
+- `status_code` (of type `int`): Status code.
+- `status_message` (of type `string`): Status message.
+
+### `https.head`
+
+Deprecated: use `http.head` instead.
+
+Type:
+
+```
+(?headers : [string * string], ?http_version : string?, ?redirect : bool,
+ ?timeout : float?, ?normalize_url : bool?, string) -> unit
+```
+
+Arguments:
+
+- `headers` (of type `[string * string]`, which defaults to `[]`)
+- `http_version` (of type `string?`, which defaults to `null`)
+- `redirect` (of type `bool`, which defaults to `true`)
+- `timeout` (of type `float?`, which defaults to `10.0`)
+- `normalize_url` (of type `bool?`, which defaults to `null`)
+- `(unlabeled)` (of type `string`)
+
+Methods:
+
+- `headers` (of type `[string * string]`): HTTP headers.
+- `http_version` (of type `string`): Version of the HTTP protocol.
+- `status_code` (of type `int`): Status code.
+- `status_message` (of type `string`): Status message.
+
+### `https.post`
+
+Deprecated: use `http.post` instead.
+
+Type:
+
+```
+(?data : {string}, ?headers : [string * string], ?http_version : string?,
+ ?redirect : bool, ?timeout : float?, ?normalize_url : bool?, string) ->
+string
+```
+
+Arguments:
+
+- `data` (of type `{string}`, which defaults to `""`)
+- `headers` (of type `[string * string]`, which defaults to `[]`)
+- `http_version` (of type `string?`, which defaults to `null`)
+- `redirect` (of type `bool`, which defaults to `true`)
+- `timeout` (of type `float?`, which defaults to `10.0`)
+- `normalize_url` (of type `bool?`, which defaults to `null`)
+- `(unlabeled)` (of type `string`)
+
+Methods:
+
+- `headers` (of type `[string * string]`): HTTP headers.
+- `http_version` (of type `string`): Version of the HTTP protocol.
+- `status_code` (of type `int`): Status code.
+- `status_message` (of type `string`): Status message.
+
+### `https.put`
+
+Deprecated: use `http.put` instead.
+
+Type:
+
+```
+(?data : {string}, ?headers : [string * string], ?http_version : string?,
+ ?redirect : bool, ?timeout : float?, ?normalize_url : bool?, string) ->
+string
+```
+
+Arguments:
+
+- `data` (of type `{string}`, which defaults to `""`)
+- `headers` (of type `[string * string]`, which defaults to `[]`)
+- `http_version` (of type `string?`, which defaults to `null`)
+- `redirect` (of type `bool`, which defaults to `true`)
+- `timeout` (of type `float?`, which defaults to `10.0`)
+- `normalize_url` (of type `bool?`, which defaults to `null`)
+- `(unlabeled)` (of type `string`)
+
+Methods:
+
+- `headers` (of type `[string * string]`): HTTP headers.
+- `http_version` (of type `string`): Version of the HTTP protocol.
+- `status_code` (of type `int`): Status code.
+- `status_message` (of type `string`): Status message.
+
+### `id`
+
+Deprecated: this function will be removed in a future release
+
+Type:
+
+```
+(?id : 'a?, 'b) -> 'b
+```
+
+Arguments:
+
+- `id` (of type `'a?`, which defaults to `null`)
+- `(unlabeled)` (of type `'b`)
+
+### `in`
+
+Deprecated: use `input` instead.
+
+Type:
+
+```
+(?id : string?, ?start : bool, ?fallible : bool) -> source(audio=pcm('A))
+```
+
+Arguments:
+
+- `id` (of type `string?`, which defaults to `null`)
+- `start` (of type `bool`, which defaults to `true`)
+- `fallible` (of type `bool`, which defaults to `false`)
+
+Methods:
+
+- `buffered` (of type `() -> [string * float]`): Length of buffered data.
+- `clock` (of type `clock`): The source's clock
+- `duration` (of type `() -> float`): Estimation of the duration of the current track.
+- `elapsed` (of type `() -> float`): Elapsed time in the current track.
+- `fallible` (of type `bool`): Indicate if a source may fail, i.e. may not be ready to stream.
+- `generate_frame` (of type `() -> unit`): Generate a frame from the source without consuming it. This can be useful in advanced cases where generating a frame is required to trigger some side effect like calculating some metadata before making a decision. You should make sure that the source is available before calling this function and it should only be called inside synchronous streaming loop callback such as `on_frame`!
+- `id` (of type `() -> string`): Identifier of the source.
+- `insert_metadata` (of type `(?new_track : bool, [string * string]) -> unit`): Dynamically insert metadata in a stream. Inserts a new track with the given metadata if `new_track` is `true`.
+- `is_active` (of type `() -> bool`): `true` if the source is active, i.e. it is continuously animated by its own clock whenever it is ready. Typically, `true` for outputs and sources such as `input.http`.
+- `is_ready` (of type `() -> bool`): Indicate if a source is ready to stream. This does not mean that the source is currently streaming, just that its resources are all properly initialized.
+- `is_started` (of type `() -> bool`): `true` if the output or source is started.
+- `is_up` (of type `() -> bool`): Indicate that the source can be asked to produce some data at any time. This is `true` when the source is currently being used or if it could be used at any time, typically inside a `switch` or `fallback`.
+- `last_metadata` (of type `() -> [string * string]?`): Return the last metadata from the source.
+- `log` (of type `{level : (() -> int).{set : (int) -> unit}}`): Get or set the source's log level, from `1` to `5`.
+- `register_command` (of type `(?usage : string?, description : string, string, ((string) -> string)) ->
+unit`): Register a server command for this source. Command is registered under the source's id namespace when it gets up and de-registered when it gets down.
+- `remaining` (of type `() -> float`): Estimation of remaining time in the current track.
+- `reset_last_metadata_on_track` (of type `(() -> bool).{set : (bool) -> unit}`): If `true`, the source's `last_metadata` is reset on each new track. If a metadata is present along with the track mark, then it becomes the new `last_metadata`, otherwise, `last_metadata becomes `null`.
+- `seek` (of type `(float) -> float`): Seek forward, in seconds (returns the amount of time effectively seeked).
+- `self_sync` (of type `() -> bool`): Is the source currently controlling its own real-time loop.
+- `skip` (of type `() -> unit`): Skip to the next track.
+- `start` (of type `() -> unit`): Ask the source or output to start.
+- `stop` (of type `() -> unit`): Ask the source or output to stop.
+- `time` (of type `() -> float`): Get a source's time, based on its assigned clock.
+
+Callbacks:
+
+- `on_frame` (of type `(?before : bool, synchronous : bool, (() -> unit)) -> unit`): Call a given handler on frame. When `before` is `true`, callback is executed before computing the frame and after otherwise
+- `on_metadata` (of type `(synchronous : bool, (([string * string]) -> unit)) -> unit`): Call a given handler to execute on each metadata
+- `on_position` (of type `(position : {float}, ?remaining : bool, ?allow_partial : bool,
+ synchronous : bool, ((float, [string * string]) -> unit)) -> unit`): Call a given handler on track position. If `remaining` is `false`, callback is executed when position in track is more or equal to `position`. If `remaining` is `true`, callback is executed when remaining time in the current track is less or equal to `position`. Keep in mind that elapsed time is exact while remaining time is always estimated. Remaining time is usually more accurate for file-based sources. When `allow_partial` is `true`, if the current track ends before the `offset` position is reached, callback is still executed
+- `on_shutdown` (of type `(synchronous : bool, (() -> unit)) -> unit`): Call a given handler to be called when source shuts down
+- `on_start` (of type `(synchronous : bool, (() -> unit)) -> unit`): Call a given handler when source starts
+- `on_stop` (of type `(synchronous : bool, (() -> unit)) -> unit`): Call a given handler when source stops
+- `on_track` (of type `(synchronous : bool, (([string * string]) -> unit)) -> unit`): Call a given handler on track marks
+- `on_wake_up` (of type `(synchronous : bool, (() -> unit)) -> unit`): Call a given handler to be called after the source is asked to get ready
+
+### `input.external`
+
+Deprecated: this function has been replaced by `input.external.rawaudio`.
+
+Type:
+
+```
+(?id : string?, ?buffer : float, ?channels : int, ?max : float,
+ ?restart : bool, ?restart_on_error : bool, ?samplerate : int, {string}) ->
+source(audio=pcm('a))
+```
+
+Arguments:
+
+- `id` (of type `string?`, which defaults to `null`)
+- `buffer` (of type `float`, which defaults to `2.0`)
+- `channels` (of type `int`, which defaults to `2`)
+- `max` (of type `float`, which defaults to `10.0`)
+- `restart` (of type `bool`, which defaults to `true`)
+- `restart_on_error` (of type `bool`, which defaults to `false`)
+- `samplerate` (of type `int`, which defaults to `44100`)
+- `(unlabeled)` (of type `{string}`)
+
+Methods:
+
+- `buffered` (of type `() -> [string * float]`): Length of buffered data.
+- `clock` (of type `clock`): The source's clock
+- `duration` (of type `() -> float`): Estimation of the duration of the current track.
+- `elapsed` (of type `() -> float`): Elapsed time in the current track.
+- `fallible` (of type `bool`): Indicate if a source may fail, i.e. may not be ready to stream.
+- `generate_frame` (of type `() -> unit`): Generate a frame from the source without consuming it. This can be useful in advanced cases where generating a frame is required to trigger some side effect like calculating some metadata before making a decision. You should make sure that the source is available before calling this function and it should only be called inside synchronous streaming loop callback such as `on_frame`!
+- `id` (of type `() -> string`): Identifier of the source.
+- `insert_metadata` (of type `(?new_track : bool, [string * string]) -> unit`): Dynamically insert metadata in a stream. Inserts a new track with the given metadata if `new_track` is `true`.
+- `is_active` (of type `() -> bool`): `true` if the source is active, i.e. it is continuously animated by its own clock whenever it is ready. Typically, `true` for outputs and sources such as `input.http`.
+- `is_ready` (of type `() -> bool`): Indicate if a source is ready to stream. This does not mean that the source is currently streaming, just that its resources are all properly initialized.
+- `is_up` (of type `() -> bool`): Indicate that the source can be asked to produce some data at any time. This is `true` when the source is currently being used or if it could be used at any time, typically inside a `switch` or `fallback`.
+- `last_metadata` (of type `() -> [string * string]?`): Return the last metadata from the source.
+- `log` (of type `{level : (() -> int).{set : (int) -> unit}}`): Get or set the source's log level, from `1` to `5`.
+- `register_command` (of type `(?usage : string?, description : string, string, ((string) -> string)) ->
+unit`): Register a server command for this source. Command is registered under the source's id namespace when it gets up and de-registered when it gets down.
+- `remaining` (of type `() -> float`): Estimation of remaining time in the current track.
+- `reset_last_metadata_on_track` (of type `(() -> bool).{set : (bool) -> unit}`): If `true`, the source's `last_metadata` is reset on each new track. If a metadata is present along with the track mark, then it becomes the new `last_metadata`, otherwise, `last_metadata becomes `null`.
+- `seek` (of type `(float) -> float`): Seek forward, in seconds (returns the amount of time effectively seeked).
+- `self_sync` (of type `() -> bool`): Is the source currently controlling its own real-time loop.
+- `skip` (of type `() -> unit`): Skip to the next track.
+- `time` (of type `() -> float`): Get a source's time, based on its assigned clock.
+
+Callbacks:
+
+- `on_frame` (of type `(?before : bool, synchronous : bool, (() -> unit)) -> unit`): Call a given handler on frame. When `before` is `true`, callback is executed before computing the frame and after otherwise
+- `on_metadata` (of type `(synchronous : bool, (([string * string]) -> unit)) -> unit`): Call a given handler to execute on each metadata
+- `on_position` (of type `(position : {float}, ?remaining : bool, ?allow_partial : bool,
+ synchronous : bool, ((float, [string * string]) -> unit)) -> unit`): Call a given handler on track position. If `remaining` is `false`, callback is executed when position in track is more or equal to `position`. If `remaining` is `true`, callback is executed when remaining time in the current track is less or equal to `position`. Keep in mind that elapsed time is exact while remaining time is always estimated. Remaining time is usually more accurate for file-based sources. When `allow_partial` is `true`, if the current track ends before the `offset` position is reached, callback is still executed
+- `on_shutdown` (of type `(synchronous : bool, (() -> unit)) -> unit`): Call a given handler to be called when source shuts down
+- `on_track` (of type `(synchronous : bool, (([string * string]) -> unit)) -> unit`): Call a given handler on track marks
+- `on_wake_up` (of type `(synchronous : bool, (() -> unit)) -> unit`): Call a given handler to be called after the source is asked to get ready
+
+### `input.https`
+
+Deprecated: use `input.http` instead
+
+Type:
+
+```
+(?id : string?, ?debug : bool, ?deduplicate_metadata : bool,
+ ?float_args : [string * float], ?format : string?,
+ ?int_args : [string * int], ?max_buffer : float,
+ ?metadata_filter : (([string * string]) -> [string * string])?,
+ ?new_track_on_metadata : bool, ?on_connect : (([string * string]) -> unit)?,
+ ?on_disconnect : (() -> unit)?, ?on_error : ((error) -> unit)?,
+ ?on_start : (() -> unit)?, ?on_stop : (() -> unit)?, ?poll_delay : float,
+ ?self_sync : {bool?}, ?start : bool, ?string_args : [string * string],
+ ?timeout : float, ?trim_url : bool, ?user_agent : string, {string}) ->
+source('a)
+```
+
+Arguments:
+
+- `id` (of type `string?`, which defaults to `null`)
+- `debug` (of type `bool`, which defaults to `false`)
+- `deduplicate_metadata` (of type `bool`, which defaults to `true`)
+- `float_args` (of type `[string * float]`, which defaults to `[]`)
+- `format` (of type `string?`, which defaults to `null`)
+- `int_args` (of type `[string * int]`, which defaults to `[]`)
+- `max_buffer` (of type `float`, which defaults to `5.0`)
+- `metadata_filter` (of type `(([string * string]) -> [string * string])?`, which defaults to `null`)
+- `new_track_on_metadata` (of type `bool`, which defaults to `true`)
+- `on_connect` (of type `(([string * string]) -> unit)?`, which defaults to `null`)
+- `on_disconnect` (of type `(() -> unit)?`, which defaults to `null`)
+- `on_error` (of type `((error) -> unit)?`, which defaults to `null`)
+- `on_start` (of type `(() -> unit)?`, which defaults to `null`)
+- `on_stop` (of type `(() -> unit)?`, which defaults to `null`)
+- `poll_delay` (of type `float`, which defaults to `2.0`)
+- `self_sync` (of type `{bool?}`, which defaults to `null`)
+- `start` (of type `bool`, which defaults to `true`)
+- `string_args` (of type `[string * string]`, which defaults to `[]`)
+- `timeout` (of type `float`, which defaults to `10.0`)
+- `trim_url` (of type `bool`, which defaults to `true`)
+- `user_agent` (of type `string`, which defaults to `"Liquidsoap/2.4.1 (Unix; OCaml 4.14.2)"`)
+- `(unlabeled)` (of type `{string}`)
+
+Methods:
+
+- `buffered` (of type `() -> [string * float]`): Length of buffered data.
+- `clock` (of type `clock`): The source's clock
+- `duration` (of type `() -> float`): Estimation of the duration of the current track.
+- `elapsed` (of type `() -> float`): Elapsed time in the current track.
+- `fallible` (of type `bool`): Indicate if a source may fail, i.e. may not be ready to stream.
+- `generate_frame` (of type `() -> unit`): Generate a frame from the source without consuming it. This can be useful in advanced cases where generating a frame is required to trigger some side effect like calculating some metadata before making a decision. You should make sure that the source is available before calling this function and it should only be called inside synchronous streaming loop callback such as `on_frame`!
+- `id` (of type `() -> string`): Identifier of the source.
+- `insert_metadata` (of type `(?new_track : bool, [string * string]) -> unit`): Dynamically insert metadata in a stream. Inserts a new track with the given metadata if `new_track` is `true`.
+- `is_active` (of type `() -> bool`): `true` if the source is active, i.e. it is continuously animated by its own clock whenever it is ready. Typically, `true` for outputs and sources such as `input.http`.
+- `is_ready` (of type `() -> bool`): Indicate if a source is ready to stream. This does not mean that the source is currently streaming, just that its resources are all properly initialized.
+- `is_started` (of type `() -> bool`): `true` if the output or source is started.
+- `is_up` (of type `() -> bool`): Indicate that the source can be asked to produce some data at any time. This is `true` when the source is currently being used or if it could be used at any time, typically inside a `switch` or `fallback`.
+- `last_metadata` (of type `() -> [string * string]?`): Return the last metadata from the source.
+- `log` (of type `{level : (() -> int).{set : (int) -> unit}}`): Get or set the source's log level, from `1` to `5`.
+- `register_command` (of type `(?usage : string?, description : string, string, ((string) -> string)) ->
+unit`): Register a server command for this source. Command is registered under the source's id namespace when it gets up and de-registered when it gets down.
+- `remaining` (of type `() -> float`): Estimation of remaining time in the current track.
+- `reset_last_metadata_on_track` (of type `(() -> bool).{set : (bool) -> unit}`): If `true`, the source's `last_metadata` is reset on each new track. If a metadata is present along with the track mark, then it becomes the new `last_metadata`, otherwise, `last_metadata becomes `null`.
+- `seek` (of type `(float) -> float`): Seek forward, in seconds (returns the amount of time effectively seeked).
+- `self_sync` (of type `() -> bool`): Is the source currently controlling its own real-time loop.
+- `set_url` (of type `({string}) -> unit`): Set the source's url.
+- `skip` (of type `() -> unit`): Skip to the next track.
+- `start` (of type `() -> unit`): Ask the source or output to start.
+- `status` (of type `() -> string`): Return the current status of the source, either "stopped" (the source isn't trying to relay the HTTP stream), "starting" (polling task is about to begin) "polling" (attempting to connect to the HTTP stream), "connected <url>" (connected to <url>, buffering or playing back the stream) or "stopping" (source is stopping).
+- `stop` (of type `() -> unit`): Ask the source or output to stop.
+- `time` (of type `() -> float`): Get a source's time, based on its assigned clock.
+- `url` (of type `() -> string`): Return the source's current url.
+
+Callbacks:
+
+- `on_connect` (of type `(synchronous : bool, (([string * string]) -> unit)) -> unit`): Call a given handler when a source is connected. Its receives the list of ICY-specific headers, if available.
+- `on_disconnect` (of type `(synchronous : bool, (() -> unit)) -> unit`): Call a given handler when a source is disconnected.
+- `on_error` (of type `(synchronous : bool, ((error) -> unit)) -> unit`): Call a given handler when an error occurs.
+- `on_frame` (of type `(?before : bool, synchronous : bool, (() -> unit)) -> unit`): Call a given handler on frame. When `before` is `true`, callback is executed before computing the frame and after otherwise
+- `on_metadata` (of type `(synchronous : bool, (([string * string]) -> unit)) -> unit`): Call a given handler to execute on each metadata
+- `on_position` (of type `(position : {float}, ?remaining : bool, ?allow_partial : bool,
+ synchronous : bool, ((float, [string * string]) -> unit)) -> unit`): Call a given handler on track position. If `remaining` is `false`, callback is executed when position in track is more or equal to `position`. If `remaining` is `true`, callback is executed when remaining time in the current track is less or equal to `position`. Keep in mind that elapsed time is exact while remaining time is always estimated. Remaining time is usually more accurate for file-based sources. When `allow_partial` is `true`, if the current track ends before the `offset` position is reached, callback is still executed
+- `on_shutdown` (of type `(synchronous : bool, (() -> unit)) -> unit`): Call a given handler to be called when source shuts down
+- `on_start` (of type `(synchronous : bool, (() -> unit)) -> unit`): Call a given handler when source starts
+- `on_stop` (of type `(synchronous : bool, (() -> unit)) -> unit`): Call a given handler when source stops
+- `on_track` (of type `(synchronous : bool, (([string * string]) -> unit)) -> unit`): Call a given handler on track marks
+- `on_wake_up` (of type `(synchronous : bool, (() -> unit)) -> unit`): Call a given handler to be called after the source is asked to get ready
+
+### `insert_metadata`
+
+Deprecated: use the insert_metadata source method
+
+Type:
+
+```
+(?id : 'a?, source('b)) -> source('b)
+```
+
+Arguments:
+
+- `id` (of type `'a?`, which defaults to `null`)
+- `(unlabeled)` (of type `source('b)`)
+
+Methods:
+
+- `buffered` (of type `() -> [string * float]`): Length of buffered data.
+- `clock` (of type `clock`): The source's clock
+- `duration` (of type `() -> float`): Estimation of the duration of the current track.
+- `elapsed` (of type `() -> float`): Elapsed time in the current track.
+- `fallible` (of type `bool`): Indicate if a source may fail, i.e. may not be ready to stream.
+- `generate_frame` (of type `() -> unit`): Generate a frame from the source without consuming it. This can be useful in advanced cases where generating a frame is required to trigger some side effect like calculating some metadata before making a decision. You should make sure that the source is available before calling this function and it should only be called inside synchronous streaming loop callback such as `on_frame`!
+- `id` (of type `() -> string`): Identifier of the source.
+- `insert_metadata` (of type `(?new_track : bool, [string * string]) -> unit`): Dynamically insert metadata in a stream. Inserts a new track with the given metadata if `new_track` is `true`.
+- `is_active` (of type `() -> bool`): `true` if the source is active, i.e. it is continuously animated by its own clock whenever it is ready. Typically, `true` for outputs and sources such as `input.http`.
+- `is_ready` (of type `() -> bool`): Indicate if a source is ready to stream. This does not mean that the source is currently streaming, just that its resources are all properly initialized.
+- `is_up` (of type `() -> bool`): Indicate that the source can be asked to produce some data at any time. This is `true` when the source is currently being used or if it could be used at any time, typically inside a `switch` or `fallback`.
+- `last_metadata` (of type `() -> [string * string]?`): Return the last metadata from the source.
+- `log` (of type `{level : (() -> int).{set : (int) -> unit}}`): Get or set the source's log level, from `1` to `5`.
+- `register_command` (of type `(?usage : string?, description : string, string, ((string) -> string)) ->
+unit`): Register a server command for this source. Command is registered under the source's id namespace when it gets up and de-registered when it gets down.
+- `remaining` (of type `() -> float`): Estimation of remaining time in the current track.
+- `reset_last_metadata_on_track` (of type `(() -> bool).{set : (bool) -> unit}`): If `true`, the source's `last_metadata` is reset on each new track. If a metadata is present along with the track mark, then it becomes the new `last_metadata`, otherwise, `last_metadata becomes `null`.
+- `seek` (of type `(float) -> float`): Seek forward, in seconds (returns the amount of time effectively seeked).
+- `self_sync` (of type `() -> bool`): Is the source currently controlling its own real-time loop.
+- `skip` (of type `() -> unit`): Skip to the next track.
+- `time` (of type `() -> float`): Get a source's time, based on its assigned clock.
+
+Callbacks:
+
+- `on_frame` (of type `(?before : bool, synchronous : bool, (() -> unit)) -> unit`): Call a given handler on frame. When `before` is `true`, callback is executed before computing the frame and after otherwise
+- `on_metadata` (of type `(synchronous : bool, (([string * string]) -> unit)) -> unit`): Call a given handler to execute on each metadata
+- `on_position` (of type `(position : {float}, ?remaining : bool, ?allow_partial : bool,
+ synchronous : bool, ((float, [string * string]) -> unit)) -> unit`): Call a given handler on track position. If `remaining` is `false`, callback is executed when position in track is more or equal to `position`. If `remaining` is `true`, callback is executed when remaining time in the current track is less or equal to `position`. Keep in mind that elapsed time is exact while remaining time is always estimated. Remaining time is usually more accurate for file-based sources. When `allow_partial` is `true`, if the current track ends before the `offset` position is reached, callback is still executed
+- `on_shutdown` (of type `(synchronous : bool, (() -> unit)) -> unit`): Call a given handler to be called when source shuts down
+- `on_track` (of type `(synchronous : bool, (([string * string]) -> unit)) -> unit`): Call a given handler on track marks
+- `on_wake_up` (of type `(synchronous : bool, (() -> unit)) -> unit`): Call a given handler to be called after the source is asked to get ready
+
+### `json`
+
+Deprecated: use json.object
+
+Type:
+
+```
+() -> json
+```
+
+Methods:
+
+- `add` (of type `(string, 'a) -> unit`): Add or replace a new `key`/`value` pair to the object.
+- `remove` (of type `(string) -> unit`): Remove a key from the object. Does not nothing if the key does not exist.
+- `stringify` (of type `(?compact : bool, ?json5 : bool) -> string`): Render object as json string.
+
+### `json_of`
+
+Deprecated: use `json.stringify` instead
+
+Type:
+
+```
+(?compact : bool, ?json5 : bool, 'a) -> string
+```
+
+Arguments:
+
+- `compact` (of type `bool`, which defaults to `false`): Output compact text.
+- `json5` (of type `bool`, which defaults to `false`): Use json5 extended spec.
+- `(unlabeled)` (of type `'a`)
+
+### `list.mem_assoc`
+
+Deprecated: use `list.assoc.mem` instead
+
+Type:
+
+```
+('a, ['a * 'b]) -> bool where 'a is an orderable type
+```
+
+Arguments:
+
+- `(unlabeled)` (of type `anything that is an orderable type`)
+- `(unlabeled)` (of type `['a * 'b] where 'a is an orderable type`)
+
+### `localtime`
+
+Deprecated: use `time.local` instead
+
+Type:
+
+```
+(float?) -> unit
+```
+
+Arguments:
+
+- `(unlabeled)` (of type `float?`)
+
+Methods:
+
+- `day` (of type `int`): Day of month.
+- `dst` (of type `bool`): Daylight time savings in effect.
+- `hour` (of type `int`): Hours.
+- `min` (of type `int`): Minutes.
+- `month` (of type `int`): Month of year.
+- `sec` (of type `int`): Seconds.
+- `week_day` (of type `int`): Day of week (Sunday is 0 or 7, Saturday is 6).
+- `year` (of type `int`): Year.
+- `year_day` (of type `int`): Day of year, between `1` and `366`.
+
+### `map_metadata`
+
+Deprecated: use metadata.map
+
+Type:
+
+```
+(?id : string?, ?update : bool, ?strip : bool?, ?insert_missing : bool?,
+ (([string * string]) -> [string * string]), source('a)) -> source('a)
+where 'a is a set of tracks to be muxed into a source
+```
+
+Arguments:
+
+- `id` (of type `string?`, which defaults to `"metadata.map"`)
+- `update` (of type `bool`, which defaults to `true`)
+- `strip` (of type `bool?`, which defaults to `null`)
+- `insert_missing` (of type `bool?`, which defaults to `null`)
+- `(unlabeled)` (of type `([string * string]) -> [string * string]`)
+- `(unlabeled)` (of type `source('a) where 'a is a set of tracks to be muxed into a source`)
+
+Methods:
+
+- `buffered` (of type `() -> [string * float]`): Length of buffered data.
+- `clock` (of type `clock`): The source's clock
+- `duration` (of type `() -> float`): Estimation of the duration of the current track.
+- `elapsed` (of type `() -> float`): Elapsed time in the current track.
+- `fallible` (of type `bool`): Indicate if a source may fail, i.e. may not be ready to stream.
+- `generate_frame` (of type `() -> unit`): Generate a frame from the source without consuming it. This can be useful in advanced cases where generating a frame is required to trigger some side effect like calculating some metadata before making a decision. You should make sure that the source is available before calling this function and it should only be called inside synchronous streaming loop callback such as `on_frame`!
+- `id` (of type `() -> string`): Identifier of the source.
+- `insert_metadata` (of type `(?new_track : bool, [string * string]) -> unit`): Dynamically insert metadata in a stream. Inserts a new track with the given metadata if `new_track` is `true`.
+- `is_active` (of type `() -> bool`): `true` if the source is active, i.e. it is continuously animated by its own clock whenever it is ready. Typically, `true` for outputs and sources such as `input.http`.
+- `is_ready` (of type `() -> bool`): Indicate if a source is ready to stream. This does not mean that the source is currently streaming, just that its resources are all properly initialized.
+- `is_up` (of type `() -> bool`): Indicate that the source can be asked to produce some data at any time. This is `true` when the source is currently being used or if it could be used at any time, typically inside a `switch` or `fallback`.
+- `last_metadata` (of type `() -> [string * string]?`): Return the last metadata from the source.
+- `log` (of type `{level : (() -> int).{set : (int) -> unit}}`): Get or set the source's log level, from `1` to `5`.
+- `register_command` (of type `(?usage : string?, description : string, string, ((string) -> string)) ->
+unit`): Register a server command for this source. Command is registered under the source's id namespace when it gets up and de-registered when it gets down.
+- `remaining` (of type `() -> float`): Estimation of remaining time in the current track.
+- `reset_last_metadata_on_track` (of type `(() -> bool).{set : (bool) -> unit}`): If `true`, the source's `last_metadata` is reset on each new track. If a metadata is present along with the track mark, then it becomes the new `last_metadata`, otherwise, `last_metadata becomes `null`.
+- `seek` (of type `(float) -> float`): Seek forward, in seconds (returns the amount of time effectively seeked).
+- `self_sync` (of type `() -> bool`): Is the source currently controlling its own real-time loop.
+- `skip` (of type `() -> unit`): Skip to the next track.
+- `time` (of type `() -> float`): Get a source's time, based on its assigned clock.
+
+Callbacks:
+
+- `on_frame` (of type `(?before : bool, synchronous : bool, (() -> unit)) -> unit`): Call a given handler on frame. When `before` is `true`, callback is executed before computing the frame and after otherwise
+- `on_metadata` (of type `(synchronous : bool, (([string * string]) -> unit)) -> unit`): Call a given handler to execute on each metadata
+- `on_position` (of type `(position : {float}, ?remaining : bool, ?allow_partial : bool,
+ synchronous : bool, ((float, [string * string]) -> unit)) -> unit`): Call a given handler on track position. If `remaining` is `false`, callback is executed when position in track is more or equal to `position`. If `remaining` is `true`, callback is executed when remaining time in the current track is less or equal to `position`. Keep in mind that elapsed time is exact while remaining time is always estimated. Remaining time is usually more accurate for file-based sources. When `allow_partial` is `true`, if the current track ends before the `offset` position is reached, callback is still executed
+- `on_shutdown` (of type `(synchronous : bool, (() -> unit)) -> unit`): Call a given handler to be called when source shuts down
+- `on_track` (of type `(synchronous : bool, (([string * string]) -> unit)) -> unit`): Call a given handler on track marks
+- `on_wake_up` (of type `(synchronous : bool, (() -> unit)) -> unit`): Call a given handler to be called after the source is asked to get ready
+
+### `merge_tracks`
+
+Deprecated: use `source.tracks` and `source`
+
+Type:
+
+```
+(?id : string?, source('a)) -> source('a)
+where 'a is a set of tracks to be muxed into a source
+```
+
+Arguments:
+
+- `id` (of type `string?`, which defaults to `null`)
+- `(unlabeled)` (of type `source('a) where 'a is a set of tracks to be muxed into a source`)
+
+Methods:
+
+- `buffered` (of type `() -> [string * float]`): Length of buffered data.
+- `clock` (of type `clock`): The source's clock
+- `duration` (of type `() -> float`): Estimation of the duration of the current track.
+- `elapsed` (of type `() -> float`): Elapsed time in the current track.
+- `fallible` (of type `bool`): Indicate if a source may fail, i.e. may not be ready to stream.
+- `generate_frame` (of type `() -> unit`): Generate a frame from the source without consuming it. This can be useful in advanced cases where generating a frame is required to trigger some side effect like calculating some metadata before making a decision. You should make sure that the source is available before calling this function and it should only be called inside synchronous streaming loop callback such as `on_frame`!
+- `id` (of type `() -> string`): Identifier of the source.
+- `insert_metadata` (of type `(?new_track : bool, [string * string]) -> unit`): Dynamically insert metadata in a stream. Inserts a new track with the given metadata if `new_track` is `true`.
+- `is_active` (of type `() -> bool`): `true` if the source is active, i.e. it is continuously animated by its own clock whenever it is ready. Typically, `true` for outputs and sources such as `input.http`.
+- `is_ready` (of type `() -> bool`): Indicate if a source is ready to stream. This does not mean that the source is currently streaming, just that its resources are all properly initialized.
+- `is_up` (of type `() -> bool`): Indicate that the source can be asked to produce some data at any time. This is `true` when the source is currently being used or if it could be used at any time, typically inside a `switch` or `fallback`.
+- `last_metadata` (of type `() -> [string * string]?`): Return the last metadata from the source.
+- `log` (of type `{level : (() -> int).{set : (int) -> unit}}`): Get or set the source's log level, from `1` to `5`.
+- `register_command` (of type `(?usage : string?, description : string, string, ((string) -> string)) ->
+unit`): Register a server command for this source. Command is registered under the source's id namespace when it gets up and de-registered when it gets down.
+- `remaining` (of type `() -> float`): Estimation of remaining time in the current track.
+- `reset_last_metadata_on_track` (of type `(() -> bool).{set : (bool) -> unit}`): If `true`, the source's `last_metadata` is reset on each new track. If a metadata is present along with the track mark, then it becomes the new `last_metadata`, otherwise, `last_metadata becomes `null`.
+- `seek` (of type `(float) -> float`): Seek forward, in seconds (returns the amount of time effectively seeked).
+- `self_sync` (of type `() -> bool`): Is the source currently controlling its own real-time loop.
+- `skip` (of type `() -> unit`): Skip to the next track.
+- `time` (of type `() -> float`): Get a source's time, based on its assigned clock.
+
+Callbacks:
+
+- `on_frame` (of type `(?before : bool, synchronous : bool, (() -> unit)) -> unit`): Call a given handler on frame. When `before` is `true`, callback is executed before computing the frame and after otherwise
+- `on_metadata` (of type `(synchronous : bool, (([string * string]) -> unit)) -> unit`): Call a given handler to execute on each metadata
+- `on_position` (of type `(position : {float}, ?remaining : bool, ?allow_partial : bool,
+ synchronous : bool, ((float, [string * string]) -> unit)) -> unit`): Call a given handler on track position. If `remaining` is `false`, callback is executed when position in track is more or equal to `position`. If `remaining` is `true`, callback is executed when remaining time in the current track is less or equal to `position`. Keep in mind that elapsed time is exact while remaining time is always estimated. Remaining time is usually more accurate for file-based sources. When `allow_partial` is `true`, if the current track ends before the `offset` position is reached, callback is still executed
+- `on_shutdown` (of type `(synchronous : bool, (() -> unit)) -> unit`): Call a given handler to be called when source shuts down
+- `on_track` (of type `(synchronous : bool, (([string * string]) -> unit)) -> unit`): Call a given handler on track marks
+- `on_wake_up` (of type `(synchronous : bool, (() -> unit)) -> unit`): Call a given handler to be called after the source is asked to get ready
+
+### `mkavailable`
+
+Deprecated: use `source.available` instead.
+
+Type:
+
+```
+(?id : string, ?track_sensitive : {bool}, ?active : {bool},
+ ?available : {bool}, source('a)) -> source('a)
+```
+
+Arguments:
+
+- `id` (of type `string`, which defaults to `"mkavailable"`)
+- `track_sensitive` (of type `{bool}`, which defaults to `true`)
+- `active` (of type `{bool}`, which defaults to `false`)
+- `available` (of type `{bool}`, which defaults to `true`)
+- `(unlabeled)` (of type `source('a)`)
+
+Methods:
+
+- `buffered` (of type `() -> [string * float]`): Length of buffered data.
+- `clock` (of type `clock`): The source's clock
+- `duration` (of type `() -> float`): Estimation of the duration of the current track.
+- `elapsed` (of type `() -> float`): Elapsed time in the current track.
+- `fallible` (of type `bool`): Indicate if a source may fail, i.e. may not be ready to stream.
+- `generate_frame` (of type `() -> unit`): Generate a frame from the source without consuming it. This can be useful in advanced cases where generating a frame is required to trigger some side effect like calculating some metadata before making a decision. You should make sure that the source is available before calling this function and it should only be called inside synchronous streaming loop callback such as `on_frame`!
+- `id` (of type `() -> string`): Identifier of the source.
+- `insert_metadata` (of type `(?new_track : bool, [string * string]) -> unit`): Dynamically insert metadata in a stream. Inserts a new track with the given metadata if `new_track` is `true`.
+- `is_active` (of type `() -> bool`): `true` if the source is active, i.e. it is continuously animated by its own clock whenever it is ready. Typically, `true` for outputs and sources such as `input.http`.
+- `is_ready` (of type `() -> bool`): Indicate if a source is ready to stream. This does not mean that the source is currently streaming, just that its resources are all properly initialized.
+- `is_up` (of type `() -> bool`): Indicate that the source can be asked to produce some data at any time. This is `true` when the source is currently being used or if it could be used at any time, typically inside a `switch` or `fallback`.
+- `last_metadata` (of type `() -> [string * string]?`): Return the last metadata from the source.
+- `log` (of type `{level : (() -> int).{set : (int) -> unit}}`): Get or set the source's log level, from `1` to `5`.
+- `register_command` (of type `(?usage : string?, description : string, string, ((string) -> string)) ->
+unit`): Register a server command for this source. Command is registered under the source's id namespace when it gets up and de-registered when it gets down.
+- `remaining` (of type `() -> float`): Estimation of remaining time in the current track.
+- `reset_last_metadata_on_track` (of type `(() -> bool).{set : (bool) -> unit}`): If `true`, the source's `last_metadata` is reset on each new track. If a metadata is present along with the track mark, then it becomes the new `last_metadata`, otherwise, `last_metadata becomes `null`.
+- `seek` (of type `(float) -> float`): Seek forward, in seconds (returns the amount of time effectively seeked).
+- `selected` (of type `() -> source('A)?`): Currently selected source.
+- `self_sync` (of type `() -> bool`): Is the source currently controlling its own real-time loop.
+- `skip` (of type `() -> unit`): Skip to the next track.
+- `time` (of type `() -> float`): Get a source's time, based on its assigned clock.
+
+Callbacks:
+
+- `on_frame` (of type `(?before : bool, synchronous : bool, (() -> unit)) -> unit`): Call a given handler on frame. When `before` is `true`, callback is executed before computing the frame and after otherwise
+- `on_metadata` (of type `(synchronous : bool, (([string * string]) -> unit)) -> unit`): Call a given handler to execute on each metadata
+- `on_position` (of type `(position : {float}, ?remaining : bool, ?allow_partial : bool,
+ synchronous : bool, ((float, [string * string]) -> unit)) -> unit`): Call a given handler on track position. If `remaining` is `false`, callback is executed when position in track is more or equal to `position`. If `remaining` is `true`, callback is executed when remaining time in the current track is less or equal to `position`. Keep in mind that elapsed time is exact while remaining time is always estimated. Remaining time is usually more accurate for file-based sources. When `allow_partial` is `true`, if the current track ends before the `offset` position is reached, callback is still executed
+- `on_shutdown` (of type `(synchronous : bool, (() -> unit)) -> unit`): Call a given handler to be called when source shuts down
+- `on_track` (of type `(synchronous : bool, (([string * string]) -> unit)) -> unit`): Call a given handler on track marks
+- `on_wake_up` (of type `(synchronous : bool, (() -> unit)) -> unit`): Call a given handler to be called after the source is asked to get ready
+
+### `mux_audio`
+
+Deprecated: use `source.mux.audio`.
+
+Type:
+
+```
+(?id : string?, audio : source(audio='A, 'B), source('a)) -> source(audio='A,
+'a) where 'a is a set of tracks to be muxed into a source, 'A is a track
+```
+
+Arguments:
+
+- `id` (of type `string?`, which defaults to `null`)
+- `audio` (of type `source(audio='B, 'A) where 'B is a track`)
+- `(unlabeled)` (of type `source('a) where 'a is a set of tracks to be muxed into a source`)
+
+Methods:
+
+- `buffered` (of type `() -> [string * float]`): Length of buffered data.
+- `clock` (of type `clock`): The source's clock
+- `duration` (of type `() -> float`): Estimation of the duration of the current track.
+- `elapsed` (of type `() -> float`): Elapsed time in the current track.
+- `fallible` (of type `bool`): Indicate if a source may fail, i.e. may not be ready to stream.
+- `generate_frame` (of type `() -> unit`): Generate a frame from the source without consuming it. This can be useful in advanced cases where generating a frame is required to trigger some side effect like calculating some metadata before making a decision. You should make sure that the source is available before calling this function and it should only be called inside synchronous streaming loop callback such as `on_frame`!
+- `id` (of type `() -> string`): Identifier of the source.
+- `insert_metadata` (of type `(?new_track : bool, [string * string]) -> unit`): Dynamically insert metadata in a stream. Inserts a new track with the given metadata if `new_track` is `true`.
+- `is_active` (of type `() -> bool`): `true` if the source is active, i.e. it is continuously animated by its own clock whenever it is ready. Typically, `true` for outputs and sources such as `input.http`.
+- `is_ready` (of type `() -> bool`): Indicate if a source is ready to stream. This does not mean that the source is currently streaming, just that its resources are all properly initialized.
+- `is_up` (of type `() -> bool`): Indicate that the source can be asked to produce some data at any time. This is `true` when the source is currently being used or if it could be used at any time, typically inside a `switch` or `fallback`.
+- `last_metadata` (of type `() -> [string * string]?`): Return the last metadata from the source.
+- `log` (of type `{level : (() -> int).{set : (int) -> unit}}`): Get or set the source's log level, from `1` to `5`.
+- `register_command` (of type `(?usage : string?, description : string, string, ((string) -> string)) ->
+unit`): Register a server command for this source. Command is registered under the source's id namespace when it gets up and de-registered when it gets down.
+- `remaining` (of type `() -> float`): Estimation of remaining time in the current track.
+- `reset_last_metadata_on_track` (of type `(() -> bool).{set : (bool) -> unit}`): If `true`, the source's `last_metadata` is reset on each new track. If a metadata is present along with the track mark, then it becomes the new `last_metadata`, otherwise, `last_metadata becomes `null`.
+- `seek` (of type `(float) -> float`): Seek forward, in seconds (returns the amount of time effectively seeked).
+- `self_sync` (of type `() -> bool`): Is the source currently controlling its own real-time loop.
+- `skip` (of type `() -> unit`): Skip to the next track.
+- `time` (of type `() -> float`): Get a source's time, based on its assigned clock.
+
+Callbacks:
+
+- `on_frame` (of type `(?before : bool, synchronous : bool, (() -> unit)) -> unit`): Call a given handler on frame. When `before` is `true`, callback is executed before computing the frame and after otherwise
+- `on_metadata` (of type `(synchronous : bool, (([string * string]) -> unit)) -> unit`): Call a given handler to execute on each metadata
+- `on_position` (of type `(position : {float}, ?remaining : bool, ?allow_partial : bool,
+ synchronous : bool, ((float, [string * string]) -> unit)) -> unit`): Call a given handler on track position. If `remaining` is `false`, callback is executed when position in track is more or equal to `position`. If `remaining` is `true`, callback is executed when remaining time in the current track is less or equal to `position`. Keep in mind that elapsed time is exact while remaining time is always estimated. Remaining time is usually more accurate for file-based sources. When `allow_partial` is `true`, if the current track ends before the `offset` position is reached, callback is still executed
+- `on_shutdown` (of type `(synchronous : bool, (() -> unit)) -> unit`): Call a given handler to be called when source shuts down
+- `on_track` (of type `(synchronous : bool, (([string * string]) -> unit)) -> unit`): Call a given handler on track marks
+- `on_wake_up` (of type `(synchronous : bool, (() -> unit)) -> unit`): Call a given handler to be called after the source is asked to get ready
+
+### `mux_midi`
+
+Deprecated: use `source.mux.midi`
+
+Type:
+
+```
+(?id : string?, midi : source(midi='A, 'B), source('a)) -> source(midi='A,
+'a) where 'a is a set of tracks to be muxed into a source, 'A is a track
+```
+
+Arguments:
+
+- `id` (of type `string?`, which defaults to `null`)
+- `midi` (of type `source(midi='B, 'A) where 'B is a track`)
+- `(unlabeled)` (of type `source('a) where 'a is a set of tracks to be muxed into a source`)
+
+Methods:
+
+- `buffered` (of type `() -> [string * float]`): Length of buffered data.
+- `clock` (of type `clock`): The source's clock
+- `duration` (of type `() -> float`): Estimation of the duration of the current track.
+- `elapsed` (of type `() -> float`): Elapsed time in the current track.
+- `fallible` (of type `bool`): Indicate if a source may fail, i.e. may not be ready to stream.
+- `generate_frame` (of type `() -> unit`): Generate a frame from the source without consuming it. This can be useful in advanced cases where generating a frame is required to trigger some side effect like calculating some metadata before making a decision. You should make sure that the source is available before calling this function and it should only be called inside synchronous streaming loop callback such as `on_frame`!
+- `id` (of type `() -> string`): Identifier of the source.
+- `insert_metadata` (of type `(?new_track : bool, [string * string]) -> unit`): Dynamically insert metadata in a stream. Inserts a new track with the given metadata if `new_track` is `true`.
+- `is_active` (of type `() -> bool`): `true` if the source is active, i.e. it is continuously animated by its own clock whenever it is ready. Typically, `true` for outputs and sources such as `input.http`.
+- `is_ready` (of type `() -> bool`): Indicate if a source is ready to stream. This does not mean that the source is currently streaming, just that its resources are all properly initialized.
+- `is_up` (of type `() -> bool`): Indicate that the source can be asked to produce some data at any time. This is `true` when the source is currently being used or if it could be used at any time, typically inside a `switch` or `fallback`.
+- `last_metadata` (of type `() -> [string * string]?`): Return the last metadata from the source.
+- `log` (of type `{level : (() -> int).{set : (int) -> unit}}`): Get or set the source's log level, from `1` to `5`.
+- `register_command` (of type `(?usage : string?, description : string, string, ((string) -> string)) ->
+unit`): Register a server command for this source. Command is registered under the source's id namespace when it gets up and de-registered when it gets down.
+- `remaining` (of type `() -> float`): Estimation of remaining time in the current track.
+- `reset_last_metadata_on_track` (of type `(() -> bool).{set : (bool) -> unit}`): If `true`, the source's `last_metadata` is reset on each new track. If a metadata is present along with the track mark, then it becomes the new `last_metadata`, otherwise, `last_metadata becomes `null`.
+- `seek` (of type `(float) -> float`): Seek forward, in seconds (returns the amount of time effectively seeked).
+- `self_sync` (of type `() -> bool`): Is the source currently controlling its own real-time loop.
+- `skip` (of type `() -> unit`): Skip to the next track.
+- `time` (of type `() -> float`): Get a source's time, based on its assigned clock.
+
+Callbacks:
+
+- `on_frame` (of type `(?before : bool, synchronous : bool, (() -> unit)) -> unit`): Call a given handler on frame. When `before` is `true`, callback is executed before computing the frame and after otherwise
+- `on_metadata` (of type `(synchronous : bool, (([string * string]) -> unit)) -> unit`): Call a given handler to execute on each metadata
+- `on_position` (of type `(position : {float}, ?remaining : bool, ?allow_partial : bool,
+ synchronous : bool, ((float, [string * string]) -> unit)) -> unit`): Call a given handler on track position. If `remaining` is `false`, callback is executed when position in track is more or equal to `position`. If `remaining` is `true`, callback is executed when remaining time in the current track is less or equal to `position`. Keep in mind that elapsed time is exact while remaining time is always estimated. Remaining time is usually more accurate for file-based sources. When `allow_partial` is `true`, if the current track ends before the `offset` position is reached, callback is still executed
+- `on_shutdown` (of type `(synchronous : bool, (() -> unit)) -> unit`): Call a given handler to be called when source shuts down
+- `on_track` (of type `(synchronous : bool, (([string * string]) -> unit)) -> unit`): Call a given handler on track marks
+- `on_wake_up` (of type `(synchronous : bool, (() -> unit)) -> unit`): Call a given handler to be called after the source is asked to get ready
+
+### `mux_video`
+
+Deprecated: use `source.mux.video`.
+
+Type:
+
+```
+(?id : string?, video : source(video='A, 'B), source('a)) -> source(video='A,
+'a) where 'a is a set of tracks to be muxed into a source, 'A is a track
+```
+
+Arguments:
+
+- `id` (of type `string?`, which defaults to `null`)
+- `video` (of type `source(video='B, 'A) where 'B is a track`)
+- `(unlabeled)` (of type `source('a) where 'a is a set of tracks to be muxed into a source`)
+
+Methods:
+
+- `buffered` (of type `() -> [string * float]`): Length of buffered data.
+- `clock` (of type `clock`): The source's clock
+- `duration` (of type `() -> float`): Estimation of the duration of the current track.
+- `elapsed` (of type `() -> float`): Elapsed time in the current track.
+- `fallible` (of type `bool`): Indicate if a source may fail, i.e. may not be ready to stream.
+- `generate_frame` (of type `() -> unit`): Generate a frame from the source without consuming it. This can be useful in advanced cases where generating a frame is required to trigger some side effect like calculating some metadata before making a decision. You should make sure that the source is available before calling this function and it should only be called inside synchronous streaming loop callback such as `on_frame`!
+- `id` (of type `() -> string`): Identifier of the source.
+- `insert_metadata` (of type `(?new_track : bool, [string * string]) -> unit`): Dynamically insert metadata in a stream. Inserts a new track with the given metadata if `new_track` is `true`.
+- `is_active` (of type `() -> bool`): `true` if the source is active, i.e. it is continuously animated by its own clock whenever it is ready. Typically, `true` for outputs and sources such as `input.http`.
+- `is_ready` (of type `() -> bool`): Indicate if a source is ready to stream. This does not mean that the source is currently streaming, just that its resources are all properly initialized.
+- `is_up` (of type `() -> bool`): Indicate that the source can be asked to produce some data at any time. This is `true` when the source is currently being used or if it could be used at any time, typically inside a `switch` or `fallback`.
+- `last_metadata` (of type `() -> [string * string]?`): Return the last metadata from the source.
+- `log` (of type `{level : (() -> int).{set : (int) -> unit}}`): Get or set the source's log level, from `1` to `5`.
+- `register_command` (of type `(?usage : string?, description : string, string, ((string) -> string)) ->
+unit`): Register a server command for this source. Command is registered under the source's id namespace when it gets up and de-registered when it gets down.
+- `remaining` (of type `() -> float`): Estimation of remaining time in the current track.
+- `reset_last_metadata_on_track` (of type `(() -> bool).{set : (bool) -> unit}`): If `true`, the source's `last_metadata` is reset on each new track. If a metadata is present along with the track mark, then it becomes the new `last_metadata`, otherwise, `last_metadata becomes `null`.
+- `seek` (of type `(float) -> float`): Seek forward, in seconds (returns the amount of time effectively seeked).
+- `self_sync` (of type `() -> bool`): Is the source currently controlling its own real-time loop.
+- `skip` (of type `() -> unit`): Skip to the next track.
+- `time` (of type `() -> float`): Get a source's time, based on its assigned clock.
+
+Callbacks:
+
+- `on_frame` (of type `(?before : bool, synchronous : bool, (() -> unit)) -> unit`): Call a given handler on frame. When `before` is `true`, callback is executed before computing the frame and after otherwise
+- `on_metadata` (of type `(synchronous : bool, (([string * string]) -> unit)) -> unit`): Call a given handler to execute on each metadata
+- `on_position` (of type `(position : {float}, ?remaining : bool, ?allow_partial : bool,
+ synchronous : bool, ((float, [string * string]) -> unit)) -> unit`): Call a given handler on track position. If `remaining` is `false`, callback is executed when position in track is more or equal to `position`. If `remaining` is `true`, callback is executed when remaining time in the current track is less or equal to `position`. Keep in mind that elapsed time is exact while remaining time is always estimated. Remaining time is usually more accurate for file-based sources. When `allow_partial` is `true`, if the current track ends before the `offset` position is reached, callback is still executed
+- `on_shutdown` (of type `(synchronous : bool, (() -> unit)) -> unit`): Call a given handler to be called when source shuts down
+- `on_track` (of type `(synchronous : bool, (([string * string]) -> unit)) -> unit`): Call a given handler on track marks
+- `on_wake_up` (of type `(synchronous : bool, (() -> unit)) -> unit`): Call a given handler to be called after the source is asked to get ready
+
+### `of_json`
+
+Deprecated: use `json.parse` instead
+
+Type:
+
+```
+(default : 'a, string) -> 'a
+```
+
+Arguments:
+
+- `default` (of type `'a`): Default value if string cannot be parsed.
+- `(unlabeled)` (of type `string`)
+
+### `on_blank`
+
+Deprecated: use `blank.detect` instead
+
+Type:
+
+```
+(?id : string?, ?max_blank : {float}, ?min_noise : {float},
+ ?start_blank : bool, ?threshold : {float}, ?track_sensitive : {bool},
+ (() -> unit), source(audio=pcm('a), 'b)) -> source(audio=pcm('a), 'b)
+```
+
+Arguments:
+
+- `id` (of type `string?`, which defaults to `null`)
+- `max_blank` (of type `{float}`, which defaults to `20.0`)
+- `min_noise` (of type `{float}`, which defaults to `0.0`)
+- `start_blank` (of type `bool`, which defaults to `false`)
+- `threshold` (of type `{float}`, which defaults to `-40.0`)
+- `track_sensitive` (of type `{bool}`, which defaults to `true`)
+- `(unlabeled)` (of type `() -> unit`)
+- `(unlabeled)` (of type `source(audio=pcm('a), 'b)`)
+
+Methods:
+
+- `buffered` (of type `() -> [string * float]`): Length of buffered data.
+- `clock` (of type `clock`): The source's clock
+- `dB_levels` (of type `() -> [float]?`): Return the detected dB level for each channel.
+- `duration` (of type `() -> float`): Estimation of the duration of the current track.
+- `elapsed` (of type `() -> float`): Elapsed time in the current track.
+- `fallible` (of type `bool`): Indicate if a source may fail, i.e. may not be ready to stream.
+- `generate_frame` (of type `() -> unit`): Generate a frame from the source without consuming it. This can be useful in advanced cases where generating a frame is required to trigger some side effect like calculating some metadata before making a decision. You should make sure that the source is available before calling this function and it should only be called inside synchronous streaming loop callback such as `on_frame`!
+- `id` (of type `() -> string`): Identifier of the source.
+- `insert_metadata` (of type `(?new_track : bool, [string * string]) -> unit`): Dynamically insert metadata in a stream. Inserts a new track with the given metadata if `new_track` is `true`.
+- `is_active` (of type `() -> bool`): `true` if the source is active, i.e. it is continuously animated by its own clock whenever it is ready. Typically, `true` for outputs and sources such as `input.http`.
+- `is_blank` (of type `() -> bool`): Indicate whether blank was detected.
+- `is_ready` (of type `() -> bool`): Indicate if a source is ready to stream. This does not mean that the source is currently streaming, just that its resources are all properly initialized.
+- `is_up` (of type `() -> bool`): Indicate that the source can be asked to produce some data at any time. This is `true` when the source is currently being used or if it could be used at any time, typically inside a `switch` or `fallback`.
+- `last_metadata` (of type `() -> [string * string]?`): Return the last metadata from the source.
+- `log` (of type `{level : (() -> int).{set : (int) -> unit}}`): Get or set the source's log level, from `1` to `5`.
+- `register_command` (of type `(?usage : string?, description : string, string, ((string) -> string)) ->
+unit`): Register a server command for this source. Command is registered under the source's id namespace when it gets up and de-registered when it gets down.
+- `remaining` (of type `() -> float`): Estimation of remaining time in the current track.
+- `reset_last_metadata_on_track` (of type `(() -> bool).{set : (bool) -> unit}`): If `true`, the source's `last_metadata` is reset on each new track. If a metadata is present along with the track mark, then it becomes the new `last_metadata`, otherwise, `last_metadata becomes `null`.
+- `seek` (of type `(float) -> float`): Seek forward, in seconds (returns the amount of time effectively seeked).
+- `self_sync` (of type `() -> bool`): Is the source currently controlling its own real-time loop.
+- `skip` (of type `() -> unit`): Skip to the next track.
+- `time` (of type `() -> float`): Get a source's time, based on its assigned clock.
+
+Callbacks:
+
+- `on_blank` (of type `(synchronous : bool, (() -> unit)) -> unit`): Call a given handler when detecting a blank.
+- `on_frame` (of type `(?before : bool, synchronous : bool, (() -> unit)) -> unit`): Call a given handler on frame. When `before` is `true`, callback is executed before computing the frame and after otherwise
+- `on_metadata` (of type `(synchronous : bool, (([string * string]) -> unit)) -> unit`): Call a given handler to execute on each metadata
+- `on_noise` (of type `(synchronous : bool, (() -> unit)) -> unit`): Call a given handler when noise is detected.
+- `on_position` (of type `(position : {float}, ?remaining : bool, ?allow_partial : bool,
+ synchronous : bool, ((float, [string * string]) -> unit)) -> unit`): Call a given handler on track position. If `remaining` is `false`, callback is executed when position in track is more or equal to `position`. If `remaining` is `true`, callback is executed when remaining time in the current track is less or equal to `position`. Keep in mind that elapsed time is exact while remaining time is always estimated. Remaining time is usually more accurate for file-based sources. When `allow_partial` is `true`, if the current track ends before the `offset` position is reached, callback is still executed
+- `on_shutdown` (of type `(synchronous : bool, (() -> unit)) -> unit`): Call a given handler to be called when source shuts down
+- `on_track` (of type `(synchronous : bool, (([string * string]) -> unit)) -> unit`): Call a given handler on track marks
+- `on_wake_up` (of type `(synchronous : bool, (() -> unit)) -> unit`): Call a given handler to be called after the source is asked to get ready
+
+### `on_metadata`
+
+Deprecated: use the on_metadata source method
+
+Type:
+
+```
+(id : 'a, source('b), (([string * string]) -> unit)) -> source('b)
+```
+
+Arguments:
+
+- `id` (of type `'a`)
+- `(unlabeled)` (of type `source('b)`)
+- `(unlabeled)` (of type `([string * string]) -> unit`)
+
+### `on_track`
+
+Deprecated: use the on_track source method
+
+Type:
+
+```
+(id : 'a, source('b), (([string * string]) -> unit)) -> source('b)
+```
+
+Arguments:
+
+- `id` (of type `'a`)
+- `(unlabeled)` (of type `source('b)`)
+- `(unlabeled)` (of type `([string * string]) -> unit`)
+
+### `out`
+
+Deprecated: use `output` instead.
+
+Type:
+
+```
+(source(audio=pcm('A))) -> unit
+```
+
+Arguments:
+
+- `(unlabeled)` (of type `source(audio=pcm('A))`)
+
+Methods:
+
+- `buffered` (of type `() -> [string * float]`): Length of buffered data.
+- `clock` (of type `clock`): The source's clock
+- `duration` (of type `() -> float`): Estimation of the duration of the current track.
+- `elapsed` (of type `() -> float`): Elapsed time in the current track.
+- `fallible` (of type `bool`): Indicate if a source may fail, i.e. may not be ready to stream.
+- `generate_frame` (of type `() -> unit`): Generate a frame from the source without consuming it. This can be useful in advanced cases where generating a frame is required to trigger some side effect like calculating some metadata before making a decision. You should make sure that the source is available before calling this function and it should only be called inside synchronous streaming loop callback such as `on_frame`!
+- `id` (of type `() -> string`): Identifier of the source.
+- `insert_metadata` (of type `(?new_track : bool, [string * string]) -> unit`): Dynamically insert metadata in a stream. Inserts a new track with the given metadata if `new_track` is `true`.
+- `is_active` (of type `() -> bool`): `true` if the source is active, i.e. it is continuously animated by its own clock whenever it is ready. Typically, `true` for outputs and sources such as `input.http`.
+- `is_ready` (of type `() -> bool`): Indicate if a source is ready to stream. This does not mean that the source is currently streaming, just that its resources are all properly initialized.
+- `is_started` (of type `() -> bool`): `true` if the output or source is started.
+- `is_up` (of type `() -> bool`): Indicate that the source can be asked to produce some data at any time. This is `true` when the source is currently being used or if it could be used at any time, typically inside a `switch` or `fallback`.
+- `last_metadata` (of type `() -> [string * string]?`): Return the last metadata from the source.
+- `log` (of type `{level : (() -> int).{set : (int) -> unit}}`): Get or set the source's log level, from `1` to `5`.
+- `register_command` (of type `(?usage : string?, description : string, string, ((string) -> string)) ->
+unit`): Register a server command for this source. Command is registered under the source's id namespace when it gets up and de-registered when it gets down.
+- `remaining` (of type `() -> float`): Estimation of remaining time in the current track.
+- `reset_last_metadata_on_track` (of type `(() -> bool).{set : (bool) -> unit}`): If `true`, the source's `last_metadata` is reset on each new track. If a metadata is present along with the track mark, then it becomes the new `last_metadata`, otherwise, `last_metadata becomes `null`.
+- `seek` (of type `(float) -> float`): Seek forward, in seconds (returns the amount of time effectively seeked).
+- `self_sync` (of type `() -> bool`): Is the source currently controlling its own real-time loop.
+- `shutdown` (of type `() -> unit`): Shutdown the output.
+- `skip` (of type `() -> unit`): Skip to the next track.
+- `start` (of type `() -> unit`): Ask the source or output to start.
+- `stop` (of type `() -> unit`): Ask the source or output to stop.
+- `time` (of type `() -> float`): Get a source's time, based on its assigned clock.
+
+Callbacks:
+
+- `on_frame` (of type `(?before : bool, synchronous : bool, (() -> unit)) -> unit`): Call a given handler on frame. When `before` is `true`, callback is executed before computing the frame and after otherwise
+- `on_metadata` (of type `(synchronous : bool, (([string * string]) -> unit)) -> unit`): Call a given handler to execute on each metadata
+- `on_position` (of type `(position : {float}, ?remaining : bool, ?allow_partial : bool,
+ synchronous : bool, ((float, [string * string]) -> unit)) -> unit`): Call a given handler on track position. If `remaining` is `false`, callback is executed when position in track is more or equal to `position`. If `remaining` is `true`, callback is executed when remaining time in the current track is less or equal to `position`. Keep in mind that elapsed time is exact while remaining time is always estimated. Remaining time is usually more accurate for file-based sources. When `allow_partial` is `true`, if the current track ends before the `offset` position is reached, callback is still executed
+- `on_shutdown` (of type `(synchronous : bool, (() -> unit)) -> unit`): Call a given handler to be called when source shuts down
+- `on_start` (of type `(synchronous : bool, (() -> unit)) -> unit`): Call a given handler when output starts
+- `on_stop` (of type `(synchronous : bool, (() -> unit)) -> unit`): Call a given handler when output stops
+- `on_track` (of type `(synchronous : bool, (([string * string]) -> unit)) -> unit`): Call a given handler on track marks
+- `on_wake_up` (of type `(synchronous : bool, (() -> unit)) -> unit`): Call a given handler to be called after the source is asked to get ready
+
+### `output.preferred`
+
+
+
+Type:
+
+```
+(?id : string?, ?fallible : bool, ?start : bool, source(audio=pcm('A))) ->
+unit
+```
+
+Arguments:
+
+- `id` (of type `string?`, which defaults to `null`)
+- `fallible` (of type `bool`, which defaults to `false`)
+- `start` (of type `bool`, which defaults to `true`)
+- `(unlabeled)` (of type `source(audio=pcm('A))`)
+
+Methods:
+
+- `buffered` (of type `() -> [string * float]`): Length of buffered data.
+- `clock` (of type `clock`): The source's clock
+- `duration` (of type `() -> float`): Estimation of the duration of the current track.
+- `elapsed` (of type `() -> float`): Elapsed time in the current track.
+- `fallible` (of type `bool`): Indicate if a source may fail, i.e. may not be ready to stream.
+- `generate_frame` (of type `() -> unit`): Generate a frame from the source without consuming it. This can be useful in advanced cases where generating a frame is required to trigger some side effect like calculating some metadata before making a decision. You should make sure that the source is available before calling this function and it should only be called inside synchronous streaming loop callback such as `on_frame`!
+- `id` (of type `() -> string`): Identifier of the source.
+- `insert_metadata` (of type `(?new_track : bool, [string * string]) -> unit`): Dynamically insert metadata in a stream. Inserts a new track with the given metadata if `new_track` is `true`.
+- `is_active` (of type `() -> bool`): `true` if the source is active, i.e. it is continuously animated by its own clock whenever it is ready. Typically, `true` for outputs and sources such as `input.http`.
+- `is_ready` (of type `() -> bool`): Indicate if a source is ready to stream. This does not mean that the source is currently streaming, just that its resources are all properly initialized.
+- `is_started` (of type `() -> bool`): `true` if the output or source is started.
+- `is_up` (of type `() -> bool`): Indicate that the source can be asked to produce some data at any time. This is `true` when the source is currently being used or if it could be used at any time, typically inside a `switch` or `fallback`.
+- `last_metadata` (of type `() -> [string * string]?`): Return the last metadata from the source.
+- `log` (of type `{level : (() -> int).{set : (int) -> unit}}`): Get or set the source's log level, from `1` to `5`.
+- `register_command` (of type `(?usage : string?, description : string, string, ((string) -> string)) ->
+unit`): Register a server command for this source. Command is registered under the source's id namespace when it gets up and de-registered when it gets down.
+- `remaining` (of type `() -> float`): Estimation of remaining time in the current track.
+- `reset_last_metadata_on_track` (of type `(() -> bool).{set : (bool) -> unit}`): If `true`, the source's `last_metadata` is reset on each new track. If a metadata is present along with the track mark, then it becomes the new `last_metadata`, otherwise, `last_metadata becomes `null`.
+- `seek` (of type `(float) -> float`): Seek forward, in seconds (returns the amount of time effectively seeked).
+- `self_sync` (of type `() -> bool`): Is the source currently controlling its own real-time loop.
+- `shutdown` (of type `() -> unit`): Shutdown the output.
+- `skip` (of type `() -> unit`): Skip to the next track.
+- `start` (of type `() -> unit`): Ask the source or output to start.
+- `stop` (of type `() -> unit`): Ask the source or output to stop.
+- `time` (of type `() -> float`): Get a source's time, based on its assigned clock.
+
+Callbacks:
+
+- `on_frame` (of type `(?before : bool, synchronous : bool, (() -> unit)) -> unit`): Call a given handler on frame. When `before` is `true`, callback is executed before computing the frame and after otherwise
+- `on_metadata` (of type `(synchronous : bool, (([string * string]) -> unit)) -> unit`): Call a given handler to execute on each metadata
+- `on_position` (of type `(position : {float}, ?remaining : bool, ?allow_partial : bool,
+ synchronous : bool, ((float, [string * string]) -> unit)) -> unit`): Call a given handler on track position. If `remaining` is `false`, callback is executed when position in track is more or equal to `position`. If `remaining` is `true`, callback is executed when remaining time in the current track is less or equal to `position`. Keep in mind that elapsed time is exact while remaining time is always estimated. Remaining time is usually more accurate for file-based sources. When `allow_partial` is `true`, if the current track ends before the `offset` position is reached, callback is still executed
+- `on_shutdown` (of type `(synchronous : bool, (() -> unit)) -> unit`): Call a given handler to be called when source shuts down
+- `on_start` (of type `(synchronous : bool, (() -> unit)) -> unit`): Call a given handler when output starts
+- `on_stop` (of type `(synchronous : bool, (() -> unit)) -> unit`): Call a given handler when output stops
+- `on_track` (of type `(synchronous : bool, (([string * string]) -> unit)) -> unit`): Call a given handler on track marks
+- `on_wake_up` (of type `(synchronous : bool, (() -> unit)) -> unit`): Call a given handler to be called after the source is asked to get ready
+
+### `playlist.once`
+
+Deprecated: this function has been replaced with `playlist`, setting `reload_mode` argument to `"never"` and `loop` to `false`.
+
+Type:
+
+```
+(?id : string?, ?random : bool, ?reload_mode : string, ?prefetch : int,
+ ?filter : ((request) -> bool), string) -> source('a)
+```
+
+Arguments:
+
+- `id` (of type `string?`, which defaults to `null`)
+- `random` (of type `bool`, which defaults to `false`)
+- `reload_mode` (of type `string`, which defaults to `""`)
+- `prefetch` (of type `int`, which defaults to `1`)
+- `filter` (of type `(request) -> bool`, which defaults to `fun (_) -> true`)
+- `(unlabeled)` (of type `string`)
+
+Methods:
+
+- `add` (of type `(request) -> bool`): Add a request to the queue. Requests are resolved before being added. Returns `true` if the request was successfully added.
+- `buffered` (of type `() -> [string * float]`): Length of buffered data.
+- `clock` (of type `clock`): The source's clock
+- `current` (of type `() -> request?`): Get the request currently being played.
+- `duration` (of type `() -> float`): Estimation of the duration of the current track.
+- `elapsed` (of type `() -> float`): Elapsed time in the current track.
+- `fallible` (of type `bool`): Indicate if a source may fail, i.e. may not be ready to stream.
+- `fetch` (of type `() -> unit`): Notify the source to queue a new request. If `synchronous` is `false` (the default), this method returns immediately and a new request is fetched in the background. If `synchronous` is `true`, can take long to return and should usually be run in a separate thread.
+- `generate_frame` (of type `() -> unit`): Generate a frame from the source without consuming it. This can be useful in advanced cases where generating a frame is required to trigger some side effect like calculating some metadata before making a decision. You should make sure that the source is available before calling this function and it should only be called inside synchronous streaming loop callback such as `on_frame`!
+- `id` (of type `() -> string`): Identifier of the source.
+- `insert_metadata` (of type `(?new_track : bool, [string * string]) -> unit`): Dynamically insert metadata in a stream. Inserts a new track with the given metadata if `new_track` is `true`.
+- `is_active` (of type `() -> bool`): `true` if the source is active, i.e. it is continuously animated by its own clock whenever it is ready. Typically, `true` for outputs and sources such as `input.http`.
+- `is_ready` (of type `() -> bool`): Indicate if a source is ready to stream. This does not mean that the source is currently streaming, just that its resources are all properly initialized.
+- `is_up` (of type `() -> bool`): Indicate that the source can be asked to produce some data at any time. This is `true` when the source is currently being used or if it could be used at any time, typically inside a `switch` or `fallback`.
+- `last_metadata` (of type `() -> [string * string]?`): Return the last metadata from the source.
+- `length` (of type `() -> int`): 
+- `log` (of type `{level : (() -> int).{set : (int) -> unit}}`): Get or set the source's log level, from `1` to `5`.
+- `queue` (of type `() -> [request]`): Get the requests currently in the queue.
+- `register_command` (of type `(?usage : string?, description : string, string, ((string) -> string)) ->
+unit`): Register a server command for this source. Command is registered under the source's id namespace when it gets up and de-registered when it gets down.
+- `reload` (of type `(?empty_queue : bool, ?uri : string?) -> unit`): 
+- `remaining` (of type `() -> float`): Estimation of remaining time in the current track.
+- `remaining_files` (of type `() -> [string]`): 
+- `reset_last_metadata_on_track` (of type `(() -> bool).{set : (bool) -> unit}`): If `true`, the source's `last_metadata` is reset on each new track. If a metadata is present along with the track mark, then it becomes the new `last_metadata`, otherwise, `last_metadata becomes `null`.
+- `seek` (of type `(float) -> float`): Seek forward, in seconds (returns the amount of time effectively seeked).
+- `self_sync` (of type `() -> bool`): Is the source currently controlling its own real-time loop.
+- `set_queue` (of type `([request]) -> unit`): Set the queue of requests. Requests are resolved before being added to the queue. You are responsible for destroying the requests currently in the queue.
+- `skip` (of type `() -> unit`): Skip to the next track.
+- `time` (of type `() -> float`): Get a source's time, based on its assigned clock.
+
+Callbacks:
+
+- `on_frame` (of type `(?before : bool, synchronous : bool, (() -> unit)) -> unit`): Call a given handler on frame. When `before` is `true`, callback is executed before computing the frame and after otherwise
+- `on_metadata` (of type `(synchronous : bool, (([string * string]) -> unit)) -> unit`): Call a given handler to execute on each metadata
+- `on_position` (of type `(position : {float}, ?remaining : bool, ?allow_partial : bool,
+ synchronous : bool, ((float, [string * string]) -> unit)) -> unit`): Call a given handler on track position. If `remaining` is `false`, callback is executed when position in track is more or equal to `position`. If `remaining` is `true`, callback is executed when remaining time in the current track is less or equal to `position`. Keep in mind that elapsed time is exact while remaining time is always estimated. Remaining time is usually more accurate for file-based sources. When `allow_partial` is `true`, if the current track ends before the `offset` position is reached, callback is still executed
+- `on_shutdown` (of type `(synchronous : bool, (() -> unit)) -> unit`): Call a given handler to be called when source shuts down
+- `on_track` (of type `(synchronous : bool, (([string * string]) -> unit)) -> unit`): Call a given handler on track marks
+- `on_wake_up` (of type `(synchronous : bool, (() -> unit)) -> unit`): Call a given handler to be called after the source is asked to get ready
+
+### `playlist.reloadable`
+
+Deprecated: use `playlist` instead
+
+Type:
+
+```
+(?id : string?, ?mime_type : string, ?mode : string,
+ ?on_track : (() -> unit), ?prefix : string, ?reload : int,
+ ?reload_mode : string, string) -> source('a)
+```
+
+Arguments:
+
+- `id` (of type `string?`, which defaults to `null`)
+- `mime_type` (of type `string`, which defaults to `""`)
+- `mode` (of type `string`, which defaults to `"randomize"`)
+- `on_track` (of type `() -> unit`, which defaults to `{()}`)
+- `prefix` (of type `string`, which defaults to `""`)
+- `reload` (of type `int`, which defaults to `0`)
+- `reload_mode` (of type `string`, which defaults to `"seconds"`)
+- `(unlabeled)` (of type `string`)
+
+Methods:
+
+- `add` (of type `(request) -> bool`): Add a request to the queue. Requests are resolved before being added. Returns `true` if the request was successfully added.
+- `buffered` (of type `() -> [string * float]`): Length of buffered data.
+- `clock` (of type `clock`): The source's clock
+- `current` (of type `() -> request?`): Get the request currently being played.
+- `duration` (of type `() -> float`): Estimation of the duration of the current track.
+- `elapsed` (of type `() -> float`): Elapsed time in the current track.
+- `fallible` (of type `bool`): Indicate if a source may fail, i.e. may not be ready to stream.
+- `fetch` (of type `() -> unit`): Notify the source to queue a new request. If `synchronous` is `false` (the default), this method returns immediately and a new request is fetched in the background. If `synchronous` is `true`, can take long to return and should usually be run in a separate thread.
+- `generate_frame` (of type `() -> unit`): Generate a frame from the source without consuming it. This can be useful in advanced cases where generating a frame is required to trigger some side effect like calculating some metadata before making a decision. You should make sure that the source is available before calling this function and it should only be called inside synchronous streaming loop callback such as `on_frame`!
+- `id` (of type `() -> string`): Identifier of the source.
+- `insert_metadata` (of type `(?new_track : bool, [string * string]) -> unit`): Dynamically insert metadata in a stream. Inserts a new track with the given metadata if `new_track` is `true`.
+- `is_active` (of type `() -> bool`): `true` if the source is active, i.e. it is continuously animated by its own clock whenever it is ready. Typically, `true` for outputs and sources such as `input.http`.
+- `is_ready` (of type `() -> bool`): Indicate if a source is ready to stream. This does not mean that the source is currently streaming, just that its resources are all properly initialized.
+- `is_up` (of type `() -> bool`): Indicate that the source can be asked to produce some data at any time. This is `true` when the source is currently being used or if it could be used at any time, typically inside a `switch` or `fallback`.
+- `last_metadata` (of type `() -> [string * string]?`): Return the last metadata from the source.
+- `length` (of type `() -> int`): 
+- `log` (of type `{level : (() -> int).{set : (int) -> unit}}`): Get or set the source's log level, from `1` to `5`.
+- `queue` (of type `() -> [request]`): Get the requests currently in the queue.
+- `register_command` (of type `(?usage : string?, description : string, string, ((string) -> string)) ->
+unit`): Register a server command for this source. Command is registered under the source's id namespace when it gets up and de-registered when it gets down.
+- `reload` (of type `(?empty_queue : bool, ?uri : string?) -> unit`): 
+- `remaining` (of type `() -> float`): Estimation of remaining time in the current track.
+- `remaining_files` (of type `() -> [string]`): 
+- `reset_last_metadata_on_track` (of type `(() -> bool).{set : (bool) -> unit}`): If `true`, the source's `last_metadata` is reset on each new track. If a metadata is present along with the track mark, then it becomes the new `last_metadata`, otherwise, `last_metadata becomes `null`.
+- `seek` (of type `(float) -> float`): Seek forward, in seconds (returns the amount of time effectively seeked).
+- `self_sync` (of type `() -> bool`): Is the source currently controlling its own real-time loop.
+- `set_queue` (of type `([request]) -> unit`): Set the queue of requests. Requests are resolved before being added to the queue. You are responsible for destroying the requests currently in the queue.
+- `skip` (of type `() -> unit`): Skip to the next track.
+- `time` (of type `() -> float`): Get a source's time, based on its assigned clock.
+
+Callbacks:
+
+- `on_frame` (of type `(?before : bool, synchronous : bool, (() -> unit)) -> unit`): Call a given handler on frame. When `before` is `true`, callback is executed before computing the frame and after otherwise
+- `on_metadata` (of type `(synchronous : bool, (([string * string]) -> unit)) -> unit`): Call a given handler to execute on each metadata
+- `on_position` (of type `(position : {float}, ?remaining : bool, ?allow_partial : bool,
+ synchronous : bool, ((float, [string * string]) -> unit)) -> unit`): Call a given handler on track position. If `remaining` is `false`, callback is executed when position in track is more or equal to `position`. If `remaining` is `true`, callback is executed when remaining time in the current track is less or equal to `position`. Keep in mind that elapsed time is exact while remaining time is always estimated. Remaining time is usually more accurate for file-based sources. When `allow_partial` is `true`, if the current track ends before the `offset` position is reached, callback is still executed
+- `on_shutdown` (of type `(synchronous : bool, (() -> unit)) -> unit`): Call a given handler to be called when source shuts down
+- `on_track` (of type `(synchronous : bool, (([string * string]) -> unit)) -> unit`): Call a given handler on track marks
+- `on_wake_up` (of type `(synchronous : bool, (() -> unit)) -> unit`): Call a given handler to be called after the source is asked to get ready
+
+### `playlist.safe`
+
+Deprecated: use mksafe and playlist instead.
+
+Type:
+
+```
+(?id : string?, ?mime_type : string, ?mode : string,
+ ?on_track : (() -> unit), ?prefix : string, ?reload : int,
+ ?reload_mode : string, string) -> source('a)
+where 'a is a set of internal tracks
+```
+
+Arguments:
+
+- `id` (of type `string?`, which defaults to `null`)
+- `mime_type` (of type `string`, which defaults to `""`)
+- `mode` (of type `string`, which defaults to `"randomize"`)
+- `on_track` (of type `() -> unit`, which defaults to `{()}`)
+- `prefix` (of type `string`, which defaults to `""`)
+- `reload` (of type `int`, which defaults to `0`)
+- `reload_mode` (of type `string`, which defaults to `"seconds"`)
+- `(unlabeled)` (of type `string`)
+
+Methods:
+
+- `buffered` (of type `() -> [string * float]`): Length of buffered data.
+- `clock` (of type `clock`): The source's clock
+- `duration` (of type `() -> float`): Estimation of the duration of the current track.
+- `elapsed` (of type `() -> float`): Elapsed time in the current track.
+- `fallible` (of type `bool`): Indicate if a source may fail, i.e. may not be ready to stream.
+- `generate_frame` (of type `() -> unit`): Generate a frame from the source without consuming it. This can be useful in advanced cases where generating a frame is required to trigger some side effect like calculating some metadata before making a decision. You should make sure that the source is available before calling this function and it should only be called inside synchronous streaming loop callback such as `on_frame`!
+- `id` (of type `() -> string`): Identifier of the source.
+- `insert_metadata` (of type `(?new_track : bool, [string * string]) -> unit`): Dynamically insert metadata in a stream. Inserts a new track with the given metadata if `new_track` is `true`.
+- `is_active` (of type `() -> bool`): `true` if the source is active, i.e. it is continuously animated by its own clock whenever it is ready. Typically, `true` for outputs and sources such as `input.http`.
+- `is_ready` (of type `() -> bool`): Indicate if a source is ready to stream. This does not mean that the source is currently streaming, just that its resources are all properly initialized.
+- `is_up` (of type `() -> bool`): Indicate that the source can be asked to produce some data at any time. This is `true` when the source is currently being used or if it could be used at any time, typically inside a `switch` or `fallback`.
+- `last_metadata` (of type `() -> [string * string]?`): Return the last metadata from the source.
+- `log` (of type `{level : (() -> int).{set : (int) -> unit}}`): Get or set the source's log level, from `1` to `5`.
+- `register_command` (of type `(?usage : string?, description : string, string, ((string) -> string)) ->
+unit`): Register a server command for this source. Command is registered under the source's id namespace when it gets up and de-registered when it gets down.
+- `remaining` (of type `() -> float`): Estimation of remaining time in the current track.
+- `reset_last_metadata_on_track` (of type `(() -> bool).{set : (bool) -> unit}`): If `true`, the source's `last_metadata` is reset on each new track. If a metadata is present along with the track mark, then it becomes the new `last_metadata`, otherwise, `last_metadata becomes `null`.
+- `seek` (of type `(float) -> float`): Seek forward, in seconds (returns the amount of time effectively seeked).
+- `selected` (of type `() -> source('A)? where 'A is a set of internal tracks`): Currently selected source.
+- `self_sync` (of type `() -> bool`): Is the source currently controlling its own real-time loop.
+- `skip` (of type `() -> unit`): Skip to the next track.
+- `time` (of type `() -> float`): Get a source's time, based on its assigned clock.
+
+Callbacks:
+
+- `on_frame` (of type `(?before : bool, synchronous : bool, (() -> unit)) -> unit`): Call a given handler on frame. When `before` is `true`, callback is executed before computing the frame and after otherwise
+- `on_metadata` (of type `(synchronous : bool, (([string * string]) -> unit)) -> unit`): Call a given handler to execute on each metadata
+- `on_position` (of type `(position : {float}, ?remaining : bool, ?allow_partial : bool,
+ synchronous : bool, ((float, [string * string]) -> unit)) -> unit`): Call a given handler on track position. If `remaining` is `false`, callback is executed when position in track is more or equal to `position`. If `remaining` is `true`, callback is executed when remaining time in the current track is less or equal to `position`. Keep in mind that elapsed time is exact while remaining time is always estimated. Remaining time is usually more accurate for file-based sources. When `allow_partial` is `true`, if the current track ends before the `offset` position is reached, callback is still executed
+- `on_shutdown` (of type `(synchronous : bool, (() -> unit)) -> unit`): Call a given handler to be called when source shuts down
+- `on_track` (of type `(synchronous : bool, (([string * string]) -> unit)) -> unit`): Call a given handler on track marks
+- `on_wake_up` (of type `(synchronous : bool, (() -> unit)) -> unit`): Call a given handler to be called after the source is asked to get ready
+
+### `quote`
+
+Deprecated: this function has been replaced by `string.quote`.
+
+Type:
+
+```
+(string) -> string
+```
+
+Arguments:
+
+- `(unlabeled)` (of type `string`)
+
+### `replaygain`
+
+Deprecated: use `normalize_track_gain`
+
+Type:
+
+```
+(?id : string?, source(audio=pcm('a), 'b)) -> source(audio=pcm('a), 'b)
+where 'b is a set of tracks to be muxed into a source
+```
+
+Arguments:
+
+- `id` (of type `string?`, which defaults to `null`)
+- `(unlabeled)` (of type `source(audio=pcm('a), 'b)
+where 'b is a set of tracks to be muxed into a source`)
+
+Methods:
+
+- `buffered` (of type `() -> [string * float]`): Length of buffered data.
+- `clock` (of type `clock`): The source's clock
+- `duration` (of type `() -> float`): Estimation of the duration of the current track.
+- `elapsed` (of type `() -> float`): Elapsed time in the current track.
+- `fallible` (of type `bool`): Indicate if a source may fail, i.e. may not be ready to stream.
+- `generate_frame` (of type `() -> unit`): Generate a frame from the source without consuming it. This can be useful in advanced cases where generating a frame is required to trigger some side effect like calculating some metadata before making a decision. You should make sure that the source is available before calling this function and it should only be called inside synchronous streaming loop callback such as `on_frame`!
+- `id` (of type `() -> string`): Identifier of the source.
+- `insert_metadata` (of type `(?new_track : bool, [string * string]) -> unit`): Dynamically insert metadata in a stream. Inserts a new track with the given metadata if `new_track` is `true`.
+- `is_active` (of type `() -> bool`): `true` if the source is active, i.e. it is continuously animated by its own clock whenever it is ready. Typically, `true` for outputs and sources such as `input.http`.
+- `is_ready` (of type `() -> bool`): Indicate if a source is ready to stream. This does not mean that the source is currently streaming, just that its resources are all properly initialized.
+- `is_up` (of type `() -> bool`): Indicate that the source can be asked to produce some data at any time. This is `true` when the source is currently being used or if it could be used at any time, typically inside a `switch` or `fallback`.
+- `last_metadata` (of type `() -> [string * string]?`): Return the last metadata from the source.
+- `log` (of type `{level : (() -> int).{set : (int) -> unit}}`): Get or set the source's log level, from `1` to `5`.
+- `register_command` (of type `(?usage : string?, description : string, string, ((string) -> string)) ->
+unit`): Register a server command for this source. Command is registered under the source's id namespace when it gets up and de-registered when it gets down.
+- `remaining` (of type `() -> float`): Estimation of remaining time in the current track.
+- `reset_last_metadata_on_track` (of type `(() -> bool).{set : (bool) -> unit}`): If `true`, the source's `last_metadata` is reset on each new track. If a metadata is present along with the track mark, then it becomes the new `last_metadata`, otherwise, `last_metadata becomes `null`.
+- `seek` (of type `(float) -> float`): Seek forward, in seconds (returns the amount of time effectively seeked).
+- `self_sync` (of type `() -> bool`): Is the source currently controlling its own real-time loop.
+- `skip` (of type `() -> unit`): Skip to the next track.
+- `time` (of type `() -> float`): Get a source's time, based on its assigned clock.
+
+Callbacks:
+
+- `on_frame` (of type `(?before : bool, synchronous : bool, (() -> unit)) -> unit`): Call a given handler on frame. When `before` is `true`, callback is executed before computing the frame and after otherwise
+- `on_metadata` (of type `(synchronous : bool, (([string * string]) -> unit)) -> unit`): Call a given handler to execute on each metadata
+- `on_position` (of type `(position : {float}, ?remaining : bool, ?allow_partial : bool,
+ synchronous : bool, ((float, [string * string]) -> unit)) -> unit`): Call a given handler on track position. If `remaining` is `false`, callback is executed when position in track is more or equal to `position`. If `remaining` is `true`, callback is executed when remaining time in the current track is less or equal to `position`. Keep in mind that elapsed time is exact while remaining time is always estimated. Remaining time is usually more accurate for file-based sources. When `allow_partial` is `true`, if the current track ends before the `offset` position is reached, callback is still executed
+- `on_shutdown` (of type `(synchronous : bool, (() -> unit)) -> unit`): Call a given handler to be called when source shuts down
+- `on_track` (of type `(synchronous : bool, (([string * string]) -> unit)) -> unit`): Call a given handler on track marks
+- `on_wake_up` (of type `(synchronous : bool, (() -> unit)) -> unit`): Call a given handler to be called after the source is asked to get ready
+
+### `request.create.raw`
+
+Deprecated: use `request.create` instead.
+
+Type:
+
+```
+(?cue_in_metadata : string?, ?cue_out_metadata : string?, ?persistent : bool,
+ ?resolve_metadata : bool, ?excluded_metadata_resolvers : [string],
+ ?temporary : bool, string) -> request
+```
+
+Arguments:
+
+- `cue_in_metadata` (of type `string?`, which defaults to `"liq_cue_in"`)
+- `cue_out_metadata` (of type `string?`, which defaults to `"liq_cue_out"`)
+- `persistent` (of type `bool`, which defaults to `false`)
+- `resolve_metadata` (of type `bool`, which defaults to `true`)
+- `excluded_metadata_resolvers` (of type `[string]`, which defaults to `[]`)
+- `temporary` (of type `bool`, which defaults to `false`)
+- `(unlabeled)` (of type `string`)
+
+### `request.dynamic.list`
+
+Deprecated: use `request.dynamic` instead
+
+Type:
+
+```
+(?id : string?, ?available : {bool}, ?prefetch : int?,
+ ?retry_delay : {float}, ?synchronous : bool, ?timeout : float?,
+ ?native : bool, (() -> [request])) -> source('a)
+```
+
+Arguments:
+
+- `id` (of type `string?`, which defaults to `null`)
+- `available` (of type `{bool}`, which defaults to `true`)
+- `prefetch` (of type `int?`, which defaults to `null`)
+- `retry_delay` (of type `{float}`, which defaults to `0.1`)
+- `synchronous` (of type `bool`, which defaults to `false`)
+- `timeout` (of type `float?`, which defaults to `null`)
+- `native` (of type `bool`, which defaults to `false`)
+- `(unlabeled)` (of type `() -> [request]`)
+
+Methods:
+
+- `add` (of type `(request) -> bool`): Add a request to the queue. Requests are resolved before being added. Returns `true` if the request was successfully added.
+- `buffered` (of type `() -> [string * float]`): Length of buffered data.
+- `clock` (of type `clock`): The source's clock
+- `current` (of type `() -> request?`): Get the request currently being played.
+- `duration` (of type `() -> float`): Estimation of the duration of the current track.
+- `elapsed` (of type `() -> float`): Elapsed time in the current track.
+- `fallible` (of type `bool`): Indicate if a source may fail, i.e. may not be ready to stream.
+- `fetch` (of type `() -> unit`): Notify the source to queue a new request. If `synchronous` is `false` (the default), this method returns immediately and a new request is fetched in the background. If `synchronous` is `true`, can take long to return and should usually be run in a separate thread.
+- `generate_frame` (of type `() -> unit`): Generate a frame from the source without consuming it. This can be useful in advanced cases where generating a frame is required to trigger some side effect like calculating some metadata before making a decision. You should make sure that the source is available before calling this function and it should only be called inside synchronous streaming loop callback such as `on_frame`!
+- `id` (of type `() -> string`): Identifier of the source.
+- `insert_metadata` (of type `(?new_track : bool, [string * string]) -> unit`): Dynamically insert metadata in a stream. Inserts a new track with the given metadata if `new_track` is `true`.
+- `is_active` (of type `() -> bool`): `true` if the source is active, i.e. it is continuously animated by its own clock whenever it is ready. Typically, `true` for outputs and sources such as `input.http`.
+- `is_ready` (of type `() -> bool`): Indicate if a source is ready to stream. This does not mean that the source is currently streaming, just that its resources are all properly initialized.
+- `is_up` (of type `() -> bool`): Indicate that the source can be asked to produce some data at any time. This is `true` when the source is currently being used or if it could be used at any time, typically inside a `switch` or `fallback`.
+- `last_metadata` (of type `() -> [string * string]?`): Return the last metadata from the source.
+- `log` (of type `{level : (() -> int).{set : (int) -> unit}}`): Get or set the source's log level, from `1` to `5`.
+- `queue` (of type `() -> [request]`): Get the requests currently in the queue.
+- `register_command` (of type `(?usage : string?, description : string, string, ((string) -> string)) ->
+unit`): Register a server command for this source. Command is registered under the source's id namespace when it gets up and de-registered when it gets down.
+- `remaining` (of type `() -> float`): Estimation of remaining time in the current track.
+- `reset_last_metadata_on_track` (of type `(() -> bool).{set : (bool) -> unit}`): If `true`, the source's `last_metadata` is reset on each new track. If a metadata is present along with the track mark, then it becomes the new `last_metadata`, otherwise, `last_metadata becomes `null`.
+- `seek` (of type `(float) -> float`): Seek forward, in seconds (returns the amount of time effectively seeked).
+- `self_sync` (of type `() -> bool`): Is the source currently controlling its own real-time loop.
+- `set_queue` (of type `([request]) -> unit`): Set the queue of requests. Requests are resolved before being added to the queue. You are responsible for destroying the requests currently in the queue.
+- `skip` (of type `() -> unit`): Skip to the next track.
+- `time` (of type `() -> float`): Get a source's time, based on its assigned clock.
+
+Callbacks:
+
+- `on_frame` (of type `(?before : bool, synchronous : bool, (() -> unit)) -> unit`): Call a given handler on frame. When `before` is `true`, callback is executed before computing the frame and after otherwise
+- `on_metadata` (of type `(synchronous : bool, (([string * string]) -> unit)) -> unit`): Call a given handler to execute on each metadata
+- `on_position` (of type `(position : {float}, ?remaining : bool, ?allow_partial : bool,
+ synchronous : bool, ((float, [string * string]) -> unit)) -> unit`): Call a given handler on track position. If `remaining` is `false`, callback is executed when position in track is more or equal to `position`. If `remaining` is `true`, callback is executed when remaining time in the current track is less or equal to `position`. Keep in mind that elapsed time is exact while remaining time is always estimated. Remaining time is usually more accurate for file-based sources. When `allow_partial` is `true`, if the current track ends before the `offset` position is reached, callback is still executed
+- `on_shutdown` (of type `(synchronous : bool, (() -> unit)) -> unit`): Call a given handler to be called when source shuts down
+- `on_track` (of type `(synchronous : bool, (([string * string]) -> unit)) -> unit`): Call a given handler on track marks
+- `on_wake_up` (of type `(synchronous : bool, (() -> unit)) -> unit`): Call a given handler to be called after the source is asked to get ready
+
+### `request.ready`
+
+Deprecated: use `request.resolved`
+
+Type:
+
+```
+(request) -> bool
+```
+
+Arguments:
+
+- `(unlabeled)` (of type `request`)
+
+### `rewrite_metadata`
+
+Deprecated: this function has been replaced by `metadata.map`.
+
+Type:
+
+```
+([string * string], ?insert_missing : bool, ?update : bool, ?strip : bool,
+ source('a)) -> source('a)
+where 'a is a set of tracks to be muxed into a source
+```
+
+Arguments:
+
+- `(unlabeled)` (of type `[string * string]`)
+- `insert_missing` (of type `bool`, which defaults to `true`)
+- `update` (of type `bool`, which defaults to `true`)
+- `strip` (of type `bool`, which defaults to `false`)
+- `(unlabeled)` (of type `source('a) where 'a is a set of tracks to be muxed into a source`)
+
+Methods:
+
+- `buffered` (of type `() -> [string * float]`): Length of buffered data.
+- `clock` (of type `clock`): The source's clock
+- `duration` (of type `() -> float`): Estimation of the duration of the current track.
+- `elapsed` (of type `() -> float`): Elapsed time in the current track.
+- `fallible` (of type `bool`): Indicate if a source may fail, i.e. may not be ready to stream.
+- `generate_frame` (of type `() -> unit`): Generate a frame from the source without consuming it. This can be useful in advanced cases where generating a frame is required to trigger some side effect like calculating some metadata before making a decision. You should make sure that the source is available before calling this function and it should only be called inside synchronous streaming loop callback such as `on_frame`!
+- `id` (of type `() -> string`): Identifier of the source.
+- `insert_metadata` (of type `(?new_track : bool, [string * string]) -> unit`): Dynamically insert metadata in a stream. Inserts a new track with the given metadata if `new_track` is `true`.
+- `is_active` (of type `() -> bool`): `true` if the source is active, i.e. it is continuously animated by its own clock whenever it is ready. Typically, `true` for outputs and sources such as `input.http`.
+- `is_ready` (of type `() -> bool`): Indicate if a source is ready to stream. This does not mean that the source is currently streaming, just that its resources are all properly initialized.
+- `is_up` (of type `() -> bool`): Indicate that the source can be asked to produce some data at any time. This is `true` when the source is currently being used or if it could be used at any time, typically inside a `switch` or `fallback`.
+- `last_metadata` (of type `() -> [string * string]?`): Return the last metadata from the source.
+- `log` (of type `{level : (() -> int).{set : (int) -> unit}}`): Get or set the source's log level, from `1` to `5`.
+- `register_command` (of type `(?usage : string?, description : string, string, ((string) -> string)) ->
+unit`): Register a server command for this source. Command is registered under the source's id namespace when it gets up and de-registered when it gets down.
+- `remaining` (of type `() -> float`): Estimation of remaining time in the current track.
+- `reset_last_metadata_on_track` (of type `(() -> bool).{set : (bool) -> unit}`): If `true`, the source's `last_metadata` is reset on each new track. If a metadata is present along with the track mark, then it becomes the new `last_metadata`, otherwise, `last_metadata becomes `null`.
+- `seek` (of type `(float) -> float`): Seek forward, in seconds (returns the amount of time effectively seeked).
+- `self_sync` (of type `() -> bool`): Is the source currently controlling its own real-time loop.
+- `skip` (of type `() -> unit`): Skip to the next track.
+- `time` (of type `() -> float`): Get a source's time, based on its assigned clock.
+
+Callbacks:
+
+- `on_frame` (of type `(?before : bool, synchronous : bool, (() -> unit)) -> unit`): Call a given handler on frame. When `before` is `true`, callback is executed before computing the frame and after otherwise
+- `on_metadata` (of type `(synchronous : bool, (([string * string]) -> unit)) -> unit`): Call a given handler to execute on each metadata
+- `on_position` (of type `(position : {float}, ?remaining : bool, ?allow_partial : bool,
+ synchronous : bool, ((float, [string * string]) -> unit)) -> unit`): Call a given handler on track position. If `remaining` is `false`, callback is executed when position in track is more or equal to `position`. If `remaining` is `true`, callback is executed when remaining time in the current track is less or equal to `position`. Keep in mind that elapsed time is exact while remaining time is always estimated. Remaining time is usually more accurate for file-based sources. When `allow_partial` is `true`, if the current track ends before the `offset` position is reached, callback is still executed
+- `on_shutdown` (of type `(synchronous : bool, (() -> unit)) -> unit`): Call a given handler to be called when source shuts down
+- `on_track` (of type `(synchronous : bool, (([string * string]) -> unit)) -> unit`): Call a given handler on track marks
+- `on_wake_up` (of type `(synchronous : bool, (() -> unit)) -> unit`): Call a given handler to be called after the source is asked to get ready
+
+### `run_process`
+
+Deprecated: use `process.run` instead
+
+Type:
+
+```
+(?env : [string * string], ?inherit_env : bool, ?stdin : string,
+ ?rwdirs : [string], ?rodirs : [string], ?network : bool?, ?timeout : float?,
+ string) -> string * string * (string * string)
+```
+
+Arguments:
+
+- `env` (of type `[string * string]`, which defaults to `[]`)
+- `inherit_env` (of type `bool`, which defaults to `true`)
+- `stdin` (of type `string`, which defaults to `""`)
+- `rwdirs` (of type `[string]`, which defaults to `["default"]`)
+- `rodirs` (of type `[string]`, which defaults to `["default"]`)
+- `network` (of type `bool?`, which defaults to `null`)
+- `timeout` (of type `float?`, which defaults to `null`)
+- `(unlabeled)` (of type `string`)
+
+### `say_metadata`
+
+Deprecated: use `source.say_metadata` instead
+
+Type:
+
+```
+(source('a), pattern : string) -> source('a) where 'a is an orderable type
+```
+
+Arguments:
+
+- `(unlabeled)` (of type `source('a) where 'a is an orderable type`)
+- `pattern` (of type `string`)
+
+Methods:
+
+- `buffered` (of type `() -> [string * float]`): Length of buffered data.
+- `cancel_pending` (of type `() -> unit`): 
+- `clock` (of type `clock`): The source's clock
+- `duration` (of type `() -> float`): Estimation of the duration of the current track.
+- `elapsed` (of type `() -> float`): Elapsed time in the current track.
+- `fallible` (of type `bool`): Indicate if a source may fail, i.e. may not be ready to stream.
+- `generate_frame` (of type `() -> unit`): Generate a frame from the source without consuming it. This can be useful in advanced cases where generating a frame is required to trigger some side effect like calculating some metadata before making a decision. You should make sure that the source is available before calling this function and it should only be called inside synchronous streaming loop callback such as `on_frame`!
+- `id` (of type `() -> string`): Identifier of the source.
+- `insert_metadata` (of type `(?new_track : bool, [string * string]) -> unit`): Dynamically insert metadata in a stream. Inserts a new track with the given metadata if `new_track` is `true`.
+- `is_active` (of type `() -> bool`): `true` if the source is active, i.e. it is continuously animated by its own clock whenever it is ready. Typically, `true` for outputs and sources such as `input.http`.
+- `is_ready` (of type `() -> bool`): Indicate if a source is ready to stream. This does not mean that the source is currently streaming, just that its resources are all properly initialized.
+- `is_up` (of type `() -> bool`): Indicate that the source can be asked to produce some data at any time. This is `true` when the source is currently being used or if it could be used at any time, typically inside a `switch` or `fallback`.
+- `last_metadata` (of type `() -> [string * string]?`): Return the last metadata from the source.
+- `log` (of type `{level : (() -> int).{set : (int) -> unit}}`): Get or set the source's log level, from `1` to `5`.
+- `pending` (of type `() -> source('A)? where 'A is an orderable type`): 
+- `register_command` (of type `(?usage : string?, description : string, string, ((string) -> string)) ->
+unit`): Register a server command for this source. Command is registered under the source's id namespace when it gets up and de-registered when it gets down.
+- `remaining` (of type `() -> float`): Estimation of remaining time in the current track.
+- `reset_last_metadata_on_track` (of type `(() -> bool).{set : (bool) -> unit}`): If `true`, the source's `last_metadata` is reset on each new track. If a metadata is present along with the track mark, then it becomes the new `last_metadata`, otherwise, `last_metadata becomes `null`.
+- `seek` (of type `(float) -> float`): Seek forward, in seconds (returns the amount of time effectively seeked).
+- `selected` (of type `() -> source('A)? where 'A is an orderable type`): Currently selected source.
+- `self_sync` (of type `() -> bool`): Is the source currently controlling its own real-time loop.
+- `set_pending` (of type `(source('A)?) -> unit where 'A is an orderable type`): 
+- `skip` (of type `(?cancel_pending : bool) -> unit`): 
+- `time` (of type `() -> float`): Get a source's time, based on its assigned clock.
+
+Callbacks:
+
+- `on_frame` (of type `(?before : bool, synchronous : bool, (() -> unit)) -> unit`): Call a given handler on frame. When `before` is `true`, callback is executed before computing the frame and after otherwise
+- `on_metadata` (of type `(synchronous : bool, (([string * string]) -> unit)) -> unit`): Call a given handler to execute on each metadata
+- `on_position` (of type `(position : {float}, ?remaining : bool, ?allow_partial : bool,
+ synchronous : bool, ((float, [string * string]) -> unit)) -> unit`): Call a given handler on track position. If `remaining` is `false`, callback is executed when position in track is more or equal to `position`. If `remaining` is `true`, callback is executed when remaining time in the current track is less or equal to `position`. Keep in mind that elapsed time is exact while remaining time is always estimated. Remaining time is usually more accurate for file-based sources. When `allow_partial` is `true`, if the current track ends before the `offset` position is reached, callback is still executed
+- `on_shutdown` (of type `(synchronous : bool, (() -> unit)) -> unit`): Call a given handler to be called when source shuts down
+- `on_track` (of type `(synchronous : bool, (([string * string]) -> unit)) -> unit`): Call a given handler on track marks
+- `on_wake_up` (of type `(synchronous : bool, (() -> unit)) -> unit`): Call a given handler to be called after the source is asked to get ready
+
+### `setenv`
+
+Deprecated: use `environment.set`
+
+Type:
+
+```
+(string, string) -> unit
+```
+
+Arguments:
+
+- `(unlabeled)` (of type `string`)
+- `(unlabeled)` (of type `string`)
+
+### `skip_blank`
+
+Deprecated: use `blank.skip` instead
+
+Type:
+
+```
+(?id : string?, ?threshold : float, ?max_blank : float, ?min_noise : float,
+ ?track_sensitive : bool, source(audio=pcm('a), 'b)) -> source(audio=pcm('a),
+'b)
+```
+
+Arguments:
+
+- `id` (of type `string?`, which defaults to `"blank.skip"`)
+- `threshold` (of type `float`, which defaults to `-40.0`)
+- `max_blank` (of type `float`, which defaults to `20.0`)
+- `min_noise` (of type `float`, which defaults to `0.0`)
+- `track_sensitive` (of type `bool`, which defaults to `true`)
+- `(unlabeled)` (of type `source(audio=pcm('a), 'b)`)
+
+Methods:
+
+- `buffered` (of type `() -> [string * float]`): Length of buffered data.
+- `clock` (of type `clock`): The source's clock
+- `dB_levels` (of type `() -> [float]?`): Return the detected dB level for each channel.
+- `duration` (of type `() -> float`): Estimation of the duration of the current track.
+- `elapsed` (of type `() -> float`): Elapsed time in the current track.
+- `fallible` (of type `bool`): Indicate if a source may fail, i.e. may not be ready to stream.
+- `generate_frame` (of type `() -> unit`): Generate a frame from the source without consuming it. This can be useful in advanced cases where generating a frame is required to trigger some side effect like calculating some metadata before making a decision. You should make sure that the source is available before calling this function and it should only be called inside synchronous streaming loop callback such as `on_frame`!
+- `id` (of type `() -> string`): Identifier of the source.
+- `insert_metadata` (of type `(?new_track : bool, [string * string]) -> unit`): Dynamically insert metadata in a stream. Inserts a new track with the given metadata if `new_track` is `true`.
+- `is_active` (of type `() -> bool`): `true` if the source is active, i.e. it is continuously animated by its own clock whenever it is ready. Typically, `true` for outputs and sources such as `input.http`.
+- `is_blank` (of type `() -> bool`): Indicate whether blank was detected.
+- `is_ready` (of type `() -> bool`): Indicate if a source is ready to stream. This does not mean that the source is currently streaming, just that its resources are all properly initialized.
+- `is_up` (of type `() -> bool`): Indicate that the source can be asked to produce some data at any time. This is `true` when the source is currently being used or if it could be used at any time, typically inside a `switch` or `fallback`.
+- `last_metadata` (of type `() -> [string * string]?`): Return the last metadata from the source.
+- `log` (of type `{level : (() -> int).{set : (int) -> unit}}`): Get or set the source's log level, from `1` to `5`.
+- `register_command` (of type `(?usage : string?, description : string, string, ((string) -> string)) ->
+unit`): Register a server command for this source. Command is registered under the source's id namespace when it gets up and de-registered when it gets down.
+- `remaining` (of type `() -> float`): Estimation of remaining time in the current track.
+- `reset_last_metadata_on_track` (of type `(() -> bool).{set : (bool) -> unit}`): If `true`, the source's `last_metadata` is reset on each new track. If a metadata is present along with the track mark, then it becomes the new `last_metadata`, otherwise, `last_metadata becomes `null`.
+- `seek` (of type `(float) -> float`): Seek forward, in seconds (returns the amount of time effectively seeked).
+- `self_sync` (of type `() -> bool`): Is the source currently controlling its own real-time loop.
+- `skip` (of type `() -> unit`): Skip to the next track.
+- `time` (of type `() -> float`): Get a source's time, based on its assigned clock.
+
+Callbacks:
+
+- `on_blank` (of type `(synchronous : bool, (() -> unit)) -> unit`): Call a given handler when detecting a blank.
+- `on_frame` (of type `(?before : bool, synchronous : bool, (() -> unit)) -> unit`): Call a given handler on frame. When `before` is `true`, callback is executed before computing the frame and after otherwise
+- `on_metadata` (of type `(synchronous : bool, (([string * string]) -> unit)) -> unit`): Call a given handler to execute on each metadata
+- `on_noise` (of type `(synchronous : bool, (() -> unit)) -> unit`): Call a given handler when noise is detected.
+- `on_position` (of type `(position : {float}, ?remaining : bool, ?allow_partial : bool,
+ synchronous : bool, ((float, [string * string]) -> unit)) -> unit`): Call a given handler on track position. If `remaining` is `false`, callback is executed when position in track is more or equal to `position`. If `remaining` is `true`, callback is executed when remaining time in the current track is less or equal to `position`. Keep in mind that elapsed time is exact while remaining time is always estimated. Remaining time is usually more accurate for file-based sources. When `allow_partial` is `true`, if the current track ends before the `offset` position is reached, callback is still executed
+- `on_shutdown` (of type `(synchronous : bool, (() -> unit)) -> unit`): Call a given handler to be called when source shuts down
+- `on_track` (of type `(synchronous : bool, (([string * string]) -> unit)) -> unit`): Call a given handler on track marks
+- `on_wake_up` (of type `(synchronous : bool, (() -> unit)) -> unit`): Call a given handler to be called after the source is asked to get ready
+
+### `sleep`
+
+Deprecated: use `thread.pause`
+
+Type:
+
+```
+(float) -> unit
+```
+
+Arguments:
+
+- `(unlabeled)` (of type `float`)
+
+### `source.last_metadata`
+
+Deprecated: use the last_metadata source method
+
+Type:
+
+```
+(id : 'a, source('b)) -> [string * string]?
+```
+
+Arguments:
+
+- `id` (of type `'a`)
+- `(unlabeled)` (of type `source('b)`)
+
+### `source.on_end`
+
+Deprecated: use the on_position source method
+
+Type:
+
+```
+(id : 'a, delay : {float}, source('b), ((float, [string * string]) -> unit)) ->
+unit
+```
+
+Arguments:
+
+- `id` (of type `'a`)
+- `delay` (of type `{float}`)
+- `(unlabeled)` (of type `source('b)`)
+- `(unlabeled)` (of type `(float, [string * string]) -> unit`)
+
+### `source.on_frame`
+
+Deprecated: use the on_frame source method
+
+Type:
+
+```
+(id : 'a, ?before : bool, source('b), (() -> unit)) -> unit
+```
+
+Arguments:
+
+- `id` (of type `'a`)
+- `before` (of type `bool`, which defaults to `true`)
+- `(unlabeled)` (of type `source('b)`)
+- `(unlabeled)` (of type `() -> unit`)
+
+### `source.on_offset`
+
+Deprecated: use the on_position source method
+
+Type:
+
+```
+(id : 'a, ?force : bool, offset : {float},
+ ((float, [string * string]) -> unit), source('b)) -> unit
+```
+
+Arguments:
+
+- `id` (of type `'a`)
+- `force` (of type `bool`, which defaults to `false`)
+- `offset` (of type `{float}`)
+- `(unlabeled)` (of type `(float, [string * string]) -> unit`)
+- `(unlabeled)` (of type `source('b)`)
+
+### `string.utf8.escape`
+
+Deprecated: this function has been replaced by `string.escape`.
+
+Type:
+
+```
+(string) -> string
+```
+
+Arguments:
+
+- `(unlabeled)` (of type `string`)
+
+### `string_of`
+
+Deprecated: use `string`.
+
+Type:
+
+```
+('a) -> string
+```
+
+Arguments:
+
+- `(unlabeled)` (of type `'a`)
+
+### `string_of_float`
+
+Deprecated: use `string.float`.
+
+Type:
+
+```
+(float) -> string
+```
+
+Arguments:
+
+- `(unlabeled)` (of type `float`)
+
+### `strip_blank`
+
+Deprecated: use `blank.strip` instead
+
+Type:
+
+```
+(?id : string?, ?max_blank : {float}, ?min_noise : {float},
+ ?start_blank : bool, ?threshold : {float}, ?track_sensitive : {bool},
+ source(audio=pcm('a), 'b)) -> source(audio=pcm('a), 'b)
+```
+
+Arguments:
+
+- `id` (of type `string?`, which defaults to `null`)
+- `max_blank` (of type `{float}`, which defaults to `20.0`)
+- `min_noise` (of type `{float}`, which defaults to `0.0`)
+- `start_blank` (of type `bool`, which defaults to `false`)
+- `threshold` (of type `{float}`, which defaults to `-40.0`)
+- `track_sensitive` (of type `{bool}`, which defaults to `true`)
+- `(unlabeled)` (of type `source(audio=pcm('a), 'b)`)
+
+Methods:
+
+- `buffered` (of type `() -> [string * float]`): Length of buffered data.
+- `clock` (of type `clock`): The source's clock
+- `dB_levels` (of type `() -> [float]?`): Return the detected dB level for each channel.
+- `duration` (of type `() -> float`): Estimation of the duration of the current track.
+- `elapsed` (of type `() -> float`): Elapsed time in the current track.
+- `fallible` (of type `bool`): Indicate if a source may fail, i.e. may not be ready to stream.
+- `generate_frame` (of type `() -> unit`): Generate a frame from the source without consuming it. This can be useful in advanced cases where generating a frame is required to trigger some side effect like calculating some metadata before making a decision. You should make sure that the source is available before calling this function and it should only be called inside synchronous streaming loop callback such as `on_frame`!
+- `id` (of type `() -> string`): Identifier of the source.
+- `insert_metadata` (of type `(?new_track : bool, [string * string]) -> unit`): Dynamically insert metadata in a stream. Inserts a new track with the given metadata if `new_track` is `true`.
+- `is_active` (of type `() -> bool`): `true` if the source is active, i.e. it is continuously animated by its own clock whenever it is ready. Typically, `true` for outputs and sources such as `input.http`.
+- `is_blank` (of type `() -> bool`): Indicate whether blank was detected.
+- `is_ready` (of type `() -> bool`): Indicate if a source is ready to stream. This does not mean that the source is currently streaming, just that its resources are all properly initialized.
+- `is_up` (of type `() -> bool`): Indicate that the source can be asked to produce some data at any time. This is `true` when the source is currently being used or if it could be used at any time, typically inside a `switch` or `fallback`.
+- `last_metadata` (of type `() -> [string * string]?`): Return the last metadata from the source.
+- `log` (of type `{level : (() -> int).{set : (int) -> unit}}`): Get or set the source's log level, from `1` to `5`.
+- `register_command` (of type `(?usage : string?, description : string, string, ((string) -> string)) ->
+unit`): Register a server command for this source. Command is registered under the source's id namespace when it gets up and de-registered when it gets down.
+- `remaining` (of type `() -> float`): Estimation of remaining time in the current track.
+- `reset_last_metadata_on_track` (of type `(() -> bool).{set : (bool) -> unit}`): If `true`, the source's `last_metadata` is reset on each new track. If a metadata is present along with the track mark, then it becomes the new `last_metadata`, otherwise, `last_metadata becomes `null`.
+- `seek` (of type `(float) -> float`): Seek forward, in seconds (returns the amount of time effectively seeked).
+- `self_sync` (of type `() -> bool`): Is the source currently controlling its own real-time loop.
+- `skip` (of type `() -> unit`): Skip to the next track.
+- `time` (of type `() -> float`): Get a source's time, based on its assigned clock.
+
+Callbacks:
+
+- `on_frame` (of type `(?before : bool, synchronous : bool, (() -> unit)) -> unit`): Call a given handler on frame. When `before` is `true`, callback is executed before computing the frame and after otherwise
+- `on_metadata` (of type `(synchronous : bool, (([string * string]) -> unit)) -> unit`): Call a given handler to execute on each metadata
+- `on_position` (of type `(position : {float}, ?remaining : bool, ?allow_partial : bool,
+ synchronous : bool, ((float, [string * string]) -> unit)) -> unit`): Call a given handler on track position. If `remaining` is `false`, callback is executed when position in track is more or equal to `position`. If `remaining` is `true`, callback is executed when remaining time in the current track is less or equal to `position`. Keep in mind that elapsed time is exact while remaining time is always estimated. Remaining time is usually more accurate for file-based sources. When `allow_partial` is `true`, if the current track ends before the `offset` position is reached, callback is still executed
+- `on_shutdown` (of type `(synchronous : bool, (() -> unit)) -> unit`): Call a given handler to be called when source shuts down
+- `on_track` (of type `(synchronous : bool, (([string * string]) -> unit)) -> unit`): Call a given handler on track marks
+- `on_wake_up` (of type `(synchronous : bool, (() -> unit)) -> unit`): Call a given handler to be called after the source is asked to get ready
+
+### `system`
+
+Deprecated: use `process.run` instead.
+
+Type:
+
+```
+(string) -> unit
+```
+
+Arguments:
+
+- `(unlabeled)` (of type `string`)
+
+Methods:
+
+- `status` (of type `string.{code : int, description : string}`): Status when process ended, can be one of `"exit"` (the program exited, the `status` code is then relevant), `"killed"` (the program was killed by signal given in `status` code), `"stopped"` (the program was stopped by signal given in `status` code) or `"exception"` (the program raised and exception detailed in the `description`).
+- `stderr` (of type `string`): Messages written by process on standard error stream.
+- `stdout` (of type `string`): Messages written by process on standard output stream.
+
+### `test_process`
+
+Deprecated: use `process.test` instead.
+
+Type:
+
+```
+(?timeout : float, ?env : [string * string], ?inherit_env : bool, string) ->
+bool
+```
+
+Arguments:
+
+- `timeout` (of type `float`, which defaults to `-1.0`)
+- `env` (of type `[string * string]`, which defaults to `[]`)
+- `inherit_env` (of type `bool`, which defaults to `true`)
+- `(unlabeled)` (of type `string`)
+
+### `video.line`
+
+Deprecated: use `video.add_line`.
+
+Type:
+
+```
+(?id : string?, ?alpha : {float}, ?color : {int}, {int * int}, {int * int},
+ source(video=canvas('a), 'b)) -> source(video=canvas('a), 'b)
+```
+
+Arguments:
+
+- `id` (of type `string?`, which defaults to `null`)
+- `alpha` (of type `{float}`, which defaults to `1.0`)
+- `color` (of type `{int}`, which defaults to `0`)
+- `(unlabeled)` (of type `{int * int}`)
+- `(unlabeled)` (of type `{int * int}`)
+- `(unlabeled)` (of type `source(video=canvas('a), 'b)`)
+
+Methods:
+
+- `buffered` (of type `() -> [string * float]`): Length of buffered data.
+- `clock` (of type `clock`): The source's clock
+- `duration` (of type `() -> float`): Estimation of the duration of the current track.
+- `elapsed` (of type `() -> float`): Elapsed time in the current track.
+- `fallible` (of type `bool`): Indicate if a source may fail, i.e. may not be ready to stream.
+- `generate_frame` (of type `() -> unit`): Generate a frame from the source without consuming it. This can be useful in advanced cases where generating a frame is required to trigger some side effect like calculating some metadata before making a decision. You should make sure that the source is available before calling this function and it should only be called inside synchronous streaming loop callback such as `on_frame`!
+- `id` (of type `() -> string`): Identifier of the source.
+- `insert_metadata` (of type `(?new_track : bool, [string * string]) -> unit`): Dynamically insert metadata in a stream. Inserts a new track with the given metadata if `new_track` is `true`.
+- `is_active` (of type `() -> bool`): `true` if the source is active, i.e. it is continuously animated by its own clock whenever it is ready. Typically, `true` for outputs and sources such as `input.http`.
+- `is_ready` (of type `() -> bool`): Indicate if a source is ready to stream. This does not mean that the source is currently streaming, just that its resources are all properly initialized.
+- `is_up` (of type `() -> bool`): Indicate that the source can be asked to produce some data at any time. This is `true` when the source is currently being used or if it could be used at any time, typically inside a `switch` or `fallback`.
+- `last_metadata` (of type `() -> [string * string]?`): Return the last metadata from the source.
+- `log` (of type `{level : (() -> int).{set : (int) -> unit}}`): Get or set the source's log level, from `1` to `5`.
+- `register_command` (of type `(?usage : string?, description : string, string, ((string) -> string)) ->
+unit`): Register a server command for this source. Command is registered under the source's id namespace when it gets up and de-registered when it gets down.
+- `remaining` (of type `() -> float`): Estimation of remaining time in the current track.
+- `reset_last_metadata_on_track` (of type `(() -> bool).{set : (bool) -> unit}`): If `true`, the source's `last_metadata` is reset on each new track. If a metadata is present along with the track mark, then it becomes the new `last_metadata`, otherwise, `last_metadata becomes `null`.
+- `seek` (of type `(float) -> float`): Seek forward, in seconds (returns the amount of time effectively seeked).
+- `self_sync` (of type `() -> bool`): Is the source currently controlling its own real-time loop.
+- `skip` (of type `() -> unit`): Skip to the next track.
+- `time` (of type `() -> float`): Get a source's time, based on its assigned clock.
+
+Callbacks:
+
+- `on_frame` (of type `(?before : bool, synchronous : bool, (() -> unit)) -> unit`): Call a given handler on frame. When `before` is `true`, callback is executed before computing the frame and after otherwise
+- `on_metadata` (of type `(synchronous : bool, (([string * string]) -> unit)) -> unit`): Call a given handler to execute on each metadata
+- `on_position` (of type `(position : {float}, ?remaining : bool, ?allow_partial : bool,
+ synchronous : bool, ((float, [string * string]) -> unit)) -> unit`): Call a given handler on track position. If `remaining` is `false`, callback is executed when position in track is more or equal to `position`. If `remaining` is `true`, callback is executed when remaining time in the current track is less or equal to `position`. Keep in mind that elapsed time is exact while remaining time is always estimated. Remaining time is usually more accurate for file-based sources. When `allow_partial` is `true`, if the current track ends before the `offset` position is reached, callback is still executed
+- `on_shutdown` (of type `(synchronous : bool, (() -> unit)) -> unit`): Call a given handler to be called when source shuts down
+- `on_track` (of type `(synchronous : bool, (([string * string]) -> unit)) -> unit`): Call a given handler on track marks
+- `on_wake_up` (of type `(synchronous : bool, (() -> unit)) -> unit`): Call a given handler to be called after the source is asked to get ready
+
+### `video.rectangle`
+
+Deprecated: use `video.add_rectangle`.
+
+Type:
+
+```
+(?id : string?, ?alpha : {float}, ?color : {int}, height : {int},
+ width : {int}, ?x : {int}, ?y : {int}, source(video=canvas('a), 'b)) ->
+source(video=canvas('a), 'b)
+```
+
+Arguments:
+
+- `id` (of type `string?`, which defaults to `null`)
+- `alpha` (of type `{float}`, which defaults to `1.0`)
+- `color` (of type `{int}`, which defaults to `0`)
+- `height` (of type `{int}`)
+- `width` (of type `{int}`)
+- `x` (of type `{int}`, which defaults to `0`)
+- `y` (of type `{int}`, which defaults to `0`)
+- `(unlabeled)` (of type `source(video=canvas('a), 'b)`)
+
+Methods:
+
+- `buffered` (of type `() -> [string * float]`): Length of buffered data.
+- `clock` (of type `clock`): The source's clock
+- `duration` (of type `() -> float`): Estimation of the duration of the current track.
+- `elapsed` (of type `() -> float`): Elapsed time in the current track.
+- `fallible` (of type `bool`): Indicate if a source may fail, i.e. may not be ready to stream.
+- `generate_frame` (of type `() -> unit`): Generate a frame from the source without consuming it. This can be useful in advanced cases where generating a frame is required to trigger some side effect like calculating some metadata before making a decision. You should make sure that the source is available before calling this function and it should only be called inside synchronous streaming loop callback such as `on_frame`!
+- `id` (of type `() -> string`): Identifier of the source.
+- `insert_metadata` (of type `(?new_track : bool, [string * string]) -> unit`): Dynamically insert metadata in a stream. Inserts a new track with the given metadata if `new_track` is `true`.
+- `is_active` (of type `() -> bool`): `true` if the source is active, i.e. it is continuously animated by its own clock whenever it is ready. Typically, `true` for outputs and sources such as `input.http`.
+- `is_ready` (of type `() -> bool`): Indicate if a source is ready to stream. This does not mean that the source is currently streaming, just that its resources are all properly initialized.
+- `is_up` (of type `() -> bool`): Indicate that the source can be asked to produce some data at any time. This is `true` when the source is currently being used or if it could be used at any time, typically inside a `switch` or `fallback`.
+- `last_metadata` (of type `() -> [string * string]?`): Return the last metadata from the source.
+- `log` (of type `{level : (() -> int).{set : (int) -> unit}}`): Get or set the source's log level, from `1` to `5`.
+- `register_command` (of type `(?usage : string?, description : string, string, ((string) -> string)) ->
+unit`): Register a server command for this source. Command is registered under the source's id namespace when it gets up and de-registered when it gets down.
+- `remaining` (of type `() -> float`): Estimation of remaining time in the current track.
+- `reset_last_metadata_on_track` (of type `(() -> bool).{set : (bool) -> unit}`): If `true`, the source's `last_metadata` is reset on each new track. If a metadata is present along with the track mark, then it becomes the new `last_metadata`, otherwise, `last_metadata becomes `null`.
+- `seek` (of type `(float) -> float`): Seek forward, in seconds (returns the amount of time effectively seeked).
+- `self_sync` (of type `() -> bool`): Is the source currently controlling its own real-time loop.
+- `skip` (of type `() -> unit`): Skip to the next track.
+- `time` (of type `() -> float`): Get a source's time, based on its assigned clock.
+
+Callbacks:
+
+- `on_frame` (of type `(?before : bool, synchronous : bool, (() -> unit)) -> unit`): Call a given handler on frame. When `before` is `true`, callback is executed before computing the frame and after otherwise
+- `on_metadata` (of type `(synchronous : bool, (([string * string]) -> unit)) -> unit`): Call a given handler to execute on each metadata
+- `on_position` (of type `(position : {float}, ?remaining : bool, ?allow_partial : bool,
+ synchronous : bool, ((float, [string * string]) -> unit)) -> unit`): Call a given handler on track position. If `remaining` is `false`, callback is executed when position in track is more or equal to `position`. If `remaining` is `true`, callback is executed when remaining time in the current track is less or equal to `position`. Keep in mind that elapsed time is exact while remaining time is always estimated. Remaining time is usually more accurate for file-based sources. When `allow_partial` is `true`, if the current track ends before the `offset` position is reached, callback is still executed
+- `on_shutdown` (of type `(synchronous : bool, (() -> unit)) -> unit`): Call a given handler to be called when source shuts down
+- `on_track` (of type `(synchronous : bool, (([string * string]) -> unit)) -> unit`): Call a given handler on track marks
+- `on_wake_up` (of type `(synchronous : bool, (() -> unit)) -> unit`): Call a given handler to be called after the source is asked to get ready
+
+### `video.transparent`
+
+Deprecated: use `video.alpha.of_color`
+
+Type:
+
+```
+(?id : string?, ?color : int, ?precision : float, source(video=canvas('a),
+ 'b)) -> source(video=canvas('a), 'b)
+```
+
+Arguments:
+
+- `id` (of type `string?`, which defaults to `null`)
+- `color` (of type `int`, which defaults to `0`)
+- `precision` (of type `float`, which defaults to `0.2`)
+- `(unlabeled)` (of type `source(video=canvas('a), 'b)`)
+
+Methods:
+
+- `buffered` (of type `() -> [string * float]`): Length of buffered data.
+- `clock` (of type `clock`): The source's clock
+- `duration` (of type `() -> float`): Estimation of the duration of the current track.
+- `elapsed` (of type `() -> float`): Elapsed time in the current track.
+- `fallible` (of type `bool`): Indicate if a source may fail, i.e. may not be ready to stream.
+- `generate_frame` (of type `() -> unit`): Generate a frame from the source without consuming it. This can be useful in advanced cases where generating a frame is required to trigger some side effect like calculating some metadata before making a decision. You should make sure that the source is available before calling this function and it should only be called inside synchronous streaming loop callback such as `on_frame`!
+- `id` (of type `() -> string`): Identifier of the source.
+- `insert_metadata` (of type `(?new_track : bool, [string * string]) -> unit`): Dynamically insert metadata in a stream. Inserts a new track with the given metadata if `new_track` is `true`.
+- `is_active` (of type `() -> bool`): `true` if the source is active, i.e. it is continuously animated by its own clock whenever it is ready. Typically, `true` for outputs and sources such as `input.http`.
+- `is_ready` (of type `() -> bool`): Indicate if a source is ready to stream. This does not mean that the source is currently streaming, just that its resources are all properly initialized.
+- `is_up` (of type `() -> bool`): Indicate that the source can be asked to produce some data at any time. This is `true` when the source is currently being used or if it could be used at any time, typically inside a `switch` or `fallback`.
+- `last_metadata` (of type `() -> [string * string]?`): Return the last metadata from the source.
+- `log` (of type `{level : (() -> int).{set : (int) -> unit}}`): Get or set the source's log level, from `1` to `5`.
+- `register_command` (of type `(?usage : string?, description : string, string, ((string) -> string)) ->
+unit`): Register a server command for this source. Command is registered under the source's id namespace when it gets up and de-registered when it gets down.
+- `remaining` (of type `() -> float`): Estimation of remaining time in the current track.
+- `reset_last_metadata_on_track` (of type `(() -> bool).{set : (bool) -> unit}`): If `true`, the source's `last_metadata` is reset on each new track. If a metadata is present along with the track mark, then it becomes the new `last_metadata`, otherwise, `last_metadata becomes `null`.
+- `seek` (of type `(float) -> float`): Seek forward, in seconds (returns the amount of time effectively seeked).
+- `self_sync` (of type `() -> bool`): Is the source currently controlling its own real-time loop.
+- `skip` (of type `() -> unit`): Skip to the next track.
+- `time` (of type `() -> float`): Get a source's time, based on its assigned clock.
+
+Callbacks:
+
+- `on_frame` (of type `(?before : bool, synchronous : bool, (() -> unit)) -> unit`): Call a given handler on frame. When `before` is `true`, callback is executed before computing the frame and after otherwise
+- `on_metadata` (of type `(synchronous : bool, (([string * string]) -> unit)) -> unit`): Call a given handler to execute on each metadata
+- `on_position` (of type `(position : {float}, ?remaining : bool, ?allow_partial : bool,
+ synchronous : bool, ((float, [string * string]) -> unit)) -> unit`): Call a given handler on track position. If `remaining` is `false`, callback is executed when position in track is more or equal to `position`. If `remaining` is `true`, callback is executed when remaining time in the current track is less or equal to `position`. Keep in mind that elapsed time is exact while remaining time is always estimated. Remaining time is usually more accurate for file-based sources. When `allow_partial` is `true`, if the current track ends before the `offset` position is reached, callback is still executed
+- `on_shutdown` (of type `(synchronous : bool, (() -> unit)) -> unit`): Call a given handler to be called when source shuts down
+- `on_track` (of type `(synchronous : bool, (([string * string]) -> unit)) -> unit`): Call a given handler on track marks
+- `on_wake_up` (of type `(synchronous : bool, (() -> unit)) -> unit`): Call a given handler to be called after the source is asked to get ready
+
+### `which`
+
+Deprecated: this function has been replaced by `file.which`.
+
+Type:
+
+```
+(string) -> string
+```
+
+Arguments:
+
+- `(unlabeled)` (of type `string`)
+
