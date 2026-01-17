@@ -6,8 +6,8 @@ GENERATED_INTERPRETER_DIR := $(PWD)/../liquidsoap/_build/default/src/js
 NODE := $(shell which node)
 
 # Versions for which documentation should be built and included
-VERSIONS := dev 2.2.5 2.3.0 2.3.1 2.3.2 2.3.3 2.4.0 2.4.1
-DEFAULT_VERSION := 2.4.1
+VERSIONS := dev 2.2.5 2.3.0 2.3.1 2.3.2 2.3.3 2.4.0 2.4.1 2.4.2
+DEFAULT_VERSION := 2.4.2
 # DEFAULT_VERSION := dev
 
 # Static content
