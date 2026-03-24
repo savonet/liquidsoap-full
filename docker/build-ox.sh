@@ -9,7 +9,7 @@ fi
 
 TAG=`echo ${BASE_IMAGE} | sed -e 's#/#_#g' | sed -e 's#:#_#g'`
 BUILD_VERSION=`echo ${OCAML_VERSION} | sed -e 's#+#-#g'`
-BUILD_IMAGE=savonet/liquidsoap-ci:${TAG}-${BUILD_VERSION}
+BUILD_IMAGE=ghcr.io/savonet/liquidsoap:ci-${TAG}-${BUILD_VERSION}
 
 export OS=`echo ${BASE_IMAGE} | cut -d':' -f 1`
 export DISTRIBUTION=`echo ${BASE_IMAGE} | cut -d':' -f 2`

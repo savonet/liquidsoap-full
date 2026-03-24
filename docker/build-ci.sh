@@ -8,7 +8,7 @@ if test -z "${BASE_IMAGE}"; then
 fi
 
 TAG=`echo ${BASE_IMAGE} | sed -e 's#/#_#g' | sed -e 's#:#_#g'`
-BUILD_IMAGE=savonet/liquidsoap-ci:${TAG}-${OCAML_VERSION}
+BUILD_IMAGE=ghcr.io/savonet/liquidsoap:ci-${TAG}-${OCAML_VERSION}
 
 export OS=`echo ${BASE_IMAGE} | cut -d':' -f 1`
 export DISTRIBUTION=`echo ${BASE_IMAGE} | cut -d':' -f 2`
