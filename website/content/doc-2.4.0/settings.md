@@ -2385,6 +2385,18 @@ settings.decoder.ffmpeg.codecs.opus := <value>
 settings.decoder.ffmpeg.codecs.opus.available := ["opus", "libopus"]
 ```
 
+##### Preferred codec to decode osq
+
+```liquidsoap
+settings.decoder.ffmpeg.codecs.osq := <value>
+```
+
+###### Available codecs to decode osq
+
+```liquidsoap
+settings.decoder.ffmpeg.codecs.osq.available := ["osq"]
+```
+
 ##### Preferred codec to decode pam
 
 ```liquidsoap
@@ -2769,6 +2781,18 @@ settings.decoder.ffmpeg.codecs.pcx := <value>
 settings.decoder.ffmpeg.codecs.pcx.available := ["pcx"]
 ```
 
+##### Preferred codec to decode pdv
+
+```liquidsoap
+settings.decoder.ffmpeg.codecs.pdv := <value>
+```
+
+###### Available codecs to decode pdv
+
+```liquidsoap
+settings.decoder.ffmpeg.codecs.pdv.available := ["pdv"]
+```
+
 ##### Preferred codec to decode pfm
 
 ```liquidsoap
@@ -3043,6 +3067,18 @@ settings.decoder.ffmpeg.codecs.rscc := <value>
 
 ```liquidsoap
 settings.decoder.ffmpeg.codecs.rscc.available := ["rscc"]
+```
+
+##### Preferred codec to decode rtv1
+
+```liquidsoap
+settings.decoder.ffmpeg.codecs.rtv1 := <value>
+```
+
+###### Available codecs to decode rtv1
+
+```liquidsoap
+settings.decoder.ffmpeg.codecs.rtv1.available := ["rtv1"]
 ```
 
 ##### Preferred codec to decode rv10
@@ -3751,6 +3787,18 @@ settings.decoder.ffmpeg.codecs.vmdvideo := <value>
 
 ```liquidsoap
 settings.decoder.ffmpeg.codecs.vmdvideo.available := ["vmdvideo"]
+```
+
+##### Preferred codec to decode vmix
+
+```liquidsoap
+settings.decoder.ffmpeg.codecs.vmix := <value>
+```
+
+###### Available codecs to decode vmix
+
+```liquidsoap
+settings.decoder.ffmpeg.codecs.vmix.available := ["vmix"]
 ```
 
 ##### Preferred codec to decode vmnc
